@@ -1,0 +1,146 @@
+/*
+ * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef ACORE_WAYPOINTMOVEMENTGENERATOR_H
+#define ACORE_WAYPOINTMOVEMENTGENERATOR_H
+
+/** PathMovementGenerator is used to generate movements
+ * of waypoints and flight paths.  Each serves the purpose
+ * of generate activities so that it generates updated
+ * packets for the players.
+ */
+
+#include "MovementGenerator.h"
+#include "Player.h"
+#include "WaypointMgr.h"
+
+#define FLIGHT_TRAVEL_UPDATE  100
+#define TIMEDIFF_NEXT_WP      250
+
+template<class T, class P>
+class PathMovementBase
+{
+public:
+    PathMovementBase() : i_path(), i_currentNode(0) {}
+    PathMovementBase(P path) : i_path(path), i_currentNode(0) {}
+    virtual ~PathMovementBase() {};
+
+    uint32 GetCurrentNode() const { return i_currentNode; }
+
+protected:
+    P i_path;
+    uint32 i_currentNode;
+};
+
+template<class T>
+class WaypointMovementGenerator;
+
+template<>
+class WaypointMovementGenerator<Creature> : public MovementGeneratorMedium< Creature, WaypointMovementGenerator<Creature> >,
+    public PathMovementBase<Creature, WaypointPath const*>
+{
+public:
+    explicit WaypointMovementGenerator(uint32 pathId = 0, bool repeating = true, PathSource pathSource = PathSource::WAYPOINT_MGR);
+    explicit WaypointMovementGenerator(WaypointPath& path, bool repeating = true);
+    ~WaypointMovementGenerator() { i_path = nullptr; }
+
+    void DoInitialize(Creature*);
+    void DoFinalize(Creature*);
+    void DoReset(Creature*);
+    bool DoUpdate(Creature*, uint32 diff);
+
+    void unitSpeedChanged() override { _recalculateSpeed = true; }
+    void Pause(uint32 timer = 0) override;
+    void Resume(uint32 overrideTimer = 0) override;
+    bool GetResetPosition(float& x, float& y, float& z) override;
+
+    MovementGeneratorType GetMovementGeneratorType() override { return WAYPOINT_MOTION_TYPE; }
+
+private:
+    void ProcessWaypointArrival(Creature*, WaypointNode const&);
+    void StartMove(Creature*, bool relaunch = false);
+    bool IsAllowedToMove(Creature*) const;
+    void UpdateWaypointState(Creature*, WaypointNode const&);
+
+    uint32 _lastSplineId;
+    uint32 _pathId;
+    int32 _waypointDelay;
+    std::optional<int32> _pauseTime;
+    bool _waypointReached;
+
+    bool _recalculateSpeed;
+    bool _repeating;
+    bool _loadedFromDB;
+    bool _stalled;
+    bool _hasBeenStalled;
+    bool _done;
+    PathSource _pathSource;
+    bool _smoothSplineLaunched;
+    int32 _lastPassedSplineIdx;
+};
+
+/** FlightPathMovementGenerator generates movement of the player for the paths
+ * and hence generates ground and activities for the player.
+ */
+class FlightPathMovementGenerator : public MovementGeneratorMedium< Player, FlightPathMovementGenerator >,
+    public PathMovementBase<Player, TaxiPathNodeList>
+{
+    public:
+        explicit FlightPathMovementGenerator(uint32 startNode = 0)
+        {
+            i_currentNode = startNode;
+            _endGridX = 0.0f;
+            _endGridY = 0.0f;
+            _endMapId = 0;
+            _preloadTargetNode = 0;
+        }
+        bool LoadPath(Player* player);
+        void DoInitialize(Player*);
+        void DoReset(Player*);
+        void DoFinalize(Player*);
+        bool DoUpdate(Player*, uint32);
+        MovementGeneratorType GetMovementGeneratorType() override { return FLIGHT_MOTION_TYPE; }
+
+        TaxiPathNodeList const& GetPath() { return i_path; }
+        uint32 GetPathAtMapEnd() const;
+        bool HasArrived() const { return (i_currentNode >= i_path.size()); }
+        void SetCurrentNodeAfterTeleport();
+        void SkipCurrentNode() { ++i_currentNode; }
+        void DoEventIfAny(Player* player, TaxiPathNodeEntry const* node, bool departure);
+
+        bool GetResetPos(Player*, float& x, float& y, float& z);
+
+        void InitEndGridInfo();
+        void PreloadEndGrid();
+
+    private:
+
+        float _endGridX;                            //! X coord of last node location
+        float _endGridY;                            //! Y coord of last node location
+        uint32 _endMapId;                           //! map Id of last node location
+        uint32 _preloadTargetNode;                  //! node index where preloading starts
+
+        struct TaxiNodeChangeInfo
+        {
+            uint32 PathIndex;
+            int32 Cost;
+        };
+
+        std::deque<TaxiNodeChangeInfo> _pointsForPathSwitch;    //! node indexes and costs where TaxiPath changes
+};
+
+#endif

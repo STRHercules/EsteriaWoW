@@ -1,0 +1,216 @@
+# docker-compose.yml for AzerothCore.
+#
+# Start the server with `docker compose up -d --build`
+#
+# Don't make changes this file! make a `docker-compose.override.yml` and make your
+# changes there instead.
+
+services:
+  ac-database:
+    container_name: ac-database
+    image: mysql:8.4
+    networks:
+      - ac-network
+    ports:
+      - ${DOCKER_DB_EXTERNAL_PORT:-3306}:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DOCKER_DB_ROOT_PASSWORD:-password}
+    volumes:
+      - ${DOCKER_VOL_DB:-ac-database}:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 5s
+      timeout: 10s
+      retries: 40
+
+  ac-db-import:
+    container_name: ac-db-import
+    image: acore/ac-wotlk-db-import:${DOCKER_IMAGE_TAG:-master}
+    networks:
+      - ac-network
+    build:
+      context: .
+      target: db-import
+      dockerfile: apps/docker/Dockerfile
+      args:
+        USER_ID: ${DOCKER_USER_ID:-1000}
+        GROUP_ID: ${DOCKER_GROUP_ID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-acore}
+    environment:
+      AC_DATA_DIR: "/azerothcore/env/dist/data"
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+      AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_world"
+      AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
+    volumes:
+      - ${DOCKER_VOL_ETC:-./env/dist/etc}:/azerothcore/env/dist/etc
+      # [osxfs optimization]: https://stackoverflow.com/a/63437557/1964544
+      - ${DOCKER_VOL_LOGS:-./env/dist/logs}:/azerothcore/env/dist/logs:delegated
+    depends_on:
+      ac-database:
+        condition: service_healthy
+
+  ac-worldserver:
+    container_name: ac-worldserver
+    image: acore/ac-wotlk-worldserver:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: .
+      target: worldserver
+      dockerfile: apps/docker/Dockerfile
+      args:
+        USER_ID: ${DOCKER_USER_ID:-1000}
+        GROUP_ID: ${DOCKER_GROUP_ID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-acore}
+    networks:
+      - ac-network
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    env_file:
+        ${DOCKER_AC_ENV_FILE:-conf/dist/env.ac}
+    environment:
+      AC_DATA_DIR: "/azerothcore/env/dist/data"
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+      AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_world"
+      AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
+    ports:
+      - ${DOCKER_WORLD_EXTERNAL_PORT:-8085}:8085
+      - ${DOCKER_SOAP_EXTERNAL_PORT:-7878}:7878
+    volumes:
+      - ${DOCKER_VOL_ETC:-./env/dist/etc}:/azerothcore/env/dist/etc
+      # [osxfs optimization]: https://stackoverflow.com/a/63437557/1964544
+      - ${DOCKER_VOL_LOGS:-./env/dist/logs}:/azerothcore/env/dist/logs:delegated
+      # client data
+      - ${DOCKER_VOL_DATA:-ac-client-data}:/azerothcore/env/dist/data/:ro
+    depends_on:
+      ac-database:
+        condition: service_healthy
+      ac-db-import:
+        condition: service_completed_successfully
+      ac-client-data-init:
+        condition: service_completed_successfully
+
+  ac-authserver:
+    container_name: ac-authserver
+    image: acore/ac-wotlk-authserver:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: .
+      target: authserver
+      dockerfile: apps/docker/Dockerfile
+      args:
+        USER_ID: ${DOCKER_USER_ID:-1000}
+        GROUP_ID: ${DOCKER_GROUP_ID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-acore}
+    networks:
+      - ac-network
+    tty: true
+    restart: unless-stopped
+    env_file:
+        ${DOCKER_AC_ENV_FILE:-conf/dist/env.ac}
+    environment:
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_TEMP_DIR: "/azerothcore/env/dist/temp"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+    volumes:
+      - ${DOCKER_VOL_ETC:-./env/dist/etc}:/azerothcore/env/dist/etc
+      # [osxfs optimization]: https://stackoverflow.com/a/63437557/1964544
+      - ${DOCKER_VOL_LOGS:-./env/dist/logs}:/azerothcore/env/dist/logs:delegated
+    ports:
+      - ${DOCKER_AUTH_EXTERNAL_PORT:-3724}:3724
+    depends_on:
+      ac-database:
+        condition: service_healthy
+      ac-db-import:
+        condition: service_completed_successfully
+
+  ac-client-data-init:
+    container_name: ac-client-data-init
+    image: acore/ac-wotlk-client-data:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: .
+      target: client-data
+      dockerfile: apps/docker/Dockerfile
+      args:
+        USER_ID: ${DOCKER_USER_ID:-1000}
+        GROUP_ID: ${DOCKER_GROUP_ID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-acore}
+    volumes:
+      - ${DOCKER_VOL_DATA:-ac-client-data}:/azerothcore/env/dist/data
+
+  # used for extracting maps from files shipped with game client
+  # Most of the time this shouldn't be needed
+  ac-tools:
+    container_name: ac-tools
+    image: acore/ac-wotlk-tools:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: .
+      target: tools
+      dockerfile: apps/docker/Dockerfile
+      args:
+        USER_ID: ${DOCKER_USER_ID:-1000}
+        GROUP_ID: ${DOCKER_GROUP_ID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-acore}
+    working_dir: /azerothcore/env/client/
+    volumes:
+      # this is not the directory of the extracted data! It's the client folder used by the extractors
+      - ${DOCKER_AC_CLIENT_FOLDER:-./var/client}:/azerothcore/env/dist/bin/Data
+    # Activate with `docker compose --profile tools ...`
+    profiles: [tools]
+
+  # Dev server with the ./azerothcore folder binded from the host
+  # Please use Linux, WSL2 or any ext-compatible filesystem
+  # to avoid performance issues
+  #
+  # This is primarily intended for use with the "devcontainer" project
+  #
+  # This is provided primarily for development, though it doesn't receive
+  # first-class support
+  ac-dev-server:
+    tty: true
+    image: acore/ac-wotlk-dev-server:${DOCKER_IMAGE_TAG:-master}
+    build:
+      context: .
+      dockerfile: ./apps/docker/Dockerfile.dev-server
+      args:
+        USER_ID: ${DOCKER_USER_ID:-1000}
+        GROUP_ID: ${DOCKER_GROUP_ID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-acore}
+      target: dev
+    env_file:
+        ${DOCKER_AC_ENV_FILE:-conf/dist/env.ac}
+    environment:
+      AC_DATA_DIR: "/azerothcore/env/dist/data"
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+      AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_world"
+      AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
+    networks:
+      - ac-network
+    ports:
+      - ${DOCKER_AUTH_EXTERNAL_PORT:-3724}:3724
+      - ${DOCKER_WORLD_EXTERNAL_PORT:-8085}:8085
+      - ${DOCKER_SOAP_EXTERNAL_PORT:-7878}:7878
+    volumes:
+      - ${DOCKER_VOL_ROOT:-.}:/azerothcore:cached
+      # [osxfs optimization]: https://stackoverflow.com/a/63437557/1964544
+      - ac-build-dev:/azerothcore/var/build
+      - ac-ccache-dev:/azerothcore/var/ccache
+      # this is not the directory of the extracted data! It's the client folder used by the extractors
+      - ${DOCKER_AC_CLIENT_FOLDER:-./var/client}:/azerothcore/env/dist/bin/Data
+    # Activate with `docker compose --profile dev ...`
+    profiles: [dev]
+    depends_on:
+      ac-database:
+        condition: service_healthy
+
+volumes:
+  ac-database:
+  ac-client-data:
+  # Used for dev server
+  ac-build-dev:
+  ac-ccache-dev:
+
+networks:
+  ac-network:
