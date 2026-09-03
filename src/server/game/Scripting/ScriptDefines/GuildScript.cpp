@@ -18,59 +18,106 @@
 #include "GuildScript.h"
 #include "ScriptMgr.h"
 #include "ScriptMgrMacros.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 void ScriptMgr::OnGuildAddMember(Guild* guild, Player* player, uint8& plRank)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnAddMember(guild, player, plRank);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_ADD_MEMBER, script->OnAddMember(guild, player, plRank));
 }
 
 void ScriptMgr::OnGuildRemoveMember(Guild* guild, Player* player, bool isDisbanding, bool isKicked)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnRemoveMember(guild, player, isDisbanding);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_REMOVE_MEMBER, script->OnRemoveMember(guild, player, isDisbanding, isKicked));
 }
 
 void ScriptMgr::OnGuildMOTDChanged(Guild* guild, std::string const& newMotd)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnMOTDChanged(guild, newMotd);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_MOTD_CHANGED, script->OnMOTDChanged(guild, newMotd));
 }
 
 void ScriptMgr::OnGuildInfoChanged(Guild* guild, std::string const& newInfo)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnInfoChanged(guild, newInfo);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_INFO_CHANGED, script->OnInfoChanged(guild, newInfo));
 }
 
 void ScriptMgr::OnGuildCreate(Guild* guild, Player* leader, std::string const& name)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnCreate(guild, leader, name);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_CREATE, script->OnCreate(guild, leader, name));
 }
 
 void ScriptMgr::OnGuildDisband(Guild* guild)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnDisband(guild);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_DISBAND, script->OnDisband(guild));
 }
 
 void ScriptMgr::OnGuildMemberWitdrawMoney(Guild* guild, Player* player, uint32& amount, bool isRepair)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnMemberWitdrawMoney(guild, player, amount, isRepair);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_MEMBER_WITDRAW_MONEY, script->OnMemberWitdrawMoney(guild, player, amount, isRepair));
 }
 
 void ScriptMgr::OnGuildMemberDepositMoney(Guild* guild, Player* player, uint32& amount)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnMemberDepositMoney(guild, player, amount);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_MEMBER_DEPOSIT_MONEY, script->OnMemberDepositMoney(guild, player, amount));
 }
 
 void ScriptMgr::OnGuildItemMove(Guild* guild, Player* player, Item* pItem, bool isSrcBank, uint8 srcContainer, uint8 srcSlotId, bool isDestBank, uint8 destContainer, uint8 destSlotId)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnItemMove(guild, player, pItem, isSrcBank, srcContainer, srcSlotId, isDestBank, destContainer, destSlotId);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_ITEM_MOVE, script->OnItemMove(guild, player, pItem, isSrcBank, srcContainer, srcSlotId, isDestBank, destContainer, destSlotId));
 }
 
 void ScriptMgr::OnGuildEvent(Guild* guild, uint8 eventType, ObjectGuid::LowType playerGuid1, ObjectGuid::LowType playerGuid2, uint8 newRank)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnEvent(guild, eventType, playerGuid1, playerGuid2, newRank);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_EVENT, script->OnEvent(guild, eventType, playerGuid1, playerGuid2, newRank));
 }
 
 void ScriptMgr::OnGuildBankEvent(Guild* guild, uint8 eventType, uint8 tabId, ObjectGuid::LowType playerGuid, uint32 itemOrMoney, uint16 itemStackCount, uint8 destTabId)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnBankEvent(guild, eventType, tabId, playerGuid, itemOrMoney, itemStackCount, destTabId);
+#endif
     CALL_ENABLED_HOOKS(GuildScript, GUILDHOOK_ON_BANK_EVENT, script->OnBankEvent(guild, eventType, tabId, playerGuid, itemOrMoney, itemStackCount, destTabId));
 }
 

@@ -18,10 +18,18 @@
 #include "AllCreatureScript.h"
 #include "ScriptMgr.h"
 #include "ScriptMgrMacros.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 void ScriptMgr::OnCreatureAddWorld(Creature* creature)
 {
     ASSERT(creature);
+
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        e->OnAddToWorld(creature);
+#endif
 
     ExecuteScript<AllCreatureScript>([&](AllCreatureScript* script)
     {
@@ -32,6 +40,11 @@ void ScriptMgr::OnCreatureAddWorld(Creature* creature)
 void ScriptMgr::OnCreatureRemoveWorld(Creature* creature)
 {
     ASSERT(creature);
+
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        e->OnRemoveFromWorld(creature);
+#endif
 
     ExecuteScript<AllCreatureScript>([&](AllCreatureScript* script)
     {

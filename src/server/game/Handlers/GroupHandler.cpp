@@ -36,6 +36,9 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 class Aura;
 
@@ -304,6 +307,12 @@ void WorldSession::HandleGroupAcceptOpcode(WorldPacket& recvData)
         SendPartyResult(PARTY_OP_INVITE, "", ERR_GROUP_FULL);
         return;
     }
+
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        if (!e->OnMemberAccept(group, GetPlayer()))
+            return;
+#endif
 
     // Forming a new group, create it
     if (!group->IsCreated())

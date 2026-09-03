@@ -48,6 +48,9 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSessionMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 bool AchievementCriteriaData::IsValid(AchievementCriteriaEntry const* criteria)
 {
@@ -2340,6 +2343,11 @@ void AchievementMgr::CompletedAchievement(AchievementEntry const* achievement)
 
     UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_COMPLETE_ACHIEVEMENT, achievement->ID);
     UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_EARN_ACHIEVEMENT_POINTS, achievement->points);
+
+#ifdef ELUNA
+    if (Eluna* e = GetPlayer()->GetEluna())
+        e->OnAchievementComplete(GetPlayer(), achievement->ID);
+#endif
 
     // reward items and titles if any
     AchievementReward const* reward = sAchievementMgr->GetAchievementReward(achievement);

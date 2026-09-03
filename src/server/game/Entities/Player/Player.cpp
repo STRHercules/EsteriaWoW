@@ -96,6 +96,9 @@
 #include "WorldStatePackets.h"
 #include <cmath>
 #include <queue>
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -864,6 +867,10 @@ uint32 Player::EnvironmentalDamage(EnviromentalDamage type, uint32 damage)
         }
 
         UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_DEATHS_FROM, 1, type);
+#ifdef ELUNA
+        if (Eluna* e = GetEluna())
+            e->OnPlayerKilledByEnvironment(this, type);
+#endif
     }
 
     return final_damage;
@@ -5943,6 +5950,10 @@ void Player::CheckAreaExploreAndOutdoor()
 
     if (!(currFields & val))
     {
+#ifdef ELUNA
+        if (Eluna* e = GetEluna())
+            e->OnDiscoverArea(this, GetAreaId());
+#endif
         SetUInt32Value(PLAYER_EXPLORED_ZONES_1 + offset, (uint32)(currFields | val));
 
         UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_EXPLORE_AREA, areaId);

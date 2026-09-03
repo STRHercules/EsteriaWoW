@@ -18,10 +18,21 @@
 #include "AllGameObjectScript.h"
 #include "ScriptMgr.h"
 #include "ScriptMgrMacros.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 void ScriptMgr::OnGameObjectAddWorld(GameObject* go)
 {
     ASSERT(go);
+
+#ifdef ELUNA
+    if (Eluna* e = go->GetEluna())
+    {
+        e->OnAddToWorld(go);
+        e->OnSpawn(go);
+    }
+#endif
 
     ExecuteScript<AllGameObjectScript>([&](AllGameObjectScript* script)
     {
@@ -32,6 +43,11 @@ void ScriptMgr::OnGameObjectAddWorld(GameObject* go)
 void ScriptMgr::OnGameObjectRemoveWorld(GameObject* go)
 {
     ASSERT(go);
+
+#ifdef ELUNA
+    if (Eluna* e = go->GetEluna())
+        e->OnRemoveFromWorld(go);
+#endif
 
     ExecuteScript<AllGameObjectScript>([&](AllGameObjectScript* script)
     {

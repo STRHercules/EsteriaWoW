@@ -37,6 +37,9 @@
 #include <G3D/Box.h>
 #include <G3D/CoordinateFrame.h>
 #include <G3D/Quat.h>
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 bool QuaternionData::IsUnit() const
 {
@@ -437,6 +440,10 @@ bool GameObject::Create(ObjectGuid::LowType guidlow, uint32 name_id, Map* map, u
 
 void GameObject::Update(uint32 diff)
 {
+#ifdef ELUNA
+    if (Eluna* e = GetEluna())
+        e->UpdateAI(this, diff);
+#endif
     WorldObject::Update(diff);
 
     if (AI())

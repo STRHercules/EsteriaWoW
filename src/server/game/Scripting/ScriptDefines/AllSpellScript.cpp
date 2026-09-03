@@ -18,6 +18,9 @@
 #include "AllSpellScript.h"
 #include "ScriptMgr.h"
 #include "ScriptMgrMacros.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 void ScriptMgr::OnCalcMaxDuration(Aura const* aura, int32& maxDuration)
 {
@@ -61,16 +64,28 @@ void ScriptMgr::OnBeforeAuraRankForLevel(SpellInfo const* spellInfo, SpellInfo c
 
 void ScriptMgr::OnDummyEffect(WorldObject* caster, uint32 spellID, SpellEffIndex effIndex, GameObject* gameObjTarget)
 {
+#ifdef ELUNA
+    if (Eluna* e = caster->GetEluna())
+        e->OnDummyEffect(caster, spellID, effIndex, gameObjTarget);
+#endif
     CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_DUMMY_EFFECT_GAMEOBJECT, script->OnDummyEffect(caster, spellID, effIndex, gameObjTarget));
 }
 
 void ScriptMgr::OnDummyEffect(WorldObject* caster, uint32 spellID, SpellEffIndex effIndex, Creature* creatureTarget)
 {
+#ifdef ELUNA
+    if (Eluna* e = caster->GetEluna())
+        e->OnDummyEffect(caster, spellID, effIndex, creatureTarget);
+#endif
     CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_DUMMY_EFFECT_CREATURE, script->OnDummyEffect(caster, spellID, effIndex, creatureTarget));
 }
 
 void ScriptMgr::OnDummyEffect(WorldObject* caster, uint32 spellID, SpellEffIndex effIndex, Item* itemTarget)
 {
+#ifdef ELUNA
+    if (Eluna* e = caster->GetEluna())
+        e->OnDummyEffect(caster, spellID, effIndex, itemTarget);
+#endif
     CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_DUMMY_EFFECT_ITEM, script->OnDummyEffect(caster, spellID, effIndex, itemTarget));
 }
 

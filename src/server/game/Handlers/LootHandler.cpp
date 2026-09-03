@@ -29,6 +29,9 @@
 #include "ScriptMgr.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
 {
@@ -563,6 +566,11 @@ void WorldSession::HandleLootMasterGiveOpcode(WorldPacket& recvData)
     Item* newitem = target->StoreNewItem(dest, item.itemid, true, item.randomPropertyId, looters);
     target->SendNewItem(newitem, uint32(item.count), false, false, true);
     target->UpdateLootAchievements(&item, loot);
+
+#ifdef ELUNA
+    if (Eluna* e = target->GetEluna())
+        e->OnLootItem(target, newitem, item.count, lootguid);
+#endif
 
     // mark as looted
     item.count = 0;
