@@ -18,11 +18,19 @@
 #include "AllItemScript.h"
 #include "ItemScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 #include "ScriptedGossip.h"
 
 bool ScriptMgr::OnQuestAccept(Player* player, Item* item, Quest const* quest)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        if (e->OnQuestAccept(player, item, quest))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(item);
     ASSERT(quest);
@@ -44,6 +52,11 @@ bool ScriptMgr::OnQuestAccept(Player* player, Item* item, Quest const* quest)
 
 bool ScriptMgr::OnItemUse(Player* player, Item* item, SpellCastTargets const& targets)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        if (e->OnUse(player, item, targets))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(item);
 
@@ -63,6 +76,11 @@ bool ScriptMgr::OnItemUse(Player* player, Item* item, SpellCastTargets const& ta
 
 bool ScriptMgr::OnItemExpire(Player* player, ItemTemplate const* proto)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        if (e->OnExpire(player, proto))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(proto);
 
@@ -82,6 +100,11 @@ bool ScriptMgr::OnItemExpire(Player* player, ItemTemplate const* proto)
 
 bool ScriptMgr::OnItemRemove(Player* player, Item* item)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        if (e->OnRemove(player, item))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(item);
 
@@ -112,6 +135,10 @@ bool ScriptMgr::OnCastItemCombatSpell(Player* player, Unit* victim, SpellInfo co
 
 void ScriptMgr::OnGossipSelect(Player* player, Item* item, uint32 sender, uint32 action)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        e->HandleGossipSelectOption(player, item, sender, action, "");
+#endif
     ASSERT(player);
     ASSERT(item);
 
@@ -128,6 +155,10 @@ void ScriptMgr::OnGossipSelect(Player* player, Item* item, uint32 sender, uint32
 
 void ScriptMgr::OnGossipSelectCode(Player* player, Item* item, uint32 sender, uint32 action, char const* code)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        e->HandleGossipSelectOption(player, item, sender, action, code);
+#endif
     ASSERT(player);
     ASSERT(item);
 

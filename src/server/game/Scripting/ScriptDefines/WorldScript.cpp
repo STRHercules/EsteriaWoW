@@ -17,15 +17,26 @@
 
 #include "WorldScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 
 void ScriptMgr::OnOpenStateChange(bool open)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnOpenStateChange(open);
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_OPEN_STATE_CHANGE, script->OnOpenStateChange(open));
 }
 
 void ScriptMgr::OnAfterConfigLoad(bool reload)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnConfigLoad(reload);
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_AFTER_CONFIG_LOAD, script->OnAfterConfigLoad(reload));
 }
 
@@ -46,26 +57,49 @@ void ScriptMgr::OnMotdChange(std::string& newMotd, LocaleConstant& locale)
 
 void ScriptMgr::OnShutdownInitiate(ShutdownExitCode code, ShutdownMask mask)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnShutdownInitiate(code, mask);
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_SHUTDOWN_INITIATE, script->OnShutdownInitiate(code, mask));
 }
 
 void ScriptMgr::OnShutdownCancel()
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnShutdownCancel();
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_SHUTDOWN_CANCEL, script->OnShutdownCancel());
 }
 
 void ScriptMgr::OnWorldUpdate(uint32 diff)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+    {
+        e->UpdateEluna(diff);
+        e->OnWorldUpdate(diff);
+    }
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_UPDATE, script->OnUpdate(diff));
 }
 
 void ScriptMgr::OnStartup()
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnStartup();
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_STARTUP, script->OnStartup());
 }
 
 void ScriptMgr::OnShutdown()
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnShutdown();
+#endif
     CALL_ENABLED_HOOKS(WorldScript, WORLDHOOK_ON_SHUTDOWN, script->OnShutdown());
 }
 

@@ -45,6 +45,10 @@
 #include "VMapMgr2.h"
 #include "Weather.h"
 #include "WeatherMgr.h"
+#ifdef ELUNA
+#include "ElunaConfig.h"
+#include "LuaEngine.h"
+#endif
 
 #define MAP_INVALID_ZONE        0xFFFFFFFF
 
@@ -61,6 +65,11 @@ Map::~Map()
 
     sScriptMgr->OnDestroyMap(this);
 
+#ifdef ELUNA
+    if (GetEluna())
+        sElunaMgr->Destroy(_elunaInfo);
+#endif
+
     if (!m_scriptSchedule.empty())
         sScriptMgr->DecreaseScheduledScriptCount(m_scriptSchedule.size());
 }
@@ -72,6 +81,17 @@ Map::Map(uint32 id, uint32 InstanceId, uint8 SpawnMode, Map* _parent) :
     _transportsUpdateIter(_transports.end()), i_scriptLock(false), _defaultLight(GetDefaultMapLight(id))
 {
     m_parentMap = (_parent ? _parent : this);
+
+#ifdef ELUNA
+    if (sElunaConfig->IsElunaEnabled() && sElunaConfig->ShouldMapLoadEluna(id))
+    {
+        if (!IsParentMap() || (IsParentMap() && !Instanceable()))
+        {
+            _elunaInfo = { ElunaInfoKey::MakeKey(GetId(), GetInstanceId()) };
+            sElunaMgr->Create(this, _elunaInfo);
+        }
+    }
+#endif
 
     _zonePlayerCountMap.clear();
     _updatableObjectListRecheckTimer.SetInterval(UPDATABLE_OBJECT_LIST_RECHECK_TIMER);

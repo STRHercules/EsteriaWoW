@@ -29,6 +29,9 @@
 class WorldPacket;
 class WorldSession;
 class Player;
+#ifdef ELUNA
+class Eluna;
+#endif
 
 /// Storage class for commands issued for delayed execution
 struct AC_GAME_API CliCommandHolder
@@ -111,6 +114,9 @@ public:
     [[nodiscard]] virtual std::string const& GetRealmName() const = 0;
     virtual void SetRealmName(std::string name) = 0;
     virtual void ReloadRBAC() = 0;
+#ifdef ELUNA
+    [[nodiscard]] virtual Eluna* GetEluna() const = 0;
+#endif
 };
 
 #endif //AZEROTHCORE_IWORLD_H

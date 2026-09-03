@@ -101,6 +101,11 @@
 #include "WorldSessionMgr.h"
 #include "WorldState.h"
 #include "WorldStateDefines.h"
+#ifdef ELUNA
+#include "ElunaConfig.h"
+#include "ElunaLoader.h"
+#include "LuaEngine.h"
+#endif
 #include <boost/asio/ip/address.hpp>
 #include <cmath>
 
@@ -319,6 +324,12 @@ void World::SetInitialWorldSettings()
 
     ///- Initialize config settings
     LoadConfigSettings();
+
+#ifdef ELUNA
+    sElunaConfig->Initialize();
+    if (sElunaConfig->IsElunaEnabled())
+        sElunaLoader->LoadScripts();
+#endif
 
     ///- Initialize Allowed Security Level
     LoadDBAllowedSecurityLevel();

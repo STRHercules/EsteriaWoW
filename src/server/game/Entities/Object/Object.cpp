@@ -51,6 +51,9 @@
 #include "Vehicle.h"
 #include "World.h"
 #include "WorldPacket.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -87,6 +90,33 @@ WorldObject::~WorldObject()
 {
     sScriptMgr->OnWorldObjectDestroy(this);
 }
+
+#ifdef ELUNA
+Eluna* WorldObject::GetEluna() const
+{
+    if (Map const* map = FindMap())
+        return map->GetEluna();
+
+    return nullptr;
+}
+
+ElunaEventProcessor* WorldObject::GetElunaEvents(int32 mapId)
+{
+    Eluna* eluna = mapId == -1 ? sWorld->GetEluna() : GetEluna();
+    if (!eluna)
+        return nullptr;
+
+    EventMgr* mgr = eluna->GetEventMgr();
+    if (!mgr)
+        return nullptr;
+
+    std::unique_ptr<ElunaProcessorInfo>& info = mapId == -1 ? elunaWorldEvents : elunaMapEvents;
+    if (!info)
+        info = std::make_unique<ElunaProcessorInfo>(mgr, mgr->CreateObjectProcessor(this));
+
+    return mgr->GetObjectProcessor(info->GetProcessorId());
+}
+#endif
 
 Object::~Object()
 {

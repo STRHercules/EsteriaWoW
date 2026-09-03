@@ -35,6 +35,10 @@
 #include "UpdateData.h"
 #include "UpdateMask.h"
 #include "ObjectVisibilityContainer.h"
+#ifdef ELUNA
+#include "ElunaEventMgr.h"
+#include "LuaValue.h"
+#endif
 #include <memory>
 #include <set>
 #include <sstream>
@@ -90,6 +94,10 @@ class TempSummon;
 class Vehicle;
 class CreatureAI;
 class ZoneScript;
+#ifdef ELUNA
+class Eluna;
+class ElunaEventProcessor;
+#endif
 class Unit;
 class Transport;
 class StaticTransport;
@@ -512,6 +520,11 @@ public:
     [[nodiscard]] Position GetRandomPoint(Position const& srcPos, float distance) const;
 
     [[nodiscard]] uint32 GetInstanceId() const { return m_InstanceId; }
+#ifdef ELUNA
+    [[nodiscard]] Eluna* GetEluna() const;
+    ElunaEventProcessor* GetElunaEvents(int32 mapId);
+    LuaVal lua_data = LuaVal({});
+#endif
 
     virtual void SetPhaseMask(uint32 newPhaseMask, bool update);
     [[nodiscard]] uint32 GetPhaseMask() const { return m_phaseMask; }
@@ -797,6 +810,10 @@ private:
     GuidUnorderedSet _allowedLooters;
 
     ObjectVisibilityContainer _objectVisibilityContainer;
+#ifdef ELUNA
+    std::unique_ptr<ElunaProcessorInfo> elunaMapEvents;
+    std::unique_ptr<ElunaProcessorInfo> elunaWorldEvents;
+#endif
 };
 
 namespace Acore

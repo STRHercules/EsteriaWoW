@@ -28,6 +28,9 @@
 #include "ObjectGuid.h"
 #include "SharedDefines.h"
 #include "Timer.h"
+#ifdef ELUNA
+#include "ElunaMgr.h"
+#endif
 #include <atomic>
 #include <list>
 #include <map>
@@ -37,6 +40,9 @@ class Object;
 class WorldPacket;
 class WorldSocket;
 class SystemMgr;
+#ifdef ELUNA
+class Eluna;
+#endif
 
 struct Realm;
 
@@ -189,6 +195,9 @@ public:
     static bool IsStopped() { return _stopEvent; }
 
     void Update(uint32 diff) override;
+#ifdef ELUNA
+    [[nodiscard]] Eluna* GetEluna() const override { return sElunaMgr->Get(_elunaInfo); }
+#endif
 
     void setRate(ServerConfigs index, float value) override;
     float getRate(ServerConfigs index) const override;
@@ -302,6 +311,9 @@ private:
     // used versions
     std::string _dbVersion;
     uint32 _dbClientCacheVersion;
+#ifdef ELUNA
+    ElunaInfo _elunaInfo;
+#endif
 
     void ProcessQueryCallbacks();
     QueryCallbackProcessor _queryProcessor;

@@ -18,11 +18,19 @@
 #include "CreatureScript.h"
 #include "AllCreatureScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 #include "ScriptedGossip.h"
 
 bool ScriptMgr::OnGossipHello(Player* player, Creature* creature)
 {
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        if (e->OnGossipHello(player, creature))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(creature);
 
@@ -43,6 +51,11 @@ bool ScriptMgr::OnGossipHello(Player* player, Creature* creature)
 
 bool ScriptMgr::OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action)
 {
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        if (e->OnGossipSelect(player, creature, sender, action))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(creature);
 
@@ -62,6 +75,11 @@ bool ScriptMgr::OnGossipSelect(Player* player, Creature* creature, uint32 sender
 
 bool ScriptMgr::OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, char const* code)
 {
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        if (e->OnGossipSelectCode(player, creature, sender, action, code))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(creature);
     ASSERT(code);
@@ -82,6 +100,11 @@ bool ScriptMgr::OnGossipSelectCode(Player* player, Creature* creature, uint32 se
 
 bool ScriptMgr::OnQuestAccept(Player* player, Creature* creature, Quest const* quest)
 {
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        if (e->OnQuestAccept(player, creature, quest))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(creature);
     ASSERT(quest);
@@ -125,6 +148,11 @@ bool ScriptMgr::OnQuestComplete(Player* player, Creature* creature, Quest const*
 
 bool ScriptMgr::OnQuestReward(Player* player, Creature* creature, Quest const* quest, uint32 opt)
 {
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        if (e->OnQuestReward(player, creature, quest, opt))
+            return true;
+#endif
     ASSERT(player);
     ASSERT(creature);
     ASSERT(quest);
@@ -182,6 +210,10 @@ void ScriptMgr::OnFfaPvpStateUpdate(Creature* creature, bool InPvp)
 
 void ScriptMgr::OnCreatureUpdate(Creature* creature, uint32 diff)
 {
+#ifdef ELUNA
+    if (Eluna* e = creature->GetEluna())
+        e->UpdateAI(creature, diff);
+#endif
     ASSERT(creature);
 
     ExecuteScript<AllCreatureScript>([&](AllCreatureScript* script)

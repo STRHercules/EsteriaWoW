@@ -20,6 +20,9 @@
 #include "InstanceMapScript.h"
 #include "PlayerScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 #include "WorldMapScript.h"
 
@@ -86,6 +89,10 @@ namespace
 
 void ScriptMgr::OnCreateMap(Map* map)
 {
+#ifdef ELUNA
+    if (Eluna* e = map->GetEluna())
+        e->OnCreate(map);
+#endif
     ASSERT(map);
 
     CALL_ENABLED_HOOKS(AllMapScript, ALLMAPHOOK_ON_CREATE_MAP, script->OnCreateMap(map));
@@ -111,6 +118,10 @@ void ScriptMgr::OnCreateMap(Map* map)
 
 void ScriptMgr::OnDestroyMap(Map* map)
 {
+#ifdef ELUNA
+    if (Eluna* e = map->GetEluna())
+        e->OnDestroy(map);
+#endif
     ASSERT(map);
 
     CALL_ENABLED_HOOKS(AllMapScript, ALLMAPHOOK_ON_DESTROY_MAP, script->OnDestroyMap(map));
@@ -183,6 +194,12 @@ void ScriptMgr::OnUnloadGridMap(Map* map, GridTerrainData* gmap, uint32 gx, uint
 
 void ScriptMgr::OnPlayerEnterMap(Map* map, Player* player)
 {
+#ifdef ELUNA
+    if (Eluna* e = player->GetEluna())
+        e->OnMapChanged(player);
+    if (Eluna* e = map->GetEluna())
+        e->OnPlayerEnter(map, player);
+#endif
     ASSERT(map);
     ASSERT(player);
 
@@ -214,6 +231,10 @@ void ScriptMgr::OnPlayerEnterMap(Map* map, Player* player)
 
 void ScriptMgr::OnPlayerLeaveMap(Map* map, Player* player)
 {
+#ifdef ELUNA
+    if (Eluna* e = map->GetEluna())
+        e->OnPlayerLeave(map, player);
+#endif
     ASSERT(map);
     ASSERT(player);
 
@@ -240,6 +261,13 @@ void ScriptMgr::OnPlayerLeaveMap(Map* map, Player* player)
 
 void ScriptMgr::OnMapUpdate(Map* map, uint32 diff)
 {
+#ifdef ELUNA
+    if (Eluna* e = map->GetEluna())
+    {
+        e->UpdateEluna(diff);
+        e->OnMapUpdate(map, diff);
+    }
+#endif
     ASSERT(map);
 
     CALL_ENABLED_HOOKS(AllMapScript, ALLMAPHOOK_ON_MAP_UPDATE, script->OnMapUpdate(map, diff));
