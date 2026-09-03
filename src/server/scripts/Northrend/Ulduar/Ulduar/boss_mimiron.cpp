@@ -1259,7 +1259,6 @@ struct npc_ulduar_vx001 : public ScriptedAI
         _leftArm = false;
         me->SetRegeneratingHealth(false);
         _events.Reset();
-        scheduler.CancelAll();
     }
 
     void AttackStart(Unit* /*who*/) override {}
@@ -1371,8 +1370,6 @@ struct npc_ulduar_vx001 : public ScriptedAI
             return;
 
         _events.Update(diff);
-        // before the casting guard: the windup facing task must tick while Spinning Up channels
-        scheduler.Update(diff);
 
         if (me->HasUnitState(UNIT_STATE_CASTING))
             return;
@@ -1441,18 +1438,7 @@ struct npc_ulduar_vx001 : public ScriptedAI
                 if (Creature* dbTarget = instance->GetCreature(DATA_MIMIRON_DB_TARGET))
                     me->SetTarget(dbTarget->GetGUID());
                 FaceBarrageArc(me);
-                // untargeted: conditions send EFFECT_0 to the DB Target (channel object, barrage
-                // chain) and EFFECT_1 to the MK II (self-cast 66490 root+pacify for the barrage)
-                me->CastSpell((Unit*)nullptr, SPELL_SPINNING_UP, true);
-                // the DB Target moves ~42 degrees during the windup; track it or the barrage opens off the telegraph
-                scheduler.Schedule(400ms, [this](TaskContext context)
-                {
-                    if (me->FindCurrentSpellBySpellId(SPELL_SPINNING_UP))
-                    {
-                        FaceBarrageArc(me);
-                        context.Repeat();
-                    }
-                });
+                me->CastSpell(me, SPELL_SPINNING_UP, true);
                 if (Unit* vehicle = me->GetVehicleBase())
                 {
                     vehicle->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_CUSTOM_SPELL_01);

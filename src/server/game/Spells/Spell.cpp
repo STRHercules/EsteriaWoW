@@ -30,9 +30,6 @@
 #include "GridNotifiers.h"
 #include "Group.h"
 #include "InstanceScript.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 #include "Log.h"
 #include "LootMgr.h"
 #include "ObjectAccessor.h"
@@ -3845,17 +3842,7 @@ void Spell::_cast(bool skipCheck)
         if (m_caster->IsCreature() && m_targets.GetObjectTarget() && m_caster != m_targets.GetObjectTarget())
             m_caster->SetInFront(m_targets.GetObjectTarget());
 
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnSpellCast(this, skipCheck);
-#endif
-
     CallScriptBeforeCastHandlers();
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnBeforeCast(this);
-#endif
 
     Player* modOwner = m_caster->GetSpellModOwner();
     // skip check if done already (for instant cast spells for example)
@@ -4070,11 +4057,6 @@ void Spell::_cast(bool skipCheck)
     }
 
     CallScriptAfterCastHandlers();
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnAfterCast(this);
-#endif
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
@@ -5671,29 +5653,6 @@ void Spell::HandleEffects(Unit* pUnitTarget, Item* pItemTarget, GameObject* pGOT
 
     bool preventDefault = CallScriptEffectHandlers((SpellEffIndex)i, mode);
 
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-    {
-        switch (mode)
-        {
-            case SPELL_EFFECT_HANDLE_LAUNCH:
-                preventDefault = e->OnEffectLaunch(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
-                break;
-            case SPELL_EFFECT_HANDLE_LAUNCH_TARGET:
-                preventDefault = e->OnEffectLaunchTarget(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
-                break;
-            case SPELL_EFFECT_HANDLE_HIT:
-                preventDefault = e->OnEffectHit(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
-                break;
-            case SPELL_EFFECT_HANDLE_HIT_TARGET:
-                preventDefault = e->OnEffectHitTarget(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
-                break;
-            default:
-                break;
-        }
-    }
-#endif
-
     if (!preventDefault && eff < TOTAL_SPELL_EFFECTS)
     {
         (this->*SpellEffects[eff])((SpellEffIndex)i);
@@ -6302,49 +6261,16 @@ SpellCastResult Spell::CheckCast(bool strict, uint32* /*param1*/, uint32* /*para
                         m_preGeneratedPath = std::make_unique<PathGenerator>(m_caster);
                         m_preGeneratedPath->SetPathLengthLimit(range);
 
-                        float destX = target->GetPositionX();
-                        float destY = target->GetPositionY();
-                        float destZ = target->GetPositionZ();
-                        bool cutPath = true;
-
-                        // Targets with an oversized combat reach can stand entirely over unwalkable space
-                        // (e.g. Kologarn) so pathing to their center fails or creates a shortcut into the void.
-                        // For these targets, path directly to the nearest point on the melee ring facing the caster.
-                        if (target->GetCombatReach() > NOMINAL_MELEE_RANGE)
-                        {
-                            target->GetNearPoint2D(m_caster, destX, destY, 0.0f, target->GetAngle(m_caster));
-                            destZ = target->GetPositionZ();
-                            m_caster->UpdateAllowedPositionZ(destX, destY, destZ);
-                            cutPath = false;
-                        }
-
                         // first try with raycast, if it fails fall back to normal path
-                        bool result = m_preGeneratedPath->CalculatePath(destX, destY, destZ, false);
-                        bool pathFailed = !result || (m_preGeneratedPath->GetPathType() &
-                            (PATHFIND_NOPATH | PATHFIND_INCOMPLETE | PATHFIND_SHORT));
-
-                        if (pathFailed && !cutPath)
-                        {
-                            destX = target->GetPositionX();
-                            destY = target->GetPositionY();
-                            destZ = target->GetPositionZ();
-                            cutPath = true;
-
-                            result = m_preGeneratedPath->CalculatePath(destX, destY, destZ, false);
-                            pathFailed = !result || (m_preGeneratedPath->GetPathType() &
-                                (PATHFIND_NOPATH | PATHFIND_INCOMPLETE | PATHFIND_SHORT));
-                        }
-
-                        if (pathFailed)
+                        bool result = m_preGeneratedPath->CalculatePath(target->GetPositionX(), target->GetPositionY(), target->GetPositionZ(), false);
+                        if (m_preGeneratedPath->GetPathType() & PATHFIND_SHORT)
                             return SPELL_FAILED_NOPATH;
-                        else if (cutPath && m_preGeneratedPath->IsInvalidDestinationZ(target))
+                        else if (!result || m_preGeneratedPath->GetPathType() & (PATHFIND_NOPATH | PATHFIND_INCOMPLETE))
+                            return SPELL_FAILED_NOPATH;
+                        else if (m_preGeneratedPath->IsInvalidDestinationZ(target)) // Check position z, if not in a straight line
                             return SPELL_FAILED_NOPATH;
 
-                        if (cutPath)
-                        {
-                            m_preGeneratedPath->ShortenPathUntilDist(
-                                G3D::Vector3(destX, destY, destZ), objSize);
-                        }
+                        m_preGeneratedPath->ShortenPathUntilDist(G3D::Vector3(target->GetPositionX(), target->GetPositionY(), target->GetPositionZ()), objSize); // move back
                     }
                     if (Player* player = m_caster->ToPlayer())
                         player->SetCanTeleport(true);
@@ -8740,14 +8666,6 @@ SpellCastResult Spell::CallScriptCheckCastHandlers()
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (retVal == SPELL_CAST_OK)
-        if (Eluna* e = m_caster->GetEluna())
-            if (uint32 result = e->OnCheckCast(this))
-                retVal = SpellCastResult(result);
-#endif
-
     return retVal;
 }
 
@@ -8816,11 +8734,6 @@ void Spell::CallScriptBeforeHitHandlers(SpellMissInfo missInfo)
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnBeforeSpellHit(this, static_cast<uint8>(missInfo));
-#endif
 }
 
 void Spell::CallScriptOnHitHandlers()
@@ -8834,11 +8747,6 @@ void Spell::CallScriptOnHitHandlers()
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnSpellHit(this);
-#endif
 }
 
 void Spell::CallScriptAfterHitHandlers()
@@ -8852,11 +8760,6 @@ void Spell::CallScriptAfterHitHandlers()
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnAfterSpellHit(this);
-#endif
 }
 
 void Spell::CallScriptObjectAreaTargetSelectHandlers(std::list<WorldObject*>& targets, SpellEffIndex effIndex, SpellImplicitTargetInfo const& targetType)
@@ -8871,11 +8774,6 @@ void Spell::CallScriptObjectAreaTargetSelectHandlers(std::list<WorldObject*>& ta
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnObjectAreaTargetSelect(this, static_cast<uint8>(effIndex), targets);
-#endif
 }
 
 void Spell::CallScriptObjectTargetSelectHandlers(WorldObject*& target, SpellEffIndex effIndex, SpellImplicitTargetInfo const& targetType)
@@ -8890,11 +8788,6 @@ void Spell::CallScriptObjectTargetSelectHandlers(WorldObject*& target, SpellEffI
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnObjectTargetSelect(this, static_cast<uint8>(effIndex), target);
-#endif
 }
 
 void Spell::CallScriptDestinationTargetSelectHandlers(SpellDestination& target, SpellEffIndex effIndex, SpellImplicitTargetInfo const& targetType)
@@ -8909,11 +8802,6 @@ void Spell::CallScriptDestinationTargetSelectHandlers(SpellDestination& target, 
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnDestinationTargetSelect(this, static_cast<uint8>(effIndex), target);
-#endif
 }
 
 bool Spell::CheckScriptEffectImplicitTargets(uint32 effIndex, uint32 effIndexToCheck)

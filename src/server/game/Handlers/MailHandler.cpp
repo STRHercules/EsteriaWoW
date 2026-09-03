@@ -33,9 +33,6 @@
 #include "ScriptMgr.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 #define MAX_INBOX_CLIENT_CAPACITY 50
 
@@ -146,12 +143,6 @@ void WorldSession::HandleSendMail(WorldPacket& recvData)
         player->SendMailResult(0, MAIL_SEND, MAIL_ERR_RECIPIENT_NOT_FOUND);
         return;
     }
-
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (!e->OnSendMail(player, receiverGuid))
-            return;
-#endif
 
     LOG_DEBUG("network.opcode", "Player {} is sending mail to {} ({}) with subject {} and body {} includes {} items, {} copper and {} COD copper with unk1 = {}, unk2 = {}",
         player->GetGUID().ToString(), receiver, receiverGuid.ToString(), subject, body, items_count, money, COD, unk1, unk2);

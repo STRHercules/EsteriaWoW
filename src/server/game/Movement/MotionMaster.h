@@ -86,7 +86,6 @@ enum ForcedMovement
     FORCED_MOVEMENT_NONE    = 0,
     FORCED_MOVEMENT_WALK    = 1,
     FORCED_MOVEMENT_RUN     = 2,
-    FORCED_MOVEMENT_FLY     = 3,
 
     FORCED_MOVEMENT_MAX
 };
@@ -265,7 +264,10 @@ public:
     void MoveDistract(uint32 time);
     void MoveWaypoint(uint32 path_id, bool repeatable, PathSource pathSource = PathSource::WAYPOINT_MGR);
     void MoveRotate(uint32 time, RotateDirection direction);
-
+#ifdef MOD_PLAYERBOTS
+    void MoveKnockbackFromForPlayer(float srcX, float srcY, float speedXY, float speedZ);
+    void MovePointBackwards(uint32 id, float x, float y, float z, bool generatePath = true, bool forceDestination = true, MovementSlot slot = MOTION_SLOT_ACTIVE, float orientation = 0.0f);
+#endif
     [[nodiscard]] MovementGeneratorType GetCurrentMovementGeneratorType() const;
     [[nodiscard]] MovementGeneratorType GetMotionSlotType(int slot) const;
     bool HasMovementGeneratorType(MovementGeneratorType type) const;

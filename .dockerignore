@@ -7,8 +7,18 @@
 !/env/dist/.gitkeep
 /env/user/*
 /.env*
+/.git/
 .idea
 !.gitkeep
 
 # do not ignore the ccache folder (used by the ci)
 !/var/docker/ccache
+
+# Local client/generated assets are not needed to compile the server image.
+/3.3.5a/
+/CustomModules/
+/modules/mod-worgoblin-high-elf/modpaks/
+/modules/mod-worgoblin-high-elf/data/patch-A.MPQ/
+/modules/mod-worgoblin-high-elf/data/DBC/
+/modules/mod-worgoblin-high-elf/integration/
+/modules/*/.git/

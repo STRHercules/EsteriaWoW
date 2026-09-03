@@ -76,19 +76,25 @@ enum Races
     RACE_TAUREN             = 6,  // TITLE Tauren
     RACE_GNOME              = 7,  // TITLE Gnome
     RACE_TROLL              = 8,  // TITLE Troll
-    //RACE_GOBLIN             = 9,
+    RACE_GOBLIN              = 9,  // TITLE Goblin
     RACE_BLOODELF           = 10, // TITLE Blood Elf
-    RACE_DRAENEI            = 11 //, TITLE Draenei
-    //RACE_FEL_ORC        = 12,
-    //RACE_NAGA           = 13,
-    //RACE_BROKEN         = 14,
-    //RACE_SKELETON       = 15,
-    //RACE_VRYKUL         = 16,
-    //RACE_TUSKARR        = 17,
-    //RACE_FOREST_TROLL   = 18,
-    //RACE_TAUNKA         = 19,
-    //RACE_NORTHREND_SKELETON = 20,
-    //RACE_ICE_TROLL      = 21
+    RACE_DRAENEI            = 11, // TITLE Draenei
+    RACE_WORGEN             = 12, // TITLE Worgen
+    RACE_HIGHELF            = 13, // TITLE High Elf
+    RACE_MAGHARORC          = 14, // TITLE Mag'har Orc
+    RACE_OGRE               = 15,
+    RACE_EREDAR             = 16,
+    RACE_NIGHTBORNE         = 17,
+    RACE_VOIDELF            = 18,
+    RACE_VULPERA            = 19,
+    RACE_ZANDALARITROLL     = 20,
+    RACE_PANDAREN_ALLIANCE  = 21,
+    RACE_PANDAREN_HORDE    = 22,
+    RACE_BROKEN_ALLIANCE    = 23,
+    RACE_BROKEN_HORDE      = 24,
+    RACE_FORSAKEN           = 25,
+    RACE_LIGHTFORGEDDRAENEI = 26,
+    RACE_DARKIRONDWARF      = 27
 };
 
 // DisplayRace values from CreatureDisplayInfoExtra.dbc
@@ -1370,7 +1376,7 @@ inline constexpr uint64 IMMUNE_TO_MOVEMENT_IMPAIRMENT_AND_LOSS_CONTROL_MASK =
     (1ULL << MECHANIC_SAPPED);
 
 // Spell dispel type
-enum DispelType
+enum DispelType : uint8
 {
     DISPEL_NONE         = 0,
     DISPEL_MAGIC        = 1,
@@ -1635,7 +1641,7 @@ enum GameObjectDestructibleState
 };
 
 // EmotesText.dbc
-enum TextEmotes
+enum TextEmotes : uint32
 {
     TEXT_EMOTE_AGREE                = 1,
     TEXT_EMOTE_AMAZE                = 2,
@@ -3379,7 +3385,7 @@ enum WeatherType
 #define MAX_WEATHER_TYPE 4
 
 // EnumUtils: DESCRIBE THIS
-enum ChatMsg
+enum ChatMsg : uint32
 {
     CHAT_MSG_ADDON                  = 0xFFFFFFFF,
     CHAT_MSG_SYSTEM                 = 0x00,

@@ -31,6 +31,10 @@
 #include "MapCollisionData.h"
 #include "MapGridManager.h"
 #include "MapRefMgr.h"
+#ifdef ELUNA
+#include "ElunaMgr.h"
+#include "LuaValue.h"
+#endif
 #include "ObjectDefines.h"
 #include "ObjectGuid.h"
 #include "PathGenerator.h"
@@ -39,10 +43,6 @@
 #include "SpawnData.h"
 #include "Timer.h"
 #include "GridTerrainData.h"
-#ifdef ELUNA
-#include "ElunaMgr.h"
-#include "LuaValue.h"
-#endif
 #include <bitset>
 #include <list>
 #include <memory>
@@ -65,9 +65,6 @@ struct ScriptAction;
 struct Position;
 class Battleground;
 class MapInstanced;
-#ifdef ELUNA
-class Eluna;
-#endif
 class InstanceMap;
 class BattlegroundMap;
 class Transport;
@@ -76,6 +73,10 @@ class MotionTransport;
 class PathGenerator;
 class WorldSession;
 class SpawnedPoolData;
+
+#ifdef ELUNA
+class Eluna;
+#endif
 
 enum WeatherState : uint32;
 
@@ -207,12 +208,13 @@ public:
     [[nodiscard]] float GetVisibilityRange() const { return m_VisibleDistance; }
     void SetVisibilityRange(float range) { m_VisibleDistance = range; }
     void OnCreateMap();
+    //function for setting up visibility distance for maps on per-type/per-Id basis
+    virtual void InitVisibilityDistance();
+
 #ifdef ELUNA
     [[nodiscard]] Eluna* GetEluna() const { return sElunaMgr->Get(_elunaInfo); }
     LuaVal lua_data = LuaVal({});
 #endif
-    //function for setting up visibility distance for maps on per-type/per-Id basis
-    virtual void InitVisibilityDistance();
 
     void PlayerRelocation(Player*, float x, float y, float z, float o);
     void CreatureRelocation(Creature* creature, float x, float y, float z, float o);
@@ -720,6 +722,7 @@ private:
 
     TimeTrackerSmall _redirectKickTimer;
     TimeTrackerSmall _lastAnnounceRedirectKickTimer;
+
 #ifdef ELUNA
     ElunaInfo _elunaInfo;
 #endif

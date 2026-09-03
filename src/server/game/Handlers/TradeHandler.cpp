@@ -31,9 +31,6 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 void WorldSession::SendTradeStatus(TradeStatusInfo const& info)
 {
@@ -239,12 +236,6 @@ static void clearAcceptTradeMode(Item * *myItems, Item * *hisItems)
 
 void WorldSession::HandleAcceptTradeOpcode(WorldPacket& /*recvPacket*/)
 {
-#ifdef ELUNA
-    if (Player* trader = _player->GetTrader())
-        if (Eluna* e = _player->GetEluna())
-            if (!e->OnTradeAccept(_player, trader))
-                return;
-#endif
     TradeData* my_trade = _player->m_trade;
     if (!my_trade)
         return;

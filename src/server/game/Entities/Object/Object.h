@@ -48,6 +48,11 @@
 
 class ALEEventProcessor;
 
+#ifdef ELUNA
+class Eluna;
+class ElunaEventProcessor;
+#endif
+
 enum TempSummonType
 {
     TEMPSUMMON_TIMED_OR_DEAD_DESPAWN       = 1,             // despawns after a specified time OR when the creature disappears
@@ -94,10 +99,6 @@ class TempSummon;
 class Vehicle;
 class CreatureAI;
 class ZoneScript;
-#ifdef ELUNA
-class Eluna;
-class ElunaEventProcessor;
-#endif
 class Unit;
 class Transport;
 class StaticTransport;
@@ -520,11 +521,6 @@ public:
     [[nodiscard]] Position GetRandomPoint(Position const& srcPos, float distance) const;
 
     [[nodiscard]] uint32 GetInstanceId() const { return m_InstanceId; }
-#ifdef ELUNA
-    [[nodiscard]] Eluna* GetEluna() const;
-    ElunaEventProcessor* GetElunaEvents(int32 mapId);
-    LuaVal lua_data = LuaVal({});
-#endif
 
     virtual void SetPhaseMask(uint32 newPhaseMask, bool update);
     [[nodiscard]] uint32 GetPhaseMask() const { return m_phaseMask; }
@@ -754,6 +750,12 @@ public:
     ALEEventProcessor* ALEEvents;
     EventProcessor m_Events;
 
+#ifdef ELUNA
+    [[nodiscard]] Eluna* GetEluna() const;
+    ElunaEventProcessor* GetElunaEvents(int32 mapId);
+    LuaVal lua_data = LuaVal({});
+#endif
+
 protected:
     std::string m_name;
     bool m_isActive;
@@ -810,6 +812,7 @@ private:
     GuidUnorderedSet _allowedLooters;
 
     ObjectVisibilityContainer _objectVisibilityContainer;
+
 #ifdef ELUNA
     std::unique_ptr<ElunaProcessorInfo> elunaMapEvents;
     std::unique_ptr<ElunaProcessorInfo> elunaWorldEvents;

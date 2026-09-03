@@ -42,9 +42,6 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 inline bool isNasty(uint8 c)
 {
@@ -352,10 +349,13 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
             msg.erase(end, msg.end());
         }
 
-        // Validate hyperlinks
-        if (!ValidateHyperlinksAndMaybeKick(msg))
+        // mod_playerbots: skip validation for playerbots module
+        auto playerbotsHyperlink = msg.find("Hfound:") != std::string::npos;
+        if (!playerbotsHyperlink)
         {
-            return;
+            // Validate hyperlinks
+            if (!ValidateHyperlinksAndMaybeKick(msg))
+                return;
         }
     }
 
@@ -678,11 +678,6 @@ void WorldSession::HandleEmoteOpcode(WorldPackets::Chat::EmoteClient& packet)
     if (!_player->IsAlive() || _player->HasUnitState(UNIT_STATE_DIED))
         return;
 
-#ifdef ELUNA
-    if (Eluna* e = _player->GetEluna())
-        e->OnEmote(_player, emoteId);
-#endif
-
     sScriptMgr->OnPlayerEmote(_player, emoteId);
     _player->HandleEmoteCommand(emoteId);
 }
@@ -753,11 +748,6 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket& recvData)
 
     recvData >> emoteNum;
     recvData >> guid;
-
-#ifdef ELUNA
-    if (Eluna* e = GetPlayer()->GetEluna())
-        e->OnTextEmote(GetPlayer(), text_emote, emoteNum, guid);
-#endif
 
     sScriptMgr->OnPlayerTextEmote(GetPlayer(), text_emote, emoteNum, guid);
 

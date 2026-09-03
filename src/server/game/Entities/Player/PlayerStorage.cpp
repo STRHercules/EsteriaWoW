@@ -67,9 +67,6 @@
 #include "Util.h"
 #include "World.h"
 #include "WorldPacket.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -916,6 +913,31 @@ bool Player::IsTotemCategoryCompatiableWith(ItemTemplate const* pProto, uint32 r
             return false;
 
     return true;
+}
+
+InventoryResult Player::BotCanUseItem(ItemTemplate const* proto) const
+{
+    if (proto->Class == ITEM_CLASS_ARMOR && proto->SubClass == ITEM_SUBCLASS_ARMOR_IDOL && !IsClass(CLASS_DRUID, CLASS_CONTEXT_EQUIP_RELIC))
+    {
+        return EQUIP_ERR_YOU_CAN_NEVER_USE_THAT_ITEM;
+    }
+
+    if (proto->Class == ITEM_CLASS_ARMOR && proto->SubClass == ITEM_SUBCLASS_ARMOR_TOTEM && !IsClass(CLASS_SHAMAN, CLASS_CONTEXT_EQUIP_RELIC))
+    {
+        return EQUIP_ERR_YOU_CAN_NEVER_USE_THAT_ITEM;
+    }
+
+    if (proto->Class == ITEM_CLASS_ARMOR && proto->SubClass == ITEM_SUBCLASS_ARMOR_LIBRAM && !IsClass(CLASS_PALADIN, CLASS_CONTEXT_EQUIP_RELIC))
+    {
+        return EQUIP_ERR_YOU_CAN_NEVER_USE_THAT_ITEM;
+    }
+
+    if (proto->Class == ITEM_CLASS_ARMOR && proto->SubClass == ITEM_SUBCLASS_ARMOR_SIGIL && !IsClass(CLASS_DEATH_KNIGHT, CLASS_CONTEXT_EQUIP_RELIC))
+    {
+        return EQUIP_ERR_YOU_CAN_NEVER_USE_THAT_ITEM;
+    }
+
+    return CanUseItem(proto);
 }
 
 InventoryResult Player::CanStoreItem_InSpecificSlot(uint8 bag, uint8 slot, ItemPosCountVec& dest, ItemTemplate const* pProto, uint32& count, bool swap, Item* pSrcItem) const
@@ -2412,15 +2434,6 @@ InventoryResult Player::CanUseItem(ItemTemplate const* proto) const
         return result;
     }
 
-#ifdef ELUNA
-    if (Eluna* e = GetEluna())
-    {
-        InventoryResult eres = e->OnCanUseItem(this, proto->ItemId);
-        if (eres != EQUIP_ERR_OK)
-            return eres;
-    }
-#endif
-
     return EQUIP_ERR_OK;
 }
 
@@ -3019,11 +3032,6 @@ void Player::RemoveItem(uint8 bag, uint8 slot, bool update)
                 _ApplyItemMods(pItem, slot, false);
             }
 
-#ifdef ELUNA
-            if (Eluna* e = GetEluna())
-                e->OnItemUnEquip(this, pItem, slot);
-#endif
-
             m_items[slot] = nullptr;
 
             // remove item dependent auras and casts (only weapon and armor slots)
@@ -3181,11 +3189,6 @@ void Player::DestroyItem(uint8 bag, uint8 slot, bool update)
 
                 // equipment visual show
                 SetVisibleItemSlot(slot, nullptr);
-
-#ifdef ELUNA
-                if (Eluna* e = GetEluna())
-                    e->OnItemUnEquip(this, pItem, slot);
-#endif
             }
 
             m_items[slot] = nullptr;

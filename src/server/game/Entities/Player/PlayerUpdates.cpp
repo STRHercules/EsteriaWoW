@@ -40,9 +40,6 @@
 #include "WeatherMgr.h"
 #include "WorldState.h"
 #include "WorldStatePackets.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -432,6 +429,7 @@ void Player::Update(uint32 p_time)
         m_delayed_unit_relocation_timer = 0;
         RemoveFromNotify(NOTIFY_VISIBILITY_CHANGED);
     }
+    sScriptMgr->OnPlayerAfterUpdate(this, p_time);
 }
 
 void Player::UpdateMirrorTimers()
@@ -1224,9 +1222,6 @@ void Player::UpdateHonorFields()
 
 void Player::UpdateArea(uint32 newArea)
 {
-#ifdef ELUNA
-    uint32 oldArea = m_areaUpdateId;
-#endif
     // pussywizard: inform instance, needed for Icecrown Citadel
     if (InstanceScript* instance = GetInstanceScript())
         instance->OnPlayerAreaUpdate(this, m_areaUpdateId, newArea);
@@ -1261,13 +1256,6 @@ void Player::UpdateArea(uint32 newArea)
         SetRestFlag(REST_FLAG_IN_FACTION_AREA);
     else
         RemoveRestFlag(REST_FLAG_IN_FACTION_AREA);
-
-#ifdef ELUNA
-    // We only want the hook to trigger when the old and new area is actually different
-    if (Eluna* e = GetEluna())
-        if (oldArea != newArea)
-            e->OnUpdateArea(this, oldArea, newArea);
-#endif
 }
 
 void Player::UpdateZone(uint32 newZone, uint32 newArea, bool force)

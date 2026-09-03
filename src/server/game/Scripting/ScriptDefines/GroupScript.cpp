@@ -17,17 +17,10 @@
 
 #include "GroupScript.h"
 #include "ScriptMgr.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 #include "ScriptMgrMacros.h"
 
 void ScriptMgr::OnGroupAddMember(Group* group, ObjectGuid guid)
 {
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnAddMember(group, guid);
-#endif
     ASSERT(group);
 
     CALL_ENABLED_HOOKS(GroupScript, GROUPHOOK_ON_ADD_MEMBER, script->OnAddMember(group, guid));
@@ -35,10 +28,6 @@ void ScriptMgr::OnGroupAddMember(Group* group, ObjectGuid guid)
 
 void ScriptMgr::OnGroupInviteMember(Group* group, ObjectGuid guid)
 {
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnInviteMember(group, guid);
-#endif
     ASSERT(group);
 
     CALL_ENABLED_HOOKS(GroupScript, GROUPHOOK_ON_INVITE_MEMBER, script->OnInviteMember(group, guid));
@@ -46,10 +35,6 @@ void ScriptMgr::OnGroupInviteMember(Group* group, ObjectGuid guid)
 
 void ScriptMgr::OnGroupRemoveMember(Group* group, ObjectGuid guid, RemoveMethod method, ObjectGuid kicker, char const* reason)
 {
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnRemoveMember(group, guid, method);
-#endif
     ASSERT(group);
 
     CALL_ENABLED_HOOKS(GroupScript, GROUPHOOK_ON_REMOVE_MEMBER, script->OnRemoveMember(group, guid, method, kicker, reason));
@@ -57,10 +42,6 @@ void ScriptMgr::OnGroupRemoveMember(Group* group, ObjectGuid guid, RemoveMethod 
 
 void ScriptMgr::OnGroupChangeLeader(Group* group, ObjectGuid newLeaderGuid, ObjectGuid oldLeaderGuid)
 {
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnChangeLeader(group, newLeaderGuid, oldLeaderGuid);
-#endif
     ASSERT(group);
 
     CALL_ENABLED_HOOKS(GroupScript, GROUPHOOK_ON_CHANGE_LEADER, script->OnChangeLeader(group, newLeaderGuid, oldLeaderGuid));
@@ -68,10 +49,6 @@ void ScriptMgr::OnGroupChangeLeader(Group* group, ObjectGuid newLeaderGuid, Obje
 
 void ScriptMgr::OnGroupDisband(Group* group)
 {
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnDisband(group);
-#endif
     ASSERT(group);
 
     CALL_ENABLED_HOOKS(GroupScript, GROUPHOOK_ON_DISBAND, script->OnDisband(group));
@@ -84,10 +61,6 @@ bool ScriptMgr::CanGroupJoinBattlegroundQueue(Group const* group, Player* member
 
 void ScriptMgr::OnCreate(Group* group, Player* leader)
 {
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnCreate(group, leader->GetGUID(), group->GetGroupType());
-#endif
     CALL_ENABLED_HOOKS(GroupScript, GROUPHOOK_ON_CREATE, script->OnCreate(group, leader));
 }
 

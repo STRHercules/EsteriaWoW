@@ -50,9 +50,6 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSessionMgr.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -1402,7 +1399,7 @@ void Creature::SaveToDB(uint32 mapid, uint8 spawnMask, uint32 phaseMask)
         m_spawnId = sObjectMgr->GenerateCreatureSpawnId();
 
     CreatureData& data = sObjectMgr->NewOrExistCreatureData(m_spawnId);
-
+    data.spawnId = m_spawnId;  // mod_playerbots
     uint32 displayId = GetNativeDisplayId();
     uint32 npcflag = GetNpcFlags();
     uint32 unit_flags = GetUnitFlags();

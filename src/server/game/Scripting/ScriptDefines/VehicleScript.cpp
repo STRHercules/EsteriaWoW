@@ -17,17 +17,10 @@
 
 #include "VehicleScript.h"
 #include "ScriptMgr.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 #include "Vehicle.h"
 
 void ScriptMgr::OnInstall(Vehicle* veh)
 {
-#ifdef ELUNA
-    if (Eluna* e = veh->GetBase()->GetEluna())
-        e->OnInstall(veh);
-#endif
     ASSERT(veh);
     ASSERT(veh->GetBase()->IsCreature());
 
@@ -39,10 +32,6 @@ void ScriptMgr::OnInstall(Vehicle* veh)
 
 void ScriptMgr::OnUninstall(Vehicle* veh)
 {
-#ifdef ELUNA
-    if (Eluna* e = veh->GetBase()->GetEluna())
-        e->OnUninstall(veh);
-#endif
     ASSERT(veh);
     ASSERT(veh->GetBase()->IsCreature());
 
@@ -65,10 +54,6 @@ void ScriptMgr::OnReset(Vehicle* veh)
 
 void ScriptMgr::OnInstallAccessory(Vehicle* veh, Creature* accessory)
 {
-#ifdef ELUNA
-    if (Eluna* e = veh->GetBase()->GetEluna())
-        e->OnInstallAccessory(veh, accessory);
-#endif
     ASSERT(veh);
     ASSERT(veh->GetBase()->IsCreature());
     ASSERT(accessory);
@@ -81,10 +66,6 @@ void ScriptMgr::OnInstallAccessory(Vehicle* veh, Creature* accessory)
 
 void ScriptMgr::OnAddPassenger(Vehicle* veh, Unit* passenger, int8 seatId)
 {
-#ifdef ELUNA
-    if (Eluna* e = veh->GetBase()->GetEluna())
-        e->OnAddPassenger(veh, passenger, seatId);
-#endif
     ASSERT(veh);
     ASSERT(veh->GetBase()->IsCreature());
     ASSERT(passenger);
@@ -97,10 +78,6 @@ void ScriptMgr::OnAddPassenger(Vehicle* veh, Unit* passenger, int8 seatId)
 
 void ScriptMgr::OnRemovePassenger(Vehicle* veh, Unit* passenger)
 {
-#ifdef ELUNA
-    if (Eluna* e = veh->GetBase()->GetEluna())
-        e->OnRemovePassenger(veh, passenger);
-#endif
     ASSERT(veh);
     ASSERT(veh->GetBase()->IsCreature());
     ASSERT(passenger);

@@ -69,6 +69,7 @@
 #include "ObjectMgr.h"
 #include "Opcodes.h"
 #include "OutdoorPvPMgr.h"
+#include "QueryHolder.h"
 #include "PetitionMgr.h"
 #include "Player.h"
 #include "PlayerDump.h"
@@ -1209,6 +1210,8 @@ void World::Update(uint32 diff)
         ResetGuildCap();
     }
 
+    sScriptMgr->OnPlayerbotUpdate(diff);
+
     {
         // pussywizard: handle expired auctions, auctions expired when realm was offline are also handled here (not during loading when many required things aren't loaded yet)
         METRIC_TIMER("world_update_time", METRIC_TAG("type", "Update expired auctions"));
@@ -1334,6 +1337,7 @@ void World::Update(uint32 diff)
         CharacterDatabase.KeepAlive();
         LoginDatabase.KeepAlive();
         WorldDatabase.KeepAlive();
+        sScriptMgr->OnDatabasesKeepAlive();
     }
 
     {
@@ -1555,6 +1559,7 @@ bool World::RescheduleShutdownForWintergrasp()
 void World::ShutdownServ(uint32 time, uint32 options, uint8 exitcode, std::string const& reason)
 {
     // ignore if server shutdown at next tick
+
     if (IsStopped())
         return;
 
@@ -1912,6 +1917,12 @@ void World::UpdateAreaDependentAuras()
 void World::ProcessQueryCallbacks()
 {
     _queryProcessor.ProcessReadyCallbacks();
+    _queryHolderProcessor.ProcessReadyCallbacks();
+}
+
+SQLQueryHolderCallback& World::AddQueryHolderCallback(SQLQueryHolderCallback&& callback)
+{
+    return _queryHolderProcessor.AddCallback(std::move(callback));
 }
 
 bool World::IsPvPRealm() const

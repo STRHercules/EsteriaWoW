@@ -23,14 +23,14 @@
 #define __WORLD_H
 
 #include "DatabaseEnvFwd.h"
+#ifdef ELUNA
+#include "ElunaMgr.h"
+#endif
 #include "IWorld.h"
 #include "LockedQueue.h"
 #include "ObjectGuid.h"
 #include "SharedDefines.h"
 #include "Timer.h"
-#ifdef ELUNA
-#include "ElunaMgr.h"
-#endif
 #include <atomic>
 #include <list>
 #include <map>
@@ -40,6 +40,7 @@ class Object;
 class WorldPacket;
 class WorldSocket;
 class SystemMgr;
+
 #ifdef ELUNA
 class Eluna;
 #endif
@@ -145,6 +146,10 @@ public:
 
     static World* instance();
 
+#ifdef ELUNA
+    [[nodiscard]] Eluna* GetEluna() const override { return sElunaMgr->Get(_elunaInfo); }
+#endif
+
     static uint32 m_worldLoopCounter;
 
     /// Deny clients?
@@ -195,9 +200,6 @@ public:
     static bool IsStopped() { return _stopEvent; }
 
     void Update(uint32 diff) override;
-#ifdef ELUNA
-    [[nodiscard]] Eluna* GetEluna() const override { return sElunaMgr->Get(_elunaInfo); }
-#endif
 
     void setRate(ServerConfigs index, float value) override;
     float getRate(ServerConfigs index) const override;
@@ -238,6 +240,9 @@ public:
     // used World DB version
     void LoadDBVersion() override;
     [[nodiscard]] char const* GetDBVersion() const override { return _dbVersion.c_str(); }
+#ifdef MOD_PLAYERBOTS
+    [[nodiscard]] char const* GetPlayerbotsDBRevision() const override { return m_PlayerbotsDBRevision.c_str(); }
+#endif
 
     void UpdateAreaDependentAuras() override;
 
@@ -267,6 +272,9 @@ protected:
     void ResetRandomBG();
     void CalendarDeleteOldEvents();
     void ResetGuildCap();
+
+    SQLQueryHolderCallback& AddQueryHolderCallback(SQLQueryHolderCallback&& callback) override;
+
 private:
     WorldConfig _worldConfig;
 
@@ -311,12 +319,17 @@ private:
     // used versions
     std::string _dbVersion;
     uint32 _dbClientCacheVersion;
-#ifdef ELUNA
-    ElunaInfo _elunaInfo;
+#ifdef MOD_PLAYERBOTS
+    std::string m_PlayerbotsDBRevision;
 #endif
 
     void ProcessQueryCallbacks();
     QueryCallbackProcessor _queryProcessor;
+    AsyncCallbackProcessor<SQLQueryHolderCallback> _queryHolderProcessor;
+
+#ifdef ELUNA
+    ElunaInfo _elunaInfo;
+#endif
 
     /**
      * @brief Executed when a World Session is being finalized. Be it from a normal login or via queue popping.

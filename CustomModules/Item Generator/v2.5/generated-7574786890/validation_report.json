@@ -1,0 +1,191 @@
+{
+  "seed": "7574786890",
+  "requested_number": 100000,
+  "selected_classes": [
+    "Warrior",
+    "Paladin",
+    "Hunter",
+    "Rogue",
+    "Priest",
+    "Death Knight",
+    "Shaman",
+    "Mage",
+    "Warlock",
+    "Druid"
+  ],
+  "total_items": 100000,
+  "entry_min": 200000,
+  "entry_max": 389999,
+  "unique_entries": 100000,
+  "unique_names": 100000,
+  "unique_displayids": 243,
+  "unique_reference_entries": 261,
+  "quality_counts": {
+    "Epic": 7076,
+    "Uncommon": 58472,
+    "Rare": 34449,
+    "Legendary": 3
+  },
+  "role_counts": {
+    "strength_dps": 16406,
+    "tank": 13132,
+    "healer": 12661,
+    "hunter": 10000,
+    "agility_dps": 16852,
+    "caster_dps": 30949
+  },
+  "kind_counts": {
+    "armor": 66792,
+    "1h_mace": 1272,
+    "finger": 6567,
+    "neck": 5491,
+    "trinket": 4035,
+    "back": 6254,
+    "1h_axe": 526,
+    "2h_axe": 621,
+    "gun": 223,
+    "1h_sword": 1042,
+    "bow": 363,
+    "shield": 299,
+    "2h_sword": 621,
+    "polearm": 357,
+    "2h_mace": 717,
+    "crossbow": 225,
+    "relic": 359,
+    "dagger": 1105,
+    "fist": 199,
+    "wand": 730,
+    "staff": 2202
+  },
+  "classes": {
+    "Warrior": {
+      "count": 10000,
+      "entry_min": 200000,
+      "entry_max": 209999,
+      "unique_names": 10000,
+      "unique_displayids": 141,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Paladin": {
+      "count": 10000,
+      "entry_min": 220000,
+      "entry_max": 229999,
+      "unique_names": 10000,
+      "unique_displayids": 142,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Hunter": {
+      "count": 10000,
+      "entry_min": 240000,
+      "entry_max": 249999,
+      "unique_names": 10000,
+      "unique_displayids": 130,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Rogue": {
+      "count": 10000,
+      "entry_min": 260000,
+      "entry_max": 269999,
+      "unique_names": 10000,
+      "unique_displayids": 85,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Priest": {
+      "count": 10000,
+      "entry_min": 280000,
+      "entry_max": 289999,
+      "unique_names": 10000,
+      "unique_displayids": 71,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Death Knight": {
+      "count": 10000,
+      "entry_min": 300000,
+      "entry_max": 309999,
+      "unique_names": 10000,
+      "unique_displayids": 94,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Shaman": {
+      "count": 10000,
+      "entry_min": 320000,
+      "entry_max": 329999,
+      "unique_names": 10000,
+      "unique_displayids": 146,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Mage": {
+      "count": 10000,
+      "entry_min": 340000,
+      "entry_max": 349999,
+      "unique_names": 10000,
+      "unique_displayids": 75,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Warlock": {
+      "count": 10000,
+      "entry_min": 360000,
+      "entry_max": 369999,
+      "unique_names": 10000,
+      "unique_displayids": 75,
+      "level_min": 1,
+      "level_max": 80
+    },
+    "Druid": {
+      "count": 10000,
+      "entry_min": 380000,
+      "entry_max": 389999,
+      "unique_names": 10000,
+      "unique_displayids": 92,
+      "level_min": 1,
+      "level_max": 80
+    }
+  },
+  "loot_pool_count": 6,
+  "loot_pool_row_count": 100000,
+  "loot_attachment_count": 310,
+  "loot_chance": 10.0,
+  "world_loot_source": "R:\\Users\\Zach\\Documents\\GitHub\\Azeroth\\data\\sql\\base\\db_world\\creature_loot_template.sql",
+  "reference_loot_source": "R:\\Users\\Zach\\Documents\\GitHub\\Azeroth\\data\\sql\\base\\db_world\\reference_loot_template.sql",
+  "item_template_source": "R:\\Users\\Zach\\Documents\\GitHub\\Azeroth\\data\\sql\\base\\db_world\\item_template.sql",
+  "reference_catalog_count": 261,
+  "reference_catalog_inventory_type_mismatch_count": 0,
+  "world_loot_reference_count": 310,
+  "loot_bracket_distribution": {
+    "01-19": 20589,
+    "20-39": 22735,
+    "40-59": 23383,
+    "60-69": 12419,
+    "70-79": 16477,
+    "80": 4397
+  },
+  "world_loot_bracket_distribution": {
+    "01-19": 41,
+    "20-39": 71,
+    "40-59": 80,
+    "60-69": 56,
+    "70-79": 52,
+    "80": 10
+  },
+  "generated_loot_pool_ids": [
+    3000000,
+    3000001,
+    3000002,
+    3000003,
+    3000004,
+    3000005
+  ],
+  "random_effects_enabled": false,
+  "socket_bonus_ids_generated": false,
+  "disenchant_ids_generated": false,
+  "random_property_or_suffix_enabled": false,
+  "validation_errors": 0
+}

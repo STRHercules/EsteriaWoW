@@ -77,6 +77,7 @@ enum UldGameObjects
 
 enum UldSpells
 {
+    SPELL_SIMPLE_TELEPORT       = 12980,
     SPELL_KEEPER_TELEPORT       = 62940,
     SPELL_SNOW_MOUND_PARTICLES  = 64615,
     SPELL_ENERGY_SAP_10         = 64740,
@@ -99,7 +100,7 @@ public:
         {
             scheduler.Schedule(250ms, [this](TaskContext /*context*/)
             {
-                DoCastSelf(SPELL_SIMPLE_TELEPORT_VISUAL);
+                DoCastSelf(SPELL_SIMPLE_TELEPORT);
             });
         }
 
@@ -549,43 +550,31 @@ public:
     }
 };
 
-enum SalvagedSiegeEngineSeats
-{
-    SEAT_SIEGE_ENGINE_DRIVER            = 0,
-    SEAT_SIEGE_ENGINE_TURRET            = 7
-};
-
 struct npc_salvaged_siege_engine : public VehicleAI
 {
     npc_salvaged_siege_engine(Creature* creature) : VehicleAI(creature) { }
 
     bool BeforeSpellClick(Unit* clicker) override
     {
-        Vehicle* vehicle = me->GetVehicleKit();
-        if (!vehicle)
-            return true;
-
-        // The driver seat is the only one a spell click may fill directly.
-        if (vehicle->HasEmptySeat(SEAT_SIEGE_ENGINE_DRIVER))
-            return true;
-
-        // Someone is already driving: send the clicker to the turret while it is still free.
-        if (Unit* turret = vehicle->GetPassenger(SEAT_SIEGE_ENGINE_TURRET))
+        if (Vehicle* vehicle = me->GetVehicleKit())
         {
-            if (Vehicle* turretVehicle = turret->GetVehicleKit())
+            if (vehicle->IsVehicleInUse())
             {
-                if (!turretVehicle->IsVehicleInUse())
+                if (Unit* turret = vehicle->GetPassenger(7))
                 {
-                    turret->HandleSpellClick(clicker);
-                    return false;
+                    if (Vehicle* turretVehicle = turret->GetVehicleKit())
+                    {
+                        if (!turretVehicle->IsVehicleInUse())
+                        {
+                            turret->HandleSpellClick(clicker);
+                            return false;
+                        }
+                    }
                 }
             }
         }
 
-        // Driver and turret are both manned. The two remaining seats (VehicleSeat.dbc 4026 and 4027)
-        // lack VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT, so the client never draws the Leave Vehicle button
-        // and whoever boards one can no longer get off. They cannot be used on retail either.
-        return false;
+        return true;
     }
 };
 

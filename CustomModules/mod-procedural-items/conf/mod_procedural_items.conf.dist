@@ -1,0 +1,19 @@
+# mod-procedural-items
+# AzerothCore WotLK 3.3.5a procedural item scaffold
+
+# Master switch.
+ProceduralItems.Enable = 1
+
+# Safety rail. Keep enabled in production. The generator must only allocate
+# entry IDs that were pre-registered in the Esteria client Item.dbc pool.
+ProceduralItems.RequireClientPreparedPool = 1
+
+# Generation algorithm version persisted with every generated item.
+ProceduralItems.GenerationVersion = 1
+
+# Future loot integration master rate. Scaffold does not hook creature loot yet.
+ProceduralItems.WorldDropChance = 0.00
+
+# Runtime registry is deliberately unsupported in v0.1 until the core exposes
+# a safe API for inserting ItemTemplate records into ObjectMgr's live stores.
+ProceduralItems.RuntimeRegistry.Enable = 0

@@ -22,6 +22,7 @@
 #include "Common.h"
 #include "Duration.h"
 #include "ObjectGuid.h"
+#include "QueryHolder.h"
 #include "SharedDefines.h"
 #include "WorldConfig.h"
 #include <unordered_map>
@@ -29,6 +30,7 @@
 class WorldPacket;
 class WorldSession;
 class Player;
+
 #ifdef ELUNA
 class Eluna;
 #endif
@@ -107,16 +109,21 @@ public:
     [[nodiscard]] virtual LocaleConstant GetAvailableDbcLocale(LocaleConstant locale) const = 0;
     virtual void LoadDBVersion() = 0;
     [[nodiscard]] virtual char const* GetDBVersion() const = 0;
+#ifdef MOD_PLAYERBOTS
+    [[nodiscard]] virtual char const* GetPlayerbotsDBRevision() const = 0;
+#endif
+
+#ifdef ELUNA
+    [[nodiscard]] virtual Eluna* GetEluna() const = 0;
+#endif
     virtual void UpdateAreaDependentAuras() = 0;
     [[nodiscard]] virtual uint32 GetCleaningFlags() const = 0;
     virtual void   SetCleaningFlags(uint32 flags) = 0;
     virtual void   ResetEventSeasonalQuests(uint16 event_id) = 0;
     [[nodiscard]] virtual std::string const& GetRealmName() const = 0;
     virtual void SetRealmName(std::string name) = 0;
+    virtual SQLQueryHolderCallback& AddQueryHolderCallback(SQLQueryHolderCallback&& callback) = 0;
     virtual void ReloadRBAC() = 0;
-#ifdef ELUNA
-    [[nodiscard]] virtual Eluna* GetEluna() const = 0;
-#endif
 };
 
 #endif //AZEROTHCORE_IWORLD_H

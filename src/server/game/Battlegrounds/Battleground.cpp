@@ -46,9 +46,6 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldStatePackets.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 namespace Acore
 {
@@ -215,12 +212,6 @@ Battleground::Battleground()
 
 Battleground::~Battleground()
 {
-#ifdef ELUNA
-    if (m_Map)
-        if (Eluna* e = m_Map->GetEluna())
-            e->OnBGDestroy(this, GetBgTypeID(), GetInstanceID());
-#endif
-
     LOG_DEBUG("bg.battleground", "> Remove Battleground {} {} {}", GetName(), GetBgTypeID(), GetInstanceID());
 
     _reviveEvents.KillAllEvents(false);
@@ -587,11 +578,6 @@ inline void Battleground::_ProcessJoin(uint32 diff)
 
         // Start the battle
         StartingEventOpenDoors();
-
-#ifdef ELUNA
-        if (Eluna* e = GetBgMap()->GetEluna())
-            e->OnBGStart(this, GetBgTypeID(), GetInstanceID());
-#endif
 
         if (StartMessageIds[BG_STARTING_EVENT_FOURTH])
             SendBroadcastText(StartMessageIds[BG_STARTING_EVENT_FOURTH], CHAT_MSG_BG_SYSTEM_NEUTRAL);
@@ -998,10 +984,6 @@ void Battleground::EndBattleground(PvPTeamId winnerTeamId)
 
         player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_COMPLETE_BATTLEGROUND, player->GetMapId());
     }
-#ifdef ELUNA
-    if (Eluna* e = GetBgMap()->GetEluna())
-        e->OnBGEnd(this, GetBgTypeID(), GetInstanceID(), GetTeamId(winnerTeamId) == TEAM_ALLIANCE ? ALLIANCE : HORDE);
-#endif
 
     if (IsEventActive(EVENT_SPIRIT_OF_COMPETITION) && isBattleground())
         SpiritOfCompetitionEvent(winnerTeamId);

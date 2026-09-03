@@ -42,9 +42,6 @@
 #include "WorldSession.h"
 #include "ArenaTeam.h"
 #include "ArenaTeamMgr.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 Roll::Roll(ObjectGuid _guid, LootItem const& li) : itemGUID(_guid), itemid(li.itemid),
     itemRandomPropId(li.randomPropertyId), itemRandomSuffix(li.randomSuffix), itemCount(li.count),
@@ -205,11 +202,6 @@ bool Group::Create(Player* leader)
     }
     else if (!AddMember(leader))
         return false;
-
-#ifdef ELUNA
-    if (Eluna* e = sWorld->GetEluna())
-        e->OnCreate(this, m_leaderGuid, m_groupType);
-#endif
 
     return true;
 }
@@ -393,13 +385,20 @@ bool Group::AddLeaderInvite(Player* player)
 
 void Group::RemoveInvite(Player* player)
 {
-    if (player)
-    {
-        if (!m_invitees.empty())
-            m_invitees.erase(player);
-        player->SetGroupInvite(nullptr);
-    }
+    if (!player)
+        return;
+
+    // mod_playerbots: double invite hack workaround
+    if (player->GetGroupInvite() != this)
+        return;
+
+    auto itr = m_invitees.find(player);
+    if (itr != m_invitees.end())
+        m_invitees.erase(itr);
+
+    player->SetGroupInvite(nullptr);
 }
+
 
 void Group::RemoveAllInvites()
 {

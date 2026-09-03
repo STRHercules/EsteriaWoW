@@ -19,18 +19,10 @@
 #include "ALEScript.h"
 #include "Player.h"
 #include "ScriptMgr.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 #include "ScriptMgrMacros.h"
 
 bool ScriptMgr::OnAreaTrigger(Player* player, AreaTrigger const* trigger)
 {
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (e->OnAreaTrigger(player, trigger))
-            return true;
-#endif
     ASSERT(player);
     ASSERT(trigger);
 

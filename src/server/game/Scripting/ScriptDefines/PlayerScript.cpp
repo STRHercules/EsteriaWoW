@@ -17,9 +17,6 @@
 
 #include "PlayerScript.h"
 #include "ScriptMgr.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 #include "ScriptMgrMacros.h"
 #include "World.h"
 
@@ -210,10 +207,16 @@ void ScriptMgr::OnPlayerBeforeUpdate(Player* player, uint32 p_time)
     CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_BEFORE_UPDATE, script->OnPlayerBeforeUpdate(player, p_time));
 }
 
+void ScriptMgr::OnPlayerAfterUpdate(Player* player, uint32 p_time)
+{
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_AFTER_UPDATE, script->OnPlayerAfterUpdate(player, p_time));
+}
+
 void ScriptMgr::OnPlayerUpdate(Player* player, uint32 p_time)
 {
     CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_UPDATE, script->OnPlayerUpdate(player, p_time));
 }
+
 
 void ScriptMgr::OnPlayerLogin(Player* player)
 {
@@ -817,51 +820,26 @@ void ScriptMgr::OnPlayerBeforeChooseGraveyard(Player* player, TeamId teamId, boo
 
 bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& msg)
 {
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (!e->OnChat(player, type, language, msg))
-            return false;
-#endif
     CALL_ENABLED_BOOLEAN_HOOKS(PlayerScript, PLAYERHOOK_CAN_PLAYER_USE_CHAT, !script->OnPlayerCanUseChat(player, type, language, msg));
 }
 
 bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& msg, Player* receiver)
 {
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (!e->OnChat(player, type, language, msg, receiver))
-            return false;
-#endif
     CALL_ENABLED_BOOLEAN_HOOKS(PlayerScript, PLAYERHOOK_CAN_PLAYER_USE_PRIVATE_CHAT, !script->OnPlayerCanUseChat(player, type, language, msg, receiver));
 }
 
 bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& msg, Group* group)
 {
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (!e->OnChat(player, type, language, msg, group))
-            return false;
-#endif
     CALL_ENABLED_BOOLEAN_HOOKS(PlayerScript, PLAYERHOOK_CAN_PLAYER_USE_GROUP_CHAT, !script->OnPlayerCanUseChat(player, type, language, msg, group));
 }
 
 bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& msg, Guild* guild)
 {
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (!e->OnChat(player, type, language, msg, guild))
-            return false;
-#endif
     CALL_ENABLED_BOOLEAN_HOOKS(PlayerScript, PLAYERHOOK_CAN_PLAYER_USE_GUILD_CHAT, !script->OnPlayerCanUseChat(player, type, language, msg, guild));
 }
 
 bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& msg, Channel* channel)
 {
-#ifdef ELUNA
-    if (Eluna* e = player->GetEluna())
-        if (!e->OnChat(player, type, language, msg, channel))
-            return false;
-#endif
     CALL_ENABLED_BOOLEAN_HOOKS(PlayerScript, PLAYERHOOK_CAN_PLAYER_USE_CHANNEL_CHAT, !script->OnPlayerCanUseChat(player, type, language, msg, channel));
 }
 

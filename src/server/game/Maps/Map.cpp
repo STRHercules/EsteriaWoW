@@ -85,7 +85,7 @@ Map::Map(uint32 id, uint32 InstanceId, uint8 SpawnMode, Map* _parent) :
 #ifdef ELUNA
     if (sElunaConfig->IsElunaEnabled() && sElunaConfig->ShouldMapLoadEluna(id))
     {
-        if (!IsParentMap() || (IsParentMap() && !Instanceable()))
+        if (GetParent() != this || !Instanceable())
         {
             _elunaInfo = { ElunaInfoKey::MakeKey(GetId(), GetInstanceId()) };
             sElunaMgr->Create(this, _elunaInfo);
@@ -1741,6 +1741,13 @@ void Map::SendObjectUpdates()
     WorldPacket packet;                                     // here we allocate a std::vector with a size of 0x10000
     for (UpdateDataMapType::iterator iter = update_players.begin(); iter != update_players.end(); ++iter)
     {
+        if (!sScriptMgr->OnPlayerbotCheckUpdatesToSend(iter->first))
+        {
+            iter->second.Clear();
+            continue;
+        }
+
+
         iter->second.BuildPacket(packet);
         iter->first->SendDirectMessage(&packet);
         packet.clear();                                     // clean the string

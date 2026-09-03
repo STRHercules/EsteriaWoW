@@ -1,0 +1,7 @@
+pool_key,start_entry,end_entry,item_class,subclass,inventory_type
+leather_chest,2000000,2000999,4,2,5
+leather_legs,2001000,2001999,4,2,7
+mail_chest,2002000,2002999,4,3,5
+bow,2003000,2003999,2,2,15
+gun,2004000,2004999,2,3,26
+sword_1h,2005000,2005999,2,7,13

@@ -34,9 +34,6 @@
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include <cmath>
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 
 enum StableResultCode
 {
@@ -187,12 +184,6 @@ void WorldSession::HandleGossipHelloOpcode(WorldPacket& recvData)
             return;
         }
     }
-
-#ifdef ELUNA
-    if (Eluna* e = GetPlayer()->GetEluna())
-        if (e->OnGossipHello(_player, unit))
-            return;
-#endif
 
     if (!sScriptMgr->OnGossipHello(_player, unit))
     {

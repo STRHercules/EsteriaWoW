@@ -20,9 +20,6 @@
 #include "Common.h"
 #include "GameTime.h"
 #include "GridNotifiers.h"
-#ifdef ELUNA
-#include "LuaEngine.h"
-#endif
 #include "Log.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
@@ -2398,11 +2395,6 @@ void Aura::CallScriptDispel(DispelInfo* dispelInfo)
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (Eluna* e = GetOwner()->GetEluna())
-        e->OnAuraDispel(this, dispelInfo);
-#endif
 }
 
 void Aura::CallScriptAfterDispel(DispelInfo* dispelInfo)
@@ -2648,13 +2640,6 @@ bool Aura::CallScriptCheckProcHandlers(AuraApplication const* aurApp, ProcEventI
         (*scritr)->_FinishScriptCall();
     }
 
-#ifdef ELUNA
-    if (result)
-        if (Unit* caster = GetCaster())
-            if (Eluna* e = caster->GetEluna())
-                result = e->OnAuraCanProc(this, eventInfo);
-#endif
-
     return result;
 }
 
@@ -2706,13 +2691,6 @@ bool Aura::CallScriptPrepareProcHandlers(AuraApplication const* aurApp, ProcEven
 
         (*scritr)->_FinishScriptCall();
     }
-
-#ifdef ELUNA
-    if (prepare)
-        if (Unit* caster = GetCaster())
-            if (Eluna* e = caster->GetEluna())
-                prepare = !e->OnAuraProc(this, eventInfo);
-#endif
 
     return prepare;
 }

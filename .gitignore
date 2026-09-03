@@ -2,6 +2,7 @@
 # AzerothCore
 #
 
+3.3.5a/
 .cache
 /conf/*
 !/conf/dist
@@ -19,7 +20,6 @@
 !/env/dist/.gitkeep
 /env/user/*
 /.env*
-/e2e/.env
 /apps/joiner
 /deps/deno
 /data/sql/custom/*
@@ -74,6 +74,8 @@ CLAUDE.local.md
 #
 /.settings/
 /.externalToolBuilders/*
+/.vs
+/out
 # exclude in all levels
 nbproject/
 .sync.ffs_db
@@ -126,9 +128,5 @@ __pycache__/
 #  !modules/yourmodule
 #
 # ==================
-
-# Live-stack e2e private / local tooling (scratch tests stay uncommitted)
-e2e/local/**
-!e2e/local/README.md
-e2e/go.work
-e2e/go.work.sum
+.cache
+compile_commands.json
