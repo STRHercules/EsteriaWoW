@@ -106,7 +106,7 @@ ElunaEventProcessor* WorldObject::GetElunaEvents(int32 mapId)
     if (!eluna)
         return nullptr;
 
-    EventMgr* mgr = eluna->GetEventMgr();
+    EventMgr* mgr = eluna->eventMgr.get();
     if (!mgr)
         return nullptr;
 

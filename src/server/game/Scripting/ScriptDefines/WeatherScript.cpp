@@ -18,10 +18,17 @@
 #include "WeatherScript.h"
 #include "ALEScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 
 void ScriptMgr::OnWeatherChange(Weather* weather, WeatherState state, float grade)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnChange(weather, weather->GetZone(), state, grade);
+#endif
     ASSERT(weather);
 
     ExecuteScript<ALEScript>([&](ALEScript* script)

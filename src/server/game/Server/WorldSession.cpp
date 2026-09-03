@@ -55,6 +55,9 @@
 #include "WorldGlobals.h"
 #include "WorldPacket.h"
 #include "WorldSocket.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "WorldState.h"
 #include <zlib.h>
 
@@ -302,6 +305,11 @@ ObjectGuid::LowType WorldSession::GetGuidLow() const
 /// Send a packet to the client
 void WorldSession::SendPacket(WorldPacket const* packet)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        if (!e->OnPacketSend(this, *packet))
+            return;
+#endif
     if (!m_Socket)
         return;
 
@@ -406,6 +414,11 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
 
     while (m_Socket && _recvQueue.next(packet, updater))
     {
+#ifdef ELUNA
+        if (Eluna* e = sWorld->GetEluna())
+            if (!e->OnPacketReceive(this, *packet))
+                continue;
+#endif
         OpcodeClient opcode = static_cast<OpcodeClient>(packet->GetOpcode());
         ClientOpcodeHandler const* opHandle = opcodeTable[opcode];
 

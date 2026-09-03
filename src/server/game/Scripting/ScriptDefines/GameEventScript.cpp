@@ -17,15 +17,26 @@
 
 #include "GameEventScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 
 void ScriptMgr::OnGameEventStart(uint16 EventID)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnGameEventStart(EventID);
+#endif
     CALL_ENABLED_HOOKS(GameEventScript, GAMEEVENTHOOK_ON_START, script->OnStart(EventID));
 }
 
 void ScriptMgr::OnGameEventStop(uint16 EventID)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnGameEventStop(EventID);
+#endif
     CALL_ENABLED_HOOKS(GameEventScript, GAMEEVENTHOOK_ON_STOP, script->OnStop(EventID));
 }
 

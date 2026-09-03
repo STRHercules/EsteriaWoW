@@ -17,10 +17,17 @@
 
 #include "AuctionHouseScript.h"
 #include "ScriptMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "ScriptMgrMacros.h"
 
 void ScriptMgr::OnAuctionAdd(AuctionHouseObject* ah, AuctionEntry* entry)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnAdd(ah, entry);
+#endif
     ASSERT(ah);
     ASSERT(entry);
 
@@ -29,6 +36,10 @@ void ScriptMgr::OnAuctionAdd(AuctionHouseObject* ah, AuctionEntry* entry)
 
 void ScriptMgr::OnAuctionRemove(AuctionHouseObject* ah, AuctionEntry* entry)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnRemove(ah, entry);
+#endif
     ASSERT(ah);
     ASSERT(entry);
 
@@ -37,6 +48,10 @@ void ScriptMgr::OnAuctionRemove(AuctionHouseObject* ah, AuctionEntry* entry)
 
 void ScriptMgr::OnAuctionSuccessful(AuctionHouseObject* ah, AuctionEntry* entry)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnSuccessful(ah, entry);
+#endif
     ASSERT(ah);
     ASSERT(entry);
 
@@ -45,6 +60,10 @@ void ScriptMgr::OnAuctionSuccessful(AuctionHouseObject* ah, AuctionEntry* entry)
 
 void ScriptMgr::OnAuctionExpire(AuctionHouseObject* ah, AuctionEntry* entry)
 {
+#ifdef ELUNA
+    if (Eluna* e = sWorld->GetEluna())
+        e->OnExpire(ah, entry);
+#endif
     ASSERT(ah);
     ASSERT(entry);
 
