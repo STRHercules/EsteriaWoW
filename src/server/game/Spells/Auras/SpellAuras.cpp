@@ -2389,11 +2389,6 @@ bool Aura::CallScriptCheckAreaTargetHandlers(Unit* target)
 
 void Aura::CallScriptDispel(DispelInfo* dispelInfo)
 {
-#ifdef ELUNA
-    if (Eluna* e = GetOwner()->GetEluna())
-        e->OnAuraDispel(this, dispelInfo);
-#endif
-
     for (std::list<AuraScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(AURA_SCRIPT_HOOK_DISPEL);
@@ -2403,6 +2398,11 @@ void Aura::CallScriptDispel(DispelInfo* dispelInfo)
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = GetOwner()->GetEluna())
+        e->OnAuraDispel(this, dispelInfo);
+#endif
 }
 
 void Aura::CallScriptAfterDispel(DispelInfo* dispelInfo)
@@ -2648,6 +2648,13 @@ bool Aura::CallScriptCheckProcHandlers(AuraApplication const* aurApp, ProcEventI
         (*scritr)->_FinishScriptCall();
     }
 
+#ifdef ELUNA
+    if (result)
+        if (Unit* caster = GetCaster())
+            if (Eluna* e = caster->GetEluna())
+                result = e->OnAuraCanProc(this, eventInfo);
+#endif
+
     return result;
 }
 
@@ -2699,6 +2706,13 @@ bool Aura::CallScriptPrepareProcHandlers(AuraApplication const* aurApp, ProcEven
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (prepare)
+        if (Unit* caster = GetCaster())
+            if (Eluna* e = caster->GetEluna())
+                prepare = !e->OnAuraProc(this, eventInfo);
+#endif
 
     return prepare;
 }

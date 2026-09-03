@@ -800,8 +800,9 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         prevented = GetBase()->CallScriptEffectRemoveHandlers(this, const_cast<AuraApplication const*>(aurApp), (AuraEffectHandleModes)mode);
 
 #ifdef ELUNA
-    if (Eluna* e = aurApp->GetTarget()->GetEluna())
-        prevented = e->OnAuraApplication(GetBase(), this, aurApp->GetTarget(), mode, apply) || prevented;
+    if (!prevented)
+        if (Eluna* e = aurApp->GetTarget()->GetEluna())
+            prevented = e->OnAuraApplication(GetBase(), this, aurApp->GetTarget(), mode, apply);
 #endif
 
     // check if script events have removed the aura or if default effect prevention was requested
@@ -1228,12 +1229,6 @@ bool AuraEffect::CheckEffectProc(AuraApplication* aurApp, ProcEventInfo& eventIn
     if (!result)
         return false;
 
-#ifdef ELUNA
-    if (Eluna* e = aurApp->GetTarget()->GetEluna())
-        if (!e->OnAuraCanProc(GetBase(), eventInfo))
-            return false;
-#endif
-
     SpellInfo const* spellInfo = eventInfo.GetSpellInfo();
     switch (GetAuraType())
     {
@@ -1322,12 +1317,6 @@ void AuraEffect::HandleProc(AuraApplication* aurApp, ProcEventInfo& eventInfo)
     bool prevented = GetBase()->CallScriptEffectProcHandlers(this, aurApp, eventInfo);
     if (prevented)
         return;
-
-#ifdef ELUNA
-    if (Eluna* e = aurApp->GetTarget()->GetEluna())
-        if (e->OnAuraProc(GetBase(), eventInfo))
-            return;
-#endif
 
     switch (GetAuraType())
     {

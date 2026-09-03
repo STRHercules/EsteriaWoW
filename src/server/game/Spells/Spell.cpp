@@ -3845,6 +3845,11 @@ void Spell::_cast(bool skipCheck)
         if (m_caster->IsCreature() && m_targets.GetObjectTarget() && m_caster != m_targets.GetObjectTarget())
             m_caster->SetInFront(m_targets.GetObjectTarget());
 
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnSpellCast(this, skipCheck);
+#endif
+
     CallScriptBeforeCastHandlers();
 
 #ifdef ELUNA
@@ -4097,11 +4102,6 @@ void Spell::_cast(bool skipCheck)
             m_caster->ToPlayer()->RemoveSpellCooldown(m_spellInfo->Id, true);
 
     sScriptMgr->OnSpellCast(this, m_caster, m_spellInfo, skipCheck);
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnSpellCast(this, skipCheck);
-#endif
 
     SetExecutedCurrently(false);
 
@@ -5677,16 +5677,16 @@ void Spell::HandleEffects(Unit* pUnitTarget, Item* pItemTarget, GameObject* pGOT
         switch (mode)
         {
             case SPELL_EFFECT_HANDLE_LAUNCH:
-                preventDefault = e->OnEffectLaunch(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault);
+                preventDefault = e->OnEffectLaunch(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
                 break;
             case SPELL_EFFECT_HANDLE_LAUNCH_TARGET:
-                preventDefault = e->OnEffectLaunchTarget(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault);
+                preventDefault = e->OnEffectLaunchTarget(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
                 break;
             case SPELL_EFFECT_HANDLE_HIT:
-                preventDefault = e->OnEffectHit(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault);
+                preventDefault = e->OnEffectHit(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
                 break;
             case SPELL_EFFECT_HANDLE_HIT_TARGET:
-                preventDefault = e->OnEffectHitTarget(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault);
+                preventDefault = e->OnEffectHitTarget(this, static_cast<uint8>(i), static_cast<uint8>(mode), preventDefault) || preventDefault;
                 break;
             default:
                 break;
@@ -5717,12 +5717,6 @@ SpellCastResult Spell::CheckCast(bool strict, uint32* /*param1*/, uint32* /*para
 
     if (res != SPELL_CAST_OK)
         return res;
-
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        if (uint32 result = e->OnCheckCast(this))
-            return SpellCastResult(result);
-#endif
 
     // check cooldowns to prevent cheating
     if (!m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE))
@@ -8746,6 +8740,14 @@ SpellCastResult Spell::CallScriptCheckCastHandlers()
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (retVal == SPELL_CAST_OK)
+        if (Eluna* e = m_caster->GetEluna())
+            if (uint32 result = e->OnCheckCast(this))
+                retVal = SpellCastResult(result);
+#endif
+
     return retVal;
 }
 
@@ -8805,11 +8807,6 @@ bool Spell::CallScriptEffectHandlers(SpellEffIndex effIndex, SpellEffectHandleMo
 
 void Spell::CallScriptBeforeHitHandlers(SpellMissInfo missInfo)
 {
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnBeforeSpellHit(this, static_cast<uint8>(missInfo));
-#endif
-
     for (std::list<SpellScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(SPELL_SCRIPT_HOOK_BEFORE_HIT);
@@ -8819,15 +8816,15 @@ void Spell::CallScriptBeforeHitHandlers(SpellMissInfo missInfo)
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnBeforeSpellHit(this, static_cast<uint8>(missInfo));
+#endif
 }
 
 void Spell::CallScriptOnHitHandlers()
 {
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnSpellHit(this);
-#endif
-
     for (std::list<SpellScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(SPELL_SCRIPT_HOOK_HIT);
@@ -8837,15 +8834,15 @@ void Spell::CallScriptOnHitHandlers()
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnSpellHit(this);
+#endif
 }
 
 void Spell::CallScriptAfterHitHandlers()
 {
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnAfterSpellHit(this);
-#endif
-
     for (std::list<SpellScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(SPELL_SCRIPT_HOOK_AFTER_HIT);
@@ -8855,15 +8852,15 @@ void Spell::CallScriptAfterHitHandlers()
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnAfterSpellHit(this);
+#endif
 }
 
 void Spell::CallScriptObjectAreaTargetSelectHandlers(std::list<WorldObject*>& targets, SpellEffIndex effIndex, SpellImplicitTargetInfo const& targetType)
 {
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnObjectAreaTargetSelect(this, static_cast<uint8>(effIndex), targets);
-#endif
-
     for (std::list<SpellScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(SPELL_SCRIPT_HOOK_OBJECT_AREA_TARGET_SELECT);
@@ -8874,15 +8871,15 @@ void Spell::CallScriptObjectAreaTargetSelectHandlers(std::list<WorldObject*>& ta
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnObjectAreaTargetSelect(this, static_cast<uint8>(effIndex), targets);
+#endif
 }
 
 void Spell::CallScriptObjectTargetSelectHandlers(WorldObject*& target, SpellEffIndex effIndex, SpellImplicitTargetInfo const& targetType)
 {
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnObjectTargetSelect(this, static_cast<uint8>(effIndex), target);
-#endif
-
     for (std::list<SpellScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(SPELL_SCRIPT_HOOK_OBJECT_TARGET_SELECT);
@@ -8893,15 +8890,15 @@ void Spell::CallScriptObjectTargetSelectHandlers(WorldObject*& target, SpellEffI
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnObjectTargetSelect(this, static_cast<uint8>(effIndex), target);
+#endif
 }
 
 void Spell::CallScriptDestinationTargetSelectHandlers(SpellDestination& target, SpellEffIndex effIndex, SpellImplicitTargetInfo const& targetType)
 {
-#ifdef ELUNA
-    if (Eluna* e = m_caster->GetEluna())
-        e->OnDestinationTargetSelect(this, static_cast<uint8>(effIndex), target);
-#endif
-
     for (std::list<SpellScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(SPELL_SCRIPT_HOOK_DESTINATION_TARGET_SELECT);
@@ -8912,6 +8909,11 @@ void Spell::CallScriptDestinationTargetSelectHandlers(SpellDestination& target, 
 
         (*scritr)->_FinishScriptCall();
     }
+
+#ifdef ELUNA
+    if (Eluna* e = m_caster->GetEluna())
+        e->OnDestinationTargetSelect(this, static_cast<uint8>(effIndex), target);
+#endif
 }
 
 bool Spell::CheckScriptEffectImplicitTargets(uint32 effIndex, uint32 effIndexToCheck)
