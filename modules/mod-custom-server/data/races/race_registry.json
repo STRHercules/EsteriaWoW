@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "start_profiles": {
+    "elwynn": {
+      "map": 0,
+      "zone": 12,
+      "x": -8949.95,
+      "y": -132.493,
+      "z": 83.5312,
+      "orientation": 0.0
+    },
+    "durotar": {
+      "map": 1,
+      "zone": 14,
+      "x": -618.518,
+      "y": -4251.67,
+      "z": 38.718,
+      "orientation": 0.0
+    },
+    "dun_morogh": {
+      "map": 0,
+      "zone": 1,
+      "x": -6240.32,
+      "y": 331.033,
+      "z": 382.758,
+      "orientation": 6.17716
+    },
+    "teldrassil": {
+      "map": 1,
+      "zone": 141,
+      "x": 10311.3,
+      "y": 832.463,
+      "z": 1326.41,
+      "orientation": 5.69632
+    },
+    "tirisfal": {
+      "map": 0,
+      "zone": 85,
+      "x": 1676.71,
+      "y": 1678.31,
+      "z": 121.67,
+      "orientation": 2.70526
+    },
+    "mulgore": {
+      "map": 1,
+      "zone": 215,
+      "x": -2917.58,
+      "y": -257.98,
+      "z": 52.9968,
+      "orientation": 0.0
+    },
+    "eversong": {
+      "map": 530,
+      "zone": 3431,
+      "x": 10349.6,
+      "y": -6357.29,
+      "z": 33.4026,
+      "orientation": 5.31605
+    },
+    "azuremyst": {
+      "map": 530,
+      "zone": 3526,
+      "x": -3961.64,
+      "y": -13931.2,
+      "z": 100.615,
+      "orientation": 2.08364
+    },
+    "ebon_hold": {
+      "map": 609,
+      "zone": 4298,
+      "x": 2358.44,
+      "y": -5666.9,
+      "z": 426.023,
+      "orientation": 3.65997
+    }
+  },
+  "playable": [
+    {
+      "id": 1,
+      "species_key": "human",
+      "display_name": "Human",
+      "faction": "alliance",
+      "start_profile": "elwynn",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 2,
+      "species_key": "orc",
+      "display_name": "Orc",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 3,
+      "species_key": "dwarf",
+      "display_name": "Dwarf",
+      "faction": "alliance",
+      "start_profile": "dun_morogh",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 4,
+      "species_key": "night_elf",
+      "display_name": "Night Elf",
+      "faction": "alliance",
+      "start_profile": "teldrassil",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 5,
+      "species_key": "undead_scourge",
+      "display_name": "Undead (Scourge)",
+      "faction": "horde",
+      "start_profile": "tirisfal",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 6,
+      "species_key": "tauren",
+      "display_name": "Tauren",
+      "faction": "horde",
+      "start_profile": "mulgore",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 7,
+      "species_key": "gnome",
+      "display_name": "Gnome",
+      "faction": "alliance",
+      "start_profile": "dun_morogh",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 8,
+      "species_key": "troll",
+      "display_name": "Troll",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 9,
+      "species_key": "goblin",
+      "display_name": "Goblin",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "worgoblin_technical_base"
+    },
+    {
+      "id": 10,
+      "species_key": "blood_elf",
+      "display_name": "Blood Elf",
+      "faction": "horde",
+      "start_profile": "eversong",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 11,
+      "species_key": "draenei",
+      "display_name": "Draenei",
+      "faction": "alliance",
+      "start_profile": "azuremyst",
+      "asset_owner": "leeviathan_baseline"
+    },
+    {
+      "id": 12,
+      "species_key": "worgen",
+      "display_name": "Worgen",
+      "faction": "alliance",
+      "start_profile": "teldrassil",
+      "asset_owner": "worgoblin_technical_base"
+    },
+    {
+      "id": 13,
+      "species_key": "high_elf",
+      "display_name": "High Elf",
+      "faction": "alliance",
+      "start_profile": "elwynn",
+      "asset_owner": "blood_elf_assets"
+    },
+    {
+      "id": 14,
+      "species_key": "maghar_orc",
+      "display_name": "Mag'har Orc",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "existing_maghar_donor"
+    },
+    {
+      "id": 15,
+      "species_key": "sethrak",
+      "display_name": "Sethrak",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "worgoblin_sethrak"
+    },
+    {
+      "id": 16,
+      "species_key": "eredar",
+      "display_name": "Eredar",
+      "faction": "horde",
+      "faction_status": "provisional",
+      "start_profile": "durotar",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 17,
+      "species_key": "nightborne",
+      "display_name": "Nightborne",
+      "faction": "horde",
+      "start_profile": "eversong",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 18,
+      "species_key": "pandaren",
+      "display_name": "Pandaren",
+      "faction": "alliance",
+      "species_selection": true,
+      "start_profile": "elwynn",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 19,
+      "species_key": "void_elf",
+      "display_name": "Void Elf",
+      "faction": "alliance",
+      "start_profile": "elwynn",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 20,
+      "species_key": "vulpera",
+      "display_name": "Vulpera",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 21,
+      "species_key": "lightforged_draenei",
+      "display_name": "Lightforged Draenei",
+      "faction": "alliance",
+      "start_profile": "azuremyst",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 22,
+      "species_key": "zandalari_troll",
+      "display_name": "Zandalari Troll",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 23,
+      "species_key": "dark_iron_dwarf",
+      "display_name": "Dark Iron Dwarf",
+      "faction": "alliance",
+      "start_profile": "dun_morogh",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 24,
+      "species_key": "broken",
+      "display_name": "Broken",
+      "faction": "alliance",
+      "species_selection": true,
+      "start_profile": "azuremyst",
+      "asset_owner": "broken_player_assets"
+    },
+    {
+      "id": 25,
+      "species_key": "forsaken",
+      "display_name": "Forsaken",
+      "faction": "alliance",
+      "start_profile": "elwynn",
+      "asset_owner": "boneless_undead_assets"
+    },
+    {
+      "id": 26,
+      "species_key": "pandaren",
+      "display_name": "Pandaren",
+      "faction": "horde",
+      "species_selection": true,
+      "start_profile": "durotar",
+      "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 27,
+      "species_key": "broken",
+      "display_name": "Broken",
+      "faction": "horde",
+      "species_selection": true,
+      "start_profile": "durotar",
+      "asset_owner": "broken_player_assets"
+    },
+    {
+      "id": 28,
+      "species_key": "dracthyr",
+      "display_name": "Dracthyr",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "shadowlands_characters"
+    }
+  ],
+  "npc_only": [
+    {"id": 32, "name": "Skeleton", "legacy_id": 15, "not_playable": true},
+    {"id": 33, "name": "Vrykul", "legacy_id": 16, "not_playable": true},
+    {"id": 34, "name": "Tuskarr", "legacy_id": 17, "not_playable": true},
+    {"id": 35, "name": "Forest Troll", "legacy_id": 18, "not_playable": true},
+    {"id": 36, "name": "Taunka", "legacy_id": 19, "not_playable": true},
+    {"id": 37, "name": "Northrend Skeleton", "legacy_id": 20, "not_playable": true},
+    {"id": 38, "name": "Ice Troll", "legacy_id": 21, "not_playable": true},
+    {"id": 39, "name": "Naga", "legacy_id": 22, "not_playable": true},
+    {"id": 40, "name": "Gilnean", "legacy_id": 23, "not_playable": true},
+    {"id": 41, "name": "Fel Orc", "legacy_id": 24, "not_playable": true},
+    {"id": 42, "name": "Broken NPC", "legacy_id": 25, "not_playable": true}
+  ],
+  "faction_pairs": [
+    {"species_key": "pandaren", "alliance_id": 18, "horde_id": 26},
+    {"species_key": "broken", "alliance_id": 24, "horde_id": 27}
+  ],
+  "sources": {
+    "leeviathan_baseline": "RaceStuff/Leeviathan-s_WoD_Character_Models_(3.3.5a)/patch-H.MPQ",
+    "broken_player_assets": "RaceStuff/Leeviathan-s_WoD_Character_Models_(3.3.5a)/OPTIONAL - The Broken/BrokenPlayer_patch-J.MPQ",
+    "broken_npc_assets": "RaceStuff/Leeviathan-s_WoD_Character_Models_(3.3.5a)/OPTIONAL - The Broken/BrokenNPC_patch-J.MPQ",
+    "boneless_undead_assets": "RaceStuff/Leeviathan-s_WoD_Character_Models_(3.3.5a)/OPTIONAL - Boneless Undead/patch-I.MPQ",
+    "worgoblin_technical_base": "RaceStuff/mod-worgoblin-high-elf-master/data/patch-A.MPQ",
+    "worgoblin_f002": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-002_move-npc-races",
+    "worgoblin_f029": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-029_mod-arac",
+    "worgoblin_f030": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-030_mod-worgoblin",
+    "worgoblin_f031": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-031_mod-azerothcore-high-elf",
+    "worgoblin_f032": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-032_mod-maghar",
+    "worgoblin_sethrak": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-033_mod-playable-sethrak",
+    "worgoblin_f040": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-040_mod-druid-forms",
+    "worgoblin_f041": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-041_mod-extra-models",
+    "shadowlands_characters": "RaceStuff/Shadowlands to WotLK/Character",
+    "shadowlands_dbc": "RaceStuff/Shadowlands to WotLK/DBC/enUS/DBFilesClient",
+    "shadowlands_login": "RaceStuff/Shadowlands login screen mix",
+    "worgoblin_hd": "RaceStuff/worgoblin HD patch"
+  }
+}

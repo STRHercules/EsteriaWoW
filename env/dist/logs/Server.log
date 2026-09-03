@@ -1,0 +1,1909 @@
+AzerothCore rev. unknown 1970-01-01 00:00:00 +0000 (Archived branch) (Unix, RelWithDebInfo, Static) (worldserver-daemon)
+<Ctrl-C> to stop.
+
+   █████╗ ███████╗███████╗██████╗  ██████╗ ████████╗██╗  ██╗
+  ██╔══██╗╚══███╔╝██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝██║  ██║
+  ███████║  ███╔╝ █████╗  ██████╔╝██║   ██║   ██║   ███████║
+  ██╔══██║ ███╔╝  ██╔══╝  ██╔══██╗██║   ██║   ██║   ██╔══██║
+  ██║  ██║███████╗███████╗██║  ██║╚██████╔╝   ██║   ██║  ██║
+  ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝
+                                 ██████╗ ██████╗ ██████╗ ███████╗
+                                ██╔════╝██╔═══██╗██╔══██╗██╔════╝
+                                ██║     ██║   ██║██████╔╝█████╗
+                                ██║     ██║   ██║██╔══██╗██╔══╝
+                                ╚██████╗╚██████╔╝██║  ██║███████╗
+                                 ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+     AzerothCore 3.3.5a  -  www.azerothcore.org
+
+> Using configuration file       /azerothcore/env/dist/etc/worldserver.conf
+> Using SSL version:             OpenSSL 3.0.13 30 Jan 2024 (library: OpenSSL 3.0.13 30 Jan 2024)
+> Using Boost version:           1.83.0
+ 
+Can't set process priority class, error: Permission denied
+ 
+Loading Modules Configuration...
+ 
+Using modules configuration:
+> mod_achievements.conf
+> mod_account_mount.conf
+> mod_ahbot.conf
+> Anticheat.conf
+> mod_aoe_loot.conf
+> AutoBalance.conf
+> challenge_modes.conf
+> ChatTransmitter.conf
+> mod_congratsonlevel.conf
+> mod_dungeon_clear.conf
+> mod_dungeon_master.conf
+> fly-anywhere.conf
+> mod_guildhouse.conf
+> mod_improved_bank.conf
+> individualProgression.conf
+> individual_xp.conf
+> instance-reset.conf
+> mod_item_upgrade.conf
+> mod_learnspells.conf
+> mod_mythic_plus.conf
+> mod_no_hearthstone_cooldown.conf
+> mod_npc_beastmaster.conf
+> playerbots.conf
+> premium.conf
+> random_enchants.conf
+> reward_system.conf
+> reward_shop.conf
+> seasonpass.conf
+> skip_dk_module.conf
+> SoloLfg.conf
+> mod_starterguild.conf
+> transmog.conf
+> mod_worgoblin.conf
+> WorldChat.conf
+ 
+Initializing Scripts...
+> Loading C++ scripts
+ 
+[ModChatTransmitter] Initializing...
+DungeonMaster: Registering scripts...
+Beastmaster: Registered commands: .beastmaster, .petname rename, .petname cancel
+> Config: Found config value 'Updates.EnableDatabases' from environment variable 'AC_UPDATES_ENABLE_DATABASES'.
+> AUTOUPDATER: Automatic database updates are disabled for all databases in the config! This is not recommended!
+> Config: Found config value 'LoginDatabaseInfo' from environment variable 'AC_LOGIN_DATABASE_INFO'.
+Opening DatabasePool 'acore_auth'. Asynchronous connections: 1, synchronous connections: 1.
+DatabasePool 'acore_auth' opened successfully. 2 total connections running.
+ 
+> Config: Found config value 'CharacterDatabaseInfo' from environment variable 'AC_CHARACTER_DATABASE_INFO'.
+Opening DatabasePool 'acore_characters'. Asynchronous connections: 1, synchronous connections: 1.
+DatabasePool 'acore_characters' opened successfully. 2 total connections running.
+ 
+> Config: Found config value 'WorldDatabaseInfo' from environment variable 'AC_WORLD_DATABASE_INFO'.
+Opening DatabasePool 'acore_world'. Asynchronous connections: 1, synchronous connections: 1.
+DatabasePool 'acore_world' opened successfully. 2 total connections running.
+ 
+> Config: Found config value 'PlayerbotsDatabaseInfo' from environment variable 'AC_PLAYERBOTS_DATABASE_INFO'.
+Opening DatabasePool 'acore_playerbots'. Asynchronous connections: 1, synchronous connections: 1.
+DatabasePool 'acore_playerbots' opened successfully. 2 total connections running.
+ 
+Updating Playerbots database...
+>> Playerbots database is up-to-date! Containing 31 new and 0 archived updates.
+ 
+Loading World Information...
+> RealmID:              1
+> Version DB world:     ACDB 335.17-dev
+AutoBalance::OnBeforeConfigLoad: Config loaded. Global config time set to (1788475354858636).
+ 
+Loading Modules Configuration...
+ 
+Using modules configuration:
+> mod_achievements.conf
+> mod_account_mount.conf
+> mod_ahbot.conf
+> Anticheat.conf
+> mod_aoe_loot.conf
+> AutoBalance.conf
+> challenge_modes.conf
+> ChatTransmitter.conf
+> mod_congratsonlevel.conf
+> mod_dungeon_clear.conf
+> mod_dungeon_master.conf
+> fly-anywhere.conf
+> mod_guildhouse.conf
+> mod_improved_bank.conf
+> individualProgression.conf
+> individual_xp.conf
+> instance-reset.conf
+> mod_item_upgrade.conf
+> mod_learnspells.conf
+> mod_mythic_plus.conf
+> mod_no_hearthstone_cooldown.conf
+> mod_npc_beastmaster.conf
+> playerbots.conf
+> premium.conf
+> random_enchants.conf
+> reward_system.conf
+> reward_shop.conf
+> seasonpass.conf
+> skip_dk_module.conf
+> SoloLfg.conf
+> mod_starterguild.conf
+> transmog.conf
+> mod_worgoblin.conf
+> WorldChat.conf
+> mod_achievements.conf
+> mod_account_mount.conf
+> mod_ahbot.conf
+> Anticheat.conf
+> mod_aoe_loot.conf
+> AutoBalance.conf
+> challenge_modes.conf
+> ChatTransmitter.conf
+> mod_congratsonlevel.conf
+> mod_dungeon_clear.conf
+> mod_dungeon_master.conf
+> fly-anywhere.conf
+> mod_guildhouse.conf
+> mod_improved_bank.conf
+> individualProgression.conf
+> individual_xp.conf
+> instance-reset.conf
+> mod_item_upgrade.conf
+> mod_learnspells.conf
+> mod_mythic_plus.conf
+> mod_no_hearthstone_cooldown.conf
+> mod_npc_beastmaster.conf
+> playerbots.conf
+> premium.conf
+> random_enchants.conf
+> reward_system.conf
+> reward_shop.conf
+> seasonpass.conf
+> skip_dk_module.conf
+> SoloLfg.conf
+> mod_starterguild.conf
+> transmog.conf
+> mod_worgoblin.conf
+> WorldChat.conf
+ 
+Loading Quest XP cache....
+Loaded 5657 quest XP values into cache
+Client cache version set to: 17
+Will clear `logs` table of entries older than 1209600 seconds every 10 minutes.
+> Config: Found config value 'DataDir' from environment variable 'AC_DATA_DIR'.
+Using DataDir /azerothcore/env/dist/data/
+WORLD: VMap support included. LineOfSight:true, getHeight:true, indoorCheck:true PetLOS:true
+AuctionHouseBot: No character GUIDs found when looking up values from AuctionHouseBot.GUIDs from the character database 'characters.guid'.
+> Config: Missing property AuctionHouseBot.CompleteItemValueOverride.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.CompleteItemValueOverride.Items in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.Items = " to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_ITEMS' as an environment variable.
+> Config: Missing property AuctionHouseBot.CompleteItemValueOverride.DoApplyBidVariations in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.DoApplyBidVariations = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_DO_APPLY_BID_VARIATIONS' as an environment variable.
+> Config: Missing property AuctionHouseBot.CompleteItemValueOverride.DoApplyBuyoutVariations in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.DoApplyBuyoutVariations = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_DO_APPLY_BUYOUT_VARIATIONS' as an environment variable.
+> Config: Missing property AuctionHouseBot.MinutesBetweenBuyCycle in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.MinutesBetweenBuyCycle = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_MINUTES_BETWEEN_BUY_CYCLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.MinutesBetweenSellCycle in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.MinutesBetweenSellCycle = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_MINUTES_BETWEEN_SELL_CYCLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Weapon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Armor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Recipe = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.MinDropRate in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.MinDropRate = 0.005" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_MIN_DROP_RATE' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Weapon.AffectedQualities in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Weapon.AffectedQualities = 2,3,4,5" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_WEAPON_AFFECTED_QUALITIES' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Armor.AffectedQualities in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Armor.AffectedQualities = 2,3,4,5" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_ARMOR_AFFECTED_QUALITIES' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Recipe.AffectedQualities in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Recipe.AffectedQualities = 2,3,4,5" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_RECIPE_AFFECTED_QUALITIES' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.DisabledItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.DisabledItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_DISABLED_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.MaxBuyoutPriceInCopper in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.MaxBuyoutPriceInCopper = 1000000000" to this file or define 'AC_AUCTION_HOUSE_BOT_MAX_BUYOUT_PRICE_IN_COPPER' as an environment variable.
+> Config: Missing property AuctionHouseBot.BuyoutVariationReducePercent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.BuyoutVariationReducePercent = 0.15" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYOUT_VARIATION_REDUCE_PERCENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.BuyoutVariationAddPercent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.BuyoutVariationAddPercent = 0.25" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYOUT_VARIATION_ADD_PERCENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.BidVariationHighReducePercent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.BidVariationHighReducePercent = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_BID_VARIATION_HIGH_REDUCE_PERCENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.BidVariationLowReducePercent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.BidVariationLowReducePercent = 0.25" to this file or define 'AC_AUCTION_HOUSE_BOT_BID_VARIATION_LOW_REDUCE_PERCENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.BuyoutBelowVendorVariationAddPercentEnabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.BuyoutBelowVendorVariationAddPercentEnabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYOUT_BELOW_VENDOR_VARIATION_ADD_PERCENT_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.BuyoutBelowVendorVariationAddPercent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.BuyoutBelowVendorVariationAddPercent = 0.25" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYOUT_BELOW_VENDOR_VARIATION_ADD_PERCENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingExpireTimeInSecondsMin in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingExpireTimeInSecondsMin = 900" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_EXPIRE_TIME_IN_SECONDS_MIN' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingExpireTimeInSecondsMax in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingExpireTimeInSecondsMax = 86400" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_EXPIRE_TIME_IN_SECONDS_MAX' as an environment variable.
+> Config: Missing property AuctionHouseBot.Buyer.BuyCandidatesPerBuyCycle in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.Buyer.BuyCandidatesPerBuyCycle = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYER_BUY_CANDIDATES_PER_BUY_CYCLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.Buyer.AcceptablePriceModifier in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.Buyer.AcceptablePriceModifier = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYER_ACCEPTABLE_PRICE_MODIFIER' as an environment variable.
+> Config: Missing property AuctionHouseBot.Buyer.AlwaysBidMaxCalculatedPrice in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.Buyer.AlwaysBidMaxCalculatedPrice = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYER_ALWAYS_BID_MAX_CALCULATED_PRICE' as an environment variable.
+> Config: Missing property AuctionHouseBot.Buyer.PreventOverpayingForVendorItems in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.Buyer.PreventOverpayingForVendorItems = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYER_PREVENT_OVERPAYING_FOR_VENDOR_ITEMS' as an environment variable.
+> Config: Missing property AuctionHouseBot.Buyer.BidAgainstPlayers in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.Buyer.BidAgainstPlayers = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_BUYER_BID_AGAINST_PLAYERS' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Consumable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Consumable = 50" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_CONSUMABLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Container in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Container = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_CONTAINER' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Weapon = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Gem in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Gem = 5" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_GEM' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Armor = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Reagent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Reagent = 50" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_REAGENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Projectile in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Projectile = 100" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_PROJECTILE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.TradeGood in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.TradeGood = 50" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_TRADE_GOOD' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Generic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Generic = 100" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_GENERIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Recipe = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Quiver in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Quiver = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_QUIVER' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Quest in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Quest = 10" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_QUEST' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Key in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Key = 10" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_KEY' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Misc in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Misc = 100" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_MISC' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomRatio.Glyph in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomRatio.Glyph = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_RATIO_GLYPH' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Consumable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Consumable = 5" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_CONSUMABLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Container in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Container = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_CONTAINER' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Weapon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Gem in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Gem = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_GEM' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Armor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Reagent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Reagent = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_REAGENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Projectile in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Projectile = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_PROJECTILE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.TradeGood in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.TradeGood = 5" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_TRADE_GOOD' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Generic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Generic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_GENERIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Recipe = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Quiver in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Quiver = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_QUIVER' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Quest in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Quest = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_QUEST' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Key in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Key = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_KEY' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Misc in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Misc = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_MISC' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.RandomStackIncrement.Glyph in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.RandomStackIncrement.Glyph = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_RANDOM_STACK_INCREMENT_GLYPH' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Consumable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Consumable = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_CONSUMABLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Container in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Container = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_CONTAINER' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Weapon = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Gem in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Gem = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_GEM' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Armor = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Reagent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Reagent = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_REAGENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Projectile in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Projectile = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_PROJECTILE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.TradeGood in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.TradeGood = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_TRADE_GOOD' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Generic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Generic = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_GENERIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Recipe = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Quiver in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Quiver = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_QUIVER' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Quest in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Quest = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_QUEST' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Key in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Key = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_KEY' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Misc in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Misc = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_MISC' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListingStack.MaxStackSize.Glyph in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListingStack.MaxStackSize.Glyph = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTING_STACK_MAX_STACK_SIZE_GLYPH' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListProportion.ListMultipliedItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListProportion.ListMultipliedItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_LIST_PROPORTION_LIST_MULTIPLIED_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Consumable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Consumable = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Container in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Container = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Weapon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Gem in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Gem = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Armor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Reagent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Reagent = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Projectile in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Projectile = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.TradeGood in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.TradeGood = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Generic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Generic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Recipe = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Quiver in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Quiver = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Quest in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Quest = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Key in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Key = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Misc in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Misc = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Category.Glyph in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Category.Glyph = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Consumable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Consumable = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_CONSUMABLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Container in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Container = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_CONTAINER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Weapon = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Gem in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Gem = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_GEM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Armor = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Reagent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Reagent = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_REAGENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Projectile in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Projectile = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_PROJECTILE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.TradeGood in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.TradeGood = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_TRADE_GOOD' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Generic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Generic = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_GENERIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Recipe = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Quiver in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Quiver = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_QUIVER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Quest in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Quest = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_QUEST' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Key in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Key = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_KEY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Misc in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Misc = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_MISC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Glyph in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.ItemLevel.Category.Glyph = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_ITEM_LEVEL_CATEGORY_GLYPH' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Poor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Poor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Normal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Normal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Uncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Uncommon = 1.8" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Rare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Rare = 1.9" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Epic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Epic = 2.1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Legendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Legendary = 3" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Artifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Artifact = 3" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.Quality.Heirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.Quality.Heirloom = 3" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryConsumable.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONSUMABLE_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryContainer.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_CONTAINER_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryWeapon.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_WEAPON_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGem.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGem.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GEM_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryArmor.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_ARMOR_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryReagent.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_REAGENT_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryProjectile.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PROJECTILE_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryTradeGood.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_TRADE_GOOD_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGeneric.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GENERIC_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryRecipe.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_RECIPE_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMoney.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MONEY_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuiver.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUIVER_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryQuest.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_QUEST_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryKey.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryKey.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_KEY_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPermanent.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PERMANENT_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMisc.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MISC_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryGlyph.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_GLYPH_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityRare = 3000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityEpic = 5750" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryMount.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryMount.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_MOUNT_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityPoor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityPoor = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_POOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityNormal in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityNormal = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_NORMAL' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityUncommon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityUncommon = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_UNCOMMON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityRare in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityRare = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_RARE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityEpic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityEpic = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_EPIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityLegendary in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityLegendary = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_LEGENDARY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityArtifact in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityArtifact = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_ARTIFACT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMultiplier.CategoryPet.QualityHeirloom in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMultiplier.CategoryPet.QualityHeirloom = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MULTIPLIER_CATEGORY_PET_QUALITY_HEIRLOOM' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Consumable.Potion.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Consumable.Potion.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_CONSUMABLE_POTION_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Consumable.Elixir.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Consumable.Elixir.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_CONSUMABLE_ELIXIR_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Consumable.Flask.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Consumable.Flask.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_CONSUMABLE_FLASK_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Gem.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Gem.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_GEM_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.Cloth.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.Cloth.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_CLOTH_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.Herb.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.Herb.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_HERB_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.MetalStone.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.MetalStone.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_METAL_STONE_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.Leather.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.Leather.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_LEATHER_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.Enchanting.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.Enchanting.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_ENCHANTING_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.Elemental.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.Elemental.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_ELEMENTAL_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.TradeGood.Meat.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.TradeGood.Meat.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_TRADE_GOOD_MEAT_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Misc.Junk.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Misc.Junk.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_MISC_JUNK_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Misc.Mount.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Misc.Mount.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_MISC_MOUNT_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.AdvancedPricing.Misc.Pet.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedPricing.Misc.Pet.Enabled = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_PRICING_MISC_PET_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.UseItemSellPriceIfHigher in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.UseItemSellPriceIfHigher = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_USE_ITEM_SELL_PRICE_IF_HIGHER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Consumable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Consumable = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_CONSUMABLE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Container in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Container = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_CONTAINER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Weapon in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Weapon = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_WEAPON' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Gem in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Gem = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_GEM' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Armor in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Armor = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_ARMOR' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Reagent in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Reagent = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_REAGENT' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Projectile in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Projectile = 5" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_PROJECTILE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.TradeGood in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.TradeGood = 850" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_TRADE_GOOD' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Generic in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Generic = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_GENERIC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Recipe in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Recipe = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_RECIPE' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Quiver in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Quiver = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_QUIVER' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Quest in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Quest = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_QUEST' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Key in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Key = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_KEY' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Misc in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Misc = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_MISC' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.Glyph in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.Glyph = 1000" to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_GLYPH' as an environment variable.
+> Config: Missing property AuctionHouseBot.PriceMinimumCenterBase.OverrideItems in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.PriceMinimumCenterBase.OverrideItems = " to this file or define 'AC_AUCTION_HOUSE_BOT_PRICE_MINIMUM_CENTER_BASE_OVERRIDE_ITEMS' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemLevelRestrict.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemLevelRestrict.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemLevelRestrict.UseCraftedItemForCalculation in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemLevelRestrict.UseCraftedItemForCalculation = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_USE_CRAFTED_ITEM_FOR_CALCULATION' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemLevelRestrict.MinItemLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemLevelRestrict.MinItemLevel = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_MIN_ITEM_LEVEL' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemLevelRestrict.MaxItemLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemLevelRestrict.MaxItemLevel = 999" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_MAX_ITEM_LEVEL' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemLevelRestrict.ExceptionItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemLevelRestrict.ExceptionItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_EXCEPTION_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemIDRestrict.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemIDRestrict.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_IDRESTRICT_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemIDRestrict.MinItemID in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemIDRestrict.MinItemID = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_IDRESTRICT_MIN_ITEM_ID' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemIDRestrict.MaxItemID in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemIDRestrict.MaxItemID = 200000" to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_IDRESTRICT_MAX_ITEM_ID' as an environment variable.
+> Config: Missing property AuctionHouseBot.ListedItemIDRestrict.ExceptionItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ListedItemIDRestrict.ExceptionItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_LISTED_ITEM_IDRESTRICT_EXCEPTION_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_EQUIP_ITEM_USE_OR_EQUIP_LEVEL_RESTRICT_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.MinLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.MinLevel = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_EQUIP_ITEM_USE_OR_EQUIP_LEVEL_RESTRICT_MIN_LEVEL' as an environment variable.
+> Config: Missing property AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.MaxLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.MaxLevel = 999" to this file or define 'AC_AUCTION_HOUSE_BOT_EQUIP_ITEM_USE_OR_EQUIP_LEVEL_RESTRICT_MAX_LEVEL' as an environment variable.
+> Config: Missing property AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.ExceptionItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.ExceptionItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_EQUIP_ITEM_USE_OR_EQUIP_LEVEL_RESTRICT_EXCEPTION_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.DisabledItemTextFilter in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.DisabledItemTextFilter = 1" to this file or define 'AC_AUCTION_HOUSE_BOT_DISABLED_ITEM_TEXT_FILTER' as an environment variable.
+> Config: Missing property AuctionHouseBot.DisabledRecipeProducedItemFilterEnabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.DisabledRecipeProducedItemFilterEnabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_DISABLED_RECIPE_PRODUCED_ITEM_FILTER_ENABLED' as an environment variable.
+> Config: Missing property AuctionHouseBot.DisabledInvalidItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.DisabledInvalidItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_DISABLED_INVALID_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.DisabledCustomItemIDs in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.DisabledCustomItemIDs = " to this file or define 'AC_AUCTION_HOUSE_BOT_DISABLED_CUSTOM_ITEM_IDS' as an environment variable.
+> Config: Missing property AuctionHouseBot.DisabledRecipeProducedItemClassSubClasses in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.DisabledRecipeProducedItemClassSubClasses = " to this file or define 'AC_AUCTION_HOUSE_BOT_DISABLED_RECIPE_PRODUCED_ITEM_CLASS_SUB_CLASSES' as an environment variable.
+AnticheatModule Loaded.
+> Config: Missing property DungeonMaster.Roguelike.Buff.1 in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "DungeonMaster.Roguelike.Buff.1 = " to this file or define 'AC_DUNGEON_MASTER_ROGUELIKE_BUFF_1' as an environment variable.
+DungeonMaster: No roguelike buffs configured — using defaults.
+DungeonMaster: Config loaded — 6 difficulties, 9 themes, 45 dungeons, 10 roguelike buffs.
+> Config: Missing property SeasonPass.Prestige.Max in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.Max = 300" to this file or define 'AC_SEASON_PASS_PRESTIGE_MAX' as an environment variable.
+> Config: Missing property SeasonPass.Prestige.GoldBase in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.GoldBase = 500000" to this file or define 'AC_SEASON_PASS_PRESTIGE_GOLD_BASE' as an environment variable.
+> Config: Missing property SeasonPass.Prestige.GoldPerLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.GoldPerLevel = 100000" to this file or define 'AC_SEASON_PASS_PRESTIGE_GOLD_PER_LEVEL' as an environment variable.
+> Config: Missing property SeasonPass.Prestige.XPPctPerLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.XPPctPerLevel = 3" to this file or define 'AC_SEASON_PASS_PRESTIGE_XPPCT_PER_LEVEL' as an environment variable.
+> Config: Missing property SeasonPass.Prestige.AutoGold in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.AutoGold = 100000" to this file or define 'AC_SEASON_PASS_PRESTIGE_AUTO_GOLD' as an environment variable.
+> Config: Missing property SeasonPass.Paragon.CapPerStat in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Paragon.CapPerStat = 75" to this file or define 'AC_SEASON_PASS_PARAGON_CAP_PER_STAT' as an environment variable.
+> Config: Missing property SeasonPass.Paragon.PointsPerPrestige in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Paragon.PointsPerPrestige = 2" to this file or define 'AC_SEASON_PASS_PARAGON_POINTS_PER_PRESTIGE' as an environment variable.
+> Config: Missing property SeasonPass.Paragon.MobScalePctPerPrestige in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Paragon.MobScalePctPerPrestige = 1" to this file or define 'AC_SEASON_PASS_PARAGON_MOB_SCALE_PCT_PER_PRESTIGE' as an environment variable.
+> Config: Missing property SeasonPass.Runes.ResonancePct in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Runes.ResonancePct = 2" to this file or define 'AC_SEASON_PASS_RUNES_RESONANCE_PCT' as an environment variable.
+[SeasonPass] 174 Belohnungen, 294 Kisten-Eintraege, 8 Mutatoren geladen (Saison 1).
+> Config: Missing property SeasonPass.DungeonObjectives.Enable in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.DungeonObjectives.Enable = 1" to this file or define 'AC_SEASON_PASS_DUNGEON_OBJECTIVES_ENABLE' as an environment variable.
+[SeasonPass] Saison-Content: 40 Wochenziele, 24 Runen, 6 Weltbosse, 12 Zonen, 8 Kopfgelder, 12 Dungeons, 18 Orte, 24 Erfolge.
+ 
+Loading Acore Strings...
+>> Loaded 1338 Acore Strings in 12 ms
+ 
+Loading Module Strings...
+>> Loaded 59 Module Strings in 3 ms
+ 
+Loading Module Strings Locale...
+>> Loaded 372 Module Strings Locales in 3 ms
+ 
+Initialize Data Stores...
+>> Initialized 112 Data Stores in 502 ms
+ 
+Using enUS DBC Locale As Default. All Available DBC locales: esES zhCN deDE frFR enUS 
+ 
+>> Loading Cinematic Camera files
+>> Loaded 14 Cinematic Waypoint Sets in 0 ms
+ 
+Loading Player race data...
+Loading IP Location Database...
+ 
+Loading Game Graveyard...
+>> Loaded 707 Graveyard in 4 ms
+ 
+Initializing PlayerDump Tables...
+>> Initialized Tables For PlayerDump in 22 ms.
+ 
+Loading SpellInfo Store...
+>> Loaded Spell Custom Attributes in 71 ms
+ 
+Loading Spell Cooldown Overrides...
+>> Loaded 1064 Spell Cooldown Overrides entries in 3 ms
+ 
+Loading SpellInfo Data Corrections...
+>> Loading spell dbc data corrections  in 4 ms
+ 
+Loading Spell Rank Data...
+>> Loaded 3502 spell rank records in 7 ms
+ 
+Loading Spell Specific And Aura State...
+>> Loaded Spell Specific And Aura State in 3 ms
+ 
+Loading SkillLineAbilityMultiMap Data...
+>> Loaded 10237 SkillLineAbility MultiMap Data in 1 ms
+ 
+Loading SpellInfo Custom Attributes...
+>> Loaded 509 spell custom attributes from DB in 2 ms
+>> Loaded SpellInfo Custom Attributes in 18 ms
+ 
+Loading Spell Jump Distances...
+>> Loaded 2 spell jump distances in 2 ms
+ 
+Loading SpellInfo Immunity infos...
+>> Loaded SpellInfo immunity infos in 5 ms
+Loading Player Totem models...
+>> Loaded 20 player totem model records in 2 ms
+ 
+Loading Player Shapeshift models...
+>> Loaded 112 player totem model records in 1 ms
+ 
+Loading GameObject Models...
+>> Loaded 2324 GameObject Models in 0 ms
+ 
+Loading Script Names...
+>> Loaded 3482 ScriptNames in 354 ms
+ 
+Loading Instance Template...
+>> Loaded 85 Instance Templates in 1 ms
+ 
+Loading Character Cache...
+>> Loaded Character Infos For 291 Characters in 1 ms
+ 
+Loading Instances...
+>> Loaded Instances And Binds in 7 ms
+ 
+Loading Broadcast Texts...
+>> Loaded 73039 Broadcast Texts in 134 ms
+>> Loaded 583570 Broadcast Text Locales in 699 ms
+ 
+Loading Localization Strings...
+>> Loaded 27514 Creature Locale Strings in 180 ms
+>> Loaded 20585 Gameobject Locale Strings in 117 ms
+>> Loaded 44803 Item Locale Strings in 280 ms
+>> Loaded 2481 Item Set Name Locale Strings in 23 ms
+>> Loaded 9463 Quest Locale Strings in 278 ms
+>> Loaded 13569 Quest Offer Reward Locale Strings in 101 ms
+>> Loaded 7503 Quest Request Items Locale Strings in 55 ms
+>> Loaded 8369 Npc Text Locale Strings in 72 ms
+>> Loaded 1974 Page Text Locale Strings in 44 ms
+>> Loaded 5047 Gossip Menu Option Locale Strings in 46 ms
+>> Loaded 453 Points Of Interest Locale Strings in 5 ms
+>> Loaded 106 Pet Name Locales Parts in 1 ms
+ 
+>> Localization Strings loaded in 1204 ms
+ 
+Loading Account Roles and Permissions...
+>> Loaded 654 RBAC permissions and 653 linked permissions in 4 ms
+ 
+>> Loaded 4 RBAC default permissions in 5 ms
+ 
+Loading Page Texts...
+>> Loaded 1951 Page Texts in 15 ms
+ 
+Loading Game Object Templates...
+>> Loaded 21595 Game Object Templates in 65 ms
+ 
+Loading Game Object Template Addons...
+>> Loaded 21492 Game Object Template Addons in 25 ms
+ 
+Loading Transport Templates...
+>> Loaded 30 Transport Templates in 4 ms
+ 
+Loading Spell Required Data...
+>> Loaded 50 Spell Required Records in 2 ms
+ 
+Loading Spell Group Types...
+>> Loaded 567 spell group Definitions in 2 ms
+ 
+Loading Spell Learn Skills...
+>> Loaded 103 Spell Learn Skills From DBC in 1 ms
+ 
+Loading Spell Proc Conditions and Data...
+>> Loaded 895 spell proc conditions and data in 9 ms
+ 
+Generating spell proc data from SpellMap...
+>> Generated spell proc data for 1334 spells in 3 ms
+ 
+Loading Spell Bonus Data...
+>> Loaded 1270 Extra Spell Bonus Data in 4 ms
+ 
+Loading Aggro Spells Definitions...
+>> Loaded 106 SpellThreatEntries in 2 ms
+ 
+Loading Mixology Bonuses...
+>> Loaded 21 Mixology Bonuses in 1 ms
+ 
+Loading Spell Group Stack Rules...
+>> Loaded 69 spell group stack rules in 1 ms
+ 
+>> Loaded 20 SPELL_GROUP_STACK_RULE_EXCLUSIVE_SAME_EFFECT stack rules in 1 ms
+ 
+Loading NPC Texts...
+>> Loaded 8382 Npc Texts in 69 ms
+ 
+Loading Enchant Spells Proc Datas...
+>> Loaded 42 Enchant Proc Data Definitions in 2 ms
+ 
+Loading Item Random Enchantments Table...
+>> Loaded 28725 Item Enchantment Definitions in 24 ms
+ 
+Loading Disables
+>> Loaded 763 Disables in 3 ms
+ 
+Loading Items...
+>> Loaded 46101 Item Templates in 395 ms
+ 
+Loading Item Set Names...
+>> Loaded 2481 Item Set Names in 9 ms
+ 
+Loading Creature Model Based Info Data...
+>> Loaded 24143 Creature Model Based Info in 24 ms
+ 
+Loading Creature Custom IDs Config...
+Loading Creature Templates...
+>> Loaded 40586 creature template models in 46 ms
+>> Loaded 4520 Creature Template Resistances in 9 ms
+ 
+>> Loaded 9589 Creature Template Spells in 9 ms
+ 
+>> Loaded 30202 Creature Definitions in 327 ms
+ 
+Loading Equipment Templates...
+>> Loaded 10944 Equipment Templates in 12 ms
+ 
+Loading Creature Template Addons...
+>> Loaded 12110 Creature Template Addons in 17 ms
+ 
+Loading Reputation Reward Rates...
+>> Loaded 16 Reputation Reward Rate in 2 ms
+ 
+Loading Creature Reputation OnKill Data...
+>> Loaded 2077 Creature Award Reputation Definitions in 4 ms
+ 
+Loading Reputation Spillover Data...
+>> Loaded 26 Reputation Spillover Template in 1 ms
+ 
+Loading Points Of Interest Data...
+>> Loaded 463 Points of Interest Definitions in 2 ms
+ 
+Loading Creature Base Stats...
+>> Loaded 400 Creature Base Stats in 4 ms
+ 
+Loading Spawn Group Templates...
+>> Loaded 7 spawn group templates in 1 ms
+ 
+Loading Creature Data...
+>> Loaded 1025 creature spawn variants
+>> Loaded 156186 Creatures in 715 ms
+ 
+Loading Creature sparring...
+>> Loaded 0 sparring data. DB table `creature_sparring` is empty.
+ 
+Loading Temporary Summon Data...
+>> Loaded 1359 Temporary Summons in 6 ms
+ 
+Loading Gameobject Summon Data...
+>> Loaded 105 Gameobject Summons in 1 ms
+ 
+Loading Pet Levelup Spells...
+>> Loaded 993 Pet Levelup And Default Spells For 39 Families in 0 ms
+ 
+Loading Pet default Spells additional to Levelup Spells...
+>> Loaded Addition Spells For 113 Pet Spell Data Entries in 2 ms
+ 
+Loading Summonable Creature Templates...
+>> Loaded 472 Summonable Creature emplates in 3 ms
+ 
+Loading Creature Addon Data...
+>> Loaded 35772 Creature Addons in 51 ms
+ 
+Loading Creature Movement Overrides...
+>> Loaded 10 Movement Overrides in 2 ms
+ 
+Loading Gameobject Data...
+>> Loaded 97435 Gameobjects in 420 ms
+ 
+Loading Spawn Group Data...
+>> Loaded 53 spawn group members in 5 ms
+ 
+Loading GameObject Addon Data...
+>> Loaded 109 Gameobject Addons in 1 ms
+ 
+Loading GameObject Quest Items...
+>> Loaded 863 Gameobject Quest Items in 3 ms
+ 
+Loading Creature Quest Items...
+>> Loaded 4452 Creature Quest Items in 8 ms
+ 
+Loading Creature Linked Respawn...
+>> Loaded 4273 Linked Respawns In 6 ms
+ 
+Loading Weather Data...
+>> Loaded 35 Weather Definitions in 1 ms
+ 
+Loading Quests...
+>> Loaded 9505 Quests Definitions in 243 ms
+ 
+Checking Quest Disables
+>> Checked 543 Quest Disables in 0 ms
+ 
+Loading Quest POI
+>> Loaded 18777 Quest POI definitions in 84 ms
+ 
+Loading Quests Starters and Enders...
+Loading GO Start Quest Data...
+>> Loaded 460 Quest Relations From gameobject_queststarter in 6 ms
+ 
+Loading GO End Quest Data...
+>> Loaded 459 Quest Relations From gameobject_questender in 1 ms
+ 
+Loading Creature Start Quest Data...
+>> Loaded 7717 Quest Relations From creature_queststarter in 15 ms
+ 
+Loading Creature End Quest Data...
+>> Loaded 8167 Quest Relations From creature_questender in 18 ms
+ 
+Loading Quest Greetings...
+>> Loaded 206 quest_greeting in 3 ms
+ 
+Loading Quest Greeting Locales...
+>> Loaded 75 quest greeting Locale Strings in 2 ms
+ 
+Loading Quest Money Rewards...
+>> Loaded 800 Quest Money Rewards in 2 ms
+ 
+Loading Objects Pooling Data...
+>> Loaded 9238 Objects Pools In 14 ms
+ 
+Loading Creatures Pooling Data...
+>> Loaded 1792 Creatures In Pools in 1 ms
+ 
+Loading Gameobjects Pooling Data...
+>> Loaded 33522 Gameobjects In Pools in 18 ms
+ 
+Loading Mother Pooling Data...
+>> Loaded 6475 Pools In Mother Pools in 14 ms
+ 
+Loading Quest Pooling Data...
+>> Loaded 174 Quests In Pools in 0 ms
+ 
+Starting Objects Pooling System...
+>> Pool handling system initialized, 2754 pools will be spawned by default in 24 ms
+ 
+Loading Game Event Data...
+>> Loaded 100 Holiday Dates (100 dynamic, 0 game_event overrides) in 1 ms
+Loading Game Events...
+>> Loaded 182 Game Events in 1 ms
+ 
+Loading Game Event Saves Data...
+>> Loaded 0 Game Event Saves In Game Events. DB Table `game_event_save` Is Empty.
+ 
+Loading Game Event Prerequisite Data...
+>> Loaded 0 Game Rvent Prerequisites in Game Events. DB Table `game_event_prerequisite` Is Empty.
+ 
+Loading Game Event Creature Data...
+>> Loaded 11460 Creatures In Game Events in 3 ms
+ 
+Loading Game Event GO Data...
+>> Loaded 32363 Gameobjects In Game Events in 7 ms
+ 
+Loading Game Event Model/Equipment Change Data...
+>> Loaded 0 Model/Equipment Changes In Game Events. DB Table `game_event_model_equip` Is Empty.
+ 
+Loading Game Event Quest Data...
+>> Loaded 223 Quests Additions In Game Events in 2 ms
+ 
+Loading Game Event GO Quest Data...
+>> Loaded 78 Quests Additions In Game Events in 1 ms
+ 
+Loading Game Event Quest Condition Data...
+>> Loaded 0 quest event Conditions In Game Events. DB Table `game_event_quest_condition` Is Empty.
+ 
+Loading Game Event Condition Data...
+>> Loaded 0 Conditions In Game Events. DB table `game_event_condition` Is Empty.
+ 
+Loading Game Event Condition Save Data...
+>> Loaded 0 Condition Saves In Game Events. DB Table `game_event_condition_save` Is Empty.
+ 
+Loading Game Event NPCflag Data...
+>> Loaded 5 Npcflags In Game Events In 1 ms
+ 
+Loading Game Event Seasonal Quest Relations...
+>> Loaded 694 Quests Additions In Game Events in 2 ms
+ 
+Loading Game Event Vendor Additions Data...
+>> Loaded 14 Vendor Additions In Game Events in 1 ms
+ 
+Loading Game Event Battleground Data...
+>> Loaded 6 Battleground Holidays In Game Events in 0 ms
+ 
+Loading Game Event Pool Data...
+>> Loaded 8 Pools For Game Events in 0 ms
+ 
+Loading UNIT_NPC_FLAG_SPELLCLICK Data...
+>> Loaded 334 Spellclick Definitions in 4 ms
+ 
+Loading Vehicle Template Accessories...
+>> Loaded 199 Vehicle Template Accessories in 3 ms
+ 
+Loading Vehicle Accessories...
+>> Loaded 1 Vehicle Accessories in 1 ms
+ 
+Loading Vehicle Seat Addon Data...
+>> Loaded 32 Vehicle Seat Addon entries in 1 ms
+Loading SpellArea Data...
+>> Using ICC Buff Horde: 73822
+>> Using ICC Buff Alliance: 73828
+>> Loaded 726 Spell Area Requirements in 3 ms
+ 
+Loading Area Trigger Definitions
+>> Loaded 1217 Area Trigger Definitions in 5 ms
+ 
+Loading Area Trigger Teleport Definitions...
+>> Loaded 272 Area Trigger Teleport Definitions in 2 ms
+ 
+Loading Access Requirements...
+>> Loaded 123 Rows From dungeon_access_template And 35 Rows From dungeon_access_requirements in 25 ms
+ 
+Loading Quest Area Triggers...
+>> Loaded 57 Quest Trigger Points in 1 ms
+ 
+Loading Tavern Area Triggers...
+>> Loaded 113 Tavern Triggers in 1 ms
+ 
+Loading AreaTrigger Script Names...
+>> Loaded 186 Areatrigger Scripts in 1 ms
+ 
+Loading LFG Entrance Positions...
+>> Loaded 24 LFG Entrance Positions in 1 ms
+ 
+Loading Dungeon Boss Data...
+>> Loaded 628 Instance Encounters in 2 ms
+ 
+Loading LFG Rewards...
+>> Loaded 15 LFG Dungeon Rewards in 1 ms
+ 
+Loading Graveyard-Zone Links...
+>> Loaded 735 Graveyard-Zone Links in 8 ms
+ 
+Loading Spell Pet Auras...
+>> Loaded 49 Spell Pet Auras in 2 ms
+ 
+Loading Spell Target Coordinates...
+>> Loaded 685 Spell Teleport Coordinates in 3 ms
+ 
+Loading Spell Cone definitions...
+>> Loaded 583 Spell Cone definitions in 2 ms
+ 
+Loading Enchant Custom Attributes...
+>> Loaded 47 Custom Enchant Attributes in 1 ms
+ 
+Loading linked Spells...
+>> Loaded 604 Linked Spells in 2 ms
+ 
+Loading Player Create Data...
+>> Loaded 150 Player Create Definitions in 27 ms
+ 
+Loading Player Create Items Data...
+>> Loaded 1 Custom Player Create Items in 2 ms
+ 
+Loading Player Create Skill Data...
+>> Loaded 2387 Player Create Skills in 47 ms
+ 
+Loading Player Create Spell Data...
+>> Loaded 11917 Custom Player Create Spells in 97 ms
+ 
+Loading Player Create Cast Spell Data...
+>> Loaded 75 Player Create Cast Spells in 1 ms
+ 
+Loading Player Create Action Data...
+>> Loaded 675 Player Create Actions in 91 ms
+ 
+Loading Player Create Level Stats Data...
+>> Loaded 746 Level Stats Definitions in 7 ms
+ 
+Loading Player Create XP Data...
+>> Loaded 79 XP For Level Definitions in 1 ms
+ 
+Loading Exploration BaseXP Data...
+>> Loaded 80 BaseXP Definitions in 2 ms
+ 
+Loading Pet Name Parts...
+>> Loaded 312 Pet Name Parts in 1 ms
+ 
+Loading The Max Pet Number...
+>> Loaded The Max Pet Number: 0 in 1 ms
+ 
+Loading Pet Level Stats...
+>> Loaded 2800 Level Pet Stats Definitions in 6 ms
+ 
+Loading Player Level Dependent Mail Rewards...
+>> Loaded 2 Level Dependent Mail Rewards in 1 ms
+ 
+Load Mail Server definitions...
+>> Loaded 9 Mail Server definitions in 5 ms
+ 
+Loading Creature Loot Templates...
+>> Loaded 96775 Creature Loot Templates in 118 ms
+ 
+Loading Fishing Loot Templates...
+>> Loaded 251 Fishing Loot Templates in 2 ms
+ 
+Loading Gameobject Loot Templates...
+>> Loaded 18025 Gameobject Loot Templates in 28 ms
+ 
+Loading Item Loot Templates...
+>> Loaded 3284 item loot templates in 9 ms
+ 
+Loading Mail Loot Templates...
+>> Loaded 112 mail loot templates in 2 ms
+ 
+Loading Milling Loot Templates...
+>> Loaded 45 milling loot templates in 2 ms
+ 
+Loading Pickpocketing Loot Templates...
+>> Loaded 13525 pickpocketing loot templates in 24 ms
+ 
+Loading Skinning Loot Templates...
+>> Loaded 1982 skinning loot templates in 9 ms
+ 
+Loading Disenchanting Loot Templates...
+>> Loaded 123 disenchanting loot templates in 2 ms
+ 
+Loading Prospecting Loot Templates...
+>> Loaded 47 prospecting loot templates in 2 ms
+ 
+Loading Spell Loot Templates...
+>> Loaded 163 spell loot templates in 3 ms
+ 
+Loading Reference Loot Templates...
+>> Loaded reference loot templates in 42 ms
+ 
+Loading Player Loot Templates...
+>> Loaded 28 player loot templates in 2 ms
+ 
+Loading Skill Discovery Table...
+>> Loaded 347 skill discovery definitions in 3 ms
+ 
+Loading Skill Extra Item Table...
+>> Loaded 227 spell specialization definitions in 1 ms
+ 
+Loading Skill Perfection Data Table...
+>> Loaded 72 spell perfection definitions in 1 ms
+ 
+Loading Skill Fishing Base Level Requirements...
+>> Loaded 94 areas for fishing base skill level in 0 ms
+ 
+Loading Achievements...
+>> Loaded 43 achievement references in 0 ms
+ 
+Loading Achievement Criteria Lists...
+>> Loaded 7494 achievement criteria in 1 ms
+ 
+Loading Achievement Criteria Data...
+>> Loaded 2818 additional achievement criteria data in 6 ms
+ 
+Loading Achievement Rewards...
+>> Loaded 116 achievement rewards in 2 ms
+ 
+Loading Achievement Reward Locales...
+>> Loaded 102 Achievement Reward Locale Strings in 3 ms
+ 
+Loading Completed Achievements...
+>> Loaded 43 completed achievements in 3 ms
+ 
+Loading Item Auctions...
+>> Loaded 0 auction items. DB table `auctionhouse` or `item_instance` is empty!
+ 
+Loading Auctions...
+>> Loaded 0 auctions. DB table `auctionhouse` is empty.
+ 
+Loading Guilds Definitions...
+>> Loaded 0 guild definitions. DB table `guild` is empty.
+ 
+Loading Guild Ranks...
+>> Loaded 0 guild ranks. DB table `guild_rank` is empty.
+ 
+Loading Guild Members...
+>> Loaded 0 guild members. DB table `guild_member` is empty.
+ 
+Loading Bank Tab Rights...
+>> Loaded 0 guild bank tab rights. DB table `guild_bank_right` is empty.
+ 
+Loading Guild Event Logs...
+>> Loaded 0 guild event logs. DB table `guild_eventlog` is empty.
+ 
+Loading Guild Bank Event Logs...
+>> Loaded 0 guild bank event logs. DB table `guild_bank_eventlog` is empty.
+ 
+Loading Guild Bank Tabs...
+>> Loaded 0 guild bank tabs. DB table `guild_bank_tab` is empty.
+ 
+Filling bank tabs with items...
+>> Loaded 0 guild bank tab items. DB table `guild_bank_item` or `item_instance` is empty.
+ 
+Validating data of loaded guilds...
+>> Validated data of loaded guilds in 0 ms
+ 
+Loading ArenaTeams...
+>> Loaded 0 arena teams. DB table `arena_team` is empty!
+ 
+Loading Groups...
+>> Loaded 0 group definitions. DB table `groups` is empty!
+ 
+Loading Group Members...
+>> Loaded 0 group members. DB table `group_member` is empty!
+ 
+Loading Reserved Names...
+>> Loaded 0 reserved names. DB table `reserved_name` is empty!
+>> Loaded 16330 reserved names from DBC in 4 ms
+ 
+Loading Profanity Names...
+>> Loaded 0 profanity names. DB table `profanity_name` is empty!
+>> Loaded 8267 profanity names from DBC in 3 ms
+ 
+Loading Chat Filter...
+>> Loaded 0 chat filter words. DB table `chat_filter` is empty!
+ 
+Loading GameObjects for Quests...
+>> Loaded 1820 GameObjects for quests in 1 ms
+ 
+Loading BattleMasters...
+>> Loaded 146 battlemaster entries in 3 ms
+ 
+Loading GameTeleports...
+>> Loaded 1989 GameTeleports in 6 ms
+ 
+Loading Trainers...
+>> Loaded 152 Trainers in 17 ms
+Loading Creature default trainers...
+>> Loaded 855 default trainers in 2 ms
+Loading Gossip Menu...
+>> Loaded 6133 gossip_menu entries in 6 ms
+ 
+Loading Gossip Menu Options...
+>> Loaded 4789 gossip_menu_option entries in 16 ms
+ 
+Loading Vendors...
+>> Loaded 42261 Vendors in 63 ms
+ 
+Loading Waypoints...
+>> Loaded 156799 waypoints in 254 ms
+ 
+Loading Waypoint Addons...
+>> Loaded 0 waypoint addon data. DB table `waypoint_data_addon` is empty!
+ 
+Loading SmartAI Waypoints...
+>> Loaded 850 SmartAI waypoint paths (total 13836 waypoints) in 19 ms
+ 
+Loading Creature Formations...
+>> Loaded 7480 Creatures In Formations in 15 ms
+ 
+Loading WorldStates...
+>> Loaded 244 World States in 2 ms
+ 
+Loading Conditions...
+>> Loaded 17572 conditions in 67 ms
+ 
+Loading Faction Change Achievement Pairs...
+>> Loaded 124 faction change achievement pairs in 1 ms
+ 
+Loading Faction Change Spell Pairs...
+>> Loaded 113 faction change spell pairs in 1 ms
+ 
+Loading Faction Change Item Pairs...
+>> Loaded 1395 faction change item pairs in 3 ms
+ 
+Loading Faction Change Reputation Pairs...
+>> Loaded 15 faction change reputation pairs in 0 ms
+ 
+Loading Faction Change Title Pairs...
+>> Loaded 22 faction change title pairs in 1 ms
+ 
+Loading Faction Change Quest Pairs...
+>> Loaded 293 faction change quest pairs in 1 ms
+ 
+Loading GM Tickets...
+>> Loaded 0 GM tickets. DB table `gm_ticket` is empty!
+Loading GM Surveys...
+>> Loaded GM Survey count from database in 1 ms
+ 
+Loading Client Addons...
+>> Loaded 23 known addons in 1 ms
+ 
+Deleting Invalid Mail Items...
+ 
+Returning Old Mails...
+ 
+Loading Autobroadcasts...
+Loading Motd...
+Loading Motd locale...
+>> Loaded 0 motd locale definitions. DB table `motd_localized` is empty for this realm!
+ 
+>> Loaded 0 motd locale definitions in 1 ms
+>> Loaded motd definitions in 3 ms
+ 
+Loading spell_scripts...
+>> Loaded 130 script definitions in 2 ms
+ 
+Loading event_scripts...
+>> Loaded 472 script definitions in 3 ms
+ 
+Loading waypoint_scripts...
+>> Loaded 568 script definitions in 3 ms
+ 
+Loading Spell Script Names...
+>> Loaded 2975 spell script names in 11 ms
+ 
+Loading Creature Texts...
+>> Loaded 19195 Creature Texts For 4289 Creatures in 75 ms
+ 
+Loading Creature Text Options...
+>> Loaded 49 Creature Text Options in 4 ms
+ 
+Loading Creature Text Locales...
+>> Loaded 14027 Creature Text Locale in 31 ms
+ 
+Loading Scripts...
+Loading Script Waypoints For 57 Creature(s)...
+>> Loaded 1990 Script Waypoint nodes in 7 ms
+>> Loaded 3692 C++ scripts in 45 ms
+ 
+Validating Spell Scripts...
+>> Validated 3477 scripts in 4 ms
+ 
+Loading SmartAI Scripts...
+>> Loaded 14794 SmartAI scripts in 321 ms
+ 
+Loading Calendar Data...
+>> Loaded 0 calendar events
+>> Loaded 0 calendar invites
+ 
+Initializing SpellInfo Precomputed Data...
+ 
+Initialize Commands...
+Initialize Game Time and Timers
+ 
+Starting Map System
+ 
+Starting Game Event system...
+ 
+Loading WorldState...
+Player::DeleteOldChars: Deleting all characters which have been deleted 30 days before...
+ 
+Initializing Opcodes...
+Loading Arena Season Rewards...
+>> Loaded 39 arena season rewards in 3 ms
+ 
+Loading Active Arena Season...
+Arena Season 8 loaded...
+ 
+Starting Battleground System
+>> Loaded 13 battlegrounds in 1 ms
+ 
+Starting Outdoor PvP System
+>> Loaded 7 outdoor PvP definitions in 1 ms
+ 
+Starting Battlefield System
+Battlefield: Wintergrasp successfully initiated.
+ 
+Loading Transports...
+>> Spawned 21 continent motion transports in 124 ms
+Loading Warden Checks...
+>> Loaded 793 warden checks.
+ 
+Loading Warden Action Overrides...
+>> Loaded 1 warden action overrides.
+ 
+Deleting Expired Bans...
+Calculate Next Daily Quest Reset Time...
+Calculate Next Weekly Quest Reset Time...
+Calculate Next Monthly Quest Reset Time...
+Calculate Random Battleground Reset Time...
+Calculate Deletion Of Old Calendar Events Time...
+Calculate Guild Cap Reset Time...
+ 
+Load Petitions...
+>> Loaded 0 Petitions!
+ 
+Load Petition Signs...
+>> Loaded 0 Petition signs!
+ 
+Load Stored Loot Items...
+>> Loaded 0 stored items!
+ 
+Load Channel Rights...
+>> Loaded 0 Channel Rights!
+ 
+Load Channels...
+>> Loaded 0 channels. DB table `channels` is empty.
+Loading AntiDos opcode policies
+>> Loaded 102 AntiDos Opcode Policies in 1 ms
+ 
+ 
+Loading item upgrade mod custom tables...
+>> Loaded 0 character item upgrades.
+ 
+>> Loaded 0 character weapon item upgrades.
+ 
+>> Loaded 0 character weapon speed upgrades.
+ 
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║              AzerothCore Playerbots Module               ║
+║                                                          ║
+╟──────────────────────────────────────────────────────────╢
+║     mod-playerbots is a community-driven open-source     ║
+║  project based on AzerothCore, licensed under AGPLv3.0   ║
+╟──────────────────────────────────────────────────────────╢
+║      https://github.com/mod-playerbots/mod-playerbots    ║
+╚══════════════════════════════════════════════════════════╝
+ 
+Load Playerbots Config...
+Initializing mod-playerbots, based on AI Playerbots by ike3 and the original Playerbots by blueboy
+Loading TalentSpecs...
+>> 0 random bot accounts with 0 characters available
+Building equipment cache (new) for 80 levels...
+>> Cached total 24307 equipment entries in 6 ms
+ 
+Building ammo cache for 80 levels...
+>> Cached total 1465 ammo entries in 2 ms
+ 
+Building food cache for 80 levels...
+>> Cached total 524 food entries in 2 ms
+ 
+Building potion cache for 80 levels...
+>> Cached total 575 potion entries in 1 ms
+ 
+Building trade cache for 80 levels...
+>> Cached total 3003 trade entries in 1 ms
+ 
+Loading random item cache...
+>> Loaded 12563 random item records in 11 ms
+ 
+Loaded 6647 BiS entries across 18 item levels
+Loading playerbots dungeon suggestions...
+88 playerbots dungeon suggestions loaded in 1 ms
+---------------------------------------
+       mod-playerbots initialized      
+---------------------------------------
+>> Loaded playerbots config in 9129 ms
+ 
+Playerbots World Thread Processor initialized
+ 
+WORLD: World Initialized In 0 Minutes 17 Seconds
+ 
+AzerothCore rev. unknown 1970-01-01 00:00:00 +0000 (Archived branch) (Unix, RelWithDebInfo, Static) (worldserver-daemon) ready...
+AuctionHouseBot: (Re)populating item candidate lists ...
+> Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_ENABLED' as an environment variable.
+DungeonMaster: Patched BoK (25898) StackAmount → 255 for roguelike buff stacking.
+DungeonMaster: Initializing...
+DungeonMaster: Loaded 9914 trash creatures, 3748 potential bosses.
+DungeonMaster:   Trash type 10 (NotSpecified): 1494 entries
+DungeonMaster:   Trash type 9 (Mechanical): 209 entries
+DungeonMaster:   Trash type 7 (Humanoid): 4405 entries
+DungeonMaster:   Trash type 6 (Undead): 918 entries
+DungeonMaster:   Trash type 5 (Giant): 39 entries
+DungeonMaster:   Trash type 4 (Elemental): 492 entries
+DungeonMaster:   Trash type 3 (Demon): 457 entries
+DungeonMaster:   Trash type 2 (Dragonkin): 164 entries
+DungeonMaster:   Trash type 1 (Beast): 1736 entries
+DungeonMaster:   Boss  type 10 (NotSpecified): 271 entries
+DungeonMaster:   Boss  type 9 (Mechanical): 80 entries
+DungeonMaster:   Boss  type 7 (Humanoid): 1726 entries
+DungeonMaster:   Boss  type 6 (Undead): 577 entries
+DungeonMaster:   Boss  type 5 (Giant): 85 entries
+DungeonMaster:   Boss  type 4 (Elemental): 204 entries
+DungeonMaster:   Boss  type 3 (Demon): 220 entries
+DungeonMaster:   Boss  type 2 (Dragonkin): 216 entries
+DungeonMaster:   Boss  type 1 (Beast): 369 entries
+DungeonMaster: Loaded 128 real dungeon bosses into boss pool.
+DungeonMaster:   Dungeon boss type 10 (NotSpecified): 4 entries
+DungeonMaster:   Dungeon boss type 9 (Mechanical): 3 entries
+DungeonMaster:   Dungeon boss type 7 (Humanoid): 59 entries
+DungeonMaster:   Dungeon boss type 6 (Undead): 23 entries
+DungeonMaster:   Dungeon boss type 5 (Giant): 6 entries
+DungeonMaster:   Dungeon boss type 4 (Elemental): 9 entries
+DungeonMaster:   Dungeon boss type 3 (Demon): 10 entries
+DungeonMaster:   Dungeon boss type 2 (Dragonkin): 5 entries
+DungeonMaster:   Dungeon boss type 1 (Beast): 9 entries
+DungeonMaster: 332 class-level stat entries cached.
+DungeonMaster: 16597 reward items cached.
+DungeonMaster: 16718 mob loot items cached (grey=1307, white=2821, green=5114, blue=3218, epic=4258).
+DungeonMaster: No player stats found (table may be empty or missing).
+DungeonMaster: Ready — 9 creature types, 9 bosses, 9 dungeon bosses, 16597 reward items, 16718 loot items.
+RoguelikeMgr: No roguelike player stats found.
+RoguelikeMgr: Initialized — 5 affix definitions, 10 buff pool entries.
+===============================================
+ Dungeon Master Module — Ready
+ 6 difficulties | 9 themes | 45 dungeons
+ Level band: +/-3 | Max concurrent: 20
+===============================================
+Loading transmog appearance collection cache....
+Loaded 25 collected appearances into cache
+Calendar deletion of old events.
+Anticheat: Resetting daily report states.
+Anticheat: Next daily report reset: Fri Sep 04 2026 06:00:00
+mod-dungeon-clear: registered DungeonClear contexts (strategy/action/trigger/value) into all class registries of mod-playerbots.
+Saving reports for 0 players.
+> Config: Found config value 'LogsDir' from environment variable 'AC_LOGS_DIR'.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+Player Kara has invalid faction (faction template id) #2241
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+Saving reports for 0 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+Wrong format occurred (argument not found). Fmt string: '> Config: Missing property StarterGuild.HordeWelcomeText in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "StarterGuild.HordeWelcomeText = Lok’tar ogar! Welcome to the horde starter guild {GUILD} {PLAYER}." to this file or define 'AC_STARTER_GUILD_HORDE_WELCOME_TEXT' as an environment variable.'
+Wrong format occurred (argument not found). Fmt string: '> Config: Missing property StarterGuild.AllianceWelcomeText in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "StarterGuild.AllianceWelcomeText = Welcome to the alliance starter guild {GUILD} {PLAYER}. For the Alliance!" to this file or define 'AC_STARTER_GUILD_ALLIANCE_WELCOME_TEXT' as an environment variable.'
+Player Dorbo has invalid faction (faction template id) #2241
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+Player Kara (GUID: 299), has skill (356) that is invalid for the race/class combination (Race: 15, Class: 11). Will be deleted.
+Player::_LoadInventory: player (GUID Full: 0x000000000000012b Type: Player Low: 299, name: 'Kara') has item (GUID Full: 0x4000000000000fcc Type: Item Low: 4044, entry: 19972) which can't be loaded into inventory (Bag GUID: 0, slot: 0) by reason 8. Item will be sent by mail.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+Player Kara has invalid faction (faction template id) #2241
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+Saving reports for 1 players.
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.

@@ -1,0 +1,74 @@
+AzerothCore rev. unknown 1970-01-01 00:00:00 +0000 (Archived branch) (Unix, RelWithDebInfo, Static) (dbimport)
+<Ctrl-C> to stop.
+
+   █████╗ ███████╗███████╗██████╗  ██████╗ ████████╗██╗  ██╗
+  ██╔══██╗╚══███╔╝██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝██║  ██║
+  ███████║  ███╔╝ █████╗  ██████╔╝██║   ██║   ██║   ███████║
+  ██╔══██║ ███╔╝  ██╔══╝  ██╔══██╗██║   ██║   ██║   ██╔══██║
+  ██║  ██║███████╗███████╗██║  ██║╚██████╔╝   ██║   ██║  ██║
+  ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝
+                                 ██████╗ ██████╗ ██████╗ ███████╗
+                                ██╔════╝██╔═══██╗██╔══██╗██╔════╝
+                                ██║     ██║   ██║██████╔╝█████╗
+                                ██║     ██║   ██║██╔══██╗██╔══╝
+                                ╚██████╗╚██████╔╝██║  ██║███████╗
+                                 ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+     AzerothCore 3.3.5a  -  www.azerothcore.org
+
+> Using configuration file:       /azerothcore/env/dist/etc/dbimport.conf
+> Using SSL version:              OpenSSL 3.0.13 30 Jan 2024 (library: OpenSSL 3.0.13 30 Jan 2024)
+> Using Boost version:            1.83.0
+ 
+Configuration field WorldDatabaseInfo was overridden with environment variable.
+Configuration field CharacterDatabaseInfo was overridden with environment variable.
+Configuration field LoginDatabaseInfo was overridden with environment variable.
+Configuration field LogsDir was overridden with environment variable.
+Loading modules: all
+Opening DatabasePool 'acore_auth'. Asynchronous connections: 1, synchronous connections: 1.
+MySQL client library: 8.0.46
+MySQL server ver: 8.4.11 
+Connected to MySQL database at ac-database
+MySQL client library: 8.0.46
+MySQL server ver: 8.4.11 
+Connected to MySQL database at ac-database
+DatabasePool 'acore_auth' opened successfully. 2 total connections running.
+ 
+Opening DatabasePool 'acore_characters'. Asynchronous connections: 1, synchronous connections: 1.
+MySQL client library: 8.0.46
+MySQL server ver: 8.4.11 
+Connected to MySQL database at ac-database
+MySQL client library: 8.0.46
+MySQL server ver: 8.4.11 
+Connected to MySQL database at ac-database
+DatabasePool 'acore_characters' opened successfully. 2 total connections running.
+ 
+Opening DatabasePool 'acore_world'. Asynchronous connections: 1, synchronous connections: 1.
+MySQL client library: 8.0.46
+MySQL server ver: 8.4.11 
+Connected to MySQL database at ac-database
+MySQL client library: 8.0.46
+MySQL server ver: 8.4.11 
+Connected to MySQL database at ac-database
+DatabasePool 'acore_world' opened successfully. 2 total connections running.
+ 
+Updating Auth database...
+>> Auth database is up-to-date! Containing 13 new and 11 archived updates.
+ 
+Updating Character database...
+>> Character database is up-to-date! Containing 10 new and 52 archived updates.
+ 
+Updating World database...
+>> World database is up-to-date! Containing 787 new and 2446 archived updates.
+ 
+Started database connection pool.
+Halting process...
+Closing down DatabasePool 'acore_characters'. Waiting for 0 queries to finish...
+Asynchronous connections on DatabasePool 'acore_characters' terminated. Proceeding with synchronous connections.
+All connections on DatabasePool 'acore_characters' closed.
+Closing down DatabasePool 'acore_world'. Waiting for 0 queries to finish...
+Asynchronous connections on DatabasePool 'acore_world' terminated. Proceeding with synchronous connections.
+All connections on DatabasePool 'acore_world' closed.
+Closing down DatabasePool 'acore_auth'. Waiting for 0 queries to finish...
+Asynchronous connections on DatabasePool 'acore_auth' terminated. Proceeding with synchronous connections.
+All connections on DatabasePool 'acore_auth' closed.

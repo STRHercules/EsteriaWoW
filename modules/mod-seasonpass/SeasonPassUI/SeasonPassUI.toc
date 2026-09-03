@@ -1,0 +1,9 @@
+## Interface: 30300
+## Title: Season Pass UI
+## Notes: Community-Season-Pass: Saisonleiste, Minimap-Knopf, 6 Tabs, DE/EN (mod-seasonpass v4, AzerothCore)
+## Version: 4.0
+## SavedVariables: SeasonPassDB
+
+SeasonPassData.lua
+SeasonPassHUD.lua
+SeasonPass.lua

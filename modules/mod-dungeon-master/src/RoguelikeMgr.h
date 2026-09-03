@@ -1,0 +1,113 @@
+/*
+ * mod-dungeon-master — Roguelike run manager
+ * Copyright (C) 2025 — AGPL v3
+ */
+
+#ifndef ROGUELIKE_MGR_H
+#define ROGUELIKE_MGR_H
+
+#include "RoguelikeTypes.h"
+#include <mutex>
+#include <unordered_map>
+
+class Player;
+class Group;
+
+namespace Progression
+{
+struct DungeonEvent;
+}
+
+namespace DungeonMaster
+{
+
+struct Session;
+
+class RoguelikeMgr
+{
+    RoguelikeMgr();
+    ~RoguelikeMgr();
+
+public:
+    static RoguelikeMgr* Instance();
+
+    void Initialize();
+
+    // Run lifecycle
+    bool StartRun(Player* leader, uint32 difficultyId, uint32 themeId, bool scaleToParty = true);
+    void OnDungeonCompleted(uint32 runId, uint32 sessionId);
+    void OnPartyWipe(uint32 runId);
+    void EndRun(uint32 runId, bool announceResults);
+    void AbandonRun(uint32 runId);
+    void QuitRun(ObjectGuid playerGuid);
+    void PublishProgressionBegin(uint32 runId, uint32 sessionId);
+    void PublishProgressionBegin(uint32 runId, Session const& session);
+
+    // Queries
+    RoguelikeRun* GetRun(uint32 runId);
+    RoguelikeRun* GetRunBySession(uint32 sessionId);
+    RoguelikeRun* GetRunByPlayer(ObjectGuid playerGuid);
+    uint32        GetRunIdBySession(uint32 sessionId) const;
+
+    // Tier scaling
+    float GetTierHealthMultiplier(uint32 runId) const;
+    float GetTierDamageMultiplier(uint32 runId) const;
+    float GetTierArmorMultiplier(uint32 runId) const;
+    void  GetAffixMultipliers(uint32 runId, bool isBoss, bool isElite,
+                              float& outHpMult, float& outDmgMult,
+                              float& outEliteChanceMult) const;
+    bool        HasActiveAffixes(uint32 runId) const;
+    std::string GetActiveAffixNames(uint32 runId) const;
+
+    // Buff system
+    void IncrementBuffStacks(uint32 runId);
+    void ApplyBuffStacks(Player* player, uint32 runId);
+    void RemoveBuffStacks(Player* player, uint32 runId);
+    void ApplyBuffAura(Player* player, uint32 stacks);
+
+    static constexpr float BUFF_PCT_PER_STACK = 10.0f;
+
+    void Update(uint32 diff);
+
+    uint32 GetActiveRunCount() const;
+    bool   IsPlayerInRun(ObjectGuid guid) const;
+
+    // Leaderboard
+    void SaveRoguelikeLeaderboard(const RoguelikeRun& run);
+    std::vector<RoguelikeLeaderboardEntry> GetRoguelikeLeaderboard(uint32 limit = 10, bool sortByFloors = false) const;
+
+    // Player stats (separate from normal run stats)
+    void LoadAllRoguelikePlayerStats();
+    RoguelikePlayerStats GetRoguelikePlayerStats(ObjectGuid guid) const;
+    void UpdateRoguelikePlayerStats(const RoguelikeRun& run);
+
+private:
+    void BuildAffixPool();
+    void SelectAffixesForTier(RoguelikeRun& run);
+    bool TryClaimProgressionEnd(uint32 runId, bool success, Progression::DungeonEvent& event);
+    uint32 SelectRandomDungeon(const RoguelikeRun& run) const;
+    bool TransitionToNextDungeon(RoguelikeRun& run);
+    void TeleportRunPlayersOut(RoguelikeRun& run);
+    void AnnounceCountdown(const RoguelikeRun& run, uint32 remainingSec);
+    void AnnounceToRun(const RoguelikeRun& run, const char* msg);
+
+    std::unordered_map<uint32, RoguelikeRun>   _activeRuns;
+    std::unordered_map<uint32, uint32>          _sessionToRun;  // sessionId -> runId
+    std::unordered_map<ObjectGuid, uint32>      _playerToRun;   // guid -> runId
+    uint32 _nextRunId = 1;
+    mutable std::mutex _runMutex;
+
+    std::vector<AffixDef> _affixDefs;
+
+    std::unordered_map<uint32, RoguelikePlayerStats> _roguelikeStats;  // guidLow -> stats
+    mutable std::mutex _rlStatsMutex;
+
+    uint32 _updateTimer = 0;
+    static constexpr uint32 UPDATE_INTERVAL = 1000;
+};
+
+} // namespace DungeonMaster
+
+#define sRoguelikeMgr DungeonMaster::RoguelikeMgr::Instance()
+
+#endif

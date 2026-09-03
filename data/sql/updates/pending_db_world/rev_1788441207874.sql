@@ -1,4 +1,3 @@
--- Enable the existing Ogre race (ID 15) without changing other race flags.
-UPDATE `chrraces_dbc`
-SET `Flags` = `Flags` - (`Flags` & 1)
+-- Enable the existing Sethrak race (ID 15) without changing other race flags.
+UPDATE `chrraces_dbc` SET `Flags` = `Flags` - (`Flags` & 1)
 WHERE `ID` = 15 AND (`Flags` & 1) = 1;

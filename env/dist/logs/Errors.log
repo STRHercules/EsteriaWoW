@@ -1,0 +1,1299 @@
+Item (Entry: 49399) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49400) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49401) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49403) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49404) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49406) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49407) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49408) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49409) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49502) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49503) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49504) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49505) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49506) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49508) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49510) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49512) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49514) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49515) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49516) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49520) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49521) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49522) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49524) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49527) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49528) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49529) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49531) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49563) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49564) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49565) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49566) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49567) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49568) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49569) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49570) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49571) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49572) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49573) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49574) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49575) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49576) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49577) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49578) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 49579) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 52532) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 52550) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 52551) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Item (Entry: 52552) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+Pool Id 1072 is empty (has no creatures, no gameobjects, no quests and no valid child pools). The pool will not be spawned.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4737), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4737), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4720), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
+Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 16 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 17 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 18 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 19 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 20 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 21 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 22 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 23 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 24 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 25 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 26 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 27 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race 28 in `playercreateinfo` table, ignoring.
+Wrong race mask 8192 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 32768 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 65536 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 131072 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 262144 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 524288 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 1048576 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 2097152 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 4194304 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 8388608 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16777216 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 67108864 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 134217728 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 17 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 18 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 19 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 20 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 21 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 22 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 23 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 24 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 25 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 26 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 27 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 28 in `playercreateinfo_action` table, ignoring.
+Wrong race 16 in `player_race_stats` table, ignoring.
+Wrong race 17 in `player_race_stats` table, ignoring.
+Wrong race 18 in `player_race_stats` table, ignoring.
+Wrong race 19 in `player_race_stats` table, ignoring.
+Wrong race 20 in `player_race_stats` table, ignoring.
+Wrong race 21 in `player_race_stats` table, ignoring.
+Wrong race 22 in `player_race_stats` table, ignoring.
+Wrong race 23 in `player_race_stats` table, ignoring.
+Wrong race 24 in `player_race_stats` table, ignoring.
+Wrong race 25 in `player_race_stats` table, ignoring.
+Wrong race 26 in `player_race_stats` table, ignoring.
+Wrong race 27 in `player_race_stats` table, ignoring.
+Wrong race 28 in `player_race_stats` table, ignoring.
+Script named 'spell_gen_submerge_visual' is not assigned in the database.
+Script named 'spell_rocket_barrage' is not assigned in the database.
+Script named 'spell_costume_override' is not assigned in the database.
+Script named 'npc_putricide_mutated_abomination' is assigned in the database, but has no code!
+Script named 'npc_salvaged_chopper' is assigned in the database, but has no code!
+SmartAIMgr: Creature 24825 Event 11 Action 53 uses invalid forcedMovement 3, skipped.
+SmartAIMgr: Creature 24825 Event 12 Action 53 uses invalid forcedMovement 3, skipped.
+SmartAIMgr: Creature 24825 Event 13 Action 53 uses invalid forcedMovement 3, skipped.
+SmartAIMgr: Creature 24825 Event 14 Action 53 uses invalid forcedMovement 3, skipped.
+SmartAIMgr: Creature 24825 Event 15 Action 53 uses invalid forcedMovement 3, skipped.
+SmartAIMgr: Creature 24825 Event 16 Action 53 uses invalid forcedMovement 3, skipped.

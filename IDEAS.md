@@ -1,15 +1,28 @@
 # Ideas
 
+## Modules to Install
+- https://github.com/malinmr/mod-transmog-plus-ui (Replace current transmog module, get addon)
+- https://github.com/Fersantos1975/AzerCore-Ops
+- https://github.com/Youpeoples/Black-Market-Auction-House
+- https://github.com/araxiaonline/Delves
+- https://github.com/Old-Man-Warcraft/mod-nemesis-system
 
 
+### Urgent
+- Sethrak racials
+- High Elf, Worgen and Mag'har Orc need language, skills, quest access, racials
 
 
 
 ### Priority Fixes
-- Fix/Import Races and their textures 
+- Add additional Alliance Race
+    - Broken?
+    - Forsaken?
 - Add Mounts
-- Fix Starting equipment for Mag'har Orc, Worgen, Goblin, High Elf
-- Make sure All races, including New Races can do all starting zone quests
+    - Ferrari
+    - Bentley
+    - R34
+    - Lambo
 - Choose your Starting Zone 
     - Also accurately assigns hearthstone
 - Completely revamp Dream Path Seasonal content

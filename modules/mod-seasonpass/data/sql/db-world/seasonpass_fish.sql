@@ -1,0 +1,21 @@
+-- mod-seasonpass v4: Angelauftraege (taeglich rotierender Fisch)
+DROP TABLE IF EXISTS `seasonpass_fish`;
+CREATE TABLE `seasonpass_fish` (
+  `id` INT UNSIGNED NOT NULL,
+  `item` INT UNSIGNED NOT NULL,
+  `count` INT UNSIGNED NOT NULL DEFAULT 10,
+  `points` INT UNSIGNED NOT NULL DEFAULT 150,
+  `gold` INT UNSIGNED NOT NULL DEFAULT 10000 COMMENT 'Kupfer',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `seasonpass_fish` (`id`,`item`,`count`,`points`,`gold`) VALUES
+(1,6291,10,150,100000),
+(2,6289,10,150,100000),
+(3,6308,10,150,100000),
+(4,6358,10,150,100000),
+(5,6359,10,150,100000),
+(6,4603,10,150,100000),
+(7,6362,10,150,100000),
+(8,13754,10,150,100000),
+(9,27422,10,150,100000),
+(10,41800,10,150,100000);

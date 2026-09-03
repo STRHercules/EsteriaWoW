@@ -1,0 +1,21 @@
+[worldserver]
+
+#############################
+#   CONGRATS ON LEVEL-UP
+#############################
+
+# Enable the module? (1: true | 0: false)
+
+Congrats.Enable = 1
+
+# Enable the Per level congratulations announcement (1: true | 0: false)
+
+CongratsPerLevel.Enable = 1
+
+# Announce the module when the player logs in?
+
+Congrats.Announce = 1
+
+# ID Acore String Message
+
+Congrats.Acore.String.ID = 60000
