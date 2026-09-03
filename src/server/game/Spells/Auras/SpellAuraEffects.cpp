@@ -24,6 +24,9 @@
 #include "Common.h"
 #include "GameTime.h"
 #include "GridNotifiers.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "Log.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
@@ -577,6 +580,11 @@ int32 AuraEffect::CalculateAmount(Unit* caster)
 
     GetBase()->CallScriptEffectCalcAmountHandlers(this, amount, m_canBeRecalculated);
 
+#ifdef ELUNA
+    if (Eluna* e = GetBase()->GetOwner()->GetEluna())
+        e->OnAuraCalcAmount(GetBase(), this, amount, m_canBeRecalculated);
+#endif
+
     amount *= GetBase()->GetStackAmount();
     return amount;
 }
@@ -628,6 +636,11 @@ void AuraEffect::CalculatePeriodic(Unit* caster, bool create, bool load)
     }
 
     GetBase()->CallScriptEffectCalcPeriodicHandlers(this, m_isPeriodic, m_amplitude);
+
+#ifdef ELUNA
+    if (Eluna* e = GetBase()->GetOwner()->GetEluna())
+        e->OnCalcPeriodic(GetBase(), this, m_isPeriodic, m_amplitude);
+#endif
 
     if (!m_isPeriodic)
         return;
@@ -785,6 +798,11 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         prevented = GetBase()->CallScriptEffectApplyHandlers(this, const_cast<AuraApplication const*>(aurApp), (AuraEffectHandleModes)mode);
     else
         prevented = GetBase()->CallScriptEffectRemoveHandlers(this, const_cast<AuraApplication const*>(aurApp), (AuraEffectHandleModes)mode);
+
+#ifdef ELUNA
+    if (Eluna* e = aurApp->GetTarget()->GetEluna())
+        prevented = e->OnAuraApplication(GetBase(), this, aurApp->GetTarget(), mode, apply) || prevented;
+#endif
 
     // check if script events have removed the aura or if default effect prevention was requested
     if ((apply && aurApp->GetRemoveMode()) || prevented)
@@ -1068,6 +1086,11 @@ void AuraEffect::UpdatePeriodic(Unit* caster)
             break;
     }
     GetBase()->CallScriptEffectUpdatePeriodicHandlers(this);
+
+#ifdef ELUNA
+    if (Eluna* e = GetBase()->GetOwner()->GetEluna())
+        e->OnPeriodicUpdate(GetBase(), this);
+#endif
 }
 
 float AuraEffect::CalcPeriodicCritChance(Unit const* caster, Unit const* target) const
@@ -1134,6 +1157,12 @@ void AuraEffect::PeriodicTick(AuraApplication* aurApp, Unit* caster) const
 
     Unit* target = aurApp->GetTarget();
 
+#ifdef ELUNA
+    if (Eluna* e = target->GetEluna())
+        if (e->OnPeriodicTick(GetBase(), this, target))
+            return;
+#endif
+
     // Update serverside orientation of tracking channeled auras on periodic update ticks
     // exclude players because can turn during channeling and shouldn't desync orientation client/server
     if (caster && !caster->IsPlayer() && m_spellInfo->IsChanneled() && m_spellInfo->HasAttribute(SPELL_ATTR1_TRACK_TARGET_IN_CHANNEL))
@@ -1198,6 +1227,12 @@ bool AuraEffect::CheckEffectProc(AuraApplication* aurApp, ProcEventInfo& eventIn
     bool result = GetBase()->CallScriptCheckEffectProcHandlers(this, aurApp, eventInfo);
     if (!result)
         return false;
+
+#ifdef ELUNA
+    if (Eluna* e = aurApp->GetTarget()->GetEluna())
+        if (!e->OnAuraCanProc(GetBase(), eventInfo))
+            return false;
+#endif
 
     SpellInfo const* spellInfo = eventInfo.GetSpellInfo();
     switch (GetAuraType())
@@ -1287,6 +1322,12 @@ void AuraEffect::HandleProc(AuraApplication* aurApp, ProcEventInfo& eventInfo)
     bool prevented = GetBase()->CallScriptEffectProcHandlers(this, aurApp, eventInfo);
     if (prevented)
         return;
+
+#ifdef ELUNA
+    if (Eluna* e = aurApp->GetTarget()->GetEluna())
+        if (e->OnAuraProc(GetBase(), eventInfo))
+            return;
+#endif
 
     switch (GetAuraType())
     {

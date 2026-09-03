@@ -20,6 +20,9 @@
 #include "Common.h"
 #include "GameTime.h"
 #include "GridNotifiers.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 #include "Log.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
@@ -2386,6 +2389,11 @@ bool Aura::CallScriptCheckAreaTargetHandlers(Unit* target)
 
 void Aura::CallScriptDispel(DispelInfo* dispelInfo)
 {
+#ifdef ELUNA
+    if (Eluna* e = GetOwner()->GetEluna())
+        e->OnAuraDispel(this, dispelInfo);
+#endif
+
     for (std::list<AuraScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(AURA_SCRIPT_HOOK_DISPEL);
