@@ -324,7 +324,8 @@ void WorldSession::HandleQuestgiverChooseRewardOpcode(WorldPacket& recvData)
 
 #ifdef ELUNA
                             if (Eluna* e = _player->GetEluna())
-                                e->OnQuestReward(_player, questgiver, quest, reward);
+                                if (e->OnQuestReward(_player, questgiver, quest, reward))
+                                    return;
 #endif
 
                             questgiver->AI()->sQuestReward(_player, quest, reward);
@@ -349,7 +350,8 @@ void WorldSession::HandleQuestgiverChooseRewardOpcode(WorldPacket& recvData)
 
 #ifdef ELUNA
                             if (Eluna* e = _player->GetEluna())
-                                e->OnQuestReward(_player, questGiver, quest, reward);
+                                if (e->OnQuestReward(_player, questGiver, quest, reward))
+                                    return;
 #endif
 
                             questGiver->AI()->QuestReward(_player, quest, reward);
