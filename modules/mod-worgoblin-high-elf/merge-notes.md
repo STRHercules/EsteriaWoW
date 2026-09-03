@@ -1,0 +1,342 @@
+# Notes: Merging Worgoblin, AzerothCore High Elf, ARAC-updated, and a few other modules
+This project is mainly for my own convenience, but I know some other people want to merge the same mods too.
+
+## mod-junk-to-gold [repo](https://github.com/noisiver/mod-junk-to-gold)
+This is technically not a "merger" so much as an accommodation. This fantastic module has one small downside: it sometimes sells items you need for quests! So far, I've only had this happen with Noboru's Cudgel, item_template.entry 6191, but I'm going to keep a list of items that should not be automatically sold in an SQL file for turning those items white instead of gray. Simple fix.
+
+## azerothcore-highelf [repo](https://github.com/abracadaniel22/azerothcore-highelf)
+### files in mod directory
+
+### base mod
+#### playerbots.patch
+This one seems to be very outdated, so I mostly used it as a checklist and just added High Elf entries along the Worgoblin ones instead.
+
+#### highelf.patch
+This one is also outdated, so I mostly used it as a checklist and added High Elf entries to the Worgoblin ones.
+
+### base mod/client/Data
+I will adopt the Worgoblin practice of using a folder named patch-A.MPQ instead of actual MPQ files. This makes DBCs much easier to work with.
+
+#### patch-7.mpq
+None of the skin files contain filenames conflicting with any Worgoblin files, so I can simply add them to the working Worgoblin patch-A.MPQ.
+
+However, the Interface files require merging. I have to:
+
+1. Edit the two files in GLUES/CHARACTERCREATE, adding High Elf portraits to the working Worgoblin files.
+2. Modify the Race selection buttons in CharacterCreate.xml.
+3. Modify the coordinates for where the portraits are found in the GLUES/CHARACTERCREATE files.
+
+---
+
+#### patch-a.mpq and patch-t.mpq
+Comparing the CSV exports of all the DBCs, I found that patch-t.mpq only contained five DBCs, all of which were already present in patch-a.mpq, four of which are exactly the same. The only one that differs is CharSections.dbc, and this is apparently due to issues with an HD patch.
+
+There seem to be three differences:
+1. The field containing *_Extra.blp has been populated in the patch-t.mpq version.
+2. The patch-t.mpq version contains mappings for Goblins.
+3. The patch-t.mpq version has higher IDs for High Elf mappings.
+
+Since I am merging High Elves into an already working Worgoblin setup, the two first differences are of no consequence for me, but the third might be. The high IDs are [Blood Elf equivalent]+22000, as stated in the patch file. Might be important to know. Also: no overlap with any Worgoblin ID, which is good.
+
+I will take the patch-t.mpq version, extract the mappings for race 12 (High Elf here, Worgen in Worgoblin) and change them to 13 (High Elf in my merger), then merely append them to my working DBC.
+
+Once this is done, I don't need to think about patch-t.mpq and can concentrate on merging patch-a.mpq.
+
+---
+
+#### server
+These DBCs are the same as the ones in patch-a.mpq, probably separated for user convenience. I don't need to include them.
+
+---
+
+#### Merging DBCs with Worgoblin ones
+
+##### BarberShopStyle.dbc
+- IDs conflict, but probably don't matter. 
+- Race 12 –> 13
+- Increment IDs starting from 1300 (for space and association with race 13)
+- 56 High Elf entries
+
+##### CharacterFacialHairStyles.dbc
+- ID conflict, but probably don't matter.
+- Contains race 13 (Naga): existing race 13 -> 22 (in every file)
+- Race 12 -> 13
+- Increment IDs from 530 (for space and association with race 13)
+- 21 High Elf entries
+
+##### CharBaseInfo.dbc
+- IDs conflict, but don't matter.
+- Incrementing naïvely.
+- 8 High Elf entries
+- 2 High Elf ARAC entries (10 total)
+
+##### CharHairGeosets.dbc
+- IDs conflict, but probably don't matter.
+- Incrementing from 570 (for space)
+- Existing race 13 -> 22
+- Race 12 -> 13
+- 36 High Elf entries
+
+##### CharHairTextures.dbc
+- IDs conflict, but probably don't matter.
+- All entries have more or less the same values except race and gender, though races 1–5 have many entries.
+- Some races are missing already.
+- Get error trying to add entries.
+- Leaving this one alone for now.
+
+##### CharSections.dbc (patch-t.mpq version)
+- No ID conflict: [Blood Elf equivalent] + 22000 = [High Elf ID]
+- Existing race 13 -> 22
+- Race 12 -> 13
+- 1067 High Elf entries
+
+##### CharStartOutfit.dbc
+- No ID conflict, but ID doesn't matter here anyway.
+- Existing race 13 -> 22
+- Race 12 -> 13
+- 16 High Elf entries
+- 4 High Elf ARAC entries (20 total)
+
+##### ChrRaces.dbc
+- Existing race 13 -> 22
+- Race 12 -> 13
+- 1 High Elf entries
+
+##### CreatureDisplayInfo.dbc
+- No ID conflicts.
+- 1526 High Elf entries (but I don't think more than two are really needed)
+- Trying to add Cata druid forms, I do get some ID conflicts: 33650–33669 and 34204 are now occupied by High Elf copies of Blood Elf display IDs that don't seem to be used anywhere. I will replace these with druid forms to keep the IDs from Cataclysm.
+
+##### CreatureDisplayInfoExtra.dbc
+- No ID conflicts.
+- Existing race 13 -> 22
+- Race 12 -> 13
+- 1679 High Elf entries
+
+##### EmotesTextSound.dbc
+- ID conflicts, but ID probably doesn't matter here.
+- I used the [larger DBC](https://github.com/Helias/mod-worgoblin/blob/master/patch-contents/DBFilesClient/EmotesTextSound.dbc) from Helias's repository. Not sure if that matters.
+- Increment from 2500
+
+##### Faction.dbc
+- No ID conflicts
+- 1040 is "REUSE" in Worgoblin, and has been renamed "PLAYER, High Elf" in the AzerothCore High Elf mod. I left it as "REUSE".
+- 1 High Elf entry
+
+##### HelmetGeosetVisData.dbc
+- In this file, racemasks don't work like normal (1 = Human, 2 = Orc, etc.). Instead, Human is 2, Orc is 4, etc., so they're all moved one to the right. That means that whenever the AHE mod adds 4096 to an entry, I need to take the Worgoblin DBC's entry and add 8192 to it.
+- Similarly, where AHE removes 4096 from a negative number, I have to remove 8192 from that number in the Worgoblin DBC.
+
+##### NameGen.dbc
+- ID conflicts, but ID probably doesn't matter.
+- Increment from 18600
+- 394 High Elf entries
+
+##### SkillLineAbility.dbc
+- No new IDs, but many changed entries (and I think ID doesn't matter for this)
+- Add High Elf to "all races" (4095 -> 8191)
+- Add High Elf to Alliance (3149 -> 7245)
+- Add High Elf to any other appropriate field (value + 4096)
+- ARAC has specific masks for Arcane Torrent and Shadow Resistance. I used those, but added High Elves to the former.
+
+##### SkillRaceClassInfo.dbc
+- No new IDs, but many changed entries
+- Add High Elf to "all races" (4095 -> 8191)
+- Add High Elf to Alliance (3149 -> 7245)
+- Add High Elf to any other appropriate field (value + 4096)
+
+##### TalentTab.dbc
+- No new IDs, but many changed entries
+- Add High Elf to "all races" (4095 -> 8191)
+
+##### VocalUISounds.dbc
+- ID conflicts, but ID probably doesn't matter.
+- Existing race 13 -> 22
+- Race 12 -> 13
+- Increment from 2300
+- 54 High Elf entries
+
+---
+
+### extras
+With the exception of adding Arcane Torrent to High Elf Warriors, this seems to be all Individual Progression stuff. I don't use that mod myself, and Arcane Torrent is added to Blood Elf Warriors in the updated ARAC I'm merging into this anyway (tested and it works), so I'm skipping this folder for now.
+
+---
+
+## mod-worgoblin [repo](https://github.com/idempotentiation/mod-worgoblin)
+### data/patch-A.MPQ/DBFilesClient
+All AzerothCore High Elf DBCs are also in Worgoblin, but below are the ones that are only in Worgoblin. They should probably have been in AzerothCore High Elf too, but weren't. I will try to include High Elves here as much as possible.
+
+---
+
+#### Adding High Elves to DBCs
+
+##### Achievement.dbc
+- Added achievement 1431: Realm first! Level 80 High Elf (based on Worgen equivalent).
+
+##### Achievement_Criteria.dbc
+- Added four lines. More may be needed, but I'm not sure.
+- It looks like 13471 and 13472 have the opposite achievement IDs, so I changed them around.
+- For the level 80 achievements, Asset_Id (0) and Quantity (80) were switched around, so I swapped them.
+
+##### AnimationData.dbc
+- Probably irrelevant because High Elves are based on Blood Elves.
+
+##### CreatureModelData.dbc
+- Probably irrelevant because High Elves are based on Blood Elves.
+
+##### CreatureSoundData.dbc
+- Probably irrelevant because High Elves are based on Blood Elves.
+
+##### Item.dbc
+- Probably irrelevant for High Elves.
+
+##### ItemDisplayInfo.dbc
+- Probably irrelevant for High Elves.
+
+##### SkillLine.dbc
+- Probably irrelevant for High Elves.
+
+##### SoundEntries.dbc
+- Probably irrelevant because High Elves are based on Blood Elves.
+
+##### Spell.dbc
+- Probably irrelevant because High Elves are based on Blood Elves.
+- Very annoying trying to fix the localization fields in this one because the fields themselves contain " and , – meaning it is actually impossible to import the same file you just exported. As yet haven't been able to fix.
+
+##### SpellIcon.dbc
+- Probably irrelevant for High Elves.
+
+##### SummonProperties.dbc
+- Probably irrelevant for High Elves.
+
+---
+
+### data/sql
+The biggest difference between Worgoblin and AHE here is that the former uses one SQL file for each table, while the latter uses one big SQL file for the entire database. Also, AHE specifies acore_world, which means it probably won't work if you don't use the default name, so I've adapted it to Worgoblin's style. Might add a single merged SQL when I'm done.
+
+#### db-world
+
+##### achievement_criteria_data.sql
+- Added five lines for High Elves.
+
+##### creature_model_info.sql
+- Irrelevant for AHE.
+
+##### creature_template_models.sql
+- Irrelevant for AHE.
+
+##### creature_template.sql
+- Irrelevant for AHE.
+
+##### item_template.sql
+- Lazily adjusted the values in highelf_post_install_world.sql to include High Elves.
+- Made some weird values include more races. (See original values on the right.)
+
+##### player_race_stats.sql
+- Added "copy Blood Elf values" from highelf_post_install_world.sql.
+
+##### player_totem_model.sql
+- Irrelevant for AHE until I merge ARAC properly.
+- Update: Lazily replaced everything with the ARAC equivalents, but it's commented out in case you want to change it.
+
+##### playercreateinfo_action.sql
+- Added missing combinations symmetrically and commented everything.
+
+##### playercreateinfo_skills.sql
+- Adjusted racemasks.
+- Weaved remaining High Elf skills into the Worgoblin SQL and adjusted them to that style.
+- Commented out Guns for High Elves and Bows for Worgen and Goblins because other Hunters in WotLK only start with one ranged weapon skill.
+- By default, ARAC just makes every race able to use the same weapons for each class from the start, and you can still run that SQL if you want that, but I edited it so it's less of a dramatic change.
+
+##### playercreateinfo.sql
+- Copied the Worgoblin template for High Elves, but adjusted values to match Humans.
+
+##### quest_template.sql
+- Lazily added High Elf to Human quests alongside Worgen.
+- Adjusted the one exception to also include High Elves.
+- Added the ARAC fix at the end, sloppily.
+
+##### spell_script_names.sql
+- Irrelevant for AHE.
+
+---
+
+#### SQL files not present in Worgoblin
+
+##### conditions.sql
+- Adjusted the racemasks so High Elves can get Human-specific gossip menus.
+
+### playercreateinfo_spell_custom.sql
+- Not sure how important this one is, but I noticed some missing combinations: Draenei Rogue & Druid (and some skills were not listed for Warlock). This mod includes extra racials for Draenei and Blood Elves to accommodate their new class combinations, so I added them to each class in order.
+- Some spells seem not to exist, and others have been removed from the game. Some look wrong. I still left them as they were, with notes.
+- Some spells are only included for certain race/class combinations. I suspect this is an oversight, but I've left it as is for now.
+- I added Goblin classes from Orc, Worgen and High Elf from Human, except racials.
+
+---
+
+#### dbc
+It is tempting to just export the entire DBC and import it into the DB that way, since I just edited them, but I'll try the Worgoblin way first.
+
+##### achievement_criteria_dbc.sql
+- Add new entries from the DBC.
+
+##### chrraces_dbc.sql
+- Add new entries from the DBC.
+
+##### creaturedisplayinfo_dbc.sql
+- Add new entries from the DBC.
+
+##### creaturedisplayinfoextra_dbc.sql
+- Add new entries from the DBC.
+
+##### creaturemodeldata_dbc.sql
+- Irrelevant to AHE.
+
+##### itemdisplayinfo_dbc.sql
+- Irrelevant to AHE.
+
+##### skillline_dbc.sql
+- Irrelevant to AHE.
+
+##### skilllineability_dbc.sql
+- Edit race masks from the DBC.
+
+##### skillraceclassinfo_dbc.sql
+- Edit race masks from the DBC.
+
+##### soundentries_dbc.sql
+- Irrelevant to AHE.
+
+##### spell_dbc.sql
+- Irrelevant to AHE.
+
+##### summonproperties_dbc.sql
+- Irrelevant to AHE.
+
+---
+
+#### extra
+These don't seem relevant to AHE, possibly except for DK quests, but I'll look into that later.
+
+## mod-arac-updated
+
+### patch-contents/DBFilesContent
+
+#### CharBaseInfo.dbc
+- Added missing combinations. Easy.
+
+#### CharStartOutfit.dbc
+- Added missing combinations from Blood Elves and Humans.
+
+#### SkillLineAbility.dbc
+- Adapted combinations for Worgoblin and AHE.
+
+#### SkillRaceClassInfo.dbc
+- Tried to cover all the same combinations as ARAC, but I'm wary of deleting existing entries, so mine is more cluttered.
+
+#### Spell.dbc
+- Seems to be no ID conflicts, so I think I was able to add all the new spells to my DBC.
+
+#### SpellCategory.dbc
+None of the mods I've merged so far has actually used this file, so I guess I'll just use it as-is.

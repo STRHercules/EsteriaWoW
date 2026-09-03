@@ -1,0 +1,34 @@
+-- I-315  Quest 14245 "It's a Town-In-A-Box" — parachute lifetime.
+--
+-- 70988 "Parachute" is emitted by [AUTO,F-011]_spell.sql via
+-- spells.EFFECT_OVERRIDE, which already carries this value. This override exists
+-- so the change can go live WITHOUT applying the AUTO file, which currently also
+-- carries another session's in-flight I-320 work (56576 / GO 201974). Once that
+-- lands and the AUTO file is applied normally, this file is a redundant no-op
+-- restating the same value — harmless, and safe to retire then.
+--
+-- Stock row from the port's perspective (defined in the AUTO file, not here),
+-- so: one consolidated UPDATE, not DELETE+INSERT.
+--
+-- duration_index 21 (permanent) -> 575 (17000ms).
+-- Expiry is the ONLY thing that ends this chute: AURA_INTERRUPT_FLAG_LANDING was
+-- removed because the client fires a spurious mid-air MSG_MOVE_FALL_LAND ~1s
+-- after slow-fall engages and AC strips every LANDING aura on that opcode
+-- (MovementHandler.cpp:628), which was killing the chute in flight.
+--
+-- Timed to expire JUST ABOVE THE GROUND rather than to outlast the descent, so
+-- the player is not left wearing a parachute. Safe because
+-- AuraEffect::HandleFeatherFall re-baselines m_lastFallZ on removal (only the
+-- drop after expiry is billed) and MIN_FALL_DMG_DIST = 13.48f (Player.cpp:14066)
+-- is a hard cutoff — under 13.48 yards the damage block is skipped entirely.
+--
+-- Sized from measurement: at 25000ms the tester saw a 7s tail, so the slowed
+-- descent from the 7.0s deploy is ~18s. Remaining height there is ~123yd, giving
+-- ~6.8 yd/s, so the 13.48yd threshold falls ~2.0s before touchdown -> safe band
+-- ~16000-18000ms. 17000ms expires ~1s up (~6.8yd, half the threshold).
+--
+-- RE-MEASURE, don't scale, if the knockback (68935 BasePoints) or deploy time
+-- (71091 amplitude) change. Erring long = cosmetic tail; erring short = a small
+-- damage chip (~12% at 3s early), no longer a death.
+
+UPDATE spell SET duration_index = 575 WHERE id = 70988;

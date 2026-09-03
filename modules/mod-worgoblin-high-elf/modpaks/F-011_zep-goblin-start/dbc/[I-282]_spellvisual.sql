@@ -1,0 +1,52 @@
+-- [I-282] Monkey Business banana visuals — the visual rows.
+--
+-- Both banana spells kept their verbatim Cata spell_visual_1 (67917 -> 14351,
+-- 67919 -> 14348). Neither id exists in our SpellVisual.dbc, so BOTH rendered
+-- nothing: no throw animation, no banana in flight, and no explosion when the fed
+-- monkey detonated. Same class as I-268 (Kaja'Cola 70478 -> 14885).
+--
+-- 67917 needs no row here at all — see the note below.
+
+-- ---------------------------------------------------------------------------
+-- 67917 Nitro-Potassium Bananas -> STOCK visual 11368 (no new row)
+-- ---------------------------------------------------------------------------
+-- Cata 14351 decodes to: cast_kit 9579 (anim 107 AttackThrown + sound 7140),
+-- has_missile 1, missile_model 5791 "Missile: Banana Bunch"
+-- (World\Generic\PassiveDoodads\Fruits\Fruit_BananaBunch.mdx),
+-- missile_motion 362 "Parabola (Pitch Spin)".
+--
+-- 3.3.5a already ships that exact payload as STOCK SpellVisual 11368:
+--   cast_kit 172 = anim 107 AttackThrown + sound 7140 (identical to Cata 9579),
+--   has_missile 1, missile_model 4375 "Missile: Banana Bunch" -> the SAME
+--   Fruit_BananaBunch.mdx (only the SpellVisualEffectName id differs, 5791 vs
+--   4375), missile_motion 362.
+-- It is the visual behind stock 51932 "Toss Banana" / 51836 "Bananas Fall to
+-- Ground", so it is proven to render on this client.
+--
+-- Using the stock id rather than a custom clone is deliberate: per the I-248
+-- football findings, ANY custom-id row in a MISSILE visual chain can trigger the
+-- client's ghost-replay of a previous missile's impact. 11368 sidesteps that
+-- entirely and ships no assets. The repoint lives in [I-282]_spell.sql.
+-- Cata's missile_dest_attachment 3 / missile_attachment 4 are NOT carried over —
+-- 11368's 1/0 are the values the working stock throw uses on this build.
+
+-- ---------------------------------------------------------------------------
+-- 67919 Exploding Bananas -> custom visual 90051
+-- ---------------------------------------------------------------------------
+-- Rebuilt because Cata's precast_kit 13259 is a Cata-range id (see
+-- [I-282]_spellvisualkit.sql for the ported kit 90052); cast_kit 836 and
+-- state_kit 8299 are stock and referenced directly.
+--
+-- 67919 has a 1.5s cast (spellcasttimes 16), so the precast eat animation plays
+-- through the cast and the Bomb Explosion + Immolate sound land on completion —
+-- which is the moment the monkey is already rooted by the actionlist, just before
+-- the linked FORCE_DESPAWN 4s (see zz_[I-281]_monkey_business_feed.sql).
+--
+-- has_missile stays 0: the detonation is on the monkey itself, not a projectile.
+-- missile_dest_attachment 1 / missile_attachment -1 (4294967295) mirror the Cata
+-- row and the I-268 precedent for a non-missile visual; the Cata missile-follow
+-- fields (300/750/4) are inert and unlike every stock WotLK row, so they are
+-- left at the 3.3.5a defaults.
+DELETE FROM `spellvisual` WHERE `id` = 90051;
+INSERT INTO `spellvisual` (`id`, `precast_kit`, `cast_kit`, `state_kit`, `missile_dest_attachment`, `missile_attachment`)
+  VALUES (90051, 90052, 836, 8299, 1, 4294967295);

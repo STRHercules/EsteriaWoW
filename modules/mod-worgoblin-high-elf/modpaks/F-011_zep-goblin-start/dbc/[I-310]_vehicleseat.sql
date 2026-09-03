@@ -1,0 +1,16 @@
+-- ============================================================================
+-- [I-310] Gyrochoppa seat 5706 (vehicle 505) -- Cata-bit disease
+-- ============================================================================
+-- Ported Cata flags 0x40100802: rider can steer (CAN_CONTROL 0x800 survived)
+-- but the seat lacks
+--   * 0x02000000 CAN_ENTER_OR_EXIT -- the SERVER checks this on voluntary
+--     exit requests (WorldSession::HandleRequestVehicleExit), so even a
+--     client-side Leave button would be refused,
+--   * 0x20000000 CAN_CAST -- no vehicle action bar, so no Leave Vehicle
+--     button (the only voluntary-exit UI; control auras have no icon).
+-- Same disease as I-248 Buccaneer seat 6846 and I-308 Bastia seat 6146.
+--
+-- Donor: Oculus drake seat 1323 (vehicle 70) -- stock WotLK player-driven
+-- FLYING vehicle -- flags 0x62110817, flags_b 0, adopted wholesale per the
+-- established fix pattern (keep Cata anim/attachment/camera columns).
+UPDATE vehicleseat SET flags = 1645283351, flags_b = 0 WHERE id = 5706;

@@ -1,0 +1,24 @@
+[worldserver]
+
+#
+#    RewardShopEnable
+#        Description: Enable or Disable the NPC ingame shop.
+#        Default:     Enabled  = 1
+#                     Disabled = 0
+
+RewardShopEnable = 1
+
+#
+#    WebsiteAddress
+#        Description: This is what the NPC say's when a player clicks "How do i get a code?"
+#        Default:     "You can get codes by visiting the online store at (Website Here)"
+
+WebsiteAddress = "You can get codes by visiting the online store at: www.wildhammer.co.uk"
+
+#
+#    AllowGM
+#        Description: This allows GMs to generate codes from the creature itself without having to visit the store (Will save GM name who generate the code)
+#        Default:     Enabled  = 1
+#                     Disabled = 0
+
+AllowGM = 0

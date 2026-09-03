@@ -1,0 +1,145 @@
+{
+  "_comment": [
+    "Provenance + edit recipes for the binary client assets this zpak ships.",
+    "*.m2/*.skin/*.blp are gitignored, so without this file the shipped bytes exist",
+    "only on one machine and a fresh clone rebuilds the patch without them (I-322).",
+    "",
+    "This is F-203's Tier 2 + Tier 3 shape, written by hand because F-203 is still",
+    "planned: nothing in the build pipeline reads this file yet. Regenerate with the",
+    "command in each entry. When F-203's preprocessor lands, these entries port",
+    "straight across and `zep build asset-mods --verify` takes over the hash gates.",
+    "",
+    "base.sha256   = apply the edits to exactly these bytes (fails loud if upstream moves)",
+    "result.sha256 = the bytes we shipped (catches drift and unrecorded hand edits)"
+  ],
+  "World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green.m2": {
+    "note": "I-328 — the Mechashark X-Steam's eye lights. SpellVisualKit 14016 attaches this to the shark's head lobes; the mesh is Cata-only, so the 3.3.5a client has no such model and the two attachments had to be dropped until it was retroported.",
+    "base": {
+      "kind": "client",
+      "client": "4.3.4 15595",
+      "source": "Zeppelin-Tools/whitemane-15595/extracted/World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green.m2",
+      "sha256": "a82ff76c91abcddbe985d85f1087424ec2132be4f0b23d1a28896d1af362a748"
+    },
+    "edits": [
+      {
+        "op": "m2.version.retroport",
+        "from": 272,
+        "to": 264,
+        "tool": "cli/lib/m2_retroport.py",
+        "rationale": "Header is already the WotLK 304-byte layout (name block at 304), global flag 0x08 use_texture_combiner_combos is clear, and there are no particle or ribbon emitters — three of the places 264 and 272 diverge. The converter asserts all three preconditions and refuses otherwise. Global flags 128 are passed through: stock WotLK Ulduar doodads already ship that value."
+      },
+      {
+        "op": "m2.texunitlookup.ensure",
+        "entries": [
+          0
+        ],
+        "tool": "cli/lib/m2_retroport.py",
+        "rationale": "Cata deprecated texture_unit_lookup_table and leaves it empty; the WotLK client still resolves a batch's texture coordinate set through it unconditionally, so an empty array is a null dereference — the version-only conversion crashed the client with ERROR #132 ACCESS_VIOLATION at movzx esi,[edi+esi*2], edi = 0. Survey of 1006 stock 3.3.5a models: not one pairs an empty lookup with a render batch (the 176 with an empty lookup have no batches at all). One entry, value 0, appended at EOF so no existing offset moves."
+      }
+    ],
+    "result": {
+      "sha256": "d9b10cb30c70721f9b405b20679ca81817872a435be339d6ac6961c5a62846b1"
+    },
+    "command": "cd cli && python3 -m lib.m2_retroport '/workspace/project/Zeppelin-Tools/whitemane-15595/extracted/World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green.m2' '../zpaks/zep-goblin-start/mpq/source-assets/World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green.m2' '/workspace/project/Zeppelin-Tools/whitemane-15595/extracted/World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green00.skin' '../zpaks/zep-goblin-start/mpq/source-assets/World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green00.skin'  # converts BOTH files"
+  },
+  "World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green00.skin": {
+    "note": "I-328 — companion skin for the above. The WotLK and Cata .skin LAYOUTS agree (the shadow-batch change landed in MoP) and this one parses clean under WotLK assumptions — 1 submesh, 121 verts, 648 indices, 1 batch — but one field VALUE does not survive the trip, see the edit below.",
+    "base": {
+      "kind": "client",
+      "client": "4.3.4 15595",
+      "source": "Zeppelin-Tools/whitemane-15595/extracted/World/Expansion02/Doodads/Ulduar/UL_Light_Effect_Green00.skin",
+      "sha256": "eb2eac58c288f68d2574435b01c90276f30aa7b589ce2b539e1d9916dd6abae6"
+    },
+    "edits": [
+      {
+        "op": "skin.batch.shader_id.set",
+        "value": 0,
+        "tool": "cli/lib/m2_retroport.py",
+        "rationale": "M2Batch.shader_id means different things in the two builds; this model carried Cata's 16. Across the same 1006-model stock survey, 2676 of 2677 WotLK batches use 0 and the last uses 2 — the build effectively has one value. Set 0 rather than invent a Cata->WotLK shader mapping."
+      }
+    ],
+    "result": {
+      "sha256": "6a219fd6eb1344529962e133d8198fd67792409bb0a3cff1fbef7390a9041054"
+    },
+    "command": "converted by the same m2_retroport invocation as the .m2 above (4-argument form)"
+  },
+  "_not_shipped": {
+    "World/Expansion02/Doodads/Ulduar/UL_Light_Effect.blp": "The texture the model references. Deliberately NOT shipped — it is stock 3.3.5a (present in the Asset Library alongside version-264 Ulduar doodads), so the client already has it."
+  },
+  "Textures/BakedNpcTextures/CreatureDisplayExtra-20708.blp": {
+    "note": "I-333 - Naga Hatchling bake (male, skin_color 1). The shipped Cata bake was a 256x256 stock-layout composite; patch-hd-everything re-UVs the naga mesh, so that art lands on the wrong geometry. No HD re-baked donor exists for a GEARLESS race-13 NPC, and a blank 'texture' is only legal on a model whose CreatureModelData.flags has bit 0x4 (male model 2353 has flags 0 - blanking it hard-crashed the client at 0x0082C7C9). These NPCs wear no equipment, so the correct composite IS the HD base skin atlas: ship it verbatim under the bake name. Stock has 2353 flags=0 / 2354 flags=4, so the flag asymmetry is Blizzard's and must not be 'fixed'.",
+    "base": {
+      "kind": "client",
+      "client": "PATCH-Q (patch-hd-everything)",
+      "source": "CHARACTER\\NAGA_\\MALE\\NAGA_MALESKIN00_01.BLP",
+      "sha256": "d8cf6a7e6145378432b0164b0c385debfa865ea40c7005b844cfde9e7b14bcab"
+    },
+    "edits": [
+      {
+        "op": "blp.copy.verbatim",
+        "note": "byte-identical copy, renamed to the bake name"
+      }
+    ],
+    "result": {
+      "sha256": "d8cf6a7e6145378432b0164b0c385debfa865ea40c7005b844cfde9e7b14bcab"
+    },
+    "command": "zep build mpq-tools extract nginx/wow/MPQ/PATCH-Q.MPQ <tmp> -f \"CHARACTER\\NAGA_\\MALE\\NAGA_MALESKIN00_01.BLP\" && cp <tmp>/NAGA_MALESKIN00_01.BLP zpaks/zep-goblin-start/mpq/source-assets/Textures/BakedNpcTextures/CreatureDisplayExtra-20708.blp"
+  },
+  "Textures/BakedNpcTextures/CreatureDisplayExtra-20709.blp": {
+    "note": "I-333 - Naga Hatchling bake (male, skin_color 3). The shipped Cata bake was a 256x256 stock-layout composite; patch-hd-everything re-UVs the naga mesh, so that art lands on the wrong geometry. No HD re-baked donor exists for a GEARLESS race-13 NPC, and a blank 'texture' is only legal on a model whose CreatureModelData.flags has bit 0x4 (male model 2353 has flags 0 - blanking it hard-crashed the client at 0x0082C7C9). These NPCs wear no equipment, so the correct composite IS the HD base skin atlas: ship it verbatim under the bake name. Stock has 2353 flags=0 / 2354 flags=4, so the flag asymmetry is Blizzard's and must not be 'fixed'.",
+    "base": {
+      "kind": "client",
+      "client": "PATCH-Q (patch-hd-everything)",
+      "source": "CHARACTER\\NAGA_\\MALE\\NAGA_MALESKIN00_03.BLP",
+      "sha256": "6cfd55d4da531b41e4203e313bb9be43669c78cdaf9a819e4595f736d8c8ac87"
+    },
+    "edits": [
+      {
+        "op": "blp.copy.verbatim",
+        "note": "byte-identical copy, renamed to the bake name"
+      }
+    ],
+    "result": {
+      "sha256": "6cfd55d4da531b41e4203e313bb9be43669c78cdaf9a819e4595f736d8c8ac87"
+    },
+    "command": "zep build mpq-tools extract nginx/wow/MPQ/PATCH-Q.MPQ <tmp> -f \"CHARACTER\\NAGA_\\MALE\\NAGA_MALESKIN00_03.BLP\" && cp <tmp>/NAGA_MALESKIN00_03.BLP zpaks/zep-goblin-start/mpq/source-assets/Textures/BakedNpcTextures/CreatureDisplayExtra-20709.blp"
+  },
+  "Textures/BakedNpcTextures/CreatureDisplayExtra-20710.blp": {
+    "note": "I-333 - Naga Hatchling bake (female, skin_color 1). The shipped Cata bake was a 256x256 stock-layout composite; patch-hd-everything re-UVs the naga mesh, so that art lands on the wrong geometry. No HD re-baked donor exists for a GEARLESS race-13 NPC, and a blank 'texture' is only legal on a model whose CreatureModelData.flags has bit 0x4 (male model 2353 has flags 0 - blanking it hard-crashed the client at 0x0082C7C9). These NPCs wear no equipment, so the correct composite IS the HD base skin atlas: ship it verbatim under the bake name. Stock has 2353 flags=0 / 2354 flags=4, so the flag asymmetry is Blizzard's and must not be 'fixed'.",
+    "base": {
+      "kind": "client",
+      "client": "PATCH-Q (patch-hd-everything)",
+      "source": "CHARACTER\\NAGA_\\FEMALE\\NAGA_FEMALESKIN00_01.BLP",
+      "sha256": "1c7dbd87d07ef806865087f59342b21c3cef8b0bd8e66bbf82ba20f6f3604762"
+    },
+    "edits": [
+      {
+        "op": "blp.copy.verbatim",
+        "note": "byte-identical copy, renamed to the bake name"
+      }
+    ],
+    "result": {
+      "sha256": "1c7dbd87d07ef806865087f59342b21c3cef8b0bd8e66bbf82ba20f6f3604762"
+    },
+    "command": "zep build mpq-tools extract nginx/wow/MPQ/PATCH-Q.MPQ <tmp> -f \"CHARACTER\\NAGA_\\FEMALE\\NAGA_FEMALESKIN00_01.BLP\" && cp <tmp>/NAGA_FEMALESKIN00_01.BLP zpaks/zep-goblin-start/mpq/source-assets/Textures/BakedNpcTextures/CreatureDisplayExtra-20710.blp"
+  },
+  "Textures/BakedNpcTextures/CreatureDisplayExtra-20711.blp": {
+    "note": "I-333 - Naga Hatchling bake (female, skin_color 3). The shipped Cata bake was a 256x256 stock-layout composite; patch-hd-everything re-UVs the naga mesh, so that art lands on the wrong geometry. No HD re-baked donor exists for a GEARLESS race-13 NPC, and a blank 'texture' is only legal on a model whose CreatureModelData.flags has bit 0x4 (male model 2353 has flags 0 - blanking it hard-crashed the client at 0x0082C7C9). These NPCs wear no equipment, so the correct composite IS the HD base skin atlas: ship it verbatim under the bake name. Stock has 2353 flags=0 / 2354 flags=4, so the flag asymmetry is Blizzard's and must not be 'fixed'.",
+    "base": {
+      "kind": "client",
+      "client": "PATCH-Q (patch-hd-everything)",
+      "source": "CHARACTER\\NAGA_\\FEMALE\\NAGA_FEMALESKIN00_03.BLP",
+      "sha256": "7afa29a2016ea7e936a6b87751b29d32091e75d7c79c2b12db2cd4825c880a2f"
+    },
+    "edits": [
+      {
+        "op": "blp.copy.verbatim",
+        "note": "byte-identical copy, renamed to the bake name"
+      }
+    ],
+    "result": {
+      "sha256": "7afa29a2016ea7e936a6b87751b29d32091e75d7c79c2b12db2cd4825c880a2f"
+    },
+    "command": "zep build mpq-tools extract nginx/wow/MPQ/PATCH-Q.MPQ <tmp> -f \"CHARACTER\\NAGA_\\FEMALE\\NAGA_FEMALESKIN00_03.BLP\" && cp <tmp>/NAGA_FEMALESKIN00_03.BLP zpaks/zep-goblin-start/mpq/source-assets/Textures/BakedNpcTextures/CreatureDisplayExtra-20711.blp"
+  }
+}

@@ -1,0 +1,59 @@
+/*
+ * This file is part of the mod-playerbots module for AzerothCore. See AUTHORS file for Copyright
+ * information; released under GNU GPL v2 license, redistribute/modify under version 2 of the License,
+ * or (at your option) any later version.
+ */
+
+#ifndef PLAYERBOTS_GENERICPRIESTSTRATEGY_H
+#define PLAYERBOTS_GENERICPRIESTSTRATEGY_H
+
+#include "CombatStrategy.h"
+#include "RangedCombatStrategy.h"
+
+class PlayerbotAI;
+
+class GenericPriestStrategy : public RangedCombatStrategy
+{
+public:
+    GenericPriestStrategy(PlayerbotAI* botAI);
+
+    void InitTriggers(std::vector<TriggerNode*>& triggers) override;
+};
+
+class PriestCureStrategy : public Strategy
+{
+public:
+    PriestCureStrategy(PlayerbotAI* botAI);
+
+    void InitTriggers(std::vector<TriggerNode*>& triggers) override;
+    std::string const getName() override { return "cure"; }
+};
+
+class PriestBoostStrategy : public Strategy
+{
+public:
+    PriestBoostStrategy(PlayerbotAI* botAI) : Strategy(botAI) {}
+
+    void InitTriggers(std::vector<TriggerNode*>& triggers) override;
+    std::string const getName() override { return "boost"; }
+};
+
+class PriestCcStrategy : public Strategy
+{
+public:
+    PriestCcStrategy(PlayerbotAI* botAI) : Strategy(botAI) {}
+
+    void InitTriggers(std::vector<TriggerNode*>& triggers) override;
+    std::string const getName() override { return "cc"; }
+};
+
+class PriestHealerDpsStrategy : public Strategy
+{
+public:
+    PriestHealerDpsStrategy(PlayerbotAI* botAI) : Strategy(botAI) {}
+
+    void InitTriggers(std::vector<TriggerNode*>& triggers) override;
+    std::string const getName() override { return "healer dps"; }
+};
+
+#endif

@@ -1,0 +1,36 @@
+/*
+ * This file is part of the mod-playerbots module for AzerothCore. See AUTHORS file for Copyright
+ * information; released under GNU GPL v2 license, redistribute/modify under version 2 of the License,
+ * or (at your option) any later version.
+ */
+
+#include "CheckValuesAction.h"
+#include "AiObjectContext.h"
+#include "Event.h"
+#include "PlayerbotAI.h"
+#include "ServerFacade.h"
+#include "TravelNode.h"
+
+CheckValuesAction::CheckValuesAction(PlayerbotAI* botAI) : Action(botAI, "check values") {}
+
+bool CheckValuesAction::Execute(Event /*event*/)
+{
+    if (botAI->HasStrategy("debug move", BOT_STATE_NON_COMBAT))
+    {
+        botAI->Ping(bot->GetPositionX(), bot->GetPositionY());
+    }
+
+    if (botAI->HasStrategy("map", BOT_STATE_NON_COMBAT) || botAI->HasStrategy("map full", BOT_STATE_NON_COMBAT))
+    {
+        TravelNodeMap::instance().manageNodes(bot, botAI->HasStrategy("map full", BOT_STATE_NON_COMBAT));
+    }
+
+    GuidVector possible_targets = *context->GetValue<GuidVector>("possible targets");
+    GuidVector all_targets = *context->GetValue<GuidVector>("all targets");
+    GuidVector npcs = *context->GetValue<GuidVector>("nearest npcs");
+    GuidVector corpses = *context->GetValue<GuidVector>("nearest corpses");
+    GuidVector gos = *context->GetValue<GuidVector>("nearest game objects");
+    GuidVector nfp = *context->GetValue<GuidVector>("nearest friendly players");
+
+    return true;
+}

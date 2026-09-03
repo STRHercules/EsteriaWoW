@@ -1,0 +1,45 @@
+name: macos-build
+on:
+  push:
+    branches: [ "master", "test-staging" ]
+  pull_request:
+    branches: [ "master", "test-staging" ]
+
+concurrency:
+  group: "macos-build-${{ github.event.pull_request.number }}"
+  cancel-in-progress: true
+
+jobs:
+  macos-build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-14
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}
+    steps:
+      - name: Checkout AzerothCore
+        uses: actions/checkout@v4
+        with:
+          repository: 'mod-playerbots/azerothcore-wotlk'
+          ref: ${{ (github.base_ref || github.ref_name) == 'test-staging' && 'test-staging' || 'Playerbot' }}
+      - name: Checkout Playerbot Module
+        uses: actions/checkout@v4
+        with:
+          repository: 'mod-playerbots/mod-playerbots'
+          path: 'modules/mod-playerbots'
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/ccache
+          key: ccache:${{ matrix.os }}:${{ github.ref }}:${{ github.sha }}
+          restore-keys: |
+            ccache:${{ matrix.os }}:${{ github.ref }}
+            ccache:${{ matrix.os }}
+      - name: Install latest bash
+        run: brew install bash
+      - name: Configure OS
+        run: source ./acore.sh install-deps
+      - name: Build
+        run: source ./apps/ci/mac/ci-compile.sh

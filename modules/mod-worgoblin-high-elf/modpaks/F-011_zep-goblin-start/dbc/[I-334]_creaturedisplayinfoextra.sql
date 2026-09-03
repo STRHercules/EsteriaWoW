@@ -1,0 +1,36 @@
+-- [I-334] Alexi Silenthowl (39143, SI:7) hard-crashes the client on the Lost Isles.
+--
+-- ERROR #132 ACCESS_VIOLATION at 0x0082C7C9 reading 0x00000010:
+--   0082C7C9  test byte ptr [edi+0x10], 1     <- edi (CM2Model* this) = NULL
+-- Return address on the stack is 0x004ED956, i.e. the first geoset call in the
+-- character-customization pass at 0x004ED900 (hide geosets 0..2000).
+--
+-- Mechanism, read out of Wow.exe:
+--   * CharacterComponent::Initialize (0x004F24D0) bounds-checks the incoming
+--     race against the ChrRaces max index (0x00AD3434) and, when it is out of
+--     range, returns false at 0x004F262C *without creating the M2 model* --
+--     leaving the component's model pointer (+0x38) null.
+--   * The component is still queued dirty, so the next frame's list walk
+--     (0x004F18F0 -> 0x004F0E80 -> 0x004ED900) calls
+--     CM2Model::SetGeosetRange (0x0082C7C0, .\M2Model.cpp) with a null `this`.
+--
+-- Data cause: extra 20864 (display 33965, model 3141 CHARACTER\WORGEN\MALE)
+-- shipped `race` = 22 -- the *Cata* ChrRaces id for Worgen. Our client's
+-- ChrRaces stops at 21 and carries Worgen on the worgoblin slot 12
+-- (client_prefix 'Wo', displays 29422/29423 -> the same model 3141), so 22 is
+-- out of range and every render of that NPC crashes.
+--
+-- This was the only row in the whole DBC set whose race is absent from our
+-- ChrRaces. The generator now remaps Cata race ids and refuses to ship a race
+-- our client has no row for (cli/commands/goblin_gen/_races.py), so a regen of
+-- [AUTO,F-011]_creaturedisplayinfoextra.sql emits 12 and this file becomes a
+-- no-op. Kept as the override until the AUTO file is next regenerated.
+--
+-- race 12 is the correct target, not a workaround: CharSections carries 614
+-- race-12 rows and the bake texture (CreatureDisplayExtra-20864.blp) already
+-- ships on PATCH-Z from this zpak.
+--
+-- Loads after [AUTO,F-011]_creaturedisplayinfoextra.sql (I > A in filename sort).
+-- Requires: zep dbc edit modify <this file> + a PATCH-Z rebuild to reach the client.
+
+UPDATE creaturedisplayinfoextra SET race = 12 WHERE id = 20864;

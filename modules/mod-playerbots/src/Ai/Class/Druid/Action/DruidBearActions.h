@@ -1,0 +1,77 @@
+/*
+ * This file is part of the mod-playerbots module for AzerothCore. See AUTHORS file for Copyright
+ * information; released under GNU GPL v2 license, redistribute/modify under version 2 of the License,
+ * or (at your option) any later version.
+ */
+
+#ifndef PLAYERBOTS_DRUIDBEARACTIONS_H
+#define PLAYERBOTS_DRUIDBEARACTIONS_H
+
+#include "GenericSpellActions.h"
+#include "ReachTargetActions.h"
+
+class PlayerbotAI;
+
+class CastFeralChargeBearAction : public CastReachTargetSpellAction
+{
+public:
+    CastFeralChargeBearAction(PlayerbotAI* botAI) : CastReachTargetSpellAction(botAI, "feral charge - bear", 1.5f) {}
+};
+
+class CastGrowlAction : public CastSpellAction
+{
+public:
+    CastGrowlAction(PlayerbotAI* botAI) : CastSpellAction(botAI, "growl") {}
+};
+
+class CastChallengingRoarAction : public CastMeleeDebuffSpellAction
+{
+public:
+    CastChallengingRoarAction(PlayerbotAI* botAI) : CastMeleeDebuffSpellAction(botAI, "challenging roar") {}
+};
+
+class CastMaulAction : public CastMeleeSpellAction
+{
+public:
+    CastMaulAction(PlayerbotAI* botAI) : CastMeleeSpellAction(botAI, "maul") {}
+
+    bool isUseful() override;
+};
+
+class CastBashAction : public CastMeleeSpellAction
+{
+public:
+    CastBashAction(PlayerbotAI* botAI) : CastMeleeSpellAction(botAI, "bash") {}
+};
+
+class CastDemoralizingRoarAction : public CastMeleeDebuffSpellAction
+{
+public:
+    CastDemoralizingRoarAction(PlayerbotAI* botAI) : CastMeleeDebuffSpellAction(botAI, "demoralizing roar") {}
+};
+
+class CastMangleBearAction : public CastMeleeSpellAction
+{
+public:
+    CastMangleBearAction(PlayerbotAI* botAI) : CastMeleeSpellAction(botAI, "mangle (bear)") {}
+};
+
+class CastSwipeBearAction : public CastMeleeSpellAction
+{
+public:
+    CastSwipeBearAction(PlayerbotAI* botAI) : CastMeleeSpellAction(botAI, "swipe (bear)") {}
+};
+
+class CastLacerateAction : public CastMeleeSpellAction
+{
+public:
+    CastLacerateAction(PlayerbotAI* botAI) : CastMeleeSpellAction(botAI, "lacerate") {}
+};
+
+class CastBashOnEnemyHealerAction : public CastSpellOnEnemyHealerAction
+{
+public:
+    CastBashOnEnemyHealerAction(PlayerbotAI* botAI) : CastSpellOnEnemyHealerAction(botAI, "bash") {}
+};
+
+#endif

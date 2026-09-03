@@ -1,0 +1,25 @@
+{
+  "$schema": "../../schemas/zpak.schema.json",
+  "name": "zep-goblin-start",
+  "version": "0.1.0",
+  "description": "F-011 Goblin Starting Zone \u2014 Lost Isles content (creatures, quests, gameobjects, scripts) on OA Kalimdor map 1",
+  "author": "Zeppelin Team",
+  "type": "hybrid",
+  "contents": {
+    "patches": [
+      "patches/*.patch"
+    ],
+    "sql": [
+      "sql/*.sql"
+    ],
+    "dbc": [
+      "dbc/*.sql"
+    ],
+    "mpq": [
+      "mpq/**/*"
+    ]
+  },
+  "client_patch": "PATCH-Z",
+  "enabled": true,
+  "priority": 100
+}

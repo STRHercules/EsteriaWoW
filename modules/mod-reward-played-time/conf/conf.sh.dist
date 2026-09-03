@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+	
+#
+# CUSTOM
+#
+
+DB_CHARACTERS_CUSTOM_PATHS+=(
+    $MOD_REWARD_SYSTEM_ROOT"/sql/characters/"
+)

@@ -1,0 +1,73 @@
+-- I-328 Mechashark X-Steam (creature 38318, vehicle 628) driver seat 7527.
+-- Ported from the 4.3.4 client VehicleSeat.dbc (Cata = WotLK 58 fields + 8 appended,
+-- first 58 map 1:1). Row is ours (absent from the AUTO file) -> DELETE + INSERT.
+--
+-- Two Cata-bit repairs (I-248/I-308/I-311 family):
+--   flags   0x62100A80 -> 0xE2100A80: added VEHICLE_SEAT_FLAG_ALLOWS_INTERACTION
+--           0x80000000, without which the pilot cannot click objects or hand in
+--           while mounted. The bits that matter for this quest were already right:
+--           CAN_CONTROL 0x800, CAN_ENTER_OR_EXIT 0x2000000 (Leave button),
+--           CAN_CAST 0x20000000 (bar = the three Mechashark abilities),
+--           HIDE_PASSENGER 0x200 + PASSENGER_NOT_SELECTABLE 0x100000 (you ARE the shark).
+--   flags_b 0x1A000C00 -> 0: Cata noise, no valid 3.3.5a VehicleSeatFlagsB bits.
+-- Cata anim/attachment/camera columns kept verbatim.
+DELETE FROM vehicleseat WHERE id = 7527;
+INSERT INTO vehicleseat SET
+  `id` = 7527,
+  `flags` = -502265216,
+  `attachment_id` = 1,
+  `attachment_offset_x` = 0,
+  `attachment_offset_y` = 1,
+  `attachment_offset_z` = 0,
+  `enter_pre_delay` = 0,
+  `enter_speed` = 7,
+  `enter_gravity` = 19.290001,
+  `enter_min_duration` = 0,
+  `enter_max_duration` = 0,
+  `enter_min_arc_height` = 1,
+  `enter_max_arc_height` = 4,
+  `enter_anim_start` = 37,
+  `enter_anim_loop` = 38,
+  `ride_anim_start` = -1,
+  `ride_anim_loop` = 102,
+  `ride_upper_anim_start` = 128,
+  `ride_upper_anim_loop` = 123,
+  `exit_pre_delay` = 0,
+  `exit_speed` = 7,
+  `exit_gravity` = 19.290001,
+  `exit_min_duration` = 0,
+  `exit_max_duration` = 0,
+  `exit_min_arc_height` = 1,
+  `exit_max_arc_height` = 4,
+  `exit_anim_start` = 37,
+  `exit_anim_loop` = 38,
+  `exit_anim_end` = 39,
+  `passenger_yaw` = 0,
+  `passenger_pitch` = 0,
+  `passenger_roll` = 0,
+  `passenger_attachment_id` = -1,
+  `vehicle_enter_anim` = -1,
+  `vehicle_exit_anim` = -1,
+  `vehicle_ride_anim_loop` = -1,
+  `vehicle_enter_anim_bone` = -1,
+  `vehicle_exit_anim_bone` = -1,
+  `vehicle_ride_anim_loop_bone` = -1,
+  `vehicle_enter_anim_delay` = 0,
+  `vehicle_exit_anim_delay` = 0,
+  `vehicle_ability_display` = 1,
+  `enter_ui_sound_id` = 13837,
+  `exit_ui_sound_id` = 13835,
+  `ui_skin` = 0,
+  `flags_b` = 0,
+  `camera_entering_delay` = 0,
+  `camera_entering_duration` = 0,
+  `camera_exiting_delay` = 0,
+  `camera_exiting_duration` = 0,
+  `camera_offset_x` = -2,
+  `camera_offset_y` = 0,
+  `camera_offset_z` = 1,
+  `camera_pos_chase_rate` = 0,
+  `camera_facing_chase_rate` = 0,
+  `camera_entering_zoom` = 15,
+  `camera_seat_zoom_min` = 0,
+  `camera_seat_zoom_max` = 0;

@@ -1,0 +1,26 @@
+DELETE FROM `spell` WHERE `id` = 66306;
+
+INSERT INTO `spell` SET
+    `id` = 66306,
+    `attributes` = 256,
+    `attributes_ex_1` = 1024,
+    `attributes_ex_2` = 4,
+    `attributes_ex_3` = 268435456,
+    `cast_time_index` = 1,
+    `proc_chance` = 101,
+    `range_index` = 13,
+    `equipped_item_class` = -1,
+    `effect_1` = 3,
+    `effect_implicit_target_a_1` = 25,
+    `spell_visual_1` = 173,
+    `spell_icon_id` = 687,
+    `spell_name_enus` = 'Goblin All-In-1-Der Belt Shocker',
+    `spell_desc_enus` = 'Adjust the targeted Troll Slacker''s attitude using the battery from your Goblin All-In-1der Belt.',
+    `spell_name_flags` = 16712190,
+    `spell_subtext_flags` = 16712172,
+    `spell_desc_flags` = 16712188,
+    `spell_tooltip_flags` = 16712188,
+    `effect_damage_multiplier_1` = 1.0,
+    `effect_damage_multiplier_2` = 1.0,
+    `effect_damage_multiplier_3` = 1.0,
+    `school_mask` = 1;

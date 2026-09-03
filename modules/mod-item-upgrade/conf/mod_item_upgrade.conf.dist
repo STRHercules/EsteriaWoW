@@ -1,0 +1,290 @@
+#
+# Credits: silviu20092
+#
+
+[worldserver]
+
+########################################
+# Item upgrade module configuration
+########################################
+#
+#    ItemUpgrade.Enable
+#        Description: Enable the module or not. If the module is toggled off, items that were previously upgraded will lose their upgrade bonus.
+#                     Re-enabling the module will restore the already upgraded item bonuses.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ItemUpgrade.Enable = 1
+
+#
+#    ItemUpgrade.AllowedStats
+#        Description: Stats that are allowed to be upgraded. These correspond to the ItemModType enum from ItemTemplate.h
+#                     For example, to allow "Attack power" to be upgraded, there is ITEM_MOD_ATTACK_POWER = 38 in the enum,
+#                     so just add it to the list of allowed stats. Values are separated by ,
+#                     Items that were upgraded with a certain stat will LOSE their upgrade bonus if you remove the stat from
+#                     allowed list. If you re-add the stat, the items will GAIN back their upgrade bonus for that stat.
+#        Default:     3,4,5,6,7,32,36,45
+#
+
+ItemUpgrade.AllowedStats = 3,4,5,6,7,32,36,45
+
+#
+#    ItemUpgrade.SendUpgradedItemsPackets
+#        Description: Whether to send SMSG_ITEM_QUERY_SINGLE_RESPONSE for upgraded items. This will ensure that owner will see the stats correctly
+#                     when reading item description. ONLY the owner will see the stats though and this DOES NOT work for items that have random
+#                     properties (stats that are random after acquiring the item, such as "of the Bear" or "of Intellect" items). The limitation
+#                     is due to WOTLK client nature and is not possible to be solved. Weapon upgrades (min/max damage increased) WILL also be
+#                     visible for items with random properties.
+#                     THIS ONLY AFFECTS VISUALS, UPGRADED STATS WILL BE THERE NONETHELESS!
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ItemUpgrade.SendUpgradedItemsPackets = 1
+
+#
+#    ItemUpgrade.SendUpgradedItemsPacketsPrioritization
+#        Description: Since SMSG_ITEM_QUERY_SINGLE_RESPONSE is sent by item ENTRY and not by universal identifier (GUID) it means that if
+#                     multiple items with the same entry have upgrades (whether stat upgrades or weapon upgrades) then the player will see
+#                     the exact same stats and damage for ALL items with the same entry. So there must be some kind of prioritization,
+#                     whether to choose the item with the most stat upgrades or with the highest weapon upgrade percentage.
+#                     Example: if player has two Ramaladni's Blade of Culling and both items were upgraded, one with 5% weapon damage upgrade
+#                              and the other with 10% weapon damage upgrade AND ItemUpgrade.SendUpgradedItemsPacketsPrioritization is 1
+#                              then the player will see both weapons have 10% more damage. Again this is only VISUAL, stats are correctly
+#                              calculated for both!
+#        Values  :    0 - Prioritize upgraded stats (items with higher number of upgraded stats will be prioritized)
+#                     1 - Prioritize weapon upgrade (items with the highest weapon upgrade percentage will be prioritized)
+#        Default :    0
+#
+
+ItemUpgrade.SendUpgradedItemsPacketsPrioritization = 0
+
+#
+#    ItemUpgrade.AllowUpgradesPurge
+#        Description: Allows the players to purge upgrades from their items.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ItemUpgrade.AllowUpgradesPurge = 1
+
+#
+#    ItemUpgrade.UpgradePurgeToken
+#        Description: Give the player a token (item) when purging an upgrade. This is just an item entry, can be anything. Only active when
+#                     ItemUpgrade.AllowUpgradesPurge = 1
+#        Default:     0 - No token
+#                     Item Entry - the entry of token
+#
+
+ItemUpgrade.UpgradePurgeToken = 0
+
+#
+#    ItemUpgrade.UpgradePurgeTokenCount
+#        Description: How many ItemUpgrade.UpgradePurgeToken to give when players purge an upgrade. Only active when ItemUpgrade.AllowUpgradesPurge = 1
+#                     and ItemUpgrade.UpgradePurgeToken is a valid item entry
+#        Default:     0 - No effect
+#                     1+ - count
+#
+
+ItemUpgrade.UpgradePurgeTokenCount = 0
+
+#
+#    ItemUpgrade.RefundAllOnPurge
+#        Description: Refund all items/gold/honor/arena when purging that were used to upgrade the item. EVERYTHING is refunded, meaning if the item
+#                     has rank 3 stamina for example, it will refund everything from rank 1 to 3. Only active when
+#                     ItemUpgrade.AllowUpgradesPurge = 1
+#        Default:     1 - Refund everything that was used to upgrade the item
+#
+
+ItemUpgrade.RefundAllOnPurge = 1
+
+#
+#    ItemUpgrade.RandomUpgradesOnLoot
+#        Description: Whether looted items (including from party loot, quest items) can be automatically upgraded. Titanforging-like system.
+#        Default:     0 - No
+#                     1 - Yes, automatic item upgrades enabled
+#
+
+ItemUpgrade.RandomUpgradesOnLoot = 0
+
+#
+#    ItemUpgrade.RandomUpgradesBroadcastLoginMsg
+#        Description: Let players know that random item upgrades are ON via a message that will be sent when player logs in.
+#                     Only has effect when ItemUpgrade.RandomUpgradesOnLoot = 1. Just set to "" (double quotes) if you don't want to broadcast anything.
+#        Default:     |cffeb891a[ITEM UPGRADES SYSTEM]:|r Random item upgrades are active. You have a chance to gain stat upgrades on loot for eligible items.
+#
+
+ItemUpgrade.RandomUpgradesBroadcastLoginMsg = |cffeb891a[ITEM UPGRADES SYSTEM]:|r Random item upgrades are active. You have a chance to gain stat upgrades on loot for eligible items.
+
+#
+#    ItemUpgrade.RandomUpgradeChance
+#        Description: Automatic upgrade chance, only has effect when ItemUpgrade.RandomUpgradesOnLoot = 1. Must be > 0.
+#        Default:     2 - 2% chance for items to be automatically upgraded when looted
+#
+
+ItemUpgrade.RandomUpgradeChance = 2
+
+#
+#    ItemUpgrade.RandomUpgradeMaxStatCount
+#        Description: How many stats can be automatically upgraded. This will always be a roll between 1 and the value that you choose here. So if
+#                     you choose 4 for example, a value between 1 and 4 will be rolled. If 3 is rolled, then 3 stats will be upgraded up to ItemUpgrade.RandomUpgradeMaxRank.
+#                     The chosen stats are also random. If an item has LESS stats than the rolled value, then ALL stats will be upgraded up to ItemUpgrade.RandomUpgradeMaxRank.
+#                     Choose a value between 1 and 10.
+#        Default:     2 - maximum 2 stats will be upgraded (so always 1 or 2 stats)
+#
+
+ItemUpgrade.RandomUpgradeMaxStatCount = 2
+
+#
+#    ItemUpgrade.RandomUpgradeMaxRank
+#        Description: Maximum upgrade rank that can be chosen. This will always be a roll between 1 and the value that you choose here. So if
+#                     you choose 3 for example, a value between 1 and 3 will be rolled. If 2 is rolled, then the stat will be upgraded to RANK 2.
+#                     If there is no RANK n, then RANK n-1 is chosen, if RANK n-1 is still not available, then the next available rank is searched
+#                     until found.
+#        Default:     3 - each stat can go up to RANK 3
+#
+
+ItemUpgrade.RandomUpgradeMaxRank = 3
+
+#
+#    ItemUpgrade.RandomUpgradeWhenBuying
+#        Description: Whether items that are bought from vendors can be randomly upgraded
+#        Default:     0 - don't randomly upgrade bought items
+#
+
+ItemUpgrade.RandomUpgradeWhenBuying = 0
+
+#
+#    ItemUpgrade.RandomUpgradeWhenLooting
+#        Description: Whether items that are looted can be randomly upgraded
+#        Default:     1 - randomly upgrade looted items
+#
+
+ItemUpgrade.RandomUpgradeWhenLooting = 1
+
+#
+#    ItemUpgrade.RandomUpgradeWhenWinning
+#        Description: Whether items that are won by Need/Greel rolls in raid/party can be randomly upgraded
+#        Default:     1 - randomly upgrade won items
+#
+
+ItemUpgrade.RandomUpgradeWhenWinning = 1
+
+#
+#    ItemUpgrade.RandomUpgradeOnQuestReward
+#        Description: Whether quest rewarded items can be randomly upgraded
+#        Default:     1 - randomly upgrade quest rewarded items
+#
+
+ItemUpgrade.RandomUpgradeOnQuestReward = 1
+
+#
+#    ItemUpgrade.RandomUpgradeWhenCrafting
+#        Description: Whether crafted items can be randomly upgraded
+#        Default:     1 - randomly upgrade crafted items
+#
+
+ItemUpgrade.RandomUpgradeWhenCrafting = 1
+
+#
+#    ItemUpgrade.UpgradeWeaponDamage
+#        Description: Shows a menu where weapon physical damage can be upgraded (min/max damage of a weapon)
+#        Default:     1 - show the menu
+#
+
+ItemUpgrade.UpgradeWeaponDamage = 1
+
+#
+#    ItemUpgrade.UpgradeWeaponDamagePercents
+#        Description: A list of percentages (separated by comma) that the players can select when upgrading their weapons.
+#                     Numbers here will be sorted ascending and they will act like ranks, players will have to purchase
+#                     the previous rank (percentage) in order to buy the next one.
+#                     For example: 5,10,15 - lets say that a player wants to upgrade the damage of a weapon by 10%; the player
+#                                  can't directly upgrade by 10%, the player will need to buy the 5% damage increase first.
+#                     When a percentage is chosen for upgrade, weapon's physical min/max damage will be increased by this percent.
+#        Default:     5,10,15 - can choose to upgrade by 5%, 10% and 15% respectively
+#        Only takes effect when ItemUpgrade.UpgradeWeaponDamage is 1
+#
+
+ItemUpgrade.UpgradeWeaponDamagePercents = 5,10,15
+
+#
+#    ItemUpgrade.UpgradeWeaponDamageToken
+#        Description: A token (item) that is to be used when players want to upgrade the damage of a weapon.
+#        Default:     0 - No token
+#                     Item Entry - the entry of token
+#        Only takes effect when ItemUpgrade.UpgradeWeaponDamage is 1
+#
+
+ItemUpgrade.UpgradeWeaponDamageToken = 0
+
+#
+#    ItemUpgrade.UpgradeWeaponDamageTokenCount
+#        Description: The number of ItemUpgrade.UpgradeWeaponDamageToken required to purchase a weapon damage rank.
+#        Default:     1 - 1x ItemUpgrade.UpgradeWeaponDamageToken
+#        Only takes effect when ItemUpgrade.UpgradeWeaponDamage is 1
+#        Only takes effect when ItemUpgrade.UpgradeWeaponDamageToken is a valid item
+#
+
+ItemUpgrade.UpgradeWeaponDamageTokenCount = 1
+
+#
+#    ItemUpgrade.UpgradeWeaponDamageMoney
+#        Description: Money (copper) required for players to pay when buying a weapon damage upgrade.
+#        Default:     0 - No money
+#        Only takes effect when ItemUpgrade.UpgradeWeaponDamage is 1
+#
+
+ItemUpgrade.UpgradeWeaponDamageMoney = 0
+
+#
+#    ItemUpgrade.UpgradeWeaponSpeed
+#        Description: Shows a menu where weapon speed can be upgraded
+#        Default:     1 - show the menu
+#
+
+ItemUpgrade.UpgradeWeaponSpeed = 1
+
+#
+#    ItemUpgrade.UpgradeWeaponSpeedPercents
+#        Description: A list of percentages (separated by comma) that the players can select when upgrading their weapons speed.
+#                     Numbers here will be sorted ascending and they will act like ranks, players will have to purchase
+#                     the previous rank (percentage) in order to buy the next one.
+#                     For example: 10,20,30 - lets say that a player wants to upgrade the speed of a weapon by 20%; the player
+#                                  can't directly upgrade by 20%, the player will need to buy the 10% speed increase first.
+#                     When a percentage is chosen for upgrade, weapon's speed will be decreased by this percent.
+#        Default:     10,20,30 - can choose to upgrade by 10%, 20% and 30% respectively
+#        Only takes effect when ItemUpgrade.UpgradeWeaponSpeed is 1
+#
+
+ItemUpgrade.UpgradeWeaponSpeedPercents = 10,20,30
+
+#
+#    ItemUpgrade.UpgradeWeaponSpeedToken
+#        Description: A token (item) that is to be used when players want to upgrade the speed of a weapon.
+#        Default:     0 - No token
+#                     Item Entry - the entry of token
+#        Only takes effect when ItemUpgrade.UpgradeWeaponSpeed is 1
+#
+
+ItemUpgrade.UpgradeWeaponSpeedToken = 0
+
+#
+#    ItemUpgrade.UpgradeWeaponSpeedTokenCount
+#        Description: The number of ItemUpgrade.UpgradeWeaponSpeedToken required to purchase a weapon speed rank.
+#        Default:     1 - 1x ItemUpgrade.UpgradeWeaponSpeedToken
+#        Only takes effect when ItemUpgrade.UpgradeWeaponSpeed is 1
+#        Only takes effect when ItemUpgrade.UpgradeWeaponSpeedToken is a valid item
+#
+
+ItemUpgrade.UpgradeWeaponSpeedTokenCount = 1
+
+#
+#    ItemUpgrade.UpgradeWeaponSpeedMoney
+#        Description: Money (copper) required for players to pay when buying a weapon speed upgrade.
+#        Default:     0 - No money
+#        Only takes effect when ItemUpgrade.UpgradeWeaponSpeed is 1
+#
+
+ItemUpgrade.UpgradeWeaponSpeedMoney = 0

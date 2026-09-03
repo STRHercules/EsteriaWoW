@@ -1,0 +1,24 @@
+-- ============================================================
+-- I-295  Frightened Miner summons as a plain world creature
+-- ============================================================
+-- SummonProperties 2261 ships from the `summonproperties` gen domain with the
+-- verbatim Cata values control=1 (ALLY) / title=5 (MINIPET) / flags=131848.
+-- Two separate problems came out of that routing:
+--
+--  * flags 0x200 routes to Spell::SummonGuardian, whose Guardian::InitStats calls
+--    InitStatsForLevel(owner->GetLevel()). The miner is created at his template
+--    level 6 and immediately re-levelled to the player's, and SetLevel defaults to
+--    showLevelChange = true, so the client plays the level-up "ding".
+--
+--  * title=5 MINIPET requires UNIT_MASK_MINION (SpellEffects.cpp:2478) — it creates
+--    a MINION, which takes the player's minion slot. For a warlock that DISMISSES
+--    THE ACTIVE PET: accepting the quest despawned the player's imp.
+--
+-- control=0 (SUMMON_CATEGORY_WILD) + title=0 (SUMMON_TYPE_NONE) falls through to the
+-- default branch, a plain Map::SummonCreature -> a TempSummon. No pet/minion slot,
+-- no level sync, no ding, and the player's own pet is untouched. The follow is
+-- established explicitly by his SmartAI (zz_[I-285]_miner_troubles.sql).
+--
+-- UPDATE, not DELETE+INSERT: the row is owned by the AUTO file.
+
+UPDATE `summonproperties` SET `control` = 0, `title` = 0, `flags` = 131336 WHERE `id` = 2261;

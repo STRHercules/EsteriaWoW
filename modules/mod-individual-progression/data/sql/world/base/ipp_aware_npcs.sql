@@ -1,0 +1,179 @@
+SET @IPPPHASE     := 65536;  -- this method of phasing is useful for aggressive creatures
+SET @IPPPHASE_II  := 131072;
+SET @IPPPHASE_III := 262144;
+SET @IPPPHASE_IV  := 524288;
+SET @IPPPHASE_V   := 1048576;
+SET @IPPPHASE_VI  := 2097152;
+
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_tbc' WHERE `entry` IN 
+(16841, 19254, 16840, 20026, 20027, 20053, 20054, 20069, 18542, 20080, 20081, 20082, 21643, 20130, 19934, 19936, 19950, 19951, 19959, 22889, 22902, 22835, 22837);
+
+/* Arena NPCs */
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_tbc' WHERE `entry` IN
+(19915, 19909, 19911, 26012, 26007, 26075, 26307, 26309, 26760, 19912, 19859, 19860, 19861, 20499, 20497, 30610, 30611, 32832);
+
+-- Stormwind
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_II  WHERE `id` = 1749;  -- Lady Katrana Prestor
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_III WHERE `id` = 29611; -- King Varian Wrynn
+
+-- Orgrimmar
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_III WHERE `id` = 29346; -- Apothecary Karlov
+
+-- Phasing NPCs related to AllowEarlyDungeonSet2
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_ds2' WHERE `entry` IN (15270, 15282, 16012, 16013);
+
+-- Phasing Cenarion Hold NPCs
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_preaq' WHERE `entry` IN
+(15176, 15180, 15181, 15183, 15187, 15188, 15189, 15190, 15191, 15194, 15293, 15306, 15419, 15612, 15613, 15614, 15903, 16543, 17081, 17082);
+
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_aqwewar' WHERE `entry` IN (15693); -- Jonathan the Revelator
+
+-- Phasing Cenarion Hold guards
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_preaq' WHERE `id` = 15184 AND `guid` IN (42782, 42783, 42768);
+
+-- Phasing ZG quest NPCs on YoJamba Isle and in Tanaris
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_zg' WHERE `id` IN (10460, 14902, 14903, 14904, 14905, 14910, 15070);
+
+-- Phasing NPCs until after the outdoors AQ war has been completed
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_aq' WHERE `entry` IN  (15498, 15499, 15500, 15540, 16091);                -- Cenarion Hold
+
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_II WHERE `id` IN (15612, 15613, 15615, 15616, 15617, 17070, 17079, 17766,         -- Orgrimmar Legion Post
+                                                                 15440, 15441, 15442, 15443, 15444, 15903, 17068, 17080, 17765); -- Ironforge Brigade post
+-- Phasing Wanted Poster Deathclasp
+UPDATE `gameobject_template` SET `ScriptName` = 'gobject_ipp_preaq' WHERE `entry` IN (180448);
+
+-- Phasing Lights Hope Chapel npcs
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_naxx40' WHERE `entry` IN
+(11102, 16112, 16113, 16114, 16115, 16116, 16131, 16132, 16133, 16134, 16135, 16212, 16225, 16228, 16229, 16256, 16283, 16284, 16376, 16378, 17069, 17072);
+
+-- Phasing Lights Hope Chapel game objects
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ipp_naxx40' WHERE `guid` IN
+(45603, 45606, 45607, 45764, 45765, 45766, 45767, 45768, 45769, 45770, 45771, 45838, 45839, 45840);
+
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_wotlk' WHERE `entry` IN (28602); -- The Shaper's Terrace (Un'Goro)
+
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_wotlk_ulduar' WHERE `entry` IN (34252);
+
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_wotlk_totc' WHERE `entry` IN (35498, 35577, 35496, 36208, 35500, 35497, 34244);
+
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_wotlk_icc' WHERE `entry` IN (37776, 40160, 37780);
+
+-- Phasing the portals to Blasted Lands until TBC is unlocked
+UPDATE `gameobject_template` SET `ScriptName` = 'gobject_ipp_tbc' WHERE `entry` IN (195141, 195142);
+
+-- Phasing battlemasters
+UPDATE `creature_template` SET `flags_extra` = 2, `ScriptName` = 'npc_ipp_wotlk' WHERE `entry` IN 
+(15351, 34955, 34988, 34991, 34997, 34998, 35007, 35008, 35017, 35020, 35021, 35023, 35024, 35025, 35598, 35599, 35600, 35602, 35603, 35611);
+UPDATE `creature_template` SET `flags_extra` = 2, `ScriptName` = 'npc_ipp_pre_wotlk' WHERE `entry` IN (347, 2804, 14942, 15007);
+UPDATE `creature_template` SET `flags_extra` = 2, `ScriptName` = 'npc_ipp_tbc'   WHERE `entry` IN (20374, 20381, 20383, 20385, 20386, 20388);
+
+-- pvp officer room doors
+DELETE FROM `gameobject` WHERE `guid` IN (626262, 631660, 631661);
+INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, 
+`rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES 
+--
+(626262, 176576, 0, 1519, 1519, 1, 1, -8765.82, 403.164, 104.162, -0.898844, 0, 0, -0.434445, 0.900698, 900, 100, 1, 'gobject_ipp_pvp_closed', 0, NULL),
+(631660, 176562, 1, 0, 0, 1, 1, 1634.87, -4247.86, 55.8397, 4.19752, 0, 0, -0.863835, 0.503774, 180, 0, 1, 'gobject_ipp_pvp_closed', NULL, NULL),
+(631661, 176562, 1, 0, 0, 1, 1, 1634.87, -4247.86, 55.8397, 4.19752, 0, 0, -0.863835, 0.503774, 180, 0, 0, 'gobject_ipp_pvp_open', NULL, NULL); 
+-- I can't figure out why gate 31660 is not visible in Orgrimmar. something is blocking guid 31660 specifically. until someone figures it out, I created a new door. (631661)
+
+UPDATE `gameobject` SET `state` = 0, `ScriptName` = 'gobject_ipp_pvp_open' WHERE `guid` = 26262;
+
+-- Phasing emissaries
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_tbc' WHERE `entry` IN (22013, 22015);
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_wotlk' WHERE `entry` IN (30566, 30567, 34948, 34949, 34950, 34951);
+UPDATE `gameobject_template` SET `ScriptName` = 'gobject_ipp_tbc' WHERE `entry` IN (185106, 185107);
+UPDATE `gameobject_template` SET `ScriptName` = 'gobject_ipp_wotlk' WHERE `entry` IN (195532, 195533);
+
+-- Phasing Zul'Aman quest npcs
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_za' WHERE `entry` IN (23559, 23761);
+
+-- Phasing TBC vendors and trainers - Copies are added to replace them.
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_tbc_t3' WHERE `entry` IN (18754, 18771, 19187, 21087);
+
+-- TBC, phasing Shattered Sun offensive NPCs in Shattrath
+UPDATE `creature_template` SET `ScriptName` = '' WHERE `entry` IN (15599, 18594, 19227, 25167, 27666); -- 00_cleanup, undo previous method of phasing
+UPDATE `creature` SET `phaseMask` = 1 WHERE `id` IN (24938, 25115, 27667); -- 00_cleanup
+
+UPDATE `creature` SET `phaseMask` = @IPPPHASE     WHERE `id`  IN (17076, 19475, 24932, 25134, 25135, 25136, 25137, 25138, 25141, 25142, 25143, 25153, 25155, 25167, 25885, 27666);
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_III WHERE `guid` IN (165102, 165103, 165104, 165105, 165106, 165107, 165108, 165109);
+
+-- Silvermoon City, M'uru
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_II WHERE `guid` IN (96982, 96980, 96981, 96979, 96978, 352043);
+
+-- TBC, Terrace of Light, phasing T5 game objects
+UPDATE `gameobject_template` SET `ScriptName` = '' WHERE `entry` IN (187356, 187357); -- 00_cleanup
+UPDATE `gameobject_template` SET `ScriptName` = 'gobject_ipp_tbc_t4' WHERE `entry` = 187345; -- Sunwell Plateau model
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ipp_tbc_t4' WHERE `guid` IN (47205, 47206); -- Shattered Sun Banners
+
+-- TBC, Isle of Quel'Danas
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_II  WHERE `guid` IN (54113, 54114, 54143, 54165, 54176, 54177, 54178, 54181, 54182, 54183, 54184, 54185, 56315, 65680, 65681,
+                                                                   71925, 71926, 76576, 76577, 76578, 76581, 76582, 78387, 84003, 84004, 93950, 93951, 93952, 93853, 93953);
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_III WHERE `guid` IN (59473, 59515, 62841, 62842, 62843, 62844, 65682, 65683, 65684, 65685, 65686, 65687, 65688, 65689, 
+                                                                   65690, 65691, 65692, 65693, 65694, 65695, 65696, 65697, 65698, 65699, 65700, 65702,
+                                                                   71927, 71928, 72677, 72989, 76579, 76580, 77479, 78385, 78386, 78388, 78389, 83999, 84002,
+																   93955, 93956, 93957, 93958, 93959, 93690, 93961, 93964);
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_IV  WHERE `guid` IN (984, 12719, 43498, 62847, 83998, 84005, 84006, 94377, 94378, 94379, 94380, 94381, 94382, 94383, 94384, 94385, 94386, 94387, 
+                                                                   94401, 94402, 94403, 94406, 94407, 94408, 94409, 94410, 94411, 94412, 94413, 94414, 94415, 94417, 94418, 94419, 
+																   94420, 94422, 94423, 94424, 94425, 94426, 94427, 94428, 94429, 94430, 94431, 
+																   94432, 94433, 94434, 94435, 94436, 94437, 94438, 1976590, 1976591);
+
+UPDATE `creature` SET `phaseMask` = @IPPPHASE     WHERE `guid` IN (54030, 54031, 71916, 71917, 71919, 5300293, 5300294, 5300309, 5300313, 5300314, 5300315, 5300368, 5300369, 5300370, 
+                                                                   5300401, 5300402, 5300411, 5300412, 5300414);
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_V   WHERE `guid` IN (5300031, 5300032, 5300033, 5300034, 5300035, 5300403, 5300404, 5300405, 5300406, 5300407, 5300408, 5300460, 5300461, 5300462, 5300463, 5300464, 5300465);
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_VI  WHERE `guid` IN (5300295, 5300296, 5300297, 5300298, 5300299, 5300300, 5300301, 5300302, 5300303, 5300304, 5300305, 5300306, 5300307, 5300308, 5300310, 5300311, 5300312, 
+                                                                   5300355, 5300356, 5300357, 5300358, 5300359, 5300360, 5300361, 5300362, 5300363, 5300364, 5300365, 5300366, 5300367, 
+                                                                   5300388, 5300389, 5300390, 5300391, 5300392, 5300393, 5300394, 5300395, 5300396, 5300397, 5300398, 5300399, 5300400, 5300409, 5300410, 5300413, 5300415);
+
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_mana_cells' WHERE `guid` IN (27755, 47196);
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_making_ready' WHERE `guid` IN (27811);
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_charitable_donation' WHERE `guid` IN (27862);
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_discovering_roots' WHERE `guid` IN (5300290);
+UPDATE `creature_template` SET `ScriptName` = 'npc_ioq_making_ready' WHERE `entry` IN (27667);
+
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_P2' WHERE `guid` IN (27829, 27832, 27833, 27839);
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_P3' WHERE `guid` IN (27810, 27834, 27835, 27837, 27838, 27840, 27841, 27842, 27843, 27844);
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_P4' WHERE `guid` IN (27827, 27828, 27830, 27831, 27836, 27845, 27861);
+
+UPDATE `gameobject` SET `ScriptName` = 'gobject_ioq_before_P3' WHERE `guid` IN (5300500, 5300501, 5300502, 5300503, 5300504);
+
+-- Dragons of Nightmare
+UPDATE `creature` SET `phaseMask` = @IPPPHASE WHERE `id` IN (14887, 14888, 14889, 14890);
+
+-- Vault of Archavon
+UPDATE `creature` SET `phaseMask` = @IPPPHASE     WHERE `id` = 33993; -- Emalon the Storm Watcher
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_II  WHERE `id` = 35013; -- Koralon the Flame Watcher
+UPDATE `creature` SET `phaseMask` = @IPPPHASE_III WHERE `id` = 38433; -- Toravon the Ice Watcher
+
+-- Argent Tournament
+UPDATE `creature` SET `phaseMask` = @IPPPHASE WHERE `guid` IN (25, 63129, 63236, 63370, 63371, 65274, 65275, 65283, 65284, 65285, 65325, 65327, 65350, 65351, 65371, 65451,
+65522, 65523, 65526, 65901, 66478, 66479, 66741, 66753, 66788, 66790, 66792, 66910, 66941, 67185, 67187, 68005, 68457, 68583, 68906, 68941, 68947, 68987, 68989, 68990, 69010,
+69011, 69065, 69077, 69078, 69880, 69973, 69976, 69990, 69992, 69995, 69996, 70000, 70001, 70002, 70003, 70005, 70006, 70007, 70178, 70179, 70180, 70181, 70448, 70539, 70548,
+70551, 70950, 71263, 71922, 71978, 71979, 71980, 72212, 72213, 72216, 72217, 72218, 72219, 72220, 72222, 72223, 72349, 72402, 72405, 72406, 72407, 72408, 72485, 72601, 72942,
+72964, 73491, 73492, 73493, 73494, 73495, 73496, 73497, 73832, 74052, 74053, 74480, 74701, 74722, 74750, 74751, 74975, 75091, 75175, 75392, 75393, 75471, 75472, 75473, 75602,
+75712, 75903, 75904, 75905, 75906, 75910, 75950, 75952, 75997, 76131, 76442, 76443, 76444, 76445, 76719, 76720, 76721, 76722, 76734, 76735, 76736, 81016, 81432, 81433, 81434,
+81435, 83022, 83023, 84073, 84074, 84483, 84657, 84658, 84659, 84660, 84661, 84662, 84664, 84665, 84666, 84667, 84697, 84698, 84699, 84700, 84719, 84750, 84751, 84752, 84753,
+84754, 84755, 84757, 84766, 84767, 84768, 84769, 84770, 84771, 84772, 84816, 84904, 84905, 84906, 84907, 84908, 84909, 84910, 84911, 84912, 84913, 84914, 84915, 84916, 84917,
+84918, 84919, 84920, 84921, 84922, 84923, 84924, 84925, 84926, 84927, 84928, 84929, 84930, 84931, 84932, 84933, 84934, 84935, 84936, 84941, 84942, 84973, 84974, 84975, 84976,
+84977, 84978, 84979, 84980, 84981, 84982, 84983, 84984, 84985, 84986, 84987, 84988, 84990, 84991, 84992, 84993, 84994, 84995, 84996, 84997, 84998, 84999, 85000, 85001, 85002,
+85003, 85004, 85005, 85006, 85007, 85008, 85009, 85010, 85011, 85012, 85013, 85014, 85015, 85016, 85017, 85018, 85019, 85020, 85021, 85022, 85023, 85024, 85025, 85026, 85027,
+85028, 85029, 85030, 85031, 85032, 85033, 85034, 85035, 85036, 85037, 85038, 85039, 85040, 85041, 85042, 85043, 85045, 85046, 85047, 85048, 85049, 85050, 85051, 85052, 85053,
+85054, 85055, 85058, 85059, 85061, 85062, 85065, 85066, 85067, 85068, 85069, 85070, 85071, 85072, 85073, 85074, 85078, 85079, 85080, 85081, 85084, 85085, 85088, 85089, 85090,
+85094, 85095, 85096, 85099, 85100, 85101, 85102, 85103, 85104, 85105, 85106, 85107, 85108, 85109, 85110, 85111, 85112, 85113, 85114, 85115, 85116, 85117, 85119, 85120, 85122,
+85123, 85124, 85125, 85126, 85127, 85128, 85129, 85130, 85131, 85132, 85133, 85134, 85135, 85136, 85139, 85140, 85141, 85142, 85143, 85144, 85145, 85146, 85147, 85148, 85149,
+85150, 85151, 85152, 85153, 85154, 85159, 85160, 85161, 85162, 85163, 85164, 85165, 85166, 85167, 85168, 85169, 85170, 85171, 85173, 85174, 85200, 85201, 85202, 85203, 85204,
+85205, 123152, 134702, 134703, 152218, 200774, 200775, 200776, 200777, 200778, 200779, 200780, 200781, 200782, 200783, 200784, 200785, 200786, 200787, 200788, 200793, 200794,
+200795, 200815, 200816, 200817, 200849, 200850, 200852, 200853, 200854, 200855, 200856, 200857, 200858, 200859, 200860, 200861, 200862, 200863, 200864, 200865, 200866, 200867,
+200870, 200871, 200872, 200873, 200874, 200875, 202313, 202314, 202324, 202325, 202326, 202327, 202328, 202329, 202330, 202331, 202332, 202363, 202364, 202365, 202366, 202367,
+202368, 202369, 202370, 202371, 202372, 202373, 202375, 202376, 202377, 202378, 202379, 202380, 202381, 202382, 202383, 202384, 202385, 202386, 202387, 202388, 202389, 202390,
+202391, 202392, 202393, 202394, 202395, 202396, 202397, 202398, 202399, 202400, 202485, 202486, 203458, 209019, 209020, 209021, 209022, 209023, 209024, 209025, 209026, 209027,
+1976767, 1976768, 1976769, 1976770, 1976771, 1976772, 1976773, 1976774, 1976775, 1976776, 1976777, 1976778, 1976779, 1976780, 1976781, 1976782, 1976783, 1976784, 1976785, 1976786,
+1976787, 1976788, 1976789, 1976790, 1976791, 1976792, 1976793, 1976794, 1976795, 1976796, 1976797, 1976798, 1976799, 1976800, 1976801, 1976802, 1976803, 1976804, 1976805, 1976806,
+1976807, 1976808, 1976809, 1976810, 1976811, 1976812, 1976813, 1976814, 1976815, 1976816);
+
+UPDATE `gameobject` SET `phaseMask` = @IPPPHASE WHERE `guid` IN (58070, 58071, 58072, 58073, 58074, 58075, 58076, 58079, 58087, 58106, 58111, 58115, 58116, 58134, 58143, 58148,
+58169, 58171, 58188, 58204, 58216, 58223, 58301, 58311, 58345, 58346, 58444, 58445, 58447, 58448, 58701, 58702, 58704, 58705, 58707, 58709, 58715, 58717, 58718, 58719, 58720,
+58723, 58728, 58730, 58733, 58735, 58741, 58743, 58744, 58747, 58748, 58750, 58756, 58768, 58785, 58825, 58831, 58909, 58939, 58941, 58979, 58986, 58989, 59007, 59018, 59026,
+59035, 59048, 59088, 59097, 59100, 59108, 59111, 59118, 59136, 59168, 59197, 59219, 59223, 59258, 59263, 59285, 59286, 59298, 59310, 59319, 59337, 59390, 59391, 59392, 59394,
+59396, 59397, 59398, 59399, 59401, 59402, 59403, 59404, 59406, 59448, 59451, 59452, 59546, 59561, 59593, 59610, 59619, 59626, 59737, 59741, 59746, 59752, 59758, 59770, 59788,
+67916, 100498, 150394, 150395, 150396, 150397, 150398, 150399, 150400, 150401, 150402, 150403, 150404, 151783, 151784, 151785, 151786, 151787, 151788, 151789);

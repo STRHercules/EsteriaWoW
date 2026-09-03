@@ -1,0 +1,21 @@
+-- I-261 The Great Bank Heist — vault seat 5326 control-flag fix.
+--
+-- The Cata vault seat 5326 (flags 0x62000806) has VEHICLE_SEAT_FLAG_CAN_CONTROL
+-- (0x800): on 3.3.5a the rider POSSESSES and DRIVES the (invisible) vault
+-- vehicle. That is the "I can still move in the vehicle" bug — the player is
+-- literally steering the vehicle around. Worse, AC never fires SAI
+-- SMART_EVENT_SPELLHIT on a possessed/controlled vehicle (I-242 R5), so the
+-- widget minigame can never detect which widget was cast.
+--
+-- CANNON PATTERN (round 10): keep the seat a CONTROL seat (the stock Cata
+-- value, 0x62000806). Like a stock turret/cannon (Antipersonnel 27894, Scarlet
+-- 28833), the rider POSSESSES the vehicle so the client shows the vehicle
+-- action bar built from creature_template_spell (the 5 widgets). The earlier
+-- worry that possession kills SAI spellhit was wrong: IsAIEnabled stays true
+-- for a vehicle charm, so the vehicle DOES get SMART_EVENT_SPELLHIT — the real
+-- reason presses didn't register was the widget target (TARGET_UNIT_VEHICLE
+-- resolves to null when the vehicle itself is the caster); fixed by retargeting
+-- the widgets to self ([I-261]_spell.sql). Movement is stopped not by the seat
+-- but by rooting the vehicle with 42716 at spawn (what the Neltharion source
+-- did) — a rooted vehicle can't be driven. So: revert to stock control flags.
+UPDATE vehicleseat SET flags = 1644169222 WHERE id = 5326;

@@ -1,0 +1,514 @@
+#
+# Copyright (C) 2016+ AzerothCore <www.azerothcore.org>, released under GNU AGPL v3 license: https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3
+#
+
+[worldserver]
+
+########################################
+# Individual Progression Configuration
+########################################
+
+# IndividualProgression.Enable
+#
+#        Description: Enable Individual Progression Module
+#                     Please note that like all AzerothCore modules, database changes cannot be undone through config settings.
+#                     This means that world changes like restoring Vanilla quests and NPC stats will remain in place even if disabled.
+#                     Disabling the module will disable functionality like access restrictions, level caps, damage adjustments, etc.
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.Enable = 1
+
+# IndividualProgression.EnforceGroupRules
+#
+#        Description: Enable this to only allow players to group with others in the same progression phase
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.EnforceGroupRules = 0
+
+# IndividualProgression.VanillaPowerAdjustment
+#
+#        Description: Adjustment to player's attack power before completing Vanilla content and opening the Dark Portal
+#                     This is meant to provide a more accurate Vanilla feeling in Vanilla content
+#                     Applied linearly per level between levels 11 and 60
+#
+#        Default:     1 - No Adjustment
+#        Suggested:   between 0.5 and 0.6 (50-60% of regular damage)
+#
+IndividualProgression.VanillaPowerAdjustment = 1
+
+# IndividualProgression.VanillaHealingAdjustment
+#
+#        Description: Adjustment to player's healing power before completing Vanilla content and opening the Dark Portal
+#                     This is meant to provide a more accurate Vanilla feeling in Vanilla content
+#                     Applied linearly per level between levels 11 and 60
+#
+#        Default:     1 - No Adjustment
+#        Suggested:   0.5 (50% of regular healing)
+#
+IndividualProgression.VanillaHealingAdjustment = 1
+
+# IndividualProgression.TBCPowerAdjustment
+#
+#        Description: Adjustment to player's attack power after opening the Dark Portal but before completing TBC content
+#                     This is meant to provide a more accurate TBC feeling in TBC content
+#                     Unlike Vanilla adjustment, a flat value is always used
+#
+#        Default:     1 - No Adjustment
+#        Suggested:   between 0.5 and 0.6 (50-60% of regular damage)
+#
+IndividualProgression.TBCPowerAdjustment = 1
+
+# IndividualProgression.TBCHealingAdjustment
+#
+#        Description: Adjustment to player's healing power after opening the Dark Portal but before completing TBC content
+#                     This is meant to provide a more accurate TBC feeling in TBC content
+#                     Unlike Vanilla adjustment, a flat value is always used
+#
+#        Default:     1 - No Adjustment
+#        Suggested:   between 0.5 and 0.6 (50-60% of regular healing)
+#
+IndividualProgression.TBCHealingAdjustment = 1
+
+# IndividualProgression.BotOnlyAdjustments
+#
+#        Description: In dungeons and raids, the Vanilla and TBC adjustments effect RNDbots only.
+#                     Make dungeons and raids harder without effecting real players.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.BotOnlyAdjustments = 0
+
+# IndividualProgression.QuestXPFix
+#
+#        Description: Quest XP for Vanilla and TBC quests was boosted as a catchup mechanism in patches 2.3.0 and 3.0.2
+#                     Enable this option to reduce quest XP for affected quest to be closer to original values
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.QuestXPFix = 1
+
+# IndividualProgression.RequireNaxxStrathEntrance
+#
+#        Description: If enabled, this will require players to first enter Naxx 40 through the original beta entrance in the back of Stratholme,
+#                     before being able to use the teleportation crystal in EPL. This is consistent behavior with other Vanilla raids (MC, BWL).
+#                     If disabled, players can enter Naxx 40 through the crystal as soon as they are attuned and they have reached the correct
+#                     progression level - no Stratholme run will be required.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.RequireNaxxStrathEntrance = 0
+
+# IndividualProgression.doableNaxx40Bosses
+#
+#        Description: If enabled, this will make certain bosses in Naxx40 easier.
+#                     - Four Horsemen's ability damage will be much lower. So they can be fought together without a strategy. 
+#                       Blaumeux's Void Zone will be disabled as well. Bots won't move out of aoe until they take damage, so they were taking massive damage from this.
+#                     - Gluth will search for a zombie every 12 seconds instead of 3.
+#                     - Patchwerk's Hateful Strike will do 80% of it's normal damage.
+#                     - Razuvious will cast disrupting shout instead of mana burn.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.doableNaxx40Bosses_4H = 0
+IndividualProgression.doableNaxx40Bosses_Gluth = 0
+IndividualProgression.doableNaxx40Bosses_Patchwerk = 0
+IndividualProgression.doableNaxx40Bosses_Razuvious = 0
+
+# IndividualProgression.MoltenCore.ManualRuneHandling
+#
+#        Description: Defines whether Molten Core runes are handled manually (dousing through Aqual Quintessence)
+#                     or automatic when bosses are defeated (WotLK default)
+#
+#        Default:     1 - Enabled (requires dousing)
+#                     0 - Disabled (automatic, handled when bosses are defeated)
+#
+IndividualProgression.MoltenCore.ManualRuneHandling = 1
+
+# IndividualProgression.MoltenCore.AqualEssenceCooldownReduction
+#
+#        Description: Reduces the cooldown of Eternal Quintessences by the amount specified.
+#
+#        Default:     0 - Disabled (1 hour cooldown)
+#                     60 - (No cooldown)
+#
+IndividualProgression.MoltenCore.AqualEssenceCooldownReduction = 0
+
+# IndividualProgression.SerpentshrineCavern.RequireAllBosses
+#
+#        Description: Requires all bosses being killed before accessing Vashj's console panel.
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.SerpentshrineCavern.RequireAllBosses = 1
+
+# IndividualProgression.TheEye.RequireAllBosses
+#
+#        Description: Requires all bosses being killed to open the doors to Kael
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.TheEye.RequireAllBosses = 1
+
+# IndividualProgression.FishingFix
+#
+#        Description: Before patch 3.1, fishing skill had progression and had to be leveled in low level zones before high level areas could add skill
+#                     In patch 3.1, it was changed to allow leveling fishing even when catching junk in high level zones, allowing progression to be skipped
+#                     This reverts that changed.
+#
+#        Default:     1 - Enabled (Pre 3.1 behavior - Fishing requires progression through zone levels)
+#                     0 - Disabled (Post 3.1 behavior - Allow leveling fishing in any area)
+#
+IndividualProgression.FishingFix = 1
+
+# IndividualProgression.SimpleConfigOverride
+#
+#        Description: If enabled, it will allow this module to set a few AzerothCore config values.
+#                     The first two are required for this module.
+#                     If you don't want the reduced water breath timer, you need to disable this option and set the first 2 options in worldserver.conf yourself.
+#
+#                     Changed options include:
+#                     - Enable PlayerSettings (required by Individual Progression module)
+#                     - Do not enforce DBC Item Attributes, so that Vanilla item changes can override client values
+#                     - Water Breath Timer to 1 Minute (Vanilla value, changed to 3 Minutes in WotLK)
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.SimpleConfigOverride = 1
+
+# IndividualProgression.DisableQuestMarkers
+#
+#        Description: Disable Quest Object markers and sparkles (added in patch 2.3)
+#
+#        Default:     1 - Markers and Sparkles Disabled
+#                     0 - Markers and Sparkles Enabled
+#
+IndividualProgression.DisableQuestMarkers = 1
+
+# IndividualProgression.DisableRDF
+#
+#        Description: Enable or disable the Random Dungeon Finder feature within the context of Individual Progression.
+#                     Queuing for specific dungeons and Holiday Events will still be possible. (Use DungeonFinder.OptionsMask in worldserver.conf to completely disable the LFG tool.)
+#
+#        Default:     0 - RDF Enabled
+#                     1 - RDF Disabled
+#
+IndividualProgression.DisableRDF = 0
+
+# IndividualProgression.MaxMonsterSight
+#
+#        Description: Enable or disable Max Monster Sight.
+#                     The AC default setting is 50 yards. Enabling this will increase the range to 80 yards.
+#                     The reason behind this are the tower and bunker archers in Alterac Valley. 
+#                     This does NOT effect aggro range.
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.MaxMonsterSight = 1
+
+# IndividualProgression.QuestMoneyAtLevelCap
+#
+#        Description: If enabled, players at the level cap for the current progression stage will receive extra money when completing quests. This feature was added in patch 1.10
+#                     (Please note that completing quests at the level cap of the server, configured in worldserver.conf will always provide extra money, as hard-coded in AzerothCore.)
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.QuestMoneyAtLevelCap = 1
+
+# IndividualProgression.RepeatableVanillaQuestsXP
+#
+#        Description: Some repeatable quests in Vanilla gave XP every time they were turned in.
+#                     Enable this feature to allow these quests to have the Vanilla behavior and give XP each turn in.
+#                     Disable to have the WotLK behavior and only grant XP once.
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.RepeatableVanillaQuestsXP = 1
+
+# IndividualProgression.ProgressionLimit
+#
+#        Description: If enabled, players will not be able to proceed beyond this progression stage.
+#                     Please refer to IndividualProgression.h/ProgressionState enum for progression stage values.
+#                     For example, a value of 7 will limit players to Vanilla content.
+#
+#        Default:     0 - Disabled (players may progress up to the maximum progression stage of 18, which is the completion of WotLK content)
+#                     1-17 - Set a lower maximum attainable progression stage
+#
+IndividualProgression.ProgressionLimit = 0
+
+# IndividualProgression.StartingProgression
+#
+#        Description: If enabled, players will begin at this progression stage.
+#                     Existing players who are at an earlier stage will be set to this stage upon log in.
+#                     Please refer to IndividualProgression.h/ProgressionState enum for progression stage values.
+#
+#        Default:     0 - Disabled (start at stage 0)
+#                     1-18 - Set higher starting progression stage
+#
+IndividualProgression.StartingProgression = 0
+
+# IndividualProgression.TbcRacesUnlockProgression
+#
+#        Description: The progression stage at which TBC races (Draenei and Blood Elves) will be unlocked.
+#                     Races will be unlocked when the player reaches this level with any character on their account.
+#                     Disable to have TBC races available by default.
+#                     Please refer to IndividualProgression.h/ProgressionState enum for progression stage values.
+#                     Players cannot visit TBC starting zones until TBC races are available to them.
+#
+#        Default:     0 - TBC races always available to be created
+#                     8 - Vanilla must be completed to create Draenei and Blood Elves
+#                     1-7, 9-18 - Set a different required progression stage to create TBC race characters
+#
+IndividualProgression.TbcRacesUnlockProgression = 0
+
+# IndividualProgression.tbcRacesStartingProgression
+#
+#        Description: The progression stage at which Draenei and Blood Elf characters will begin.
+#
+#        Default:     0 - Draenei and Blood Elves start at progression 0
+#                     8 - Draenei and Blood Elves start at the beginning of TBC
+#
+IndividualProgression.tbcRacesStartingProgression = 0
+
+# IndividualProgression.DeathKnightUnlockProgression
+#
+#        Description: The progression stage at which Death Knight characters can be created.
+#                     Death Knights will be available when the player reaches this level with any character on their account.
+#                     Disable to have the Death Knight class available by default.
+#                     Please note that all other Death Knight creation restrictions from worldserver.conf still apply.
+#                     The default value is to not allow Death Knight creation until TBC content is cleared.
+#                     This is due to the game not having proper progression balancing for Death Knights until WotLK.
+#
+#        Default:     13 - TBC must be completed to create Death Knights
+#                     0 - Death Knights always available to be created
+#                     1-12, 14-18 - Set a different required progression stage to create Death Knights
+#
+IndividualProgression.DeathKnightUnlockProgression = 13
+
+# IndividualProgression.DeathKnightStartingProgression
+#
+#        Description: The progression stage at which Death Knight characters will begin.
+#
+#        Default:     13 - Death Knights start at the beginning of WotLK
+#                     0-12, 14-18 - Set a different starting progression stage for Death Knights
+#
+IndividualProgression.DeathKnightStartingProgression = 13
+
+# IndividualProgression.RequiredZulGurubProgression
+#
+#        Description: The progression stage at which Zul'Gurub will be available
+#
+#        Default:     3 - Zul'Gurub unlocks after BWL (Default, Blizzlike)
+#                     0-18 - Set a different required progression stage for Zul'Gurub
+#
+IndividualProgression.RequiredZulGurubProgression = 3
+
+# IndividualProgression.RequiredZulAmanProgression
+#
+#        Description: The progression stage at which Zul'Aman will be available
+#
+#        Default:     12 - Zul'Aman opens after Black Temple (Default, Blizzlike)
+#        Suggested:   9  - Zul'Aman opens after Karazhan / Prince Malchezaar.
+#                     0-18 - Set a different required progression stage for Zul'Aman
+#
+IndividualProgression.RequiredZulAmanProgression = 12
+
+# IndividualProgression.DisableDefaultProgression
+#
+#        Description: Disable the regular progression flow, so progression must be advanced through custom creature progression entries
+#
+#        Default:     0 - Default Progression
+#                     1 - Custom Progression
+#
+IndividualProgression.DisableDefaultProgression = 0
+
+# IndividualProgression.CustomProgression
+#
+#        Description: A list of creature IDs paired to progression states. When a creature on the list is defeated by a player,
+#                     the player will be set to that progression state. Used for custom, non-standard progression.
+#                     This will replace the default progression. Progression states that haven't been giving a custom creature kill remain the same.
+#
+#                     Example: IndividualProgression.CustomProgression = "639 8, 3975, 13"
+#                     This would allow players access to TBC after defeating VanCleef (entry 639) and Northrend after defeating Herod (entry 3975).
+#                     Only works for creatures with a rank higher than ELITE to avoid having to check progression after every kill.
+#
+#        Default:     "" - Disabled (default)
+#
+IndividualProgression.CustomProgression = ""
+
+# IndividualProgression.AllowEarlyDungeonSet2
+#
+#        Description: Dungeon Set 2 was introduced in patch 1.10 and requires completing some AQ content that is normally not available until a later phase
+#                     When enabled, this allows the relevant content to be accessed early so that Dungeon Set 2 can be acquired before it is made obsolete by raid gear.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.AllowEarlyDungeonSet2 = 0
+
+# IndividualProgression.AllowEarlyScourgeBosses
+#
+#        Description: The Scourge Invasion adds 6 dungeon bosses that are only available during progression tier 6. Players are not likely to go back to low level dungeons at this point.
+#                     When enabled, this allows these bosses to be fought early, before they're made obsolete.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.AllowEarlyScourgeBosses = 0
+
+# IndividualProgression.TBC.ArenaSeason
+#
+#        Description: Current TBC arena season id
+#        Default:     1
+#                     1-4
+#
+IndividualProgression.TBC.ArenaSeason = 1
+
+# IndividualProgression.WotLK.ArenaSeason
+#
+#        Description: Current WotLK arena season id
+#        Default:     5
+#                     5-8
+#
+IndividualProgression.WotLK.ArenaSeason = 5
+
+# IndividualProgression.VanillaPvPRankRequirement
+#
+#        Description: Required PvP honor kills during Vanilla for each PvP rank to earn relevant titles and get corresponding items
+#
+IndividualProgression.VanillaPvpKillRequirement.Rank1 = 100
+IndividualProgression.VanillaPvpKillRequirement.Rank2 = 200
+IndividualProgression.VanillaPvpKillRequirement.Rank3 = 400
+IndividualProgression.VanillaPvpKillRequirement.Rank4 = 800
+IndividualProgression.VanillaPvpKillRequirement.Rank5 = 1400
+IndividualProgression.VanillaPvpKillRequirement.Rank6 = 2000
+IndividualProgression.VanillaPvpKillRequirement.Rank7 = 3000
+IndividualProgression.VanillaPvpKillRequirement.Rank8 = 4500
+IndividualProgression.VanillaPvpKillRequirement.Rank9 = 6000
+IndividualProgression.VanillaPvpKillRequirement.Rank10 = 8000
+IndividualProgression.VanillaPvpKillRequirement.Rank11 = 10000
+IndividualProgression.VanillaPvpKillRequirement.Rank12 = 13000
+IndividualProgression.VanillaPvpKillRequirement.Rank13 = 18000
+IndividualProgression.VanillaPvpKillRequirement.Rank14 = 24000
+
+# IndividualProgression.VanillaPvpTitlesPersistAfterVanilla
+#
+#        Description: Players retain their Vanilla PvP titles even after reaching TBC/WotLK
+#
+#        Default:     1 - Enabled (Default, Blizzlike)
+#                     0 - Disabled
+#
+IndividualProgression.VanillaPvpTitlesPersistAfterVanilla = 1
+
+# IndividualProgression.VanillaPvpEarnTitlesAfterVanilla
+#
+#        Description: Players can continue to earn new Vanilla PvP titles even after reaching TBC/WotLK
+#
+#        Default:     0 - Disabled (Default, Blizzlike)
+#                     1 - Enabled
+#
+IndividualProgression.VanillaPvpEarnTitlesAfterVanilla = 0
+
+# IndividualProgression.BotAccountsEarnPvPTitles
+#
+#        Description: Enable / Disable bot accounts earning pvp titles.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.BotAccountsEarnPvPTitles = 0
+
+# IndividualProgression.BotAccountsMaxLevel
+#
+#        Description: Set the maximum level for bot accounts
+#
+#        Default:     80
+#
+IndividualProgression.BotAccountsMaxLevel = 80
+
+# IndividualProgression.BotAccountsRegex
+#
+#        Description: A regular expression to match account names that should be excluded from Individual Progression.
+#                     This is for accounts that are used for bots.
+#                     If the Playerbots module is enabled, "^RNDBOT.*" will exclude randombots from Individual Progression.
+#                     To add more accounts you need to use capital letters and this format: "(^RNDBOT.*|TEST1|TEST2)"
+#
+#        Default:     "^RNDBOT.*"
+#
+IndividualProgression.BotAccountsRegex = "^RNDBOT.*"
+
+# IndividualProgression.ExcludedAccountsRegex
+#
+#        Description: A regular expression to match account names that should be excluded from Individual Progression.
+#                     This is useful for accounts that are used for testing or other purposes where progression should not be enforced.
+#                     To add more accounts you need to use capital letters and this format: "(ACCOUNTA|ACCOUNTB)"
+#
+#        Default:     ""
+#
+IndividualProgression.ExcludedAccountsRegex = ""
+
+# IndividualProgression.EnableAllSpellRanks
+#
+#        Description: Enable this to allow all spell ranks to be cast during WotLK. 
+#                     All spell ranks had the same % mana cost during WotLK, there was no reason to cast lower ranks of spells.
+#                     By default Individual Progression will block vanilla and tbc ranks of spells after the player progresses to WotLK.
+#                     This is done because if patch-V is used these vanilla and tbc spells will have their static mana cost restored.
+#                     They should not exist during WotLK. But if you want them to be available anyways, you can enable this config option.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.EnableAllSpellRanks = 0
+
+# IndividualProgression.EnableSetRepCommand
+#
+#        Description: Enable the .ip setrep command for normal AND gm accounts
+#                     This command will set the reputation of certain factions to the same value as the character that has the highest value on your account.
+#                     To avoid abuse this command will by default not work for factions you aren't already neutral/friendly/honored with. (depending on the faction)
+#                     Use IndividualProgression.sharedFactionIdsRegex to set the allowed factions players can share with the characters on their account.
+#
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+IndividualProgression.EnableSetRepCommand = 0
+
+# IndividualProgression.LimitedSetRepCommand
+#
+#        Description: To avoid abuse, the player needs to be at least neutral/friendly/honored already with a faction to gain reputation for it. (depending on the faction)
+#                     This will help prevent a group of 5 characters to hand in a quest 1 by 1 and use the '.ip setrep' command in between each time to get 5x the reputation.
+#                     Needing to be honored means you already did most quests or already put in some reputation grind yourself.
+#                     PvP factions will require neutral reputation, so they are not effected. (see: cs_individualProgression.cpp for the full list)
+#                     The Aldor, The Scryers and the Brood of Nozdormu are exceptions. You need to be honored with them, even if this setting is disabled.
+#
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+IndividualProgression.LimitedSetRepCommand = 1
+
+# IndividualProgression.sharedFactionIdsRegex
+#
+#        Description: This is a list of faction ids that the player can share with other characters on their account.
+#                     EnableSetRepCommand needs to be enabled.
+#                     Valid faction ids are: 
+#                     - vanilla = 59|270|349|509|510|529|576|589|609|729|730|749|889|890|909|910
+#                     - tbc     = 922|932|933|934|935|941|942|946|947|967|970|978|989|990|1011|1012|1015|1031|1038|1077
+#                     - wotlk   = 1037|1052|1073|1090|1091|1094|1098|1119|1124|1156
+#
+#                     see also: https://www.wowhead.com/wotlk/factions
+#
+#        Default:     "59|270|349|509|510|529|576|589|609|729|730|749|889|890|909"
+#
+IndividualProgression.sharedFactionIdsRegex = "59|270|349|509|510|529|576|589|609|729|730|749|889|890|909"
