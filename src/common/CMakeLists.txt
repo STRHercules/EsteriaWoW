@@ -76,6 +76,12 @@ target_link_libraries(common
     stdfs
     fmt)
 
+if (ELUNA)
+  target_link_libraries(common
+    PUBLIC
+      lualib)
+endif()
+
 if (BUILD_APPLICATION_WORLDSERVER OR BUILD_TOOLS_MAPS)
   target_link_libraries(common
     PUBLIC

@@ -49,3 +49,7 @@ if (BUILD_TOOLS_MAPS)
 endif()
 
 add_subdirectory(libsidecar)
+
+if (ELUNA)
+  add_subdirectory(lualib)
+endif()

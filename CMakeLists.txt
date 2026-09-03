@@ -50,6 +50,7 @@ include(ConfigureScripts)
 include(ConfigureModules)
 include(ConfigureApplications)
 include(ConfigureTools)
+include(ConfigureEluna)
 
 # some utils for cmake
 include(deps/acore/cmake-utils/utils.cmake)
