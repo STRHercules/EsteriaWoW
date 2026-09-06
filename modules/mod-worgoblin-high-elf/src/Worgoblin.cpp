@@ -1,7 +1,9 @@
 #include "worgoblin_loader.h"
+#include "Entities/Player/BrokenRacialEffects.h"
 #include "Chat.h"
 #include "Player.h"
 #include "ScriptMgr.h"
+#include "SpellAuras.h"
 #include "SpellScript.h"
 #include "Config.h"
 
@@ -39,6 +41,13 @@ public:
         if (player->HasSpell(BEST_DEALS_ANYWHERE))
             discount *= 0.8;
     }
+
+    void OnPlayerBeforeDurabilityRepair(Player* player, ObjectGuid /*npcGUID*/, ObjectGuid /*itemGUID*/,
+        float& discountMod, uint8 /*guildBank*/) override
+    {
+        if (player->getRace() == RACE_BROKEN_PLAYER)
+            discountMod = Acore::BrokenRacialEffects::ApplySalvagerRepairDiscount(discountMod);
+    }
 };
 
 class spell_rocket_barrage : public SpellScript
@@ -60,6 +69,26 @@ class spell_rocket_barrage : public SpellScript
     void Register() override
     {
         OnEffectLaunchTarget += SpellEffectFn(spell_rocket_barrage::HandleDamage, EFFECT_0, SPELL_EFFECT_SCHOOL_DAMAGE);
+    }
+};
+
+class spell_broken_echo_of_the_naaru : public AuraScript
+{
+    PrepareAuraScript(spell_broken_echo_of_the_naaru);
+
+    void HandleApply(AuraEffect const* aurEff, AuraEffectHandleModes /*mode*/)
+    {
+        Player* player = GetTarget()->ToPlayer();
+        if (!player || player->getRace() != RACE_BROKEN_PLAYER)
+            return;
+
+        const_cast<AuraEffect*>(aurEff)->SetAmount(Acore::BrokenRacialEffects::EchoHealPerTick(player->GetMaxHealth()));
+    }
+
+    void Register() override
+    {
+        OnEffectApply += AuraEffectApplyFn(spell_broken_echo_of_the_naaru::HandleApply,
+            EFFECT_0, SPELL_AURA_PERIODIC_HEAL, AURA_EFFECT_HANDLE_REAL);
     }
 };
 
@@ -140,5 +169,6 @@ void Add_Worgoblin()
 {
     new worgoblin();
     RegisterSpellScript(spell_rocket_barrage);
+    RegisterSpellScript(spell_broken_echo_of_the_naaru);
     new player_worgen_running_wild();
 }
