@@ -42,6 +42,7 @@
 #include "OutdoorPvPMgr.h"
 #include "Pet.h"
 #include "Player.h"
+#include "Entities/Player/BrokenRacialEffects.h"
 #include "RBAC.h"
 #include "ReputationMgr.h"
 #include "ScriptMgr.h"
@@ -1371,6 +1372,10 @@ void Spell::EffectPowerDrain(SpellEffIndex effIndex)
     if (PowerType == POWER_MANA)
         power -= unitTarget->GetSpellCritDamageReduction(power);
 
+    if (PowerType == POWER_MANA && unitTarget->IsPlayer()
+        && unitTarget->ToPlayer()->getRace() == RACE_BROKEN_PLAYER)
+        power = Acore::BrokenRacialEffects::ReduceManaDrain(power);
+
     int32 newDamage = -(unitTarget->ModifyPower(PowerType, -int32(power)));
 
     float gainMultiplier = 0.0f;
@@ -1456,6 +1461,10 @@ void Spell::EffectPowerBurn(SpellEffIndex effIndex)
     // resilience reduce mana draining effect at spell crit damage reduction (added in 2.4)
     if (PowerType == POWER_MANA)
         power -= unitTarget->GetSpellCritDamageReduction(power);
+
+    if (PowerType == POWER_MANA && unitTarget->IsPlayer()
+        && unitTarget->ToPlayer()->getRace() == RACE_BROKEN_PLAYER)
+        power = Acore::BrokenRacialEffects::ReduceManaDrain(power);
 
     int32 newDamage = -(unitTarget->ModifyPower(PowerType, -power));
 
