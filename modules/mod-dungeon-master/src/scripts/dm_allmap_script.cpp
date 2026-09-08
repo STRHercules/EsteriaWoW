@@ -5,10 +5,8 @@
 
 #include "ScriptMgr.h"
 #include "Map.h"
-#include "InstanceMode.h"
 #include "Player.h"
 #include "DungeonMasterMgr.h"
-#include "RoguelikeMgr.h"
 #include "DMConfig.h"
 #include "Chat.h"
 #include "Log.h"
@@ -63,34 +61,7 @@ public:
         ChatHandler(player->GetSession()).SendSysMessage(
             "|cFF00FF00[Dungeon Master]|r Preparing the challenge...");
 
-        InstanceMode::Type mode = session->RoguelikeRunId != 0
-            ? InstanceMode::Type::Roguelike
-            : InstanceMode::Type::DungeonMaster;
-        bool alreadyOwned = InstanceMode::IsOwnedBy(instance, mode);
-        if (!InstanceMode::TryClaim(instance, mode))
-        {
-            ChatHandler(player->GetSession()).SendSysMessage(
-                "|cFFFF0000[Dungeon Master]|r The challenge could not be populated and will end.");
-            sDungeonMasterMgr->AbandonSession(session->SessionId);
-            return;
-        }
-
-        if (!sDungeonMasterMgr->PopulateDungeon(session, instance))
-        {
-            if (!alreadyOwned && InstanceMode::IsOwnedBy(instance, mode))
-                if (InstanceMode::State* state = InstanceMode::GetState(instance))
-                    state->type = InstanceMode::Type::Normal;
-
-            ChatHandler(player->GetSession()).SendSysMessage(
-                "|cFFFF0000[Dungeon Master]|r The challenge could not be populated and will end.");
-            sDungeonMasterMgr->AbandonSession(session->SessionId);
-            return;
-        }
-
-        if (session->RoguelikeRunId != 0)
-            sRoguelikeMgr->PublishProgressionBegin(session->RoguelikeRunId, session->SessionId);
-        else
-            sDungeonMasterMgr->PublishProgressionBegin(session);
+        sDungeonMasterMgr->PopulateDungeon(session, instance);
 
         LOG_INFO("module", "DungeonMaster: Session {} — populated via OnPlayerEnterAll (player {}, map {}, mobs {}, bosses {})",
             session->SessionId, player->GetName(), map->GetId(),

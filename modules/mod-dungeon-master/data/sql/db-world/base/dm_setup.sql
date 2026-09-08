@@ -154,14 +154,14 @@ INSERT INTO `creature` (
 -- Provides: sell/buy (general goods, reagents, ammo), repair.
 -- Spawned programmatically by PopulateDungeon() — no world spawn entries needed.
 -- =============================================
+ 
 -- -----------------------------------------------
-
 -- Clean slate for vendor NPC
 -- -----------------------------------------------
 DELETE FROM `npc_vendor`             WHERE `entry` = 500001;
 DELETE FROM `creature_template_model` WHERE `CreatureID` = 500001;
 DELETE FROM `creature_template`      WHERE `entry` = 500001;
-
+ 
 -- -----------------------------------------------
 -- Vendor NPC Template
 -- -----------------------------------------------
@@ -194,6 +194,8 @@ INSERT INTO `creature_template` (
     ''      -- no custom script; built-in vendor/repair handling
 );
 
+
+ 
 -- -----------------------------------------------
 -- Vendor Display Model
 -- -----------------------------------------------
@@ -203,13 +205,13 @@ INSERT INTO `creature_template_model` (
 ) VALUES (
     500001, 0, 4307, 1.0, 1.0
 );
-
+ 
 -- -----------------------------------------------
 -- Vendor Items (npc_vendor)
 -- -----------------------------------------------
 -- All items have unlimited stock (maxcount=0, incrtime=0).
 -- Covers food, water, reagents, ammo, and potions for all level ranges.
-
+ 
 INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`) VALUES
 -- =========================================================================
 -- FOOD (level-tiered)

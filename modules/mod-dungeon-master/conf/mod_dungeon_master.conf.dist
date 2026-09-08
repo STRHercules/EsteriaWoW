@@ -323,7 +323,7 @@ DungeonMaster.Roguelike.ThirdAffixTier = 10
 # --- VENDOR NPC ---
 # Spawn a friendly vendor at the dungeon entrance during roguelike runs.
 # Provides repair, reagents, food, water, and ammo.
-
+ 
 #    DungeonMaster.Roguelike.VendorEnable
 #        Default: 1
 DungeonMaster.Roguelike.VendorEnable = 1

@@ -91,9 +91,6 @@ struct RoguelikeRun
     uint32  TotalBossesKilled    = 0;
     uint32  TotalDeaths          = 0;
 
-    bool progressionBeginEmitted = false;
-    bool progressionEndEmitted = false;
-
     bool IsActive() const { return State == RoguelikeRunState::Active; }
 
     bool HasPlayer(ObjectGuid guid) const

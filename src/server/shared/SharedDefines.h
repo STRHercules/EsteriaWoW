@@ -81,7 +81,7 @@ enum Races
     RACE_DRAENEI            = 11, // TITLE Draenei
     RACE_WORGEN             = 12, // TITLE Worgen
     RACE_HIGHELF            = 13, // TITLE High Elf
-    RACE_MAGHARORC          = 14, // TITLE Mag'har Orc
+    RACE_BROKEN_PLAYER      = 14, // TITLE Broken
     RACE_OGRE               = 15,
     RACE_EREDAR             = 16,
     RACE_NIGHTBORNE         = 17,

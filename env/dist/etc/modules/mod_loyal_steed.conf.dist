@@ -1,0 +1,85 @@
+#
+# mod-loyal-steed
+# A race-specific persistent companion module for AzerothCore
+# Credits: mod-improved-bank storage system by silviu20092
+#
+[worldserver]
+
+########################################
+# Loyal Steed - General Settings
+########################################
+#
+#    LoyalSteed.Enable
+#        Description: Enable or disable the Loyal Steed module entirely
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+LoyalSteed.Enable = 1
+
+#
+#    LoyalSteed.DeedCost
+#        Description: Cost in copper for the Loyal Steed Deed
+#                     100000 = 10 gold
+#                     1000000 = 100 gold
+#        Default:     1000000 - 100 gold
+#
+LoyalSteed.DeedCost = 1000000
+
+########################################
+# Loyal Steed - Storage Settings
+########################################
+#
+#    LoyalSteed.Storage.Enable
+#        Description: Enable or disable the saddlebag storage feature
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+LoyalSteed.Storage.Enable = 1
+
+########################################
+# Loyal Steed - Fast Travel Settings
+########################################
+#
+#    LoyalSteed.FastTravel.Enable
+#        Description: Enable or disable the fast travel feature
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+LoyalSteed.FastTravel.Enable = 1
+
+#
+#    LoyalSteed.FastTravel.MaxLocations
+#        Description: Maximum number of locations a player can remember
+#        Default:     20
+#
+LoyalSteed.FastTravel.MaxLocations = 20
+
+#
+#    LoyalSteed.FastTravel.ContinentOnly
+#        Description: Restrict fast travel to locations on the same continent
+#        Default:     1 - Enabled (recommended for immersion)
+#                     0 - Disabled (allow cross-continent travel)
+#
+LoyalSteed.FastTravel.ContinentOnly = 1
+
+########################################
+# Loyal Steed - Camp Settings
+########################################
+#
+#    LoyalSteed.Camp.Enable
+#        Description: Enable or disable the camp system
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+LoyalSteed.Camp.Enable = 1
+
+########################################
+# Loyal Steed - Appearance Settings
+########################################
+#
+#    LoyalSteed.Appearance.Enable
+#        Description: Enable or disable the appearance change feature
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+LoyalSteed.Appearance.Enable = 1

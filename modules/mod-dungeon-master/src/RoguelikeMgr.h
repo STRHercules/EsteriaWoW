@@ -13,15 +13,8 @@
 class Player;
 class Group;
 
-namespace Progression
-{
-struct DungeonEvent;
-}
-
 namespace DungeonMaster
 {
-
-struct Session;
 
 class RoguelikeMgr
 {
@@ -40,8 +33,6 @@ public:
     void EndRun(uint32 runId, bool announceResults);
     void AbandonRun(uint32 runId);
     void QuitRun(ObjectGuid playerGuid);
-    void PublishProgressionBegin(uint32 runId, uint32 sessionId);
-    void PublishProgressionBegin(uint32 runId, Session const& session);
 
     // Queries
     RoguelikeRun* GetRun(uint32 runId);
@@ -84,7 +75,6 @@ public:
 private:
     void BuildAffixPool();
     void SelectAffixesForTier(RoguelikeRun& run);
-    bool TryClaimProgressionEnd(uint32 runId, bool success, Progression::DungeonEvent& event);
     uint32 SelectRandomDungeon(const RoguelikeRun& run) const;
     bool TransitionToNextDungeon(RoguelikeRun& run);
     void TeleportRunPlayersOut(RoguelikeRun& run);

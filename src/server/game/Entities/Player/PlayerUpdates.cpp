@@ -1,14 +1,14 @@
 /*
  * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License as published by the
+ * Free Software Foundation; either version 3 of the License, or (at your
+ * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
@@ -403,6 +403,7 @@ void Player::Update(uint32 p_time)
         // != GetCharmGUID())))
         RemovePet(pet, PET_SAVE_NOT_IN_SLOT, true);
 
+    // pussywizard:
     if (m_hostileReferenceCheckTimer <= p_time)
     {
         m_hostileReferenceCheckTimer = 15000;
@@ -429,6 +430,7 @@ void Player::Update(uint32 p_time)
         m_delayed_unit_relocation_timer = 0;
         RemoveFromNotify(NOTIFY_VISIBILITY_CHANGED);
     }
+
     sScriptMgr->OnPlayerAfterUpdate(this, p_time);
 }
 
@@ -707,7 +709,7 @@ void Player::UpdateRating(CombatRating cr)
 
 void Player::UpdateAllRatings()
 {
-    for (uint8 cr = 0; cr < MAX_COMBAT_RATING; ++cr)
+    for (int cr = 0; cr < MAX_COMBAT_RATING; ++cr)
         UpdateRating(CombatRating(cr));
 }
 
@@ -1182,6 +1184,9 @@ bool Player::UpdatePosition(float x, float y, float z, float orientation,
     if (GetGroup())
         SetGroupUpdateFlag(GROUP_UPDATE_FLAG_POSITION);
 
+    if (GetTrader() && !IsWithinDistInMap(GetTrader(), INTERACTION_DISTANCE))
+        GetSession()->SendCancelTrade(TRADE_STATUS_TRADE_CANCELED);
+
     CheckAreaExploreAndOutdoor();
 
     return true;
@@ -1243,8 +1248,7 @@ void Player::UpdateArea(uint32 newArea)
     {
         SetByteFlag(UNIT_FIELD_BYTES_2, 1, UNIT_BYTE2_FLAG_SANCTUARY);
         pvpInfo.IsInNoPvPArea = true;
-        if (!duel && GetCombatManager().HasPvPCombat())
-            CombatStopWithPets();
+        CombatStopWithPets();
     }
     else
         RemoveByteFlag(UNIT_FIELD_BYTES_2, 1, UNIT_BYTE2_FLAG_SANCTUARY);
@@ -1308,6 +1312,8 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea, bool force)
     // in PvE, only opposition team capital
     switch (zone->team)
     {
+    /* FACTION FREE MOD by GITDALISAR
+    ---- START COMMENTING OUT FACTIONAL CHECK FOR CITIES ----
     case AREATEAM_ALLY:
         pvpInfo.IsInHostileArea =
             GetTeamId(true) != TEAM_ALLIANCE &&
@@ -1318,6 +1324,8 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea, bool force)
             GetTeamId(true) != TEAM_HORDE &&
             (sWorld->IsPvPRealm() || zone->flags & AREA_FLAG_CAPITAL);
         break;
+    ---- STOP COMMENTING OUT FACTIONAL CHECK FOR CITITES ----
+    END CHANGES FOR FACTION FREE MOD by GITDALISAR */
     case AREATEAM_NONE:
         // overwrite for battlegrounds, maybe batter some zone flags but current
         // known not 100% fit to this
@@ -1410,7 +1418,7 @@ void Player::UpdateHomebindTime(uint32 time)
             WorldPacket data(SMSG_RAID_GROUP_ONLY, 4 + 4);
             data << uint32(0);
             data << uint32(0);
-            SendDirectMessage(&data);
+            GetSession()->SendPacket(&data);
         }
         // instance is valid, reset homebind timer
         m_HomebindTimer = 0;
@@ -1433,7 +1441,7 @@ void Player::UpdateHomebindTime(uint32 time)
         WorldPacket data(SMSG_RAID_GROUP_ONLY, 4 + 4);
         data << uint32(m_HomebindTimer);
         data << uint32(1);
-        SendDirectMessage(&data);
+        GetSession()->SendPacket(&data);
         LOG_DEBUG(
             "maps",
             "PLAYER: Player '{}' ({}) will be teleported to homebind in 60 "
@@ -1793,7 +1801,7 @@ void Player::UpdateTriggerVisibility()
 
     WorldPacket packet;
     udata.BuildPacket(packet);
-    SendDirectMessage(&packet);
+    GetSession()->SendPacket(&packet);
 }
 
 void Player::UpdateForQuestWorldObjects()
@@ -1846,7 +1854,7 @@ void Player::UpdateForQuestWorldObjects()
 
     WorldPacket packet;
     udata.BuildPacket(packet);
-    SendDirectMessage(&packet);
+    GetSession()->SendPacket(&packet);
 }
 
 void Player::UpdateTitansGrip()
@@ -1990,7 +1998,10 @@ void Player::UpdateCharmedAI()
 
     Unit* target = GetVictim();
     if (target)
+    {
         SetInFront(target);
+        SendMovementFlagUpdate(true);
+    }
 
     if (HasUnitState(UNIT_STATE_CASTING))
         return;

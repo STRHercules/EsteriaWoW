@@ -129,7 +129,7 @@ The installed baseline also includes:
 
 `mod-ah-bot` (AH Bot Plus), `mod-transmog`, `mod-account-achievements`,
 `mod-account-mounts`, `mod-improved-bank` (account-wide storage),
-`mod-junk-to-gold`, `mod-world-chat`, `mod-better-item-reloading`,
+`mod-world-chat`, `mod-better-item-reloading`,
 `mod-aoe-loot`, `mod-npc-services` (repair, bank, mailbox),
 `mod-instance-reset`, `mod-anticheat`, `mod-npc-beastmaster`,
 `mod-random-enchants`, `mod-item-upgrade`, `mod-congrats-on-level`,

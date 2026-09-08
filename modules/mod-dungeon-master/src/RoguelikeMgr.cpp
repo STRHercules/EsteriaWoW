@@ -6,7 +6,6 @@
 #include "RoguelikeMgr.h"
 #include "DungeonMasterMgr.h"
 #include "DMConfig.h"
-#include "progression_events.h"
 #include "Player.h"
 #include "Group.h"
 #include "Creature.h"
@@ -25,11 +24,6 @@
 namespace DungeonMaster
 {
 
-namespace
-{
-constexpr Progression::EventType RoguelikeFloorCompleteEvent = Progression::EventType::ROGUELIKE_FLOOR_COMPLETE;
-}
-
 // RNG helpers (thread-local for safety)
 static thread_local std::mt19937 tRng{ std::random_device{}() };
 
@@ -47,89 +41,6 @@ RoguelikeMgr* RoguelikeMgr::Instance()
 {
     static RoguelikeMgr inst;
     return &inst;
-}
-
-bool RoguelikeMgr::TryClaimProgressionEnd(uint32 runId, bool success, Progression::DungeonEvent& event)
-{
-    uint32 sessionId = 0;
-    {
-        std::lock_guard<std::mutex> lock(_runMutex);
-        auto it = _activeRuns.find(runId);
-        if (it == _activeRuns.end() || it->second.progressionEndEmitted)
-            return false;
-
-        sessionId = it->second.CurrentSessionId;
-    }
-
-    Session session;
-    bool hasSession = sessionId != 0 && sDungeonMasterMgr->CopySession(sessionId, session);
-
-    std::lock_guard<std::mutex> lock(_runMutex);
-    auto it = _activeRuns.find(runId);
-    if (it == _activeRuns.end() || it->second.progressionEndEmitted)
-        return false;
-
-    RoguelikeRun& run = it->second;
-    uint32 mapId = hasSession ? session.MapId : run.PreviousMapId;
-
-    event.type = Progression::EventType::ROGUELIKE_RUN_END;
-    event.sourceId = run.RunId;
-    event.sourceStartedAt = run.RunStartTime;
-    for (RoguelikePlayerData const& player : run.Players)
-        event.players.push_back(player.PlayerGuid);
-    event.groupSize = static_cast<uint32>(event.players.size());
-    event.mapId = mapId;
-    event.difficultyId = run.BaseDifficultyId;
-    event.tier = run.CurrentTier;
-    event.floor = run.DungeonsCleared;
-    event.detailId = 0;
-    event.elapsedSeconds = run.RunStartTime != 0
-        ? static_cast<uint32>(GameTime::GetGameTime().count() - run.RunStartTime)
-        : 0;
-    event.themeId = run.ThemeId;
-    event.success = success;
-    run.progressionEndEmitted = true;
-    return true;
-}
-
-void RoguelikeMgr::PublishProgressionBegin(uint32 runId, uint32 sessionId)
-{
-    Session session;
-    if (!sDungeonMasterMgr->CopySession(sessionId, session))
-        return;
-
-    PublishProgressionBegin(runId, session);
-}
-
-void RoguelikeMgr::PublishProgressionBegin(uint32 runId, Session const& session)
-{
-    Progression::DungeonEvent event;
-    {
-        std::lock_guard<std::mutex> lock(_runMutex);
-        auto it = _activeRuns.find(runId);
-        if (it == _activeRuns.end())
-            return;
-
-        RoguelikeRun& run = it->second;
-        if (!run.IsActive() || run.CurrentSessionId != session.SessionId || run.DungeonsCleared != 0
-            || run.progressionBeginEmitted)
-            return;
-
-        event.type = Progression::EventType::ROGUELIKE_BEGIN;
-        event.sourceId = run.RunId;
-        event.sourceStartedAt = run.RunStartTime;
-        for (RoguelikePlayerData const& player : run.Players)
-            event.players.push_back(player.PlayerGuid);
-        event.groupSize = static_cast<uint32>(event.players.size());
-        event.mapId = session.MapId;
-        event.difficultyId = run.BaseDifficultyId;
-        event.tier = run.CurrentTier;
-        event.themeId = run.ThemeId;
-        event.success = true;
-        run.progressionBeginEmitted = true;
-    }
-
-    Progression::Publish(event);
 }
 
 // Initialization
@@ -427,40 +338,20 @@ void RoguelikeMgr::OnDungeonCompleted(uint32 runId, uint32 sessionId)
     uint32 sessionBossesKilled = 0;
     uint32 sessionDeaths       = 0;
     uint32 sessionMapId        = 0;
-    std::vector<ObjectGuid> sessionPlayers;
-    Session session;
-    if (sDungeonMasterMgr->CopySession(sessionId, session))
     {
-        sessionMobsKilled   = session.MobsKilled;
-        sessionBossesKilled = session.BossesKilled;
-        sessionMapId        = session.MapId;
-        for (PlayerSessionData const& player : session.Players)
+        Session* session = sDungeonMasterMgr->GetSession(sessionId);
+        if (session)
         {
-            sessionDeaths += player.Deaths;
-            sessionPlayers.push_back(player.PlayerGuid);
+            sessionMobsKilled   = session->MobsKilled;
+            sessionBossesKilled = session->BossesKilled;
+            sessionMapId        = session->MapId;
+            for (const auto& pd : session->Players)
+                sessionDeaths += pd.Deaths;
+
+            // Distribute per-floor rewards while session pointer is still valid
+            sDungeonMasterMgr->DistributeRewards(session);
         }
-
-        sDungeonMasterMgr->DistributeRewards(&session);
     }
-
-    uint32 completedFloor = run->DungeonsCleared + 1;
-    Progression::DungeonEvent event;
-    event.type = RoguelikeFloorCompleteEvent;
-    event.sourceId = run->RunId;
-    event.sourceStartedAt = run->RunStartTime;
-    event.detailId = completedFloor;
-    event.players = sessionPlayers;
-    event.groupSize = static_cast<uint32>(event.players.size());
-    event.mapId = sessionMapId;
-    event.difficultyId = run->BaseDifficultyId;
-    event.tier = run->CurrentTier;
-    event.floor = completedFloor;
-    event.elapsedSeconds = run->RunStartTime != 0
-        ? static_cast<uint32>(GameTime::GetGameTime().count() - run->RunStartTime)
-        : 0;
-    event.themeId = run->ThemeId;
-    event.success = true;
-    Progression::Publish(event);
 
     // Accumulate stats
     run->TotalMobsKilled   += sessionMobsKilled;
@@ -537,24 +428,22 @@ void RoguelikeMgr::OnDungeonCompleted(uint32 runId, uint32 sessionId)
 // Handle party wipe
 void RoguelikeMgr::OnPartyWipe(uint32 runId)
 {
-    Progression::DungeonEvent event;
-    if (!TryClaimProgressionEnd(runId, false, event))
-        return;
-
-    Progression::Publish(event);
-
-    RoguelikeRun* run = GetRun(runId);
-    if (!run)
-        return;
+    RoguelikeRun* run = nullptr;
+    {
+        std::lock_guard<std::mutex> lock(_runMutex);
+        auto it = _activeRuns.find(runId);
+        if (it == _activeRuns.end()) return;
+        run = &it->second;
+    }
 
     // Accumulate stats from the final session
-    Session session;
-    if (sDungeonMasterMgr->CopySession(run->CurrentSessionId, session))
+    Session* session = sDungeonMasterMgr->GetSession(run->CurrentSessionId);
+    if (session)
     {
-        run->TotalMobsKilled   += session.MobsKilled;
-        run->TotalBossesKilled += session.BossesKilled;
-        for (PlayerSessionData const& player : session.Players)
-            run->TotalDeaths += player.Deaths;
+        run->TotalMobsKilled   += session->MobsKilled;
+        run->TotalBossesKilled += session->BossesKilled;
+        for (const auto& pd : session->Players)
+            run->TotalDeaths += pd.Deaths;
     }
 
     // Announce the wipe
@@ -636,15 +525,13 @@ void RoguelikeMgr::OnPartyWipe(uint32 runId)
 // End run gracefully (voluntary exit or no dungeons left)
 void RoguelikeMgr::EndRun(uint32 runId, bool announceResults)
 {
-    Progression::DungeonEvent event;
-    if (!TryClaimProgressionEnd(runId, true, event))
-        return;
-
-    Progression::Publish(event);
-
-    RoguelikeRun* run = GetRun(runId);
-    if (!run)
-        return;
+    RoguelikeRun* run = nullptr;
+    {
+        std::lock_guard<std::mutex> lock(_runMutex);
+        auto it = _activeRuns.find(runId);
+        if (it == _activeRuns.end()) return;
+        run = &it->second;
+    }
 
     if (announceResults)
     {

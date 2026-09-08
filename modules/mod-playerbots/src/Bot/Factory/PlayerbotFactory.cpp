@@ -3772,7 +3772,7 @@ void PlayerbotFactory::InitMounts()
             slow = {470, 6648, 458, 472};
             fast = {23228, 23227, 23229};
             break;
-        case RACE_MAGHARORC:
+        case RACE_BROKEN_PLAYER:
             slow = {6654, 6653, 580};
             fast = {23250, 23252, 23251};
             break;

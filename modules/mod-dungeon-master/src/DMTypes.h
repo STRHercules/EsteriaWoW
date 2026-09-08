@@ -144,9 +144,6 @@ struct Session
     uint32  BossesKilled = 0;
     uint32  Wipes       = 0;
 
-    bool progressionBeginEmitted = false;
-    bool progressionEndEmitted = false;
-
     Position EntrancePos;
 
     bool IsSessionCreature(ObjectGuid guid) const

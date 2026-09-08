@@ -1,23 +1,90 @@
 # Ideas
 
+
+## Newly Installed Modules
+- https://github.com/malinmr/mod-transmog-plus-ui 
+- https://github.com/dr1s/mod-corpse-respawn
+- https://github.com/AlsoNotMehh/mod-no-profession-limit
+- https://github.com/AlsoNotMehh/mod-profession-experience
+- https://github.com/Cliffutubius/mod-loyal-steed
+- https://github.com/trauntrow/mod-dungeon-master
+- https://github.com/Old-Man-Warcraft/mod-nemesis-system
+- https://github.com/gitdalisar/mod-Faction-Free
+
 ## Modules to Install
-- https://github.com/malinmr/mod-transmog-plus-ui (Replace current transmog module, get addon)
+- https://github.com/araxiaonline/Delves
+- https://github.com/Old-Man-Warcraft/mod-guild-levels
+- https://github.com/hermensbas/mod_weather_vibe
+
+
+- https://github.com/VenomekPL/mod-gathering-yield
+- https://github.com/justin-kaufmann/mod-changeablespawnrates
+- https://github.com/grnspl/mod-rested-xp-booster
+- https://github.com/sogladev/mod-ghost-speed
+- https://github.com/Day36512/mod-craftspeed
+- https://github.com/pangolp/mod-quest-loot-party
+- https://github.com/nexartgroup/mod-profession-loot-party
+- https://github.com/talamortis/XpWeekend
+- https://github.com/AxxusWhoami/mod-warlock-pet-rename
+- https://github.com/Lichborne-AC/mod-dualspec
+- https://github.com/dayn9t/mod-secondary-class
+
+
+- https://github.com/silviu20092/mod-flightmaster-whistle
+- https://github.com/thanhtong89/mod-creature-capture
+
+
+- https://github.com/Noa-1995/WoW-Retail-Interface
+- https://github.com/Noa-1995/ModernTalents
+
+
 - https://github.com/Fersantos1975/AzerCore-Ops
 - https://github.com/Youpeoples/Black-Market-Auction-House
-- https://github.com/araxiaonline/Delves
-- https://github.com/Old-Man-Warcraft/mod-nemesis-system
+- https://github.com/AlsoNotMehh/mod-eluna-racial-swap
+- https://github.com/AlsoNotMehh/mod-account-bound
+- https://github.com/Gazeshooter/mod-emerald-dreamway
+- https://github.com/zyggy123/CrateSystem-AIO
+- https://github.com/and-elf/mod-dungeon-questgivers
+- https://github.com/silviu20092/mod-reforging
+- https://github.com/Hisha/mod-hunts
+- https://github.com/Hisha/mod-living-world
+- https://github.com/DustinHendrickson/mod-city-siege
+- https://github.com/ShaneBair/mod-travel-book
+- https://github.com/Faris-Kai/PetBattleSystem-AzerothCore
+- https://github.com/Zearius/AzerothWebUI
+- https://github.com/Opertol900/mod-item-enchant-system
+- https://github.com/NeonaTrinity/mod-mystic-merchant
+- https://github.com/ekimgh/Premium-NPC
+- https://github.com/Gozzim/mod-starting-pet
+- https://github.com/Brytenwally/Forging
+- https://github.com/valsan-azerty-boi/mod-barberchair
+- https://github.com/nightwreath/mod-hunter-pet-storage
+
+
+https://github.com/Brytenwally/Azerothcore-RandomItemGenerator
+https://github.com/azerothcore/playermap
+https://github.com/whipowill/wow-addon-playerbots
+
+
+
+
+## modules to Convert to pure Eluna, no ALE
+- https://github.com/Brytenwally/SitMeansRest
+- https://github.com/Brytenwally/Lootpet
+
+
 
 
 ### Urgent
-- Sethrak racials
-- High Elf, Worgen and Mag'har Orc need language, skills, quest access, racials
+- Create screen needs round race icons
+- Replace Sethrak
+    - Pandaren?
 
 
+- Upgrade Models
+- Import Shadowlands/WoD/Retail Gear
 
 ### Priority Fixes
-- Add additional Alliance Race
-    - Broken?
-    - Forsaken?
 - Add Mounts
     - Ferrari
     - Bentley

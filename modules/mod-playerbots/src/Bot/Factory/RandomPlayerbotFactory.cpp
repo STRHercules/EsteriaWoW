@@ -22,6 +22,41 @@
 #include "SocialMgr.h"
 #include "Timer.h"
 
+namespace
+{
+bool HasRandomBotAppearanceData(uint8 race, uint8 gender)
+{
+    bool hasFace = false;
+    bool hasHair = false;
+    bool hasFacialHair = false;
+
+    for (CharSectionsEntry const* charSection : sCharSectionsStore)
+    {
+        if (charSection->Race != race || charSection->Gender != gender)
+            continue;
+
+        switch (charSection->GenType)
+        {
+            case SECTION_TYPE_FACE:
+                hasFace = true;
+                break;
+            case SECTION_TYPE_FACIAL_HAIR:
+                hasFacialHair = true;
+                break;
+            case SECTION_TYPE_HAIR:
+                hasHair = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    bool const requiresFacialHair = (race != RACE_TAUREN && race != RACE_DRAENEI) &&
+        (gender != GENDER_FEMALE || race == RACE_NIGHTELF || race == RACE_UNDEAD_PLAYER);
+    return hasFace && hasHair && (!requiresFacialHair || hasFacialHair);
+}
+}
+
 constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::CombineRaceAndGender(uint8 race,
                                                                                                 uint8 gender)
 {
@@ -38,7 +73,7 @@ constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::Comb
         case RACE_HIGHELF:    baseIndex = NameRaceAndGender::BloodelfMale; break; // Blood Elf names for High Elves
         case RACE_DRAENEI:    baseIndex = NameRaceAndGender::DraeneiMale; break;
         case RACE_GOBLIN:     baseIndex = NameRaceAndGender::GnomeMale; break; // Gnome names for Goblins
-        case RACE_MAGHARORC:  baseIndex = NameRaceAndGender::OrcMale; break; // Orc names for Mag'har Orcs
+        case RACE_BROKEN_PLAYER: baseIndex = NameRaceAndGender::DraeneiMale; break;
         case RACE_OGRE:
         case RACE_EREDAR:
         case RACE_NIGHTBORNE:
@@ -67,6 +102,11 @@ constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::Comb
 
 bool RandomPlayerbotFactory::IsValidRaceClassCombination(uint8 race, uint8 cls, uint32 expansion)
 {
+    // The current 3.3.5 client reserves IDs 16+ for NPC races even though the
+    // database race override marks those slots playable.
+    if (race > RACE_BROKEN_PLAYER || race == RACE_OGRE)
+        return false;
+
     // skip expansion races if not playing with expansion
     if (expansion < EXPANSION_THE_BURNING_CRUSADE && (race == RACE_BLOODELF || race == RACE_DRAENEI))
         return false;
@@ -100,7 +140,8 @@ Player* RandomPlayerbotFactory::CreateRandomBot(WorldSession* session, uint8 cls
         // Without this check, races from the faction with more class options would dominate.
         if (alliance == IsAlliance(race))
         {
-            if (IsValidRaceClassCombination(race, cls, sWorld->getIntConfig(CONFIG_EXPANSION)))
+            if (IsValidRaceClassCombination(race, cls, sWorld->getIntConfig(CONFIG_EXPANSION)) &&
+                (HasRandomBotAppearanceData(race, GENDER_MALE) || HasRandomBotAppearanceData(race, GENDER_FEMALE)))
                 raceOptions.push_back(race);
         }
     }
@@ -112,7 +153,12 @@ Player* RandomPlayerbotFactory::CreateRandomBot(WorldSession* session, uint8 cls
     }
 
     const uint8 race = raceOptions[urand(0, raceOptions.size() - 1)];
-    const uint8 gender = urand(0, 1) ? GENDER_MALE : GENDER_FEMALE;
+    std::vector<uint8> genderOptions;
+    for (uint8 gender = GENDER_MALE; gender <= GENDER_FEMALE; ++gender)
+        if (HasRandomBotAppearanceData(race, gender))
+            genderOptions.push_back(gender);
+
+    const uint8 gender = genderOptions[urand(0, genderOptions.size() - 1)];
     const auto raceAndGender = CombineRaceAndGender(race, gender);
 
     std::string name;
@@ -165,12 +211,18 @@ Player* RandomPlayerbotFactory::CreateRandomBot(WorldSession* session, uint8 cls
         }
     }
 
+    bool excludeCheck = (race == RACE_TAUREN) || (race == RACE_DRAENEI) ||
+                        (gender == GENDER_FEMALE && race != RACE_NIGHTELF && race != RACE_UNDEAD_PLAYER);
+    if (faces.empty() || hairs.empty() || (!excludeCheck && facialHairTypes.empty()))
+    {
+        LOG_ERROR("playerbots", "No appearance data for race: {} and gender: {}", race, gender);
+        return nullptr;
+    }
+
     //uint8 skinColor = skinColors[urand(0, skinColors.size() - 1)]; //not used, line marked for removal.
     std::pair<uint8, uint8> face = faces[urand(0, faces.size() - 1)];
     std::pair<uint8, uint8> hair = hairs[urand(0, hairs.size() - 1)];
 
-    bool excludeCheck = (race == RACE_TAUREN) || (race == RACE_DRAENEI) ||
-                        (gender == GENDER_FEMALE && race != RACE_NIGHTELF && race != RACE_UNDEAD_PLAYER);
     uint8 facialHair = excludeCheck ? 0 : facialHairTypes[urand(0, facialHairTypes.size() - 1)];
 
     std::unique_ptr<CharacterCreateInfo> characterInfo = std::make_unique<CharacterCreateInfo>(

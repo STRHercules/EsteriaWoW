@@ -1,9 +1,6 @@
 # Notes: Merging Worgoblin, AzerothCore High Elf, ARAC-updated, and a few other modules
 This project is mainly for my own convenience, but I know some other people want to merge the same mods too.
 
-## mod-junk-to-gold [repo](https://github.com/noisiver/mod-junk-to-gold)
-This is technically not a "merger" so much as an accommodation. This fantastic module has one small downside: it sometimes sells items you need for quests! So far, I've only had this happen with Noboru's Cudgel, item_template.entry 6191, but I'm going to keep a list of items that should not be automatically sold in an SQL file for turning those items white instead of gray. Simple fix.
-
 ## azerothcore-highelf [repo](https://github.com/abracadaniel22/azerothcore-highelf)
 ### files in mod directory
 

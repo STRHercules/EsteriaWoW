@@ -30,6 +30,7 @@ RACE_ICON_TCOORDS = {
 	["DRAENEI_MALE"]	= {0.5, 0.625, 0, 0.25},
    	["WORGEN_MALE"]   	= {0.625, 0.750, 0, 0.25},
     ["HIGHELF_MALE"]    = {0.750, 0.875, 0, 0.25},
+    ["BROKEN_MALE"]     = {0.500, 0.625, 0.25, 0.5},
 	
 	["TAUREN_MALE"]		= {0, 0.125, 0.25, 0.5},
 	["SCOURGE_MALE"]	= {0.125, 0.25, 0.25, 0.5},
@@ -47,6 +48,7 @@ RACE_ICON_TCOORDS = {
 	["DRAENEI_FEMALE"]	= {0.5, 0.625, 0.5, 0.75},
    	["WORGEN_FEMALE"]  	= {0.625, 0.750, 0.5, 0.75},
     ["HIGHELF_FEMALE"]  = {0.750, 0.875, 0.5, 0.75},
+    ["BROKEN_FEMALE"]   = {0.500, 0.625, 0.75, 1.0},
 	
 	["TAUREN_FEMALE"]	= {0, 0.125, 0.75, 1.0},   
 	["SCOURGE_FEMALE"]	= {0.125, 0.25, 0.75, 1.0}, 

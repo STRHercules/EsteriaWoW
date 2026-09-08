@@ -18,7 +18,6 @@ The checkout uses the `playerbots/Playerbot` fork with standard Eluna active; AL
 | **mod-individual-xp** | Enabled | ([GitHub][13]) |
 | **mod-account-achievements** | Enabled | ([GitHub][10]) |
 | **mod-improved-bank** | Enabled; account-wide storage enabled | ([GitHub][18]) |
-| **mod-junk-to-gold** | Enabled | ([GitHub][19]) |
 | **mod-world-chat** | Enabled | ([GitHub][29]) |
 | **mod-better-item-reloading** | Enabled | ([GitHub][57]) |
 | **mod-custom-server** | Enabled; local C++ module containing the Echoes stat bridge, per-instance scaling ownership, and Phase 8 progression-event bridge | — |
@@ -192,7 +191,6 @@ And **CAIO is the odd one there**: I wouldn't use it immediately because we don'
 [16]: https://github.com/azerothcore/mod-solo-lfg "GitHub - azerothcore/mod-solo-lfg: Solo LFG Module for use on AzerothCore 3.3.5a · GitHub"
 [17]: https://github.com/ZhengPeiRu21/mod-reagent-bank "GitHub - ZhengPeiRu21/mod-reagent-bank: Reagent Bank Module for AzerothCore · GitHub"
 [18]: https://github.com/silviu20092/mod-improved-bank "GitHub - silviu20092/mod-improved-bank: Improved bank module for AzerothCore. · GitHub"
-[19]: https://github.com/noisiver/mod-junk-to-gold "GitHub - noisiver/mod-junk-to-gold: Automatically sells looted gray items · GitHub"
 [20]: https://github.com/azerothcore/mod-npc-services "GitHub - azerothcore/mod-npc-services: AzerothCore Module · GitHub"
 [21]: https://github.com/azerothcore/mod-starter-guild "GitHub - azerothcore/mod-starter-guild: This module automatically joins new players to a guild of your choice on first login. · GitHub"
 [22]: https://github.com/azerothcore/mod-guildhouse "GitHub - azerothcore/mod-guildhouse: Custom guild house for AzerothCore · GitHub"

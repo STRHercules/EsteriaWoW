@@ -34,6 +34,7 @@ Using modules configuration:
 > challenge_modes.conf
 > ChatTransmitter.conf
 > mod_congratsonlevel.conf
+> mod-corpse-respawn.conf
 > mod_dungeon_clear.conf
 > mod_dungeon_master.conf
 > fly-anywhere.conf
@@ -44,11 +45,15 @@ Using modules configuration:
 > instance-reset.conf
 > mod_item_upgrade.conf
 > mod_learnspells.conf
+> mod_loyal_steed.conf
 > mod_mythic_plus.conf
+> mod_nemesis_system.conf
 > mod_no_hearthstone_cooldown.conf
+> NoProfessionLimit.conf
 > mod_npc_beastmaster.conf
 > playerbots.conf
 > premium.conf
+> profession_experience.conf
 > random_enchants.conf
 > reward_system.conf
 > reward_shop.conf
@@ -56,7 +61,7 @@ Using modules configuration:
 > skip_dk_module.conf
 > SoloLfg.conf
 > mod_starterguild.conf
-> transmog.conf
+> mod_transmog_plus.conf
 > mod_worgoblin.conf
 > WorldChat.conf
  
@@ -90,7 +95,7 @@ Updating Playerbots database...
 Loading World Information...
 > RealmID:              1
 > Version DB world:     ACDB 335.17-dev
-AutoBalance::OnBeforeConfigLoad: Config loaded. Global config time set to (1788475354858636).
+AutoBalance::OnBeforeConfigLoad: Config loaded. Global config time set to (1788905346445412).
  
 Loading Modules Configuration...
  
@@ -104,6 +109,7 @@ Using modules configuration:
 > challenge_modes.conf
 > ChatTransmitter.conf
 > mod_congratsonlevel.conf
+> mod-corpse-respawn.conf
 > mod_dungeon_clear.conf
 > mod_dungeon_master.conf
 > fly-anywhere.conf
@@ -114,11 +120,15 @@ Using modules configuration:
 > instance-reset.conf
 > mod_item_upgrade.conf
 > mod_learnspells.conf
+> mod_loyal_steed.conf
 > mod_mythic_plus.conf
+> mod_nemesis_system.conf
 > mod_no_hearthstone_cooldown.conf
+> NoProfessionLimit.conf
 > mod_npc_beastmaster.conf
 > playerbots.conf
 > premium.conf
+> profession_experience.conf
 > random_enchants.conf
 > reward_system.conf
 > reward_shop.conf
@@ -126,7 +136,7 @@ Using modules configuration:
 > skip_dk_module.conf
 > SoloLfg.conf
 > mod_starterguild.conf
-> transmog.conf
+> mod_transmog_plus.conf
 > mod_worgoblin.conf
 > WorldChat.conf
 > mod_achievements.conf
@@ -138,6 +148,7 @@ Using modules configuration:
 > challenge_modes.conf
 > ChatTransmitter.conf
 > mod_congratsonlevel.conf
+> mod-corpse-respawn.conf
 > mod_dungeon_clear.conf
 > mod_dungeon_master.conf
 > fly-anywhere.conf
@@ -148,11 +159,15 @@ Using modules configuration:
 > instance-reset.conf
 > mod_item_upgrade.conf
 > mod_learnspells.conf
+> mod_loyal_steed.conf
 > mod_mythic_plus.conf
+> mod_nemesis_system.conf
 > mod_no_hearthstone_cooldown.conf
+> NoProfessionLimit.conf
 > mod_npc_beastmaster.conf
 > playerbots.conf
 > premium.conf
+> profession_experience.conf
 > random_enchants.conf
 > reward_system.conf
 > reward_shop.conf
@@ -160,7 +175,7 @@ Using modules configuration:
 > skip_dk_module.conf
 > SoloLfg.conf
 > mod_starterguild.conf
-> transmog.conf
+> mod_transmog_plus.conf
 > mod_worgoblin.conf
 > WorldChat.conf
  
@@ -171,7 +186,6 @@ Will clear `logs` table of entries older than 1209600 seconds every 10 minutes.
 > Config: Found config value 'DataDir' from environment variable 'AC_DATA_DIR'.
 Using DataDir /azerothcore/env/dist/data/
 WORLD: VMap support included. LineOfSight:true, getHeight:true, indoorCheck:true PetLOS:true
-AuctionHouseBot: No character GUIDs found when looking up values from AuctionHouseBot.GUIDs from the character database 'characters.guid'.
 > Config: Missing property AuctionHouseBot.CompleteItemValueOverride.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_ENABLED' as an environment variable.
 > Config: Missing property AuctionHouseBot.CompleteItemValueOverride.Items in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.Items = " to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_ITEMS' as an environment variable.
 > Config: Missing property AuctionHouseBot.CompleteItemValueOverride.DoApplyBidVariations in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.CompleteItemValueOverride.DoApplyBidVariations = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_COMPLETE_ITEM_VALUE_OVERRIDE_DO_APPLY_BID_VARIATIONS' as an environment variable.
@@ -491,6 +505,8 @@ AnticheatModule Loaded.
 > Config: Missing property DungeonMaster.Roguelike.Buff.1 in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "DungeonMaster.Roguelike.Buff.1 = " to this file or define 'AC_DUNGEON_MASTER_ROGUELIKE_BUFF_1' as an environment variable.
 DungeonMaster: No roguelike buffs configured — using defaults.
 DungeonMaster: Config loaded — 6 difficulties, 9 themes, 45 dungeons, 10 roguelike buffs.
+NoProfessionLimit: enabled. MaxPrimary=11, AllowedPrimary=11, AccountBound=off, SameFactionOnly=on, Recipes=on.
+ProfessionExperience: loaded configuration. Enabled=on, MaxLevel=80, XPRate=1.00, ServerRate=on, RestedBonus=on, LevelPenalty=on.
 > Config: Missing property SeasonPass.Prestige.Max in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.Max = 300" to this file or define 'AC_SEASON_PASS_PRESTIGE_MAX' as an environment variable.
 > Config: Missing property SeasonPass.Prestige.GoldBase in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.GoldBase = 500000" to this file or define 'AC_SEASON_PASS_PRESTIGE_GOLD_BASE' as an environment variable.
 > Config: Missing property SeasonPass.Prestige.GoldPerLevel in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "SeasonPass.Prestige.GoldPerLevel = 100000" to this file or define 'AC_SEASON_PASS_PRESTIGE_GOLD_PER_LEVEL' as an environment variable.
@@ -505,16 +521,16 @@ DungeonMaster: Config loaded — 6 difficulties, 9 themes, 45 dungeons, 10 rogue
 [SeasonPass] Saison-Content: 40 Wochenziele, 24 Runen, 6 Weltbosse, 12 Zonen, 8 Kopfgelder, 12 Dungeons, 18 Orte, 24 Erfolge.
  
 Loading Acore Strings...
->> Loaded 1338 Acore Strings in 12 ms
+>> Loaded 1338 Acore Strings in 11 ms
  
 Loading Module Strings...
->> Loaded 59 Module Strings in 3 ms
+>> Loaded 30 Module Strings in 2 ms
  
 Loading Module Strings Locale...
->> Loaded 372 Module Strings Locales in 3 ms
+>> Loaded 28 Module Strings Locales in 2 ms
  
 Initialize Data Stores...
->> Initialized 112 Data Stores in 502 ms
+>> Initialized 112 Data Stores in 708 ms
  
 Using enUS DBC Locale As Default. All Available DBC locales: esES zhCN deDE frFR enUS 
  
@@ -525,116 +541,116 @@ Loading Player race data...
 Loading IP Location Database...
  
 Loading Game Graveyard...
->> Loaded 707 Graveyard in 4 ms
+>> Loaded 707 Graveyard in 5 ms
  
 Initializing PlayerDump Tables...
->> Initialized Tables For PlayerDump in 22 ms.
+>> Initialized Tables For PlayerDump in 21 ms.
  
 Loading SpellInfo Store...
->> Loaded Spell Custom Attributes in 71 ms
+>> Loaded Spell Custom Attributes in 140 ms
  
 Loading Spell Cooldown Overrides...
->> Loaded 1064 Spell Cooldown Overrides entries in 3 ms
+>> Loaded 1064 Spell Cooldown Overrides entries in 4 ms
  
 Loading SpellInfo Data Corrections...
->> Loading spell dbc data corrections  in 4 ms
+>> Loading spell dbc data corrections  in 6 ms
  
 Loading Spell Rank Data...
 >> Loaded 3502 spell rank records in 7 ms
  
 Loading Spell Specific And Aura State...
->> Loaded Spell Specific And Aura State in 3 ms
+>> Loaded Spell Specific And Aura State in 4 ms
  
 Loading SkillLineAbilityMultiMap Data...
->> Loaded 10237 SkillLineAbility MultiMap Data in 1 ms
+>> Loaded 10241 SkillLineAbility MultiMap Data in 1 ms
  
 Loading SpellInfo Custom Attributes...
 >> Loaded 509 spell custom attributes from DB in 2 ms
->> Loaded SpellInfo Custom Attributes in 18 ms
+>> Loaded SpellInfo Custom Attributes in 21 ms
  
 Loading Spell Jump Distances...
->> Loaded 2 spell jump distances in 2 ms
+>> Loaded 2 spell jump distances in 1 ms
  
 Loading SpellInfo Immunity infos...
 >> Loaded SpellInfo immunity infos in 5 ms
 Loading Player Totem models...
->> Loaded 20 player totem model records in 2 ms
+>> Loaded 20 player totem model records in 3 ms
  
 Loading Player Shapeshift models...
->> Loaded 112 player totem model records in 1 ms
+>> Loaded 112 player totem model records in 2 ms
  
 Loading GameObject Models...
->> Loaded 2324 GameObject Models in 0 ms
+>> Loaded 2324 GameObject Models in 1 ms
  
 Loading Script Names...
->> Loaded 3482 ScriptNames in 354 ms
+>> Loaded 3486 ScriptNames in 363 ms
  
 Loading Instance Template...
 >> Loaded 85 Instance Templates in 1 ms
  
 Loading Character Cache...
->> Loaded Character Infos For 291 Characters in 1 ms
+>> Loaded Character Infos For 395 Characters in 2 ms
  
 Loading Instances...
 >> Loaded Instances And Binds in 7 ms
  
 Loading Broadcast Texts...
->> Loaded 73039 Broadcast Texts in 134 ms
->> Loaded 583570 Broadcast Text Locales in 699 ms
+>> Loaded 73042 Broadcast Texts in 148 ms
+>> Loaded 583570 Broadcast Text Locales in 727 ms
  
 Loading Localization Strings...
->> Loaded 27514 Creature Locale Strings in 180 ms
->> Loaded 20585 Gameobject Locale Strings in 117 ms
->> Loaded 44803 Item Locale Strings in 280 ms
->> Loaded 2481 Item Set Name Locale Strings in 23 ms
->> Loaded 9463 Quest Locale Strings in 278 ms
->> Loaded 13569 Quest Offer Reward Locale Strings in 101 ms
+>> Loaded 27515 Creature Locale Strings in 163 ms
+>> Loaded 20585 Gameobject Locale Strings in 121 ms
+>> Loaded 44803 Item Locale Strings in 316 ms
+>> Loaded 2481 Item Set Name Locale Strings in 26 ms
+>> Loaded 9463 Quest Locale Strings in 319 ms
+>> Loaded 13569 Quest Offer Reward Locale Strings in 111 ms
 >> Loaded 7503 Quest Request Items Locale Strings in 55 ms
->> Loaded 8369 Npc Text Locale Strings in 72 ms
->> Loaded 1974 Page Text Locale Strings in 44 ms
->> Loaded 5047 Gossip Menu Option Locale Strings in 46 ms
->> Loaded 453 Points Of Interest Locale Strings in 5 ms
->> Loaded 106 Pet Name Locales Parts in 1 ms
+>> Loaded 8369 Npc Text Locale Strings in 76 ms
+>> Loaded 1974 Page Text Locale Strings in 49 ms
+>> Loaded 5047 Gossip Menu Option Locale Strings in 51 ms
+>> Loaded 453 Points Of Interest Locale Strings in 7 ms
+>> Loaded 106 Pet Name Locales Parts in 2 ms
  
->> Localization Strings loaded in 1204 ms
+>> Localization Strings loaded in 1299 ms
  
 Loading Account Roles and Permissions...
->> Loaded 654 RBAC permissions and 653 linked permissions in 4 ms
+>> Loaded 654 RBAC permissions and 653 linked permissions in 6 ms
  
->> Loaded 4 RBAC default permissions in 5 ms
+>> Loaded 4 RBAC default permissions in 7 ms
  
 Loading Page Texts...
->> Loaded 1951 Page Texts in 15 ms
+>> Loaded 1951 Page Texts in 16 ms
  
 Loading Game Object Templates...
->> Loaded 21595 Game Object Templates in 65 ms
+>> Loaded 21600 Game Object Templates in 69 ms
  
 Loading Game Object Template Addons...
->> Loaded 21492 Game Object Template Addons in 25 ms
+>> Loaded 21492 Game Object Template Addons in 30 ms
  
 Loading Transport Templates...
->> Loaded 30 Transport Templates in 4 ms
+>> Loaded 30 Transport Templates in 6 ms
  
 Loading Spell Required Data...
 >> Loaded 50 Spell Required Records in 2 ms
  
 Loading Spell Group Types...
->> Loaded 567 spell group Definitions in 2 ms
+>> Loaded 567 spell group Definitions in 1 ms
  
 Loading Spell Learn Skills...
->> Loaded 103 Spell Learn Skills From DBC in 1 ms
+>> Loaded 103 Spell Learn Skills From DBC in 2 ms
  
 Loading Spell Proc Conditions and Data...
->> Loaded 895 spell proc conditions and data in 9 ms
+>> Loaded 895 spell proc conditions and data in 4 ms
  
 Generating spell proc data from SpellMap...
->> Generated spell proc data for 1334 spells in 3 ms
+>> Generated spell proc data for 1334 spells in 4 ms
  
 Loading Spell Bonus Data...
->> Loaded 1270 Extra Spell Bonus Data in 4 ms
+>> Loaded 1270 Extra Spell Bonus Data in 5 ms
  
 Loading Aggro Spells Definitions...
->> Loaded 106 SpellThreatEntries in 2 ms
+>> Loaded 106 SpellThreatEntries in 3 ms
  
 Loading Mixology Bonuses...
 >> Loaded 21 Mixology Bonuses in 1 ms
@@ -642,40 +658,40 @@ Loading Mixology Bonuses...
 Loading Spell Group Stack Rules...
 >> Loaded 69 spell group stack rules in 1 ms
  
->> Loaded 20 SPELL_GROUP_STACK_RULE_EXCLUSIVE_SAME_EFFECT stack rules in 1 ms
+>> Loaded 20 SPELL_GROUP_STACK_RULE_EXCLUSIVE_SAME_EFFECT stack rules in 0 ms
  
 Loading NPC Texts...
->> Loaded 8382 Npc Texts in 69 ms
+>> Loaded 8385 Npc Texts in 75 ms
  
 Loading Enchant Spells Proc Datas...
 >> Loaded 42 Enchant Proc Data Definitions in 2 ms
  
 Loading Item Random Enchantments Table...
->> Loaded 28725 Item Enchantment Definitions in 24 ms
+>> Loaded 28725 Item Enchantment Definitions in 22 ms
  
 Loading Disables
 >> Loaded 763 Disables in 3 ms
  
 Loading Items...
->> Loaded 46101 Item Templates in 395 ms
+>> Loaded 46101 Item Templates in 366 ms
  
 Loading Item Set Names...
->> Loaded 2481 Item Set Names in 9 ms
+>> Loaded 2481 Item Set Names in 5 ms
  
 Loading Creature Model Based Info Data...
->> Loaded 24143 Creature Model Based Info in 24 ms
+>> Loaded 24143 Creature Model Based Info in 22 ms
  
 Loading Creature Custom IDs Config...
 Loading Creature Templates...
->> Loaded 40586 creature template models in 46 ms
+>> Loaded 40588 creature template models in 60 ms
 >> Loaded 4520 Creature Template Resistances in 9 ms
  
->> Loaded 9589 Creature Template Spells in 9 ms
+>> Loaded 9589 Creature Template Spells in 10 ms
  
->> Loaded 30202 Creature Definitions in 327 ms
+>> Loaded 30206 Creature Definitions in 353 ms
  
 Loading Equipment Templates...
->> Loaded 10944 Equipment Templates in 12 ms
+>> Loaded 10944 Equipment Templates in 16 ms
  
 Loading Creature Template Addons...
 >> Loaded 12110 Creature Template Addons in 17 ms
@@ -687,29 +703,29 @@ Loading Creature Reputation OnKill Data...
 >> Loaded 2077 Creature Award Reputation Definitions in 4 ms
  
 Loading Reputation Spillover Data...
->> Loaded 26 Reputation Spillover Template in 1 ms
+>> Loaded 26 Reputation Spillover Template in 2 ms
  
 Loading Points Of Interest Data...
->> Loaded 463 Points of Interest Definitions in 2 ms
+>> Loaded 463 Points of Interest Definitions in 3 ms
  
 Loading Creature Base Stats...
->> Loaded 400 Creature Base Stats in 4 ms
+>> Loaded 400 Creature Base Stats in 5 ms
  
 Loading Spawn Group Templates...
 >> Loaded 7 spawn group templates in 1 ms
  
 Loading Creature Data...
 >> Loaded 1025 creature spawn variants
->> Loaded 156186 Creatures in 715 ms
+>> Loaded 156206 Creatures in 751 ms
  
 Loading Creature sparring...
 >> Loaded 0 sparring data. DB table `creature_sparring` is empty.
  
 Loading Temporary Summon Data...
->> Loaded 1359 Temporary Summons in 6 ms
+>> Loaded 1359 Temporary Summons in 5 ms
  
 Loading Gameobject Summon Data...
->> Loaded 105 Gameobject Summons in 1 ms
+>> Loaded 105 Gameobject Summons in 2 ms
  
 Loading Pet Levelup Spells...
 >> Loaded 993 Pet Levelup And Default Spells For 39 Families in 0 ms
@@ -721,25 +737,25 @@ Loading Summonable Creature Templates...
 >> Loaded 472 Summonable Creature emplates in 3 ms
  
 Loading Creature Addon Data...
->> Loaded 35772 Creature Addons in 51 ms
+>> Loaded 35772 Creature Addons in 45 ms
  
 Loading Creature Movement Overrides...
 >> Loaded 10 Movement Overrides in 2 ms
  
 Loading Gameobject Data...
->> Loaded 97435 Gameobjects in 420 ms
+>> Loaded 97485 Gameobjects in 428 ms
  
 Loading Spawn Group Data...
->> Loaded 53 spawn group members in 5 ms
+>> Loaded 53 spawn group members in 8 ms
  
 Loading GameObject Addon Data...
->> Loaded 109 Gameobject Addons in 1 ms
+>> Loaded 109 Gameobject Addons in 3 ms
  
 Loading GameObject Quest Items...
 >> Loaded 863 Gameobject Quest Items in 3 ms
  
 Loading Creature Quest Items...
->> Loaded 4452 Creature Quest Items in 8 ms
+>> Loaded 4452 Creature Quest Items in 7 ms
  
 Loading Creature Linked Respawn...
 >> Loaded 4273 Linked Respawns In 6 ms
@@ -748,53 +764,53 @@ Loading Weather Data...
 >> Loaded 35 Weather Definitions in 1 ms
  
 Loading Quests...
->> Loaded 9505 Quests Definitions in 243 ms
+>> Loaded 9505 Quests Definitions in 238 ms
  
 Checking Quest Disables
 >> Checked 543 Quest Disables in 0 ms
  
 Loading Quest POI
->> Loaded 18777 Quest POI definitions in 84 ms
+>> Loaded 18777 Quest POI definitions in 87 ms
  
 Loading Quests Starters and Enders...
 Loading GO Start Quest Data...
->> Loaded 460 Quest Relations From gameobject_queststarter in 6 ms
+>> Loaded 460 Quest Relations From gameobject_queststarter in 3 ms
  
 Loading GO End Quest Data...
->> Loaded 459 Quest Relations From gameobject_questender in 1 ms
+>> Loaded 459 Quest Relations From gameobject_questender in 2 ms
  
 Loading Creature Start Quest Data...
->> Loaded 7717 Quest Relations From creature_queststarter in 15 ms
+>> Loaded 7717 Quest Relations From creature_queststarter in 13 ms
  
 Loading Creature End Quest Data...
->> Loaded 8167 Quest Relations From creature_questender in 18 ms
+>> Loaded 8167 Quest Relations From creature_questender in 13 ms
  
 Loading Quest Greetings...
->> Loaded 206 quest_greeting in 3 ms
+>> Loaded 206 quest_greeting in 2 ms
  
 Loading Quest Greeting Locales...
 >> Loaded 75 quest greeting Locale Strings in 2 ms
  
 Loading Quest Money Rewards...
->> Loaded 800 Quest Money Rewards in 2 ms
+>> Loaded 800 Quest Money Rewards in 1 ms
  
 Loading Objects Pooling Data...
->> Loaded 9238 Objects Pools In 14 ms
+>> Loaded 9238 Objects Pools In 18 ms
  
 Loading Creatures Pooling Data...
->> Loaded 1792 Creatures In Pools in 1 ms
+>> Loaded 1792 Creatures In Pools in 2 ms
  
 Loading Gameobjects Pooling Data...
->> Loaded 33522 Gameobjects In Pools in 18 ms
+>> Loaded 33522 Gameobjects In Pools in 19 ms
  
 Loading Mother Pooling Data...
->> Loaded 6475 Pools In Mother Pools in 14 ms
+>> Loaded 6475 Pools In Mother Pools in 13 ms
  
 Loading Quest Pooling Data...
 >> Loaded 174 Quests In Pools in 0 ms
  
 Starting Objects Pooling System...
->> Pool handling system initialized, 2754 pools will be spawned by default in 24 ms
+>> Pool handling system initialized, 2754 pools will be spawned by default in 21 ms
  
 Loading Game Event Data...
 >> Loaded 100 Holiday Dates (100 dynamic, 0 game_event overrides) in 1 ms
@@ -817,7 +833,7 @@ Loading Game Event Model/Equipment Change Data...
 >> Loaded 0 Model/Equipment Changes In Game Events. DB Table `game_event_model_equip` Is Empty.
  
 Loading Game Event Quest Data...
->> Loaded 223 Quests Additions In Game Events in 2 ms
+>> Loaded 223 Quests Additions In Game Events in 1 ms
  
 Loading Game Event GO Quest Data...
 >> Loaded 78 Quests Additions In Game Events in 1 ms
@@ -835,22 +851,22 @@ Loading Game Event NPCflag Data...
 >> Loaded 5 Npcflags In Game Events In 1 ms
  
 Loading Game Event Seasonal Quest Relations...
->> Loaded 694 Quests Additions In Game Events in 2 ms
+>> Loaded 694 Quests Additions In Game Events in 1 ms
  
 Loading Game Event Vendor Additions Data...
->> Loaded 14 Vendor Additions In Game Events in 1 ms
+>> Loaded 14 Vendor Additions In Game Events in 2 ms
  
 Loading Game Event Battleground Data...
->> Loaded 6 Battleground Holidays In Game Events in 0 ms
+>> Loaded 6 Battleground Holidays In Game Events in 1 ms
  
 Loading Game Event Pool Data...
 >> Loaded 8 Pools For Game Events in 0 ms
  
 Loading UNIT_NPC_FLAG_SPELLCLICK Data...
->> Loaded 334 Spellclick Definitions in 4 ms
+>> Loaded 334 Spellclick Definitions in 3 ms
  
 Loading Vehicle Template Accessories...
->> Loaded 199 Vehicle Template Accessories in 3 ms
+>> Loaded 199 Vehicle Template Accessories in 2 ms
  
 Loading Vehicle Accessories...
 >> Loaded 1 Vehicle Accessories in 1 ms
@@ -869,10 +885,10 @@ Loading Area Trigger Teleport Definitions...
 >> Loaded 272 Area Trigger Teleport Definitions in 2 ms
  
 Loading Access Requirements...
->> Loaded 123 Rows From dungeon_access_template And 35 Rows From dungeon_access_requirements in 25 ms
+>> Loaded 123 Rows From dungeon_access_template And 35 Rows From dungeon_access_requirements in 23 ms
  
 Loading Quest Area Triggers...
->> Loaded 57 Quest Trigger Points in 1 ms
+>> Loaded 57 Quest Trigger Points in 2 ms
  
 Loading Tavern Area Triggers...
 >> Loaded 113 Tavern Triggers in 1 ms
@@ -881,7 +897,7 @@ Loading AreaTrigger Script Names...
 >> Loaded 186 Areatrigger Scripts in 1 ms
  
 Loading LFG Entrance Positions...
->> Loaded 24 LFG Entrance Positions in 1 ms
+>> Loaded 24 LFG Entrance Positions in 2 ms
  
 Loading Dungeon Boss Data...
 >> Loaded 628 Instance Encounters in 2 ms
@@ -890,7 +906,7 @@ Loading LFG Rewards...
 >> Loaded 15 LFG Dungeon Rewards in 1 ms
  
 Loading Graveyard-Zone Links...
->> Loaded 735 Graveyard-Zone Links in 8 ms
+>> Loaded 735 Graveyard-Zone Links in 10 ms
  
 Loading Spell Pet Auras...
 >> Loaded 49 Spell Pet Auras in 2 ms
@@ -905,139 +921,139 @@ Loading Enchant Custom Attributes...
 >> Loaded 47 Custom Enchant Attributes in 1 ms
  
 Loading linked Spells...
->> Loaded 604 Linked Spells in 2 ms
+>> Loaded 604 Linked Spells in 3 ms
  
 Loading Player Create Data...
->> Loaded 150 Player Create Definitions in 27 ms
+>> Loaded 280 Player Create Definitions in 2 ms
  
 Loading Player Create Items Data...
->> Loaded 1 Custom Player Create Items in 2 ms
+>> Loaded 1 Custom Player Create Items in 1 ms
  
 Loading Player Create Skill Data...
->> Loaded 2387 Player Create Skills in 47 ms
+>> Loaded 5194 Player Create Skills in 1 ms
  
 Loading Player Create Spell Data...
->> Loaded 11917 Custom Player Create Spells in 97 ms
+>> Loaded 12239 Custom Player Create Spells in 13 ms
  
 Loading Player Create Cast Spell Data...
->> Loaded 75 Player Create Cast Spells in 1 ms
+>> Loaded 140 Player Create Cast Spells in 1 ms
  
 Loading Player Create Action Data...
->> Loaded 675 Player Create Actions in 91 ms
+>> Loaded 1117 Player Create Actions in 2 ms
  
 Loading Player Create Level Stats Data...
->> Loaded 746 Level Stats Definitions in 7 ms
+>> Loaded 746 Level Stats Definitions in 4 ms
  
 Loading Player Create XP Data...
 >> Loaded 79 XP For Level Definitions in 1 ms
  
 Loading Exploration BaseXP Data...
->> Loaded 80 BaseXP Definitions in 2 ms
+>> Loaded 80 BaseXP Definitions in 1 ms
  
 Loading Pet Name Parts...
->> Loaded 312 Pet Name Parts in 1 ms
+>> Loaded 312 Pet Name Parts in 2 ms
  
 Loading The Max Pet Number...
->> Loaded The Max Pet Number: 0 in 1 ms
+>> Loaded The Max Pet Number: 56 in 1 ms
  
 Loading Pet Level Stats...
->> Loaded 2800 Level Pet Stats Definitions in 6 ms
+>> Loaded 2800 Level Pet Stats Definitions in 5 ms
  
 Loading Player Level Dependent Mail Rewards...
->> Loaded 2 Level Dependent Mail Rewards in 1 ms
+>> Loaded 2 Level Dependent Mail Rewards in 2 ms
  
 Load Mail Server definitions...
->> Loaded 9 Mail Server definitions in 5 ms
+>> Loaded 9 Mail Server definitions in 7 ms
  
 Loading Creature Loot Templates...
->> Loaded 96775 Creature Loot Templates in 118 ms
+>> Loaded 96775 Creature Loot Templates in 128 ms
  
 Loading Fishing Loot Templates...
 >> Loaded 251 Fishing Loot Templates in 2 ms
  
 Loading Gameobject Loot Templates...
->> Loaded 18025 Gameobject Loot Templates in 28 ms
+>> Loaded 18025 Gameobject Loot Templates in 27 ms
  
 Loading Item Loot Templates...
->> Loaded 3284 item loot templates in 9 ms
+>> Loaded 3284 item loot templates in 10 ms
  
 Loading Mail Loot Templates...
 >> Loaded 112 mail loot templates in 2 ms
  
 Loading Milling Loot Templates...
->> Loaded 45 milling loot templates in 2 ms
+>> Loaded 45 milling loot templates in 3 ms
  
 Loading Pickpocketing Loot Templates...
->> Loaded 13525 pickpocketing loot templates in 24 ms
+>> Loaded 13525 pickpocketing loot templates in 25 ms
  
 Loading Skinning Loot Templates...
->> Loaded 1982 skinning loot templates in 9 ms
+>> Loaded 1982 skinning loot templates in 7 ms
  
 Loading Disenchanting Loot Templates...
->> Loaded 123 disenchanting loot templates in 2 ms
+>> Loaded 123 disenchanting loot templates in 3 ms
  
 Loading Prospecting Loot Templates...
->> Loaded 47 prospecting loot templates in 2 ms
+>> Loaded 47 prospecting loot templates in 3 ms
  
 Loading Spell Loot Templates...
->> Loaded 163 spell loot templates in 3 ms
+>> Loaded 163 spell loot templates in 4 ms
  
 Loading Reference Loot Templates...
->> Loaded reference loot templates in 42 ms
+>> Loaded reference loot templates in 51 ms
  
 Loading Player Loot Templates...
 >> Loaded 28 player loot templates in 2 ms
  
 Loading Skill Discovery Table...
->> Loaded 347 skill discovery definitions in 3 ms
+>> Loaded 347 skill discovery definitions in 5 ms
  
 Loading Skill Extra Item Table...
->> Loaded 227 spell specialization definitions in 1 ms
+>> Loaded 227 spell specialization definitions in 2 ms
  
 Loading Skill Perfection Data Table...
->> Loaded 72 spell perfection definitions in 1 ms
+>> Loaded 72 spell perfection definitions in 2 ms
  
 Loading Skill Fishing Base Level Requirements...
->> Loaded 94 areas for fishing base skill level in 0 ms
+>> Loaded 94 areas for fishing base skill level in 2 ms
  
 Loading Achievements...
 >> Loaded 43 achievement references in 0 ms
  
 Loading Achievement Criteria Lists...
->> Loaded 7494 achievement criteria in 1 ms
+>> Loaded 7494 achievement criteria in 2 ms
  
 Loading Achievement Criteria Data...
->> Loaded 2818 additional achievement criteria data in 6 ms
+>> Loaded 2818 additional achievement criteria data in 7 ms
  
 Loading Achievement Rewards...
->> Loaded 116 achievement rewards in 2 ms
+>> Loaded 116 achievement rewards in 3 ms
  
 Loading Achievement Reward Locales...
 >> Loaded 102 Achievement Reward Locale Strings in 3 ms
  
 Loading Completed Achievements...
->> Loaded 43 completed achievements in 3 ms
+>> Loaded 44 completed achievements in 4 ms
  
 Loading Item Auctions...
->> Loaded 0 auction items. DB table `auctionhouse` or `item_instance` is empty!
+>> Loaded 100 auction items in 3 ms
  
 Loading Auctions...
->> Loaded 0 auctions. DB table `auctionhouse` is empty.
+>> Loaded 100 auctions in 2 ms
  
 Loading Guilds Definitions...
->> Loaded 0 guild definitions. DB table `guild` is empty.
+>> Loaded 9 guild definitions in 3 ms
  
 Loading Guild Ranks...
->> Loaded 0 guild ranks. DB table `guild_rank` is empty.
+>> Loaded 45 guild ranks in 1 ms
  
 Loading Guild Members...
->> Loaded 0 guild members. DB table `guild_member` is empty.
+>> Loaded 105 guild members int 5 ms
  
 Loading Bank Tab Rights...
 >> Loaded 0 guild bank tab rights. DB table `guild_bank_right` is empty.
  
 Loading Guild Event Logs...
->> Loaded 0 guild event logs. DB table `guild_eventlog` is empty.
+>> Loaded 110 guild event logs in 1 ms
  
 Loading Guild Bank Event Logs...
 >> Loaded 0 guild bank event logs. DB table `guild_bank_eventlog` is empty.
@@ -1052,7 +1068,7 @@ Validating data of loaded guilds...
 >> Validated data of loaded guilds in 0 ms
  
 Loading ArenaTeams...
->> Loaded 0 arena teams. DB table `arena_team` is empty!
+>> Loaded 6 arena teams in 2 ms
  
 Loading Groups...
 >> Loaded 0 group definitions. DB table `groups` is empty!
@@ -1062,39 +1078,39 @@ Loading Group Members...
  
 Loading Reserved Names...
 >> Loaded 0 reserved names. DB table `reserved_name` is empty!
->> Loaded 16330 reserved names from DBC in 4 ms
+>> Loaded 16330 reserved names from DBC in 6 ms
  
 Loading Profanity Names...
 >> Loaded 0 profanity names. DB table `profanity_name` is empty!
->> Loaded 8267 profanity names from DBC in 3 ms
+>> Loaded 8267 profanity names from DBC in 4 ms
  
 Loading Chat Filter...
 >> Loaded 0 chat filter words. DB table `chat_filter` is empty!
  
 Loading GameObjects for Quests...
->> Loaded 1820 GameObjects for quests in 1 ms
+>> Loaded 1820 GameObjects for quests in 2 ms
  
 Loading BattleMasters...
->> Loaded 146 battlemaster entries in 3 ms
+>> Loaded 146 battlemaster entries in 4 ms
  
 Loading GameTeleports...
 >> Loaded 1989 GameTeleports in 6 ms
  
 Loading Trainers...
->> Loaded 152 Trainers in 17 ms
+>> Loaded 152 Trainers in 16 ms
 Loading Creature default trainers...
 >> Loaded 855 default trainers in 2 ms
 Loading Gossip Menu...
->> Loaded 6133 gossip_menu entries in 6 ms
+>> Loaded 6133 gossip_menu entries in 7 ms
  
 Loading Gossip Menu Options...
->> Loaded 4789 gossip_menu_option entries in 16 ms
+>> Loaded 4789 gossip_menu_option entries in 18 ms
  
 Loading Vendors...
->> Loaded 42261 Vendors in 63 ms
+>> Loaded 42273 Vendors in 69 ms
  
 Loading Waypoints...
->> Loaded 156799 waypoints in 254 ms
+>> Loaded 156799 waypoints in 270 ms
  
 Loading Waypoint Addons...
 >> Loaded 0 waypoint addon data. DB table `waypoint_data_addon` is empty!
@@ -1106,28 +1122,28 @@ Loading Creature Formations...
 >> Loaded 7480 Creatures In Formations in 15 ms
  
 Loading WorldStates...
->> Loaded 244 World States in 2 ms
+>> Loaded 244 World States in 1 ms
  
 Loading Conditions...
->> Loaded 17572 conditions in 67 ms
+>> Loaded 17572 conditions in 68 ms
  
 Loading Faction Change Achievement Pairs...
->> Loaded 124 faction change achievement pairs in 1 ms
+>> Loaded 124 faction change achievement pairs in 2 ms
  
 Loading Faction Change Spell Pairs...
->> Loaded 113 faction change spell pairs in 1 ms
+>> Loaded 113 faction change spell pairs in 2 ms
  
 Loading Faction Change Item Pairs...
->> Loaded 1395 faction change item pairs in 3 ms
+>> Loaded 1395 faction change item pairs in 4 ms
  
 Loading Faction Change Reputation Pairs...
->> Loaded 15 faction change reputation pairs in 0 ms
+>> Loaded 15 faction change reputation pairs in 2 ms
  
 Loading Faction Change Title Pairs...
->> Loaded 22 faction change title pairs in 1 ms
+>> Loaded 22 faction change title pairs in 2 ms
  
 Loading Faction Change Quest Pairs...
->> Loaded 293 faction change quest pairs in 1 ms
+>> Loaded 293 faction change quest pairs in 2 ms
  
 Loading GM Tickets...
 >> Loaded 0 GM tickets. DB table `gm_ticket` is empty!
@@ -1146,11 +1162,11 @@ Loading Motd...
 Loading Motd locale...
 >> Loaded 0 motd locale definitions. DB table `motd_localized` is empty for this realm!
  
->> Loaded 0 motd locale definitions in 1 ms
+>> Loaded 0 motd locale definitions in 2 ms
 >> Loaded motd definitions in 3 ms
  
 Loading spell_scripts...
->> Loaded 130 script definitions in 2 ms
+>> Loaded 130 script definitions in 3 ms
  
 Loading event_scripts...
 >> Loaded 472 script definitions in 3 ms
@@ -1159,10 +1175,10 @@ Loading waypoint_scripts...
 >> Loaded 568 script definitions in 3 ms
  
 Loading Spell Script Names...
->> Loaded 2975 spell script names in 11 ms
+>> Loaded 2977 spell script names in 10 ms
  
 Loading Creature Texts...
->> Loaded 19195 Creature Texts For 4289 Creatures in 75 ms
+>> Loaded 19195 Creature Texts For 4289 Creatures in 67 ms
  
 Loading Creature Text Options...
 >> Loaded 49 Creature Text Options in 4 ms
@@ -1173,13 +1189,13 @@ Loading Creature Text Locales...
 Loading Scripts...
 Loading Script Waypoints For 57 Creature(s)...
 >> Loaded 1990 Script Waypoint nodes in 7 ms
->> Loaded 3692 C++ scripts in 45 ms
+>> Loaded 3709 C++ scripts in 67 ms
  
 Validating Spell Scripts...
->> Validated 3477 scripts in 4 ms
+>> Validated 3479 scripts in 4 ms
  
 Loading SmartAI Scripts...
->> Loaded 14794 SmartAI scripts in 321 ms
+>> Loaded 14794 SmartAI scripts in 333 ms
  
 Loading Calendar Data...
 >> Loaded 0 calendar events
@@ -1199,7 +1215,7 @@ Player::DeleteOldChars: Deleting all characters which have been deleted 30 days 
  
 Initializing Opcodes...
 Loading Arena Season Rewards...
->> Loaded 39 arena season rewards in 3 ms
+>> Loaded 39 arena season rewards in 2 ms
  
 Loading Active Arena Season...
 Arena Season 8 loaded...
@@ -1214,7 +1230,7 @@ Starting Battlefield System
 Battlefield: Wintergrasp successfully initiated.
  
 Loading Transports...
->> Spawned 21 continent motion transports in 124 ms
+>> Spawned 21 continent motion transports in 152 ms
 Loading Warden Checks...
 >> Loaded 793 warden checks.
  
@@ -1244,7 +1260,7 @@ Load Channel Rights...
 Load Channels...
 >> Loaded 0 channels. DB table `channels` is empty.
 Loading AntiDos opcode policies
->> Loaded 102 AntiDos Opcode Policies in 1 ms
+>> Loaded 102 AntiDos Opcode Policies in 2 ms
  
  
 Loading item upgrade mod custom tables...
@@ -1268,24 +1284,24 @@ Loading item upgrade mod custom tables...
 Load Playerbots Config...
 Initializing mod-playerbots, based on AI Playerbots by ike3 and the original Playerbots by blueboy
 Loading TalentSpecs...
->> 0 random bot accounts with 0 characters available
+>> 10 random bot accounts with 100 characters available
 Building equipment cache (new) for 80 levels...
->> Cached total 24307 equipment entries in 6 ms
+>> Cached total 24307 equipment entries in 7 ms
  
 Building ammo cache for 80 levels...
->> Cached total 1465 ammo entries in 2 ms
+>> Cached total 1465 ammo entries in 1 ms
  
 Building food cache for 80 levels...
->> Cached total 524 food entries in 2 ms
+>> Cached total 524 food entries in 1 ms
  
 Building potion cache for 80 levels...
 >> Cached total 575 potion entries in 1 ms
  
 Building trade cache for 80 levels...
->> Cached total 3003 trade entries in 1 ms
+>> Cached total 3003 trade entries in 2 ms
  
 Loading random item cache...
->> Loaded 12563 random item records in 11 ms
+>> Loaded 12563 random item records in 12 ms
  
 Loaded 6647 BiS entries across 18 item levels
 Loading playerbots dungeon suggestions...
@@ -1293,7 +1309,7 @@ Loading playerbots dungeon suggestions...
 ---------------------------------------
        mod-playerbots initialized      
 ---------------------------------------
->> Loaded playerbots config in 9129 ms
+>> Loaded playerbots config in 8360 ms
  
 Playerbots World Thread Processor initialized
  
@@ -1304,25 +1320,25 @@ AuctionHouseBot: (Re)populating item candidate lists ...
 > Config: Missing property AuctionHouseBot.AdvancedListingRules.UseDropRates.Enabled in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.AdvancedListingRules.UseDropRates.Enabled = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_ADVANCED_LISTING_RULES_USE_DROP_RATES_ENABLED' as an environment variable.
 DungeonMaster: Patched BoK (25898) StackAmount → 255 for roguelike buff stacking.
 DungeonMaster: Initializing...
-DungeonMaster: Loaded 9914 trash creatures, 3748 potential bosses.
-DungeonMaster:   Trash type 10 (NotSpecified): 1494 entries
-DungeonMaster:   Trash type 9 (Mechanical): 209 entries
-DungeonMaster:   Trash type 7 (Humanoid): 4405 entries
-DungeonMaster:   Trash type 6 (Undead): 918 entries
-DungeonMaster:   Trash type 5 (Giant): 39 entries
-DungeonMaster:   Trash type 4 (Elemental): 492 entries
-DungeonMaster:   Trash type 3 (Demon): 457 entries
-DungeonMaster:   Trash type 2 (Dragonkin): 164 entries
-DungeonMaster:   Trash type 1 (Beast): 1736 entries
-DungeonMaster:   Boss  type 10 (NotSpecified): 271 entries
-DungeonMaster:   Boss  type 9 (Mechanical): 80 entries
-DungeonMaster:   Boss  type 7 (Humanoid): 1726 entries
-DungeonMaster:   Boss  type 6 (Undead): 577 entries
-DungeonMaster:   Boss  type 5 (Giant): 85 entries
-DungeonMaster:   Boss  type 4 (Elemental): 204 entries
-DungeonMaster:   Boss  type 3 (Demon): 220 entries
-DungeonMaster:   Boss  type 2 (Dragonkin): 216 entries
-DungeonMaster:   Boss  type 1 (Beast): 369 entries
+DungeonMaster: Loaded 8369 trash creatures, 3169 potential bosses.
+DungeonMaster:   Trash type 10 (NotSpecified): 1183 entries
+DungeonMaster:   Trash type 9 (Mechanical): 157 entries
+DungeonMaster:   Trash type 7 (Humanoid): 3744 entries
+DungeonMaster:   Trash type 6 (Undead): 841 entries
+DungeonMaster:   Trash type 5 (Giant): 32 entries
+DungeonMaster:   Trash type 4 (Elemental): 432 entries
+DungeonMaster:   Trash type 3 (Demon): 409 entries
+DungeonMaster:   Trash type 2 (Dragonkin): 115 entries
+DungeonMaster:   Trash type 1 (Beast): 1456 entries
+DungeonMaster:   Boss  type 10 (NotSpecified): 220 entries
+DungeonMaster:   Boss  type 9 (Mechanical): 69 entries
+DungeonMaster:   Boss  type 7 (Humanoid): 1381 entries
+DungeonMaster:   Boss  type 6 (Undead): 516 entries
+DungeonMaster:   Boss  type 5 (Giant): 79 entries
+DungeonMaster:   Boss  type 4 (Elemental): 195 entries
+DungeonMaster:   Boss  type 3 (Demon): 188 entries
+DungeonMaster:   Boss  type 2 (Dragonkin): 180 entries
+DungeonMaster:   Boss  type 1 (Beast): 341 entries
 DungeonMaster: Loaded 128 real dungeon bosses into boss pool.
 DungeonMaster:   Dungeon boss type 10 (NotSpecified): 4 entries
 DungeonMaster:   Dungeon boss type 9 (Mechanical): 3 entries
@@ -1345,219 +1361,30 @@ RoguelikeMgr: Initialized — 5 affix definitions, 10 buff pool entries.
  6 difficulties | 9 themes | 45 dungeons
  Level band: +/-3 | Max concurrent: 20
 ===============================================
-Loading transmog appearance collection cache....
-Loaded 25 collected appearances into cache
 Calendar deletion of old events.
 Anticheat: Resetting daily report states.
-Anticheat: Next daily report reset: Fri Sep 04 2026 06:00:00
+Anticheat: Next daily report reset: Wed Sep 09 2026 06:00:00
 mod-dungeon-clear: registered DungeonClear contexts (strategy/action/trigger/value) into all class registries of mod-playerbots.
 Saving reports for 0 players.
 > Config: Found config value 'LogsDir' from environment variable 'AC_LOGS_DIR'.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-Player Kara has invalid faction (faction template id) #2241
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
 Saving reports for 0 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Player::addSpell: Non-existed in SpellStore spell #27226 request.
+Player::addSpell: Non-existed in SpellStore spell #27229 request.
+Player::addSpell: Non-existed in SpellStore spell #30908 request.
+Player Derekwl (GUID: 303), has spell (883) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (982) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (1002) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (1462) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (2641) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (6197) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (6991) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+Player Derekwl (GUID: 303), has spell (48990) that teach skill (50) which is invalid for the race/class combination (Race: 5, Class: 9). Will be deleted.
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1565,9 +1392,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1575,9 +1402,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1585,9 +1412,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1595,9 +1422,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1605,9 +1432,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1615,9 +1442,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1625,9 +1452,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1635,13 +1462,9 @@ Saving reports for 0 players.
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-Wrong format occurred (argument not found). Fmt string: '> Config: Missing property StarterGuild.HordeWelcomeText in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "StarterGuild.HordeWelcomeText = Lok’tar ogar! Welcome to the horde starter guild {GUILD} {PLAYER}." to this file or define 'AC_STARTER_GUILD_HORDE_WELCOME_TEXT' as an environment variable.'
-Wrong format occurred (argument not found). Fmt string: '> Config: Missing property StarterGuild.AllianceWelcomeText in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "StarterGuild.AllianceWelcomeText = Welcome to the alliance starter guild {GUILD} {PLAYER}. For the Alliance!" to this file or define 'AC_STARTER_GUILD_ALLIANCE_WELCOME_TEXT' as an environment variable.'
-Player Dorbo has invalid faction (faction template id) #2241
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
 [AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
 [AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
 [AP Sinks] Crit: 0.0000 Haste: 0.0000
@@ -1649,261 +1472,57 @@ Player Dorbo has invalid faction (faction template id) #2241
 [AP Sinks] Parry rating applied: removed=0 added=0
 [AP Sinks] Crit rating applied: removed=0 added=0
 [AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+ActionButton loading problem, will be deleted from db. player: Derekwl, guid: 303, button: 7, action: 883, type: 0
+ActionButton loading problem, will be deleted from db. player: Derekwl, guid: 303, button: 8, action: 982, type: 0
+ActionButton loading problem, will be deleted from db. player: Derekwl, guid: 303, button: 9, action: 2641, type: 0
+ActionButton loading problem, will be deleted from db. player: Derekwl, guid: 303, button: 10, action: 6991, type: 0
+ActionButton loading problem, will be deleted from db. player: Derekwl, guid: 303, button: 11, action: 1002, type: 0
+Update time diff: 256ms with 1 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 60ms, 70ms, 256ms
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
+[AP Sinks] C++ read: no sink rows for account=43
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Derekwl: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=7 levelScale=0.000 effective=0.000
 Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Dorbo: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-Player Kara (GUID: 299), has skill (356) that is invalid for the race/class combination (Race: 15, Class: 11). Will be deleted.
-Player::_LoadInventory: player (GUID Full: 0x000000000000012b Type: Player Low: 299, name: 'Kara') has item (GUID Full: 0x4000000000000fcc Type: Item Low: 4044, entry: 19972) which can't be loaded into inventory (Bag GUID: 0, slot: 0) by reason 8. Item will be sent by mail.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-Player Kara has invalid faction (faction template id) #2241
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=1 levelScale=0.000 effective=0.000
-[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
-[EotW] No snapshots found for accountId=11
-[AP Sinks] C++ read: no sink rows for account=11
-[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
-[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
-[AP Sinks] Crit: 0.0000 Haste: 0.0000
-[AP Sinks] Dodge rating applied: removed=0 added=0
-[AP Sinks] Parry rating applied: removed=0 added=0
-[AP Sinks] Crit rating applied: removed=0 added=0
-[AP Sinks] Haste rating applied: removed=0 added=0
-[EotW] Stats applied for Kara: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
-[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
-[EotW] No snapshots found for accountId=11
-Saving reports for 1 players.
-[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
-[EotW] No snapshots found for accountId=11
-[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
-[EotW] No snapshots found for accountId=11
-[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
-[EotW] No snapshots found for accountId=11
-[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
-[EotW] No snapshots found for accountId=11
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
 Saving reports for 0 players.
 Saving reports for 0 players.
 Saving reports for 0 players.
 Saving reports for 0 players.
 Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Saving reports for 0 players.
+Update time diff: 114ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 8ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 34ms, 69ms, 114ms
 Saving reports for 0 players.
 Saving reports for 0 players.

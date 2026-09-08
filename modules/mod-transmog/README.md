@@ -1,73 +1,61 @@
-# Transmog Module
+# mod-transmog-plus
 
-> [!WARNING]  
-> If you used the old-subscription system for TransmogPlus option before this [commit](https://github.com/azerothcore/mod-transmog/commit/8237df6f88d40d1d83a6f11b86a7187f99f57c99), please update your mod-transmog module to the latest revision and also download the new module [mod-acore-subscriptions](https://github.com/azerothcore/mod-acore-subscriptions).
+Slot-based transmogrification module for [AzerothCore](https://github.com/azerothcore/azerothcore-wotlk) based on [azerothcore/mod-transmog](https://github.com/azerothcore/mod-transmog). The main difference is that appearances are stored per `(player, equipment slot)` instead of per item GUID, so the look stays when you swap gear. Other players see the transmogged appearance through the standard visible-item update hooks.
 
-- Latest Transmog build status with azerothcore: [![Build Status](https://github.com/azerothcore/mod-transmog/actions/workflows/core_build.yml/badge.svg)](https://github.com/azerothcore/mod-transmog/actions)
+Features:
 
-This is a module for [AzerothCore](http://www.azerothcore.org) that adds **Transmog**rification feature, it's based on [Rochet2 Transmog Script](http://rochet2.github.io/Transmogrification.html) 
+- Slot-based transmog — appearances stay on the equipment slot when you swap gear.
+- Account-wide collection — any appearance unlocked by one character is available to all characters on the account.
+- Appearances unlock when you equip an item, not when it enters your inventory.
+- Option to hide individual armor slots (helm, shoulders, chest, etc.).
+- Empty-slot pre-transmog — Allows queuing an appearance on a slot before equipping gear. The look is purely stored and will not render while the slot is empty; it automatically activates only when a compatible item is placed in that slot. Incompatible items will simply render normally.
 
-## Important notes
+This fork uses the addon from [cmangos-transmog](https://github.com/flekz-games/cmangos-transmog) to provide a better experience for the player. You will still be able to use the transmogrifier without the addon present, the standard gossip ui is used as fallback. Each slot has a "hidden" transmog template without the need to collect any item for it. 100% AI slop code!
 
-You have to use at least this AzerothCore commit:
+![Preview](preview.png)
 
-<https://github.com/azerothcore/azerothcore-wotlk/commit/b6cb9247ba96a862ee274c0765004e6d2e66e9e4>
+Also comes with a collection addon that swaps the rdf tool for a transmog collection.
 
-If using this module with an AzerothCore commit older than
+![Preview](preview2.png)
 
-<https://github.com/azerothcore/azerothcore-wotlk/commit/b34bc28e5b02514fca3519beac420c58faa89cad>
+## Installation
 
-please delete the IDs 50000 and 50001 from npc_text before upgrading AzerothCore:
-```sql
-DELETE FROM `npc_text` WHERE `ID` IN (50000,50001);
-```
-Otherwise there will be conflicts for these IDs. The module will now use IDs 601083 and 601084 as default.
+1. Place the module under the `modules/` folder of your AzerothCore source directory. You can clone it directly using git:
 
-## Requirements
+   ```bash
+   cd path/to/azerothcore/modules
+   git clone https://github.com/Stefan2102/mod-transmog-plus-ui.git
+   ```
 
-Transmogrification module currently requires:
+2. Manually import the SQL files to the correct databases (`acore_characters` and `acore_world`).
 
-AzerothCore v1.0.2+
+3. Re-run CMake and launch a clean build of your AzerothCore server to compile the module.
 
-## How to install
+4. Copy `conf/mod_transmog_plus.conf.dist` to `mod_transmog_plus.conf` and adjust values as needed.
 
-### 1) Simply place the module under the `modules` folder of your AzerothCore source folder.
+5. After the server starts, log in with a GM account, go to your desired location, and spawn the Transmog NPC using this command:
 
-You can do clone it via git under the azerothcore/modules directory:
+   ```text
+   .npc add 190012
+   ```
+6. Optionally install the client addon. Duh.
 
-```sh
-cd path/to/azerothcore/modules
-git clone https://github.com/azerothcore/mod-transmog.git
-```
+## Configuration
 
-or you can manually [download the module](https://github.com/azerothcore/mod-transmog/archive/master.zip), unzip the Transmog folder and place it under the `azerothcore/modules` directory.
+All prices, quality requirements, type restrictions, and requirement ignores are configurable in `mod_transmog_plus.conf`. See the distributed config file for details.
 
-### 2) Import the SQL to the right Database (auth, world or characters)
+## Known Limitations
 
-Import the SQL manually to the right Database (auth, world or characters) or with the `db_assembler.sh` (if `include.sh` provided).
+- **Hidden slot icon:** When a slot is set to hidden, the character-sheet icon becomes invisible rather than showing an empty slot icon. This is a side effect of using a non-existent item entry as the hidden sentinel, which is needed to fix the unequip refresh bug.
+- **Set bonus counter:** Transmogging an item that belongs to an equipment set causes the client to show the wrong count (e.g. 5/6 instead of 6/6). The set bonus still functions correctly — the counter is a display-only issue.
 
-### 3) Re-run cmake and launch a clean build of AzerothCore
+## Credits
 
-### 4) Place transmog npc
-
-With a gm account goto the location you want to add the npc and use this command:
-
-```
-.npc add 190010
-```
-
-**That's it.**
-
-### (Optional) Edit module configuration
-
-If you need to change the module configuration, go to your server configuration folder (e.g. **etc**), copy `transmog.conf.dist` to `transmog.conf` and edit it as you prefer.
-
+[flekz-games](https://github.com/flekz-games) -> [cmangos-transmog](https://github.com/flekz-games/cmangos-transmog)
+[Stefan2102](https://github.com/Stefan2102) -> [mod-transmog-plus](https://github.com/Stefan2102/mod-transmog-plus)
+[flekz-games](https://github.com/flekz-games) -> [cmangos-transmog](https://github.com/flekz-games/cmangos-transmog).
+[Stefan2102](https://github.com/Stefan2102) -> [mod-transmog-plus](https://github.com/Stefan2102/mod-transmog-plus).
 
 ## License
 
-This module is released under the [GNU AGPL license](https://github.com/azerothcore/mod-transmog/blob/master/LICENSE).
-
-
-
-
-
+GNU Affero General Public License v3 — see `LICENSE`.

@@ -17139,8 +17139,22 @@ float Unit::GetCollisionWidth() const
     float defaultSize = DEFAULT_WORLD_OBJECT_SIZE * scaleMod;
 
     //! Dismounting case - use basic default model data
-    CreatureDisplayInfoEntry const* displayInfo = sCreatureDisplayInfoStore.AssertEntry(GetNativeDisplayId());
-    CreatureModelDataEntry const* modelData = sCreatureModelDataStore.AssertEntry(displayInfo->ModelId);
+    uint32 nativeDisplayId = GetNativeDisplayId();
+    CreatureDisplayInfoEntry const* displayInfo = sCreatureDisplayInfoStore.LookupEntry(nativeDisplayId);
+    if (!displayInfo)
+    {
+        LOG_WARN("entities.unit", "Unit {} (entry {}) has no CreatureDisplayInfo for native display {}.",
+            GetGUID().ToString(), GetEntry(), nativeDisplayId);
+        return objectSize;
+    }
+
+    CreatureModelDataEntry const* modelData = sCreatureModelDataStore.LookupEntry(displayInfo->ModelId);
+    if (!modelData)
+    {
+        LOG_WARN("entities.unit", "Unit {} (entry {}) has no CreatureModelData {} for native display {}.",
+            GetGUID().ToString(), GetEntry(), displayInfo->ModelId, nativeDisplayId);
+        return objectSize;
+    }
 
     if (IsMounted())
     {
@@ -17177,8 +17191,22 @@ float Unit::GetCollisionHeight() const
     float scaleMod = GetObjectScale(); // 99% sure about this
     float defaultHeight = DEFAULT_COLLISION_HEIGHT * scaleMod;
 
-    CreatureDisplayInfoEntry const* displayInfo = sCreatureDisplayInfoStore.AssertEntry(GetNativeDisplayId());
-    CreatureModelDataEntry const* modelData = sCreatureModelDataStore.AssertEntry(displayInfo->ModelId);
+    uint32 nativeDisplayId = GetNativeDisplayId();
+    CreatureDisplayInfoEntry const* displayInfo = sCreatureDisplayInfoStore.LookupEntry(nativeDisplayId);
+    if (!displayInfo)
+    {
+        LOG_WARN("entities.unit", "Unit {} (entry {}) has no CreatureDisplayInfo for native display {}.",
+            GetGUID().ToString(), GetEntry(), nativeDisplayId);
+        return defaultHeight;
+    }
+
+    CreatureModelDataEntry const* modelData = sCreatureModelDataStore.LookupEntry(displayInfo->ModelId);
+    if (!modelData)
+    {
+        LOG_WARN("entities.unit", "Unit {} (entry {}) has no CreatureModelData {} for native display {}.",
+            GetGUID().ToString(), GetEntry(), displayInfo->ModelId, nativeDisplayId);
+        return defaultHeight;
+    }
     float collisionHeight = 0.0f;
 
     if (IsMounted())

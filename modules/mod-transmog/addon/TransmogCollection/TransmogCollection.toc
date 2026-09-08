@@ -1,0 +1,6 @@
+## Interface: 30300
+## Title: Transmog Collection
+## Notes: Adds a read-only collection browser to Transmog, opened from the main bar's Dungeon Finder button (repurposed, since this server doesn't use it). Requires the Transmog addon.
+## RequiredDeps: Transmog
+## SavedVariablesPerCharacter: TransmogCollectionDB
+TransmogCollection.lua

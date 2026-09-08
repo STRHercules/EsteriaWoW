@@ -120,7 +120,7 @@ UPDATE `spell_dbc` SET
     `Attributes` = 80, `AttributesEx` = 0, `AttributesEx2` = 0, `AttributesEx3` = 0,
     `CastingTimeIndex` = 0, `RecoveryTime` = 0, `DurationIndex` = 0,
     `Effect_1` = 6, `Effect_2` = 0, `Effect_3` = 0,
-    `EffectBasePoints_1` = 16, `EffectBasePoints_2` = 0, `EffectBasePoints_3` = 0,
+    `EffectBasePoints_1` = -5, `EffectBasePoints_2` = 0, `EffectBasePoints_3` = 0,
     `EffectAura_1` = 154, `EffectAura_2` = 0, `EffectAura_3` = 0,
     `EffectAuraPeriod_1` = 0, `EffectAuraPeriod_2` = 0, `EffectAuraPeriod_3` = 0,
     `EffectMiscValue_1` = 0, `EffectMiscValue_2` = 0, `EffectMiscValue_3` = 0,

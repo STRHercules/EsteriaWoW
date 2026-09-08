@@ -36,5 +36,7 @@ Started auth database connection pool.
 Loading IP Location Database...
  
 Added realm "Esteria" at 136.32.36.176:8085.
-'172.19.0.1:38608' [AuthChallenge] account ZACHGM tried to login with invalid password!
-'172.19.0.1:37094' [AuthChallenge] account ZACHGM tried to login with invalid password!
+'172.19.0.1:42096' [AuthChallenge] account DEREK tried to login with invalid password!
+'172.19.0.1:42106' [AuthChallenge] account DEREK tried to login with invalid password!
+'172.19.0.1:34152' [AuthChallenge] account DEREK tried to login with invalid password!
+'172.19.0.1:44928' [AuthChallenge] account DEREK tried to login with invalid password!

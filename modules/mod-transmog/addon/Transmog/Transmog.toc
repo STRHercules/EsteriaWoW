@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Transmog
+## Notes: Transmog UI, ported from CMaNGOS to AzerothCore mod-transmog-plus
+## SavedVariablesPerCharacter: transmogOutfits
+Transmog.lua
+Transmog.xml
+TransmogSets.lua

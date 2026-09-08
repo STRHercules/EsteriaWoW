@@ -12092,6 +12092,10 @@ void Player::LearnCustomSpells()
     for (PlayerCreateInfoSpells::const_iterator itr = info->customSpells.begin(); itr != info->customSpells.end(); ++itr)
     {
         uint32 tspell = *itr;
+        if (SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(tspell);
+            spellInfo && std::max(spellInfo->BaseLevel, spellInfo->SpellLevel) > GetLevel())
+            continue;
+
         LOG_DEBUG("entities.player.loading", "Player::LearnCustomSpells: Player '{}' ({}, Class: {} Race: {}): Adding initial spell (SpellID: {})",
             GetName(), GetGUID().ToString(), uint32(getClass()), uint32(getRace()), tspell);
         if (!IsInWorld())                                   // will send in INITIAL_SPELLS in list anyway at map add

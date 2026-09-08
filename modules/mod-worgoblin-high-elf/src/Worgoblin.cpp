@@ -23,6 +23,14 @@ enum WorgenRiding
     SPELL_RW_JOURN_FEMALE    = 110011,
 };
 
+enum BrokenRacials : uint32
+{
+    SPELL_BROKEN_SALVAGER       = 110001,
+    SPELL_BROKEN_KROKUL_CUNNING = 110002,
+    SPELL_BROKEN_FEL_SCARRED    = 110003,
+    SPELL_BROKEN_ECHO_NAARU     = 110004,
+};
+
 class worgoblin : public PlayerScript {
 
 public:
@@ -30,6 +38,8 @@ public:
 
     void OnPlayerLogin(Player* player) override
     {
+        RepairBrokenRacials(player);
+
         if (sConfigMgr->GetOption<bool>("Announce.enable", true))
             ChatHandler(player->GetSession()).SendSysMessage("This server is running the Worgoblin and High Elf modules.");
     }
@@ -48,6 +58,28 @@ public:
     {
         if (player->getRace() == RACE_BROKEN_PLAYER)
             discountMod = Acore::BrokenRacialEffects::ApplySalvagerRepairDiscount(discountMod);
+    }
+
+private:
+    void RepairBrokenRacials(Player* player) const
+    {
+        if (player->getRace() != RACE_BROKEN_PLAYER)
+            return;
+
+        uint32 const staleRacials[] = { 20549, 20550, 20551, 20552 };
+        for (uint32 spell : staleRacials)
+            if (player->HasSpell(spell))
+                player->removeSpell(spell, SPEC_MASK_ALL, false);
+
+        uint32 const brokenRacials[] = {
+            SPELL_BROKEN_SALVAGER,
+            SPELL_BROKEN_KROKUL_CUNNING,
+            SPELL_BROKEN_FEL_SCARRED,
+            SPELL_BROKEN_ECHO_NAARU,
+        };
+        for (uint32 spell : brokenRacials)
+            if (!player->HasSpell(spell))
+                player->learnSpell(spell);
     }
 };
 

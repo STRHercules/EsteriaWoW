@@ -151,6 +151,7 @@ If the scenario should stay as a regression, **move** it into `suites/` next to 
 | quests/lifecycle | STAY_ALIVE fail on death; status after save/relog | P1 | covered (`TestAC_26549_*`) | #26549 |
 | quests/escort | find spawned unit; follow-NPC despawns on logout | P2 | covered (`TestAC_24450_*`) | #24450 |
 | items/equip | visible-item slot after EquipEntry; additem; survives relog | P2 | covered | — |
+| items/custom-race-skills | custom-race language and starter-weapon skills after creation/save/relog | P1 | blocked-harness (pinned harness has no custom-race creation/change API) | — |
 | protocol/session | pos; item/quest load; money save/relog | P1 | covered; GM vis persist `blocked-harness` (extra_flags after relog) | #25793 |
 | protocol/teleport | cross-map; named; GoCreatureID | P1 | covered | — |
 | guild/charter_bank | charter buy+turn-in | P2 | covered | — |

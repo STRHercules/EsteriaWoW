@@ -27,7 +27,7 @@ bool AcceptInvitationAction::Execute(Event event)
     if (!inviter)
         return false;
 
-    if (!botAI->GetSecurity()->CheckLevelFor(PLAYERBOT_SECURITY_INVITE, false, inviter))
+    if (!botAI->GetSecurity()->CheckLevelFor(PLAYERBOT_SECURITY_INVITE, false, inviter, false, true))
     {
         WorldPacket data(SMSG_GROUP_DECLINE, 10);
         data << bot->GetName();

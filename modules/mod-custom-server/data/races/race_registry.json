@@ -182,11 +182,11 @@
     },
     {
       "id": 14,
-      "species_key": "maghar_orc",
-      "display_name": "Mag'har Orc",
+      "species_key": "broken",
+      "display_name": "Broken",
       "faction": "horde",
       "start_profile": "durotar",
-      "asset_owner": "existing_maghar_donor"
+      "asset_owner": "broken_player_assets"
     },
     {
       "id": 15,

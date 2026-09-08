@@ -1,12 +1,54 @@
 Loading World Buff Feature...
 Creating random bot accounts...
-MaxRandomBots set to 0, any RNDbot accounts (type 1) will be unassigned (type 0)
 AddClassAccountPoolSize set to 0, any AddClass accounts (type 2) will be unassigned (type 0)
+Account disabled-rndbot10 created for random bots
+Account disabled-rndbot11 created for random bots
+Account disabled-rndbot12 created for random bots
+Account disabled-rndbot13 created for random bots
+Account disabled-rndbot14 created for random bots
+Account disabled-rndbot15 created for random bots
+Account disabled-rndbot16 created for random bots
+Account disabled-rndbot17 created for random bots
+Account disabled-rndbot18 created for random bots
+Account disabled-rndbot19 created for random bots
+Account disabled-rndbot20 created for random bots
+Account disabled-rndbot21 created for random bots
+Account disabled-rndbot22 created for random bots
+Account disabled-rndbot23 created for random bots
+Account disabled-rndbot24 created for random bots
+Account disabled-rndbot25 created for random bots
+Account disabled-rndbot26 created for random bots
+Account disabled-rndbot27 created for random bots
+Account disabled-rndbot28 created for random bots
+Account disabled-rndbot29 created for random bots
+Account disabled-rndbot30 created for random bots
+Account disabled-rndbot31 created for random bots
+Account disabled-rndbot32 created for random bots
+Account disabled-rndbot33 created for random bots
+Account disabled-rndbot34 created for random bots
+Account disabled-rndbot35 created for random bots
+Account disabled-rndbot36 created for random bots
+Account disabled-rndbot37 created for random bots
+Account disabled-rndbot38 created for random bots
+Account disabled-rndbot39 created for random bots
+Account disabled-rndbot40 created for random bots
+Account disabled-rndbot41 created for random bots
+Account disabled-rndbot42 created for random bots
+Account disabled-rndbot43 created for random bots
+Account disabled-rndbot44 created for random bots
+Account disabled-rndbot45 created for random bots
+Account disabled-rndbot46 created for random bots
+Account disabled-rndbot47 created for random bots
+Account disabled-rndbot48 created for random bots
+Account disabled-rndbot49 created for random bots
+Waiting for 40 accounts loading into database (0 queries)...
+>> 40 Accounts loaded into database in 15 ms
 Creating random bot characters...
 Assigning account types for random bot accounts...
 Starting Playerbots Command Server on port 8888
-Found 0 total randombot accounts in database
-Account type assignment complete: 0 RNDbot accounts, 0 AddClass accounts, 0 unassigned
+Found 10 total randombot accounts in database
+Not enough unassigned accounts to fulfill RNDbot requirements. Need 40 more accounts.
+Account type assignment complete: 10 RNDbot accounts, 0 AddClass accounts, 0 unassigned
 >> 0 characters collected for addclass command from 0 AddClass accounts.
 Loading Battlemasters Cache...
 Cached Battlemaster #347 for BG Type 1 (Horde)
@@ -40,15 +82,15 @@ Cached Battlemaster #16711 for BG Type 3 (Neutral)
 Cached Battlemaster #17506 for BG Type 1 (Neutral)
 Cached Battlemaster #17507 for BG Type 2 (Neutral)
 Cached Battlemaster #18895 for BG Type 6 (Neutral)
-Cached Battlemaster #19855 for BG Type 3 (Alliance)
+Cached Battlemaster #19855 for BG Type 3 (Neutral)
 Cached Battlemaster #19858 for BG Type 6 (Neutral)
 Cached Battlemaster #19859 for BG Type 6 (Neutral)
-Cached Battlemaster #19905 for BG Type 3 (Horde)
-Cached Battlemaster #19906 for BG Type 1 (Horde)
-Cached Battlemaster #19907 for BG Type 1 (Alliance)
-Cached Battlemaster #19908 for BG Type 2 (Alliance)
+Cached Battlemaster #19905 for BG Type 3 (Neutral)
+Cached Battlemaster #19906 for BG Type 1 (Neutral)
+Cached Battlemaster #19907 for BG Type 1 (Neutral)
+Cached Battlemaster #19908 for BG Type 2 (Neutral)
 Cached Battlemaster #19909 for BG Type 6 (Neutral)
-Cached Battlemaster #19910 for BG Type 2 (Horde)
+Cached Battlemaster #19910 for BG Type 2 (Neutral)
 Cached Battlemaster #19911 for BG Type 6 (Neutral)
 Cached Battlemaster #19912 for BG Type 6 (Neutral)
 Cached Battlemaster #19915 for BG Type 6 (Neutral)
@@ -65,20 +107,20 @@ Cached Battlemaster #20273 for BG Type 3 (Alliance)
 Cached Battlemaster #20274 for BG Type 3 (Horde)
 Cached Battlemaster #20276 for BG Type 1 (Horde)
 Cached Battlemaster #20362 for BG Type 7 (Alliance)
-Cached Battlemaster #20374 for BG Type 7 (Alliance)
-Cached Battlemaster #20381 for BG Type 7 (Alliance)
-Cached Battlemaster #20382 for BG Type 7 (Alliance)
-Cached Battlemaster #20383 for BG Type 7 (Alliance)
+Cached Battlemaster #20374 for BG Type 7 (Neutral)
+Cached Battlemaster #20381 for BG Type 7 (Neutral)
+Cached Battlemaster #20382 for BG Type 7 (Neutral)
+Cached Battlemaster #20383 for BG Type 7 (Neutral)
 Cached Battlemaster #20384 for BG Type 7 (Horde)
-Cached Battlemaster #20385 for BG Type 7 (Horde)
-Cached Battlemaster #20386 for BG Type 7 (Horde)
-Cached Battlemaster #20388 for BG Type 7 (Horde)
-Cached Battlemaster #20390 for BG Type 7 (Horde)
+Cached Battlemaster #20385 for BG Type 7 (Neutral)
+Cached Battlemaster #20386 for BG Type 7 (Neutral)
+Cached Battlemaster #20388 for BG Type 7 (Neutral)
+Cached Battlemaster #20390 for BG Type 7 (Neutral)
 Cached Battlemaster #20497 for BG Type 6 (Neutral)
 Cached Battlemaster #20499 for BG Type 6 (Neutral)
 Cached Battlemaster #21235 for BG Type 6 (Neutral)
-Cached Battlemaster #22013 for BG Type 7 (Alliance)
-Cached Battlemaster #22015 for BG Type 7 (Horde)
+Cached Battlemaster #22013 for BG Type 7 (Neutral)
+Cached Battlemaster #22015 for BG Type 7 (Neutral)
 Cached Battlemaster #22647 for BG Type 1 (Horde)
 Cached Battlemaster #22656 for BG Type 1 (Alliance)
 Cached Battlemaster #25991 for BG Type 6 (Neutral)
@@ -95,19 +137,19 @@ Cached Battlemaster #29673 for BG Type 3 (Horde)
 Cached Battlemaster #29674 for BG Type 1 (Horde)
 Cached Battlemaster #29675 for BG Type 7 (Horde)
 Cached Battlemaster #29676 for BG Type 9 (Horde)
-Cached Battlemaster #30231 for BG Type 3 (Alliance)
+Cached Battlemaster #30231 for BG Type 3 (Neutral)
 Cached Battlemaster #30566 for BG Type 9 (Neutral)
 Cached Battlemaster #30567 for BG Type 9 (Neutral)
-Cached Battlemaster #30578 for BG Type 9 (Alliance)
-Cached Battlemaster #30579 for BG Type 9 (Alliance)
-Cached Battlemaster #30580 for BG Type 9 (Alliance)
-Cached Battlemaster #30581 for BG Type 9 (Alliance)
-Cached Battlemaster #30582 for BG Type 9 (Horde)
-Cached Battlemaster #30583 for BG Type 9 (Horde)
-Cached Battlemaster #30584 for BG Type 9 (Horde)
+Cached Battlemaster #30578 for BG Type 9 (Neutral)
+Cached Battlemaster #30579 for BG Type 9 (Neutral)
+Cached Battlemaster #30580 for BG Type 9 (Neutral)
+Cached Battlemaster #30581 for BG Type 9 (Neutral)
+Cached Battlemaster #30582 for BG Type 9 (Neutral)
+Cached Battlemaster #30583 for BG Type 9 (Neutral)
+Cached Battlemaster #30584 for BG Type 9 (Neutral)
 Cached Battlemaster #30586 for BG Type 9 (Horde)
 Cached Battlemaster #30587 for BG Type 9 (Alliance)
-Cached Battlemaster #30590 for BG Type 9 (Horde)
+Cached Battlemaster #30590 for BG Type 9 (Neutral)
 Cached Battlemaster #30610 for BG Type 6 (Neutral)
 Cached Battlemaster #31979 for BG Type 1 (Horde)
 Cached Battlemaster #32092 for BG Type 1 (Alliance)
@@ -130,37 +172,36 @@ Cached Battlemaster #34950 for BG Type 30 (Neutral)
 Cached Battlemaster #34951 for BG Type 30 (Neutral)
 Cached Battlemaster #34952 for BG Type 30 (Alliance)
 Cached Battlemaster #34953 for BG Type 30 (Horde)
-Cached Battlemaster #34955 for BG Type 32 (Horde)
-Cached Battlemaster #34986 for BG Type 1 (Alliance)
-Cached Battlemaster #34988 for BG Type 1 (Alliance)
-Cached Battlemaster #34989 for BG Type 1 (Alliance)
-Cached Battlemaster #34991 for BG Type 1 (Alliance)
-Cached Battlemaster #34997 for BG Type 1 (Alliance)
-Cached Battlemaster #34998 for BG Type 1 (Alliance)
-Cached Battlemaster #34999 for BG Type 1 (Alliance)
-Cached Battlemaster #35000 for BG Type 1 (Alliance)
-Cached Battlemaster #35001 for BG Type 1 (Horde)
-Cached Battlemaster #35002 for BG Type 1 (Horde)
-Cached Battlemaster #35007 for BG Type 1 (Alliance)
-Cached Battlemaster #35008 for BG Type 32 (Horde)
-Cached Battlemaster #35017 for BG Type 30 (Horde)
-Cached Battlemaster #35019 for BG Type 30 (Horde)
-Cached Battlemaster #35020 for BG Type 30 (Horde)
-Cached Battlemaster #35021 for BG Type 30 (Horde)
-Cached Battlemaster #35022 for BG Type 30 (Horde)
-Cached Battlemaster #35023 for BG Type 30 (Alliance)
-Cached Battlemaster #35024 for BG Type 30 (Alliance)
-Cached Battlemaster #35025 for BG Type 30 (Alliance)
-Cached Battlemaster #35026 for BG Type 30 (Alliance)
-Cached Battlemaster #35027 for BG Type 30 (Alliance)
+Cached Battlemaster #34955 for BG Type 32 (Neutral)
+Cached Battlemaster #34986 for BG Type 1 (Neutral)
+Cached Battlemaster #34988 for BG Type 1 (Neutral)
+Cached Battlemaster #34989 for BG Type 1 (Neutral)
+Cached Battlemaster #34991 for BG Type 1 (Neutral)
+Cached Battlemaster #34997 for BG Type 1 (Neutral)
+Cached Battlemaster #34998 for BG Type 1 (Neutral)
+Cached Battlemaster #34999 for BG Type 1 (Neutral)
+Cached Battlemaster #35000 for BG Type 1 (Neutral)
+Cached Battlemaster #35001 for BG Type 1 (Neutral)
+Cached Battlemaster #35002 for BG Type 1 (Neutral)
+Cached Battlemaster #35007 for BG Type 1 (Neutral)
+Cached Battlemaster #35008 for BG Type 32 (Neutral)
+Cached Battlemaster #35017 for BG Type 30 (Neutral)
+Cached Battlemaster #35019 for BG Type 30 (Neutral)
+Cached Battlemaster #35020 for BG Type 30 (Neutral)
+Cached Battlemaster #35021 for BG Type 30 (Neutral)
+Cached Battlemaster #35022 for BG Type 30 (Neutral)
+Cached Battlemaster #35023 for BG Type 30 (Neutral)
+Cached Battlemaster #35024 for BG Type 30 (Neutral)
+Cached Battlemaster #35025 for BG Type 30 (Neutral)
+Cached Battlemaster #35026 for BG Type 30 (Neutral)
+Cached Battlemaster #35027 for BG Type 30 (Neutral)
 Cached Battlemaster #37298 for BG Type 1 (Horde)
 Cached Battlemaster #37413 for BG Type 1 (Alliance)
 >> Loaded 146 battlemaster entries
 Loading guild names from playerbots_guild_names...
 Loaded 400 guild entries from playerbots_guild_names table.
-No guilds found in database, resetting guild cache
-Loaded 300 available arena team names
-Bot arena teams: 2v2=0/10, 3v3=0/10, 5v5=0/5
+Loaded 294 available arena team names
+Bot arena teams: 2v2=1/10, 3v3=1/10, 5v5=4/5
 Loading weightscales info
 Loaded 32 weightscale class specs
 Loaded 275 weightscale stat weights
@@ -8840,10 +8881,199 @@ Preparing destination caches for 80 levels...
 >> 154 flight masters and 990 innkeepers and 38 banker locations for level collected.
 Playerbots Taxi graph and destination cache built.
 Playerbots: ListSpellsAction caches initialized
-ListSpellsAction: initialized caches (skillSpells=9769, vendorItems=7759).
+ListSpellsAction: initialized caches (skillSpells=9773, vendorItems=7762).
 [RandomBotLevelMgr] Level brackets sub-feature disabled via configuration.
 [RandomBotLevelMgr] Level reset sub-feature disabled via configuration.
 PlayerbotWorldThreadProcessor initialized
-Including non-random bot player Kara into random bot update
-Including non-random bot player Dorbo into random bot update
-Including non-random bot player Kara into random bot update
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Including non-random bot player Derekwl into random bot update
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 0, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 0, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 0, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished

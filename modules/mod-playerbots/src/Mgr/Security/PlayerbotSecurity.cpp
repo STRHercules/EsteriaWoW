@@ -15,7 +15,8 @@ PlayerbotSecurity::PlayerbotSecurity(Player* const bot) : bot(bot)
         account = sCharacterCache->GetCharacterAccountIdByGuid(bot->GetGUID());
 }
 
-PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* reason, bool ignoreGroup)
+PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* reason, bool ignoreGroup,
+                                                   bool allowOpposingGroup)
 {
     // Basic pointer validity checks
     if (!bot || !from || !from->GetSession())
@@ -39,7 +40,8 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
         return PLAYERBOT_SECURITY_DENY_ALL;
     }
 
-    if (botAI->IsOpposing(from))
+    if (botAI->IsOpposing(from) &&
+        (!allowOpposingGroup || !sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP)))
     {
         if (reason)
             *reason = PLAYERBOT_DENY_OPPOSING;
@@ -50,7 +52,8 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
     if (sPlayerbotAIConfig.IsInRandomAccountList(account))
     {
         // (duplicate check in case of faction change)
-        if (botAI->IsOpposing(from))
+        if (botAI->IsOpposing(from) &&
+            (!allowOpposingGroup || !sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP)))
         {
             if (reason)
                 *reason = PLAYERBOT_DENY_OPPOSING;
@@ -166,14 +169,15 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
     return PLAYERBOT_SECURITY_INVITE;
 }
 
-bool PlayerbotSecurity::CheckLevelFor(PlayerbotSecurityLevel level, bool silent, Player* from, bool ignoreGroup)
+bool PlayerbotSecurity::CheckLevelFor(PlayerbotSecurityLevel level, bool silent, Player* from, bool ignoreGroup,
+                                      bool allowOpposingGroup)
 {
     // If something is wrong with the pointers, we silently refuse
     if (!bot || !from || !from->GetSession())
         return false;
 
     DenyReason reason = PLAYERBOT_DENY_NONE;
-    PlayerbotSecurityLevel realLevel = LevelFor(from, &reason, ignoreGroup);
+    PlayerbotSecurityLevel realLevel = LevelFor(from, &reason, ignoreGroup, allowOpposingGroup);
 
     if (realLevel >= level || from == bot)
         return true;
