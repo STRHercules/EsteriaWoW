@@ -1,0 +1,34 @@
+<svg width="1200" height="1600" viewBox="0 0 1200 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="600" y1="0" x2="600" y2="1600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#140D20"/>
+      <stop offset="0.45" stop-color="#09070E"/>
+      <stop offset="1" stop-color="#1B0B10"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 410) rotate(90) scale(420 360)">
+      <stop stop-color="#E4462F" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#E4462F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="360" y1="242" x2="840" y2="1134" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE2A0"/>
+      <stop offset="0.45" stop-color="#C38735"/>
+      <stop offset="1" stop-color="#5F3415"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="600" y1="360" x2="600" y2="1060" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8B60"/>
+      <stop offset="0.5" stop-color="#E03823"/>
+      <stop offset="1" stop-color="#771515"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1600" fill="url(#bg)"/>
+  <rect width="1200" height="1600" fill="url(#glow)"/>
+  <path d="M0 1228C166 1146 341 1088 601 1088C861 1088 1034 1151 1200 1238V1600H0V1228Z" fill="#07060A" fill-opacity="0.82"/>
+  <path d="M600 250L816 376V620C816 801 704 944 600 1018C496 944 384 801 384 620V376L600 250Z" fill="#120C1A" stroke="url(#gold)" stroke-width="24"/>
+  <path d="M600 332L731 407V594C731 715 657 818 600 867C543 818 469 715 469 594V407L600 332Z" fill="url(#ember)" fill-opacity="0.16" stroke="#F4C877" stroke-width="10"/>
+  <path d="M600 412L666 532L803 557L706 648L727 789L600 730L473 789L494 648L397 557L534 532L600 412Z" fill="url(#ember)" stroke="#FFDC9A" stroke-width="12" stroke-linejoin="round"/>
+  <circle cx="600" cy="600" r="42" fill="#FFF0C8"/>
+  <path d="M285 1220C371 1121 472 1050 600 1050C728 1050 829 1121 915 1220" stroke="#D84B37" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
+  <text x="600" y="1235" text-anchor="middle" fill="#F8E7C1" font-family="Georgia, 'Times New Roman', serif" font-size="118" font-weight="700" letter-spacing="10">NEMESIS</text>
+  <text x="600" y="1330" text-anchor="middle" fill="#D69A45" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700" letter-spacing="12">SYSTEM</text>
+  <text x="600" y="1425" text-anchor="middle" fill="#D6D2DA" font-family="Trebuchet MS, Arial, sans-serif" font-size="34" letter-spacing="2">Rise. Hunt. Rank up. Claim revenge.</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A1026"/>
+      <stop offset="1" stop-color="#09060F"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="156" y1="100" x2="356" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F0D8A8"/>
+      <stop offset="0.45" stop-color="#A8742A"/>
+      <stop offset="1" stop-color="#5F3512"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="256" y1="116" x2="256" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6A3D"/>
+      <stop offset="1" stop-color="#A31111"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="512" height="512" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="url(#bg)"/>
+  <rect x="24" y="24" width="464" height="464" rx="96" stroke="#6E2031" stroke-width="10"/>
+  <g filter="url(#shadow)">
+    <path d="M256 92L354 150V254C354 332 304 392 256 420C208 392 158 332 158 254V150L256 92Z" fill="#120C1B" stroke="url(#steel)" stroke-width="18"/>
+    <path d="M256 132L322 171V247C322 301 290 343 256 366C222 343 190 301 190 247V171L256 132Z" fill="url(#glow)" fill-opacity="0.18" stroke="#F3C97A" stroke-width="8"/>
+    <path d="M256 160L280 221H346L292 258L312 324L256 286L200 324L220 258L166 221H232L256 160Z" fill="url(#glow)" stroke="#FFD58A" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M256 196L269 229H304L276 246L287 279L256 260L225 279L236 246L208 229H243L256 196Z" fill="#FFF1C9"/>
+  </g>
+  <path d="M118 394C161 351 205 334 256 334C307 334 351 351 394 394" stroke="#FF7D57" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+</svg>

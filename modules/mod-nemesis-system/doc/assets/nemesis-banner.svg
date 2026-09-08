@@ -1,0 +1,34 @@
+<svg width="1600" height="600" viewBox="0 0 1600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#130C1D"/>
+      <stop offset="0.55" stop-color="#0A0911"/>
+      <stop offset="1" stop-color="#180A12"/>
+    </linearGradient>
+    <radialGradient id="flare" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1180 120) rotate(132.284) scale(422.969 299.594)">
+      <stop stop-color="#D62F2F" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="#D62F2F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="222" y1="129" x2="444" y2="439" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE5A9"/>
+      <stop offset="0.5" stop-color="#D39A3D"/>
+      <stop offset="1" stop-color="#7A481A"/>
+    </linearGradient>
+    <linearGradient id="fire" x1="332" y1="164" x2="332" y2="388" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8A59"/>
+      <stop offset="1" stop-color="#8B1717"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="600" rx="28" fill="url(#bg)"/>
+  <rect width="1600" height="600" rx="28" fill="url(#flare)"/>
+  <path d="M0 486C193 430 324 406 470 406C647 406 789 444 932 472C1067 499 1186 506 1600 372V600H0V486Z" fill="#09070C" fill-opacity="0.74"/>
+  <path d="M332 126L428 180V290C428 365 377 425 332 456C287 425 236 365 236 290V180L332 126Z" fill="#100A16" stroke="url(#gold)" stroke-width="16"/>
+  <path d="M332 168L391 201V281C391 333 358 377 332 398C306 377 273 333 273 281V201L332 168Z" fill="url(#fire)" fill-opacity="0.18" stroke="#F8D389" stroke-width="7"/>
+  <path d="M332 197L362 250L423 261L381 302L390 364L332 337L274 364L283 302L241 261L302 250L332 197Z" fill="url(#fire)" stroke="#FFDB9D" stroke-width="8" stroke-linejoin="round"/>
+  <text x="530" y="238" fill="#F8E6BE" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700" letter-spacing="6">NEMESIS</text>
+  <text x="532" y="324" fill="#D9A24A" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="700" letter-spacing="10">SYSTEM</text>
+  <text x="534" y="392" fill="#D2CFD7" font-family="Trebuchet MS, Arial, sans-serif" font-size="28" letter-spacing="2">Persistent vengeance targets, escalating ranks, live tracking, and open-world rivalry.</text>
+  <path d="M532 428H1084" stroke="#7C2A33" stroke-width="4"/>
+  <path d="M1120 156C1170 185 1222 235 1236 294C1250 352 1221 416 1154 448" stroke="#D8573B" stroke-width="8" stroke-linecap="round" opacity="0.5"/>
+  <path d="M1182 152C1237 187 1286 255 1281 326" stroke="#E8B05B" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+</svg>
