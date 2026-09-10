@@ -62,6 +62,24 @@ class PlayableRaceContractTest(unittest.TestCase):
         source = PLAYERBOT_FACTORY.read_text(encoding="utf-8")
         self.assertNotRegex(source, r"race\s*>\s*RACE_BROKEN_PLAYER")
 
+    def test_playerbots_race_allowlist_matches_contract(self):
+        source = PLAYERBOT_FACTORY.read_text(encoding="utf-8")
+        helper = re.search(
+            r"bool\s+IsSupportedRandomBotRace\s*\(uint8\s+race\)\s*\{(.*?)\n\}\n\}",
+            source,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(helper)
+
+        enum_values = parse_race_enum(SHARED_DEFINES.read_text(encoding="utf-8"))
+        supported_names = re.findall(r"case\s+(RACE_[A-Z0-9_]+)\s*:", helper.group(1))
+        supported_ids = {enum_values[name] for name in supported_names}
+        expected_supported_ids = set(range(1, 15)) | {18, 20}
+        self.assertEqual(supported_ids, expected_supported_ids)
+
+        deferred_ids = set(range(15, 29)) - expected_supported_ids
+        self.assertEqual(supported_ids & deferred_ids, set())
+
 
 if __name__ == "__main__":
     unittest.main()
