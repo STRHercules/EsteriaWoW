@@ -82,19 +82,20 @@ enum Races
     RACE_WORGEN             = 12, // TITLE Worgen
     RACE_HIGHELF            = 13, // TITLE High Elf
     RACE_BROKEN_PLAYER      = 14, // TITLE Broken
-    RACE_OGRE               = 15,
-    RACE_EREDAR             = 16,
-    RACE_NIGHTBORNE         = 17,
-    RACE_VOIDELF            = 18,
-    RACE_VULPERA            = 19,
-    RACE_ZANDALARITROLL     = 20,
-    RACE_PANDAREN_ALLIANCE  = 21,
-    RACE_PANDAREN_HORDE    = 22,
-    RACE_BROKEN_ALLIANCE    = 23,
-    RACE_BROKEN_HORDE      = 24,
-    RACE_FORSAKEN           = 25,
-    RACE_LIGHTFORGEDDRAENEI = 26,
-    RACE_DARKIRONDWARF      = 27
+    RACE_SETHRAK             = 15,
+    RACE_EREDAR              = 16,
+    RACE_NIGHTBORNE          = 17,
+    RACE_PANDAREN_ALLIANCE   = 18,
+    RACE_VOIDELF             = 19,
+    RACE_VULPERA              = 20,
+    RACE_LIGHTFORGEDDRAENEI  = 21,
+    RACE_ZANDALARITROLL      = 22,
+    RACE_DARKIRONDWARF       = 23,
+    RACE_BROKEN_ALLIANCE     = 24,
+    RACE_FORSAKEN            = 25,
+    RACE_PANDAREN_HORDE      = 26,
+    RACE_BROKEN_HORDE        = 27,
+    RACE_DRACTHYR            = 28
 };
 
 // DisplayRace values from CreatureDisplayInfoExtra.dbc

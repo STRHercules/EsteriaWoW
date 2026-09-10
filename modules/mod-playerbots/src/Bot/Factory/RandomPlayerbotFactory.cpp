@@ -55,6 +55,32 @@ bool HasRandomBotAppearanceData(uint8 race, uint8 gender)
         (gender != GENDER_FEMALE || race == RACE_NIGHTELF || race == RACE_UNDEAD_PLAYER);
     return hasFace && hasHair && (!requiresFacialHair || hasFacialHair);
 }
+
+bool IsSupportedRandomBotRace(uint8 race)
+{
+    switch (race)
+    {
+        case RACE_HUMAN:
+        case RACE_ORC:
+        case RACE_DWARF:
+        case RACE_NIGHTELF:
+        case RACE_UNDEAD_PLAYER:
+        case RACE_TAUREN:
+        case RACE_GNOME:
+        case RACE_TROLL:
+        case RACE_GOBLIN:
+        case RACE_BLOODELF:
+        case RACE_DRAENEI:
+        case RACE_WORGEN:
+        case RACE_HIGHELF:
+        case RACE_BROKEN_PLAYER:
+        case RACE_PANDAREN_ALLIANCE:
+        case RACE_VULPERA:
+            return true;
+        default:
+            return false;
+    }
+}
 }
 
 constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::CombineRaceAndGender(uint8 race,
@@ -74,7 +100,7 @@ constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::Comb
         case RACE_DRAENEI:    baseIndex = NameRaceAndGender::DraeneiMale; break;
         case RACE_GOBLIN:     baseIndex = NameRaceAndGender::GnomeMale; break; // Gnome names for Goblins
         case RACE_BROKEN_PLAYER: baseIndex = NameRaceAndGender::DraeneiMale; break;
-        case RACE_OGRE:
+        case RACE_SETHRAK:
         case RACE_EREDAR:
         case RACE_NIGHTBORNE:
         case RACE_VOIDELF:
@@ -87,6 +113,7 @@ constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::Comb
         case RACE_FORSAKEN:
         case RACE_LIGHTFORGEDDRAENEI:
         case RACE_DARKIRONDWARF:
+        case RACE_DRACTHYR:
             baseIndex = NameRaceAndGender::GenericMale;
             break;
         case RACE_HUMAN:
@@ -102,9 +129,7 @@ constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::Comb
 
 bool RandomPlayerbotFactory::IsValidRaceClassCombination(uint8 race, uint8 cls, uint32 expansion)
 {
-    // The current 3.3.5 client reserves IDs 16+ for NPC races even though the
-    // database race override marks those slots playable.
-    if (race > RACE_BROKEN_PLAYER || race == RACE_OGRE)
+    if (!IsSupportedRandomBotRace(race))
         return false;
 
     // skip expansion races if not playing with expansion
