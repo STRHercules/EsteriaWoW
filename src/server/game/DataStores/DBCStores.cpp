@@ -272,6 +272,131 @@ inline void LoadDBC(uint32& availableDbcLocales, StoreProblemList& errors, DBCSt
     }
 }
 
+// Rebuilds the derived lookup indexes that LoadDBCStores() builds from the
+// base stores once at boot. Callable again after continuation rows are
+// injected into those stores.
+void RebuildDbcDerivedIndexes()
+{
+    sAreaFlagByAreaID.clear();
+    sAreaFlagByMapID.clear();
+    for (uint32 i = 0; i < sAreaTableStore.GetNumRows(); ++i)
+    {
+        if (AreaTableEntry const* area = sAreaTableStore.LookupEntry(i))
+        {
+            sAreaFlagByAreaID.insert(AreaFlagByAreaID::value_type(uint16(area->ID), area->exploreFlag));
+
+            if (area->zone == 0 && area->mapid != 0 && area->mapid != 1 && area->mapid != 530)
+                sAreaFlagByMapID.insert(AreaFlagByMapID::value_type(area->mapid, area->exploreFlag));
+        }
+    }
+
+    sCharStartOutfitMap.clear();
+    for (CharStartOutfitEntry const* outfit : sCharStartOutfitStore)
+        sCharStartOutfitMap[outfit->Race | (outfit->Class << 8) | (outfit->Gender << 16)] = outfit;
+
+    sCharSectionMap.clear();
+    for (CharSectionsEntry const* charSection : sCharSectionsStore)
+        if (charSection->Race && ((1 << (charSection->Race - 1)) & sRaceMgr->GetPlayableRaceMask()) != 0)
+            sCharSectionMap.insert({ charSection->GenType | (charSection->Gender << 8) | (charSection->Race << 16), charSection });
+
+    sFactionTeamMap.clear();
+    for (FactionEntry const* faction : sFactionStore)
+    {
+        if (faction->team)
+        {
+            SimpleFactionsList& flist = sFactionTeamMap[faction->team];
+            flist.push_back(faction->ID);
+        }
+    }
+
+    for (GameObjectDisplayInfoEntry const* info : sGameObjectDisplayInfoStore)
+    {
+        if (info->maxX < info->minX)
+            std::swap(*(float*)(&info->maxX), *(float*)(&info->minX));
+
+        if (info->maxY < info->minY)
+            std::swap(*(float*)(&info->maxY), *(float*)(&info->minY));
+
+        if (info->maxZ < info->minZ)
+            std::swap(*(float*)(&info->maxZ), *(float*)(&info->minZ));
+    }
+
+    sEmotesTextSoundMap.clear();
+    for (EmotesTextSoundEntry const* emoteTextSound : sEmotesTextSoundStore)
+        sEmotesTextSoundMap[EmotesTextSoundKey(emoteTextSound->EmotesTextId, emoteTextSound->RaceId, emoteTextSound->SexId)] = emoteTextSound;
+
+    sSpellsByCategoryStore.clear();
+    for (auto i : sSpellStore)
+        if (i->Category)
+            sSpellsByCategoryStore[i->Category].emplace(false, i->Id);
+
+    SkillRaceClassInfoBySkill.clear();
+    for (SkillRaceClassInfoEntry const* entry : sSkillRaceClassInfoStore)
+    {
+        if (sSkillLineStore.LookupEntry(entry->SkillID))
+            SkillRaceClassInfoBySkill.emplace(entry->SkillID, entry);
+    }
+
+    sPetFamilySpellsStore.clear();
+    for (SkillLineAbilityEntry const* skillLine : sSkillLineAbilityStore)
+    {
+        SpellEntry const* spellEntry = sSpellStore.LookupEntry(skillLine->Spell);
+        if (spellEntry && spellEntry->Attributes & SPELL_ATTR0_PASSIVE)
+        {
+            for (CreatureFamilyEntry const* cFamily : sCreatureFamilyStore)
+            {
+                if (skillLine->SkillLine != cFamily->skillLine[0] && skillLine->SkillLine != cFamily->skillLine[1])
+                    continue;
+
+                if (spellEntry->SpellLevel)
+                    continue;
+
+                if (skillLine->AcquireMethod != SKILL_LINE_ABILITY_LEARNED_ON_SKILL_LEARN)
+                    continue;
+
+                sPetFamilySpellsStore[cFamily->ID].insert(spellEntry->Id);
+            }
+        }
+    }
+
+    sSkillLineAbilityIndexBySkillLine.clear();
+    for (SkillLineAbilityEntry const* skillLine : sSkillLineAbilityStore)
+        sSkillLineAbilityIndexBySkillLine[skillLine->SkillLine].push_back(skillLine);
+
+    sTalentSpellPosMap.clear();
+    sPetTalentSpells.clear();
+    for (TalentEntry const* talentInfo : sTalentStore)
+    {
+        TalentTabEntry const* talentTab = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
+
+        for (uint8 j = 0; j < MAX_TALENT_RANK; ++j)
+        {
+            if (talentInfo->RankID[j])
+            {
+                sTalentSpellPosMap[talentInfo->RankID[j]] = TalentSpellPos(talentInfo->TalentID, j);
+
+                if (talentTab && talentTab->petTalentMask)
+                    sPetTalentSpells.insert(talentInfo->RankID[j]);
+            }
+        }
+    }
+
+    memset(sTalentTabPages, 0, sizeof(sTalentTabPages));
+    for (uint32 talentTabId = 1; talentTabId < sTalentTabStore.GetNumRows(); ++talentTabId)
+    {
+        TalentTabEntry const* talentTabInfo = sTalentTabStore.LookupEntry(talentTabId);
+        if (!talentTabInfo)
+            continue;
+
+        if ((talentTabInfo->ClassMask & CLASSMASK_ALL_PLAYABLE) == 0)
+            continue;
+
+        for (uint32 cls = 1; cls < MAX_CLASSES; ++cls)
+            if (talentTabInfo->ClassMask & (1 << (cls - 1)))
+                sTalentTabPages[cls][talentTabInfo->tabpage] = talentTabId;
+    }
+}
+
 void LoadDBCStores(std::string const& dataPath)
 {
     uint32 oldMSTime = getMSTime();
@@ -400,49 +525,7 @@ void LoadDBCStores(std::string const& dataPath)
 
 #undef LOAD_DBC
 
-    for (uint32 i = 0; i < sAreaTableStore.GetNumRows(); ++i)    // areaflag numbered from 0
-    {
-        if (AreaTableEntry const* area = sAreaTableStore.LookupEntry(i))
-        {
-            // fill AreaId->DBC records
-            sAreaFlagByAreaID.insert(AreaFlagByAreaID::value_type(uint16(area->ID), area->exploreFlag));
-
-            // fill MapId->DBC records ( skip sub zones and continents )
-            if (area->zone == 0 && area->mapid != 0 && area->mapid != 1 && area->mapid != 530)
-                sAreaFlagByMapID.insert(AreaFlagByMapID::value_type(area->mapid, area->exploreFlag));
-        }
-    }
-
-    for (CharStartOutfitEntry const* outfit : sCharStartOutfitStore)
-        sCharStartOutfitMap[outfit->Race | (outfit->Class << 8) | (outfit->Gender << 16)] = outfit;
-
-    for (CharSectionsEntry const* charSection : sCharSectionsStore)
-        if (charSection->Race && ((1 << (charSection->Race - 1)) & sRaceMgr->GetPlayableRaceMask()) != 0) //ignore Nonplayable races
-            sCharSectionMap.insert({ charSection->GenType | (charSection->Gender << 8) | (charSection->Race << 16), charSection });
-
-    for (FactionEntry const* faction : sFactionStore)
-    {
-        if (faction->team)
-        {
-            SimpleFactionsList& flist = sFactionTeamMap[faction->team];
-            flist.push_back(faction->ID);
-        }
-    }
-
-    for (GameObjectDisplayInfoEntry const* info : sGameObjectDisplayInfoStore)
-    {
-        if (info->maxX < info->minX)
-            std::swap(*(float*)(&info->maxX), *(float*)(&info->minX));
-
-        if (info->maxY < info->minY)
-            std::swap(*(float*)(&info->maxY), *(float*)(&info->minY));
-
-        if (info->maxZ < info->minZ)
-            std::swap(*(float*)(&info->maxZ), *(float*)(&info->minZ));
-    }
-
-    for (EmotesTextSoundEntry const* emoteTextSound : sEmotesTextSoundStore)
-        sEmotesTextSoundMap[EmotesTextSoundKey(emoteTextSound->EmotesTextId, emoteTextSound->RaceId, emoteTextSound->SexId)] = emoteTextSound;
+    RebuildDbcDerivedIndexes();
 
     // fill data
     for (MapDifficultyEntry const* entry : sMapDifficultyStore)
@@ -451,48 +534,6 @@ void LoadDBCStores(std::string const& dataPath)
     for (PvPDifficultyEntry const* entry : sPvPDifficultyStore)
         if (entry->bracketId > MAX_BATTLEGROUND_BRACKETS)
             ASSERT(false && "Need update MAX_BATTLEGROUND_BRACKETS by DBC data");
-
-    for (auto i : sSpellStore)
-        if (i->Category)
-            sSpellsByCategoryStore[i->Category].emplace(false, i->Id);
-
-    for (SkillRaceClassInfoEntry const* entry : sSkillRaceClassInfoStore)
-    {
-        if (sSkillLineStore.LookupEntry(entry->SkillID))
-        {
-            SkillRaceClassInfoBySkill.emplace(entry->SkillID, entry);
-        }
-    }
-
-    for (SkillLineAbilityEntry const* skillLine : sSkillLineAbilityStore)
-    {
-        SpellEntry const* spellEntry = sSpellStore.LookupEntry(skillLine->Spell);
-        if (spellEntry && spellEntry->Attributes & SPELL_ATTR0_PASSIVE)
-        {
-            for (CreatureFamilyEntry const* cFamily : sCreatureFamilyStore)
-            {
-                if (skillLine->SkillLine != cFamily->skillLine[0] && skillLine->SkillLine != cFamily->skillLine[1])
-                {
-                    continue;
-                }
-
-                if (spellEntry->SpellLevel)
-                {
-                    continue;
-                }
-
-                if (skillLine->AcquireMethod != SKILL_LINE_ABILITY_LEARNED_ON_SKILL_LEARN)
-                {
-                    continue;
-                }
-
-                sPetFamilySpellsStore[cFamily->ID].insert(spellEntry->Id);
-            }
-        }
-    }
-
-    for (SkillLineAbilityEntry const* skillLine : sSkillLineAbilityStore)
-        sSkillLineAbilityIndexBySkillLine[skillLine->SkillLine].push_back(skillLine);
 
     // Create Spelldifficulty searcher
     for (SpellDifficultyEntry const* spellDiff : sSpellDifficultyStore)
@@ -520,45 +561,6 @@ void LoadDBCStores(std::string const& dataPath)
         for (uint8 x = 0; x < MAX_DIFFICULTY; ++x)
             if (newEntry.SpellID[x])
                 sSpellMgr->SetSpellDifficultyId(uint32(newEntry.SpellID[x]), spellDiff->ID);
-    }
-
-    // create talent spells set
-    for (TalentEntry const* talentInfo : sTalentStore)
-    {
-        TalentTabEntry const* talentTab = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
-
-        for (uint8 j = 0; j < MAX_TALENT_RANK; ++j)
-        {
-            if (talentInfo->RankID[j])
-            {
-                sTalentSpellPosMap[talentInfo->RankID[j]] = TalentSpellPos(talentInfo->TalentID, j);
-
-                if (talentTab && talentTab->petTalentMask)
-                {
-                    sPetTalentSpells.insert(talentInfo->RankID[j]);
-                }
-            }
-        }
-    }
-
-    // prepare fast data access to bit pos of talent ranks for use at inspecting
-    {
-        // now have all max ranks (and then bit amount used for store talent ranks in inspect)
-        for (uint32 talentTabId = 1; talentTabId < sTalentTabStore.GetNumRows(); ++talentTabId)
-        {
-            TalentTabEntry const* talentTabInfo = sTalentTabStore.LookupEntry(talentTabId);
-            if (!talentTabInfo)
-                continue;
-
-            // prevent memory corruption; otherwise cls will become 12 below
-            if ((talentTabInfo->ClassMask & CLASSMASK_ALL_PLAYABLE) == 0)
-                continue;
-
-            // store class talent tab pages
-            for (uint32 cls = 1; cls < MAX_CLASSES; ++cls)
-                if (talentTabInfo->ClassMask & (1 << (cls - 1)))
-                    sTalentTabPages[cls][talentTabInfo->tabpage] = talentTabId;
-        }
     }
 
     for (uint32 i = 1; i < sTaxiPathStore.GetNumRows(); ++i)

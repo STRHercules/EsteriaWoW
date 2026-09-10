@@ -107,6 +107,10 @@ private:
                 AddSpell{883}, // Pet Call
                 AddSpell{2641}, //Dismiss
             }},
+            {SPELLFAMILY_ROGUE,
+            {
+                AddSpell{674}, // dual wield
+            }},
         }},
         {12,
         {

@@ -1,230 +1,365 @@
-Legend: **✅ strong candidate · 🟡 evaluate · 🧪 later/experimental · ⚠️ architectural implications · ❌ remove/replace**
+# Esteria Playable Race Expansion — Vulpera Horde & Pandaren Alliance (Additive Patch-B Integration)
 
-# Module status (2026-08-28)
+Draft revision only. No source, SQL, DBC, MPQ, or client files were changed.
 
-`Installed` means the module or system is present in the checkout and included in the current server setup. `Enabled` means it is configured for runtime. Live gameplay, client, addon, Discord, and multiplayer smoke tests remain separate gates.
+## 1. Scope
 
-The checkout uses the `playerbots/Playerbot` fork with standard Eluna active; ALE is not installed. The working client is `R:\Users\Zach\Downloads\World.of.Warcraft.3.3.5a.Truewow\`. It currently contains the pre-existing `Patch-A.MPQ`, `patch-enUS-M.MPQ`, and `Patch-O.mpq`, plus the staged progression patches `patch-P.mpq` and `patch-W.mpq`. The staged client addons are `EchoesOfTheWorldsoulBridge`, `PrestigeSystem`, and `SeasonPassUI`.
+Implement only these two playable race identities:
 
-# INSTALLED
+| Race | Faction | Proposed identity |
+|---|---|---|
+| Vulpera | Horde | Existing custom-race identity using the extracted Vulpera models and customization data |
+| Pandaren | Alliance | Alliance-specific Pandaren identity using the extracted Pandaren models and customization data |
 
-| Module | Current state / notes | Reference |
-| --- | --- | --- |
-| **mod-playerbots** | Enabled; PlayerBots fork/core baseline | — |
-| **mod-autobalance** | Enabled | ([GitHub][4]) |
-| **mod-ah-bot (AH Bot Plus)** | Enabled | ([GitHub][6]) |
-| **mod-transmog** | Enabled | ([GitHub][3]) |
-| **mod-solo-lfg** | Enabled | ([GitHub][16]) |
-| **mod-individual-xp** | Enabled | ([GitHub][13]) |
-| **mod-account-achievements** | Enabled | ([GitHub][10]) |
-| **mod-improved-bank** | Enabled; account-wide storage enabled | ([GitHub][18]) |
-| **mod-world-chat** | Enabled | ([GitHub][29]) |
-| **mod-better-item-reloading** | Enabled | ([GitHub][57]) |
-| **mod-custom-server** | Enabled; local C++ module containing the Echoes stat bridge, per-instance scaling ownership, and Phase 8 progression-event bridge | — |
-| **Echoes of the Worldsoul** | Installed/staged; C++ bridge, 20 standard Eluna scripts, SQL, `patch-W.mpq`, and `EchoesOfTheWorldsoulBridge`; gameplay unverified | ([GitHub][48]) |
-| **Prestige-and-Draft-Mode** | Installed/staged; six Eluna scripts, SQL, server DBCs, `patch-P.mpq`, and `PrestigeSystem`; Standard/Draft gameplay unverified | ([GitHub][45]) |
-| **mod-seasonpass (Dream Path)** | Enabled/staged; C++/SQL/`SeasonPassUI`, Dream Renown, weekly rotation, and dungeon-event consumer; internal Prestige, Paragon, and mob scaling disabled; gameplay unverified | ([GitHub][46]) |
-| **mod-mythic-plus** | Enabled; C++/config/SQL applied and NPC `200005` staged; Keystone, timer, affix, reward, and leaderboard gameplay unverified | ([GitHub][36]) |
-| **mod-dungeon-master** | Enabled; C++/config/SQL applied, NPC `500000` initialized, six difficulties, nine themes, and 45 dungeons loaded; early development and gameplay unverified | ([GitHub][37]) |
-| **BMAH (Black Market Auction House)** | Enabled; Eluna/Lua script, NPC template `2069430`, and 4 seeded auctions; no world spawn | ([GitHub][44]) |
-| **mod-arac** | Installed; server/core/DB integration complete; client MPQ/DBC patch remains for live client use | ([GitHub][51]) |
-| **mod-worgoblin** | Installed; Mag'har Orc, Goblin, Worgen and High Elf Added | ([GitHub][52]) |
-| **mod-aoe-loot** | Enabled; group-loot behavior still needs live testing | ([GitHub][8]) |
-| **mod-npc-services** | Enabled; repair, bank, and mailbox only | ([GitHub][20]) |
-| **mod-instance-reset** | Enabled | ([GitHub][23]) |
-| **mod-anticheat** | Enabled | ([GitHub][55]) |
-| **mod-npc-beastmaster** | Enabled | ([GitHub][53]) |
-| **mod-account-mounts** | Enabled | ([GitHub][11]) |
-| **mod-challenge-modes** | Enabled | ([GitHub][9]) |
-| **mod-individual-progression** | Enabled | ([GitHub][2]) |
-| **mod-random-enchants** | Enabled for loot, quest rewards, and group rolls at 20%/5%/1%; crafting disabled | ([GitHub][35]) |
-| **mod-item-upgrade** | Enabled; rank 2 maximum, crafting upgrades enabled, 1,000 gold per weapon damage/speed rank | ([GitHub][38]) |
-| **mod-dungeon-clear** | Installed; PlayerBots integration enabled | ([GitHub][50]) |
-| **mod-congrats-on-level** | Enabled; milestone gold rewards at levels 10, 20, 30, 40, 50, 60, 70, and 80 | ([GitHub][39]) |
-| **mod-no-hearthstone-cooldown** | Enabled | ([GitHub][25]) |
-| **mod-fly-anywhere** | Enabled; patched server `AreaTable.dbc` and client `Patch-O.mpq` | ([GitHub][26]) |
-| **mod-skip-dk-starting-area** | Enabled | ([GitHub][27]) |
-| **mod-learn-spells** | Enabled | ([GitHub][28]) |
-| **mod-starter-guild** | Enabled; Alliance guild 21 (`Immortal`) and Horde guild 22 (`Eternal`) | ([GitHub][21]) |
-| **mod-guildhouse** | Installed; no enable switch; NPC entry `500030` is not spawned automatically | ([GitHub][22]) |
-| **mod-chat-transmitter** | Installed; intentionally deferred pending external setup | ([GitHub][56]) |
-| **mod-premium** | Installed; intentionally disabled | ([GitHub][42]) |
-| **mod-reward-shop** | Installed; intentionally disabled | ([GitHub][41]) |
-| **mod-reward-played-time** | Installed; intentionally disabled | ([GitHub][40]) |
+The following are explicitly out of scope for this revision:
 
-The server build, database import, database health, worldserver readiness, Phase 1-8 static contracts, and `git diff --check` have been verified as recorded in `PROGRESSION.md`. Interactive progression, dungeon, client, restart-recovery, PlayerBots, and multiplayer checks remain open.
+- Horde Pandaren
+- Kul Tiran
+- Forsaken
+- Ogre
+- Replacing Sethrak
+- New custom racial abilities
+- Ascension/CoA custom classes
+- Pandaren Monk; class \`10\` remains reserved in the current Esteria class contract
 
-ARAC and Worgoblin remain deep client/server modifications. The selected Worgoblin source is `Medviten/mod-worgoblin-high-elf`; the original `heyitsbench/mod-worgoblin` is no longer maintained.
+The initial race/class matrix remains Esteria’s existing classes \`1–9\` and \`11\`.
 
-## Current state
+## 2. Current Esteria constraints
 
-The five roadmap systems are installed or staged in the server checkout. Phase 7 prevents Mythic+, Dungeon Master, and Roguelike ownership from stacking with AutoBalance, Challenge Modes, or Echoes World Threat scaling. Phase 8 publishes guarded dungeon lifecycle events to Dream Path and stores per-character event claims and database-defined weekly rotations.
+The core is already mostly data-driven:
 
-The Echoes client patch hash is `93d2d7cc27f77fcd143a30b81a6e69e5b1147b8fedc8d62d5377f925a96ba05a`. The Prestige/Draft client patch hash is `e4454b83aaae2600a824dd51bf04481d8ea66d86d94d5ca96f9b6378d35437af`. The server-side `AreaTable.dbc`, `CharBaseInfo.dbc`, and `CharTitles.dbc` changes are staged in the persistent client-data volume.
+- \`RaceMgr::LoadRaces()\` derives playable, faction, and maximum race values from \`ChrRaces.dbc\`.
+- \`ObjectMgr::LoadPlayerInfo()\` consumes \`playercreateinfo\` and \`ChrRaces\` model references.
+- Character creation uses \`CharBaseInfo\`, \`CharStartOutfit\`, \`CharSections\`, and \`SkillRaceClassInfo\`.
+- The current DBC loader has an \`OnAfterLoadDBCStores()\` seam through \`mod-wxl-dbc\`.
+- Race masks remain 32-bit, so new IDs must stay at or below 32.
 
-The current runtime is not a production-readiness claim. Standard and Draft Prestige, Echoes attunement, Dream Path objectives and rewards, Mythic+ runs, Dungeon Master runs, Roguelike transitions, restart recovery, bot behavior, and multiplayer behavior still require live testing.
+Relevant files:
 
-## Core, progression, and small-server modules
+- [SharedDefines.h](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\src\\server\\shared\\SharedDefines.h:68)
+- [RaceMgr.cpp](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\src\\server\\game\\Entities\\Player\\RaceMgr.cpp:47)
+- [ObjectMgr.cpp](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\src\\server\\game\\Globals\\ObjectMgr.cpp:4346)
+- [race_registry.json](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\data\\races\\race_registry.json:78)
 
-| Module                         | Type / constraint                               | What it does                                                               | Would I use it?                                      | Reference      |
-| ------------------------------ | ----------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------- | -------------- |
-| **mod-dynamic-xp**             | C++ module                                      | Configures different XP multipliers by level range                         | **🟡 Useful if we design progression around it**     | ([GitHub][14]) |
+### Race-ID reconciliation
 
+The repository currently contains two competing custom-race maps.
 
----
+\`race_registry.json\`, \`chrraces_dbc.sql\`, and \`race_sync.sql\` currently use:
 
-## Storage, QoL, and social
+- \`18\` Pandaren Alliance
+- \`20\` Vulpera Horde
+- \`26\` Pandaren Horde
 
-| Module                          | Type / constraint | What it does                                                        | Would I use it?                                     | Reference      |
-| ------------------------------- | ----------------- | ------------------------------------------------------------------- | --------------------------------------------------- | -------------- |
-| **mod-reset-raid-cooldowns**    | C++ module        | Removes Sated/Exhaustion and resets cooldowns after raid encounters | **✅ Great for repeated progression attempts**       | ([GitHub][24]) |
+\`SharedDefines.h\` and \`ConquestOfEsteria.md\` instead label:
 
----
+- \`19\` Vulpera
+- \`21–22\` Pandaren variants
 
-## PvP
+This revision should preserve the authored registry/SQL map because it is also used by the generated model and start-data migrations:
 
-| Module                   | Type / constraint | What it does                                                      | Would I use it?                            | Reference      |
-| ------------------------ | ----------------- | ----------------------------------------------------------------- | ------------------------------------------ | -------------- |
-| **mod-cfbg**             | C++ module        | Cross-faction battlegrounds                                       | **✅ If PvP matters at all**                | ([GitHub][30]) |
-| **mod-bg-auto-queue**    | C++ module        | Automatically queues eligible players for BGs                     | **✅ Excellent companion to CFBG**          | ([GitHub][31]) |
-| **mod-duel-reset**       | C++ module        | Resets health/resources/cooldowns around duels                    | **🟡 Good PvP QoL**                        | ([GitHub][32]) |
-| **mod-pvp-titles**       | C++ module        | Awards/displays classic PvP titles based on honorable kills       | **🟡 Nice flavor/progression**             | ([GitHub][33]) |
-| **mod-gain-honor-guard** | C++ module        | Lets appropriately leveled guards/elites grant configurable Honor | **🟡 Actually useful on a low-pop server** | ([GitHub][34]) |
+| ID | Race | Scope |
+|---:|---|---|
+| 18 | Pandaren Alliance | Enable |
+| 20 | Vulpera Horde | Enable |
+| 26 | Pandaren Horde | Preserve, leave out of scope |
 
----
+Before implementation, confirm the live database and existing character counts. Do not silently remap existing race IDs. Sethrak ID15 remains unchanged in this revision.
 
-# Custom progression and endgame candidates
+No new race ID is required, so ID29 and additional mask expansion are not part of this work.
 
-| Module                          | Type / constraint                          | What it does                                                                                   | Would I use it?                                                       | Reference      |
-| ------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------- |
-| **mod-vanilla-naxxramas** | Custom-content module | Adds a Vanilla Naxxramas experience | **🧪 Not installed** | — |
-| **Paragon Anniversary** | Custom progression reference | Candidate permanent progression system; do not install alongside the active Echoes/Dream Path ownership model | **🧪 Not installed** | — |
+## 3. Asset audit
 
----
+All inspected target character models are \`MD20\` version \`264\`, compatible with the WotLK-era model format.
 
-# PlayerBots ecosystem
+Core attachment IDs checked:
 
-| Module                            | Type / constraint   | What it does                                                                                              | Would I use it?                       | Reference      |
-| --------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------- | -------------- |
-| **mod-player-bot-level-brackets** | Requires PlayerBots | Keeps random bots distributed among configurable level ranges                                             | **✅ Yes if we use PlayerBots**        | ([GitHub][49]) |
+- \`0, 1, 2\`: shoulders
+- \`3\`: shield
+- \`10\`: head
+- \`13\`: main-hand
+- \`14\`: off-hand
 
----
+| Race | Assets | Jump sequences 37/38/39 | Gear attachment result | Status |
+|---|---|---|---|---|
+| Vulpera | \`patch-CHA.mpq\\Character\\vulpera\\male|female\` | Present for both sexes | Complete checked set for both sexes | Strong model-level candidate |
+| Pandaren Alliance | \`patch-CHA.mpq\\Character\\Pandaren\\male|female\` | Present for both sexes | Complete checked set for both sexes | Strong model-level candidate |
 
-# Development, infrastructure and administration
+These two are the only target races in this revision that passed the basic two-gender jump and equipment-point audit. That is model-level evidence, not proof of complete playability.
 
-| Module                        | Type / constraint                   | What it does                                                              | Would I use it?                                      | Reference      |
-| ----------------------------- | ----------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------- | -------------- |
-| **mod-caio**                  | C++ + WoW addon                     | Server↔client messaging framework with C++ handlers and client Lua addons | **✅ Potentially HUGE for our custom UI**             | ([GitHub][58]) |
+### Vulpera
 
-### And I need to correct myself on CAIO
+Available:
 
-I initially couldn't resolve the repository from the old name lookup, but I found the actual current project:
+\`\`\`text
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-CHA.mpq\\Character\\vulpera\\male\\vulperamale.m2
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-CHA.mpq\\Character\\vulpera\\female\\vulperafemale.m2
+\`\`\`
 
-**`sogladev/mod-caio`**.
+The package contains:
 
-And it's exactly as useful as we thought. It provides a **server↔client communication system** where WoW Lua addons communicate with C++ AzerothCore handlers. It explicitly does **not** use server-side Lua handlers; your server logic remains C++. ([GitHub][58])
+- Separate male and female models.
+- 48 external animation files per gender.
+- Complete checked attachment points for both genders.
+- 504 \`CharSections\` rows.
+- 26 extracted start-outfit rows.
+- Extensive skin, face, hair, and eye textures.
 
-That actually makes it *more* attractive for the architecture I have in mind.
+The extracted root \`NameGen.dbc\` has no Vulpera name rows. Random-name support therefore needs dedicated rows or an explicit fallback.
 
-For example:
+The extracted client DBC uses Vulpera as donor race ID19, while the recommended Esteria target is ID20. All race-specific DBC rows must be remapped to ID20 rather than copied by numeric identity.
 
-```text
-WoW AddOn UI
-     │
-     │ CAIO messages
-     ▼
-mod-caio
-     │
-     ▼
-our C++ module
-mod-custom-server
-     │
-     ├── custom progression
-     ├── collections
-     ├── housing
-     ├── currencies
-     └── whatever cursed thing we invent next
-```
+### Pandaren Alliance
 
-**Very much keep that one on the list.**
+Available:
 
----
+\`\`\`text
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-CHA.mpq\\Character\\Pandaren\\male\\pandarenmale.m2
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-CHA.mpq\\Character\\Pandaren\\female\\pandarenfemale.m2
+\`\`\`
 
-# Remaining priorities
+The package contains:
 
-### 🟡 Evaluate before installing
+- Separate male and female models.
+- 201 male external animation files.
+- 210 female external animation files.
+- Complete checked attachment points for both genders.
+- 1,364 \`CharSections\` rows.
+- 26 extracted start-outfit rows.
 
-```text
-mod-mounts-on-account (alternative to mod-account-mounts)
-mod-solocraft
-mod-reset-raid-cooldowns
-mod-cfbg
-mod-bg-auto-queue
-mod-duel-reset
-mod-pvp-titles
-mod-gain-honor-guard
-```
+The extracted client DBC uses Pandaren as donor race ID20, while the recommended Alliance target is ID18. Appearance, hair, face, and start-outfit rows must be remapped to ID18.
 
-### 🧪 WotLK+ / custom-content phase
+The Horde Pandaren row remains preserved but disabled/out of scope. It must not be exposed by the character creator in this change.
 
-```text
-Paragon Anniversary
-client-side ARAC/Worgoblin DBC/MPQ packaging and client signature-check handling
-mod-caio
-```
+The extracted root \`NameGen.dbc\` has no Pandaren name rows.
 
-And **CAIO is the odd one there**: I wouldn't use it immediately because we don't need a custom UI on day one, but once we start making our own systems, I could see it becoming one of the most important pieces of the entire project. ([GitHub][58])
+## 4. Client and Glue strategy
 
-[2]: https://github.com/ZhengPeiRu21/mod-individual-progression "GitHub - ZhengPeiRu21/mod-individual-progression: AzerothCore Individual Progression Module · GitHub"
-[3]: https://github.com/azerothcore/mod-transmog "GitHub - azerothcore/mod-transmog: Plug&Play transmog module for AzerothCore, based on Rochet2 works · GitHub"
-[4]: https://github.com/azerothcore/mod-autobalance "GitHub - azerothcore/mod-autobalance: Module for AzerothCore(MaNGOS -> TrinityCore -> SunwellCore) · GitHub"
-[6]: https://github.com/NathanHandley/mod-ah-bot-plus "GitHub - NathanHandley/mod-ah-bot-plus: Modified version of the AHBot for AzerothCore · GitHub"
-[7]: https://github.com/azerothcore/mod-ale "GitHub - azerothcore/mod-ale: AzerothCore Lua Engine · GitHub"
-[8]: https://github.com/azerothcore/mod-aoe-loot "GitHub - azerothcore/mod-aoe-loot: Loot all bodies at once! · GitHub"
-[9]: https://github.com/ZhengPeiRu21/mod-challenge-modes "GitHub - ZhengPeiRu21/mod-challenge-modes: Challenge Modes Module for AzerothCore · GitHub"
-[10]: https://github.com/azerothcore/mod-account-achievements "GitHub - azerothcore/mod-account-achievements: Share your characters achievements to all on your account. · GitHub"
-[11]: https://github.com/azerothcore/mod-account-mounts "GitHub - azerothcore/mod-account-mounts · GitHub"
-[12]: https://github.com/pangolp/mod-mounts-on-account "GitHub - pangolp/mod-mounts-on-account: This module allows to obtain all the mounts learned by a character of the account, possibly in exchange for gold, although it is not yet decided. · GitHub"
-[13]: https://github.com/azerothcore/mod-individual-xp "GitHub - azerothcore/mod-individual-xp · GitHub"
-[14]: https://github.com/azerothcore/mod-dynamic-xp "GitHub - azerothcore/mod-dynamic-xp: Dynamic XP per level range module for 3.3.5a · GitHub"
-[15]: https://github.com/azerothcore/mod-solocraft "GitHub - azerothcore/mod-solocraft: Solocraft module for AzerothCore · GitHub"
-[16]: https://github.com/azerothcore/mod-solo-lfg "GitHub - azerothcore/mod-solo-lfg: Solo LFG Module for use on AzerothCore 3.3.5a · GitHub"
-[17]: https://github.com/ZhengPeiRu21/mod-reagent-bank "GitHub - ZhengPeiRu21/mod-reagent-bank: Reagent Bank Module for AzerothCore · GitHub"
-[18]: https://github.com/silviu20092/mod-improved-bank "GitHub - silviu20092/mod-improved-bank: Improved bank module for AzerothCore. · GitHub"
-[20]: https://github.com/azerothcore/mod-npc-services "GitHub - azerothcore/mod-npc-services: AzerothCore Module · GitHub"
-[21]: https://github.com/azerothcore/mod-starter-guild "GitHub - azerothcore/mod-starter-guild: This module automatically joins new players to a guild of your choice on first login. · GitHub"
-[22]: https://github.com/azerothcore/mod-guildhouse "GitHub - azerothcore/mod-guildhouse: Custom guild house for AzerothCore · GitHub"
-[23]: https://github.com/azerothcore/mod-instance-reset "GitHub - azerothcore/mod-instance-reset: A instance-reset module for AzerothCore. · GitHub"
-[24]: https://github.com/sogladev/mod-reset-raid-cooldowns "GitHub - sogladev/mod-reset-raid-cooldowns: AzerothCore custom module hat removes Sated and Exhaustion debuffs, and resets player cooldowns after raid encounters · GitHub"
-[25]: https://github.com/BytesGalore/mod-no-hearthstone-cooldown "GitHub - BytesGalore/mod-no-hearthstone-cooldown: AzerothCore module that immediately skips the cooldown of the Hearthstone after use · GitHub"
-[26]: https://github.com/abracadaniel22/mod-fly-anywhere "GitHub - abracadaniel22/mod-fly-anywhere: AzerothCore mod that allows players to fly in Eastern Kingdoms and Kalimdor as soon as they can fly in Outlands · GitHub"
-[27]: https://github.com/azerothcore/mod-skip-dk-starting-area "GitHub - azerothcore/mod-skip-dk-starting-area · GitHub"
-[28]: https://github.com/azerothcore/mod-learn-spells "GitHub - azerothcore/mod-learn-spells: AzerothCore module to automatically teaches new spells on levelup · GitHub"
-[29]: https://github.com/azerothcore/mod-world-chat "GitHub - azerothcore/mod-world-chat: Global (world) chat. · GitHub"
-[30]: https://github.com/azerothcore/mod-cfbg "GitHub - azerothcore/mod-cfbg: Cross-faction Battleground for AzerothCore · GitHub"
-[31]: https://github.com/azerothcore/mod-bg-auto-queue "GitHub - azerothcore/mod-bg-auto-queue: Module to let players auto-queue battlegrounds · GitHub"
-[32]: https://github.com/azerothcore/mod-duel-reset "GitHub - azerothcore/mod-duel-reset: Duel reset module for AzerothCore · GitHub"
-[33]: https://github.com/azerothcore/mod-pvp-titles "GitHub - azerothcore/mod-pvp-titles: Display old PVP titles depending on honorable kills (starts at 50) · GitHub"
-[34]: https://github.com/azerothcore/mod-gain-honor-guard "GitHub - azerothcore/mod-gain-honor-guard: Allow Guards and/or Elites to give Honor when killed. · GitHub"
-[35]: https://github.com/azerothcore/mod-random-enchants "GitHub - azerothcore/mod-random-enchants: Random Enchantments for any Looted, Created or Quest Reward items · GitHub"
-[36]: https://github.com/silviu20092/mod-mythic-plus "GitHub - silviu20092/mod-mythic-plus: Mythic Plus system for Azerothcore. · GitHub"
-[37]: https://github.com/InstanceForge/mod-dungeon-master "GitHub - InstanceForge/mod-dungeon-master: Randomly generated dungeons for AzerothCore · GitHub"
-[38]: https://github.com/silviu20092/mod-item-upgrade "GitHub - silviu20092/mod-item-upgrade: Individual item upgrades for AzerothCore. · GitHub"
-[39]: https://github.com/azerothcore/mod-congrats-on-level "GitHub - azerothcore/mod-congrats-on-level: This module rewards players when they reach specific levels · GitHub"
-[40]: https://github.com/azerothcore/mod-reward-played-time "GitHub - azerothcore/mod-reward-played-time: Reward System for Azerothcore · GitHub"
-[41]: https://github.com/azerothcore/mod-reward-shop "GitHub - azerothcore/mod-reward-shop: Ingame shop for Azerothcore · GitHub"
-[42]: https://github.com/azerothcore/mod-premium "GitHub - azerothcore/mod-premium: This is a module for AzerothCore that adds Premium account features to players. · GitHub"
-[44]: https://github.com/Youpeoples/Black-Market-Auction-House "GitHub - Youpeoples/Black-Market-Auction-House: A faithful backport of the Mists of Pandaria Black Market Auction House assets and functionality to AzerothCore 3.3.5 using the Eluna Lua engine · GitHub"
-[45]: https://github.com/Youpeoples/Prestige-and-Draft-Mode "GitHub - Youpeoples/Prestige-and-Draft-Mode: This is a minimally invasive mod for ACore 3.3.5 WoW Servers. Allowing for Prestige & Prestige Drafting options at max level. · GitHub"
-[46]: https://github.com/topics/azerothcore-module?l=lua&o=asc&s=stars&utm_source=chatgpt.com "azerothcore-module · GitHub Topics · GitHub"
-[48]: https://github.com/vibecoder99-cmd/echoes-of-the-worldsoul "GitHub - vibecoder99-cmd/echoes-of-the-worldsoul: A long-term solo/self-paced progression module for AzerothCore WotLK 3.3.5a with gear attunement, permanent stat absorption, World Threat, Visage cosmetics, and extension APIs. · GitHub"
-[49]: https://github.com/DustinHendrickson/mod-player-bot-level-brackets "GitHub - DustinHendrickson/mod-player-bot-level-brackets: The Bot Level Brackets module for AzerothCore ensures an even spread of player bots across configurable level ranges (brackets). It periodically monitors bot levels and automatically adjusts them by transferring bots from overpopulated brackets to those with a deficit. · GitHub"
-[50]: https://github.com/jrad7/mod-dungeon-clear?utm_source=chatgpt.com "GitHub - jrad7/mod-dungeon-clear: A module for AzerothCore's playerbots to help them clear dungeons. · GitHub"
-[51]: https://github.com/heyitsbench/mod-arac "GitHub - heyitsbench/mod-arac: Module & patches - \"All Races All Classes (ARAC)\" · GitHub"
-[52]: https://github.com/Medviten/mod-worgoblin-high-elf "GitHub - Medviten/mod-worgoblin-high-elf: Worgoblin playable-race integration for AzerothCore. · GitHub"
-[53]: https://github.com/azerothcore/mod-npc-beastmaster "GitHub - azerothcore/mod-npc-beastmaster: An NPC that lets you tame beasts. · GitHub"
-[54]: https://github.com/heyitsbench/mod-worgoblin "GitHub - heyitsbench/mod-worgoblin: Module for AzerothCore that adds Worgen and Goblin as playable races. · GitHub"
-[55]: https://github.com/azerothcore/mod-anticheat "GitHub - azerothcore/mod-anticheat: Port of PassiveAnticheat to Azerothcore · GitHub"
-[56]: https://github.com/azerothcore/mod-chat-transmitter "GitHub - azerothcore/mod-chat-transmitter · GitHub"
-[57]: https://github.com/azerothcore/mod-better-item-reloading "GitHub - azerothcore/mod-better-item-reloading: BetterItemReloading is a C++ Azerothcore module which allows to reload items on the server side and as much as possible on the client side of WoW 3.3.5. · GitHub"
-[58]: https://github.com/sogladev/mod-caio "GitHub - sogladev/mod-caio: CAIO enables sending Lua addons and data from server to client and vice versa, while providing C++ handler bindings for server-side logic · GitHub"
+Use the current Esteria character creator as the authoritative UI:
+
+\`\`\`text
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-b.mpq\\Interface\\GlueXML\\CharacterCreate.lua
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-b.mpq\\Interface\\GlueXML\\CharacterCreate.xml
+G:\\Ascension\\Ascension\\resources\\ascension-live\\Data\\Extracted\\patch-b.mpq\\Interface\\SharedXML\\SharedConstants.lua
+\`\`\`
+
+The current patch-B creator has:
+
+- \`MAX_RACES = 11\`.
+- 11 statically defined race buttons.
+- CoA/archetype support.
+- Custom class-preview logic.
+- Race icons sourced through \`RACE_ICON_TCOORDS\`.
+
+\`MAX_RACES\` here is UI button capacity, not the highest DBC race ID. The final button count must equal the existing visible race manifest plus Vulpera and Alliance Pandaren. Horde Pandaren must not be added to the visible list.
+
+Do not replace the current creator with another implementation or import any donor Glue package wholesale.
+
+### Patch-B preservation contract
+
+The existing `patch-b.mpq` is the authoritative Esteria client interface package. It is the base to add to, not a package to replace or rebuild from another race package.
+
+The following existing Patch-B systems must remain authoritative and intact:
+
+- `Interface\GlueXML\CharacterCreate.lua`
+- `Interface\GlueXML\CharacterCreate.xml`
+- `Interface\GlueXML\GlueParent.lua`
+- `Interface\GlueXML\GlueXML.toc`
+- `Interface\GlueXML\AccountLogin.lua` and `AccountLogin.xml`
+- `Interface\GlueXML\CharacterSelect.lua` and `CharacterSelect.xml`
+- Existing `Interface\SharedXML\*` files
+- Existing `Interface\Glues\*` files and background models
+
+The only permitted client work for this race change is additive or narrowly merged:
+
+- Add Vulpera and Pandaren race icon/round-icon BLPs under `Interface\Glues\CharacterCreate\`.
+- Add a missing race-specific backdrop asset only when the existing Human/Alliance or Orc/Horde backdrop cannot be reused.
+- Add Vulpera and Pandaren character models, skins, animations, and textures under their `Character\...` paths. These are gameplay assets, not replacements for the interface.
+- Add the minimum race-button definitions and anchors to the existing `CharacterCreate.xml`.
+- Add only the required race icon coordinates, race strings, and optional lighting/ambience entries to the existing Lua tables.
+- Add only required Glue load-order entries if a genuinely new file is needed.
+- Merge only the required client DBC rows into the existing DBC set.
+
+The following actions are forbidden for this scope:
+
+- Do not replace the existing `CharacterCreate.lua`, `CharacterCreate.xml`, `GlueParent.lua`, or `GlueXML.toc` with donor copies.
+- Do not copy an entire donor `Interface`, `GlueXML`, `SharedXML`, or `Glues` directory into Patch-B.
+- Do not import a second copy of any authoritative login, character-select, or character-create file.
+- Do not delete, rename, or overwrite existing Patch-B interface files or background assets.
+- Do not change the current login screen, character-select screen, or existing character-creation behavior except where required to expose the two new race entries.
+- Do not import Ogre, Forsaken, or Kul Tiran Glue/interface files; those races are deferred.
+
+The final Patch-B change must be reviewable as an additive file manifest plus small merges into the existing creator. If a packaging step would overwrite an existing Patch-B file, stop and resolve the merge instead of accepting the overwrite.
+
+### Required Glue changes
+
+1. Expand the race-button pool only as required by the final enabled manifest, using the existing Patch-B button template, style, frame, and layout conventions. Do not redesign or replace the character-creation screen.
+
+2. Keep UI ordinal indexes separate from actual race IDs. A button index must never be assumed to equal the DBC race ID.
+
+3. Add icon support for Vulpera and Pandaren male/female portraits. \`patch-CHA.mpq\` contains the character models and textures but not a complete new-race creation icon set.
+
+4. Add:
+
+   - \`RACE_INFO_VULPERA\`
+   - \`RACE_INFO_PANDAREN\`
+   - Female fallbacks where required
+   - Racial ability strings only if abilities are separately approved
+
+5. Use faction-aware presentation:
+
+   - Vulpera → Horde backdrop, ambience, and faction data
+   - Pandaren Alliance → Alliance backdrop, ambience, and faction data
+
+6. Ensure the final creator has one authoritative copy of:
+
+   - \`CharacterCreate.lua\`
+   - \`CharacterCreate.xml\`
+   - \`GlueParent.lua\`
+   - Race localization strings
+
+7. Do not add a Horde Pandaren button, Horde Pandaren strings, or Horde Pandaren selection path in this revision.
+
+## 5. DBC and client-data work
+
+DBC work is separate from the Patch-B interface merge. It must also be additive: merge only the Vulpera and Alliance Pandaren rows into the existing client/server DBC composition and preserve every unrelated existing row and file.
+
+Do not copy the extracted \`DBFilesClient\` directory wholesale. Its donor IDs and race flags do not match the Esteria registry.
+
+Required DBC surfaces:
+
+- \`ChrRaces.dbc\`
+- \`CharBaseInfo.dbc\`
+- \`CharStartOutfit.dbc\`
+- \`CharSections.dbc\`
+- \`CharacterFacialHairStyles.dbc\`
+- \`CharHairGeosets.dbc\`
+- \`CharHairTextures.dbc\`
+- \`BarberShopStyle.dbc\`
+- \`SkillLine.dbc\`
+- \`SkillLineAbility.dbc\`
+- \`SkillRaceClassInfo.dbc\`
+- \`NameGen.dbc\`
+- \`CreatureModelData.dbc\`
+- \`CreatureDisplayInfo.dbc\`
+- \`CreatureDisplayInfoExtra.dbc\`, when required
+- \`HelmetGeosetVisData.dbc\`
+- \`ItemDisplayInfo.dbc\`
+- \`Faction.dbc\`
+- \`FactionTemplate.dbc\`
+
+Important rules:
+
+- Remap extracted Vulpera donor rows from race19 to Esteria race20.
+- Remap extracted Pandaren donor rows from race20 to Esteria Alliance race18.
+- Keep the Horde Pandaren row at race26 preserved but not playable.
+- Clear only the non-playable bit for the two enabled target rows after all dependent data exists.
+- Preserve \`CAN_MOUNT\` and other model-appropriate flags.
+- Use Alliance faction/language data for Pandaren Alliance.
+- Use Horde faction/language data for Vulpera.
+- Add \`NameGen\` rows for Vulpera and Pandaren, or explicitly disable random-name behavior for them.
+- Add the target race bits to \`SkillLineAbility\` and \`SkillRaceClassInfo\` for languages and intended proficiencies.
+- Keep \`.mdx\` versus \`.m2\` model path conventions consistent with the existing client loader and current Esteria data.
+- Rebuild or validate secondary indexes after DBC continuation injection.
+
+## 6. Server and SQL work
+
+Current relevant data:
+
+- [u_custom_server_2026_08_29_races.sql](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\data\\sql\\db-world\\updates\\u_custom_server_2026_08_29_races.sql)
+- [u_custom_server_2026_09_02_race_models.sql](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\data\\sql\\db-world\\updates\\u_custom_server_2026_09_02_race_models.sql)
+- [u_custom_server_2026_09_02_race_sync.sql](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\data\\sql\\db-world\\updates\\u_custom_server_2026_09_02_race_sync.sql)
+- [u_custom_server_2026_09_03_race_scope.sql](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\data\\sql\\db-world\\updates\\u_custom_server_2026_09_03_race_scope.sql)
+- [chrraces_dbc.sql](R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\data\\sql\\db-world\\updates\\dbc\\chrraces_dbc.sql)
+
+The current scope migration disables IDs \`14–28\`, and a later migration re-enables only Sethrak ID15. Do not edit those applied migrations. Add a later corrective migration for Vulpera and Alliance Pandaren.
+
+That migration should:
+
+1. Preflight the update table and count existing characters at IDs18, 20, 26, and 15.
+2. Leave Sethrak ID15 unchanged.
+3. Enable only ID18 Pandaren Alliance and ID20 Vulpera Horde.
+4. Leave ID26 Pandaren Horde disabled and out of the character creator.
+5. Align \`ChrRaces\`, model/display references, faction, language, and client files with the selected IDs.
+6. Verify \`playercreateinfo\` exists for classes \`1–9\` and \`11\` for both target races.
+7. Verify race-specific starting skills and spells without inventing new racial abilities.
+8. Verify valid starter outfits for every enabled class and both sexes.
+9. Use the existing \`elwynn\` Alliance and \`durotar\` Horde start profiles unless separate starting zones are approved.
+10. Keep existing race IDs, character rows, and applied migration history intact.
+11. Ensure the PlayerBots name and appearance path has valid data for IDs18 and20 without enabling ID26 or other deferred races.
+
+The existing generated all-race skill mask through ID28 is sufficient; no new ID29 mask expansion is required.
+
+## 7. Minimal code changes
+
+If the existing registry/SQL IDs are retained, server C++ changes should be limited:
+
+- Align the custom enum values in \`SharedDefines.h\` with the authoritative map:
+  - Pandaren Alliance → \`18\`
+  - Vulpera → \`20\`
+  - Pandaren Horde remains \`26\` but out of scope
+- Update enum reflection metadata only if custom race values are used through that path.
+- Reuse the existing \`RaceMgr\`, \`ObjectMgr\`, DBC loader, and character-creation validation paths.
+
+No new race-specific logic should be needed in \`RaceMgr\`, \`Player::Create\`, or \`CharacterHandler\` merely to register these two races.
+
+### PlayerBots
+
+PlayerBots support is included for Vulpera Horde and Pandaren Alliance only. Horde Pandaren and every other deferred race must remain excluded.
+
+The primary implementation surface is:
+
+- `R:\Users\Zach\Documents\GitHub\EsteriaWoW\modules\mod-playerbots\src\Bot\Factory\RandomPlayerbotFactory.cpp`
+- `R:\Users\Zach\Documents\GitHub\EsteriaWoW\modules\mod-playerbots\src\Bot\Factory\RandomPlayerbotFactory.h`
+
+Required behavior:
+
+- Replace the current broad `race > RACE_BROKEN_PLAYER` rejection with an explicit bot-supported-race policy that admits only Vulpera ID20 and Pandaren Alliance ID18 in addition to the existing supported races.
+- Keep Horde Pandaren ID26, Sethrak ID15, and all other custom races excluded.
+- Preserve the expansion check, disabled-race-mask check, faction balancing, and `PlayerInfo` validation.
+- Ensure `IsAlliance(race)` resolves Vulpera as Horde and Pandaren Alliance as Alliance from the final `ChrRaces` rows.
+- Keep explicit `CombineRaceAndGender()` cases for both target races and map them to a valid name category.
+- Ensure `HasRandomBotAppearanceData()` finds skin, face, hair, and any required facial-hair sections for both genders.
+- Keep the existing generic `playerbots_names` fallback unless race-specific bot name pools are separately approved. The client `NameGen.dbc` requirement and the PlayerBots name table are separate concerns.
+- Ensure random bot creation reaches `Player::Create()` with valid race/class/start-outfit data for every enabled class.
+- Audit other PlayerBots race switches, race-name tables, factory limits, travel/teleport logic, and appearance assumptions for accidental exclusion or mislabeling.
+
+PlayerBots does not need race-specific combat AI for these two races; class behavior remains class-driven. The change is complete only when bot creation, appearance selection, faction assignment, and classic-race behavior are all verified.
+
+## 8. Recommended implementation order
+
+1. Freeze the registry/SQL race map and inspect live character counts.
+2. Preserve ID15 Sethrak and ID26 Horde Pandaren unchanged.
+3. Build an asset manifest for the Vulpera and Pandaren models, skins, animations, and textures.
+4. Remap donor DBC rows to Vulpera ID20 and Alliance Pandaren ID18.
+5. Add missing \`NameGen\` rows and creation icon assets.
+6. Create an explicit additive Patch-B file allowlist and verify that no existing interface path will be overwritten.
+7. Merge the two race entries into the current Patch-B Glue creator using its existing templates and behavior.
+8. Update and validate the PlayerBots race allowlist, name category, appearance selection, and bot creation path.
+9. Add a later corrective server migration enabling IDs18 and20.
+10. Validate creation, login, starter data, equipment, jump, mount, relog, and random-bot behavior.
+11. Keep all deferred race work separate from this change.
+
+## 9. Definition of done
+
+For Vulpera Horde and Pandaren Alliance:
+
+- Only the intended faction entry is visible.
+- The creator sends the correct actual race ID.
+- Both genders load with the correct model and customization options.
+- All enabled classes have valid start-outfit data.
+- Starting skills, spells, stats, action bars, language, and faction are correct.
+- Characters log in, log out, relog, and survive restart.
+- Head, shoulders, shield, main-hand, and off-hand equipment render correctly.
+- Jumping and mounting work as intended.
+- Character select, character create, paper doll, barber, and world models render correctly.
+- The existing Patch-B login screen remains unchanged.
+- The existing Patch-B character-select screen remains unchanged.
+- The existing Patch-B character-creation screen and behavior remain unchanged apart from the two additional race entries.
+- No duplicate Glue files or path collisions shadow the current interface implementation.
+- Horde Pandaren, Sethrak, and all other deferred race identities remain unchanged.
+- Existing current-race characters are not silently reinterpreted.
+
+Static DBC/model checks are not sufficient; live character creation and equipment validation remain the final gate.
+
+The [Adding a New Race tutorial](https://github.com/Hextv/Adding-a-New-Race-Step-by-Step-Tutorial-3.3.5) remains useful as a DBC/Glue checklist, but its TrinityCore-oriented ID and UI assumptions must be adapted to Esteria’s existing registry and migrations.

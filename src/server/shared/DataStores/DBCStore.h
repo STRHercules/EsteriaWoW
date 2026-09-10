@@ -88,6 +88,41 @@ public:
         _indexTable.AsT[id] = t;
     }
 
+    // Like SetEntry(), but does not delete the previous value at `id`.
+    // Continuation rows may replace data owned by a base DBC or DB overlay.
+    void ReplaceEntry(uint32 id, T* t)
+    {
+        if (id >= _indexTableSize)
+        {
+            // Resize
+            typedef char* ptr;
+            std::size_t newSize = id + 1;
+            ptr* newArr = new ptr[newSize];
+            memset(newArr, 0, newSize * sizeof(ptr));
+            memcpy(newArr, _indexTable.AsChar, _indexTableSize * sizeof(ptr));
+            delete[] reinterpret_cast<char*>(_indexTable.AsT);
+            _indexTable.AsChar = newArr;
+            _indexTableSize = newSize;
+        }
+
+        _indexTable.AsT[id] = t;
+    }
+
+    // Reserve the index table once before injecting many sequential IDs.
+    void EnsureCapacity(uint32 minSize)
+    {
+        if (minSize <= _indexTableSize)
+            return;
+
+        typedef char* ptr;
+        ptr* newArr = new ptr[minSize];
+        memset(newArr, 0, minSize * sizeof(ptr));
+        memcpy(newArr, _indexTable.AsChar, _indexTableSize * sizeof(ptr));
+        delete[] reinterpret_cast<char*>(_indexTable.AsT);
+        _indexTable.AsChar = newArr;
+        _indexTableSize = minSize;
+    }
+
     [[nodiscard]] uint32 GetNumRows() const { return _indexTableSize; }
 
     bool Load(char const* path) override

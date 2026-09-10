@@ -37,6 +37,7 @@ enum WorldHook
     WORLDHOOK_ON_AFTER_UNLOAD_ALL_MAPS,
     WORLDHOOK_ON_BEFORE_FINALIZE_PLAYER_WORLD_SESSION,
     WORLDHOOK_ON_BEFORE_WORLD_INITIALIZED,
+    WORLDHOOK_ON_AFTER_LOAD_DBC_STORES,
     WORLDHOOK_END
 };
 
@@ -92,6 +93,8 @@ public:
      * @brief This hook runs after all scripts loading and before itialized
      */
     virtual void OnBeforeWorldInitialized() { }
+
+    virtual void OnAfterLoadDBCStores() { }
 };
 
 #endif

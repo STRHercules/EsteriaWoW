@@ -1,0 +1,82 @@
+# mod-battlemon
+#
+# Server-side Battlemon. Catalog tables live in world; per-character
+# progress lives in characters. Catalog rows are seeded by the module
+# SQL updates (data/sql/db-world/base). After applying, restart
+# worldserver or run .battlemon reload.
+
+Battlemon.Enable = 1
+
+# Announce on player login.
+Battlemon.Announce = 1
+
+# National Dex id granted to a character that has no Battlemon yet.
+# 25 = Pikachu (default form, empty variant).
+Battlemon.StarterSpecies = 25
+
+# Starter level. Keep at 1.
+Battlemon.StarterLevel = 1
+
+# If 0, playerbots do not receive a Battlemon row on login.
+Battlemon.GrantToBots = 0
+
+# Seconds after a wild battle ends before the addon Fight button is available.
+# Overworld critter clicks ignore this: they never check it and never start it.
+Battlemon.EncounterCooldown = 300
+
+# Catch chance per throw after a wild faint (0.0 - 1.0).
+Battlemon.CatchChance = 0.5
+
+# Throws allowed after a wild faint (inventory balls still required).
+Battlemon.CatchThrows = 3
+
+# Poké Balls granted on the first login of each calendar day (server local).
+# Stacks on current balls. New accounts start at 0, then receive this grant.
+Battlemon.DailyBalls = 5
+
+# Poké Balls granted for winning a wild battle (catch, 3 misses, or skip).
+Battlemon.WinBalls = 1
+
+# Hard cap for any one stack in the bag, balls and potions alike.
+Battlemon.BagMaxStack = 99
+
+# Catch chance multipliers by ball. Poké Ball is always 1.0 and Master Ball
+# always succeeds, so neither is configurable. The result is still clamped by
+# Battlemon.CatchChance reaching 1.0.
+Battlemon.GreatBallMult = 1.5
+Battlemon.UltraBallMult = 2.0
+
+# Wild encounter buckets (weights, not required to sum to 100).
+# Legendary/mythical 1, starter lines 5, everything else 94 (~94% normal).
+Battlemon.EncounterLegendary = 1
+Battlemon.EncounterStarter = 5
+Battlemon.EncounterNormal = 94
+
+# Battlemon Points awarded for winning a wild battle (catch, miss, or skip).
+# Spend later at trainer shops / NPC rewards.
+Battlemon.WinPoints = 10
+
+# Every Nth addon Fight is a guaranteed shiny. 0 disables shinies entirely.
+# Overworld critter spawns use the same N as a 1-in-N chance per spawn.
+Battlemon.ShinyEvery = 10
+
+# Battlemon Points charged the first time a Pokemon is taught a TM/tutor move.
+# Level-up moves are always free, and a paid move stays paid, so swapping it
+# out and back in later costs nothing. 0 makes the whole tutor pool free.
+Battlemon.TutorMoveCost = 25
+
+# Hours a fainted Pokemon stays down before it comes round on its own at half
+# health. A Revive from the shop skips the wait. 0 disables the timer, which
+# makes a Revive the only way back.
+Battlemon.FaintReviveHours = 1
+
+# Pocketmon sidecar (LAN TCP API). Disabled by default until you enable it.
+# Needs acore_characters.battlemon_sidecar_token (module SQL db-characters, or
+# created automatically the first time the sidecar starts).
+Battlemon.Sidecar.Enable = 0
+Battlemon.Sidecar.Bind = 0.0.0.0
+Battlemon.Sidecar.Port = 8787
+Battlemon.Sidecar.PairTtlSeconds = 300
+Battlemon.Sidecar.SessionTtlSeconds = 86400
+Battlemon.Sidecar.MaxCommandsPerSecond = 20
+Battlemon.Sidecar.RequireToken = 1

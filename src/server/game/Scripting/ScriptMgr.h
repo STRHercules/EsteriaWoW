@@ -194,6 +194,7 @@ public: /* WorldScript */
     void OnStartup();
     void OnShutdown();
     void OnBeforeWorldInitialized();
+    void OnAfterLoadDBCStores();
     void OnAfterUnloadAllMaps();
 
 public: /* FormulaScript */

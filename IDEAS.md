@@ -10,6 +10,8 @@
 - https://github.com/trauntrow/mod-dungeon-master
 - https://github.com/Old-Man-Warcraft/mod-nemesis-system
 - https://github.com/gitdalisar/mod-Faction-Free
+- https://github.com/Gozzim/mod-starting-pet
+- https://github.com/Zearius/AzerothWebUI
 
 ## Modules to Install
 - https://github.com/araxiaonline/Delves
@@ -51,11 +53,9 @@
 - https://github.com/DustinHendrickson/mod-city-siege
 - https://github.com/ShaneBair/mod-travel-book
 - https://github.com/Faris-Kai/PetBattleSystem-AzerothCore
-- https://github.com/Zearius/AzerothWebUI
 - https://github.com/Opertol900/mod-item-enchant-system
 - https://github.com/NeonaTrinity/mod-mystic-merchant
 - https://github.com/ekimgh/Premium-NPC
-- https://github.com/Gozzim/mod-starting-pet
 - https://github.com/Brytenwally/Forging
 - https://github.com/valsan-azerty-boi/mod-barberchair
 - https://github.com/nightwreath/mod-hunter-pet-storage
@@ -73,6 +73,10 @@ https://github.com/whipowill/wow-addon-playerbots
 - https://github.com/Brytenwally/Lootpet
 
 
+
+- Companion Module
+    - Earns 'Companion' Skill
+    - Can use an alt, or NPC
 
 
 ### Urgent
