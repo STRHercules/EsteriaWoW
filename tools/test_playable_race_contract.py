@@ -8,6 +8,11 @@ ROOT = Path(__file__).resolve().parents[1]
 SHARED_DEFINES = ROOT / "src/server/shared/SharedDefines.h"
 RACE_REGISTRY = ROOT / "modules/mod-custom-server/data/races/race_registry.json"
 PLAYERBOT_FACTORY = ROOT / "modules/mod-playerbots/src/Bot/Factory/RandomPlayerbotFactory.cpp"
+SQL_MIGRATION = (
+    ROOT
+    / "modules/mod-custom-server/data/sql/db-world/updates/"
+    / "u_custom_server_2026_09_10_01_race_scope_corrective.sql"
+)
 
 
 EXPECTED_RACE_MAP = {
@@ -79,6 +84,68 @@ class PlayableRaceContractTest(unittest.TestCase):
 
         deferred_ids = set(range(15, 29)) - expected_supported_ids
         self.assertEqual(supported_ids & deferred_ids, set())
+
+
+class SqlMigrationContractTest(unittest.TestCase):
+    def setUp(self):
+        self.assertTrue(SQL_MIGRATION.is_file())
+
+    def test_corrective_migration_exists(self):
+        self.assertTrue(SQL_MIGRATION.is_file())
+
+    def test_corrective_migration_reports_character_counts_for_all_checked_ids(self):
+        source = SQL_MIGRATION.read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r"(?s)SELECT\s+race\s*,\s*COUNT\(\*\).*?FROM\s+acore_characters\.characters"
+            r".*?WHERE\s+race\s+IN\s*\(\s*15\s*,\s*18\s*,\s*20\s*,\s*26\s*\)"
+            r".*?GROUP\s+BY\s+race.*?ORDER\s+BY\s+race",
+        )
+
+    def test_corrective_migration_reports_race_rows_for_all_checked_ids(self):
+        source = SQL_MIGRATION.read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r"(?s)SELECT\s+ID\s*,\s*Flags\s*,\s*FactionID\s*,\s*Alliance\s*,"
+            r"\s*MaleDisplayId\s*,\s*FemaleDisplayId.*?FROM\s+chrraces_dbc"
+            r".*?WHERE\s+ID\s+IN\s*\(\s*15\s*,\s*18\s*,\s*20\s*,\s*26\s*\)"
+            r".*?ORDER\s+BY\s+ID",
+        )
+
+    def test_corrective_migration_uses_idempotent_playability_flag_updates(self):
+        source = SQL_MIGRATION.read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r"(?s)UPDATE\s+chrraces_dbc.*?SET\s+Flags\s*=\s*Flags\s*-\s*\(Flags\s*&\s*1\)"
+            r".*?WHERE\s+ID\s+IN\s*\(\s*18\s*,\s*20\s*\)\s+AND\s*\(Flags\s*&\s*1\)\s*=\s*1",
+        )
+        self.assertRegex(
+            source,
+            r"(?s)UPDATE\s+chrraces_dbc.*?SET\s+Flags\s*=\s*Flags\s*\|\s*1"
+            r".*?WHERE\s+ID\s*=\s*26\s+AND\s*\(Flags\s*&\s*1\)\s*=\s*0",
+        )
+
+    def test_corrective_migration_does_not_mutate_character_data(self):
+        source = SQL_MIGRATION.read_text(encoding="utf-8")
+        self.assertNotRegex(source, r"\b(?:INSERT|UPDATE|DELETE|REPLACE)\b[^;]*\bcharacters\b")
+
+    def test_corrective_migration_reports_missing_starting_data_without_mutation(self):
+        source = SQL_MIGRATION.read_text(encoding="utf-8")
+        for table in (
+            "playercreateinfo",
+            "playercreateinfo_item",
+            "playercreateinfo_action",
+            "player_race_stats",
+            "charstartoutfit_dbc",
+        ):
+            self.assertRegex(source, rf"(?s)SELECT.*?(?:FROM|JOIN)\s+{table}")
+        self.assertIn("RaceID", source)
+        self.assertIn("ClassID", source)
+        self.assertIn("SexID", source)
+        self.assertIn("player_race_stats", source)
+        self.assertRegex(source, r"(?s)SELECT.*?(?:FROM|JOIN)\s+playercreateinfo_spell_custom.*?racemask")
+        self.assertRegex(source, r"(?s)SELECT.*?(?:FROM|JOIN)\s+skillraceclassinfo_dbc.*?RaceMask")
+        self.assertGreaterEqual(len(re.findall(r"missing", source, re.IGNORECASE)), 3)
 
 
 if __name__ == "__main__":
