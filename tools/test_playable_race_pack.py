@@ -20,7 +20,7 @@ if str(TOOLS_ROOT) not in sys.path:
 GLUE_STAGE_ROOT = Path(
     os.environ.get(
         "ESTERIA_PLAYABLE_RACE_GLUE_STAGE_ROOT",
-        r"G:\Ascension\Ascension\resources\ascension-live\Data\Staging\Patch-B-vulpera-pandaren-fix3",
+        r"G:\Ascension\Ascension\resources\ascension-live\Data\Staging\Patch-B-vulpera-pandaren-task5",
     )
 )
 GLUE_INTERFACE_ROOT = GLUE_STAGE_ROOT / "Interface"
@@ -331,6 +331,16 @@ class GlueContractTest(unittest.TestCase):
         ]
         for asset in expected_assets:
             self.assertTrue(asset.is_file(), f"missing_requirements: explicit target icon asset: {asset}")
+            data = asset.read_bytes()
+            self.assertEqual(data[:4], b"BLP2", asset)
+            self.assertEqual(data[8:12], bytes((3, 8, 8, 1)), asset)
+            self.assertEqual(struct.unpack("<II", data[12:20]), (64, 64), asset)
+            offsets = struct.unpack("<16I", data[20:84])
+            sizes = struct.unpack("<16I", data[84:148])
+            self.assertEqual(offsets[0], 1172, asset)
+            self.assertEqual(sizes[0], 64 * 64 * 4, asset)
+            base = data[offsets[0] : offsets[0] + sizes[0]]
+            self.assertTrue(any(base[3::4]), f"empty BLP2 alpha: {asset}")
 
     def test_glue_has_alliance_and_horde_lighting_aliases_without_horde_pandaren_path(self):
         parent = self._read(GLUE_XML_ROOT, "GlueParent.lua")
