@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import os
+import re
 import struct
 import sys
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest.mock import patch
 
@@ -13,6 +16,16 @@ from unittest.mock import patch
 TOOLS_ROOT = Path(__file__).resolve().parent
 if str(TOOLS_ROOT) not in sys.path:
     sys.path.insert(0, str(TOOLS_ROOT))
+
+GLUE_STAGE_ROOT = Path(
+    os.environ.get(
+        "ESTERIA_PLAYABLE_RACE_GLUE_STAGE_ROOT",
+        r"G:\Ascension\Ascension\resources\ascension-live\Data\Staging\Patch-B-vulpera-pandaren-fix3",
+    )
+)
+GLUE_INTERFACE_ROOT = GLUE_STAGE_ROOT / "Interface"
+GLUE_XML_ROOT = GLUE_INTERFACE_ROOT / "GlueXML"
+GLUE_SHARED_XML_ROOT = GLUE_INTERFACE_ROOT / "SharedXML"
 
 from playable_race_pack import (  # noqa: E402
     RACE_BYTE_LAYOUTS,
@@ -234,6 +247,99 @@ class ProductionPackContractTest(unittest.TestCase):
             self.assertTrue(output_root.is_dir())
             self.assertTrue(Path(report.staged_root).is_file())
             self.assertEqual(list(root.glob(f".{output_root.name}.tmp-*")), [])
+
+
+class GlueContractTest(unittest.TestCase):
+    def _read(self, root: Path, name: str) -> str:
+        path = root / name
+        self.assertTrue(path.is_file(), f"missing staged Glue file: {path}")
+        return path.read_text(encoding="utf-8")
+
+    @staticmethod
+    def _xml_elements(root, tag):
+        return (element for element in root.iter() if element.tag.rsplit("}", 1)[-1] == tag)
+
+    def test_character_create_uses_thirteen_race_buttons_and_bounded_loops(self):
+        source = self._read(GLUE_XML_ROOT, "CharacterCreate.lua")
+
+        self.assertRegex(source, r"(?m)^MAX_RACES\s*=\s*13\s*;")
+        for function_name in ("HighlightValidRaces", "StopHighlightingRaces"):
+            function = re.search(
+                rf"function\s+CharCreateClassButtonMixin:{function_name}\(\)(.*?)(?=\nend)",
+                source,
+                re.DOTALL,
+            )
+            self.assertIsNotNone(function, function_name)
+            self.assertRegex(function.group(1), r"for\s+i\s*=\s*1\s*,\s*MAX_RACES\b")
+
+    def test_character_create_has_ordinal_buttons_for_target_races(self):
+        root = ET.parse(GLUE_XML_ROOT / "CharacterCreate.xml").getroot()
+        buttons = {
+            button.attrib["name"]: button
+            for button in self._xml_elements(root, "CheckButton")
+            if button.attrib.get("name", "").startswith("CharCreateRaceButton")
+        }
+
+        for ordinal in (12, 13):
+            self.assertIn(f"CharCreateRaceButton{ordinal}", buttons)
+            self.assertEqual(buttons[f"CharCreateRaceButton{ordinal}"].attrib.get("id"), str(ordinal))
+            self.assertEqual(
+                buttons[f"CharCreateRaceButton{ordinal}"].attrib.get("inherits"),
+                "CharCreateRaceButtonTemplate",
+            )
+
+        anchor_12 = next(self._xml_elements(buttons["CharCreateRaceButton12"], "Anchor"))
+        anchor_13 = next(self._xml_elements(buttons["CharCreateRaceButton13"], "Anchor"))
+        self.assertEqual(anchor_12.attrib.get("relativeTo"), "CharCreateRaceButton11")
+        self.assertEqual(anchor_13.attrib.get("relativeTo"), "CharCreateRaceButton12")
+        self.assertEqual(anchor_12.attrib.get("relativePoint"), "BOTTOMLEFT")
+        self.assertEqual(anchor_13.attrib.get("relativePoint"), "BOTTOMLEFT")
+        self.assertEqual(anchor_12.attrib.get("y"), "-30")
+        self.assertEqual(anchor_13.attrib.get("y"), "-30")
+
+    def test_glue_declares_only_alliance_pandaren_and_vulpera_text(self):
+        localization = self._read(GLUE_XML_ROOT, "GlueLocalization.lua")
+
+        for key in (
+            "RACE_INFO_PANDAREN",
+            "RACE_INFO_PANDAREN_FEMALE",
+            "RACE_INFO_VULPERA",
+            "RACE_INFO_VULPERA_FEMALE",
+        ):
+            self.assertRegex(localization, rf"(?m)^{key}\s*=")
+
+        self.assertNotRegex(localization, r"(?i)PANDAREN[_ ]?HORDE")
+        self.assertNotRegex(localization, r"(?m)^ABILITY_INFO_(?:PANDAREN|VULPERA)")
+
+    def test_glue_has_target_icon_coordinates_and_explicit_gender_assets(self):
+        character_create = self._read(GLUE_XML_ROOT, "CharacterCreate.lua")
+        shared_constants = self._read(GLUE_SHARED_XML_ROOT, "SharedConstants.lua")
+        combined = character_create + "\n" + shared_constants
+
+        for key in (
+            "PANDAREN_MALE",
+            "PANDAREN_FEMALE",
+            "VULPERA_MALE",
+            "VULPERA_FEMALE",
+        ):
+            self.assertRegex(combined, rf"\[\"{key}\"\]\s*=\s*\{{[^}}]+\}}")
+
+        expected_assets = [
+            GLUE_INTERFACE_ROOT / "Glues" / "CharacterCreate" / f"UI-CharacterCreate-{race}{gender}.blp"
+            for race in ("Pandaren", "Vulpera")
+            for gender in ("Male", "Female")
+        ]
+        for asset in expected_assets:
+            self.assertTrue(asset.is_file(), f"missing_requirements: explicit target icon asset: {asset}")
+
+    def test_glue_has_alliance_and_horde_lighting_aliases_without_horde_pandaren_path(self):
+        parent = self._read(GLUE_XML_ROOT, "GlueParent.lua")
+
+        for table_name in ("CharModelFogInfo", "CharModelGlowInfo", "GlueAmbienceTracks", "RaceLights"):
+            self.assertIn(table_name, parent)
+        self.assertRegex(parent, r"(?m)CharModelFogInfo\[\"PANDAREN\"\]\s*=")
+        self.assertRegex(parent, r"(?m)GlueAmbienceTracks\[\"VULPERA\"\]\s*=")
+        self.assertNotRegex(parent, r"(?i)PANDAREN[_ ]?HORDE")
 
 
 class RaceAssetContractTest(unittest.TestCase):
