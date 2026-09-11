@@ -5,10 +5,26 @@ WHERE race IN (15, 18, 20, 26)
 GROUP BY race
 ORDER BY race;
 
-SELECT ID, Flags, FactionID, Alliance, MaleDisplayId, FemaleDisplayId
+SELECT ID, Flags, FactionID, Alliance, BaseLanguage, MaleDisplayId, FemaleDisplayId
 FROM chrraces_dbc
 WHERE ID IN (15, 18, 20, 26)
 ORDER BY ID;
+
+-- Report faction/alliance/language mismatches for the enabled target races without changing them.
+SELECT expected.ID, expected.FactionID, actual.FactionID AS actual_faction_id,
+       expected.Alliance, actual.Alliance AS actual_alliance,
+       expected.BaseLanguage, actual.BaseLanguage AS actual_base_language
+FROM (
+    SELECT 18 AS ID, 1 AS FactionID, 0 AS Alliance, 7 AS BaseLanguage
+    UNION ALL
+    SELECT 20 AS ID, 2 AS FactionID, 1 AS Alliance, 1 AS BaseLanguage
+) AS expected
+LEFT JOIN chrraces_dbc AS actual ON actual.ID = expected.ID
+WHERE actual.ID IS NULL
+   OR actual.FactionID <> expected.FactionID
+   OR actual.Alliance <> expected.Alliance
+   OR actual.BaseLanguage <> expected.BaseLanguage
+ORDER BY expected.ID;
 
 UPDATE chrraces_dbc
 SET Flags = Flags - (Flags & 1)

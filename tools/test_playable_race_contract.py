@@ -106,10 +106,25 @@ class SqlMigrationContractTest(unittest.TestCase):
         source = SQL_MIGRATION.read_text(encoding="utf-8")
         self.assertRegex(
             source,
-            r"(?s)SELECT\s+ID\s*,\s*Flags\s*,\s*FactionID\s*,\s*Alliance\s*,"
+            r"(?s)SELECT\s+ID\s*,\s*Flags\s*,\s*FactionID\s*,\s*Alliance\s*,\s*BaseLanguage\s*,"
             r"\s*MaleDisplayId\s*,\s*FemaleDisplayId.*?FROM\s+chrraces_dbc"
             r".*?WHERE\s+ID\s+IN\s*\(\s*15\s*,\s*18\s*,\s*20\s*,\s*26\s*\)"
             r".*?ORDER\s+BY\s+ID",
+        )
+
+    def test_corrective_migration_reports_target_faction_alliance_language_mismatches(self):
+        source = SQL_MIGRATION.read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r"(?s)SELECT\s+expected\.ID.*?expected\.FactionID.*?actual\.FactionID.*?"
+            r"expected\.Alliance.*?actual\.Alliance.*?expected\.BaseLanguage.*?"
+            r"actual\.BaseLanguage.*?FROM\s+\(.*?SELECT\s+18\s+AS\s+ID\s*,\s*1\s+AS\s+FactionID\s*,\s*"
+            r"0\s+AS\s+Alliance\s*,\s*7\s+AS\s+BaseLanguage.*?UNION\s+ALL.*?"
+            r"SELECT\s+20\s+AS\s+ID\s*,\s*2\s+AS\s+FactionID\s*,\s*1\s+AS\s+Alliance\s*,\s*"
+            r"1\s+AS\s+BaseLanguage.*?LEFT\s+JOIN\s+chrraces_dbc.*?"
+            r"actual\.FactionID\s*<>\s*expected\.FactionID.*?"
+            r"actual\.Alliance\s*<>\s*expected\.Alliance.*?"
+            r"actual\.BaseLanguage\s*<>\s*expected\.BaseLanguage",
         )
 
     def test_corrective_migration_uses_idempotent_playability_flag_updates(self):

@@ -89,6 +89,20 @@ class RaceRowContractTest(unittest.TestCase):
 
         self.assertEqual(actual, target_mask | unrelated)
 
+    def test_rejects_single_source_skill_race_class_info_bit(self):
+        layout = WDBC_LAYOUTS["SkillRaceClassInfo"]
+        record = bytearray(layout.record_size)
+        record[layout.race_offset : layout.race_offset + layout.race_width] = (
+            (1 << 19) | (1 << 4)
+        ).to_bytes(layout.race_width, "little")
+        raw = RawWdbc(
+            struct.pack("<4s4I", b"WDBC", 1, layout.fields, layout.record_size, 0)
+            + bytes(record)
+        )
+
+        with self.assertRaisesRegex(ValueError, "incomplete source race mask"):
+            _build_continuations({"SkillRaceClassInfo": raw})
+
     def test_rejects_duplicate_primary_id_after_row_remap(self):
         rows = [[19, 5, 141254], [20, 5, 141687]]
 
@@ -159,7 +173,7 @@ class ProductionPackContractTest(unittest.TestCase):
                     records.append(bytes(record))
             else:
                 record = bytearray(layout.record_size)
-                mask = (1 << 19) | (1 << 4)
+                mask = (1 << 19) | (1 << 20) | (1 << 4)
                 record[layout.race_offset : layout.race_offset + layout.race_width] = mask.to_bytes(
                     layout.race_width, "little"
                 )
@@ -202,6 +216,35 @@ class ProductionPackContractTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "overlap"):
                 build_race_pack(root / "missing-dbc", root / "missing-models", patch_root, root)
 
+    def test_rejects_donor_source_output_overlap_for_dbc_and_models(self):
+        with tempfile.TemporaryDirectory() as temporary, tempfile.TemporaryDirectory() as sibling_temporary:
+            root = Path(temporary)
+            sibling = Path(sibling_temporary)
+            patch_root = sibling / "patch-b"
+            patch_root.mkdir()
+            for donor_name in ("dbc", "models"):
+                donor_root = root / donor_name
+                donor_root.mkdir()
+                other_dbc = sibling / f"{donor_name}-other-dbc"
+                other_model = sibling / f"{donor_name}-other-model"
+                other_dbc.mkdir()
+                other_model.mkdir()
+
+                with self.assertRaisesRegex(ValueError, "overlap"):
+                    build_race_pack(
+                        donor_root if donor_name == "dbc" else other_dbc,
+                        donor_root if donor_name == "models" else other_model,
+                        patch_root,
+                        donor_root / "stage",
+                    )
+                with self.assertRaisesRegex(ValueError, "overlap"):
+                    build_race_pack(
+                        donor_root if donor_name == "dbc" else other_dbc,
+                        donor_root if donor_name == "models" else other_model,
+                        patch_root,
+                        root,
+                    )
+
     def test_manifest_case_variant_merges_through_collision_gate(self):
         with tempfile.TemporaryDirectory() as temporary:
             dbc_root, model_root, patch_root = self._write_fixture(Path(temporary))
@@ -209,7 +252,11 @@ class ProductionPackContractTest(unittest.TestCase):
 
             report = build_race_pack(dbc_root, model_root, patch_root, output_root)
 
-            manifests = [path for path in output_root.rglob("*") if path.is_file() and path.name.casefold() == "wxl-dbc.manifest"]
+            manifests = [
+                path
+                for path in output_root.rglob("*")
+                if path.is_file() and path.name.casefold() == "wxl-dbc.manifest"
+            ]
             self.assertEqual(len(manifests), 1)
             manifest = manifests[0].read_text(encoding="utf-8")
             self.assertIn("# existing", manifest)

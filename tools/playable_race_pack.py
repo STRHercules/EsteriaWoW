@@ -339,7 +339,13 @@ def _build_continuations(tables: dict[str, RawWdbc]) -> dict[str, bytes]:
             target_mask = (1 << 20) | (1 << 18)
             for record in table.records:
                 value = RawWdbc._value(record, field, width)
-                if value & source_mask:
+                source_bits = value & source_mask
+                if table_name == "SkillRaceClassInfo" and source_bits not in (0, source_mask):
+                    raise ValueError(
+                        "SkillRaceClassInfo donor row has incomplete source race mask; "
+                        "expected both source race bits"
+                    )
+                if source_bits:
                     records.append(
                         RawWdbc._replace(record, field, width, remap_race_masks(value, source_mask, target_mask))
                     )
@@ -437,10 +443,19 @@ def build_race_pack(dbc_root: Path, model_root: Path, patch_b_root: Path, output
     model_root = Path(model_root)
     patch_b_root = Path(patch_b_root)
     output_root = Path(output_root)
-    source_path = patch_b_root.resolve()
     destination_path = output_root.resolve()
-    if source_path == destination_path or source_path in destination_path.parents or destination_path in source_path.parents:
-        raise ValueError("Patch-B source and output paths must not overlap")
+    for source_name, source_root in (
+        ("DBC donor", dbc_root),
+        ("model donor", model_root),
+        ("Patch-B source", patch_b_root),
+    ):
+        source_path = source_root.resolve()
+        if (
+            source_path == destination_path
+            or source_path in destination_path.parents
+            or destination_path in source_path.parents
+        ):
+            raise ValueError(f"{source_name} and output paths must not overlap")
     if output_root.exists():
         raise ValueError(f"output_root must be fresh: {output_root}")
     tables = _load_donor_wdbcs(dbc_root)
@@ -455,7 +470,10 @@ def build_race_pack(dbc_root: Path, model_root: Path, patch_b_root: Path, output
             name
             for name, payload in additions.items()
             if name.casefold() in {existing.casefold() for existing in source_entries}
-            and any(existing.casefold() == name.casefold() and prior == payload for existing, prior in source_entries.items())
+            and any(
+                existing.casefold() == name.casefold() and prior == payload
+                for existing, prior in source_entries.items()
+            )
         )
     )
     merged = merge_archive_entries(source_entries, additions)
