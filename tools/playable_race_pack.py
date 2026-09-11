@@ -11,12 +11,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from cars_mount_pack import (
-    DBC_STRING_FIELDS,
     DLL_DEFAULT,
     Storm,
     WOTLK_MODEL_VERSION,
     Wdbc,
-    build_wdbc,
     merge_archive_entries,
     merge_wxl_manifest,
     safe_relative,
@@ -29,11 +27,11 @@ RACE_ID_FIELDS = {
     "ChrRaces": 0,
     "CharBaseInfo": 0,
     "CharStartOutfit": 1,
-    "CharSections": 0,
+    "CharSections": 1,
     "CharHairGeosets": 1,
     "CharHairTextures": 1,
     "BarberShopStyle": 37,
-    "CharacterFacialHairStyles": 0,
+    "CharacterFacialHairStyles": 1,
     "NameGen": 2,
     "CreatureDisplayInfoExtra": 1,
 }
@@ -44,6 +42,95 @@ RACE_MASK_FIELDS = {
 RACE_TABLES = tuple(RACE_ID_FIELDS) + tuple(RACE_MASK_FIELDS)
 RACE_ASSET_ROOTS = ("vulpera", "Pandaren")
 CONTINUATION_SUFFIX = ".dbc1-vulpera-pandaren"
+
+
+@dataclass(frozen=True)
+class WdbcLayout:
+    fields: int
+    record_size: int
+    race_offset: int
+    race_width: int
+
+
+WDBC_LAYOUTS = {
+    "ChrRaces": WdbcLayout(69, 276, 0, 4),
+    "CharBaseInfo": WdbcLayout(2, 2, 0, 1),
+    "CharStartOutfit": WdbcLayout(77, 296, 4, 1),
+    "CharSections": WdbcLayout(10, 40, 4, 4),
+    "CharHairGeosets": WdbcLayout(6, 24, 4, 4),
+    "CharHairTextures": WdbcLayout(8, 32, 4, 4),
+    "BarberShopStyle": WdbcLayout(40, 160, 37 * 4, 4),
+    "CharacterFacialHairStyles": WdbcLayout(8, 32, 4, 4),
+    "NameGen": WdbcLayout(4, 16, 8, 4),
+    "CreatureDisplayInfoExtra": WdbcLayout(21, 84, 4, 4),
+    "SkillLineAbility": WdbcLayout(14, 56, 3 * 4, 4),
+    "SkillRaceClassInfo": WdbcLayout(8, 32, 2 * 4, 4),
+}
+
+
+class RawWdbc:
+    """WDBC reader/writer that preserves packed record bytes verbatim."""
+
+    def __init__(self, data: bytes):
+        if len(data) < 20:
+            raise ValueError("truncated WDBC header")
+        self.header = struct.unpack_from("<4s4I", data)
+        magic, self.count, self.fields, self.record_size, self.string_size = self.header
+        if magic != b"WDBC":
+            raise ValueError("unsupported WDBC magic")
+        records_end = 20 + self.count * self.record_size
+        expected = records_end + self.string_size
+        if len(data) != expected:
+            raise ValueError(f"invalid WDBC size: {len(data)} != {expected}")
+        self.records = tuple(
+            data[20 + index * self.record_size : 20 + (index + 1) * self.record_size]
+            for index in range(self.count)
+        )
+        self.strings = data[records_end:]
+
+    @staticmethod
+    def _value(record: bytes, offset: int, width: int) -> int:
+        return int.from_bytes(record[offset : offset + width], "little")
+
+    @staticmethod
+    def _replace(record: bytes, offset: int, width: int, value: int) -> bytes:
+        if value < 0 or value >= 1 << (width * 8):
+            raise ValueError(f"value {value} does not fit in {width} bytes")
+        result = bytearray(record)
+        result[offset : offset + width] = value.to_bytes(width, "little")
+        return bytes(result)
+
+    def remap_race_records(
+        self,
+        table_name: str,
+        source_race: int,
+        target_race: int,
+        records: tuple[bytes, ...] | list[bytes] | None = None,
+    ) -> list[bytes]:
+        layout = WDBC_LAYOUTS[table_name]
+        selected = self.records if records is None else tuple(records)
+        result = []
+        for record in selected:
+            if len(record) != self.record_size:
+                raise ValueError(f"{table_name} record has invalid length")
+            if self._value(record, layout.race_offset, layout.race_width) == source_race:
+                record = self._replace(record, layout.race_offset, layout.race_width, target_race)
+            result.append(record)
+        return result
+
+    def build(self, records: tuple[bytes, ...] | list[bytes]) -> bytes:
+        records = tuple(records)
+        if any(len(record) != self.record_size for record in records):
+            raise ValueError("continuation record length does not match donor WDBC")
+        header = struct.pack(
+            "<4s4I",
+            self.header[0],
+            len(records),
+            self.fields,
+            self.record_size,
+            self.string_size,
+        )
+        return header + b"".join(records) + self.strings
 
 
 @dataclass(frozen=True)
@@ -173,9 +260,9 @@ def _dbc_directory(dbc_root: Path) -> Path:
     return nested if nested.is_dir() else dbc_root
 
 
-def _load_donor_wdbcs(dbc_root: Path) -> dict[str, Wdbc]:
+def _load_donor_wdbcs(dbc_root: Path) -> dict[str, RawWdbc]:
     directory = _dbc_directory(dbc_root)
-    loaded: dict[str, Wdbc] = {}
+    loaded: dict[str, RawWdbc] = {}
     errors: list[str] = []
     for table_name in RACE_TABLES:
         path = directory / f"{table_name}.dbc"
@@ -183,71 +270,62 @@ def _load_donor_wdbcs(dbc_root: Path) -> dict[str, Wdbc]:
             errors.append(f"missing donor DBC: {path}")
             continue
         try:
-            table = Wdbc(path.read_bytes())
+            data = path.read_bytes()
+            table = RawWdbc(data)
         except (OSError, ValueError, struct.error) as exc:
             errors.append(f"donor WDBC header mismatch for {table_name}: {exc}")
             continue
-        configured_field = RACE_ID_FIELDS.get(table_name, RACE_MASK_FIELDS.get(table_name))
-        if configured_field is None or configured_field >= table.fields:
-            errors.append(f"donor field position mismatch for {table_name}: field {configured_field}")
+        expected = WDBC_LAYOUTS[table_name]
+        if (table.fields, table.record_size) != (expected.fields, expected.record_size):
+            errors.append(
+                f"donor WDBC header mismatch for {table_name}: "
+                f"got fields={table.fields} record_size={table.record_size}, "
+                f"expected fields={expected.fields} record_size={expected.record_size}"
+            )
             continue
-        if table_name in RACE_ID_FIELDS:
-            source_ids = set(SOURCE_RACES.values())
-            configured_hits = sum(row[configured_field] in source_ids for row in table.rows)
-            alternate_fields = [
-                index
-                for index in range(table.fields)
-                if any(row[index] in source_ids for row in table.rows)
-            ]
-            if not configured_hits and alternate_fields:
-                errors.append(
-                    f"donor field position mismatch for {table_name}: "
-                    f"configured {configured_field}, observed {alternate_fields}"
-                )
+        if expected.race_offset + expected.race_width > table.record_size:
+            errors.append(f"donor race byte range is outside {table_name} records")
+            continue
+        if expected.record_size == expected.fields * 4:
+            try:
+                Wdbc(data)
+            except ValueError as exc:
+                errors.append(f"donor WDBC field framing mismatch for {table_name}: {exc}")
+                continue
         loaded[table_name] = table
     if errors:
         raise ValueError("; ".join(errors))
     return loaded
 
 
-def _string_map(table_name: str, table: Wdbc, rows: list[list[int]]) -> dict[tuple[int, int], str]:
-    strings: dict[tuple[int, int], str] = {}
-    for row_index, row in enumerate(rows):
-        for field in DBC_STRING_FIELDS.get(table_name, ()):
-            if field >= len(row) or not row[field]:
-                continue
-            value = table.text(row[field])
-            if value:
-                strings[(row_index, field)] = value
-    return strings
-
-
-def _build_continuations(tables: dict[str, Wdbc]) -> dict[str, bytes]:
+def _build_continuations(tables: dict[str, RawWdbc]) -> dict[str, bytes]:
     continuations: dict[str, bytes] = {}
     for table_name, table in tables.items():
-        rows: list[list[int]] = []
+        records: list[bytes] = []
+        layout = WDBC_LAYOUTS[table_name]
         if table_name in RACE_ID_FIELDS:
-            field = RACE_ID_FIELDS[table_name]
             for source_race, target_race in ((19, 20), (20, 18)):
-                source_rows = [row for row in table.rows if row[field] == source_race]
-                rows.extend(remap_race_rows(table_name, source_rows, source_race, target_race))
+                source_records = tuple(
+                    record
+                    for record in table.records
+                    if RawWdbc._value(record, layout.race_offset, layout.race_width) == source_race
+                )
+                records.extend(table.remap_race_records(table_name, source_race, target_race, source_records))
         else:
-            field = RACE_MASK_FIELDS[table_name]
+            field = layout.race_offset
+            width = layout.race_width
             source_mask = (1 << 19) | (1 << 20)
             target_mask = (1 << 20) | (1 << 18)
-            rows = [
-                [
-                    remap_race_masks(value, source_mask, target_mask) if index == field else value
-                    for index, value in enumerate(row)
-                ]
-                for row in table.rows
-                if row[field] & source_mask
-            ]
-        if not rows:
+            for record in table.records:
+                value = RawWdbc._value(record, field, width)
+                if value & source_mask:
+                    records.append(
+                        RawWdbc._replace(record, field, width, remap_race_masks(value, source_mask, target_mask))
+                    )
+        if not records:
             continue
-        strings = _string_map(table_name, table, rows)
         output_name = f"DBFilesClient/{table_name}{CONTINUATION_SUFFIX}"
-        continuations[output_name] = build_wdbc(rows, table.fields, table.record_size, strings)
+        continuations[output_name] = table.build(records)
     return dict(sorted(continuations.items()))
 
 
