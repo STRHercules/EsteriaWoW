@@ -397,26 +397,23 @@ def _stage_archive(output_root: Path, source_path: Path, entries: dict[str, byte
     if output_root.exists():
         raise ValueError(f"output_root must be fresh: {output_root}")
     output_root.parent.mkdir(parents=True, exist_ok=True)
-    staged_path = output_root / f"{source_path.stem}-vulpera-pandaren.MPQ"
+    archive_name = f"{source_path.stem}-vulpera-pandaren.MPQ"
     if not DLL_DEFAULT.is_file():
         raise FileNotFoundError(f"StormLib not found for staged archive: {DLL_DEFAULT}")
-    archive_entries = dict(entries)
-    archive_entries["(listfile)"] = ("\n".join(sorted(entries)) + "\n").encode("utf-8")
+    archive_entries = {
+        name: payload
+        for name, payload in entries.items()
+        if name.casefold() not in {"(listfile)", "(attributes)"}
+    }
     temporary_root = Path(tempfile.mkdtemp(prefix=f".{output_root.name}.tmp-", dir=output_root.parent))
-    temporary_archive = temporary_root / staged_path.name
-    output_created = False
+    temporary_archive = temporary_root / archive_name
     try:
         Storm(DLL_DEFAULT).create_archive(temporary_archive, archive_entries)
-        output_root.mkdir()
-        output_created = True
-        os.replace(temporary_archive, staged_path)
+        os.replace(temporary_root, output_root)
     except BaseException:
-        if output_created:
-            output_root.rmdir()
         shutil.rmtree(temporary_root, ignore_errors=True)
         raise
-    shutil.rmtree(temporary_root, ignore_errors=True)
-    return staged_path
+    return output_root / archive_name
 
 
 def _merge_manifest_entry(entries: dict[str, bytes], additions: bytes) -> dict[str, bytes]:

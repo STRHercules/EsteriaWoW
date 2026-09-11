@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 TOOLS_ROOT = Path(__file__).resolve().parent
@@ -25,6 +26,8 @@ from playable_race_pack import (  # noqa: E402
     remap_race_masks,
     remap_race_rows,
 )
+import playable_race_pack as packer  # noqa: E402
+from cars_mount_pack import DLL_DEFAULT, Storm  # noqa: E402
 
 
 class RaceRowContractTest(unittest.TestCase):
@@ -202,6 +205,35 @@ class ProductionPackContractTest(unittest.TestCase):
 
             with self.assertRaisesRegex(ValueError, "fresh"):
                 build_race_pack(dbc_root, model_root, patch_root, output_root)
+
+    @unittest.skipUnless(DLL_DEFAULT.is_file(), "StormLib is required for archive staging")
+    def test_archive_staging_publishes_completed_directory_and_cleans_temporary_sibling(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            dbc_root, model_root, _ = self._write_fixture(root)
+            patch_root = root / "patch-b.MPQ"
+            Storm(DLL_DEFAULT).create_archive(
+                patch_root,
+                {"Interface.txt": b"unchanged", "WXL-DBC.MANIFEST": b"# existing\n"},
+            )
+            output_root = root / "staged"
+            real_replace = packer.os.replace
+            observations = []
+
+            def guarded_replace(source, destination):
+                observations.append((Path(source), Path(destination), output_root.exists()))
+                self.assertFalse(output_root.exists())
+                self.assertEqual(Path(destination), output_root)
+                real_replace(source, destination)
+
+            with patch.object(packer.os, "replace", side_effect=guarded_replace):
+                report = build_race_pack(dbc_root, model_root, patch_root, output_root)
+
+            self.assertEqual(report.staged_root, str(output_root / "patch-b-vulpera-pandaren.MPQ"))
+            self.assertEqual(len(observations), 1)
+            self.assertTrue(output_root.is_dir())
+            self.assertTrue(Path(report.staged_root).is_file())
+            self.assertEqual(list(root.glob(f".{output_root.name}.tmp-*")), [])
 
 
 class RaceAssetContractTest(unittest.TestCase):
