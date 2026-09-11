@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import os
 import re
+import hashlib
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -26,6 +28,25 @@ GLUE_STAGE_ROOT = Path(
 GLUE_INTERFACE_ROOT = GLUE_STAGE_ROOT / "Interface"
 GLUE_XML_ROOT = GLUE_INTERFACE_ROOT / "GlueXML"
 GLUE_SHARED_XML_ROOT = GLUE_INTERFACE_ROOT / "SharedXML"
+PORTRAIT_CONVERTER = TOOLS_ROOT / "derive_playable_race_portraits.py"
+PORTRAIT_SOURCE_ROOT = Path(
+    r"G:\Ascension\Ascension\resources\ascension-live\Data\Extracted\patch-CHA.mpq\Character"
+)
+PORTRAIT_HEADER_TEMPLATE = Path(
+    r"G:\Ascension\Ascension\resources\ascension-live\Data\Extracted\Ogre\Interface\GLUES\CHARACTERCREATE"
+) / "UI-CharacterCreate-OgreMale.blp"
+PORTRAIT_SOURCES = {
+    "PandarenMale": Path("Pandaren/male/pandamalefacelower00_00.blp"),
+    "PandarenFemale": Path("Pandaren/female/pandafemalefacelower00_00.blp"),
+    "VulperaMale": Path("vulpera/male/vulperamalefacelower00_00.blp"),
+    "VulperaFemale": Path("vulpera/female/vulperafemalefacelower00_00.blp"),
+}
+PORTRAIT_HASHES = {
+    "PandarenMale": "1248eb90183a150780d5ebf4f98b2a3a02ced0f5273ca2430ebf59c1f73cbef5",
+    "PandarenFemale": "a7559f3221dad2fd7a7406c1eb840af9cea244fb96845a28704fa99ef4c6b3a8",
+    "VulperaMale": "7970929b1ad68f505b73f122a677ac9090595a163b123cd91fce0331bd8b698d",
+    "VulperaFemale": "5f9e1ab83d668fe85b4a6efe4e38c9ebd6c25ac9646b769821a3e073eda2444c",
+}
 
 from playable_race_pack import (  # noqa: E402
     RACE_BYTE_LAYOUTS,
@@ -259,6 +280,52 @@ class GlueContractTest(unittest.TestCase):
     def _xml_elements(root, tag):
         return (element for element in root.iter() if element.tag.rsplit("}", 1)[-1] == tag)
 
+    def _run_portrait_converter(self, output_dir: Path, source_paths: dict[str, Path], header: Path):
+        command = [
+            sys.executable,
+            str(PORTRAIT_CONVERTER),
+            "--output-dir",
+            str(output_dir),
+            "--header-template",
+            str(header),
+        ]
+        command.extend(
+            argument
+            for key, source in source_paths.items()
+            for argument in (f"--{key.lower()}", str(source))
+        )
+        return subprocess.run(command, capture_output=True, text=True, check=False)
+
+    def test_converter_reproduces_explicit_portrait_identity(self):
+        source_paths = {key: PORTRAIT_SOURCE_ROOT / relative for key, relative in PORTRAIT_SOURCES.items()}
+        for source in source_paths.values():
+            self.assertTrue(source.is_file(), source)
+        with tempfile.TemporaryDirectory() as temporary:
+            result = self._run_portrait_converter(Path(temporary), source_paths, PORTRAIT_HEADER_TEMPLATE)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for key, expected_hash in PORTRAIT_HASHES.items():
+                output = Path(temporary) / f"UI-CharacterCreate-{key}.blp"
+                self.assertEqual(hashlib.sha256(output.read_bytes()).hexdigest(), expected_hash, output)
+
+    def test_converter_rejects_malformed_source_and_header(self):
+        source_paths = {key: PORTRAIT_SOURCE_ROOT / relative for key, relative in PORTRAIT_SOURCES.items()}
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_root = Path(temporary)
+            malformed_source = temporary_root / PORTRAIT_SOURCES["PandarenMale"]
+            malformed_source.parent.mkdir(parents=True)
+            malformed_source.write_bytes(b"not a blp")
+            bad_sources = dict(source_paths)
+            bad_sources["PandarenMale"] = malformed_source
+            result = self._run_portrait_converter(temporary_root / "bad-source", bad_sources, PORTRAIT_HEADER_TEMPLATE)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("expected BLP2 magic", result.stderr)
+
+            malformed_header = temporary_root / "bad-header.blp"
+            malformed_header.write_bytes(b"BLP2")
+            result = self._run_portrait_converter(temporary_root / "bad-header", source_paths, malformed_header)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("portrait header template is truncated", result.stderr)
+
     def test_character_create_uses_thirteen_race_buttons_and_bounded_loops(self):
         source = self._read(GLUE_XML_ROOT, "CharacterCreate.lua")
 
@@ -287,6 +354,8 @@ class GlueContractTest(unittest.TestCase):
                 buttons[f"CharCreateRaceButton{ordinal}"].attrib.get("inherits"),
                 "CharCreateRaceButtonTemplate",
             )
+        for button in buttons.values():
+            self.assertNotIn(button.attrib.get("id"), {"18", "20"})
 
         anchor_12 = next(self._xml_elements(buttons["CharCreateRaceButton12"], "Anchor"))
         anchor_13 = next(self._xml_elements(buttons["CharCreateRaceButton13"], "Anchor"))
@@ -324,21 +393,47 @@ class GlueContractTest(unittest.TestCase):
         ):
             self.assertRegex(combined, rf"\[\"{key}\"\]\s*=\s*\{{[^}}]+\}}")
 
-        expected_assets = [
-            GLUE_INTERFACE_ROOT / "Glues" / "CharacterCreate" / f"UI-CharacterCreate-{race}{gender}.blp"
+        expected_texture_paths = {
+            "PANDAREN_MALE": r"Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-PandarenMale",
+            "PANDAREN_FEMALE": r"Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-PandarenFemale",
+            "VULPERA_MALE": r"Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-VulperaMale",
+            "VULPERA_FEMALE": r"Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-VulperaFemale",
+        }
+        for key, expected_path in expected_texture_paths.items():
+            match = re.findall(rf'\["{key}"\]\s*=\s*"([^"]+)"', shared_constants)
+            self.assertEqual(match, [expected_path], key)
+            coords = re.findall(rf'\["{key}"\]\s*=\s*\{{([^}}]+)\}}', shared_constants)
+            self.assertEqual(coords, [" 0, 1, 0, 1 "], key)
+
+        expected_assets = {
+            f"{race}{gender}": GLUE_INTERFACE_ROOT
+            / "Glues"
+            / "CharacterCreate"
+            / f"UI-CharacterCreate-{race}{gender}.blp"
             for race in ("Pandaren", "Vulpera")
             for gender in ("Male", "Female")
-        ]
-        for asset in expected_assets:
+        }
+        for key, asset in expected_assets.items():
             self.assertTrue(asset.is_file(), f"missing_requirements: explicit target icon asset: {asset}")
             data = asset.read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), PORTRAIT_HASHES[key], asset)
             self.assertEqual(data[:4], b"BLP2", asset)
             self.assertEqual(data[8:12], bytes((3, 8, 8, 1)), asset)
             self.assertEqual(struct.unpack("<II", data[12:20]), (64, 64), asset)
             offsets = struct.unpack("<16I", data[20:84])
             sizes = struct.unpack("<16I", data[84:148])
-            self.assertEqual(offsets[0], 1172, asset)
-            self.assertEqual(sizes[0], 64 * 64 * 4, asset)
+            expected_sizes = (16384, 4096, 1024, 256, 64, 16, 4)
+            expected_offsets = (1172, 17556, 21652, 22676, 22932, 22996, 23012)
+            self.assertEqual(tuple(offsets[:7]), expected_offsets, asset)
+            self.assertEqual(tuple(sizes[:7]), expected_sizes, asset)
+            self.assertFalse(any(sizes[7:]), asset)
+            end = 1172
+            for offset, size in zip(offsets[:7], sizes[:7]):
+                self.assertEqual(offset, end, asset)
+                self.assertGreater(size, 0, asset)
+                self.assertLessEqual(offset + size, len(data), asset)
+                end = offset + size
+            self.assertEqual(end, len(data), asset)
             base = data[offsets[0] : offsets[0] + sizes[0]]
             self.assertTrue(any(base[3::4]), f"empty BLP2 alpha: {asset}")
 
@@ -347,8 +442,11 @@ class GlueContractTest(unittest.TestCase):
 
         for table_name in ("CharModelFogInfo", "CharModelGlowInfo", "GlueAmbienceTracks", "RaceLights"):
             self.assertIn(table_name, parent)
-        self.assertRegex(parent, r"(?m)CharModelFogInfo\[\"PANDAREN\"\]\s*=")
-        self.assertRegex(parent, r"(?m)GlueAmbienceTracks\[\"VULPERA\"\]\s*=")
+            for race in ("PANDAREN", "VULPERA"):
+                self.assertRegex(
+                    parent,
+                    rf'(?m){table_name}\["{race}"\]\s*=\s*{table_name}\["ALLIANCE"\];',
+                )
         self.assertNotRegex(parent, r"(?i)PANDAREN[_ ]?HORDE")
 
 
