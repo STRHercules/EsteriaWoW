@@ -70,6 +70,8 @@ def _validate_mip_layout(
 
     if not ranges:
         raise ValueError("BLP2 has no mip data")
+    if ranges[-1][1] != file_length:
+        raise ValueError("BLP2 mip data does not end at file length")
     return tuple(ranges)
 
 

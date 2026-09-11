@@ -326,6 +326,13 @@ class GlueContractTest(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("portrait header template is truncated", result.stderr)
 
+    def test_converter_rejects_trailing_bytes_after_final_mip(self):
+        from derive_playable_race_portraits import validate_portrait
+
+        asset = GLUE_INTERFACE_ROOT / "Glues" / "CharacterCreate" / "UI-CharacterCreate-PandarenMale.blp"
+        with self.assertRaisesRegex(ValueError, "does not end at file length"):
+            validate_portrait(asset.read_bytes() + b"trailing", asset)
+
     def test_character_create_uses_thirteen_race_buttons_and_bounded_loops(self):
         source = self._read(GLUE_XML_ROOT, "CharacterCreate.lua")
 
