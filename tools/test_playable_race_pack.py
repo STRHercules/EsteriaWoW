@@ -14,7 +14,13 @@ if str(TOOLS_ROOT) not in sys.path:
     sys.path.insert(0, str(TOOLS_ROOT))
 
 from playable_race_pack import (  # noqa: E402
+    RACE_BYTE_LAYOUTS,
+    RACE_ID_FIELDS,
     RawWdbc,
+    WDBC_LAYOUTS,
+    _build_continuations,
+    _merge_manifest_entry,
+    build_race_pack,
     collect_race_assets,
     remap_race_masks,
     remap_race_rows,
@@ -92,6 +98,110 @@ class RawWdbcContractTest(unittest.TestCase):
         self.assertEqual(RawWdbc(namegen_output).records[0][8:12], struct.pack("<I", 18))
         self.assertEqual(len(packed_output), 24)
         self.assertEqual(len(namegen_output), 37)
+
+
+class ProductionPackContractTest(unittest.TestCase):
+    def _write_fixture(self, root: Path) -> tuple[Path, Path, Path]:
+        dbc_root = root / "dbc"
+        dbc_root.mkdir()
+        model_root = root / "models"
+        RaceAssetContractTest()._write_required_assets(model_root)
+        patch_root = root / "patch-b"
+        patch_root.mkdir()
+        (patch_root / "Interface.txt").write_bytes(b"unchanged")
+        (patch_root / "WXL-DBC.MANIFEST").write_bytes(b"# existing\n")
+
+        for table_name, layout in WDBC_LAYOUTS.items():
+            records = []
+            if table_name in RACE_ID_FIELDS:
+                for race in (19, 20):
+                    record = bytearray(layout.record_size)
+                    record[layout.race_offset : layout.race_offset + layout.race_width] = race.to_bytes(
+                        layout.race_width, "little"
+                    )
+                    records.append(bytes(record))
+            else:
+                record = bytearray(layout.record_size)
+                mask = (1 << 19) | (1 << 4)
+                record[layout.race_offset : layout.race_offset + layout.race_width] = mask.to_bytes(
+                    layout.race_width, "little"
+                )
+                records.append(bytes(record))
+            header = struct.pack("<4s4I", b"WDBC", len(records), layout.fields, layout.record_size, 0)
+            (dbc_root / f"{table_name}.dbc").write_bytes(header + b"".join(records))
+        return dbc_root, model_root, patch_root
+
+    def test_logical_field_map_remains_separate_from_verified_byte_layouts(self):
+        self.assertEqual(RACE_ID_FIELDS["CharSections"], 0)
+        self.assertEqual(RACE_ID_FIELDS["CharacterFacialHairStyles"], 0)
+        self.assertEqual(RACE_ID_FIELDS["NameGen"], 2)
+        self.assertEqual(RACE_ID_FIELDS["CreatureDisplayInfoExtra"], 1)
+        self.assertEqual(RACE_BYTE_LAYOUTS["CharSections"], (4, 4))
+        self.assertEqual(RACE_BYTE_LAYOUTS["CharacterFacialHairStyles"], (4, 4))
+        self.assertEqual(RACE_BYTE_LAYOUTS["CharBaseInfo"], (0, 1))
+        self.assertEqual(RACE_BYTE_LAYOUTS["CharStartOutfit"], (4, 1))
+
+    def test_production_continuation_rejects_duplicate_chr_race_ids(self):
+        layout = WDBC_LAYOUTS["ChrRaces"]
+        record = bytearray(layout.record_size)
+        record[:4] = (19).to_bytes(4, "little")
+        raw = RawWdbc(
+            struct.pack("<4s4I", b"WDBC", 2, layout.fields, layout.record_size, 0)
+            + bytes(record)
+            + bytes(record)
+        )
+
+        with self.assertRaisesRegex(ValueError, "duplicate row ID"):
+            _build_continuations({"ChrRaces": raw})
+
+    def test_rejects_patch_source_output_ancestor_overlap(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            patch_root = root / "patch-b"
+            patch_root.mkdir()
+
+            with self.assertRaisesRegex(ValueError, "overlap"):
+                build_race_pack(root / "missing-dbc", root / "missing-models", patch_root, patch_root / "stage")
+            with self.assertRaisesRegex(ValueError, "overlap"):
+                build_race_pack(root / "missing-dbc", root / "missing-models", patch_root, root)
+
+    def test_manifest_case_variant_merges_through_collision_gate(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            dbc_root, model_root, patch_root = self._write_fixture(Path(temporary))
+            output_root = Path(temporary) / "staged"
+
+            report = build_race_pack(dbc_root, model_root, patch_root, output_root)
+
+            manifests = [path for path in output_root.rglob("*") if path.is_file() and path.name.casefold() == "wxl-dbc.manifest"]
+            self.assertEqual(len(manifests), 1)
+            manifest = manifests[0].read_text(encoding="utf-8")
+            self.assertIn("# existing", manifest)
+            self.assertIn("DBFilesClient/ChrRaces.dbc1-vulpera-pandaren", manifest)
+            self.assertIn("DBFilesClient/SkillRaceClassInfo.dbc1-vulpera-pandaren", manifest)
+            self.assertEqual(len(report.continuations), 12)
+
+            mask = RawWdbc(report.continuations["DBFilesClient/SkillRaceClassInfo.dbc1-vulpera-pandaren"])
+            value = RawWdbc._value(mask.records[0], RACE_BYTE_LAYOUTS["SkillRaceClassInfo"][0], 4)
+            self.assertEqual(value & (1 << 19), 0)
+            self.assertTrue(value & (1 << 20))
+            self.assertTrue(value & (1 << 18))
+            self.assertTrue(value & (1 << 4))
+
+    def test_rejects_conflicting_manifest_case_variants(self):
+        entries = {"wxl-dbc.manifest": b"one", "WXL-DBC.MANIFEST": b"two"}
+
+        with self.assertRaisesRegex(ValueError, "archive path collision"):
+            _merge_manifest_entry(entries, b"# additions\n")
+
+    def test_rejects_stale_output_directory_through_production_path(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            dbc_root, model_root, patch_root = self._write_fixture(Path(temporary))
+            output_root = Path(temporary) / "staged"
+            output_root.mkdir()
+            (output_root / "stale.bin").write_bytes(b"stale")
+
+            with self.assertRaisesRegex(ValueError, "fresh"):
+                build_race_pack(dbc_root, model_root, patch_root, output_root)
 
 
 class RaceAssetContractTest(unittest.TestCase):

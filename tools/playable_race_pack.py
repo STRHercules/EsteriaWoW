@@ -6,7 +6,9 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import struct
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -27,11 +29,11 @@ RACE_ID_FIELDS = {
     "ChrRaces": 0,
     "CharBaseInfo": 0,
     "CharStartOutfit": 1,
-    "CharSections": 1,
+    "CharSections": 0,
     "CharHairGeosets": 1,
     "CharHairTextures": 1,
     "BarberShopStyle": 37,
-    "CharacterFacialHairStyles": 1,
+    "CharacterFacialHairStyles": 0,
     "NameGen": 2,
     "CreatureDisplayInfoExtra": 1,
 }
@@ -43,6 +45,21 @@ RACE_TABLES = tuple(RACE_ID_FIELDS) + tuple(RACE_MASK_FIELDS)
 RACE_ASSET_ROOTS = ("vulpera", "Pandaren")
 CONTINUATION_SUFFIX = ".dbc1-vulpera-pandaren"
 
+RACE_BYTE_LAYOUTS = {
+    "ChrRaces": (0, 4),
+    "CharBaseInfo": (0, 1),
+    "CharStartOutfit": (4, 1),
+    "CharSections": (4, 4),
+    "CharHairGeosets": (4, 4),
+    "CharHairTextures": (4, 4),
+    "BarberShopStyle": (37 * 4, 4),
+    "CharacterFacialHairStyles": (4, 4),
+    "NameGen": (8, 4),
+    "CreatureDisplayInfoExtra": (4, 4),
+    "SkillLineAbility": (3 * 4, 4),
+    "SkillRaceClassInfo": (2 * 4, 4),
+}
+
 
 @dataclass(frozen=True)
 class WdbcLayout:
@@ -53,18 +70,18 @@ class WdbcLayout:
 
 
 WDBC_LAYOUTS = {
-    "ChrRaces": WdbcLayout(69, 276, 0, 4),
-    "CharBaseInfo": WdbcLayout(2, 2, 0, 1),
-    "CharStartOutfit": WdbcLayout(77, 296, 4, 1),
-    "CharSections": WdbcLayout(10, 40, 4, 4),
-    "CharHairGeosets": WdbcLayout(6, 24, 4, 4),
-    "CharHairTextures": WdbcLayout(8, 32, 4, 4),
-    "BarberShopStyle": WdbcLayout(40, 160, 37 * 4, 4),
-    "CharacterFacialHairStyles": WdbcLayout(8, 32, 4, 4),
-    "NameGen": WdbcLayout(4, 16, 8, 4),
-    "CreatureDisplayInfoExtra": WdbcLayout(21, 84, 4, 4),
-    "SkillLineAbility": WdbcLayout(14, 56, 3 * 4, 4),
-    "SkillRaceClassInfo": WdbcLayout(8, 32, 2 * 4, 4),
+    "ChrRaces": WdbcLayout(69, 276, *RACE_BYTE_LAYOUTS["ChrRaces"]),
+    "CharBaseInfo": WdbcLayout(2, 2, *RACE_BYTE_LAYOUTS["CharBaseInfo"]),
+    "CharStartOutfit": WdbcLayout(77, 296, *RACE_BYTE_LAYOUTS["CharStartOutfit"]),
+    "CharSections": WdbcLayout(10, 40, *RACE_BYTE_LAYOUTS["CharSections"]),
+    "CharHairGeosets": WdbcLayout(6, 24, *RACE_BYTE_LAYOUTS["CharHairGeosets"]),
+    "CharHairTextures": WdbcLayout(8, 32, *RACE_BYTE_LAYOUTS["CharHairTextures"]),
+    "BarberShopStyle": WdbcLayout(40, 160, *RACE_BYTE_LAYOUTS["BarberShopStyle"]),
+    "CharacterFacialHairStyles": WdbcLayout(8, 32, *RACE_BYTE_LAYOUTS["CharacterFacialHairStyles"]),
+    "NameGen": WdbcLayout(4, 16, *RACE_BYTE_LAYOUTS["NameGen"]),
+    "CreatureDisplayInfoExtra": WdbcLayout(21, 84, *RACE_BYTE_LAYOUTS["CreatureDisplayInfoExtra"]),
+    "SkillLineAbility": WdbcLayout(14, 56, *RACE_BYTE_LAYOUTS["SkillLineAbility"]),
+    "SkillRaceClassInfo": WdbcLayout(8, 32, *RACE_BYTE_LAYOUTS["SkillRaceClassInfo"]),
 }
 
 
@@ -303,6 +320,10 @@ def _build_continuations(tables: dict[str, RawWdbc]) -> dict[str, bytes]:
     for table_name, table in tables.items():
         records: list[bytes] = []
         layout = WDBC_LAYOUTS[table_name]
+        if table_name == "ChrRaces":
+            row_ids = [RawWdbc._value(record, 0, 4) for record in table.records]
+            if len(row_ids) != len(set(row_ids)):
+                raise ValueError("duplicate row ID in production ChrRaces continuation")
         if table_name in RACE_ID_FIELDS:
             for source_race, target_race in ((19, 20), (20, 18)):
                 source_records = tuple(
@@ -348,33 +369,68 @@ def _read_patch_b_entries(patch_b_root: Path) -> dict[str, bytes]:
     storm = Storm(DLL_DEFAULT)
     archive = storm.open_archive(patch_b_root)
     try:
-        return {name: storm.read(archive, name) for name, *_ in storm.list_files(archive)}
+        entries: dict[str, bytes] = {}
+        for name, *_ in storm.list_files(archive):
+            entries = merge_archive_entries(entries, {name: storm.read(archive, name)})
+        return entries
     finally:
         storm.dll.SFileCloseArchive(archive)
 
 
 def _stage_directory(output_root: Path, entries: dict[str, bytes]) -> None:
-    output_root.mkdir(parents=True, exist_ok=True)
-    for name, payload in sorted(entries.items(), key=lambda item: item[0].casefold()):
-        destination = output_root / safe_relative(name)
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        if destination.exists() and destination.read_bytes() != payload:
-            raise ValueError(f"staged path collision with different bytes: {name}")
-        if not destination.exists():
+    if output_root.exists():
+        raise ValueError(f"output_root must be fresh: {output_root}")
+    output_root.parent.mkdir(parents=True, exist_ok=True)
+    temporary_root = Path(tempfile.mkdtemp(prefix=f".{output_root.name}.tmp-", dir=output_root.parent))
+    try:
+        for name, payload in sorted(entries.items(), key=lambda item: item[0].casefold()):
+            destination = temporary_root / safe_relative(name)
+            destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_bytes(payload)
+        os.replace(temporary_root, output_root)
+    except BaseException:
+        shutil.rmtree(temporary_root, ignore_errors=True)
+        raise
 
 
 def _stage_archive(output_root: Path, source_path: Path, entries: dict[str, bytes]) -> Path:
-    output_root.mkdir(parents=True, exist_ok=True)
+    if output_root.exists():
+        raise ValueError(f"output_root must be fresh: {output_root}")
+    output_root.parent.mkdir(parents=True, exist_ok=True)
     staged_path = output_root / f"{source_path.stem}-vulpera-pandaren.MPQ"
-    if staged_path.exists():
-        raise FileExistsError(f"refusing to overwrite staged archive: {staged_path}")
     if not DLL_DEFAULT.is_file():
         raise FileNotFoundError(f"StormLib not found for staged archive: {DLL_DEFAULT}")
     archive_entries = dict(entries)
     archive_entries["(listfile)"] = ("\n".join(sorted(entries)) + "\n").encode("utf-8")
-    Storm(DLL_DEFAULT).create_archive(staged_path, archive_entries)
+    temporary_root = Path(tempfile.mkdtemp(prefix=f".{output_root.name}.tmp-", dir=output_root.parent))
+    temporary_archive = temporary_root / staged_path.name
+    output_created = False
+    try:
+        Storm(DLL_DEFAULT).create_archive(temporary_archive, archive_entries)
+        output_root.mkdir()
+        output_created = True
+        os.replace(temporary_archive, staged_path)
+    except BaseException:
+        if output_created:
+            output_root.rmdir()
+        shutil.rmtree(temporary_root, ignore_errors=True)
+        raise
+    shutil.rmtree(temporary_root, ignore_errors=True)
     return staged_path
+
+
+def _merge_manifest_entry(entries: dict[str, bytes], additions: bytes) -> dict[str, bytes]:
+    normalized: dict[str, bytes] = {}
+    for name, payload in entries.items():
+        normalized = merge_archive_entries(normalized, {name: payload})
+    manifest_names = [name for name in normalized if name.casefold() == "wxl-dbc.manifest"]
+    manifest_name = manifest_names[0] if manifest_names else "wxl-dbc.manifest"
+    existing = normalized.get(manifest_name, b"")
+    merged_manifest = merge_wxl_manifest(existing, additions)
+    without_manifest = {
+        name: payload for name, payload in normalized.items() if name.casefold() != "wxl-dbc.manifest"
+    }
+    return merge_archive_entries(without_manifest, {manifest_name: merged_manifest})
 
 
 def build_race_pack(dbc_root: Path, model_root: Path, patch_b_root: Path, output_root: Path) -> PackReport:
@@ -384,8 +440,12 @@ def build_race_pack(dbc_root: Path, model_root: Path, patch_b_root: Path, output
     model_root = Path(model_root)
     patch_b_root = Path(patch_b_root)
     output_root = Path(output_root)
-    if patch_b_root.is_dir() and output_root.resolve() == patch_b_root.resolve():
-        raise ValueError("output_root must not be the Patch-B source directory")
+    source_path = patch_b_root.resolve()
+    destination_path = output_root.resolve()
+    if source_path == destination_path or source_path in destination_path.parents or destination_path in source_path.parents:
+        raise ValueError("Patch-B source and output paths must not overlap")
+    if output_root.exists():
+        raise ValueError(f"output_root must be fresh: {output_root}")
     tables = _load_donor_wdbcs(dbc_root)
     assets = collect_race_assets(model_root)
     continuations = _build_continuations(tables)
@@ -402,9 +462,8 @@ def build_race_pack(dbc_root: Path, model_root: Path, patch_b_root: Path, output
         )
     )
     merged = merge_archive_entries(source_entries, additions)
-    existing_manifest = source_entries.get("wxl-dbc.manifest", b"")
     manifest = ("# Esteria additive Vulpera/Pandaren pack\n" + "\n".join(manifest_entries) + "\n").encode("utf-8")
-    merged["wxl-dbc.manifest"] = merge_wxl_manifest(existing_manifest, manifest)
+    merged = _merge_manifest_entry(merged, manifest)
     if patch_b_root.is_dir():
         _stage_directory(output_root, merged)
         staged_name = str(output_root)
