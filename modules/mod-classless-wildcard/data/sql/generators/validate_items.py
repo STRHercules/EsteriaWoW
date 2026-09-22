@@ -1,0 +1,234 @@
+"""Validate every generated/hand-written item file before it reaches a DB.
+
+Display ids are checked against the client's ItemDisplayInfo.dbc, which is what
+actually decides whether an item renders -- not against ids other items happen
+to use.
+"""
+import io, os, re, sys, struct
+
+sys.path.insert(0, r"B:\code\azerothcore-wotlk\modules\mod-classless-wildcard\client-patch")
+from lib import clientfs
+from lib.dbc import parse_header
+
+WORLD = r"B:\code\azerothcore-wotlk\modules\mod-classless-wildcard\data\sql\db-world"
+# item_template.class / subclass: bow, gun, thrown, crossbow, wand
+ITEM_CLASS_WEAPON = 2
+RANGED_SUBCLASSES = (2, 3, 16, 18, 19)
+
+FILES = ["cw_world_base.sql", "cw_items_pack.sql", "cw_items_pack2.sql",
+         "cw_items_heirlooms.sql", "cw_items_tiered.sql"]
+
+
+def strip_sql_comments(s):
+    """Drop -- comments, but not inside string literals."""
+    out, i, q = [], 0, False
+    while i < len(s):
+        c = s[i]
+        if q:
+            out.append(c)
+            if c == "'":
+                if i + 1 < len(s) and s[i + 1] == "'":
+                    out.append("'"); i += 2; continue
+                q = False
+            i += 1
+            continue
+        if c == "'":
+            q = True; out.append(c); i += 1; continue
+        if c == "-" and i + 1 < len(s) and s[i + 1] == "-":
+            j = s.find("\n", i)
+            i = len(s) if j < 0 else j
+            continue
+        out.append(c); i += 1
+    return "".join(out)
+
+
+def split_top(s):
+    out, buf, q, i = [], [], False, 0
+    while i < len(s):
+        c = s[i]
+        if q:
+            if c == "'":
+                if i + 1 < len(s) and s[i + 1] == "'":
+                    buf.append("''"); i += 2; continue
+                q = False
+            buf.append(c)
+        else:
+            if c == "'":
+                q = True; buf.append(c)
+            elif c == ",":
+                out.append("".join(buf).strip()); buf = []
+            else:
+                buf.append(c)
+        i += 1
+    out.append("".join(buf).strip())
+    return out
+
+
+def tuples(body):
+    out, depth, start, q, i = [], 0, None, False, 0
+    while i < len(body):
+        c = body[i]
+        if q:
+            if c == "'":
+                if i + 1 < len(body) and body[i + 1] == "'":
+                    i += 2; continue
+                q = False
+        elif c == "'":
+            q = True
+        elif c == "(":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif c == ")":
+            depth -= 1
+            if depth == 0:
+                out.append(body[start + 1:i])
+        i += 1
+    return out
+
+
+# --- authoritative display ids straight from the client DBC ---
+data_dir = r"B:\World.of.Warcraft.3.3.5a\Data"
+cf = clientfs.ClientFiles(data_dir, clientfs.detect_locales(data_dir)[0])
+raw, src = cf.find(r"DBFilesClient\ItemDisplayInfo.dbc")
+records, fields, rec_size, _s = parse_header(raw)
+valid_disp = set()
+# A display id that EXISTS can still name an icon the client does not ship, and
+# then the bag draws a red question mark. InventoryIcon[0] is field 5 (1-2 are
+# the models, 3-4 the model textures, 6 the second icon, nearly always blank --
+# read that one and every item looks broken).
+strings = raw[20 + records * rec_size:]
+NUL = bytes([0])
+icon_of = {}
+for i in range(records):
+    v = struct.unpack_from("<%dI" % fields, raw, 20 + i * rec_size)
+    valid_disp.add(v[0])
+    off = v[5]
+    icon_of[v[0]] = (strings[off:strings.index(NUL, off)].decode("utf-8", "replace")
+                     if off else "")
+
+_icon_cache = {}
+
+
+def icon_missing(display):
+    """True when the client ships no texture for this display's inventory icon."""
+    icon = icon_of.get(display, "")
+    if not icon:
+        return True
+    if icon not in _icon_cache:
+        try:
+            cf.find("Interface" + chr(92) + "Icons" + chr(92) + icon + ".blp")
+            _icon_cache[icon] = False
+        except Exception:
+            _icon_cache[icon] = True
+    return _icon_cache[icon]
+
+
+print("ItemDisplayInfo.dbc: %d display ids (from %s)\n" % (len(valid_disp), src.split("\\")[-1]))
+
+bad, seen = 0, {}
+for name in FILES:
+    src_txt = strip_sql_comments(io.open(os.path.join(WORLD, name), encoding="utf-8").read())
+    m = re.search(r"INSERT INTO `item_template`\s*\((.*?)\)\s*VALUES", src_txt, re.S)
+    if not m:
+        print("%-26s no item_template INSERT" % name)
+        continue
+    cols = [c.strip().strip("`") for c in m.group(1).replace("\n", " ").split(",")]
+    body = src_txt[m.end():]
+    body = body[:body.index(";")]
+    rows = tuples(body)
+
+    iE, iD = cols.index("entry"), cols.index("displayid")
+    iC = cols.index("class") if "class" in cols else None
+    iS = cols.index("subclass") if "subclass" in cols else None
+    iR = cols.index("RangedModRange") if "RangedModRange" in cols else None
+    arity_bad = disp_bad = 0
+    lo = hi = None
+    for t in rows:
+        v = split_top(t)
+        if len(v) != len(cols):
+            print("  !! %s: entry %s has %d values, expected %d" % (name, v[0], len(v), len(cols)))
+            arity_bad += 1; bad += 1
+            continue
+        e, d = int(v[iE]), int(v[iD])
+        if d and d not in valid_disp:
+            print("  !! %s: entry %d display %d NOT in ItemDisplayInfo.dbc" % (name, e, d))
+            disp_bad += 1; bad += 1
+        elif d and icon_missing(d):
+            print("  !! %s: entry %d display %d names icon %r, which the client "
+                  "does not ship -- the bag draws a question mark"
+                  % (name, e, d, icon_of.get(d, "")))
+            disp_bad += 1; bad += 1
+        # A ranged weapon with no RangedModRange has no RANGE. The column is the
+        # percentage of the weapon's reach, the table default is 0, and the
+        # client works the distance out from it -- so a bow with 0 answered
+        # "Out of range" at any distance. Every stock bow, gun, crossbow,
+        # thrown and wand carries 100.
+        if iC is not None and iS is not None:
+            if int(v[iC]) == ITEM_CLASS_WEAPON and int(v[iS]) in RANGED_SUBCLASSES:
+                if iR is None:
+                    print("  !! %s: entry %d is a ranged weapon but the file has no "
+                          "RangedModRange column, so it defaults to 0 and reads "
+                          "Out of range" % (name, e))
+                    bad += 1
+                elif float(v[iR]) <= 0:
+                    print("  !! %s: entry %d is a ranged weapon with RangedModRange "
+                          "%s -- it reads Out of range at any distance"
+                          % (name, e, v[iR]))
+                    bad += 1
+        if e in seen:
+            print("  !! entry %d duplicated: %s and %s" % (e, seen[e], name))
+            bad += 1
+        seen[e] = name
+        lo = e if lo is None else min(lo, e)
+        hi = e if hi is None else max(hi, e)
+
+    print("%-26s %3d rows  %2d cols  entries %d..%d  arity %s  displays %s"
+          % (name, len(rows), len(cols), lo, hi,
+             "OK" if not arity_bad else "BAD", "OK" if not disp_bad else "BAD"))
+
+# --- every item must actually be on a shelf, and reachable from the menu ---
+#
+# The shop is split across vendor lists because SMSG_LIST_INVENTORY stops at 150
+# items. An item that exists but sits on no list is invisible and unbuyable, and
+# nothing else would catch it, so check the shelving against the packs.
+shop = io.open(os.path.join(WORLD, "cw_world_vendor_lists.sql"), encoding="utf-8").read()
+shelved = {}
+for entry, item in re.findall(r"^\((99\d{4}), \d+, (99\d{4}), 0, 0, 0, \d+\)", shop, re.M):
+    shelved.setdefault(int(item), []).append(int(entry))
+
+SCROLL = 990101
+sellable = set(e for e in seen if e != SCROLL and seen[e] != "cw_world_base.sql")
+missing = sellable - set(shelved)
+orphan = set(shelved) - sellable
+
+print("\nvendor lists: %d lists holding %d placements of %d items"
+      % (len(set(sum(shelved.values(), []))), sum(len(v) for v in shelved.values()),
+         len(shelved)))
+if missing:
+    print("  !! %d items are on no vendor list at all: %s"
+          % (len(missing), sorted(missing)[:8])); bad += 1
+if orphan:
+    print("  !! %d shelved items do not exist: %s"
+          % (len(orphan), sorted(orphan)[:8])); bad += 1
+
+# Heirlooms get one list; everything else gets a level bracket plus the
+# category's "all levels" list, so exactly two placements.
+odd = {e: v for e, v in shelved.items() if len(v) not in (1, 2)}
+if odd:
+    print("  !! %d items shelved an unexpected number of times: %s"
+          % (len(odd), sorted(odd)[:8])); bad += 1
+
+sizes = {}
+for item, entries in shelved.items():
+    for e in entries:
+        sizes[e] = sizes.get(e, 0) + 1
+over = {e: n for e, n in sizes.items() if n > 150}
+if over:
+    print("  !! lists over the 150-item packet cap: %s" % over); bad += 1
+else:
+    print("  largest list holds %d items, cap is 150" % max(sizes.values()))
+
+print("\ntotal items across all packs: %d" % len(seen))
+print("%s" % ("FAILED" if bad else "all item SQL validated"))
+sys.exit(1 if bad else 0)

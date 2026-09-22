@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install VS 2022 Build Tools (node-gyp requirement)
+        run: |
+          choco install visualstudio2022buildtools `
+            --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.22621 --includeRecommended --passive" `
+            --no-progress -y
+        shell: powershell
+
+      - name: Install JS dependencies (skip native compile)
+        run: npm install --ignore-scripts --no-audit --no-fund
+
+      - name: Download Electron binary
+        run: node node_modules/electron/install.js
+
+      - name: Rebuild native modules for Electron ABI
+        run: node_modules/.bin/electron-builder.cmd install-app-deps
+
+      - name: Build and package
+        run: npm run dist
+        env:
+          ELECTRON_RUN_AS_NODE: ''
+
+      - name: Upload portable exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: Esteria-Launcher-portable
+          path: 'distprod/Esteria Launcher.exe'
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Esteria-Launcher-installer
+          path: 'distprod/Esteria Launcher_Installer.exe'
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            distprod/Esteria Launcher.exe
+            distprod/Esteria Launcher_Installer.exe
+            distprod/latest.yml
+            distprod/Esteria Launcher_Installer.exe.blockmap

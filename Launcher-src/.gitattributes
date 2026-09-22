@@ -1,0 +1,10 @@
+# Force LF on shell scripts so git-bash can execute them as hooks on Windows
+hooks/*        text eol=lf
+*.sh           text eol=lf
+*.py           text eol=lf
+
+.gitea/** export-ignore
+.env.ptr export-ignore
+electron-builder.ptr.yml export-ignore
+server/Dockerfile export-ignore
+scripts/publish-oss.sh export-ignore

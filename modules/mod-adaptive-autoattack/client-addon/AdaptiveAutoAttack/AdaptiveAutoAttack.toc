@@ -1,0 +1,5 @@
+## Interface: 30300
+## Title: Auto-Attack Forever
+## Notes: Equipped weapon icons for Auto Ranged on Blizzard action bars.
+## Version: 0.1.0-preview
+AdaptiveAutoAttack.lua

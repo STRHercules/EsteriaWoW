@@ -1,0 +1,50 @@
+productName: Esteria Launcher
+appId: com.esteria.launcher
+directories:
+  buildResources: build
+  output: distprod
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!*.md'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,.prettierrc.cjs,dev-app-update.yml}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!{tailwind.config.ts,postcss.config.cjs}'
+  - '!dist*/**'
+  - '!out/main/chunks/**'
+  - '!{.gitea,.github}/**'
+  - '!Tools/**'
+  - '!**/builder-debug.yml'
+  - '!**/electron-builder.*'
+  - '!.launcher/**'
+  - '!WTF/**'
+  - '!server/**'
+  - '!scripts/**'
+  - '!**/node_modules/**/{__tests__,test,tests,docs,example,examples,demo,demos,benchmark,benchmarks}/**'
+  - '!**/node_modules/**/*.{tsx,map,markdown}'
+  - '!**/node_modules/**/build/Release/obj/**'
+  - '!**/node_modules/**/build/Release/{*.iobj,*.ipdb,*.recipe,*.exp,*.lib,*.pdb,*.obj}'
+  - '!**/node_modules/**/*.{vcxproj,vcxproj.filters}'
+npmRebuild: false
+electronLanguages: en
+win:
+  icon: build/icon.png
+  artifactName: ${productName}.${ext}
+  target:
+    - portable
+    - nsis
+nsis:
+  artifactName: ${productName}_Installer.${ext}
+  uninstallDisplayName: ${productName}
+  oneClick: false
+  removeDefaultUninstallWelcomePage: true
+  installerIcon: build/Icon.ico
+  uninstallerIcon: build/Icon.ico
+  installerHeader: build/installerHeader.bmp
+  installerSidebar: build/installerSidebar.bmp
+  uninstallerSidebar: build/installerSidebar.bmp
+publish:
+  - provider: generic
+    url: '${env.ESTERIA_LAUNCHER_UPDATE_URL}'

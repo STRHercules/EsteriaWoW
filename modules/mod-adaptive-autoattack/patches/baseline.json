@@ -1,0 +1,9 @@
+{
+  "revision": "e1823bb2db751a7cc0a90a8543e778449ebf7d84",
+  "normalized_sha256": {
+    "src/server/game/Handlers/CombatHandler.cpp": "f60b7c53ce383cf1c3e4f9358768a60999d8692c1ab844d8523f251695207e07",
+    "src/server/game/Handlers/SpellHandler.cpp": "939644d20dfdb48d8d654e086c9ee708a2a0c3450d885fef67a70768fc5801a0",
+    "src/server/game/Entities/Unit/Unit.cpp": "7f3f8f54446645e7065b49de7166560fbca3d32ff0a95c7e26b919bf7374011a",
+    "src/server/game/Spells/Spell.cpp": "b3c30ceefd033023f31c745f04dd63d634868d03cdc3d27bfab536ad1b492ddc"
+  }
+}

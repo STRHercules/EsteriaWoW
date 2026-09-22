@@ -1,0 +1,10 @@
+## Interface: 30300
+## Title: ClasslessWildcard
+## Notes: Character Advancement panel for the mod-classless-wildcard server. /cw to open.
+## Author: mod-classless-wildcard
+## Version: 1.0
+## SavedVariables: ClasslessWildcardDB
+## SavedVariablesPerCharacter: ClasslessWildcardCharDB
+
+ClasslessWildcard.lua
+Bindings.xml

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+build-client/
+*.MPQ
+*.dbc
+*.log
+.env
+
+# Distribute demo video as a release asset, not in Git history.
+media/*.mp4

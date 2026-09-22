@@ -1,0 +1,271 @@
+# Client setup
+
+Required for every player on a Classless Wildcard realm. The
+[module README](../README.md) explains why.
+
+> ## Close World of Warcraft before you run this
+>
+> The installer deletes your client cache for you, every time it runs, and it
+> checks afterwards that the files are really gone. A running game holds those
+> files open: nothing is deleted, and the installer will say so in capitals at
+> the end of its report.
+>
+> If you see that message: close the game, delete the `Cache` folder in your WoW
+> directory, and start the game again. Until you do, new items draw the wrong
+> icon or a question mark and ranged weapons say "Out of range".
+
+**One installer sets up the full Hero client:**
+
+- every class shows as **Hero**, everywhere it appears
+- the creation screen offers a **single class per race** (no class to choose)
+- the creation-screen **class description** is the Hero pitch, and the leftover
+  class selector is hidden
+- new characters wear an **armored Hero outfit** on the creation screen
+- the **Hero emblem** replaces the class icon *for the Hero only*. Every other
+  class icon is kept, so your addon can still group abilities by class
+- the **elemental ability variants**: the spell rows, tooltips and badged icons
+  for the Fiery, Frozen, Earthen, Venomous, Arcane, Shadow and Holy versions of
+  the physical strikes that have them (`--no-elemental` leaves them out)
+- class spells no longer ask for a **class tool** such as an Earth Totem, so the
+  tooltip drops the red `Tools:` line and the spell casts. The server clears the
+  same requirement; both halves are needed or the client refuses the cast on its
+  own. Reagents are untouched
+- **every talent tree is opened to every class**, so the client accepts a Hero's
+  cross-class talents instead of dropping them. It does NOT make spell tooltips
+  count them -- the addon does that. The stock talent frame draws three trees
+  and there are now thirty, so read a build in the addon's talent browser
+- **talent-reduced costs can be paid**: the client checks power itself before
+  it will send a cast and cannot count a cross-class talent, so its copy of
+  each cost is lowered to the least any build could pay and the server
+  decides. The addon writes the true cost back onto the tooltip
+- **the classless items are registered with the client**, so their icons draw
+  the moment a bag is opened. A stock item's icon comes from the client's own
+  Item.dbc; a custom one has no row there, so nothing can draw it until the
+  server answers an item query and a bag addon shows a question mark instead
+- the **ClasslessWildcard** addon is installed
+
+The creation-screen text is a *signed* interface file, so the installer also applies
+the well-known "allow custom interface" patch to `Wow.exe` (backed up first,
+reversible with `--uninstall`). **Close World of Warcraft before installing.**
+
+### About that cache
+
+The client keeps its own copy of every item, spell and creature the server has
+ever told it about, in
+
+```
+<your WoW folder>\Cache\WDB\<locale>\
+```
+
+for example `C:\Games\World of Warcraft\Cache\WDB\enUS\`. That copy is
+stale the moment the realm's data changes, and a stale entry does not fix itself:
+an item cached before its stats existed keeps drawing a red question mark and
+refuses to equip, and a ranged weapon cached with no range keeps answering "Out
+of range" whatever the database now says.
+
+The installer deletes it, counts what it deleted, and tells you if anything
+survived. One case it cannot cover: the realm applying new SQL without you
+re-running the installer. Changed items reach you through the server, not the
+patch, so nothing has cleared your cache. Delete `Cache` and log back in.
+
+Deleting it is always safe. It is a cache: nothing of yours lives there, and the
+client fills it in again as you play.
+
+`--uninstall` restores everything the installer changed, `Wow.exe` included.
+
+> The Hero emblem and the elemental ability icons are painted with the Python **Pillow**
+> library. The installer installs it with pip when it is missing and stops if it cannot.
+
+---
+
+## What you need
+
+- Your **World of Warcraft 3.3.5a** folder, the one with `Wow.exe` and `Data` in it.
+- **Python 3** (any version from 3.7 up).
+  Windows: get it from [python.org/downloads](https://www.python.org/downloads/) and
+  tick **"Add python.exe to PATH"** on the first screen of the installer.
+
+Nothing else. No compiler, no StormLib, no MPQ editor, no extra downloads.
+
+> The Hero emblem and the elemental ability icons are painted with the Python
+> **Pillow** imaging library, so the install needs it. `install.bat`, `install.sh`
+> and `install.py` each install it with pip when it is missing, and stop if that
+> fails. Nothing else is downloaded.
+
+---
+
+## Install
+
+### Windows
+
+**Double-click `install.bat`.**
+
+The first run asks for your WoW folder and remembers it in `install_path.txt`
+beside the installer, so later runs go straight through without asking. Edit that
+file to point somewhere else, or delete it to be asked again. You can also write
+it yourself before the first run: one line holding the path, and lines starting
+with `#` are ignored. Dragging your WoW folder onto `install.bat` still works and
+takes priority over the file.
+
+The installer shows what it is about to do and confirms once before touching
+anything. **Close World of Warcraft first**, because the install patches
+`Wow.exe`, which the running game locks.
+
+### macOS / Linux
+
+```bash
+./install.sh "/path/to/World of Warcraft"
+```
+
+### Any system, explicitly
+
+```bash
+python3 install.py "C:\Games\World of Warcraft"
+```
+
+Want to see exactly what would happen before committing to it?
+
+```bash
+python3 install.py --dry-run "C:\Games\World of Warcraft"
+```
+
+That writes nothing at all. It just prints the plan.
+
+### What you should see
+
+```
+mod-classless-wildcard client installer
+=======================================
+
+World of Warcraft : C:\Games\World of Warcraft
+Locales           : enUS
+Class name        : Hero
+Creation text     : yes
+Armored outfit    : yes
+Hero class icon   : yes
+Patch Wow.exe     : yes
+Addon             : yes
+
+Install to this client? [Y/n] y
+
+  ChrClasses.dbc   10 classes renamed to Hero
+  ChrClasses.dbc   ranged slot restored on 4 relic classes (bows, guns and wands now show)
+  CharBaseInfo.dbc all 10 races, one cosmetic class (shown as Hero)
+  SkillRaceClassInfo.dbc  86 class skill lines opened to every class
+  SkillLineAbility.dbc  3143 class spells now belong to every class (spellbook tabs for cross-class spells)
+  TalentTab.dbc     30 talent trees opened to every class (the client accepts cross-class talents)
+  Spell.dbc        class tool requirement cleared from 102 spells (totems, relics; reagents untouched)
+  Spell.dbc        cost floor lowered on 273 spells (talent-reduced costs cast at the real price)
+  Item.dbc         286 classless item(s) registered (so their icons draw before the server is asked)
+  CharStartOutfit.dbc  armored Hero look on 18 races +Blood Elf
+  -> Data/patch-Z.MPQ
+  GlueStrings.lua  76 class strings rewritten
+  CharacterCreate.lua  class selector hidden
+  Hero class icon      emblem on the Hero cell, other class icons kept
+  -> Data/enUS/patch-enUS-Z.MPQ  (DBCs here outrank the client's own locale patches)
+  Wow.exe          patched 6 site(s) to accept custom interface files
+  addon            12 files -> Interface/AddOns/ClasslessWildcard
+  cache            cleared (the client rebuilds it on next login)
+
+Done. Start the game and every class will read Hero.
+```
+
+Then just start the game.
+
+---
+
+## Uninstall
+
+```bash
+python3 install.py --uninstall "C:\Games\World of Warcraft"
+```
+
+Windows users can run `install.bat --uninstall` instead.
+
+This removes the patch archives, removes the addon, clears the cache, and, if an
+older version had patched `Wow.exe`, restores it from the backup. Your client is
+back to stock.
+
+---
+
+## Options
+
+The full Hero client installs by default. These turn pieces off.
+
+| Option                | Effect                                                                |
+| --------------------- | --------------------------------------------------------------------- |
+| `--dry-run`           | Print the plan and write nothing                                      |
+| `--uninstall`         | Undo everything the installer did                                     |
+| `--yes` / `-y`        | Skip the confirmation prompt                                          |
+| `--name Champion`     | Call the class something other than `Hero`                            |
+| `--no-creation-text`  | Skip the Hero text + armored outfit (and the `Wow.exe` patch they need) |
+| `--no-hero-icon`      | Keep the stock class icon instead of the Hero emblem                  |
+| `--no-exe`            | Install the text but not the `Wow.exe` patch (only for clients that already accept custom UI) |
+| `--no-addon`          | Do not install the addon                                              |
+| `--locale enUS`       | Patch one locale only, on a multi-language client                     |
+
+The `Wow.exe` patch is the well-known "allow custom interface" patch (the same one the
+Project Reforged patcher uses), confirmed working on a stock 3.3.5a build 12340 client.
+It is backed up to `Wow.exe.classless-bak` and restored by `--uninstall`.
+
+---
+
+## Troubleshooting
+
+**"Python 3 is required and was not found."**
+Install Python and make sure you ticked *Add python.exe to PATH*. Restart the
+command prompt afterwards.
+
+**"That is not a World of Warcraft folder."**
+Give it the folder that directly contains `Wow.exe` and `Data`, not a parent
+folder and not the `Data` folder itself.
+
+**"Your login interface files are corrupt" at the login screen.**
+The `Wow.exe` patch that `--creation-text` applies did not take. Most often that is because
+the game was open when you ran the installer, so the exe could not be written (the
+output would have said *"close the game and re-run"*). Close World of Warcraft
+completely and run `--creation-text` again. If it still happens after a clean patch,
+your client is one the known patch does not fit. Run `--uninstall`; the Hero name and
+single-class list work without it.
+
+**Permission denied writing Wow.exe.**
+Close the game. On Windows, run the command prompt as Administrator if your WoW
+folder lives under `C:\Program Files`.
+
+**Classes still show their old names**, or an item shows a question mark, or a
+bow says "Out of range".
+Delete the `Cache` folder in your WoW directory and start the game again -- see
+[Close the game first, and let the cache go](#close-the-game-first-and-let-the-cache-go).
+The installer does this for you, but a client left running can write it back.
+
+**Class icons show as a green box.**
+That means a `--hero-icon` install wrote a texture the client could not read.
+Current versions match the client's own texture format, so update and re-run; if
+it persists, reinstall with `--no-hero-icon` to keep the stock icon; everything else
+is unaffected.
+
+**The creation screen still shows the old class descriptions.**
+The `Wow.exe` patch that lets the client load the custom text did not take, usually
+because the game was open during install (it locks `Wow.exe`). Close the game fully and
+run the installer again, or check with `--dry-run` whether it reports the exe as patched.
+
+---
+
+## A note on what gets shipped
+
+This folder contains no Blizzard data. The installer reads the DBC and interface
+files out of **your own client**, edits them on your machine, and writes the result
+into a new patch archive next to the originals. Your original files are never
+modified. Patch archives sit on top of them, and deleting them reverts everything.
+
+`Wow.exe` is **never** modified by a default install, only new patch archives (which
+sit on top of your originals) and the addon folder are written, so nothing you already
+had is changed and deleting them reverts everything. The optional `--creation-text`
+adds the rewritten `GlueStrings.lua` and applies the "allow custom interface" patch to
+`Wow.exe` so the client accepts it; the exe is backed up to `Wow.exe.classless-bak`
+first and `--uninstall` restores it. The patch only ever writes when its exact byte
+sites are found in your exe, so a client it does not fit is left untouched rather than
+corrupted.
+
+Server admins and anyone curious about how the patch is built: see
+[`MAINTAINERS.md`](MAINTAINERS.md).

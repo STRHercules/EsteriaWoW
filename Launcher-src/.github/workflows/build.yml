@@ -1,0 +1,34 @@
+name: Build check
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install JS dependencies (skip native compile)
+        run: npm install --ignore-scripts --no-audit --no-fund
+
+      - name: Download Electron binary
+        run: node node_modules/electron/install.js
+
+      - name: Rebuild native modules for Electron ABI
+        run: node_modules/.bin/electron-builder.cmd install-app-deps
+
+      - name: Build bundles
+        run: npm run build
+        env:
+          ELECTRON_RUN_AS_NODE: ''
