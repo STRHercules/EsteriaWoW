@@ -304,6 +304,24 @@
       "faction": "horde",
       "start_profile": "durotar",
       "asset_owner": "shadowlands_characters"
+    },
+    {
+      "id": 43,
+      "species_key": "darkfallen",
+      "display_name": "Darkfallen",
+      "faction": "alliance",
+      "mask": 2147483648,
+      "start_profile": "tirisfal",
+      "asset_owner": "playable_darkfallen"
+    },
+    {
+      "id": 44,
+      "species_key": "darkfallen",
+      "display_name": "Darkfallen",
+      "faction": "horde",
+      "mask": 2147483648,
+      "start_profile": "tirisfal",
+      "asset_owner": "playable_darkfallen"
     }
   ],
   "npc_only": [
@@ -338,6 +356,7 @@
     "worgoblin_f040": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-040_mod-druid-forms",
     "worgoblin_f041": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-041_mod-extra-models",
     "shadowlands_characters": "RaceStuff/Shadowlands to WotLK/Character",
+    "playable_darkfallen": "NewModels/_Other/PlayableDarkfallen/Darkfallen",
     "shadowlands_dbc": "RaceStuff/Shadowlands to WotLK/DBC/enUS/DBFilesClient",
     "shadowlands_login": "RaceStuff/Shadowlands login screen mix",
     "worgoblin_hd": "RaceStuff/worgoblin HD patch"

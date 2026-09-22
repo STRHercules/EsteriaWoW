@@ -653,6 +653,15 @@ class CarsMountPackTest(unittest.TestCase):
             self.assertEqual(records[0].spell_row[110], records[0].creature_id)
             self.assertNotEqual(records[0].spell_row[110], records[0].display_id)
             self.assertEqual(MODULE.Wdbc(dbc_entries["DBFilesClient/Spell.dbc1-mounts"]).count, 1)
+            skill_table = MODULE.Wdbc(dbc_entries["DBFilesClient/SkillLineAbility.dbc1-mounts"])
+            self.assertEqual(
+                skill_table.row(records[0].spell_id),
+                [records[0].spell_id, 777, records[0].spell_id, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            )
+            self.assertEqual(
+                skill_table.row(201111),
+                [201111, 777, 201111, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            )
             spell_columns = next(line for line in sql.splitlines() if line.startswith("INSERT INTO `spell_dbc`"))
             spell_sql = next(line for line in sql.splitlines() if line.startswith("(201000,"))
             column_names = [value.strip().strip("`") for value in spell_columns.split("(", 1)[1].split(")", 1)[0].split(",")]
@@ -668,6 +677,8 @@ class CarsMountPackTest(unittest.TestCase):
             self.assertNotIn("DELETE FROM `creature_template`", sql)
             self.assertIn("REPLACE INTO `item_template` (`entry`", sql)
             self.assertIn("(901000,", sql)
+            self.assertIn("INSERT INTO `skilllineability_dbc`", sql)
+            self.assertIn(f"({records[0].spell_id}, 777, {records[0].spell_id}, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0)", sql)
             self.assertIn("Example", sql)
             item_row = next(line for line in sql.splitlines() if line.startswith("(901000, 15, 5, -1, 'Reins"))
             self.assertEqual(len(item_row.rstrip(",;").split(",")), 59)

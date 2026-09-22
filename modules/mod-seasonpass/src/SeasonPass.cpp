@@ -101,7 +101,7 @@ namespace
         uint32 streak       = 0;
         uint32 prestige     = 0;
         uint32 xpRate       = 100;
-        uint8  lang         = 0;  // 0=Deutsch, 1=Englisch
+        uint8  lang         = 1;  // 0=Deutsch, 1=Englisch; English is the default
         uint32 chestPity    = 0;  // Kistenfieber
         bool   welcomed     = false; // Willkommenspaket (Stufe 0) schon erhalten?
         uint8  hardcore     = 0;  // 0=aus, 1=aktiv, 2=gescheitert, 3=geschafft
@@ -404,6 +404,8 @@ namespace
                 d.prestige     = f[5].Get<uint32>();
                 d.xpRate       = f[6].Get<uint32>();
                 d.lang         = f[7].Get<uint8>();
+                if (d.lang == 0)
+                    d.lang = 1; // migrate the old German default
                 d.chestPity    = f[8].Get<uint32>();
                 d.welcomed     = f[9].Get<uint8>() != 0;
                 d.hardcore     = f[10].Get<uint8>();
@@ -664,7 +666,7 @@ namespace SeasonPass
     uint8 GetLang(Player* player)
     {
         if (!player)
-            return 0;
+            return 1;
         return GetData(player).lang;
     }
 
@@ -754,8 +756,8 @@ namespace SeasonPass
                 if (d.prestige % 10 == 0) // Meilensteine serverweit feiern
                 {
                     std::ostringstream ann;
-                    ann << "|cffFF8800[Traumpfad]|r " << player->GetName() << " hat Prestige "
-                        << d.prestige << " / " << g_prestigeMax << " erreicht!";
+                    ann << "|cffFF8800[Dream Path]|r " << player->GetName() << " reached Prestige "
+                        << d.prestige << " / " << g_prestigeMax << "!";
                     ChatHandler(nullptr).SendGlobalSysMessage(ann.str().c_str());
                 }
             }
@@ -914,8 +916,8 @@ namespace SeasonPass
             if (e->rarity == 4) // Legendär: serverweite Ansage!
             {
                 std::ostringstream ann;
-                ann << "|cffFF8000[Traumpfad]|r " << player->GetName() << " zieht |cffFF8000"
-                    << e->name << "|r aus einer Kiste! GZ!";
+                ann << "|cffFF8000[Dream Path]|r " << player->GetName() << " drew |cffFF8000"
+                    << (e->nameEn.empty() ? e->name : e->nameEn) << "|r from a chest! Congratulations!";
                 auto const& sessions = sWorldSessionMgr->GetAllSessions();
                 for (auto const& itr : sessions)
                     if (Player* p = itr.second ? itr.second->GetPlayer() : nullptr)
@@ -1030,10 +1032,10 @@ public:
         g_stormWasActive = active;
         if (active)
             ChatHandler(nullptr).SendGlobalSysMessage(
-                "|cffFFD700[Traumpfad]|r |cff00CCFFEin Traumsturm tobt über Azeroth! 15 Minuten dreifache Punkte! / A dream storm rages — triple points for 15 minutes!|r");
+                "|cffFFD700[Dream Path]|r |cff00CCFFA dream storm rages over Azeroth! Triple points for 15 minutes!|r");
         else
             ChatHandler(nullptr).SendGlobalSysMessage(
-                "|cffFFD700[Traumpfad]|r Der Traumsturm ist verklungen. / The dream storm has passed.");
+                "|cffFFD700[Dream Path]|r The dream storm has passed.");
     }
 };
 
@@ -1200,8 +1202,8 @@ public:
             if (g_announceRare)
             {
                 std::ostringstream msg;
-                msg << "|cffFFD700[Traumpfad]|r |cff00CCFF" << player->GetName()
-                    << "|r hat den seltenen Gegner |cffFF8800" << killed->GetName() << "|r erlegt!";
+                msg << "|cffFFD700[Dream Path]|r |cff00CCFF" << player->GetName()
+                    << "|r defeated the rare enemy |cffFF8800" << killed->GetName() << "|r!";
                 ChatHandler(nullptr).SendGlobalSysMessage(msg.str().c_str());
             }
         }
@@ -1470,10 +1472,10 @@ namespace
             gold / 10000, g_paragonPtsPer);
 
         std::ostringstream msg;
-        msg << "|cffFFD700[Traumpfad]|r |cff00CCFF" << player->GetName()
-            << "|r hat |cffFF8800Prestige " << d.prestige << " / " << g_prestigeMax << "|r erreicht! (+"
-            << (d.prestige * g_legacyPct) << "% Saison-Erbe, +" << (d.prestige * g_prestigeXPPct)
-            << "% Erfahrung — aber die Gegner werden stärker!)";
+        msg << "|cffFFD700[Dream Path]|r |cff00CCFF" << player->GetName()
+            << "|r reached |cffFF8800Prestige " << d.prestige << " / " << g_prestigeMax << "|r! (+"
+            << (d.prestige * g_legacyPct) << "% Season Legacy, +" << (d.prestige * g_prestigeXPPct)
+            << "% experience — but enemies grow stronger!)";
         ChatHandler(nullptr).SendGlobalSysMessage(msg.str().c_str());
 
         SeasonPass::AchProgress(player, SeasonPass::ACH_PRESTIGE, d.prestige);

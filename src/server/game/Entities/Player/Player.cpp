@@ -3239,10 +3239,15 @@ bool Player::_addSpell(uint32 spellId, uint8 addSpecMask, bool temporary, bool l
     if (!SpellMgr::CheckSpellValid(spellInfo, spellId, false))
         return false;
 
-    // pussywizard: already found and temporary, nothing to do
     PlayerSpellMap::iterator itr = m_spells.find(spellId);
     if (itr != m_spells.end() && itr->second->State == PLAYERSPELL_TEMPORARY)
-        return false;
+    {
+        if (temporary)
+            return false;
+
+        // Promote a skill-provided temporary spell when the persistent start-spell path adds it.
+        itr->second->State = PLAYERSPELL_NEW;
+    }
 
     // xinef: send packet so client can properly recognize this new spell
     // xinef: ignore passive spells and spells with learn effect
@@ -3412,7 +3417,9 @@ bool Player::IsNeedCastPassiveSpellAtLearn(SpellInfo const* spellInfo) const
 void Player::learnSpell(uint32 spellId, bool temporary /*= false*/, bool learnFromSkill /*= false*/)
 {
     // Xinef: don't allow to learn active spell once more
-    if (HasActiveSpell(spellId))
+    PlayerSpellMap::iterator itr = m_spells.find(spellId);
+    if (HasActiveSpell(spellId)
+        && (itr == m_spells.end() || itr->second->State != PLAYERSPELL_TEMPORARY || temporary))
     {
         LOG_DEBUG("entities.player", "Player ({}) tries to learn already active spell: {}", GetGUID().ToString(), spellId);
         return;

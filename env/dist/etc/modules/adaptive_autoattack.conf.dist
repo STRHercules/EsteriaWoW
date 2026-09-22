@@ -1,0 +1,3 @@
+# Adaptive Auto Attack
+# Disable automatic dispatch and new grants; learned spells are retained.
+AdaptiveAutoAttack.Enable = 1

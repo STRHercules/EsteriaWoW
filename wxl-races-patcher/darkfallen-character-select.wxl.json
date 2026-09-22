@@ -1,0 +1,15 @@
+{
+  "manifest": 1,
+  "extension": {
+    "id": "darkfallen-character-select",
+    "version": "1.0.0",
+    "abi": "1.1",
+    "entry": "darkfallen-character-select.dll",
+    "assets": [],
+    "requires": {
+      "races-64-esteria": "1.0.0"
+    },
+    "conflicts": [],
+    "hooks": []
+  }
+}

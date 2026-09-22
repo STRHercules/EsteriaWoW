@@ -134,7 +134,7 @@ The installed baseline also includes:
 `mod-instance-reset`, `mod-anticheat`, `mod-npc-beastmaster`,
 `mod-random-enchants`, `mod-item-upgrade`, `mod-congrats-on-level`,
 `mod-no-hearthstone-cooldown`, `mod-fly-anywhere`,
-`mod-skip-dk-starting-area`, `mod-learn-spells`, `mod-starter-guild`, and
+`mod-starter-guild`, and
 `mod-guildhouse`.
 
 `mod-custom-server` is the local extension module for the Echoes stat bridge,

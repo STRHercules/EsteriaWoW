@@ -41,8 +41,6 @@ The checkout uses the `playerbots/Playerbot` fork with standard Eluna active; AL
 | **mod-congrats-on-level** | Enabled; milestone gold rewards at levels 10, 20, 30, 40, 50, 60, 70, and 80 | ([GitHub][39]) |
 | **mod-no-hearthstone-cooldown** | Enabled | ([GitHub][25]) |
 | **mod-fly-anywhere** | Enabled; patched server `AreaTable.dbc` and client `Patch-O.mpq` | ([GitHub][26]) |
-| **mod-skip-dk-starting-area** | Enabled | ([GitHub][27]) |
-| **mod-learn-spells** | Enabled | ([GitHub][28]) |
 | **mod-starter-guild** | Enabled; Alliance guild 21 (`Immortal`) and Horde guild 22 (`Eternal`) | ([GitHub][21]) |
 | **mod-guildhouse** | Installed; no enable switch; NPC entry `500030` is not spawned automatically | ([GitHub][22]) |
 | **mod-chat-transmitter** | Installed; intentionally deferred pending external setup | ([GitHub][56]) |
@@ -87,8 +85,6 @@ The current runtime is not a production-readiness claim. Standard and Draft Pres
 [24]: https://github.com/sogladev/mod-reset-raid-cooldowns "GitHub - sogladev/mod-reset-raid-cooldowns: AzerothCore custom module hat removes Sated and Exhaustion debuffs, and resets player cooldowns after raid encounters · GitHub"
 [25]: https://github.com/BytesGalore/mod-no-hearthstone-cooldown "GitHub - BytesGalore/mod-no-hearthstone-cooldown: AzerothCore module that immediately skips the cooldown of the Hearthstone after use · GitHub"
 [26]: https://github.com/abracadaniel22/mod-fly-anywhere "GitHub - abracadaniel22/mod-fly-anywhere: AzerothCore mod that allows players to fly in Eastern Kingdoms and Kalimdor as soon as they can fly in Outlands · GitHub"
-[27]: https://github.com/azerothcore/mod-skip-dk-starting-area "GitHub - azerothcore/mod-skip-dk-starting-area · GitHub"
-[28]: https://github.com/azerothcore/mod-learn-spells "GitHub - azerothcore/mod-learn-spells: AzerothCore module to automatically teaches new spells on levelup · GitHub"
 [29]: https://github.com/azerothcore/mod-world-chat "GitHub - azerothcore/mod-world-chat: Global (world) chat. · GitHub"
 [30]: https://github.com/azerothcore/mod-cfbg "GitHub - azerothcore/mod-cfbg: Cross-faction Battleground for AzerothCore · GitHub"
 [31]: https://github.com/azerothcore/mod-bg-auto-queue "GitHub - azerothcore/mod-bg-auto-queue: Module to let players auto-queue battlegrounds · GitHub"

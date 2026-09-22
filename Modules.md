@@ -97,8 +97,6 @@ that the feature passed an in-game test.
   `instanceReset.Enable = true`.
 - `mod-item-upgrade` — **Enabled**. Item upgrade ranks and crafting upgrades.
   Current documented configuration caps rank at `2`.
-- `mod-learn-spells` — **Enabled**. Automatically teaches configured spells as
-  characters level. `LearnSpells.Enable = 1`.
 - `mod-loyal-steed` — **Enabled / staged**. Race-specific persistent companion
   with follow, mount, camp, saddlebag storage, appearance, and up to 20
   continental fast-travel locations. Its client files are not confirmed in the
@@ -153,8 +151,6 @@ that the feature passed an in-game test.
   but the patch is not in the current `3.3.5a - Dev\Data` listing.
 - `mod-guildhouse` — **Installed**. Guildhouse content with NPC entry `500030`.
   It has no enable switch and does not automatically spawn the NPC.
-- `mod-skip-dk-starting-area` — **Enabled**. Death Knight starting-area skip
-  and optional cleanup settings.
 - `mod-premium` — **Disabled**. Premium account features are present but the
   current configuration has `PremiumAccount = 0`.
 - `mod-chat-transmitter` — **Disabled**. Worldserver-to-external-bot/WebSocket

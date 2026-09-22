@@ -277,10 +277,14 @@ BP_LOCALE = {
 }
 
 function BP_Lang()
+    if SeasonPassDB and SeasonPassDB.languageVersion ~= 1 then
+        SeasonPassDB.lang = "en"
+        SeasonPassDB.languageVersion = 1
+    end
     if SeasonPassDB and SeasonPassDB.lang then
         return SeasonPassDB.lang
     end
-    return GetLocale() == "deDE" and "de" or "en"
+    return "en"
 end
 
 function BPL(key)

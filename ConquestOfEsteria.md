@@ -1010,7 +1010,7 @@ Do not assume the donor classes are valid for those races. If they are desired, 
 
 ### Existing spell-learning modules
 
-The current server has mod-learn-spells, mod-individual-progression, and PlayerBots spell-maintenance paths. They must be audited for:
+The current server has mod-individual-progression and PlayerBots spell-maintenance paths. The former mod-learn-spells path was removed because Classless owns spell grants. Audit the remaining paths for:
 
 - MAX_CLASSES assumptions;
 - class masks;

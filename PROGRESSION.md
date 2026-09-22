@@ -25,7 +25,7 @@ separate verification gates.
 Current boundaries:
 
 * `mod-playerbots`, `mod-autobalance`, `mod-challenge-modes`,
-  `mod-individual-progression`, and `mod-learn-spells` are already present.
+  and `mod-individual-progression` are already present.
 * `Echoes of the Worldsoul` is in live Phase 1 staging. The adapted C++ bridge
   is built into the active worldserver image, the pending character/world SQL
   is imported, the canonical standard Eluna scripts are active, and the
@@ -1582,23 +1582,7 @@ Removing the rune must leave Blink because Draft still grants it.
 
 ---
 
-# 42. mod-learn-spells Compatibility
-
-Use per-player behavior.
-
-```text
-DraftActive = false
-→ normal spell learning
-
-DraftActive = true
-→ suppress conflicting automatic class spell learning
-```
-
-Do not globally disable automatic spell learning.
-
----
-
-# 43. Prestige + Echoes Persistence
+# 42. Prestige + Echoes Persistence
 
 Prestige must never erase Worldsoul progress.
 

@@ -23,6 +23,8 @@
  */
 
 #include "ScriptMgr.h"
+#include "ClasslessMgr.h"
+#include "Config.h"
 #include "Player.h"
 #include "DatabaseEnv.h"
 #include "Log.h"
@@ -254,6 +256,8 @@ static void CalculateAbsorption(Player* player, float outStats[7])
     uint32 accountId = player->GetSession()->GetAccountId();
     uint8  level     = player->GetLevel();
     uint8  cls       = player->getClass();
+    ClasslessWildcard::CharState* classlessState = sClasslessMgr->FindState(player);
+    bool const classless = sClasslessMgr->cfg.enabled && classlessState && !classlessState->exempt;
 
     // Load mastery rank and aether
     int masteryRank = 0;
@@ -336,7 +340,7 @@ static void CalculateAbsorption(Player* player, float outStats[7])
     do
     {
         uint32 itemEntry = (*result)[0].Get<uint32>();
-        if (!ItemMatchesClass(cls, itemEntry))
+        if (!classless && !ItemMatchesClass(cls, itemEntry))
         {
             LOG_INFO("module", "[EotW] item={} SKIPPED (class filter)", itemEntry);
             continue;

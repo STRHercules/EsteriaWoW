@@ -8,6 +8,7 @@
 #include "Event.h"
 #include "PlayerbotAI.h"
 #include "RandomPlayerbotMgr.h"
+#include "World.h"
 
 bool HireAction::Execute(Event /*event*/)
 {
@@ -21,14 +22,14 @@ bool HireAction::Execute(Event /*event*/)
     uint32 account = master->GetSession()->GetAccountId();
     QueryResult results = CharacterDatabase.Query("SELECT COUNT(*) FROM characters WHERE account = {}", account);
 
-    uint32 charCount = 10;
+    uint32 charCount = sWorld->getIntConfig(CONFIG_CHARACTERS_PER_ACCOUNT);
     if (results)
     {
         Field* fields = results->Fetch();
         charCount = uint32(fields[0].Get<uint64>());
     }
 
-    if (charCount >= 10)
+    if (charCount >= sWorld->getIntConfig(CONFIG_CHARACTERS_PER_ACCOUNT))
     {
         botAI->TellMaster("You already have the maximum number of characters");
         return false;

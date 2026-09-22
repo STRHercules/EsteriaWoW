@@ -4560,8 +4560,12 @@ void ObjectMgr::LoadPlayerInfo()
 
                 for (uint32 raceIndex = RACE_HUMAN; raceIndex < sRaceMgr->GetMaxRaces(); ++raceIndex)
                 {
-                    if (raceMask == 0 || ((1 << (raceIndex - 1)) & raceMask))
+                    if (raceMask == 0 || (GetRaceMaskForRace(raceIndex) & raceMask))
                     {
+                        if ((raceIndex == RACE_DARKFALLEN_ALLIANCE && skill.SkillId == SKILL_LANG_ORCISH) ||
+                            (raceIndex == RACE_DARKFALLEN_HORDE && skill.SkillId == SKILL_LANG_COMMON))
+                            continue;
+
                         for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
                         {
                             if (classMask == 0 || ((1 << (classIndex - 1)) & classMask))
@@ -4621,8 +4625,12 @@ void ObjectMgr::LoadPlayerInfo()
 
                 for (uint32 raceIndex = RACE_HUMAN; raceIndex < sRaceMgr->GetMaxRaces(); ++raceIndex)
                 {
-                    if (raceMask == 0 || ((1 << (raceIndex - 1)) & raceMask))
+                    if (raceMask == 0 || (GetRaceMaskForRace(raceIndex) & raceMask))
                     {
+                        if ((raceIndex == RACE_DARKFALLEN_ALLIANCE && spellId == 669) ||
+                            (raceIndex == RACE_DARKFALLEN_HORDE && spellId == 668))
+                            continue;
+
                         for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
                         {
                             if (classMask == 0 || ((1 << (classIndex - 1)) & classMask))
@@ -4679,7 +4687,7 @@ void ObjectMgr::LoadPlayerInfo()
 
                 for (uint32 raceIndex = RACE_HUMAN; raceIndex < sRaceMgr->GetMaxRaces(); ++raceIndex)
                 {
-                    if (raceMask == 0 || ((1 << (raceIndex - 1)) & raceMask))
+                    if (raceMask == 0 || (GetRaceMaskForRace(raceIndex) & raceMask))
                     {
                         for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
                         {
@@ -9694,7 +9702,7 @@ int32 ObjectMgr::GetBaseReputationOf(FactionEntry const* factionEntry, uint8 rac
     if (!factionEntry)
         return 0;
 
-    uint32 raceMask = (1 << (race - 1));
+    uint32 raceMask = GetRaceMaskForRace(race);
     uint32 classMask = (1 << (playerClass - 1));
 
     for (int i = 0; i < 4; i++)

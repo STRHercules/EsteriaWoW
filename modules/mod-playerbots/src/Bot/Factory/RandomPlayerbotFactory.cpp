@@ -73,9 +73,6 @@ bool IsSupportedRandomBotRace(uint8 race)
         case RACE_DRAENEI:
         case RACE_WORGEN:
         case RACE_HIGHELF:
-        case RACE_BROKEN_PLAYER:
-        case RACE_PANDAREN_ALLIANCE:
-        case RACE_VULPERA:
             return true;
         default:
             return false;

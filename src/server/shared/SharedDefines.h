@@ -95,8 +95,23 @@ enum Races
     RACE_FORSAKEN            = 25,
     RACE_PANDAREN_HORDE      = 26,
     RACE_BROKEN_HORDE        = 27,
-    RACE_DRACTHYR            = 28
+    RACE_DRACTHYR            = 28,
+    RACE_DARKFALLEN_ALLIANCE = 43,
+    RACE_DARKFALLEN_HORDE    = 44
 };
+
+uint32 constexpr DARKFALLEN_RACE_MASK = 0x80000000u;
+
+inline constexpr uint32 GetRaceMaskForRace(uint32 race)
+{
+    if (race == RACE_DARKFALLEN_ALLIANCE || race == RACE_DARKFALLEN_HORDE)
+        return DARKFALLEN_RACE_MASK;
+
+    if (race >= RACE_HUMAN && race <= 32)
+        return 1u << (race - 1);
+
+    return 0;
+}
 
 // DisplayRace values from CreatureDisplayInfoExtra.dbc
 enum class DisplayRace : uint8

@@ -48,7 +48,6 @@ git clone --depth=1 --branch=master https://github.com/azerothcore/mod-ip-tracke
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-item-level-up modules/mod-item-level-up
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-keep-out modules/mod-keep-out
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-learn-highest-talent modules/mod-learn-highest-talent
-git clone --depth=1 --branch=master https://github.com/azerothcore/mod-learn-spells modules/mod-learn-spells
 git clone --depth=1 --branch=main   https://github.com/azerothcore/mod-low-level-arena modules/mod-low-level-arena
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-low-level-rbg modules/mod-low-level-rbg
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-mall-teleport modules/mod-mall-teleport
@@ -93,7 +92,6 @@ git clone --depth=1 --branch=master https://github.com/azerothcore/mod-reward-pl
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-reward-shop modules/mod-reward-shop
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-server-auto-shutdown.git modules/mod-server-auto-shutdown
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-solocraft modules/mod-solocraft
-git clone --depth=1 --branch=master https://github.com/azerothcore/mod-skip-dk-starting-area modules/mod-skip-dk-starting-area
 # has core patch file
 # git clone --depth=1 --branch=master https://github.com/azerothcore/mod-spell-regulator modules/mod-spell-regulator
 git clone --depth=1 --branch=master https://github.com/azerothcore/mod-starter-guild modules/mod-starter-guild

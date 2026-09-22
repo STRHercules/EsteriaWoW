@@ -1946,7 +1946,7 @@ public:
             for (uint8 i = 0; i < 2; ++i)
             {
                 AuctionHouseObject* auctionHouse = sAuctionMgr->GetAuctionsMap(
-                    i == 0 ? 0 : (((1 << (playerData->Race - 1)) & sRaceMgr->GetAllianceRaceMask()) ? 12 : 29));
+                    i == 0 ? 0 : (Player::TeamIdForRace(playerData->Race) == TEAM_ALLIANCE ? 12 : 29));
 
                 for (auto const& [auID, Aentry] : auctionHouse->GetAuctions())
                 {

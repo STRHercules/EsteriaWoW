@@ -35,7 +35,7 @@ SET Flags = Flags | 1
 WHERE ID = 26 AND (Flags & 1) = 0;
 
 -- Report missing player creation rows for every enabled race and supported class.
-SELECT expected.RaceID, expected.ClassID
+SELECT expected.RaceID, classes.ClassID
 FROM (SELECT 18 AS RaceID UNION ALL SELECT 20) AS expected
 CROSS JOIN (SELECT 1 AS ClassID UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8
@@ -45,7 +45,7 @@ LEFT JOIN playercreateinfo AS actual
 WHERE actual.race IS NULL
 ORDER BY expected.RaceID, classes.ClassID;
 
-SELECT expected.RaceID, expected.ClassID
+SELECT expected.RaceID, classes.ClassID
 FROM (SELECT 18 AS RaceID UNION ALL SELECT 20) AS expected
 CROSS JOIN (SELECT 1 AS ClassID UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8
@@ -56,7 +56,7 @@ WHERE actual.race IS NULL
 GROUP BY expected.RaceID, classes.ClassID
 ORDER BY expected.RaceID, classes.ClassID;
 
-SELECT expected.RaceID, expected.ClassID
+SELECT expected.RaceID, classes.ClassID
 FROM (SELECT 18 AS RaceID UNION ALL SELECT 20) AS expected
 CROSS JOIN (SELECT 1 AS ClassID UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8
@@ -87,7 +87,7 @@ WHERE actual.ID IS NULL
 ORDER BY races.RaceID, classes.ClassID, sexes.SexID;
 
 -- Report missing race/class coverage in custom starting spells without changing it.
-SELECT expected.RaceID, expected.ClassID
+SELECT expected.RaceID, classes.ClassID
 FROM (SELECT 18 AS RaceID UNION ALL SELECT 20) AS expected
 CROSS JOIN (SELECT 1 AS ClassID UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8
@@ -100,7 +100,7 @@ GROUP BY expected.RaceID, classes.ClassID
 ORDER BY expected.RaceID, classes.ClassID;
 
 -- Report missing race/class skill coverage without changing the skill table.
-SELECT expected.RaceID, expected.ClassID
+SELECT expected.RaceID, classes.ClassID
 FROM (SELECT 18 AS RaceID UNION ALL SELECT 20) AS expected
 CROSS JOIN (SELECT 1 AS ClassID UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
             UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8

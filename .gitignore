@@ -123,3 +123,7 @@ __pycache__/
 # ==================
 .cache
 compile_commands.json
+/DBCs
+/NewModels
+/VulperaDBC
+/HDFiles

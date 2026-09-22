@@ -19,6 +19,10 @@
 #include "ScriptMgr.h"
 #include "ScriptMgrMacros.h"
 #include "World.h"
+#ifdef ELUNA
+#include "ElunaConfig.h"
+#include "LuaEngine.h"
+#endif
 
 #include <algorithm>
 
@@ -825,6 +829,15 @@ bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language,
 
 bool ScriptMgr::OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& msg, Player* receiver)
 {
+#ifdef ELUNA
+    if (language == LANG_ADDON && sElunaConfig->IsElunaEnabled())
+    {
+        if (Eluna* eluna = sWorld->GetEluna())
+            if (!eluna->OnChat(player, type, language, msg, receiver))
+                return false;
+    }
+#endif
+
     CALL_ENABLED_BOOLEAN_HOOKS(PlayerScript, PLAYERHOOK_CAN_PLAYER_USE_PRIVATE_CHAT, !script->OnPlayerCanUseChat(player, type, language, msg, receiver));
 }
 

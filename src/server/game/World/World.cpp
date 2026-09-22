@@ -329,7 +329,11 @@ void World::SetInitialWorldSettings()
 #ifdef ELUNA
     sElunaConfig->Initialize();
     if (sElunaConfig->IsElunaEnabled())
+    {
         sElunaLoader->LoadScripts();
+        _elunaInfo = { ElunaInfoKey::MakeGlobalKey(0) };
+        sElunaMgr->Create(nullptr, _elunaInfo);
+    }
 #endif
 
     ///- Initialize Allowed Security Level

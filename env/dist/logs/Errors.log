@@ -1,3 +1,4 @@
+`spell_proc` table entry for SpellId 110040 doesn't have `SpellPhaseMask` value defined, but it's required for defined `ProcFlags` value, proc will not be triggered
 Item (Entry: 49399) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
 Item (Entry: 49400) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
 Item (Entry: 49401) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
@@ -47,6 +48,12 @@ Item (Entry: 52532) does not exist in `item_template` but is referenced in `Char
 Item (Entry: 52550) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
 Item (Entry: 52551) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
 Item (Entry: 52552) does not exist in `item_template` but is referenced in `CharStartOutfit.dbc`
+creature_template_spell has spell definitions for creature 990117 but this creature doesn't exist
+creature_template_spell has spell definitions for creature 990117 but this creature doesn't exist
+creature_template_spell has spell definitions for creature 990117 but this creature doesn't exist
+creature_template_spell has spell definitions for creature 990117 but this creature doesn't exist
+creature_template_spell has spell definitions for creature 990118 but this creature doesn't exist
+creature_template_spell has spell definitions for creature 990119 but this creature doesn't exist
 Creature (Entry: 600000) does not have any existing display id in creature_template_model.
 Creature (Entry: 600001) does not have any existing display id in creature_template_model.
 Pool Id 1072 is empty (has no creatures, no gameobjects, no quests and no valid child pools). The pool will not be spawned.
@@ -78,11 +85,126 @@ Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
 Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
 Table `graveyard_zone` has a record for not existing zone id (4714), skipped.
 Table `graveyard_zone` has a record for not existing zone id (4755), skipped.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_skills` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 16384 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Wrong race mask 33554432 in `playercreateinfo_spell_custom` table, ignoring.
+Script named 'npc_cw_reclaimed_sentry' is not assigned in the database.
+Script named 'spell_dk_blade_barrier' is not assigned in the database.
+Script named 'spell_dk_death_rune' is not assigned in the database.
+Script named 'spell_dru_frenzied_regeneration' is not assigned in the database.
+Script named 'spell_pet_hit_expertise_scalling' is not assigned in the database.
 Script named 'spell_gen_submerge_visual' is not assigned in the database.
+Script named 'spell_pal_judgement_of_wisdom_mana' is not assigned in the database.
 Script named 'spell_rocket_barrage' is not assigned in the database.
 Script named 'spell_costume_override' is not assigned in the database.
+Script named 'npc_ac_skip_lich' is assigned in the database, but has no code!
 Script named 'npc_putricide_mutated_abomination' is assigned in the database, but has no code!
 Script named 'npc_salvaged_chopper' is assigned in the database, but has no code!
+Script named 'npc_transmogrifier' is assigned in the database, but has no code!
 SmartAIMgr: Creature 24825 Event 11 Action 53 uses invalid forcedMovement 3, skipped.
 SmartAIMgr: Creature 24825 Event 12 Action 53 uses invalid forcedMovement 3, skipped.
 SmartAIMgr: Creature 24825 Event 13 Action 53 uses invalid forcedMovement 3, skipped.

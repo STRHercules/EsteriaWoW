@@ -665,9 +665,10 @@ namespace SeasonPass
                 s.done = true;
                 SaveAch(player, def.id, s);
                 std::ostringstream msg;
-                msg << "|cffFFD700[Traumpfad]|r |cff00CCFF" << player->GetName()
-                    << "|r hat den Saison-Erfolg |cffFF8800" << def.name << "|r errungen! (+"
-                    << def.points << " Punkte)";
+                msg << "|cffFFD700[Dream Path]|r |cff00CCFF" << player->GetName()
+                    << "|r earned the season achievement |cffFF8800"
+                    << (def.nameEn.empty() ? def.name : def.nameEn) << "|r (+"
+                    << def.points << " points)";
                 ChatHandler(nullptr).SendGlobalSysMessage(msg.str().c_str());
                 AddPoints(player, def.points, T(player, "Saison-Erfolg", "Season achievement"));
             }
@@ -999,9 +1000,9 @@ namespace SeasonPass
         AchProgress(player, ACH_BOSS, 1);
 
         std::ostringstream msg;
-        msg << "|cffFFD700[Traumpfad]|r Der Saison-Weltboss |cffFF4444" << bossName
-            << "|r wurde von |cff00CCFF" << player->GetName() << "|r und Verbündeten besiegt!"
-            << " Ganz Azeroth erhält den |cffFF8800Schlachtruf der Drachentöter|r!";
+        msg << "|cffFFD700[Dream Path]|r Season world boss |cffFF4444" << bossName
+            << "|r was defeated by |cff00CCFF" << player->GetName() << "|r and allies!"
+            << " All of Azeroth receives the |cffFF8800Rallying Cry of the Dragonslayer|r!";
         ChatHandler(nullptr).SendGlobalSysMessage(msg.str().c_str());
 
         if (g_bossWorldBuff)
@@ -1152,8 +1153,10 @@ public:
         g_activeBossName = b.name;
 
         std::ostringstream msg;
-        msg << "|cffFFD700[Traumpfad]|r |cffFF4444Saison-Weltboss erschienen:|r |cffFF8800" << b.name
-            << "|r in |cff00CCFF" << b.zone << "|r! Der Todesstoß bringt " << g_bossBonusPoints << " Bonuspunkte.";
+        msg << "|cffFFD700[Dream Path]|r |cffFF4444Season world boss spawned:|r |cffFF8800"
+            << b.name
+            << "|r in |cff00CCFF" << (b.zoneEn.empty() ? b.zone : b.zoneEn)
+            << "|r! The killing blow grants " << g_bossBonusPoints << " bonus points.";
         ChatHandler(nullptr).SendGlobalSysMessage(msg.str().c_str());
     }
 };
@@ -1257,8 +1260,9 @@ public:
                 SeasonPass::WeeklyProgress(player, SeasonPass::WK_BOUNTY, 1);
                 SeasonPass::AchProgress(player, SeasonPass::ACH_BOUNTY, 1);
                 std::ostringstream msg;
-                msg << "|cffFFD700[Traumpfad]|r |cff00CCFF" << player->GetName()
-                    << "|r hat das Kopfgeld eingelöst: |cffFF8800" << b->name << "|r ist gefallen!";
+                msg << "|cffFFD700[Dream Path]|r |cff00CCFF" << player->GetName()
+                    << "|r claimed the bounty: |cffFF8800"
+                    << (b->nameEn.empty() ? b->name : b->nameEn) << "|r is defeated!";
                 ChatHandler(nullptr).SendGlobalSysMessage(msg.str().c_str());
             }
         }

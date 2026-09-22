@@ -33,6 +33,10 @@ LEGACY_MOUNT_IDS = {
 }
 FLYING_MOUNT_MODEL_STEMS = frozenset({"gameboymount", "pokemoncardmount"})
 FLYING_MOUNT_SPELL_TEMPLATE_ID = 61309
+# Flying Nimbus is an older custom mount outside the 111-record source pack,
+# but its spell is still live and account-wide. Keep its spellbook mapping in
+# this same native DBC merge.
+LEGACY_CUSTOM_MOUNT_SPELL_IDS = (201111,)
 MOUNT_VARIANT_SPECS = {
     "gameboymount": (
         ("Zelda DX", {11: "GameBoyMount_Case_01.blp", 12: "GameBoyMount_Screen_ZeldaDX.blp"}),
@@ -79,13 +83,16 @@ MOUNT_SOURCE_DEFAULTS = (
     Path(r"R:\Users\Zach\Downloads\WoWModels\HighElfHorses(3)"),
     Path(r"R:\Users\Zach\Downloads\WoWModels\Dragonflight_Mounts_Pack"),
 )
-NATIVE_DBC_TABLES = ("Spell", "Item", "ItemDisplayInfo", "CreatureDisplayInfo", "CreatureModelData")
+NATIVE_DBC_TABLES = (
+    "Spell", "Item", "ItemDisplayInfo", "CreatureDisplayInfo", "CreatureModelData", "SkillLineAbility"
+)
 NATIVE_DBC_SOURCE_DEFAULTS = {
     "Spell": Path(r"3.3.5a - Dev\Data\Patch-A.MPQ"),
     "Item": Path(r"3.3.5a - Dev\Data\Patch-A.MPQ"),
     "ItemDisplayInfo": Path(r"3.3.5a - Dev\Data\Patch-A.MPQ"),
     "CreatureDisplayInfo": Path(r"3.3.5a - Dev\Data\Patch-C.MPQ"),
     "CreatureModelData": Path(r"3.3.5a - Dev\Data\Patch-C.MPQ"),
+    "SkillLineAbility": Path(r"3.3.5a - Dev\Data\Patch-A.MPQ"),
 }
 DEFAULT_MOUNT_ICON_SOURCE = Path(r"3.3.5a - Dev\Data\enUS\locale-enUS.MPQ")
 DEFAULT_MOUNT_ICON_ENTRY = r"Interface\Icons\Ability_Mount_RidingHorse.blp"
@@ -123,6 +130,8 @@ class Storm:
         self._set("SFileCloseFile", [H], c.c_bool)
         self._set("SFileCreateArchive", [c.c_wchar_p, U, U, c.POINTER(H)], c.c_bool)
         self._set("SFileCreateFile", [H, c.c_char_p, c.c_uint64, U, U, U, c.POINTER(H)], c.c_bool)
+        self._set("SFileSetMaxFileCount", [H, U], c.c_bool)
+        self._set("SFileGetMaxFileCount", [H], U)
         self._set("SFileWriteFile", [H, H, U, U], c.c_bool)
         self._set("SFileFinishFile", [H], c.c_bool)
 
@@ -187,6 +196,51 @@ class Storm:
         finally:
             self.dll.SFileCloseArchive(handle)
 
+    def ensure_capacity(self, archive: H, extra: int) -> None:
+        """Grow the MPQ hash table so `extra` new entries can be added.
+
+        StormLib reports ERROR_DISK_FULL (112) when the hash table is full, not
+        only when the volume is; an archive created with a fixed MAX_FILE_COUNT
+        silently refuses new entries once it is saturated.
+        """
+        if extra <= 0 or not hasattr(self.dll, "SFileSetMaxFileCount"):
+            return
+        try:
+            current = self.dll.SFileGetMaxFileCount(archive)
+        except Exception:
+            return
+        needed = current + max(extra, 512)
+        if needed > current:
+            self.dll.SFileSetMaxFileCount(archive, needed)
+
+    def replace_archive_entries(self, path: Path, entries: dict[str, bytes]) -> None:
+        """Add or replace entries without reading/rebuilding unrelated MPQ files."""
+
+        archive = self.open_archive(path)
+        try:
+            self.ensure_capacity(archive, len(entries))
+            for name, payload in entries.items():
+                file_handle = H()
+                flags = 0x80000000  # MPQ_FILE_REPLACEEXISTING
+                if not self.dll.SFileCreateFile(
+                    archive,
+                    name.encode("ascii"),
+                    0,
+                    len(payload),
+                    0,
+                    flags,
+                    c.byref(file_handle),
+                ):
+                    raise OSError(f"SFileCreateFile failed: {name} ({c.get_last_error()})")
+                try:
+                    buffer = c.create_string_buffer(payload or b"\0")
+                    if not self.dll.SFileWriteFile(file_handle, buffer, len(payload), 0x00000002):
+                        raise OSError(f"SFileWriteFile failed: {name} ({c.get_last_error()})")
+                finally:
+                    self.dll.SFileCloseFile(file_handle)
+        finally:
+            self.dll.SFileCloseArchive(archive)
+
 
 class Wdbc:
     def __init__(self, data: bytes):
@@ -229,6 +283,10 @@ def build_wdbc(rows: list[list[int]], fields: int, record_size: int, strings: di
         output[row_index][field_index] = pool.add(value)
     body = b"".join(struct.pack(f"<{fields}I", *(value & 0xFFFFFFFF for value in row)) for row in output)
     return struct.pack("<4s4I", b"WDBC", len(output), fields, record_size, len(pool.data)) + body + pool.data
+
+
+def mount_skill_line_ability_row(spell_id: int) -> list[int]:
+    return [spell_id, 777, spell_id, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
 
 
 DBC_STRING_FIELDS = {
@@ -998,6 +1056,11 @@ def build_mount_dbc_entries(records: tuple[MountRecord, ...], baseline: Path | N
             if value:
                 display_strings[(index, field)] = value
         model_strings[(index, 2)] = record.mount.client_model_path
+    skill_line_ability_spell_ids = [record.spell_id for record in records]
+    for spell_id in LEGACY_CUSTOM_MOUNT_SPELL_IDS:
+        if spell_id not in skill_line_ability_spell_ids:
+            skill_line_ability_spell_ids.append(spell_id)
+
     entries = {
         "DBFilesClient/Spell.dbc1-mounts": build_wdbc(
             [list(record.spell_row) for record in records], 234, 936, spell_strings
@@ -1016,6 +1079,9 @@ def build_mount_dbc_entries(records: tuple[MountRecord, ...], baseline: Path | N
         ),
         "DBFilesClient/CreatureModelData.dbc1-mounts": build_wdbc(
             [list(record.creature_model_row) for record in records], 28, 112, model_strings
+        ),
+        "DBFilesClient/SkillLineAbility.dbc1-mounts": build_wdbc(
+            [mount_skill_line_ability_row(spell_id) for spell_id in skill_line_ability_spell_ids], 14, 56
         ),
     }
     vehicle_rows = {
@@ -1106,6 +1172,15 @@ def render_mount_sql(records: tuple[MountRecord, ...]) -> str:
             "Increases movement speed by $s2%.", 16712188, row[205], _f32_from_u32(row[216]), _f32_from_u32(row[217]),
             _f32_from_u32(row[218]), row[225],
         ))
+    skill_line_ability_columns = (
+        "ID", "SkillLine", "Spell", "RaceMask", "ClassMask", "ExcludeRace", "ExcludeClass",
+        "MinSkillLineRank", "SupercededBySpell", "AcquireMethod", "TrivialSkillLineRankHigh",
+        "TrivialSkillLineRankLow", "CharacterPoints1", "CharacterPoints2",
+    )
+    skill_line_ability_rows = [
+        tuple(mount_skill_line_ability_row(record.spell_id))
+        for record in records
+    ]
     item_columns = (
         "ID", "ClassID", "SubclassID", "Sound_Override_Subclassid", "Material", "DisplayInfoID", "InventoryType", "SheatheType",
     )
@@ -1289,6 +1364,7 @@ def render_mount_sql(records: tuple[MountRecord, ...]) -> str:
             False,
         ),
         _sql_insert("spell_dbc", spell_columns, spell_rows, ids["spell"]),
+        _sql_insert("skilllineability_dbc", skill_line_ability_columns, skill_line_ability_rows, ids["spell"]),
         _sql_insert("item_dbc", item_columns, item_rows, ids["item"]),
         _sql_insert(
             "itemdisplayinfo_dbc", item_display_columns, item_display_rows, ids["item_display"],
@@ -1417,7 +1493,7 @@ def build_client_entries(extracted: dict[str, dict[str, Path]], baseline: Path) 
     seat_base = bases["VehicleSeat.dbc"].row(2804)
     entries: dict[str, bytes] = {}
     ids = {"vehicle": [], "seat": []}
-    continuation_rows: dict[str, list[list[int]]] = {name: [] for name in ("Spell", "Item", "ItemDisplayInfo", "SpellIcon", "CreatureDisplayInfo", "CreatureModelData", "Vehicle", "VehicleSeat")}
+    continuation_rows: dict[str, list[list[int]]] = {name: [] for name in ("Spell", "Item", "ItemDisplayInfo", "SpellIcon", "CreatureDisplayInfo", "CreatureModelData", "SkillLineAbility", "Vehicle", "VehicleSeat")}
     continuation_strings: dict[str, dict[tuple[int, int], str]] = {name: {} for name in continuation_rows}
 
     support = extracted["Patch-L.mpq"]
@@ -1489,6 +1565,7 @@ def build_client_entries(extracted: dict[str, dict[str, Path]], baseline: Path) 
         description = f"Rides and parks your {name}.  This is a very fast set of wheels."
         aura = "Increases movement speed by $s2%."
         continuation_rows["Spell"].append(spell)
+        continuation_rows["SkillLineAbility"].append(mount_skill_line_ability_row(car.spell))
         for field, value in ((136, name), (137, name), (170, description), (171, description), (187, aura), (188, aura)):
             continuation_strings["Spell"][(car_index, field)] = value
 
@@ -1530,7 +1607,8 @@ def build_client_entries(extracted: dict[str, dict[str, Path]], baseline: Path) 
     entries["wxl-dbc.manifest"] = ("# Esteria additive car mounts\n" + "\n".join(manifest) + "\n").encode("utf-8")
     dbc_specs = {
         "Spell": (234, 936), "Item": (8, 32), "ItemDisplayInfo": (25, 100), "SpellIcon": (2, 8),
-        "CreatureDisplayInfo": (16, 64), "CreatureModelData": (28, 112), "Vehicle": (40, 160), "VehicleSeat": (58, 232),
+        "CreatureDisplayInfo": (16, 64), "CreatureModelData": (28, 112), "SkillLineAbility": (14, 56),
+        "Vehicle": (40, 160), "VehicleSeat": (58, 232),
     }
     for name, rows in continuation_rows.items():
         fields, size = dbc_specs[name]

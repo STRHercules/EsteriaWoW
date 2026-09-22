@@ -1,6 +1,22 @@
 # Ideas
 
 
+## Missing Races
+- Highmountain Tauren, Mag'har Orc, Earthen, Mechagnome
+
+## Custom races
+- Implement Ogre race
+- Half-Elf Race?
+    - Human Body/Skeleton with Blood-Elf ears?
+- Halfling
+    - Shrink Humans to make them Dward Sized, but Human proportions
+- 'Forsaken' Alliance-side Bone-less Scourge
+- Need to find working:
+    - Vyrkul
+    - Tuskarr
+    - Furbolg
+
+
 ## Newly Installed Modules
 - https://github.com/malinmr/mod-transmog-plus-ui 
 - https://github.com/dr1s/mod-corpse-respawn
@@ -12,13 +28,18 @@
 - https://github.com/gitdalisar/mod-Faction-Free
 - https://github.com/Gozzim/mod-starting-pet
 - https://github.com/Zearius/AzerothWebUI
+- https://github.com/CWO4PapaBear/Auto-Attack-Forever
+- https://github.com/DustinHendrickson/mod-classless-wildcard
+- https://github.com/NeticSoul/DragonUI
+- https://github.com/ghbset/DragonUI_NewEra
 
-## Modules to Install
+## Potential modules to install
+
+- https://github.com/AlsoNotMehh/mod-eluna-racial-swap
+- https://github.com/AlsoNotMehh/mod-eluna-teleport-selector
 - https://github.com/araxiaonline/Delves
 - https://github.com/Old-Man-Warcraft/mod-guild-levels
 - https://github.com/hermensbas/mod_weather_vibe
-
-
 - https://github.com/VenomekPL/mod-gathering-yield
 - https://github.com/justin-kaufmann/mod-changeablespawnrates
 - https://github.com/grnspl/mod-rested-xp-booster
@@ -28,21 +49,9 @@
 - https://github.com/nexartgroup/mod-profession-loot-party
 - https://github.com/talamortis/XpWeekend
 - https://github.com/AxxusWhoami/mod-warlock-pet-rename
-- https://github.com/Lichborne-AC/mod-dualspec
-- https://github.com/dayn9t/mod-secondary-class
-
-
 - https://github.com/silviu20092/mod-flightmaster-whistle
 - https://github.com/thanhtong89/mod-creature-capture
-
-
-- https://github.com/Noa-1995/WoW-Retail-Interface
-- https://github.com/Noa-1995/ModernTalents
-
-
-- https://github.com/Fersantos1975/AzerCore-Ops
 - https://github.com/Youpeoples/Black-Market-Auction-House
-- https://github.com/AlsoNotMehh/mod-eluna-racial-swap
 - https://github.com/AlsoNotMehh/mod-account-bound
 - https://github.com/Gazeshooter/mod-emerald-dreamway
 - https://github.com/zyggy123/CrateSystem-AIO
@@ -61,9 +70,13 @@
 - https://github.com/nightwreath/mod-hunter-pet-storage
 
 
-https://github.com/Brytenwally/Azerothcore-RandomItemGenerator
-https://github.com/azerothcore/playermap
-https://github.com/whipowill/wow-addon-playerbots
+
+- https://github.com/azerothcore/playermap
+
+## Addons
+
+- https://github.com/Fersantos1975/AzerCore-Ops
+- https://github.com/whipowill/wow-addon-playerbots
 
 
 
@@ -73,27 +86,33 @@ https://github.com/whipowill/wow-addon-playerbots
 - https://github.com/Brytenwally/Lootpet
 
 
+## Misc
+
+- Dual Pet Talent/Spell
+    - Allows the user to have TWO active pets at once
+
+
+- Allow users that have pets to RIDE those pets
 
 - Companion Module
     - Earns 'Companion' Skill
     - Can use an alt, or NPC
+    - Levels up, learns skills, carries equipment
+    - Happiness system, like hunter pets
+
+- Pack Mules
+    - Independent, large storage
+    - Companion that follows you, can access your mule storage
+        - mule storage is larger than a guild bank tab
+        - mule storage is per character, per account via upgrade
+        - mule can auto loot things
 
 
 ### Urgent
-- Create screen needs round race icons
-- Replace Sethrak
-    - Pandaren?
-
-
 - Upgrade Models
 - Import Shadowlands/WoD/Retail Gear
 
 ### Priority Fixes
-- Add Mounts
-    - Ferrari
-    - Bentley
-    - R34
-    - Lambo
 - Choose your Starting Zone 
     - Also accurately assigns hearthstone
 - Completely revamp Dream Path Seasonal content
@@ -111,7 +130,6 @@ https://github.com/whipowill/wow-addon-playerbots
 
 
 ## Possible Fixes
-- Make sure generated items can be disenchanted
 - Generated items will sell for 20% less
 
 
@@ -120,6 +138,7 @@ https://github.com/whipowill/wow-addon-playerbots
     - Freeborn
     - Any race can be Freeborn?
     - Specific races can be Freeborn?
+    - Freeborn are hostile towards Alliance AND Horde
 
 - Custom Hearthstone
     - Assign custom location, recall using custom hearthstone
@@ -133,15 +152,9 @@ https://github.com/whipowill/wow-addon-playerbots
 
 - Adventure Panel
 
-- Increase amount of maximum primary professions
-
 - Creat an all-in-one profession trainer that has recipes from each capital city available for training
 
 - Replace all quest rewards
-
-- Ability for player to set their own xp rate
-    - Either via command, or at an NPC at capital city
-    - `.xp 0` disables experience gain
 
 - Reduced required level for dual spec to 10
     - Reduce cost to 1g
