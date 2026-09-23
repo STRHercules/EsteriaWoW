@@ -88,9 +88,16 @@
 
 ## Misc
 
+- New Tame Spells
+    - Ability to tame new families;
+        - Drake
+        - Dragonkin
+        - Elementals
+        - Undead
+        - etc
+
 - Dual Pet Talent/Spell
     - Allows the user to have TWO active pets at once
-
 
 - Allow users that have pets to RIDE those pets
 

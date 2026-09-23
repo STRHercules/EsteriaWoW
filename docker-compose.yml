@@ -17,7 +17,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${DOCKER_DB_ROOT_PASSWORD:-password}
     volumes:
       - ${DOCKER_VOL_DB:-ac-database}:/var/lib/mysql
-    restart: unless-stopped
+    restart: no
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
       interval: 5s
@@ -66,7 +66,7 @@ services:
       - ac-network
     stdin_open: true
     tty: true
-    restart: unless-stopped
+    restart: no
     env_file:
         ${DOCKER_AC_ENV_FILE:-conf/dist/env.ac}
     environment:
@@ -107,7 +107,7 @@ services:
     networks:
       - ac-network
     tty: true
-    restart: unless-stopped
+    restart: no
     env_file:
         ${DOCKER_AC_ENV_FILE:-conf/dist/env.ac}
     environment:
