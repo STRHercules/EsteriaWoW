@@ -32,6 +32,7 @@
 #include <unordered_map>
 
 #include "BattlegroundUtils.h"
+#include "PlayerTeamSide.h"
 
 /*********************************************************/
 /***            BATTLEGROUND QUEUE SYSTEM              ***/
@@ -145,7 +146,7 @@ GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* group, Battle
     ginfo->IsInvitedToBGInstanceGUID    = 0;
     ginfo->JoinTime                     = GameTime::GetGameTimeMS().count();
     ginfo->RemoveInviteTime             = 0;
-    ginfo->teamId                       = leader->GetTeamId();
+    ginfo->teamId                       = PvpSideOf(leader);
     ginfo->RealTeamID                   = leader->GetTeamId(true);
     ginfo->ArenaTeamRating              = arenaRating;
     ginfo->ArenaMatchmakerRating        = matchmakerRating;

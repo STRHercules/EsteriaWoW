@@ -1,0 +1,268 @@
+profile_id,map_id,difficulty_id,encounter_id,encounter_name,gameobject_entry,gameobject_name,loot_entry,spawn_guid,spawn_mask,spawn_count,difficulty_scope,association_method,association_source,direct_item_count,reference_item_count,valid,invalid_reason
+,33,,,,3659,Barrel of Melon Juice,2601,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,3695,Food Crate,2600,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,36738,The Book of Ur,3623,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,75293,Large Battered Chest,4073,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,75295,Large Iron Bound Chest,4074,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,75298,Large Solid Chest,4074,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,91138,Jordan\'s Hammer,4275,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,182011,Crate of Ingots,18672,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,202947,Cologne Neutralizer,28677,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,33,,,,202948,Perfume Neutralizer,28678,,,13,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,34,,,,75295,Large Iron Bound Chest,4074,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,34,,,,75298,Large Solid Chest,4074,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,1731,Copper Vein,1502,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,1732,Tin Vein,1503,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,3662,Food Crate,2578,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,3705,Barrel of Milk,2579,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,17155,Defias Gunpowder,2882,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,19019,Box of Assorted Parts,2953,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,36,,,,75293,Large Battered Chest,4073,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,1619,Earthroot,1416,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,1622,Bruiseweed,1419,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,1624,Kingsblood,1421,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,1731,Copper Vein,1502,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,1732,Tin Vein,1503,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,2041,Liferoot,1730,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,13891,Serpentbloom,2772,,,24,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,43,,,,75293,Large Battered Chest,4073,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,47,,,,1621,Briarthorn,1418,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,47,,,,1734,Gold Vein,1506,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,47,,,,1735,Iron Deposit,1505,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,47,,,,2042,Fadeleaf,1731,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,47,,,,20920,Blueleaf Tuber,3338,,,15,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,47,,,,74447,Large Iron Bound Chest,4075,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,1622,Bruiseweed,1419,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,1732,Tin Vein,1503,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,1733,Silver Vein,1504,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,2045,Stranglekelp,1733,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,3689,Weapon Crate,404,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,13949,Pitted Iron Chest,2774,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,19018,Giant Clam,2959,,,27,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,75295,Large Iron Bound Chest,4074,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,75298,Large Solid Chest,4074,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,48,,,,177964,Fathom Stone,15100,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,1735,Iron Deposit,1505,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,2040,Mithril Deposit,1742,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,3707,Food Crate,9955,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,19903,Indurium Mineral Vein,3266,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,113757,Shadowforge Cache,4964,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,123329,Baelog\'s Chest,5066,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,125477,Conspicuous Urn,5201,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,126049,Magenta Cap Clusters,5212,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,128293,Magenta Cap Clusters,5212,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,131978,Large Mithril Bound Chest,5282,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,141979,Ancient Treasure,5730,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,70,,,,142088,Tablet of Will,5727,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,90,,,,3659,Barrel of Melon Juice,2601,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,90,,,,3695,Food Crate,2600,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,90,,,,19020,Box of Assorted Parts,2955,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,90,,,,74448,Large Solid Chest,4075,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,90,,,,142344,Artificial Extrapolator,6799,,,47,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,90,,,,142477,Thermaplugg\'s Safe,6978,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,129,,,,1628,Grave Moss,1424,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,129,,,,2046,Goldthorn,1734,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,129,,,,75300,Large Solid Chest,4077,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,129,,,,142141,Arthas\' Tears,6150,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,1624,Kingsblood,1421,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,1628,Grave Moss,1424,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,2041,Liferoot,1730,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,2042,Fadeleaf,1731,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,2046,Goldthorn,1734,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,3703,Armor Crate,1619,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,3704,Weapon Crate,1618,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,19283,Compendium of the Fallen,3063,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,19284,Mythology of the Titans,3064,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,20726,Beginnings of the Undead Threat,3313,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,75296,Large Iron Bound Chest,4076,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,75299,Large Solid Chest,4076,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,75300,Large Solid Chest,4077,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,103664,Rituals of Power,4584,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,103820,Red Rocket,4669,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,189,,,,103821,Doan\'s Strongbox,4668,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,209,,,,128308,Shallow Grave,8367,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,209,,,,128403,Shallow Grave,8367,,,31,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,209,,,,141596,Witch Doctor\'s Chest,8498,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,153464,Large Solid Chest,9936,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,153469,Large Mithril Bound Chest,9936,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175245,Father Flame,13761,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175334,Bijou\'s Belongings,12841,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175382,Doomrigger\'s Coffer,12871,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175385,Darkstone Tablet,12881,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175588,Spire Spider Egg,13000,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175606,Spire Spider Egg,13000,,,23,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175785,Inconspicuous Documents,13201,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175886,Roughshod Pike,13340,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175949,Fifth Mosh\'aru Tablet,13366,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175950,Sixth Mosh\'aru Tablet,13367,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,175970,Unforged Runic Breastplate,13572,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,229,,,,176089,Unfired Plate Gauntlets,13574,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,160836,Relic Coffer,11105,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,160845,Dark Coffer,11103,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,161495,Secret Safe,161495,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,165658,Dark Iron Deposit,11213,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,165738,Dark Iron Ale Mug,11281,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,165739,Grim Guzzler Boar,11282,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,169243,Chest of The Seven,12260,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,173232,Blacksmithing Plans,11524,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,173234,Blacksmithing Plans,11525,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,230,,,,179553,Core Fragment,16570,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,289,,,,175965,Frostwhisper\'s Embalming Fluid,13381,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,289,,,,176484,The Deed to Brill,13800,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,289,,,,176485,The Deed to Caer Darrow,13802,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,289,,,,176486,The Deed to Southshore,13803,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,289,,,,176487,The Deed to Tarren Mill,13801,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,289,,,,176944,Old Treasure Chest,14180,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180164,Sungrass,17201,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180165,Purple Lotus,17200,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180166,Mountain Silversage,17204,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180167,Golden Sansam,17202,,,15,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180168,Dreamfoil,17203,,,18,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180215,Hakkari Thorium Vein,17241,,,16,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180228,Jinxed Hoodoo Pile,17259,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180229,Jinxed Hoodoo Pile,17259,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,309,,,,180392,Full Jug,17331,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,153464,Large Solid Chest,9936,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,153469,Large Mithril Bound Chest,9936,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,175966,Enchanted Scarlet Thread,13382,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176112,Malor\'s Strongbox,13580,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176215,Cannonball Stack,13645,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176224,Supply Crate,13646,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176248,Premium Siabi Tobacco,5000,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176249,Scourge Data,13662,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176325,Blacksmithing Plans,13721,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,176327,Blacksmithing Plans,13722,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,,,177287,Unfinished Painting,14300,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,329,,script_HandleBothDead,HandleBothDead,181083,Sothos and Jarien\'s Heirlooms,17919,,,0,,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\EasternKingdoms\Stratholme\boss_jarien_and_sothos.cpp,0,0,True,
+,329,,,,181085,Stratholme Supply Crate,17899,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,349,,,,1734,Gold Vein,1506,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,349,,,,2040,Mithril Deposit,1742,,,8,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,349,,,,2045,Stranglekelp,1733,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,349,,,,2047,Truesilver Deposit,5045,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,349,,,,142143,Blindweed,6152,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,349,,,,142144,Ghost Mushroom,6312,,,14,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,409,,,,165658,Dark Iron Deposit,11213,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,409,,,,179703,Cache of the Firelord,16719,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,142144,Ghost Mushroom,6312,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,142145,Gromsblood,6313,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,175404,Rich Thorium Vein,12883,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179499,Ogre Tannin Basket,16518,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179501,Knot Thimblejack\'s Cache,16591,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179516,Fengus\'s Chest,16523,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179528,Warpwood Pod,16548,,,21,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179545,The Prince\'s Chest,16569,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179547,A Dusty Tome,16563,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,429,,,,179548,A Dusty Tome,16564,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,509,,,,180691,Scarab Coffer,17532,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,531,,,,180690,Large Scarab Coffer,17533,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,181768,Sealed Tome,18509,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,181845,Sealed Tome,18509,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,181846,Sealed Tome,18509,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,181847,Sealed Tome,18509,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,181848,Sealed Tome,18509,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,182199,Keanna\'s Log,19169,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,532,,,,185119,Dust Covered Chest,20712,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,534,,,,185557,Ancient Gem Vein,26862,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,540,,,,181671,Fel Horde Banner,18459,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,543,,,,185168,Reinforced Fel Iron Chest,21762,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,543,,,,185169,Reinforced Fel Iron Chest,21764,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,545,,,,181270,Felweed,18111,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,545,,,,181275,Ragveil,18113,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,545,,,,181278,Ancient Lichen,18116,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,545,,,,181555,Fel Iron Deposit,18359,,,12,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,545,,,,181556,Adamantite Deposit,18361,,,21,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181270,Felweed,18111,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181275,Ragveil,18113,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181276,Flame Cap,18114,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181278,Ancient Lichen,18116,,,15,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181556,Adamantite Deposit,18361,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181557,Khorium Vein,18363,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,181569,Rich Adamantite Deposit,26861,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,182054,The Underspore,18696,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,546,,,,183385,Sanguine Hibiscus,19848,,,20,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181270,Felweed,18111,,,8,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181275,Ragveil,18113,,,8,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181276,Flame Cap,18114,,,8,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181278,Ancient Lichen,18116,,,14,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181556,Adamantite Deposit,18361,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181557,Khorium Vein,18363,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,547,,,,181569,Rich Adamantite Deposit,26861,,,5,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,553,,,,181270,Felweed,18111,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,553,,,,181271,Dreaming Glory,18112,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,553,,,,181277,Terocone,18115,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,553,,,,181279,Netherbloom,18117,,,3,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,554,,,,184465,Cache of the Legion,20529,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,554,,,,184849,Cache of the Legion,20530,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,554,,,,185015,Overcharged Manacell,21550,,,4,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,555,,,,181278,Ancient Lichen,18116,,,27,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,555,,,,181556,Adamantite Deposit,18361,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,555,,,,181557,Khorium Vein,18363,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,555,,,,181569,Rich Adamantite Deposit,26861,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,555,,,,182940,Soul Device,19603,,,30,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,556,,,,181278,Ancient Lichen,18116,,,16,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,556,,,,181556,Adamantite Deposit,18361,,,14,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,556,,,,181557,Khorium Vein,18363,,,14,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,556,,,,181569,Rich Adamantite Deposit,26861,,,14,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,556,,,,183050,The Saga of Terokk,19757,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,556,,,,187372,The Talon King\'s Coffer,23035,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,557,,,,181278,Ancient Lichen,18116,,,21,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,557,,,,181556,Adamantite Deposit,18361,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,557,,,,181557,Khorium Vein,18363,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,557,,,,181569,Rich Adamantite Deposit,26861,,,9,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,558,,,,181278,Ancient Lichen,18116,,,16,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,558,,,,181556,Adamantite Deposit,18361,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,558,,,,181557,Khorium Vein,18363,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,558,,,,181569,Rich Adamantite Deposit,26861,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,558,,,,183441,Soul Mirror,20014,,,8,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,560,,,,180523,Apple Bob,17378,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,568,,,,186648,Tanzar\'s Trunk,22699,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,568,,,,186733,The Map of Zul\'Aman,22883,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,568,,,,186748,Harkor\'s Brew Keg,22908,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,574,,,,189978,Cobalt Deposit,24153,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,574,,,,193059,Vrykul Weapons,26169,,,28,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,575,,,,190172,Icethorn,24227,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,575,,,,192941,Untarnished Silver Bar,25925,,,31,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,575,,,,192942,Shiny Bauble,25926,,,10,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,575,,,,192943,Shiny Bauble,25926,,,13,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,575,,,,192944,Golden Goblet,25927,,,14,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,575,,,,192945,Jade Statue,25928,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,576,,,,190174,Frozen Herb,25096,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,576,,,,192788,Berinand\'s Research,25875,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,578,,,,190172,Icethorn,24227,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,578,,,,191349,Cache of Eregos,24462,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,578,,,,193603,Cache of Eregos,24524,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,595,,,,180523,Apple Bob,17378,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,595,,script_DamageTaken,DamageTaken,190663,Dark Runed Chest,24556,,,0,normal,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_mal_ganis.cpp,0,0,True,
+,595,,script_DamageTaken,DamageTaken,193597,Dark Runed Chest,24589,,,0,heroic,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Kalimdor\CavernsOfTime\CullingOfStratholme\boss_mal_ganis.cpp,0,0,True,
+,599,,,,189980,Saronite Deposit,24155,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,599,,script_EndTribunalFight,EndTribunalFight,190586,Tribunal Chest,24661,65564,1,1,,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\HallsOfStone\brann_bronzebeard.cpp,0,0,True,
+,599,,script_EndTribunalFight,EndTribunalFight,193996,Tribunal Chest,26260,151790,2,1,,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\HallsOfStone\brann_bronzebeard.cpp,0,0,True,
+,600,,,,190170,Talandra\'s Rose,24225,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,600,,,,191019,Adder\'s Tongue,25093,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,601,,,,189973,Goldclover,24093,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,601,,,,190169,Tiger Lily,24224,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,,,189973,Goldclover,24093,,,8,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,,,190170,Talandra\'s Rose,24225,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,,,190171,Lichbloom,24226,,,7,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,,,190176,Frost Lotus,24228,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,,,191019,Adder\'s Tongue,25093,,,6,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,script_UpdateAI,UpdateAI,194821,Gift of the Observer,27030,,,0,10,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\Ulduar\boss_algalon_the_observer.cpp,0,0,True,
+,603,,script_UpdateAI,UpdateAI,194822,Gift of the Observer,26974,,,0,25,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\Ulduar\boss_algalon_the_observer.cpp,0,0,True,
+,603,,script_UpdateAI,UpdateAI,194957,Cache of Innovation,27086,,,0,10,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\Ulduar\boss_mimiron.cpp,0,0,True,
+,603,,script_UpdateAI,UpdateAI,194958,Cache of Innovation,26967,,,0,25,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\Ulduar\boss_mimiron.cpp,0,0,True,
+,603,,,,195036,Pure Saronite Deposit,27244,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,603,,script_JustDied,JustDied,195046,Cache of Living Stone,27061,,,0,10,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\Ulduar\boss_kologarn.cpp,0,0,True,
+,603,,script_JustDied,JustDied,195047,Cache of Living Stone,26929,,,0,25,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\Ulduar\Ulduar\boss_kologarn.cpp,0,0,True,
+,604,,,,190170,Talandra\'s Rose,24225,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,604,,,,191019,Adder\'s Tongue,25093,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,604,,,,192826,Drakkari History Tablet,25902,,,30,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,619,,,,189973,Goldclover,24093,,,2,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,619,,,,190169,Tiger Lily,24224,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,619,,,,190170,Talandra\'s Rose,24225,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,631,,,,202238,Deathbringer\'s Cache,28058,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,631,,,,202239,Deathbringer\'s Cache,28046,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,631,,,,202240,Deathbringer\'s Cache,28074,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,631,,,,202241,Deathbringer\'s Cache,28088,,,1,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association
+,650,,script_SetData,SetData,195709,Champion\'s Cache,27321,,,0,normal,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\instance_trial_of_the_champion.cpp,0,0,True,
+,650,,script_SetData,SetData,195710,Champion\'s Cache,27414,,,0,heroic,script_summon,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql;src\server\scripts\Northrend\CrusadersColiseum\TrialOfTheChampion\instance_trial_of_the_champion.cpp,0,0,True,
+,658,,,,201592,Infused Saronite Bars,27730,,,25,,static_spawn,gameobject.sql;gameobject_template.sql;gameobject_loot_template.sql,0,0,False,static map/spawn has no boss association

@@ -25,6 +25,7 @@
 #include "Player.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
+#include "PlayerTeamSide.h"
 
 constexpr Milliseconds BG_SA_BOAT_START    = 1min;
 constexpr Milliseconds BG_SA_WARMUPLENGTH  = 2min;
@@ -400,7 +401,7 @@ void BattlegroundSA::PostUpdateImpl(uint32 diff)
                     RoundScores[0].time = TotalTime;
                     //Achievement Storm the Beach (1310)
                     for (BattlegroundPlayerMap::const_iterator itr = GetPlayers().begin(); itr != GetPlayers().end(); ++itr)
-                        if (itr->second->GetTeamId() == Attackers)
+                        if (PvpSideOf(itr->second) == Attackers)
                             itr->second->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, 65246);
                 }
                 else
@@ -568,7 +569,7 @@ void BattlegroundSA::TeleportPlayers()
 
 void BattlegroundSA::TeleportToEntrancePosition(Player* player)
 {
-    if (player->GetTeamId() != Attackers)
+    if (PvpSideOf(player) != Attackers)
     {
         player->TeleportTo(MAP_STRAND_OF_THE_ANCIENTS, 1209.7f, -65.16f, 70.1f, 0.0f, 0);
     }
@@ -591,7 +592,7 @@ void BattlegroundSA::TeleportToEntrancePosition(Player* player)
 
 void BattlegroundSA::DefendersPortalTeleport(GameObject* portal, Player* plr)
 {
-    if (plr->GetTeamId() == Attackers)
+    if (PvpSideOf(plr) == Attackers)
         return;
 
     uint32 portal_num = 0;
@@ -807,7 +808,7 @@ GraveyardStruct const* BattlegroundSA::GetClosestGraveyard(Player* player)
 
     for (uint8 i = BG_SA_BEACH_GY; i < BG_SA_MAX_GY; i++)
     {
-        if (GraveyardStatus[i] != player->GetTeamId())
+        if (GraveyardStatus[i] != PvpSideOf(player))
             continue;
 
         GraveyardStruct const* ret = sGraveyard->GetGraveyard(BG_SA_GYEntries[i]);
@@ -827,7 +828,7 @@ GraveyardStruct const* BattlegroundSA::GetClosestGraveyard(Player* player)
             closest = ret;
         }
     }
-    if (!closest && GraveyardStatus[BG_SA_BEACH_GY] == player->GetTeamId())
+    if (!closest && GraveyardStatus[BG_SA_BEACH_GY] == PvpSideOf(player))
         return sGraveyard->GetGraveyard(BG_SA_GYEntries[BG_SA_BEACH_GY]);
 
     return closest;
@@ -916,10 +917,10 @@ void BattlegroundSA::EventPlayerClickedOnFlag(Player* Source, GameObject* gameOb
 
 void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
 {
-    if (GraveyardStatus[i] == Attackers || Source->GetTeamId() != Attackers)
+    if (GraveyardStatus[i] == Attackers || PvpSideOf(Source) != Attackers)
         return;
 
-    GraveyardStatus[i] = Source->GetTeamId();
+    GraveyardStatus[i] = PvpSideOf(Source);
     // Those who are waiting to resurrect at this node are taken to the closest own node's graveyard
     GuidVector& ghost_list = m_ReviveQueue[BgCreatures[static_cast<uint16>(BG_SA_MAXNPC) + i]];
     if (!ghost_list.empty())
@@ -960,7 +961,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
         case BG_SA_LEFT_CAPTURABLE_GY:
             flag = BG_SA_LEFT_FLAG;
             DelObject(flag);
-            AddObject(flag, (BG_SA_ObjEntries[flag] - (Source->GetTeamId() == TEAM_ALLIANCE ? 0 : 1)),
+            AddObject(flag, (BG_SA_ObjEntries[flag] - (PvpSideOf(Source) == TEAM_ALLIANCE ? 0 : 1)),
                       BG_SA_ObjSpawnlocs[flag][0], BG_SA_ObjSpawnlocs[flag][1],
                       BG_SA_ObjSpawnlocs[flag][2], BG_SA_ObjSpawnlocs[flag][3], 0, 0, 0, 0, RESPAWN_ONE_DAY);
 
@@ -986,7 +987,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
             UpdateWorldState(WORLD_STATE_BATTLEGROUND_SA_LEFT_GY_HORDE, (GraveyardStatus[i] == TEAM_ALLIANCE ? 0 : 1));
             GetBgMap()->DoForAllPlayers([&](Player* player)
                 {
-                    if (player->GetTeamId() == TEAM_ALLIANCE)
+                    if (PvpSideOf(player) == TEAM_ALLIANCE)
                         ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_A_GY_WEST);
                     else
                         ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_H_GY_WEST);
@@ -995,7 +996,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
         case BG_SA_RIGHT_CAPTURABLE_GY:
             flag = BG_SA_RIGHT_FLAG;
             DelObject(flag);
-            AddObject(flag, (BG_SA_ObjEntries[flag] - (Source->GetTeamId() == TEAM_ALLIANCE ? 0 : 1)),
+            AddObject(flag, (BG_SA_ObjEntries[flag] - (PvpSideOf(Source) == TEAM_ALLIANCE ? 0 : 1)),
                       BG_SA_ObjSpawnlocs[flag][0], BG_SA_ObjSpawnlocs[flag][1],
                       BG_SA_ObjSpawnlocs[flag][2], BG_SA_ObjSpawnlocs[flag][3], 0, 0, 0, 0, RESPAWN_ONE_DAY);
 
@@ -1020,7 +1021,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
             UpdateWorldState(WORLD_STATE_BATTLEGROUND_SA_RIGHT_GY_HORDE, (GraveyardStatus[i] == TEAM_ALLIANCE ? 0 : 1));
             GetBgMap()->DoForAllPlayers([&](Player* player)
                 {
-                    if (player->GetTeamId() == TEAM_ALLIANCE)
+                    if (PvpSideOf(player) == TEAM_ALLIANCE)
                         ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_A_GY_EAST);
                     else
                         ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_H_GY_EAST);
@@ -1029,7 +1030,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
         case BG_SA_CENTRAL_CAPTURABLE_GY:
             flag = BG_SA_CENTRAL_FLAG;
             DelObject(flag);
-            AddObject(flag, (BG_SA_ObjEntries[flag] - (Source->GetTeamId() == TEAM_ALLIANCE ? 0 : 1)),
+            AddObject(flag, (BG_SA_ObjEntries[flag] - (PvpSideOf(Source) == TEAM_ALLIANCE ? 0 : 1)),
                       BG_SA_ObjSpawnlocs[flag][0], BG_SA_ObjSpawnlocs[flag][1],
                       BG_SA_ObjSpawnlocs[flag][2], BG_SA_ObjSpawnlocs[flag][3], 0, 0, 0, 0, RESPAWN_ONE_DAY);
 
@@ -1037,7 +1038,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player* Source)
             UpdateWorldState(WORLD_STATE_BATTLEGROUND_SA_CENTER_GY_HORDE, (GraveyardStatus[i] == TEAM_ALLIANCE ? 0 : 1));
             GetBgMap()->DoForAllPlayers([&](Player* player)
                 {
-                    if (player->GetTeamId() == TEAM_ALLIANCE)
+                    if (PvpSideOf(player) == TEAM_ALLIANCE)
                         ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_A_GY_SOUTH);
                     else
                         ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_A_GY_SOUTH);
@@ -1053,13 +1054,13 @@ void BattlegroundSA::EventPlayerUsedGO(Player* Source, GameObject* object)
 {
     if (object->GetEntry() == BG_SA_ObjEntries[BG_SA_TITAN_RELIC] && CanInteractWithObject(BG_SA_TITAN_RELIC))
     {
-        if (Source->GetTeamId() == Attackers)
+        if (PvpSideOf(Source) == Attackers)
         {
             GetBgMap()->DoForAllPlayers([&](Player* player)
                 {
-                    if (player->GetTeamId() == Attackers)
+                    if (PvpSideOf(player) == Attackers)
                     {
-                        if (player->GetTeamId() == TEAM_ALLIANCE)
+                        if (PvpSideOf(player) == TEAM_ALLIANCE)
                             ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_ALLIANCE_CAPTURED_RELIC);
                         else
                             ChatHandler(player->GetSession()).PSendSysMessage(LANG_BG_SA_HORDE_CAPTURED_RELIC);
@@ -1077,7 +1078,7 @@ void BattlegroundSA::EventPlayerUsedGO(Player* Source, GameObject* object)
                 ToggleTimer();
                 //Achievement Storm the Beach (1310)
                 for (BattlegroundPlayerMap::const_iterator itr = GetPlayers().begin(); itr != GetPlayers().end(); ++itr)
-                    if (itr->second->GetTeamId() == Attackers && RoundScores[1].winner == Attackers)
+                    if (PvpSideOf(itr->second) == Attackers && RoundScores[1].winner == Attackers)
                         itr->second->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, 65246);
 
                 if (RoundScores[0].time == RoundScores[1].time)
@@ -1174,7 +1175,7 @@ void BattlegroundSA::SendTransportsRemove(Player* player)
 
 bool BattlegroundSA::AllowDefenseOfTheAncients(Player* source)
 {
-    if (source->GetTeamId() == Attackers)
+    if (PvpSideOf(source) == Attackers)
         return false;
 
     for (uint8 i = 0; i <= 5; i++)

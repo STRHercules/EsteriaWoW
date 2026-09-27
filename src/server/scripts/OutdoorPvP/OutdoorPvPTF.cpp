@@ -28,6 +28,7 @@
 #include "WorldSessionMgr.h"
 #include "WorldState.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 OutdoorPvPTF::OutdoorPvPTF()
 {
@@ -286,7 +287,7 @@ bool OutdoorPvPTF::Update(uint32 diff)
 
 void OutdoorPvPTF::HandlePlayerEnterZone(Player* player, uint32 zone)
 {
-    if (player->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE)
     {
         if (m_AllianceTowersControlled >= TF_TOWER_NUM)
             player->CastSpell(player, TF_CAPTURE_BUFF, true);

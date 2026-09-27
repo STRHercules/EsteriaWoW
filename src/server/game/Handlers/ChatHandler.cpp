@@ -22,6 +22,7 @@
 #include "Chat.h"
 #include "ChatPackets.h"
 #include "Common.h"
+#include "FreebornClaim.h"
 #include "GameTime.h"
 #include "GridNotifiersImpl.h"
 #include "Group.h"
@@ -42,6 +43,7 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
+#include "PlayerTeamSide.h"
 
 inline bool isNasty(uint8 c)
 {
@@ -299,6 +301,12 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
 
         if (lang == LANG_ADDON)
         {
+            // The Freeborn claim rides the addon-message channel, the same one the Classless
+            // Wildcard addon uses. See FreebornClaim.h for why the choice cannot be carried by
+            // the create packet.
+            if (FreebornClaim::HandleAddonMessage(sender, msg))
+                return;
+
             if (AddonChannelCommandHandler(this).ParseCommands(msg.c_str()))
                 return;
         }
@@ -596,7 +604,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
                     }
                 }
 
-                if (ChannelMgr* cMgr = ChannelMgr::forTeam(sender->GetTeamId()))
+                if (ChannelMgr* cMgr = ChannelMgr::forTeam(PvpSideOf(sender)))
                 {
                     if (Channel* chn = cMgr->GetChannel(channel, sender))
                     {

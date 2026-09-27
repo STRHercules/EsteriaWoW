@@ -26,6 +26,7 @@
 #include "OutdoorPvPMgr.h"
 #include "WorldPacket.h"
 #include "World.h"
+#include "PlayerTeamSide.h"
 
 OPvPCapturePoint::OPvPCapturePoint(OutdoorPvP* pvp) :
     _pvp(pvp)
@@ -41,7 +42,7 @@ bool OPvPCapturePoint::HandlePlayerEnter(Player* player)
         player->SendUpdateWorldState(_capturePoint->GetGOInfo()->capturePoint.worldstate3, _neutralValuePct);
     }
 
-    return _activePlayers[player->GetTeamId()].insert(player->GetGUID()).second;
+    return _activePlayers[PvpSideOf(player)].insert(player->GetGUID()).second;
 }
 
 void OPvPCapturePoint::HandlePlayerLeave(Player* player)
@@ -51,7 +52,7 @@ void OPvPCapturePoint::HandlePlayerLeave(Player* player)
         player->SendUpdateWorldState(_capturePoint->GetGOInfo()->capturePoint.worldState1, 0);
     }
 
-    _activePlayers[player->GetTeamId()].erase(player->GetGUID());
+    _activePlayers[PvpSideOf(player)].erase(player->GetGUID());
 }
 
 void OPvPCapturePoint::SendChangePhase()
@@ -277,7 +278,7 @@ OutdoorPvP::~OutdoorPvP()
 
 void OutdoorPvP::HandlePlayerEnterZone(Player* player, uint32 /*zone*/)
 {
-    _players[player->GetTeamId()].insert(player->GetGUID());
+    _players[PvpSideOf(player)].insert(player->GetGUID());
 }
 
 void OutdoorPvP::HandlePlayerLeaveZone(Player* player, uint32 /*zone*/)
@@ -294,7 +295,7 @@ void OutdoorPvP::HandlePlayerLeaveZone(Player* player, uint32 /*zone*/)
         SendRemoveWorldStates(player);
     }
 
-    _players[player->GetTeamId()].erase(player->GetGUID());
+    _players[PvpSideOf(player)].erase(player->GetGUID());
     LOG_DEBUG("outdoorpvp", "OutdoorPvP: Player {} left an outdoorpvp zone", player->GetName());
 }
 
@@ -344,7 +345,7 @@ bool OPvPCapturePoint::Update(uint32 diff)
         Player* const player = itr;
         if (player->IsOutdoorPvPActive())
         {
-            if (_activePlayers[player->GetTeamId()].insert(player->GetGUID()).second)
+            if (_activePlayers[PvpSideOf(player)].insert(player->GetGUID()).second)
                 HandlePlayerEnter(itr);
         }
     }
@@ -540,7 +541,7 @@ bool OutdoorPvP::IsInsideObjective(Player* player) const
 
 bool OPvPCapturePoint::IsInsideObjective(Player* player) const
 {
-    PlayerSet const& plSet = _activePlayers[player->GetTeamId()];
+    PlayerSet const& plSet = _activePlayers[PvpSideOf(player)];
     return plSet.find(player->GetGUID()) != plSet.end();
 }
 
@@ -646,7 +647,7 @@ void OutdoorPvP::RegisterZone(uint32 zoneId)
 
 bool OutdoorPvP::HasPlayer(Player const* player) const
 {
-    PlayerSet const& plSet = _players[player->GetTeamId()];
+    PlayerSet const& plSet = _players[PvpSideOf(player)];
     return plSet.find(player->GetGUID()) != plSet.end();
 }
 

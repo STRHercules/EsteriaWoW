@@ -235,17 +235,37 @@ public:
             return;
         }
 
-        auto* stmt = CharacterDatabase.GetPreparedStatement(CHAR_UDP_RESTORE_DELETE_INFO);
-        stmt->SetData(0, delInfo.name);
-        stmt->SetData(1, delInfo.accountId);
-        stmt->SetData(2, delInfo.lowGuid);
-        CharacterDatabase.Execute(stmt);
-
-        stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_CHARACTER_NAME_DATA);
+        auto* stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_CHARACTER_NAME_DATA);
         stmt->SetData(0, delInfo.lowGuid);
         if (PreparedQueryResult result = CharacterDatabase.Query(stmt))
         {
-            sCharacterCache->AddCharacterCacheEntry(ObjectGuid(HighGuid::Player, delInfo.lowGuid), delInfo.accountId, delInfo.name, (*result)[2].Get<uint8>(), (*result)[0].Get<uint8>(), (*result)[1].Get<uint8>(), (*result)[3].Get<uint8>());
+            Field* fields = result->Fetch();
+            if (fields[4].IsNull())
+            {
+                LOG_ERROR("entities.player", "Deleted character {} has NULL persistent team id; restore skipped.",
+                    delInfo.lowGuid);
+                return;
+            }
+
+            // TINYINT UNSIGNED: read as uint8. See the note in Player::BuildEnumData.
+            uint32 const teamIdValue = fields[4].Get<uint8>();
+            if (!IsValidPlayerTeamId(teamIdValue))
+            {
+                LOG_ERROR("entities.player", "Deleted character {} has invalid persistent team id {}; restore skipped.",
+                    delInfo.lowGuid, teamIdValue);
+                return;
+            }
+
+            stmt = CharacterDatabase.GetPreparedStatement(CHAR_UDP_RESTORE_DELETE_INFO);
+            stmt->SetData(0, delInfo.name);
+            stmt->SetData(1, delInfo.accountId);
+            stmt->SetData(2, delInfo.lowGuid);
+            CharacterDatabase.Execute(stmt);
+
+            sCharacterCache->AddCharacterCacheEntry(
+                ObjectGuid(HighGuid::Player, delInfo.lowGuid), delInfo.accountId, delInfo.name,
+                fields[2].Get<uint8>(), fields[0].Get<uint8>(), fields[1].Get<uint8>(),
+                fields[3].Get<uint8>(), static_cast<TeamId>(teamIdValue));
         }
     }
 
@@ -1102,6 +1122,120 @@ public:
         }
 
         return true;
+    }
+
+    /// Human-readable name for a persistent team.
+    static char const* TeamIdName(TeamId teamId)
+    {
+        switch (teamId)
+        {
+            case TEAM_ALLIANCE:
+                return "Alliance";
+            case TEAM_HORDE:
+                return "Horde";
+            case TEAM_FREEBORN:
+                return "Freeborn";
+            default:
+                return "Neutral";
+        }
+    }
+
+    /// The target, defaulting to the invoking GM's own character.
+    static Optional<PlayerIdentifier> ResolvePlayerTeamTarget(ChatHandler* handler, Optional<PlayerIdentifier> const& target)
+    {
+        return target ? target : PlayerIdentifier::FromTargetOrSelf(handler);
+    }
+
+    /// Reports both identities, because they answer different questions. The persistent team is
+    /// the character's team; the origin team is what its race still implies for start data, taxi
+    /// nodes and reputations. They differ for exactly one case: Freeborn.
+    static bool HandlePlayerTeamStatusCommand(ChatHandler* handler, Optional<PlayerIdentifier> target)
+    {
+        Optional<PlayerIdentifier> identifier = ResolvePlayerTeamTarget(handler, target);
+        if (!identifier)
+        {
+            handler->SendErrorMessage(LANG_PLAYER_NOT_FOUND);
+            return false;
+        }
+
+        if (Player* player = identifier->GetConnectedPlayer())
+        {
+            handler->PSendSysMessage("{}: persistent team {}, origin team {}.",
+                player->GetName(), TeamIdName(player->GetTeamId()), TeamIdName(player->GetOriginTeamId()));
+            return true;
+        }
+
+        CharacterCacheEntry const* cache = sCharacterCache->GetCharacterCacheByName(identifier->GetName());
+        if (!cache)
+        {
+            handler->SendErrorMessage(LANG_PLAYER_NOT_FOUND);
+            return false;
+        }
+
+        handler->PSendSysMessage("{} (offline): persistent team {}, origin team {}.",
+            cache->Name, TeamIdName(cache->PersistentTeamId), TeamIdName(Player::TeamIdForRace(cache->Race)));
+        return true;
+    }
+
+    /// Applies a team through the same validated setter the game uses, so the database, the
+    /// character cache and the team-changed notification all stay in step. Offline characters are
+    /// written directly, which is the only state they have.
+    static bool HandlePlayerTeamSetCommand(ChatHandler* handler, Optional<PlayerIdentifier> target, TeamId requested)
+    {
+        Optional<PlayerIdentifier> identifier = ResolvePlayerTeamTarget(handler, target);
+        if (!identifier)
+        {
+            handler->SendErrorMessage(LANG_PLAYER_NOT_FOUND);
+            return false;
+        }
+
+        if (Player* player = identifier->GetConnectedPlayer())
+        {
+            TeamId const teamId = requested == TEAM_NEUTRAL ? player->GetOriginTeamId() : requested;
+            if (!player->SetPersistentTeamId(teamId))
+            {
+                handler->SendErrorMessage("Could not set the persistent team for {}.", player->GetName());
+                return false;
+            }
+
+            handler->PSendSysMessage("{} is now {}.", player->GetName(), TeamIdName(teamId));
+            return true;
+        }
+
+        CharacterCacheEntry const* cache = sCharacterCache->GetCharacterCacheByName(identifier->GetName());
+        if (!cache)
+        {
+            handler->SendErrorMessage(LANG_PLAYER_NOT_FOUND);
+            return false;
+        }
+
+        TeamId const teamId = requested == TEAM_NEUTRAL ? Player::TeamIdForRace(cache->Race) : requested;
+        if (!IsValidPlayerTeamId(teamId))
+        {
+            handler->SendErrorMessage("Refusing to write an invalid team id.");
+            return false;
+        }
+
+        CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPD_CHARACTER_TEAM);
+        stmt->SetData(0, static_cast<uint8>(teamId));
+        stmt->SetData(1, cache->Guid.GetCounter());
+        CharacterDatabase.Execute(stmt);
+        sCharacterCache->UpdateCharacterTeamId(cache->Guid, teamId);
+
+        handler->PSendSysMessage("{} (offline) is now {}.", cache->Name, TeamIdName(teamId));
+        return true;
+    }
+
+    static bool HandlePlayerTeamSetFreebornCommand(ChatHandler* handler, Optional<PlayerIdentifier> target)
+    {
+        return HandlePlayerTeamSetCommand(handler, target, TEAM_FREEBORN);
+    }
+
+    static bool HandlePlayerTeamSetNativeCommand(ChatHandler* handler, Optional<PlayerIdentifier> target)
+    {
+        // TEAM_NEUTRAL is the "no explicit request" sentinel here; the setter resolves it to the
+        // character's race origin.
+        return HandlePlayerTeamSetCommand(handler, target, TEAM_NEUTRAL);
     }
 };
 

@@ -823,9 +823,9 @@ void RandomPlayerbotFactory::CreateRandomBots()
             }
 
             playerBot->SaveToDB(true, false);
-            sCharacterCache->AddCharacterCacheEntry(playerBot->GetGUID(), accountId, playerBot->GetName(),
-                                                    playerBot->getGender(), playerBot->getRace(),
-                                                    playerBot->getClass(), playerBot->GetLevel());
+            sCharacterCache->AddCharacterCacheEntry(
+                playerBot->GetGUID(), accountId, playerBot->GetName(), playerBot->getGender(),
+                playerBot->getRace(), playerBot->getClass(), playerBot->GetLevel(), playerBot->GetTeamId());
             playerBot->CleanupsBeforeDelete();
             delete playerBot;
             bot_creation++;

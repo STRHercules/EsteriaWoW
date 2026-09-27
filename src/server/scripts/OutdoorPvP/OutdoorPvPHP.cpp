@@ -25,6 +25,7 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSessionMgr.h"
+#include "PlayerTeamSide.h"
 
 const uint32 HP_LANG_LOSE_A[HP_TOWER_NUM] = {LANG_OPVP_HP_LOSE_BROKENHILL_A, LANG_OPVP_HP_LOSE_OVERLOOK_A, LANG_OPVP_HP_LOSE_STADIUM_A};
 
@@ -89,7 +90,7 @@ bool OutdoorPvPHP::SetupOutdoorPvP()
 void OutdoorPvPHP::HandlePlayerEnterZone(Player* player, uint32 zone)
 {
     // add buffs
-    if (player->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE)
     {
         if (m_AllianceTowersControlled >= 3)
             player->CastSpell(player, AllianceBuff, true);
@@ -105,7 +106,7 @@ void OutdoorPvPHP::HandlePlayerEnterZone(Player* player, uint32 zone)
 void OutdoorPvPHP::HandlePlayerLeaveZone(Player* player, uint32 zone)
 {
     // remove buffs
-    if (player->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE)
     {
         player->RemoveAurasDueToSpell(AllianceBuff);
     }
@@ -330,9 +331,9 @@ void OutdoorPvPHP::HandleKillImpl(Player* player, Unit* killed)
     if (!killed->IsPlayer())
         return;
 
-    if (player->GetTeamId() == TEAM_ALLIANCE && killed->ToPlayer()->GetTeamId() != TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE && PvpSideOf(killed->ToPlayer()) != TEAM_ALLIANCE)
         player->CastSpell(player, AlliancePlayerKillReward, true);
-    else if (player->GetTeamId() == TEAM_HORDE && killed->ToPlayer()->GetTeamId() != TEAM_HORDE)
+    else if (PvpSideOf(player) == TEAM_HORDE && PvpSideOf(killed->ToPlayer()) != TEAM_HORDE)
         player->CastSpell(player, HordePlayerKillReward, true);
 }
 

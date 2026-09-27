@@ -35,6 +35,7 @@
 #include "Vehicle.h"
 #include "World.h"
 #include <cmath>
+#include "PlayerTeamSide.h"
 
 enum eWGqueuenpctext
 {
@@ -230,7 +231,7 @@ public:
 
         GraveyardVect graveyard = wintergrasp->GetGraveyardVector();
         for (uint8 i = 0; i < graveyard.size(); i++)
-            if (graveyard[i]->GetControlTeamId() == player->GetTeamId())
+            if (graveyard[i]->GetControlTeamId() == PvpSideOf(player))
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, sObjectMgr->GetAcoreStringForDBCLocale(((BfGraveyardWG*)graveyard[i])->GetTextId()), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + i);
 
         SendGossipMenuFor(player, player->GetGossipTextId(creature), creature->GetGUID());
@@ -246,7 +247,7 @@ public:
         {
             GraveyardVect gy = wintergrasp->GetGraveyardVector();
             for (uint8 i = 0; i < gy.size(); i++)
-                if (action - GOSSIP_ACTION_INFO_DEF == i && gy[i]->GetControlTeamId() == player->GetTeamId())
+                if (action - GOSSIP_ACTION_INFO_DEF == i && gy[i]->GetControlTeamId() == PvpSideOf(player))
                     if (GraveyardStruct const* safeLoc = sGraveyard->GetGraveyard(gy[i]->GetGraveyardId()))
                         player->TeleportTo(safeLoc->Map, safeLoc->x, safeLoc->y, safeLoc->z, 0);
         }

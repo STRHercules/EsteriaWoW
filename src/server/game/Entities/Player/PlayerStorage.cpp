@@ -5025,7 +5025,8 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     // 55      56      57      58      59      60      61      62      63           64                 65                 66             67              68      69
     //"health, power1, power2, power3, power4, power5, power6, power7, instance_id, talentGroupsCount, activeTalentGroup, exploredZones, equipmentCache, ammoId, knownTitles,
     // 70          71               72            73                     74
-    //"actionBars, grantableLevels, innTriggerId, extraBonusTalentCount, UNIX_TIMESTAMP(creation_date) FROM characters WHERE guid = '{}'", guid);
+    //"actionBars, grantableLevels, innTriggerId, extraBonusTalentCount, UNIX_TIMESTAMP(creation_date), teamId "
+    //"FROM characters WHERE guid = '{}'", guid);
     PreparedQueryResult result = holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_FROM);
 
     if (!result)
@@ -5086,6 +5087,22 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
 
     m_realRace = fields[3].Get<uint8>(); // set real race
     m_race = fields[3].Get<uint8>(); // set real race
+
+    if (fields[75].IsNull())
+    {
+        LOG_ERROR("entities.player", "Player ({}) has NULL persistent team id; can't load.", playerGuid.ToString());
+        return false;
+    }
+
+    // TINYINT UNSIGNED: must be read as uint8, or Field::GetData's raw reinterpret_cast reads past
+    // the column into neighbouring row bytes. See the note in Player::BuildEnumData.
+    uint32 const persistentTeamId = fields[75].Get<uint8>();
+    if (!IsValidPlayerTeamId(persistentTeamId) || !InitializeTeamId(static_cast<TeamId>(persistentTeamId)))
+    {
+        LOG_ERROR("entities.player", "Player ({}) has invalid persistent team id {}; can't load.",
+            playerGuid.ToString(), persistentTeamId);
+        return false;
+    }
 
     SetUInt32Value(UNIT_FIELD_LEVEL, fields[6].Get<uint8>());
     SetUInt32Value(PLAYER_XP, fields[7].Get<uint32>());
@@ -5162,8 +5179,7 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     LOG_DEBUG("entities.player.loading", "Load Basic value of player {} is: ", m_name);
     outDebugValues();
 
-    //Need to call it to initialize m_team (m_team can be calculated from race)
-    //Other way is to saves m_team into characters table.
+    // Refresh race-derived faction template without changing persistent team.
     SetFactionForRace(getRace(true));
 
     // pussywizard: create empty instance bind containers if necessary

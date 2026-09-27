@@ -23,6 +23,7 @@
 #include "Player.h"
 #include "WorldPacket.h"
 #include "WorldStateDefines.h"
+#include "PlayerTeamSide.h"
 
 OutdoorPvPGH::OutdoorPvPGH()
 {
@@ -53,11 +54,11 @@ void OutdoorPvPGH::HandleKill(Player* killer, Unit* killed)
     if (!killer->isHonorOrXPTarget(killed))
         return;
 
-    if (killer->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(killer) == TEAM_ALLIANCE)
         if (killer->GetQuestStatus(GH_QUEST_KICK_EM_WHILE_THEYRE_DOWN) == QUEST_STATUS_INCOMPLETE)
             killer->KilledMonsterCredit(GH_CREATURE_QUEST_BUNNY);
 
-    if (killer->GetTeamId() == TEAM_HORDE)
+    if (PvpSideOf(killer) == TEAM_HORDE)
         if (killer->GetQuestStatus(GH_QUEST_KEEP_EM_ON_THEIR_HEELS) == QUEST_STATUS_INCOMPLETE)
             killer->KilledMonsterCredit(GH_CREATURE_QUEST_BUNNY);
 }

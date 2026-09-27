@@ -1,0 +1,21 @@
+set_id,set_name,entry,name,slot,profile_id,encounter,atomic_profile
+905,Battlegear of the Ancient North,200470,Legplates of the Ancient North,legs,map_189_difficulty_0,boss_000450,map_189_difficulty_0
+905,Battlegear of the Ancient North,200576,Helm of the Ancient North,head,map_189_difficulty_0,boss_000450,map_189_difficulty_0
+905,Battlegear of the Ancient North,200815,Breastplate of the Ancient North,chest,map_189_difficulty_0,boss_000450,map_189_difficulty_0
+905,Battlegear of the Ancient North,200837,Gauntlets of the Ancient North,hands,map_189_difficulty_0,boss_000450,map_189_difficulty_0
+905,Battlegear of the Ancient North,200878,Shoulderguards of the Ancient North,shoulder,map_189_difficulty_0,boss_000450,map_189_difficulty_0
+903,Regalia of the Crimson Dawn,340107,Robes of the Crimson Dawn,chest,map_230_difficulty_0,boss_000245,map_230_difficulty_0
+903,Regalia of the Crimson Dawn,340150,Cowl of the Crimson Dawn,head,map_230_difficulty_0,boss_000245,map_230_difficulty_0
+903,Regalia of the Crimson Dawn,340187,Leggings of the Crimson Dawn,legs,map_230_difficulty_0,boss_000245,map_230_difficulty_0
+902,Regalia of the Wild Hunt,340221,Leggings of the Wild Hunt,legs,map_230_difficulty_0,boss_000235,map_230_difficulty_0
+903,Regalia of the Crimson Dawn,340224,Gloves of the Crimson Dawn,hands,map_230_difficulty_0,boss_000245,map_230_difficulty_0
+902,Regalia of the Wild Hunt,340286,Mantle of the Wild Hunt,shoulder,map_230_difficulty_0,boss_000235,map_230_difficulty_0
+902,Regalia of the Wild Hunt,340302,Gloves of the Wild Hunt,hands,map_230_difficulty_0,boss_000235,map_230_difficulty_0
+902,Regalia of the Wild Hunt,340402,Robes of the Wild Hunt,chest,map_230_difficulty_0,boss_000235,map_230_difficulty_0
+902,Regalia of the Wild Hunt,340613,Cowl of the Wild Hunt,head,map_230_difficulty_0,boss_000235,map_230_difficulty_0
+903,Regalia of the Crimson Dawn,340723,Mantle of the Crimson Dawn,shoulder,map_230_difficulty_0,boss_000245,map_230_difficulty_0
+904,Vestments of the Sunreaver Host,360007,Gloves of the Sunreaver Host,hands,,,
+904,Vestments of the Sunreaver Host,360043,Mantle of the Sunreaver Host,shoulder,,,
+904,Vestments of the Sunreaver Host,360375,Cowl of the Sunreaver Host,head,,,
+904,Vestments of the Sunreaver Host,360635,Leggings of the Sunreaver Host,legs,,,
+904,Vestments of the Sunreaver Host,360766,Robes of the Sunreaver Host,chest,,,

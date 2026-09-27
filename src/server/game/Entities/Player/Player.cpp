@@ -523,6 +523,9 @@ bool Player::Create(ObjectGuid::LowType guidlow, CharacterCreateInfo* createInfo
     m_realRace = createInfo->Race; // set real race flag
     m_race = createInfo->Race; // set real race flag
 
+    if (!InitializeTeamId(TeamIdForRace(createInfo->Race)))
+        return false;
+
     SetFactionForRace(createInfo->Race);
 
     if (!IsValidGender(createInfo->Gender))
@@ -1161,8 +1164,28 @@ bool Player::BuildEnumData(PreparedQueryResult result, WorldPacket* data)
     //    guild_member.guildid, characters.playerFlags, characters.at_login, character_pet.entry, character_pet.modelid, character_pet.level, characters.equipmentCache, character_banned.guid,
     //    24                      25
     //    characters.extra_flags, character_declinedname.genitive
+    // TeamId is appended after all existing columns in both enum queries.
 
     Field* fields = result->Fetch();
+    Field& teamField = fields[result->GetFieldCount() - 1];
+    if (teamField.IsNull())
+    {
+        LOG_ERROR("entities.player", "Character {} has NULL persistent team id; don't build enum.",
+            fields[0].Get<uint32>());
+        return false;
+    }
+
+    // teamId is TINYINT UNSIGNED: it must be read as uint8. Field::GetData interprets raw
+    // prepared-statement fields with `*reinterpret_cast<T const*>(data.value)`, so Get<uint32>()
+    // on a one-byte column reads three bytes of neighbouring row data -- which showed up as
+    // "invalid persistent team id 122624" and silently dropped characters from the list.
+    uint32 const persistentTeamId = teamField.Get<uint8>();
+    if (!IsValidPlayerTeamId(persistentTeamId))
+    {
+        LOG_ERROR("entities.player", "Character {} has invalid persistent team id {}; don't build enum.",
+            fields[0].Get<uint32>(), persistentTeamId);
+        return false;
+    }
 
     ObjectGuid::LowType guidLow = fields[0].Get<uint32>();
     uint8 plrRace = fields[2].Get<uint8>();
@@ -6023,17 +6046,64 @@ TeamId Player::TeamIdForRace(uint8 race)
     return TEAM_ALLIANCE;
 }
 
+bool Player::InitializeTeamId(TeamId teamId)
+{
+    if (!IsValidPlayerTeamId(teamId))
+        return false;
+
+    m_team = teamId;
+    return true;
+}
+
+bool Player::SetPersistentTeamId(TeamId teamId)
+{
+    if (!IsValidPlayerTeamId(teamId) || !IsValidPlayerTeamId(m_team))
+        return false;
+
+    if (m_team == teamId)
+        return true;
+
+    TeamId const oldTeamId = m_team;
+    m_team = teamId;
+
+    CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPD_CHARACTER_TEAM);
+    stmt->SetData(0, static_cast<uint8>(teamId));
+    stmt->SetData(1, GetGUID().GetCounter());
+    CharacterDatabase.Execute(stmt);
+
+    sCharacterCache->UpdateCharacterTeamId(GetGUID(), teamId);
+    sScriptMgr->OnPlayerTeamChanged(this, oldTeamId, teamId);
+
+    // Becoming or ceasing to be Freeborn changes which faction template the character wears.
+    SetFactionForRace(getRace(true));
+    return true;
+}
+
 void Player::SetFactionForRace(uint8 race)
 {
-    m_team = TeamIdForRace(race);
-
     sScriptMgr->OnPlayerUpdateFaction(this);
 
-    if (GetTeamId(true) != GetTeamId())
+    if (!IsFreeborn() && GetTeamId() != GetOriginTeamId())
         return;
 
     ChrRacesEntry const* rEntry = sChrRacesStore.LookupEntry(race);
-    SetFaction(rEntry ? rEntry->FactionID : 0);
+    uint32 const raceFaction = rEntry ? rEntry->FactionID : 0;
+
+    // A Freeborn wears a dedicated faction template that is hostile to every player team (and to
+    // itself) while staying friendly to both sides' NPCs, because the 3.3.5a client reads
+    // player-versus-player hostility straight from UNIT_FIELD_FACTIONTEMPLATE. Inside a
+    // battleground it keeps its race template instead, so the client still treats its own match
+    // side as friendly; SetBattlegroundId refreshes the template on the way in and out.
+    if (IsFreeborn() && !InBattleground())
+    {
+        if (GetFaction() != FREEBORN_FACTION_TEMPLATE)
+            LOG_INFO("server", "Freeborn {} wears faction template {}", GetName(), uint32(FREEBORN_FACTION_TEMPLATE));
+
+        SetFaction(FREEBORN_FACTION_TEMPLATE);
+        return;
+    }
+
+    SetFaction(raceFaction);
 }
 
 ReputationRank Player::GetReputationRank(uint32 faction) const
@@ -12574,8 +12644,18 @@ void Player::SetBattlegroundId(uint32 id, BattlegroundTypeId bgTypeId, uint32 qu
     m_bgData.isInvited = invited;
     m_bgData.bgIsRandom = isRandom;
 
+    // A Freeborn has no side of its own in a battleground, so it counts as the team its race
+    // implies. Every battleground store and the client's own team byte are indexed by this, so it
+    // must never be anything but TEAM_ALLIANCE or TEAM_HORDE. Identity for everyone else.
+    teamId = PvpSideOfTeam(teamId, GetOriginTeamId());
+
     m_bgData.bgTeamId = teamId;
     SetByteValue(PLAYER_BYTES_3, 3, uint8(teamId == TEAM_ALLIANCE ? 1 : 0));
+
+    // A Freeborn's own template is hostile to every player, which would also mark its battleground
+    // team hostile, so entering or leaving a match refreshes the template from the state just set.
+    if (IsFreeborn())
+        SetFactionForRace(getRace(true));
 }
 
 bool Player::GetBGAccessByLevel(BattlegroundTypeId bgTypeId) const
@@ -15235,6 +15315,7 @@ void Player::_SaveCharacter(bool create, CharacterDatabaseTransaction trans)
         stmt->SetData(index++, m_grantableLevels);
         stmt->SetData(index++, _innTriggerId);
         stmt->SetData(index++, m_extraBonusTalentCount);
+        stmt->SetData(index++, static_cast<uint8>(GetTeamId()));
     }
     else
     {
@@ -15375,6 +15456,7 @@ void Player::_SaveCharacter(bool create, CharacterDatabaseTransaction trans)
         stmt->SetData(index++, m_grantableLevels);
         stmt->SetData(index++, _innTriggerId);
         stmt->SetData(index++, m_extraBonusTalentCount);
+        stmt->SetData(index++, static_cast<uint8>(GetTeamId()));
 
         stmt->SetData(index++, IsInWorld() && !GetSession()->PlayerLogout() ? 1 : 0);
         // Index

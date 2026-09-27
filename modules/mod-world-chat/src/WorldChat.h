@@ -57,11 +57,12 @@ namespace WC {
             "|TINTERFACE/CHATFRAME/UI-CHATICON-BLIZZ:13:26:0:-2|t";
 
     /* COLORED TEXT FOR CURRENT FACTION || NOT FOR GMS */
-    constexpr std::array<std::string_view, 3> TeamColored =
+    constexpr std::array<std::string_view, 4> TeamColored =
     {
         "|TINTERFACE/WorldStateFrame/AllianceIcon:16:0:1:-1|t", // Alliance
         "|TINTERFACE/WorldStateFrame/HordeIcon:16:0:1:-1|t",    // Horde
-        ""                                                      // NEUTRAL
+        "",                                                     // NEUTRAL
+        ""                                                      // FREEBORN (badge art: later slice)
     };
 
     constexpr std::string_view MessageTemplate =

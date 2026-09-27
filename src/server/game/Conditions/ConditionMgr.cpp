@@ -122,9 +122,7 @@ bool Condition::Meets(ConditionSourceInfo& sourceInfo)
         {
             if (Player* player = unit->GetCharmerOrOwnerPlayerOrPlayerItself())
             {
-                // Xinef: DB Data compatibility...
-                uint32 teamOld = player->GetTeamId() == TEAM_ALLIANCE ? ALLIANCE : HORDE;
-                condMeets = teamOld == ConditionValue1;
+                condMeets = SatisfiesTeamCondition(player->GetTeamId(), ConditionValue1);
             }
         }
         break;

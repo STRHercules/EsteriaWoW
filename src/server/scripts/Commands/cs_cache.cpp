@@ -114,11 +114,14 @@ public:
                 if (sCharacterCache->HasCharacterCacheEntry(cPlayer->GetGUID()))
                 {
                     sCharacterCache->UpdateCharacterData(cPlayer->GetGUID(), cPlayer->GetName(), cPlayer->getGender(), cPlayer->getRace());
+                    sCharacterCache->UpdateCharacterTeamId(cPlayer->GetGUID(), cPlayer->GetTeamId());
                 }
                 else
                 {
-                    sCharacterCache->AddCharacterCacheEntry(cPlayer->GetGUID(), cPlayer->GetSession()->GetAccountId(), cPlayer->GetName(),
-                        cPlayer->getGender(), cPlayer->getRace(), cPlayer->getClass(), cPlayer->GetLevel());
+                    sCharacterCache->AddCharacterCacheEntry(
+                        cPlayer->GetGUID(), cPlayer->GetSession()->GetAccountId(), cPlayer->GetName(),
+                        cPlayer->getGender(), cPlayer->getRace(), cPlayer->getClass(), cPlayer->GetLevel(),
+                        cPlayer->GetTeamId());
                 }
 
                 sCharacterCache->UpdateCharacterAccountId(cPlayer->GetGUID(), cPlayer->GetSession()->GetAccountId());

@@ -25,6 +25,7 @@
 #include "WorldSession.h"
 #include "WorldStatePackets.h"
 #include "WorldStateDefines.h"
+#include "PlayerTeamSide.h"
 
 void BattlegroundABScore::BuildObjectivesBlock(WorldPacket& data)
 {
@@ -192,13 +193,13 @@ void BattlegroundAB::HandleAreaTrigger(Player* player, uint32 trigger)
     switch (trigger)
     {
         case 3948:                                          // Arathi Basin Alliance Exit.
-            if (player->GetTeamId() != TEAM_ALLIANCE)
+            if (PvpSideOf(player) != TEAM_ALLIANCE)
                 player->GetSession()->SendAreaTriggerMessage("Only The Alliance can use that portal");
             else
                 player->LeaveBattleground();
             break;
         case 3949:                                          // Arathi Basin Horde Exit.
-            if (player->GetTeamId() != TEAM_HORDE)
+            if (PvpSideOf(player) != TEAM_HORDE)
                 player->GetSession()->SendAreaTriggerMessage("Only The Horde can use that portal");
             else
                 player->LeaveBattleground();
@@ -312,15 +313,15 @@ void BattlegroundAB::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
         if (player->GetDistance2d(BG_AB_NodePositions[node][0], BG_AB_NodePositions[node][1]) < 10.0f)
             break;
 
-    if (node == BG_AB_DYNAMIC_NODES_COUNT || _capturePointInfo[node]._ownerTeamId == player->GetTeamId() ||
-            (_capturePointInfo[node]._state == BG_AB_NODE_STATE_ALLY_CONTESTED && player->GetTeamId() == TEAM_ALLIANCE) ||
-            (_capturePointInfo[node]._state == BG_AB_NODE_STATE_HORDE_CONTESTED && player->GetTeamId() == TEAM_HORDE))
+    if (node == BG_AB_DYNAMIC_NODES_COUNT || _capturePointInfo[node]._ownerTeamId == PvpSideOf(player) ||
+            (_capturePointInfo[node]._state == BG_AB_NODE_STATE_ALLY_CONTESTED && PvpSideOf(player) == TEAM_ALLIANCE) ||
+            (_capturePointInfo[node]._state == BG_AB_NODE_STATE_HORDE_CONTESTED && PvpSideOf(player) == TEAM_HORDE))
         return;
 
     player->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT);
 
     uint32 sound = 0;
-    TeamId teamid = player->GetTeamId();
+    TeamId teamid = PvpSideOf(player);
 
     DeleteBanner(node);
     CreateBanner(node, true);
@@ -329,7 +330,7 @@ void BattlegroundAB::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
     {
         player->KilledMonsterCredit(BG_AB_QUEST_CREDIT_BASE + node);
         UpdatePlayerScore(player, SCORE_BASES_ASSAULTED, 1);
-        _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_CONTESTED) + player->GetTeamId();
+        _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_CONTESTED) + PvpSideOf(player);
         _capturePointInfo[node]._ownerTeamId = TEAM_NEUTRAL;
         _bgEvents.RescheduleEvent(BG_AB_EVENT_CAPTURE_STABLE + node, BG_AB_FLAG_CAPTURING_TIME);
         sound = BG_AB_SOUND_NODE_CLAIMED;
@@ -349,7 +350,7 @@ void BattlegroundAB::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
         {
             player->KilledMonsterCredit(BG_AB_QUEST_CREDIT_BASE + node);
             UpdatePlayerScore(player, SCORE_BASES_ASSAULTED, 1);
-            _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_CONTESTED) + player->GetTeamId();
+            _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_CONTESTED) + PvpSideOf(player);
             _capturePointInfo[node]._ownerTeamId = TEAM_NEUTRAL;
             _bgEvents.RescheduleEvent(BG_AB_EVENT_CAPTURE_STABLE + node, BG_AB_FLAG_CAPTURING_TIME);
 
@@ -365,8 +366,8 @@ void BattlegroundAB::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
         else
         {
             UpdatePlayerScore(player, SCORE_BASES_DEFENDED, 1);
-            _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_OCCUPIED) + player->GetTeamId();
-            _capturePointInfo[node]._ownerTeamId = player->GetTeamId();
+            _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_OCCUPIED) + PvpSideOf(player);
+            _capturePointInfo[node]._ownerTeamId = PvpSideOf(player);
             _bgEvents.CancelEvent(BG_AB_EVENT_CAPTURE_STABLE + node);
             NodeOccupied(node); // after setting team owner
 
@@ -380,7 +381,7 @@ void BattlegroundAB::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
             }
         }
 
-        sound = player->GetTeamId() == TEAM_ALLIANCE ? BG_AB_SOUND_NODE_ASSAULTED_ALLIANCE : BG_AB_SOUND_NODE_ASSAULTED_HORDE;
+        sound = PvpSideOf(player) == TEAM_ALLIANCE ? BG_AB_SOUND_NODE_ASSAULTED_ALLIANCE : BG_AB_SOUND_NODE_ASSAULTED_HORDE;
     }
     else
     {
@@ -388,10 +389,10 @@ void BattlegroundAB::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
         UpdatePlayerScore(player, SCORE_BASES_ASSAULTED, 1);
         NodeDeoccupied(node); // before setting team owner to neutral
 
-        _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_CONTESTED) + player->GetTeamId();
+        _capturePointInfo[node]._state = static_cast<uint8>(BG_AB_NODE_STATE_ALLY_CONTESTED) + PvpSideOf(player);
 
         _bgEvents.RescheduleEvent(BG_AB_EVENT_CAPTURE_STABLE + node, BG_AB_FLAG_CAPTURING_TIME);
-        sound = player->GetTeamId() == TEAM_ALLIANCE ? BG_AB_SOUND_NODE_ASSAULTED_ALLIANCE : BG_AB_SOUND_NODE_ASSAULTED_HORDE;
+        sound = PvpSideOf(player) == TEAM_ALLIANCE ? BG_AB_SOUND_NODE_ASSAULTED_ALLIANCE : BG_AB_SOUND_NODE_ASSAULTED_HORDE;
 
         if (teamid == TEAM_ALLIANCE)
         {
@@ -497,7 +498,7 @@ void BattlegroundAB::EndBattleground(TeamId winnerTeamId)
 
 GraveyardStruct const* BattlegroundAB::GetClosestGraveyard(Player* player)
 {
-    GraveyardStruct const* entry = sGraveyard->GetGraveyard(BG_AB_GraveyardIds[static_cast<uint8>(BG_AB_SPIRIT_ALIANCE) + player->GetTeamId()]);
+    GraveyardStruct const* entry = sGraveyard->GetGraveyard(BG_AB_GraveyardIds[static_cast<uint8>(BG_AB_SPIRIT_ALIANCE) + PvpSideOf(player)]);
     GraveyardStruct const* nearestEntry = entry;
 
     float pX = player->GetPositionX();
@@ -506,7 +507,7 @@ GraveyardStruct const* BattlegroundAB::GetClosestGraveyard(Player* player)
     float minDist = dist;
 
     for (uint8 i = BG_AB_NODE_STABLES; i < BG_AB_DYNAMIC_NODES_COUNT; ++i)
-        if (_capturePointInfo[i]._ownerTeamId == player->GetTeamId())
+        if (_capturePointInfo[i]._ownerTeamId == PvpSideOf(player))
         {
             entry = sGraveyard->GetGraveyard(BG_AB_GraveyardIds[i]);
             dist = (entry->x - pX) * (entry->x - pX) + (entry->y - pY) * (entry->y - pY);

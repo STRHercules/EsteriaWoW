@@ -40,6 +40,7 @@
 #include "SocialMgr.h"
 #include "SpellAuras.h"
 #include "WorldSession.h"
+#include "PlayerTeamSide.h"
 
 namespace lfg
 {
@@ -996,8 +997,8 @@ namespace lfg
         for (LfgDungeonSet::const_iterator itr = dungeons.begin(); itr != dungeons.end(); ++itr)
             if (GetLFGDungeon(*itr)) // ensure dungeon data exists for such dungeon id
             {
-                RaidBrowserStore[player->GetTeamId()][*itr][player->GetGUID()] = entry;
-                RBUsedDungeonsStore[player->GetTeamId()].insert(*itr);
+                RaidBrowserStore[PvpSideOf(player)][*itr][player->GetGUID()] = entry;
+                RBUsedDungeonsStore[PvpSideOf(player)].insert(*itr);
             }
     }
 
@@ -1037,18 +1038,18 @@ namespace lfg
 
     void LFGMgr::LfrSearchAdd(Player* p, uint32 dungeonId)
     {
-        RBSearchersStore[p->GetTeamId()][p->GetGUID()] = dungeonId;
+        RBSearchersStore[PvpSideOf(p)][p->GetGUID()] = dungeonId;
     }
 
     void LFGMgr::LfrSearchRemove(Player* p)
     {
-        RBSearchersStore[p->GetTeamId()].erase(p->GetGUID());
+        RBSearchersStore[PvpSideOf(p)].erase(p->GetGUID());
     }
 
     void LFGMgr::SendRaidBrowserCachedList(Player* player, uint32 dungeonId)
     {
-        RBCacheMap::iterator itr = RBCacheStore[player->GetTeamId()].find(dungeonId);
-        if (itr != RBCacheStore[player->GetTeamId()].end())
+        RBCacheMap::iterator itr = RBCacheStore[PvpSideOf(player)].find(dungeonId);
+        if (itr != RBCacheStore[PvpSideOf(player)].end())
         {
             player->SendDirectMessage(&(itr->second));
             return;

@@ -30,6 +30,7 @@
 #include "WorldSessionMgr.h"
 #include "WorldStateDefines.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 OPvPCapturePointEP_EWT::OPvPCapturePointEP_EWT(OutdoorPvP* pvp)
     : OPvPCapturePoint(pvp), m_TowerState(EP_TS_N), m_UnitsSummonedSideId(TEAM_NEUTRAL)
@@ -668,7 +669,7 @@ bool OutdoorPvPEP::Update(uint32 diff)
 void OutdoorPvPEP::HandlePlayerEnterZone(Player* player, uint32 zone)
 {
     // add buffs
-    if (player->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE)
     {
         if (m_AllianceTowersControlled && m_AllianceTowersControlled < 5)
             player->CastSpell(player, EP_AllianceBuffs[m_AllianceTowersControlled - 1], true);
@@ -684,7 +685,7 @@ void OutdoorPvPEP::HandlePlayerEnterZone(Player* player, uint32 zone)
 void OutdoorPvPEP::HandlePlayerLeaveZone(Player* player, uint32 zone)
 {
     // remove buffs
-    if (player->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE)
     {
         for (int i = 0; i < 4; ++i)
             player->RemoveAurasDueToSpell(EP_AllianceBuffs[i]);

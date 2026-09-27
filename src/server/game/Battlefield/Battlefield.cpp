@@ -40,6 +40,7 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include "PlayerTeamSide.h"
 
 Battlefield::Battlefield() :
     Timer(0),
@@ -105,12 +106,12 @@ void Battlefield::HandlePlayerEnterZone(Player* player, uint32 /*zone*/)
         // If full of players > announce to player that BF is full and kick him after a few second if he doesn't leave
         if (IsWarTime())
         {
-            if (HasWarVacancy(player->GetTeamId()))
+            if (HasWarVacancy(PvpSideOf(player)))
                 InvitePlayerToWar(player);
             else
             {
                 /// @todo: Send a packet to announce it to player
-                PlayersWillBeKick[player->GetTeamId()][player->GetGUID()] = GameTime::GetGameTime().count() + 10;
+                PlayersWillBeKick[PvpSideOf(player)][player->GetGUID()] = GameTime::GetGameTime().count() + 10;
                 InvitePlayerToQueue(player);
             }
         }
@@ -122,7 +123,7 @@ void Battlefield::HandlePlayerEnterZone(Player* player, uint32 /*zone*/)
         }
     }
 
-    Players[player->GetTeamId()].insert(player->GetGUID());
+    Players[PvpSideOf(player)].insert(player->GetGUID());
     OnPlayerEnterZone(player);
 }
 
@@ -134,10 +135,10 @@ void Battlefield::HandlePlayerLeaveZone(Player* player, uint32 /*zone*/)
     if (IsWarTime())
     {
         // If the player is participating to the battle
-        if (PlayersInWar[player->GetTeamId()].erase(player->GetGUID()))
+        if (PlayersInWar[PvpSideOf(player)].erase(player->GetGUID()))
         {
             if (isLogout)
-                LogoutGracePlayers[player->GetTeamId()][player->GetGUID()] =
+                LogoutGracePlayers[PvpSideOf(player)][player->GetGUID()] =
                     GameTime::GetGameTime().count() + LOGOUT_GRACE_SECONDS;
             else
                 player->GetSession()->SendBfLeaveMessage(BattleId);
@@ -218,10 +219,10 @@ void Battlefield::InvitePlayerToQueue(Player* player)
     if (player->IsGameMaster()) // GMs are not invited to war, so don't queue them either
         return;
 
-    if (PlayersInQueue[player->GetTeamId()].count(player->GetGUID()))
+    if (PlayersInQueue[PvpSideOf(player)].count(player->GetGUID()))
         return;
 
-    if (PlayersInQueue[player->GetTeamId()].size() <= MinPlayer || PlayersInQueue[GetOtherTeam(player->GetTeamId())].size() >= MinPlayer)
+    if (PlayersInQueue[PvpSideOf(player)].size() <= MinPlayer || PlayersInQueue[GetOtherTeam(PvpSideOf(player))].size() >= MinPlayer)
         player->GetSession()->SendBfInvitePlayerToQueue(BattleId);
 }
 
@@ -232,7 +233,7 @@ void Battlefield::InvitePlayersInQueueToWar()
         GuidUnorderedSet copy(PlayersInQueue[team]);
         for (ObjectGuid const& guid : copy)
             if (Player* player = ObjectAccessor::FindPlayer(guid))
-                if (HasWarVacancy(player->GetTeamId()))
+                if (HasWarVacancy(PvpSideOf(player)))
                     InvitePlayerToWar(player);
         PlayersInQueue[team].clear();
     }
@@ -249,10 +250,10 @@ void Battlefield::InvitePlayersInZoneToWar()
         if (IsPlayerInWarOrInvited(player))
             return;
 
-        if (HasWarVacancy(player->GetTeamId()))
+        if (HasWarVacancy(PvpSideOf(player)))
             InvitePlayerToWar(player);
-        else if (!PlayersWillBeKick[player->GetTeamId()].count(player->GetGUID())) // Battlefield is full of players
-            PlayersWillBeKick[player->GetTeamId()][player->GetGUID()] = GameTime::GetGameTime().count() + 10;
+        else if (!PlayersWillBeKick[PvpSideOf(player)].count(player->GetGUID())) // Battlefield is full of players
+            PlayersWillBeKick[PvpSideOf(player)][player->GetGUID()] = GameTime::GetGameTime().count() + 10;
     });
 }
 
@@ -270,15 +271,15 @@ void Battlefield::InvitePlayerToWar(Player* player)
 
     if (player->InBattleground())
     {
-        PlayersInQueue[player->GetTeamId()].erase(player->GetGUID());
+        PlayersInQueue[PvpSideOf(player)].erase(player->GetGUID());
         return;
     }
 
     // If the player does not match minimal level requirements for the battlefield, kick him
     if (player->GetLevel() < MinLevel)
     {
-        if (!PlayersWillBeKick[player->GetTeamId()].count(player->GetGUID()))
-            PlayersWillBeKick[player->GetTeamId()][player->GetGUID()] = GameTime::GetGameTime().count() + 10;
+        if (!PlayersWillBeKick[PvpSideOf(player)].count(player->GetGUID()))
+            PlayersWillBeKick[PvpSideOf(player)][player->GetGUID()] = GameTime::GetGameTime().count() + 10;
         return;
     }
 
@@ -288,8 +289,8 @@ void Battlefield::InvitePlayerToWar(Player* player)
 
     sScriptMgr->OnBattlefieldBeforeInvitePlayerToWar(this, player);
 
-    PlayersWillBeKick[player->GetTeamId()].erase(player->GetGUID());
-    InvitedPlayers[player->GetTeamId()][player->GetGUID()] = GameTime::GetGameTime().count() + TimeForAcceptInvite;
+    PlayersWillBeKick[PvpSideOf(player)].erase(player->GetGUID());
+    InvitedPlayers[PvpSideOf(player)][player->GetGUID()] = GameTime::GetGameTime().count() + TimeForAcceptInvite;
     player->GetSession()->SendBfInvitePlayerToWar(BattleId, ZoneId, TimeForAcceptInvite);
 }
 
@@ -303,7 +304,7 @@ void Battlefield::InitStalker(uint32 entry, float x, float y, float z, float o)
 
 bool Battlefield::IsPlayerInWarOrInvited(Player* player) const
 {
-    TeamId teamId = player->GetTeamId();
+    TeamId teamId = PvpSideOf(player);
     return PlayersInWar[teamId].count(player->GetGUID()) || InvitedPlayers[teamId].count(player->GetGUID());
 }
 
@@ -334,7 +335,7 @@ void Battlefield::KickPlayerFromBattlefield(ObjectGuid guid)
 {
     if (Player* player = ObjectAccessor::FindPlayer(guid))
         if (player->GetZoneId() == GetZoneId() && !player->IsGameMaster()
-            && !PlayersInWar[player->GetTeamId()].count(guid))
+            && !PlayersInWar[PvpSideOf(player)].count(guid))
         {
             player->TeleportTo(KickPosition);
             // Eagerly drop zone tracking: the teleport's zone change does not
@@ -464,7 +465,7 @@ bool Battlefield::HasPlayer(Player* player) const
 void Battlefield::PlayerAcceptInviteToQueue(Player* player)
 {
     // Add player in queue
-    PlayersInQueue[player->GetTeamId()].insert(player->GetGUID());
+    PlayersInQueue[PvpSideOf(player)].insert(player->GetGUID());
     // Send notification
     player->GetSession()->SendBfQueueInviteResponse(BattleId, ZoneId);
 }
@@ -473,7 +474,7 @@ void Battlefield::PlayerAcceptInviteToQueue(Player* player)
 void Battlefield::AskToLeaveQueue(Player* player)
 {
     // Remove player from queue
-    PlayersInQueue[player->GetTeamId()].erase(player->GetGUID());
+    PlayersInQueue[PvpSideOf(player)].erase(player->GetGUID());
     // Send notification
     player->GetSession()->SendBfLeaveMessage(BattleId, BF_LEAVE_REASON_CLOSE);
 }
@@ -492,7 +493,7 @@ void Battlefield::PlayerAcceptInviteToWar(Player* player)
         return;
 
     // Reject unknown / expired invites; the kick task only sweeps every 5s.
-    TeamId const invitedTeam = player->GetTeamId();
+    TeamId const invitedTeam = PvpSideOf(player);
     auto itr = InvitedPlayers[invitedTeam].find(player->GetGUID());
     if (itr == InvitedPlayers[invitedTeam].end()
         || itr->second <= GameTime::GetGameTime().count())
@@ -503,7 +504,7 @@ void Battlefield::PlayerAcceptInviteToWar(Player* player)
     if (AddOrSetPlayerToCorrectBfGroup(player))
     {
         player->GetSession()->SendBfEntered(BattleId);
-        PlayersInWar[player->GetTeamId()].insert(player->GetGUID());
+        PlayersInWar[PvpSideOf(player)].insert(player->GetGUID());
         // Use pre-hook team: JoinWar may have just reassigned GetTeamId().
         InvitedPlayers[invitedTeam].erase(player->GetGUID());
 
@@ -613,14 +614,14 @@ bool Battlefield::AddOrSetPlayerToCorrectBfGroup(Player* player)
         return false;
     }
 
-    Group* group = GetFreeBfRaid(player->GetTeamId());
+    Group* group = GetFreeBfRaid(PvpSideOf(player));
     if (!group)
     {
         group = new Group;
         group->SetBattlefieldGroup(this);
         group->Create(player);
         sGroupMgr->AddGroup(group);
-        Groups[player->GetTeamId()].insert(group->GetGUID());
+        Groups[PvpSideOf(player)].insert(group->GetGUID());
     }
     else if (group->IsMember(player->GetGUID()))
     {
@@ -649,7 +650,7 @@ void Battlefield::TryRejoinAfterLogout(Player* player)
 
     // Vacancy gate mirrors HandlePlayerEnterZone (full team -> queue path). Pre-hook:
     // we can't abort after JoinWar, which may already have mutated module state.
-    if (!pending || !IsWarTime() || !HasWarVacancy(player->GetTeamId()))
+    if (!pending || !IsWarTime() || !HasWarVacancy(PvpSideOf(player)))
         return;
 
     if (Group* current = player->GetGroup())
@@ -663,7 +664,7 @@ void Battlefield::TryRejoinAfterLogout(Player* player)
     if (AddOrSetPlayerToCorrectBfGroup(player))
     {
         player->GetSession()->SendBfEntered(BattleId);
-        PlayersInWar[player->GetTeamId()].insert(guid);
+        PlayersInWar[PvpSideOf(player)].insert(guid);
         OnPlayerJoinWar(player);
     }
 }
@@ -692,7 +693,7 @@ GraveyardStruct const* Battlefield::GetClosestGraveyard(Player* player)
         if (!gy)
             continue;
 
-        if (gy->GetControlTeamId() != player->GetTeamId())
+        if (gy->GetControlTeamId() != PvpSideOf(player))
             continue;
 
         float dist = gy->GetDistance(player);
@@ -990,7 +991,7 @@ bool BfCapturePoint::Update(uint32 diff)
         Player* player = ObjectAccessor::FindPlayer(*itr);
         if (player && capturePoint->IsWithinDistInMap(player, radius) && player->IsOutdoorPvPActive())
         {
-            ++counts[player->GetTeamId()];
+            ++counts[PvpSideOf(player)];
             ++itr;
             continue;
         }
@@ -1008,7 +1009,7 @@ bool BfCapturePoint::Update(uint32 diff)
             if (ActivePlayers.insert(player->GetGUID()).second)
             {
                 HandlePlayerEnter(player);
-                ++counts[player->GetTeamId()];
+                ++counts[PvpSideOf(player)];
             }
 
     // get the difference of numbers
@@ -1123,7 +1124,7 @@ void BfCapturePoint::SendObjectiveComplete(uint32 id, ObjectGuid guid)
     // GetTeamId() changed mid-stay get credit on their current side.
     for (ObjectGuid const& playerGuid : ActivePlayers)
         if (Player* player = ObjectAccessor::FindPlayer(playerGuid))
-            if (player->GetTeamId() == winner)
+            if (PvpSideOf(player) == winner)
                 player->KilledMonsterCredit(id, guid);
 }
 

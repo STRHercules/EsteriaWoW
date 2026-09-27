@@ -1,6 +1,18 @@
 # Ideas
 
 
+# World Buffs
+
+# Housing
+- Personal
+- Guild
+
+# New Heirlooms
+- Unlimited Ammo
+
+# Placeable guild vault - like ascension
+- Account-wide
+
 ## Missing Races
 - Highmountain Tauren, Mag'har Orc, Earthen, Mechagnome
 
@@ -35,6 +47,12 @@
 
 ## Potential modules to install
 
+
+
+
+- https://github.com/AlsoNotMehh/mod-camping
+- https://github.com/AlsoNotMehh/mod-two-names
+- https://github.com/AlsoNotMehh/mod-realm-first-titles
 - https://github.com/AlsoNotMehh/mod-eluna-racial-swap
 - https://github.com/AlsoNotMehh/mod-eluna-teleport-selector
 - https://github.com/araxiaonline/Delves

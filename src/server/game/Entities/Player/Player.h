@@ -2140,9 +2140,11 @@ public:
     void CheckAreaExploreAndOutdoor();
 
     static TeamId TeamIdForRace(uint8 race);
-    [[nodiscard]] TeamId GetTeamId(bool original = false) const { return original ? TeamIdForRace(getRace(true)) : m_team; };
+    [[nodiscard]] TeamId GetTeamId(bool original = false) const { return original ? GetOriginTeamId() : m_team; };
+    [[nodiscard]] TeamId GetOriginTeamId() const { return TeamIdForRace(getRace(true)); }
+    [[nodiscard]] bool IsFreeborn() const { return m_team == TEAM_FREEBORN; }
+    bool SetPersistentTeamId(TeamId teamId);
     void SetFactionForRace(uint8 race);
-    void setTeamId(TeamId teamid) { m_team = teamid; };
 
     void InitDisplayIds();
 
@@ -2603,6 +2605,8 @@ public:
     [[nodiscard]] bool CanSeeTrainer(Creature const* creature) const;
 
 private:
+    bool InitializeTeamId(TeamId teamId);
+
     [[nodiscard]] bool AnyVendorOptionAvailable(uint32 menuId, Creature const* creature) const;
 public:
     [[nodiscard]] uint32 GetChampioningFaction() const { return m_ChampioningFaction; }

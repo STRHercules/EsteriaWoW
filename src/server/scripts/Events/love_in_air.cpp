@@ -24,6 +24,7 @@
 #include "ScriptedCreature.h"
 #include "SpellScript.h"
 #include "SpellScriptLoader.h"
+#include "PlayerTeamSide.h"
 
 ///////////////////////////////////////
 ////// GOS
@@ -122,11 +123,11 @@ struct npc_love_in_air_snivel : public NullCreatureAI
 
     bool AllowAction(Player* player)
     {
-        uint16 slot = player->FindQuestSlot(player->GetTeamId() == TEAM_ALLIANCE ? QUEST_HOT_ON_TRAIL_ALLY : QUEST_HOT_ON_TRAIL_HORDE);
+        uint16 slot = player->FindQuestSlot(PvpSideOf(player) == TEAM_ALLIANCE ? QUEST_HOT_ON_TRAIL_ALLY : QUEST_HOT_ON_TRAIL_HORDE);
         if (slot >= MAX_QUEST_LOG_SIZE)
             return false;
 
-        QuestStatusData& qData = player->getQuestStatusMap()[(player->GetTeamId() == TEAM_ALLIANCE ? QUEST_HOT_ON_TRAIL_ALLY : QUEST_HOT_ON_TRAIL_HORDE)];
+        QuestStatusData& qData = player->getQuestStatusMap()[(PvpSideOf(player) == TEAM_ALLIANCE ? QUEST_HOT_ON_TRAIL_ALLY : QUEST_HOT_ON_TRAIL_HORDE)];
         if (qData.CreatureOrGOCount[me->GetEntry() - NPC_SNIVEL_COUNTER] == 0)
             return true;
 

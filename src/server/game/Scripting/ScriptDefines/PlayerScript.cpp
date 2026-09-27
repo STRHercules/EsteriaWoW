@@ -287,6 +287,12 @@ void ScriptMgr::OnPlayerUpdateFaction(Player* player)
     CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_UPDATE_FACTION, script->OnPlayerUpdateFaction(player));
 }
 
+void ScriptMgr::OnPlayerTeamChanged(Player* player, TeamId oldTeamId, TeamId newTeamId)
+{
+    CALL_ENABLED_HOOKS(
+        PlayerScript, PLAYERHOOK_ON_TEAM_CHANGED, script->OnPlayerTeamChanged(player, oldTeamId, newTeamId));
+}
+
 void ScriptMgr::OnPlayerAddToBattleground(Player* player, Battleground* bg)
 {
     CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_ADD_TO_BATTLEGROUND, script->OnPlayerAddToBattleground(player, bg));

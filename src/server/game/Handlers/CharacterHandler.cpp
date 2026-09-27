@@ -277,10 +277,18 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
         >> createInfo->FacialHair
         >> createInfo->OutfitId;
 
+    // A character is always created on its race-origin team. Freeborn is deliberately NOT carried
+    // by this packet: the only field Lua can influence here is the name, and a Freeborn name has to
+    // follow exactly the same rules as an Alliance or Horde one. The creation screen records the
+    // choice and FreebornClaim.h applies it once the character exists.
+
     if (!HasPermission(rbac::RBAC_PERM_SKIP_CHECK_CHARACTER_CREATION_TEAMMASK))
     {
         if (uint32 mask = sWorld->getIntConfig(CONFIG_CHARACTER_CREATING_DISABLED))
         {
+            // The mask disables a persistent team by race origin, which is the only team a create
+            // can ask for now: bits 0/1 disable Alliance and Horde. Bit 3 (8) would disable
+            // Freeborn, which is chosen after creation, not here.
             if (mask & (1 << Player::TeamIdForRace(createInfo->Race)))
             {
                 SendCharCreate(CHAR_CREATE_DISABLED);
@@ -446,6 +454,10 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
 
                         if (result)
                         {
+                            // One-account-one-side limits are origin-based on purpose: a Freeborn
+                            // character is hostile to every side, so letting it skip this rule
+                            // grants no cross-side advantage, and treating it as its race origin
+                            // keeps native creation behaviour byte-for-byte unchanged.
                             TeamId teamId = Player::TeamIdForRace(createInfo->Race);
                             uint32 freeDeathKnightSlots = sWorld->getIntConfig(CONFIG_HEROIC_CHARACTERS_PER_REALM);
 
@@ -594,9 +606,15 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
                             {
                                 if (success)
                                 {
-                                    LOG_INFO("entities.player.character", "Account: {} (IP: {}) Create Character: {} {}", GetAccountId(), GetRemoteAddress(), newChar->GetName(), newChar->GetGUID().ToString());
+                                    LOG_INFO("entities.player.character",
+                                        "Account: {} (IP: {}) Create Character: {} {} (persistent team {})",
+                                        GetAccountId(), GetRemoteAddress(), newChar->GetName(),
+                                        newChar->GetGUID().ToString(), uint32(newChar->GetTeamId()));
                                     sScriptMgr->OnPlayerCreate(newChar.get());
-                                    sCharacterCache->AddCharacterCacheEntry(newChar->GetGUID(), GetAccountId(), newChar->GetName(), newChar->getGender(), newChar->getRace(), newChar->getClass(), newChar->GetLevel());
+                                    sCharacterCache->AddCharacterCacheEntry(
+                                        newChar->GetGUID(), GetAccountId(), newChar->GetName(),
+                                        newChar->getGender(), newChar->getRace(), newChar->getClass(),
+                                        newChar->GetLevel(), newChar->GetTeamId());
                                     SendCharCreate(CHAR_CREATE_SUCCESS);
                                 }
                                 else
@@ -2021,6 +2039,20 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
     uint32 atLoginFlags = fields[0].Get<uint16>();
     std::string knownTitlesStr = fields[1].Get<std::string>();
     uint32 money = fields[2].Get<uint32>();
+    if (fields[3].IsNull())
+    {
+        SendCharFactionChange(CHAR_CREATE_ERROR, factionChangeInfo.get());
+        return;
+    }
+
+    // TINYINT UNSIGNED: read as uint8. See the note in Player::BuildEnumData.
+    uint32 const oldPersistentTeamValue = fields[3].Get<uint8>();
+    if (!IsValidPlayerTeamId(oldPersistentTeamValue))
+    {
+        SendCharFactionChange(CHAR_CREATE_ERROR, factionChangeInfo.get());
+        return;
+    }
+    TeamId const oldPersistentTeamId = static_cast<TeamId>(oldPersistentTeamValue);
 
     uint32 usedLoginFlag = (factionChangeInfo->FactionChange ? AT_LOGIN_CHANGE_FACTION : AT_LOGIN_CHANGE_RACE);
     if (!(atLoginFlags & usedLoginFlag))
@@ -2082,6 +2114,7 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
     }
 
     TeamId newTeam = Player::TeamIdForRace(factionChangeInfo->Race);
+    TeamId const newPersistentTeamId = oldPersistentTeamId == TEAM_FREEBORN ? TEAM_FREEBORN : newTeam;
     if (factionChangeInfo->FactionChange == (Player::TeamIdForRace(oldRace) == newTeam))
     {
         SendCharFactionChange(factionChangeInfo->FactionChange ? CHAR_CREATE_CHARACTER_SWAP_FACTION : CHAR_CREATE_CHARACTER_RACE_ONLY, factionChangeInfo.get());
@@ -2170,7 +2203,8 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
     {
         stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPD_CHAR_RACE);
         stmt->SetData(0, factionChangeInfo->Race);
-        stmt->SetData(1, lowGuid);
+        stmt->SetData(1, static_cast<uint8>(newPersistentTeamId));
+        stmt->SetData(2, lowGuid);
         trans->Append(stmt);
     }
 
@@ -2179,6 +2213,7 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
 
     // xinef: update global data
     sCharacterCache->UpdateCharacterData(factionChangeInfo->Guid, factionChangeInfo->Name, factionChangeInfo->Gender, factionChangeInfo->Race);
+    sCharacterCache->UpdateCharacterTeamId(factionChangeInfo->Guid, newPersistentTeamId);
 
     if (oldRace != factionChangeInfo->Race)
     {

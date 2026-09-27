@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "patched_attachment_count": 622,
+  "creature_attachment_count": 617,
+  "gameobject_attachment_count": 5,
+  "synthetic_item_key_min": 2010000001,
+  "synthetic_item_key_max": 2010000622,
+  "unique_synthetic_item_keys": 622,
+  "attachment_values_rows_found": 622,
+  "legacy_item_1_attachment_rows_remaining": 0,
+  "cleanup_rows_with_synthetic_keys": 622,
+  "rollback_rows_with_synthetic_keys": 622,
+  "collision_checker_key_occurrences_per_attachment": [
+    2
+  ],
+  "collision_checker_uses_entry_item_primary_key_only": true,
+  "synthetic_keys_fit_uint32": true,
+  "generated_item_dbc_unchanged_from_original": true,
+  "generated_itemset_dbc_unchanged_from_original": true,
+  "class_item_sql_unchanged_from_original": true
+}

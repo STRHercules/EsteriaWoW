@@ -361,6 +361,7 @@ public: /* PlayerScript */
     void OnPlayerUpdateArea(Player* player, uint32 oldArea, uint32 newArea);
     bool OnPlayerBeforeTeleport(Player* player, uint32 mapid, float x, float y, float z, float orientation, uint32 options, Unit* target);
     void OnPlayerUpdateFaction(Player* player);
+    void OnPlayerTeamChanged(Player* player, TeamId oldTeamId, TeamId newTeamId);
     void OnPlayerAddToBattleground(Player* player, Battleground* bg);
     void OnPlayerQueueRandomDungeon(Player* player, uint32 & rDungeonId);
     void OnPlayerRemoveFromBattleground(Player* player, Battleground* bg);

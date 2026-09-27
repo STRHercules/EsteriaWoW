@@ -20,6 +20,7 @@
 #include "CharacterCache.h"
 #include "Common.h"
 #include "DatabaseEnv.h"
+#include "DBCStores.h"
 #include "Log.h"
 #include "ObjectMgr.h"
 #include "Player.h"
@@ -761,6 +762,45 @@ inline void FixNULLfields(std::string& line)
     }
 }
 
+inline bool HasTeamIdColumn(std::string const& line)
+{
+    std::size_t const valuesStart = line.find(" VALUES (");
+    return valuesStart != std::string::npos && valuesStart > 0 && line[valuesStart - 1] == ')' &&
+        line.find("`teamId`") < valuesStart;
+}
+
+inline bool AppendTeamIdToDump(TableStruct const& table, std::string& line, TeamId teamId)
+{
+    std::size_t const valuesStart = line.find(" VALUES (");
+    if (valuesStart == std::string::npos || valuesStart == 0)
+        return false;
+
+    if (line.find("` VALUES (") != std::string::npos)
+    {
+        std::ostringstream columns;
+        columns << " (";
+        for (auto itr = table.TableFields.begin(); itr != table.TableFields.end(); ++itr)
+        {
+            if (itr != table.TableFields.begin())
+                columns << ", ";
+            columns << '`' << itr->FieldName << '`';
+        }
+        columns << ')';
+        line.insert(valuesStart, columns.str());
+    }
+    else if (line[valuesStart - 1] == ')')
+        line.insert(valuesStart - 1, ", `teamId`");
+    else if (line[valuesStart - 1] != '`')
+        return false;
+
+    std::size_t const valuesEnd = line.rfind(");");
+    if (valuesEnd == std::string::npos)
+        return false;
+
+    line.insert(valuesEnd, ", '" + std::to_string(static_cast<uint8>(teamId)) + "'");
+    return true;
+}
+
 DumpReturn PlayerDumpReader::LoadDump(std::istream& input, uint32 account, std::string name, ObjectGuid::LowType guid)
 {
     uint32 charcount = AccountMgr::GetCharactersCount(account);
@@ -821,6 +861,7 @@ DumpReturn PlayerDumpReader::LoadDump(std::istream& input, uint32 account, std::
     uint8 race = RACE_NONE;
     uint8 playerClass = CLASS_NONE;
     uint8 level = 1;
+    TeamId teamId = TEAM_NEUTRAL;
 
     // for logs
     std::size_t lineNumber = 0;
@@ -920,6 +961,34 @@ DumpReturn PlayerDumpReader::LoadDump(std::istream& input, uint32 account, std::
             playerClass = *Acore::StringTo<uint32>(GetColumn(ts, line, "class"));
             gender = *Acore::StringTo<uint32>(GetColumn(ts, line, "gender"));
             level = *Acore::StringTo<uint32>(GetColumn(ts, line, "level"));
+
+            if (HasTeamIdColumn(line))
+            {
+                Optional<uint32> const parsedTeamId = Acore::StringTo<uint32>(GetColumn(ts, line, "teamId"));
+                if (!parsedTeamId || *parsedTeamId > 255 || !IsValidPlayerTeamId(static_cast<TeamId>(*parsedTeamId)))
+                {
+                    LOG_ERROR("misc", "LoadPlayerDump: (line {}) invalid persistent team id; dump broken.",
+                        lineNumber);
+                    return DUMP_FILE_BROKEN;
+                }
+
+                teamId = static_cast<TeamId>(*parsedTeamId);
+            }
+            else
+            {
+                ChrRacesEntry const* raceEntry = sChrRacesStore.LookupEntry(race);
+                if (!raceEntry || (raceEntry->TeamID != 1 && raceEntry->TeamID != 7))
+                {
+                    LOG_ERROR("misc", "LoadPlayerDump: (line {}) race {} has no valid origin team; dump broken.",
+                        lineNumber, race);
+                    return DUMP_FILE_BROKEN;
+                }
+
+                teamId = raceEntry->TeamID == 1 ? TEAM_HORDE : TEAM_ALLIANCE;
+                if (!AppendTeamIdToDump(ts, line, teamId))
+                    return DUMP_FILE_BROKEN;
+            }
+
             if (name.empty())
             {
                 // generate a temporary name
@@ -950,10 +1019,14 @@ DumpReturn PlayerDumpReader::LoadDump(std::istream& input, uint32 account, std::
     if (input.fail() && !input.eof())
         return DUMP_FILE_BROKEN;
 
+    if (!IsValidPlayerTeamId(teamId))
+        return DUMP_FILE_BROKEN;
+
     CharacterDatabase.CommitTransaction(trans);
 
     // in case of name conflict player has to rename at login anyway
-    sCharacterCache->AddCharacterCacheEntry(ObjectGuid(HighGuid::Player, guid), account, name, gender, race, playerClass, level);
+    sCharacterCache->AddCharacterCacheEntry(
+        ObjectGuid(HighGuid::Player, guid), account, name, gender, race, playerClass, level, teamId);
 
     sObjectMgr->GetGenerator<HighGuid::Item>().Set(sObjectMgr->GetGenerator<HighGuid::Item>().GetNextAfterMaxUsed() + items.size());
     sObjectMgr->_mailId += mails.size();

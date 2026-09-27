@@ -22,6 +22,7 @@
 #include "Define.h"
 #include "ObjectGuid.h"
 #include "Optional.h"
+#include "SharedDefines.h"
 #include <string>
 
 struct CharacterCacheEntry
@@ -31,6 +32,7 @@ struct CharacterCacheEntry
     uint32 AccountId;
     uint8 Class;
     uint8 Race;
+    TeamId PersistentTeamId;
     uint8 Sex;
     uint8 Level;
     uint16 MailCount;
@@ -49,10 +51,13 @@ class AC_GAME_API CharacterCache
         void LoadCharacterCacheStorage();
         void RefreshCacheEntry(uint32 lowGuid);
 
-        void AddCharacterCacheEntry(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level);
+        void AddCharacterCacheEntry(
+            ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender,
+            uint8 race, uint8 playerClass, uint8 level, TeamId teamId);
         void DeleteCharacterCacheEntry(ObjectGuid const& guid, std::string const& name);
 
         void UpdateCharacterData(ObjectGuid const& guid, std::string const& name, Optional<uint8> gender = {}, Optional<uint8> race = {});
+        void UpdateCharacterTeamId(ObjectGuid const& guid, TeamId teamId);
         void UpdateCharacterLevel(ObjectGuid const& guid, uint8 level);
         void UpdateCharacterAccountId(ObjectGuid const& guid, uint32 accountId);
         void UpdateCharacterGuildId(ObjectGuid const& guid, ObjectGuid::LowType guildId);
@@ -67,7 +72,7 @@ class AC_GAME_API CharacterCache
 
         [[nodiscard]] ObjectGuid GetCharacterGuidByName(std::string const& name) const;
         bool GetCharacterNameByGuid(ObjectGuid guid, std::string& name) const;
-        [[nodiscard]] uint32 GetCharacterTeamByGuid(ObjectGuid guid) const;
+        [[nodiscard]] Optional<TeamId> GetCharacterTeamByGuid(ObjectGuid guid) const;
         [[nodiscard]] uint32 GetCharacterAccountIdByGuid(ObjectGuid guid) const;
         [[nodiscard]] uint32 GetCharacterAccountIdByName(std::string const& name) const;
         [[nodiscard]] uint8 GetCharacterLevelByGuid(ObjectGuid guid) const;

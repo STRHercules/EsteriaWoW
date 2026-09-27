@@ -28,6 +28,7 @@
 #include "WorldSessionMgr.h"
 #include "WorldStateDefines.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 void ArenaScore::AppendToPacket(WorldPacket& data)
 {
@@ -82,14 +83,14 @@ void Arena::AddPlayer(Player* player)
 
     if (player->GetBgTeamId() == TEAM_ALLIANCE) // gold
     {
-        if (player->GetTeamId() == TEAM_HORDE)
+        if (PvpSideOf(player) == TEAM_HORDE)
             player->CastSpell(player, SPELL_HORDE_GOLD_FLAG, true);
         else
             player->CastSpell(player, SPELL_ALLIANCE_GOLD_FLAG, true);
     }
     else // green
     {
-        if (player->GetTeamId() == TEAM_HORDE)
+        if (PvpSideOf(player) == TEAM_HORDE)
             player->CastSpell(player, SPELL_HORDE_GREEN_FLAG, true);
         else
             player->CastSpell(player, SPELL_ALLIANCE_GREEN_FLAG, true);

@@ -30,6 +30,7 @@
 #include "WorldSessionMgr.h"
 #include "WorldStateDefines.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 OutdoorPvPSI::OutdoorPvPSI()
 {
@@ -78,7 +79,7 @@ bool OutdoorPvPSI::Update(uint32 /*diff*/)
 
 void OutdoorPvPSI::HandlePlayerEnterZone(Player* player, uint32 zone)
 {
-    if (player->GetTeamId() == m_LastController)
+    if (PvpSideOf(player) == m_LastController)
         player->CastSpell(player, SI_CENARION_FAVOR, true);
     OutdoorPvP::HandlePlayerEnterZone(player, zone);
 }
@@ -97,7 +98,7 @@ bool OutdoorPvPSI::HandleAreaTrigger(Player* player, uint32 trigger)
     switch (trigger)
     {
         case SI_AREATRIGGER_A:
-            if (player->GetTeamId() == TEAM_ALLIANCE && player->HasAura(SI_SILITHYST_FLAG))
+            if (PvpSideOf(player) == TEAM_ALLIANCE && player->HasAura(SI_SILITHYST_FLAG))
             {
                 // remove aura
                 player->RemoveAurasDueToSpell(SI_SILITHYST_FLAG);
@@ -123,7 +124,7 @@ bool OutdoorPvPSI::HandleAreaTrigger(Player* player, uint32 trigger)
             }
             return true;
         case SI_AREATRIGGER_H:
-            if (player->GetTeamId() == TEAM_HORDE && player->HasAura(SI_SILITHYST_FLAG))
+            if (PvpSideOf(player) == TEAM_HORDE && player->HasAura(SI_SILITHYST_FLAG))
             {
                 // remove aura
                 player->RemoveAurasDueToSpell(SI_SILITHYST_FLAG);
@@ -157,7 +158,7 @@ bool OutdoorPvPSI::HandleDropFlag(Player* player, uint32 spellId)
     if (spellId == SI_SILITHYST_FLAG)
     {
         // if it was dropped away from the player's turn-in point, then create a silithyst mound, if it was dropped near the areatrigger, then it was dispelled by the outdoorpvp, so do nothing
-        switch (player->GetTeamId())
+        switch (PvpSideOf(player))
         {
             case TEAM_ALLIANCE:
                 {

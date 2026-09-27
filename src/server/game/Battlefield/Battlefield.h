@@ -24,6 +24,7 @@
 #include "SharedDefines.h"
 #include "TaskScheduler.h"
 #include "ZoneScript.h"
+#include "PlayerTeamSide.h"
 
 enum BattlefieldTypes
 {
@@ -272,7 +273,7 @@ public:
     // Group methods
     /**
      * \brief Find a not full battlefield group, if there is no, create one
-     * \param teamId : Id of player team for who we search a group (player->GetTeamId())
+     * \param teamId : Id of player team for who we search a group (PvpSideOf(player))
      */
     Group* GetFreeBfRaid(TeamId teamId);
     /// Return battlefield group where player is.

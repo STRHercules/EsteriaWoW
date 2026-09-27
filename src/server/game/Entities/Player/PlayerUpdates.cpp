@@ -46,6 +46,7 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include "PlayerTeamSide.h"
 
 // Zone Interval should be 1 second
 constexpr auto ZONE_UPDATE_INTERVAL = 1000;
@@ -474,7 +475,7 @@ void Player::UpdateLFGChannel()
     if (!sWorld->getBoolConfig(CONFIG_RESTRICTED_LFG_CHANNEL))
         return;
 
-    ChannelMgr* cMgr = ChannelMgr::forTeam(GetTeamId());
+    ChannelMgr* cMgr = ChannelMgr::forTeam(PvpSideOf(this));
     if (!cMgr)
         return;
 
@@ -521,7 +522,7 @@ void Player::UpdateLocalChannels(uint32 newZone)
     if (!current_zone)
         return;
 
-    ChannelMgr* cMgr = ChannelMgr::forTeam(GetTeamId());
+    ChannelMgr* cMgr = ChannelMgr::forTeam(PvpSideOf(this));
     if (!cMgr)
         return;
 

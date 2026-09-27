@@ -708,6 +708,7 @@ enum RBACPermissions
     RBAC_PERM_COMMAND_ACCOUNT_FLAG_REMOVE                    = 944,
     RBAC_PERM_COMMAND_ACCOUNT_INFO                           = 945,
     // custom permissions 1000+
+    RBAC_PERM_COMMAND_PLAYERTEAM                             = 1000,
     RBAC_PERM_MAX
 };
 

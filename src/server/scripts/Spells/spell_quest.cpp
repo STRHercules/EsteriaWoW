@@ -25,6 +25,7 @@
 #include "SpellScript.h"
 #include "SpellScriptLoader.h"
 #include "Vehicle.h"
+#include "PlayerTeamSide.h"
 /*
  * Scripts for spells with SPELLFAMILY_GENERIC spells used for quests.
  * Ordered alphabetically using questId and scriptname.
@@ -940,7 +941,7 @@ class spell_q6124_6129_apply_salve : public SpellScript
             if (Creature* creatureTarget = GetHitCreature())
             {
                 uint32 newEntry = 0;
-                switch (caster->GetTeamId())
+                switch (PvpSideOf(caster))
                 {
                     case TEAM_HORDE:
                         if (creatureTarget->GetEntry() == NPC_SICKLY_GAZELLE)

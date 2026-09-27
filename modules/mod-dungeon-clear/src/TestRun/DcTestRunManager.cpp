@@ -165,8 +165,7 @@ bool DcTestRunManager::StartRoster(Player* gm, std::string const& dungeonToken,
 
     std::vector<DcTestRunJob::RosterEntry> roster;
     roster.reserve(parsed.members.size());
-    uint32 team = 0;
-    bool teamKnown = false;
+    Optional<TeamId> team;
 
     for (DcTestRoster::Member const& m : parsed.members)
     {
@@ -188,15 +187,15 @@ bool DcTestRunManager::StartRoster(Player* gm, std::string const& dungeonToken,
             return fail(StartErr::CharacterBusy,
                         "'" + name + "' is already in another live test run");
 
-        // GetCharacterTeamByGuid returns TeamId, and 0 both for Alliance and for
-        // an unknown guid — safe here only because the guid resolved above.
-        uint32 const memberTeam = sCharacterCache->GetCharacterTeamByGuid(guid);
-        if (!teamKnown)
+        Optional<TeamId> const memberTeam = sCharacterCache->GetCharacterTeamByGuid(guid);
+        if (!memberTeam)
+            return fail(StartErr::BadRoster, "team cache entry missing for '" + name + "'");
+
+        if (!team)
         {
             team = memberTeam;
-            teamKnown = true;
         }
-        else if (memberTeam != team)
+        else if (*memberTeam != *team)
             return fail(StartErr::FactionMismatch,
                         "'" + name + "' is not the same faction as the rest of the roster — "
                         "a cross-faction party cannot be grouped");

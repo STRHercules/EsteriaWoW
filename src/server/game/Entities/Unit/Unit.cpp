@@ -7159,6 +7159,13 @@ ReputationRank Unit::GetReactionTo(Unit const* target, bool checkOriginalFaction
                 if (selfPlayerOwner == targetPlayerOwner)
                     return REP_FRIENDLY;
 
+                // Match sides override persistent player teams inside two-sided PvP instances.
+                if (selfPlayerOwner->InBattleground() &&
+                    selfPlayerOwner->GetBattleground() == targetPlayerOwner->GetBattleground())
+                    return selfPlayerOwner->GetBgTeamId() == targetPlayerOwner->GetBgTeamId()
+                        ? REP_FRIENDLY
+                        : REP_HOSTILE;
+
                 // duel - always hostile to opponent
                 if (selfPlayerOwner->duel && selfPlayerOwner->duel->Opponent == targetPlayerOwner && selfPlayerOwner->duel->State == DUEL_STATE_IN_PROGRESS)
                     return REP_HOSTILE;
@@ -7172,6 +7179,12 @@ ReputationRank Unit::GetReactionTo(Unit const* target, bool checkOriginalFaction
 
             // check FFA_PVP
             if (IsFFAPvP() && target->IsFFAPvP())
+                return REP_HOSTILE;
+
+            // Outside safe areas and match/group overrides, Freeborn identity is hostile both ways.
+            if (selfPlayerOwner && targetPlayerOwner &&
+                !selfPlayerOwner->pvpInfo.IsInNoPvPArea && !targetPlayerOwner->pvpInfo.IsInNoPvPArea &&
+                IsFreebornHostilePlayerTeamPair(selfPlayerOwner->GetTeamId(), targetPlayerOwner->GetTeamId()))
                 return REP_HOSTILE;
 
             if (selfPlayerOwner)

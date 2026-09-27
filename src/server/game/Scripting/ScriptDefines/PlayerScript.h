@@ -82,6 +82,7 @@ enum PlayerHook
     PLAYERHOOK_ON_MAP_CHANGED,
     PLAYERHOOK_ON_BEFORE_TELEPORT,
     PLAYERHOOK_ON_UPDATE_FACTION,
+    PLAYERHOOK_ON_TEAM_CHANGED,
     PLAYERHOOK_ON_ADD_TO_BATTLEGROUND,
     PLAYERHOOK_ON_QUEUE_RANDOM_DUNGEON,
     PLAYERHOOK_ON_REMOVE_FROM_BATTLEGROUND,
@@ -369,8 +370,11 @@ public:
     // Called before a player is being teleported to new coords
     [[nodiscard]] virtual bool OnPlayerBeforeTeleport(Player* /*player*/, uint32 /*mapid*/, float /*x*/, float /*y*/, float /*z*/, float /*orientation*/, uint32 /*options*/, Unit* /*target*/) { return true; }
 
-    // Called when team/faction is set on player
+    // Called when the race-derived faction template is refreshed.
     virtual void OnPlayerUpdateFaction(Player* /*player*/) { }
+
+    // Called when the persistent player team changes.
+    virtual void OnPlayerTeamChanged(Player* /*player*/, TeamId /*oldTeamId*/, TeamId /*newTeamId*/) { }
 
     // Called when a player is added to battleground
     virtual void OnPlayerAddToBattleground(Player* /*player*/, Battleground* /*bg*/) { }

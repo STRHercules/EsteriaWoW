@@ -425,7 +425,16 @@ void WorldSession::HandlePetitionSignOpcode(WorldPacket& recvData)
 
     if (type != GUILD_CHARTER_TYPE)
     {
-        if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_ARENA) && GetPlayer()->GetTeamId() != sCharacterCache->GetCharacterTeamByGuid(petition->ownerGuid))
+        Optional<TeamId> const ownerTeam = sCharacterCache->GetCharacterTeamByGuid(petition->ownerGuid);
+        if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_ARENA) &&
+            (!ownerTeam || GetPlayer()->GetTeamId() != *ownerTeam))
+        {
+            SendArenaTeamCommandResult(ERR_ARENA_TEAM_INVITE_SS, "", "", ERR_ARENA_TEAM_NOT_ALLIED);
+            return;
+        }
+
+        // Freeborn take part in an arena team only with Freeborn, whatever the configuration says.
+        if (ownerTeam && !IsFreebornCooperativeTeamPair(*ownerTeam, GetPlayer()->GetTeamId()))
         {
             SendArenaTeamCommandResult(ERR_ARENA_TEAM_INVITE_SS, "", "", ERR_ARENA_TEAM_NOT_ALLIED);
             return;
@@ -455,7 +464,16 @@ void WorldSession::HandlePetitionSignOpcode(WorldPacket& recvData)
     }
     else
     {
-        if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GUILD) && GetPlayer()->GetTeamId() != sCharacterCache->GetCharacterTeamByGuid(petition->ownerGuid))
+        Optional<TeamId> const ownerTeam = sCharacterCache->GetCharacterTeamByGuid(petition->ownerGuid);
+        if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GUILD) &&
+            (!ownerTeam || GetPlayer()->GetTeamId() != *ownerTeam))
+        {
+            Guild::SendCommandResult(this, GUILD_COMMAND_CREATE, ERR_GUILD_NOT_ALLIED);
+            return;
+        }
+
+        // Freeborn sign only a Freeborn's guild charter, whatever the configuration says.
+        if (ownerTeam && !IsFreebornCooperativeTeamPair(*ownerTeam, GetPlayer()->GetTeamId()))
         {
             Guild::SendCommandResult(this, GUILD_COMMAND_CREATE, ERR_GUILD_NOT_ALLIED);
             return;

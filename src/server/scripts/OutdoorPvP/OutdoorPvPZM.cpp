@@ -28,6 +28,7 @@
 #include "WorldSessionMgr.h"
 #include "WorldStateDefines.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 OPvPCapturePointZM_Beacon::OPvPCapturePointZM_Beacon(OutdoorPvP* pvp, ZM_BeaconType type)
     : OPvPCapturePoint(pvp), m_TowerType(type), m_TowerState(ZM_TOWERSTATE_N)
@@ -151,7 +152,7 @@ bool OutdoorPvPZM::Update(uint32 diff)
 
 void OutdoorPvPZM::HandlePlayerEnterZone(Player* player, uint32 zone)
 {
-    if (player->GetTeamId() == TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE)
     {
         if (m_Graveyard->GetGraveyardState() & ZM_GRAVEYARD_A)
             player->CastSpell(player, ZM_CAPTURE_BUFF, true);
@@ -206,9 +207,9 @@ void OutdoorPvPZM::HandleKillImpl(Player* player, Unit* killed)
     if (!killed->IsPlayer())
         return;
 
-    if (player->GetTeamId() == TEAM_ALLIANCE && killed->ToPlayer()->GetTeamId() != TEAM_ALLIANCE)
+    if (PvpSideOf(player) == TEAM_ALLIANCE && PvpSideOf(killed->ToPlayer()) != TEAM_ALLIANCE)
         player->CastSpell(player, ZM_AlliancePlayerKillReward, true);
-    else if (player->GetTeamId() == TEAM_HORDE && killed->ToPlayer()->GetTeamId() != TEAM_HORDE)
+    else if (PvpSideOf(player) == TEAM_HORDE && PvpSideOf(killed->ToPlayer()) != TEAM_HORDE)
         player->CastSpell(player, ZM_HordePlayerKillReward, true);
 }
 
@@ -342,9 +343,9 @@ bool OPvPCapturePointZM_Graveyard::CanTalkTo(Player* player, Creature* c, Gossip
     auto itr = _creatureTypes.find(c->GetSpawnId());
     if (itr != _creatureTypes.end())
     {
-        if (itr->second == ZM_ALLIANCE_FIELD_SCOUT && player->GetTeamId() == TEAM_ALLIANCE && m_BothControllingFactionId == TEAM_ALLIANCE && !m_FlagCarrierGUID && m_GraveyardState != ZM_GRAVEYARD_A)
+        if (itr->second == ZM_ALLIANCE_FIELD_SCOUT && PvpSideOf(player) == TEAM_ALLIANCE && m_BothControllingFactionId == TEAM_ALLIANCE && !m_FlagCarrierGUID && m_GraveyardState != ZM_GRAVEYARD_A)
             return true;
-        else if (itr->second == ZM_HORDE_FIELD_SCOUT && player->GetTeamId() == TEAM_HORDE && m_BothControllingFactionId == TEAM_HORDE && !m_FlagCarrierGUID && m_GraveyardState != ZM_GRAVEYARD_H)
+        else if (itr->second == ZM_HORDE_FIELD_SCOUT && PvpSideOf(player) == TEAM_HORDE && m_BothControllingFactionId == TEAM_HORDE && !m_FlagCarrierGUID && m_GraveyardState != ZM_GRAVEYARD_H)
             return true;
     }
     return false;

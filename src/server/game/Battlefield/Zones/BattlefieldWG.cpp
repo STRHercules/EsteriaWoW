@@ -35,6 +35,7 @@
 #include "WorldSessionMgr.h"
 #include "WorldStateDefines.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 BattlefieldWG::~BattlefieldWG()
 {
@@ -199,7 +200,7 @@ bool BattlefieldWG::SetupBattlefield()
             if (!player->HasAura(SPELL_WAITING_FOR_RESURRECT))
                 return;
 
-            TeamId team = player->GetTeamId();
+            TeamId team = PvpSideOf(player);
             Unit* closestSpirit = nullptr;
             float closestDist = -1.0f;
             for (BfGraveyard* gy : GraveyardList)
@@ -595,7 +596,7 @@ void BattlefieldWG::RelocateDeadPlayers(uint8 graveyardId, TeamId newOwner)
     {
         // Only players of the losing team waiting to resurrect; they would otherwise be
         // revived in place on the now-inaccessible captured platform.
-        if (player->GetTeamId() == newOwner || !player->HasAura(SPELL_WAITING_FOR_RESURRECT))
+        if (PvpSideOf(player) == newOwner || !player->HasAura(SPELL_WAITING_FOR_RESURRECT))
             return;
 
         // Restrict to ghosts actually waiting at the captured graveyard, not elsewhere in the zone.
@@ -643,7 +644,7 @@ void BattlefieldWG::OnCreatureCreate(Creature* creature)
                     Player* creator = ObjectAccessor::FindPlayer(creature->ToTempSummon()->GetSummonerGUID());
                     if (!creator)
                         return;
-                    TeamId team = creator->GetTeamId();
+                    TeamId team = PvpSideOf(creator);
 
                     if (team == TEAM_HORDE)
                     {
@@ -771,7 +772,7 @@ void BattlefieldWG::HandleKill(Player* killer, Unit* victim)
         return;
     }
 
-    TeamId killerTeam = killer->GetTeamId();
+    TeamId killerTeam = PvpSideOf(killer);
 
     // xinef: tower cannons also grant rank
     if (victim->IsPlayer() || IsKeepNpc(victim->GetEntry()) || victim->GetEntry() == NPC_WINTERGRASP_TOWER_CANNON)
@@ -905,17 +906,17 @@ void BattlefieldWG::OnPlayerJoinWar(Player* player)
     player->CastSpell(player, SPELL_RECRUIT, true);
     AddUpdateTenacity(player);
 
-    if (player->GetTeamId() == GetDefenderTeam())
+    if (PvpSideOf(player) == GetDefenderTeam())
         player->TeleportTo(MAP_NORTHREND, 5345, 2842, 410, 3.14f);
     else
     {
-        if (player->GetTeamId() == TEAM_HORDE)
+        if (PvpSideOf(player) == TEAM_HORDE)
             player->TeleportTo(MAP_NORTHREND, 5025.857422f, 3674.628906f, 362.737122f, 4.135169f);
         else
             player->TeleportTo(MAP_NORTHREND, 5101.284f, 2186.564f, 365.549f, 3.812f);
     }
 
-    if (player->GetTeamId() == GetAttackerTeam())
+    if (PvpSideOf(player) == GetAttackerTeam())
     {
         if (GetData(BATTLEFIELD_WG_DATA_BROKEN_TOWER_ATT) < 3)
             player->SetAuraStack(SPELL_TOWER_CONTROL, player, 3 - GetData(BATTLEFIELD_WG_DATA_BROKEN_TOWER_ATT));
@@ -962,7 +963,7 @@ void BattlefieldWG::OnPlayerEnterZone(Player* player)
     SendInitWorldStatesTo(player);
 
     // xinef: Attacker, if hidden in relic room kick him out (only during wartime)
-    if (IsWarTime() && player->GetTeamId() == GetAttackerTeam())
+    if (IsWarTime() && PvpSideOf(player) == GetAttackerTeam())
         if (player->GetPositionX() > 5400.0f && player->GetPositionX() < 5490.0f && player->GetPositionY() > 2803.0f && player->GetPositionY() < 2878.0f)
             KickPlayerFromBattlefield(player->GetGUID());
 }
@@ -1081,7 +1082,7 @@ void BattlefieldWG::BrokenWallOrTower(TeamId  /*team*/)
             for (ObjectGuid const& guid : PlayersInWar[GetAttackerTeam()])
             {
                 if (Player* player = ObjectAccessor::FindPlayer(guid))
-                    IncrementQuest(player, WGQuest[player->GetTeamId()][2], true);
+                    IncrementQuest(player, WGQuest[PvpSideOf(player)][2], true);
             }
         }*/
 }
@@ -1230,7 +1231,7 @@ void BattlefieldWG::UpdateTenacity()
     {
         for (ObjectGuid const& guid : UpdateTenacityList)
             if (Player* newPlayer = ObjectAccessor::FindPlayer(guid))
-                if ((newPlayer->GetTeamId() == TEAM_ALLIANCE && TenacityStack > 0) || (newPlayer->GetTeamId() == TEAM_HORDE && TenacityStack < 0))
+                if ((PvpSideOf(newPlayer) == TEAM_ALLIANCE && TenacityStack > 0) || (PvpSideOf(newPlayer) == TEAM_HORDE && TenacityStack < 0))
                 {
                     newStack = std::min(std::abs(newStack), 20);
                     uint32 buff_honor = GetHonorBuff(newStack);

@@ -61,6 +61,41 @@ void WorldSession::SendPartyResult(PartyOperation operation, std::string const& 
     SendPacket(&data);
 }
 
+namespace
+{
+    Optional<TeamId> TeamOfCharacter(ObjectGuid guid)
+    {
+        if (guid.IsEmpty())
+            return {};
+
+        if (Player* online = ObjectAccessor::FindConnectedPlayer(guid))
+            return online->GetTeamId();
+
+        return sCharacterCache->GetCharacterTeamByGuid(guid);
+    }
+
+    /// Freeborn characters may only be in a manual group with other Freeborn characters. A group's
+    /// kind follows its leader once it exists, and the player who would become leader before that.
+    /// Offline members are read from the character cache so a group cannot turn mixed while its
+    /// members are away. Battleground, arena, battlefield and LFG groups never reach this path.
+    bool IsTeamCompatibleWithGroup(TeamId teamId, Group const* group, TeamId prospectiveLeaderTeam)
+    {
+        if (!group || !group->IsCreated())
+            return IsFreebornCooperativeTeamPair(teamId, prospectiveLeaderTeam);
+
+        if (Optional<TeamId> const leaderTeam = TeamOfCharacter(group->GetLeaderGUID()))
+            if (!IsFreebornCooperativeTeamPair(teamId, *leaderTeam))
+                return false;
+
+        for (auto const& slot : group->GetMemberSlots())
+            if (Optional<TeamId> const memberTeam = TeamOfCharacter(slot.guid))
+                if (!IsFreebornCooperativeTeamPair(teamId, *memberTeam))
+                    return false;
+
+        return true;
+    }
+}
+
 void WorldSession::HandleGroupInviteOpcode(WorldPacket& recvData)
 {
     std::string membername;
@@ -198,6 +233,14 @@ void WorldSession::HandleGroupInviteOpcode(WorldPacket& recvData)
     if (!group && invitingPlayer->GetGroupInvite() && invitingPlayer->GetGroupInvite()->GetLeaderGUID() == invitingPlayer->GetGUID())
         group = invitingPlayer->GetGroupInvite();
 
+    // Freeborn only group with Freeborn, whatever the cross-faction group configuration allows.
+    if (!invitingPlayer->IsGameMaster() &&
+        !IsTeamCompatibleWithGroup(invitedPlayer->GetTeamId(), group, invitingPlayer->GetTeamId()))
+    {
+        SendPartyResult(PARTY_OP_INVITE, membername, ERR_PLAYER_WRONG_FACTION);
+        return;
+    }
+
     // ok, but group not exist, start a new group
     // but don't create and save the group to the DB until
     // at least one person joins
@@ -320,6 +363,14 @@ void WorldSession::HandleGroupAcceptOpcode(WorldPacket& recvData)
         group->RemoveInvite(leader);
         group->Create(leader);
         sGroupMgr->AddGroup(group);
+    }
+
+    // Re-check at accept time: the invite may be stale and the group may have changed since.
+    if (!GetPlayer()->IsGameMaster() &&
+        !IsTeamCompatibleWithGroup(GetPlayer()->GetTeamId(), group, GetPlayer()->GetTeamId()))
+    {
+        SendPartyResult(PARTY_OP_INVITE, "", ERR_PLAYER_WRONG_FACTION);
+        return;
     }
 
     // Everything is fine, do it, PLAYER'S GROUP IS SET IN ADDMEMBER!!!

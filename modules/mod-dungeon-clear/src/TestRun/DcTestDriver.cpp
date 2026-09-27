@@ -216,7 +216,7 @@ namespace DcTestDriver
             player->SaveToDB(true, false);
             sCharacterCache->AddCharacterCacheEntry(
                 player->GetGUID(), accountId, player->GetName(), player->getGender(),
-                player->getRace(), player->getClass(), player->GetLevel());
+                player->getRace(), player->getClass(), player->GetLevel(), player->GetTeamId());
 
             ObjectGuid const guid = player->GetGUID();
             player->CleanupsBeforeDelete();

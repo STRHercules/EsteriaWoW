@@ -27,6 +27,7 @@
 #include "Vehicle.h"
 #include "WorldPacket.h"
 #include "WorldStatePackets.h"
+#include "PlayerTeamSide.h"
 
 void BattlegroundICScore::BuildObjectivesBlock(WorldPacket& data)
 {
@@ -73,10 +74,10 @@ void BattlegroundIC::DoAction(uint32 action, ObjectGuid guid)
     if (!player)
         return;
 
-    MotionTransport* transport = player->GetTeamId() == TEAM_ALLIANCE ? gunshipAlliance : gunshipHorde;
-    float x = BG_IC_HangarTrigger[player->GetTeamId()].GetPositionX();
-    float y = BG_IC_HangarTrigger[player->GetTeamId()].GetPositionY();
-    float z = BG_IC_HangarTrigger[player->GetTeamId()].GetPositionZ();
+    MotionTransport* transport = PvpSideOf(player) == TEAM_ALLIANCE ? gunshipAlliance : gunshipHorde;
+    float x = BG_IC_HangarTrigger[PvpSideOf(player)].GetPositionX();
+    float y = BG_IC_HangarTrigger[PvpSideOf(player)].GetPositionY();
+    float z = BG_IC_HangarTrigger[PvpSideOf(player)].GetPositionZ();
     transport->CalculatePassengerPosition(x, y, z);
 
     player->TeleportTo(GetMapId(), x, y, z, player->GetOrientation(), TELE_TO_NOT_LEAVE_TRANSPORT);
@@ -84,10 +85,10 @@ void BattlegroundIC::DoAction(uint32 action, ObjectGuid guid)
 
 void BattlegroundIC::HandlePlayerResurrect(Player* player)
 {
-    if (nodePoint[NODE_TYPE_QUARRY].nodeState == (player->GetTeamId() == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
+    if (nodePoint[NODE_TYPE_QUARRY].nodeState == (PvpSideOf(player) == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
         player->CastSpell(player, SPELL_QUARRY, true);
 
-    if (nodePoint[NODE_TYPE_REFINERY].nodeState == (player->GetTeamId() == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
+    if (nodePoint[NODE_TYPE_REFINERY].nodeState == (PvpSideOf(player) == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
         player->CastSpell(player, SPELL_OIL_REFINERY, true);
 }
 
@@ -322,10 +323,10 @@ void BattlegroundIC::AddPlayer(Player* player)
     Battleground::AddPlayer(player);
     PlayerScores.emplace(player->GetGUID().GetCounter(), new BattlegroundICScore(player->GetGUID()));
 
-    if (nodePoint[NODE_TYPE_QUARRY].nodeState == (player->GetTeamId() == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
+    if (nodePoint[NODE_TYPE_QUARRY].nodeState == (PvpSideOf(player) == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
         player->CastSpell(player, SPELL_QUARRY, true);
 
-    if (nodePoint[NODE_TYPE_REFINERY].nodeState == (player->GetTeamId() == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
+    if (nodePoint[NODE_TYPE_REFINERY].nodeState == (PvpSideOf(player) == TEAM_ALLIANCE ? NODE_STATE_CONTROLLED_A : NODE_STATE_CONTROLLED_H))
         player->CastSpell(player, SPELL_OIL_REFINERY, true);
 }
 
@@ -344,7 +345,7 @@ void BattlegroundIC::HandleAreaTrigger(Player* player, uint32 trigger)
     switch (trigger)
     {
         case AREA_TRIGGER_HORDE_KEEP:
-            if (player->GetTeamId() != TEAM_ALLIANCE)
+            if (PvpSideOf(player) != TEAM_ALLIANCE)
                 return;
             for (uint8 i = BG_IC_H_FRONT; i < BG_IC_A_FRONT; ++i)
                 if (GateStatus[i] == BG_IC_GATE_DESTROYED)
@@ -353,7 +354,7 @@ void BattlegroundIC::HandleAreaTrigger(Player* player, uint32 trigger)
                 player->CastSpell(player, SPELL_BACK_DOOR_JOB, true);
             break;
         case AREA_TRIGGER_ALLIANCE_KEEP:
-            if (player->GetTeamId() != TEAM_HORDE)
+            if (PvpSideOf(player) != TEAM_HORDE)
                 return;
             for (uint8 i = BG_IC_A_FRONT; i < BG_IC_MAXDOOR; ++i)
                 if (GateStatus[i] == BG_IC_GATE_DESTROYED)
@@ -543,13 +544,13 @@ void BattlegroundIC::HandleKillPlayer(Player* player, Player* killer)
 
     Battleground::HandleKillPlayer(player, killer);
 
-    factionReinforcements[player->GetTeamId()] -= 1;
+    factionReinforcements[PvpSideOf(player)] -= 1;
 
-    UpdateWorldState((player->GetTeamId() == TEAM_ALLIANCE ? WORLD_STATE_BATTLEGROUND_IC_ALLIANCE_REINFORCEMENT : WORLD_STATE_BATTLEGROUND_IC_HORDE_REINFORCEMENT), factionReinforcements[player->GetTeamId()]);
+    UpdateWorldState((PvpSideOf(player) == TEAM_ALLIANCE ? WORLD_STATE_BATTLEGROUND_IC_ALLIANCE_REINFORCEMENT : WORLD_STATE_BATTLEGROUND_IC_HORDE_REINFORCEMENT), factionReinforcements[PvpSideOf(player)]);
 
     // we must end the battleground
-    if (factionReinforcements[player->GetTeamId()] < 1)
-        EndBattleground(killer->GetTeamId());
+    if (factionReinforcements[PvpSideOf(player)] < 1)
+        EndBattleground(PvpSideOf(killer));
 }
 
 void BattlegroundIC::EventPlayerClickedOnFlag(Player* player, GameObject* gameObject)
@@ -564,7 +565,7 @@ void BattlegroundIC::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
         if (point.gameobject_entry == gameObject->GetEntry())
         {
             // THIS SHOULD NEEVEER HAPPEN
-            if (point.faction == player->GetTeamId())
+            if (point.faction == PvpSideOf(player))
             {
                 return;
             }
@@ -585,10 +586,10 @@ void BattlegroundIC::EventPlayerClickedOnFlag(Player* player, GameObject* gameOb
                 }
             }
 
-            uint32 nextBanner = GetNextBanner(&point, player->GetTeamId(), false);
+            uint32 nextBanner = GetNextBanner(&point, PvpSideOf(player), false);
 
             // we set the new settings of the nodePoint
-            point.faction = player->GetTeamId();
+            point.faction = PvpSideOf(player);
             point.last_entry = point.gameobject_entry;
             point.gameobject_entry = nextBanner;
 
@@ -1057,7 +1058,7 @@ GraveyardStruct const* BattlegroundIC::GetClosestGraveyard(Player* player)
     // Is there any occupied node for this team?
     std::vector<uint8> nodes;
     for (uint8 i = 0; i < MAX_NODE_TYPES; ++i)
-        if (nodePoint[i].faction == player->GetTeamId() && !nodePoint[i].needChange) // xinef: controlled by faction and not contested!
+        if (nodePoint[i].faction == PvpSideOf(player) && !nodePoint[i].needChange) // xinef: controlled by faction and not contested!
             nodes.push_back(i);
 
     GraveyardStruct const* good_entry = nullptr;
@@ -1084,7 +1085,7 @@ GraveyardStruct const* BattlegroundIC::GetClosestGraveyard(Player* player)
     }
     // If not, place ghost on starting location
     if (!good_entry)
-        good_entry = sGraveyard->GetGraveyard(BG_IC_GraveyardIds[player->GetTeamId() + static_cast<uint16>(MAX_NODE_TYPES)]);
+        good_entry = sGraveyard->GetGraveyard(BG_IC_GraveyardIds[PvpSideOf(player) + static_cast<uint16>(MAX_NODE_TYPES)]);
 
     return good_entry;
 }

@@ -30,6 +30,11 @@ void StarterGuild::OnPlayerFirstLogin(Player* player)
 
 void StarterGuild::AddPlayerToGuild(Player* player)
 {
+    // A Freeborn only guilds with other Freeborn, and the starter guilds are native. Skipping here
+    // also keeps this hook from retrying (and logging a failure) on every level-up.
+    if (player->IsFreeborn())
+        return;
+
     auto const GUILD_ID_HORDE = sConfigMgr->GetOption<uint32>("StarterGuild.Horde", 1);
     auto const GUILD_ID_ALLIANCE = sConfigMgr->GetOption<uint32>("StarterGuild.Alliance", 2);
 

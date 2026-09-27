@@ -65,7 +65,8 @@ void CharacterCache::LoadCharacterCacheStorage()
     _characterCacheStore.clear();
     uint32 oldMSTime = getMSTime();
 
-    QueryResult result = CharacterDatabase.Query("SELECT guid, name, account, race, gender, class, level FROM characters");
+    QueryResult result = CharacterDatabase.Query(
+        "SELECT guid, name, account, race, gender, class, level, teamId FROM characters");
     if (!result)
     {
         LOG_INFO("server.loading", "No character name data loaded, empty query!");
@@ -75,8 +76,27 @@ void CharacterCache::LoadCharacterCacheStorage()
     do
     {
         Field* fields = result->Fetch();
-        AddCharacterCacheEntry(ObjectGuid::Create<HighGuid::Player>(fields[0].Get<uint32>()) /*guid*/, fields[2].Get<uint32>() /*account*/, fields[1].Get<std::string>() /*name*/,
-            fields[4].Get<uint8>() /*gender*/, fields[3].Get<uint8>() /*race*/, fields[5].Get<uint8>() /*class*/, fields[6].Get<uint8>() /*level*/);
+        if (fields[7].IsNull())
+        {
+            LOG_ERROR("server.loading", "Character {} has NULL persistent team id; cache entry not added.",
+                fields[0].Get<uint32>());
+            continue;
+        }
+
+        // TINYINT UNSIGNED: read as uint8. See the note in Player::BuildEnumData.
+        uint32 const persistentTeamId = fields[7].Get<uint8>();
+        if (!IsValidPlayerTeamId(persistentTeamId))
+        {
+            LOG_ERROR("server.loading", "Character {} has invalid persistent team id {}; cache entry not added.",
+                fields[0].Get<uint32>(), persistentTeamId);
+            continue;
+        }
+
+        AddCharacterCacheEntry(ObjectGuid::Create<HighGuid::Player>(fields[0].Get<uint32>()) /*guid*/,
+            fields[2].Get<uint32>() /*account*/, fields[1].Get<std::string>() /*name*/,
+            fields[4].Get<uint8>() /*gender*/, fields[3].Get<uint8>() /*race*/,
+            fields[5].Get<uint8>() /*class*/, fields[6].Get<uint8>() /*level*/,
+            static_cast<TeamId>(persistentTeamId) /*team*/);
     } while (result->NextRow());
 
     sMailMgr->LoadMailCounts();
@@ -87,7 +107,8 @@ void CharacterCache::LoadCharacterCacheStorage()
 
 void CharacterCache::RefreshCacheEntry(uint32 lowGuid)
 {
-    QueryResult result = CharacterDatabase.Query("SELECT guid, name, account, race, gender, class, level FROM characters WHERE guid = {}", lowGuid);
+    QueryResult result = CharacterDatabase.Query(
+        "SELECT guid, name, account, race, gender, class, level, teamId FROM characters WHERE guid = {}", lowGuid);
     if (!result)
     {
         return;
@@ -97,7 +118,27 @@ void CharacterCache::RefreshCacheEntry(uint32 lowGuid)
     {
         Field* fields = result->Fetch();
         DeleteCharacterCacheEntry(ObjectGuid::Create<HighGuid::Player>(lowGuid), fields[1].Get<std::string>());
-        AddCharacterCacheEntry(ObjectGuid::Create<HighGuid::Player>(fields[0].Get<uint32>()) /*guid*/, fields[2].Get<uint32>() /*account*/, fields[1].Get<std::string>() /*name*/, fields[4].Get<uint8>() /*gender*/, fields[3].Get<uint8>() /*race*/, fields[5].Get<uint8>() /*class*/, fields[6].Get<uint8>() /*level*/);
+        if (fields[7].IsNull())
+        {
+            LOG_ERROR("server.loading", "Character {} has NULL persistent team id; cache entry not refreshed.",
+                lowGuid);
+            continue;
+        }
+
+        // TINYINT UNSIGNED: read as uint8. See the note in Player::BuildEnumData.
+        uint32 const persistentTeamId = fields[7].Get<uint8>();
+        if (!IsValidPlayerTeamId(persistentTeamId))
+        {
+            LOG_ERROR("server.loading", "Character {} has invalid persistent team id {}; cache entry not refreshed.",
+                lowGuid, persistentTeamId);
+            continue;
+        }
+
+        AddCharacterCacheEntry(ObjectGuid::Create<HighGuid::Player>(fields[0].Get<uint32>()) /*guid*/,
+            fields[2].Get<uint32>() /*account*/, fields[1].Get<std::string>() /*name*/,
+            fields[4].Get<uint8>() /*gender*/, fields[3].Get<uint8>() /*race*/,
+            fields[5].Get<uint8>() /*class*/, fields[6].Get<uint8>() /*level*/,
+            static_cast<TeamId>(persistentTeamId) /*team*/);
     } while (result->NextRow());
 
     sMailMgr->RecountMailCount(lowGuid);
@@ -106,13 +147,23 @@ void CharacterCache::RefreshCacheEntry(uint32 lowGuid)
 /*
 Modifying functions
 */
-void CharacterCache::AddCharacterCacheEntry(ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender, uint8 race, uint8 playerClass, uint8 level)
+void CharacterCache::AddCharacterCacheEntry(
+    ObjectGuid const& guid, uint32 accountId, std::string const& name, uint8 gender,
+    uint8 race, uint8 playerClass, uint8 level, TeamId teamId)
 {
+    if (!IsValidPlayerTeamId(teamId))
+    {
+        LOG_ERROR("server.loading", "Character {} has invalid persistent team id {}; cache entry not added.",
+            guid.ToString(), uint32(teamId));
+        return;
+    }
+
     CharacterCacheEntry& data = _characterCacheStore[guid];
     data.Guid = guid;
     data.Name = name;
     data.AccountId = accountId;
     data.Race = race;
+    data.PersistentTeamId = teamId;
     data.Sex = gender;
     data.Class = playerClass;
     data.Level = level;
@@ -124,6 +175,16 @@ void CharacterCache::AddCharacterCacheEntry(ObjectGuid const& guid, uint32 accou
 
     // Fill Name to Guid Store
     _characterCacheByNameStore[name] = &data;
+}
+
+void CharacterCache::UpdateCharacterTeamId(ObjectGuid const& guid, TeamId teamId)
+{
+    if (!IsValidPlayerTeamId(teamId))
+        return;
+
+    auto itr = _characterCacheStore.find(guid);
+    if (itr != _characterCacheStore.end())
+        itr->second.PersistentTeamId = teamId;
 }
 
 void CharacterCache::DeleteCharacterCacheEntry(ObjectGuid const& guid, std::string const& name)
@@ -288,15 +349,13 @@ bool CharacterCache::GetCharacterNameByGuid(ObjectGuid guid, std::string& name) 
     return true;
 }
 
-uint32 CharacterCache::GetCharacterTeamByGuid(ObjectGuid guid) const
+Optional<TeamId> CharacterCache::GetCharacterTeamByGuid(ObjectGuid guid) const
 {
     auto itr = _characterCacheStore.find(guid);
-    if (itr == _characterCacheStore.end())
-    {
-        return 0;
-    }
+    if (itr == _characterCacheStore.end() || !IsValidPlayerTeamId(itr->second.PersistentTeamId))
+        return {};
 
-    return Player::TeamIdForRace(itr->second.Race);
+    return itr->second.PersistentTeamId;
 }
 
 uint32 CharacterCache::GetCharacterAccountIdByGuid(ObjectGuid guid) const

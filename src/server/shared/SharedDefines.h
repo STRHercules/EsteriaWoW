@@ -770,7 +770,47 @@ enum TeamId : uint8
     TEAM_ALLIANCE = 0,
     TEAM_HORDE,
     TEAM_NEUTRAL,
+    TEAM_FREEBORN = 3,
 };
+
+constexpr bool IsValidPlayerTeamId(uint32 teamId)
+{
+    return teamId == TEAM_ALLIANCE || teamId == TEAM_HORDE || teamId == TEAM_FREEBORN;
+}
+
+// The FactionTemplate.dbc row a Freeborn character wears. The 3.3.5a client takes
+// player-versus-player hostility straight from each unit's UNIT_FIELD_FACTIONTEMPLATE, so a
+// Freeborn needs a template that is hostile to every player team while staying friendly to both
+// sides' NPCs. The row is generated and deployed by `tools/freeborn_faction_pack.py`; see
+// `.agents/plans/freeborn-hostility/` for the contract and the deployment steps.
+constexpr uint32 FREEBORN_FACTION_TEMPLATE = 2237;
+
+constexpr bool IsFreebornHostilePlayerTeamPair(TeamId teamId, TeamId targetTeamId)
+{
+    return IsValidPlayerTeamId(teamId) && IsValidPlayerTeamId(targetTeamId) &&
+        (teamId == TEAM_FREEBORN || targetTeamId == TEAM_FREEBORN);
+}
+
+// Freeborn characters take part in manual groups, guilds and guild charters only with other
+// Freeborn characters: a Freeborn team never shares those structures with a native team. The rule
+// is symmetric, and it compares persistent teams only, so the race origin of either character is
+// irrelevant. Random/LFG groups, battleground/arena groups and battlefield raids are cooperative
+// contexts and do not pass through it.
+constexpr bool IsFreebornCooperativeTeamPair(TeamId teamId, TeamId targetTeamId)
+{
+    return (teamId == TEAM_FREEBORN) == (targetTeamId == TEAM_FREEBORN);
+}
+
+// A quest's `AllowableRaces` mask is how 3.3.5 expresses faction-side availability: an Alliance or
+// Horde quest is masked to that team's races. A Freeborn takes both sides' content, so the mask
+// never blocks it; a native character still has to match the mask with its own race.
+constexpr bool SatisfiesQuestRaceMask(TeamId teamId, uint32 requiredRaceMask, uint32 raceMask)
+{
+    if (requiredRaceMask == 0 || teamId == TEAM_FREEBORN)
+        return true;
+
+    return (requiredRaceMask & raceMask) != 0;
+}
 
 enum Team
 {
@@ -783,6 +823,17 @@ enum Team
     //TEAM_OUTLAND             = 980,
     TEAM_OTHER               = 0,                         // if ReputationListId > 0 && Flags != FACTION_FLAG_TEAM_HEADER
 };
+
+// `CONDITION_TEAM` conditions express faction-side availability (value 469 Alliance, 67 Horde). A
+// Freeborn takes both sides' content, so it satisfies either side - it must never be classified as
+// Horde just because its persistent team is not Alliance - while natives keep the original mapping.
+constexpr bool SatisfiesTeamCondition(TeamId teamId, uint32 requiredTeam)
+{
+    if (teamId == TEAM_FREEBORN)
+        return requiredTeam == ALLIANCE || requiredTeam == HORDE;
+
+    return (teamId == TEAM_ALLIANCE ? ALLIANCE : HORDE) == requiredTeam;
+}
 
 enum SpellEffects
 {

@@ -121,9 +121,16 @@ void WC::SendWorldMessage(Player const &sender, const std::string &msg, const in
                 ChatColor::WHITE,
                 msg);
         } else {
+            // Checked, not indexed raw: a persistent team outside this table must never read
+            // past the array, which is what a raw index would do for Freeborn before its
+            // badge entry exists.
+            uint8 const senderTeam = sender.GetTeamId();
+            std::string_view const senderTeamIcon =
+                senderTeam < TeamColored.size() ? TeamColored[senderTeam] : std::string_view();
+
             outMessage = Acore::StringFormat(
                 MessageTemplate,
-                TeamColored[sender.GetTeamId()],
+                senderTeamIcon,
                 ClassColor[sender.getClass()],
                 senderName,
                 senderName,

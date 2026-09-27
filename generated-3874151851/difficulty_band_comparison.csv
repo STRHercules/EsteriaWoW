@@ -1,0 +1,174 @@
+map_id,instance,difficulty_a,difficulty_b,stock_item_count_a,stock_item_count_b,band_a,band_b,identical,reason
+249,OnyxiaLairInstance,0,1,76,33,"[63, 76]","[245, 245]",False,sibling progression era conflict (legacy-era profile excluded)
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+533,Stratholme Raid,0,1,219,425,"[200, 213]","[213, 226]",False,independently filtered source evidence
+540,HellfireMilitary,0,1,26,15,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+540,HellfireMilitary,0,1,26,15,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+540,HellfireMilitary,0,1,26,15,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+540,HellfireMilitary,0,1,26,15,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+542,HellfireDemon,0,1,15,26,"[88, 88]","[110, 115]",False,independently filtered source evidence
+542,HellfireDemon,0,1,15,26,"[88, 88]","[110, 115]",False,independently filtered source evidence
+542,HellfireDemon,0,1,15,26,"[88, 88]","[110, 115]",False,independently filtered source evidence
+543,HellfireRampart,0,1,11,16,"[85, 85]","[112, 115]",False,independently filtered source evidence
+543,HellfireRampart,0,1,11,16,"[85, 85]","[112, 115]",False,independently filtered source evidence
+545,CoilfangPumping,0,1,22,10,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+545,CoilfangPumping,0,1,22,10,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+545,CoilfangPumping,0,1,22,10,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+546,CoilfangMarsh,0,1,19,34,"[94, 94]","[110, 115]",False,independently filtered source evidence
+546,CoilfangMarsh,0,1,19,34,"[94, 94]","[110, 115]",False,independently filtered source evidence
+546,CoilfangMarsh,0,1,19,34,"[94, 94]","[110, 115]",False,independently filtered source evidence
+546,CoilfangMarsh,0,1,19,34,"[94, 94]","[110, 115]",False,independently filtered source evidence
+547,CoilfangDraenei,0,1,15,27,"[91, 91]","[110, 115]",False,independently filtered source evidence
+547,CoilfangDraenei,0,1,15,27,"[91, 91]","[110, 115]",False,independently filtered source evidence
+547,CoilfangDraenei,0,1,15,27,"[91, 91]","[110, 115]",False,independently filtered source evidence
+552,TempestKeepArcane,0,1,14,14,"[115, 115]","[115, 115]",True,independently filtered source evidence
+552,TempestKeepArcane,0,1,14,14,"[115, 115]","[115, 115]",True,independently filtered source evidence
+552,TempestKeepArcane,0,1,14,14,"[115, 115]","[115, 115]",True,independently filtered source evidence
+553,TempestKeepAtrium,0,1,33,20,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+553,TempestKeepAtrium,0,1,33,20,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+553,TempestKeepAtrium,0,1,33,20,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+553,TempestKeepAtrium,0,1,33,20,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+553,TempestKeepAtrium,0,1,33,20,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+554,TempestKeepFactory,0,1,20,8,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+554,TempestKeepFactory,0,1,20,8,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+554,TempestKeepFactory,0,1,20,8,"[115, 115]","[115, 115]",True,sibling progression floor enforced
+555,AuchindounShadow,0,1,29,17,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+555,AuchindounShadow,0,1,29,17,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+555,AuchindounShadow,0,1,29,17,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+555,AuchindounShadow,0,1,29,17,"[112, 115]","[112, 115]",True,sibling progression floor enforced
+556,AuchindounDemon,0,1,16,5,"[112, 115]","[112, 112]",False,sibling progression floor enforced
+556,AuchindounDemon,0,1,16,5,"[112, 115]","[112, 112]",False,sibling progression floor enforced
+557,AuchindounEthereal,0,1,242,94,"[96, 106]","[103, 115]",False,independently filtered source evidence
+557,AuchindounEthereal,0,1,242,94,"[96, 106]","[103, 115]",False,independently filtered source evidence
+557,AuchindounEthereal,0,1,242,94,"[96, 106]","[103, 115]",False,independently filtered source evidence
+558,AuchindounDraenei,0,1,11,15,"[100, 100]","[110, 115]",False,independently filtered source evidence
+558,AuchindounDraenei,0,1,11,15,"[100, 100]","[110, 115]",False,independently filtered source evidence
+560,HillsbradPast,0,1,15,27,"[103, 103]","[110, 115]",False,independently filtered source evidence
+560,HillsbradPast,0,1,15,27,"[103, 103]","[110, 115]",False,independently filtered source evidence
+560,HillsbradPast,0,1,15,27,"[103, 103]","[110, 115]",False,independently filtered source evidence
+574,Valgarde70,0,1,38,59,"[155, 155]","[200, 200]",False,independently filtered source evidence
+574,Valgarde70,0,1,38,59,"[155, 155]","[200, 200]",False,independently filtered source evidence
+574,Valgarde70,0,1,38,59,"[155, 155]","[200, 200]",False,independently filtered source evidence
+575,UtgardePinnacle,0,1,37,36,"[187, 187]","[200, 200]",False,independently filtered source evidence
+575,UtgardePinnacle,0,1,37,36,"[187, 187]","[200, 200]",False,independently filtered source evidence
+576,Nexus70,0,1,11,23,"[159, 159]","[200, 200]",False,independently filtered source evidence
+576,Nexus70,0,1,11,23,"[159, 159]","[200, 200]",False,independently filtered source evidence
+576,Nexus70,0,1,11,23,"[159, 159]","[200, 200]",False,independently filtered source evidence
+576,Nexus70,0,1,11,23,"[159, 159]","[200, 200]",False,independently filtered source evidence
+578,Nexus80,0,1,30,24,"[187, 187]","[200, 200]",False,independently filtered source evidence
+578,Nexus80,0,1,30,24,"[187, 187]","[200, 200]",False,independently filtered source evidence
+578,Nexus80,0,1,30,24,"[187, 187]","[200, 200]",False,independently filtered source evidence
+585,Sunwell5ManFix,0,1,29,19,"[110, 115]","[115, 125]",False,independently filtered source evidence
+585,Sunwell5ManFix,0,1,29,19,"[110, 115]","[115, 125]",False,independently filtered source evidence
+585,Sunwell5ManFix,0,1,29,19,"[110, 115]","[115, 125]",False,independently filtered source evidence
+585,Sunwell5ManFix,0,1,29,19,"[110, 115]","[115, 125]",False,independently filtered source evidence
+595,StratholmeCOT,0,1,29,39,"[187, 187]","[187, 200]",False,independently filtered source evidence
+595,StratholmeCOT,0,1,29,39,"[187, 187]","[187, 200]",False,independently filtered source evidence
+595,StratholmeCOT,0,1,29,39,"[187, 187]","[187, 200]",False,independently filtered source evidence
+599,Ulduar70,0,1,42,45,"[183, 183]","[200, 200]",False,independently filtered source evidence
+599,Ulduar70,0,1,42,45,"[183, 183]","[200, 200]",False,independently filtered source evidence
+599,Ulduar70,0,1,42,45,"[183, 183]","[200, 200]",False,independently filtered source evidence
+600,DrakTheronKeep,0,1,60,67,"[171, 171]","[200, 200]",False,independently filtered source evidence
+600,DrakTheronKeep,0,1,60,67,"[171, 171]","[200, 200]",False,independently filtered source evidence
+600,DrakTheronKeep,0,1,60,67,"[171, 171]","[200, 200]",False,independently filtered source evidence
+601,Azjol_Uppercity,0,1,21,28,"[163, 163]","[200, 200]",False,independently filtered source evidence
+601,Azjol_Uppercity,0,1,21,28,"[163, 163]","[200, 200]",False,independently filtered source evidence
+601,Azjol_Uppercity,0,1,21,28,"[163, 163]","[200, 200]",False,independently filtered source evidence
+602,Ulduar80,0,1,67,68,"[187, 187]","[200, 200]",False,independently filtered source evidence
+602,Ulduar80,0,1,67,68,"[187, 187]","[200, 200]",False,independently filtered source evidence
+602,Ulduar80,0,1,67,68,"[187, 187]","[200, 200]",False,independently filtered source evidence
+602,Ulduar80,0,1,67,68,"[187, 187]","[200, 200]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+603,UlduarRaid,0,1,64,75,"[219, 232]","[226, 239]",False,independently filtered source evidence
+604,GunDrak,0,1,114,49,"[166, 179]","[200, 200]",False,independently filtered source evidence
+604,GunDrak,0,1,114,49,"[166, 179]","[200, 200]",False,independently filtered source evidence
+604,GunDrak,0,1,114,49,"[166, 179]","[200, 200]",False,independently filtered source evidence
+608,DalaranPrison,0,1,12,26,"[175, 175]","[200, 200]",False,independently filtered source evidence
+608,DalaranPrison,0,1,12,26,"[175, 175]","[200, 200]",False,independently filtered source evidence
+615,ChamberOfAspectsBlack,0,1,5,4,"[200, 200]","[213, 213]",False,independently filtered source evidence
+619,Azjol_LowerCity,0,1,37,52,"[167, 167]","[200, 200]",False,independently filtered source evidence
+619,Azjol_LowerCity,0,1,37,52,"[167, 167]","[200, 200]",False,independently filtered source evidence
+619,Azjol_LowerCity,0,1,37,52,"[167, 167]","[200, 200]",False,independently filtered source evidence
+619,Azjol_LowerCity,0,1,37,52,"[167, 167]","[200, 200]",False,independently filtered source evidence
+624,WintergraspRaid,0,1,487,492,"[200, 251]","[213, 270]",False,independently filtered source evidence
+624,WintergraspRaid,0,1,487,492,"[200, 251]","[213, 270]",False,independently filtered source evidence
+624,WintergraspRaid,0,1,487,492,"[200, 251]","[213, 270]",False,independently filtered source evidence
+624,WintergraspRaid,0,1,487,492,"[200, 251]","[213, 270]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,1,91,95,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,2,91,91,"[251, 258]","[264, 271]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,0,3,91,95,"[251, 258]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,2,95,91,"[264, 271]","[264, 271]",True,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,1,3,95,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+631,IcecrownCitadel,2,3,91,95,"[264, 271]","[277, 284]",False,independently filtered source evidence
+632,IcecrownCitadel5Man,0,1,18,17,"[219, 219]","[232, 232]",False,independently filtered source evidence
+632,IcecrownCitadel5Man,0,1,18,17,"[219, 219]","[232, 232]",False,independently filtered source evidence
+650,ArgentTournamentDungeon,0,1,6,6,"[200, 200]","[219, 219]",False,independently filtered source evidence
+658,QuarryofTears,0,1,12,12,"[219, 219]","[232, 232]",False,independently filtered source evidence
+658,QuarryofTears,0,1,12,12,"[219, 219]","[232, 232]",False,independently filtered source evidence
+668,HallsOfReflection,0,1,12,12,"[219, 219]","[232, 232]",False,independently filtered source evidence
+668,HallsOfReflection,0,1,12,12,"[219, 219]","[232, 232]",False,independently filtered source evidence
+724,ChamberofAspectsRed,0,1,12,16,"[258, 258]","[271, 271]",False,independently filtered source evidence
+724,ChamberofAspectsRed,0,2,12,12,"[258, 258]","[271, 271]",False,independently filtered source evidence
+724,ChamberofAspectsRed,0,3,12,16,"[258, 258]","[284, 284]",False,independently filtered source evidence
+724,ChamberofAspectsRed,1,2,16,12,"[271, 271]","[271, 271]",True,independently filtered source evidence
+724,ChamberofAspectsRed,1,3,16,16,"[271, 271]","[284, 284]",False,independently filtered source evidence
+724,ChamberofAspectsRed,2,3,12,16,"[271, 271]","[284, 284]",False,independently filtered source evidence

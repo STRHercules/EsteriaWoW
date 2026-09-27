@@ -1496,6 +1496,17 @@ void Guild::HandleInviteMember(WorldSession* session, std::string const& name)
         SendCommandResult(session, GUILD_COMMAND_INVITE, ERR_GUILD_NOT_ALLIED, name);
         return;
     }
+
+    // Freeborn take part in a guild only with Freeborn: the guild's kind is its leader's team, and
+    // the rule holds regardless of the cross-faction guild configuration.
+    if (Optional<TeamId> const leaderTeam = sCharacterCache->GetCharacterTeamByGuid(GetLeaderGUID()))
+    {
+        if (!IsFreebornCooperativeTeamPair(*leaderTeam, pInvitee->GetTeamId()))
+        {
+            SendCommandResult(session, GUILD_COMMAND_INVITE, ERR_GUILD_NOT_ALLIED, name);
+            return;
+        }
+    }
     // Invited player cannot be in another guild
     if (pInvitee->GetGuildId())
     {
@@ -1534,7 +1545,9 @@ void Guild::HandleInviteMember(WorldSession* session, std::string const& name)
 void Guild::HandleAcceptMember(WorldSession* session)
 {
     Player* player = session->GetPlayer();
-    if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GUILD) && player->GetTeamId() != sCharacterCache->GetCharacterTeamByGuid(GetLeaderGUID()))
+    Optional<TeamId> const leaderTeam = sCharacterCache->GetCharacterTeamByGuid(GetLeaderGUID());
+    if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GUILD) &&
+        (!leaderTeam || player->GetTeamId() != *leaderTeam))
     {
         return;
     }
@@ -2250,10 +2263,21 @@ bool Guild::AddMember(ObjectGuid guid, uint8 rankId)
     else if (sCharacterCache->GetCharacterGuildIdByGuid(guid) != 0)
         return false;
 
+    // A guild is Freeborn or native according to its leader, and a Freeborn only guilds with other
+    // Freeborn. Read through the character cache so charter signatures are checked even when the
+    // signer is offline; this is deliberately independent of AllowTwoSide.Interaction.Guild.
+    if (Optional<TeamId> const leaderTeam = sCharacterCache->GetCharacterTeamByGuid(GetLeaderGUID()))
+    {
+        if (Optional<TeamId> const memberTeam = sCharacterCache->GetCharacterTeamByGuid(guid))
+        {
+            if (!IsFreebornCooperativeTeamPair(*leaderTeam, *memberTeam))
+                return false;
+        }
+    }
+
     // Remove all player signs from another petitions
     // This will be prevent attempt to join many guilds and corrupt guild data integrity
     Player::RemovePetitionsAndSigns(guid, GUILD_CHARTER_TYPE);
-
     ObjectGuid::LowType lowguid = guid.GetCounter();
 
     // If rank was not passed, assign lowest possible rank

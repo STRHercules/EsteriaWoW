@@ -181,7 +181,9 @@ void WorldSession::HandleArenaTeamAcceptOpcode(WorldPacket& /*recvData*/)
     }
 
     // Only allow members of the other faction to join the team if cross faction interaction is enabled
-    if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_ARENA) && _player->GetTeamId() != sCharacterCache->GetCharacterTeamByGuid(arenaTeam->GetCaptain()))
+    Optional<TeamId> const captainTeam = sCharacterCache->GetCharacterTeamByGuid(arenaTeam->GetCaptain());
+    if (!sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_ARENA) &&
+        (!captainTeam || _player->GetTeamId() != *captainTeam))
     {
         SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, "", "", ERR_ARENA_TEAM_NOT_ALLIED);
         return;

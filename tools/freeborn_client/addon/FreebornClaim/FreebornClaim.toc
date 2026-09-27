@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Freeborn Claim
+## Notes: Applies the Freeborn team chosen on the character-creation screen.
+## Author: EsteriaWoW
+## Version: 1.0
+
+FreebornClaim.lua
