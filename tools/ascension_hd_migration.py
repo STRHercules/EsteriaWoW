@@ -48,6 +48,65 @@ HD_TO_STOCK = {hd: stock for stock, hd in STOCK_TO_HD.items()}
 STOCK_RACES = frozenset(STOCK_TO_HD)
 HD_RACES = frozenset(HD_TO_STOCK)
 
+STOCK_DISPLAY_PAIRS = {
+    1: (49, 50),
+    2: (51, 52),
+    3: (53, 54),
+    4: (55, 56),
+    5: (57, 58),
+    6: (59, 60),
+    7: (1563, 1564),
+    8: (1478, 1479),
+    10: (15476, 15475),
+    11: (16125, 16126),
+}
+
+# Ascension's Race2 player models live at high donor model IDs.  Esteria's
+# native 3.3.5 player/display chain is far safer when those donor rows are
+# copied onto the existing stock model IDs instead of changing ChrRaces or
+# CreatureDisplayInfo IDs.
+NPC_STOCK_TO_HD_MODEL = {
+    49: 112887,
+    50: 112888,
+    51: 112889,
+    52: 112890,
+    53: 112913,
+    54: 112914,
+    55: 112915,
+    56: 112916,
+    57: 112917,
+    58: 112918,
+    59: 112919,
+    60: 112920,
+    182: 112921,
+    183: 112922,
+    185: 112911,
+    186: 112912,
+    2208: 112923,
+    2209: 112924,
+    2248: 112925,
+    2250: 112926,
+}
+
+# The 3.3.5 in-world player display path truncates UNIT_FIELD_DISPLAYID to
+# 16 bits.  Ascension's HD player display rows live at 141xxx and work in Glue,
+# but must be cloned below 65536 for world rendering.  This range is reserved by
+# Esteria for the ten stock HD race male/female pairs and is intentionally below
+# the Battlemon continuation range (50001+).
+WORLD_DISPLAY_PAIRS = {
+    1: (49000, 49001),
+    2: (49002, 49003),
+    3: (49004, 49005),
+    4: (49006, 49007),
+    5: (49008, 49009),
+    6: (49010, 49011),
+    7: (49012, 49013),
+    8: (49014, 49015),
+    10: (49016, 49017),
+    11: (49018, 49019),
+}
+WORLD_DISPLAY_IDS = frozenset(display_id for pair in WORLD_DISPLAY_PAIRS.values() for display_id in pair)
+
 RACE_FIELDS = {
     "CharSections": 1,
     "CharHairGeosets": 1,
@@ -65,6 +124,7 @@ STRING_FIELDS = {
     + tuple(range(48, 64)),
     "CharSections": (4, 5, 6),
     "BarberShopStyle": tuple(range(2, 18)) + tuple(range(19, 35)),
+    "CreatureDisplayInfo": (6, 7, 8, 9),
     "CreatureModelData": (2,),
     "CreatureDisplayInfoExtra": (20,),
 }
@@ -135,6 +195,15 @@ def _rebase_strings(
     fields = STRING_FIELDS.get(table_name, ())
     pool = bytearray(base_strings)
     offsets: dict[bytes, int] = {}
+    cursor = 0
+    while cursor < len(base_strings):
+        end = base_strings.find(b"\0", cursor)
+        if end < 0:
+            break
+        value = base_strings[cursor:end]
+        if value and value not in offsets:
+            offsets[value] = cursor
+        cursor = end + 1
     result: list[bytes] = []
 
     for record in records:
@@ -142,8 +211,13 @@ def _rebase_strings(
         for field in fields:
             value = _read_string(donor_strings, _u32(record, field))
             if not value:
+                # Donor tables sometimes point at a non-zero offset whose byte is
+                # NUL.  That offset is meaningful only inside the donor string
+                # block; carrying the integer into another DBC can point at an
+                # unrelated string.  Canonicalize every empty string to offset 0.
+                updated = _set_u32(updated, field, 0)
                 continue
-            if normalize_model_paths and field == 2 and value.lower().endswith(b".mdx"):
+            if normalize_model_paths and field == 2 and value.lower().endswith(b".mdx"): 
                 value = value[:-4] + b".m2"
             offset = offsets.get(value)
             if offset is None:
@@ -261,6 +335,66 @@ def merge_rows_by_id(
     return base.build(records, strings)
 
 
+def merge_stock_model_rows(base_data: bytes, donor_data: bytes) -> bytes:
+    """Copy Ascension Race2 model metadata onto Esteria's stock model IDs.
+
+    Only the 20 approved stock destination rows are replaced.  Every unrelated
+    model row remains byte-identical.  Donor model paths are rebased into the
+    base string block and normalized from .mdx to .m2.
+    """
+
+    base = _table(base_data, "CreatureModelData")
+    donor = _table(donor_data, "CreatureModelData")
+    donor_by_id = {_u32(record, 0): record for record in donor.records}
+
+    replacements: list[bytes] = []
+    for destination_id, source_id in NPC_STOCK_TO_HD_MODEL.items():
+        source = donor_by_id.get(source_id)
+        if source is None:
+            raise ValueError(f"Ascension CreatureModelData is missing HD source row {source_id}")
+        replacements.append(_set_u32(source, 0, destination_id))
+
+    replacements, strings = _rebase_strings(
+        "CreatureModelData",
+        replacements,
+        donor.strings,
+        base.strings,
+        normalize_model_paths=True,
+    )
+
+    records = list(base.records)
+    indexes = {_u32(record, 0): index for index, record in enumerate(records)}
+    for replacement in replacements:
+        destination_id = _u32(replacement, 0)
+        index = indexes.get(destination_id)
+        if index is None:
+            indexes[destination_id] = len(records)
+            records.append(replacement)
+        else:
+            records[index] = replacement
+    return base.build(records, strings)
+
+
+def restore_stock_chr_race_displays(base_data: bytes) -> bytes:
+    """Force only the ten stock race display pairs back to native 3.3.5 IDs."""
+
+    table = _table(base_data, "ChrRaces")
+    records: list[bytes] = []
+    seen: set[int] = set()
+    for record in table.records:
+        race = _u32(record, 0)
+        pair = STOCK_DISPLAY_PAIRS.get(race)
+        if pair is not None:
+            record = _set_u32(record, 4, pair[0])
+            record = _set_u32(record, 5, pair[1])
+            seen.add(race)
+        records.append(record)
+    missing = sorted(STOCK_RACES - seen)
+    if missing:
+        raise ValueError(f"ChrRaces is missing stock race rows: {missing}")
+    return table.build(records, table.strings)
+
+
 def hd_dependencies(chr_races_data: bytes, display_data: bytes) -> tuple[set[int], set[int], set[int]]:
     races = _table(chr_races_data, "ChrRaces")
     displays = _table(display_data, "CreatureDisplayInfo")
@@ -274,6 +408,71 @@ def hd_dependencies(chr_races_data: bytes, display_data: bytes) -> tuple[set[int
     model_ids = {_u32(record, 1) for record in display_records}
     extra_ids = {_u32(record, 3) for record in display_records if _u32(record, 3)}
     return display_ids, model_ids, extra_ids
+
+
+def add_world_display_clones(display_data: bytes, chr_races_data: bytes) -> bytes:
+    """Add 16-bit-safe clones of the Ascension HD player display rows.
+
+    The high 141xxx IDs remain authoritative for Glue/character creation.  The
+    low 49000-49019 rows are only for the in-world player display path, which
+    truncates UNIT_FIELD_DISPLAYID to 16 bits in this 3.3.5 client.
+    """
+
+    displays = _table(display_data, "CreatureDisplayInfo")
+    races = _table(chr_races_data, "ChrRaces")
+    by_display_id = {_u32(record, 0): record for record in displays.records}
+    records = list(displays.records)
+
+    for race, low_pair in WORLD_DISPLAY_PAIRS.items():
+        race_rows = [record for record in races.records if _u32(record, 0) == race]
+        if len(race_rows) != 1:
+            raise ValueError(f"ChrRaces must contain exactly one row for race {race}")
+        source_pair = (_u32(race_rows[0], 4), _u32(race_rows[0], 5))
+        for source_id, low_id in zip(source_pair, low_pair):
+            source = by_display_id.get(source_id)
+            if source is None:
+                raise ValueError(f"CreatureDisplayInfo is missing HD source display {source_id}")
+            clone = _set_u32(source, 0, low_id)
+            existing = by_display_id.get(low_id)
+            if existing is not None:
+                if existing != clone:
+                    raise ValueError(
+                        f"16-bit world display ID {low_id} is already occupied by unrelated data"
+                    )
+                continue
+            by_display_id[low_id] = clone
+            records.append(clone)
+
+    return displays.build(records, displays.strings)
+
+
+def world_chr_races_payload(chr_races_data: bytes) -> bytes:
+    """Build the server continuation rows using 16-bit-safe world display IDs."""
+
+    races = _table(chr_races_data, "ChrRaces")
+    selected: list[bytes] = []
+    for record in races.records:
+        race = _u32(record, 0)
+        pair = WORLD_DISPLAY_PAIRS.get(race)
+        if pair is None:
+            continue
+        record = _set_u32(record, 4, pair[0])
+        record = _set_u32(record, 5, pair[1])
+        selected.append(record)
+    selected, strings = _rebase_strings("ChrRaces", selected, races.strings, b"\0")
+    return races.build(selected, strings)
+
+
+def world_display_payload(display_data: bytes) -> bytes:
+    """Build the server continuation containing only 16-bit HD display clones."""
+
+    displays = _table(display_data, "CreatureDisplayInfo")
+    selected = [record for record in displays.records if _u32(record, 0) in WORLD_DISPLAY_IDS]
+    found = {_u32(record, 0) for record in selected}
+    if found != WORLD_DISPLAY_IDS:
+        raise ValueError(f"Missing 16-bit world display clones: {sorted(WORLD_DISPLAY_IDS - found)}")
+    selected, strings = _rebase_strings("CreatureDisplayInfo", selected, displays.strings, b"\0")
+    return displays.build(selected, strings)
 
 
 def merge_table_set(base: dict[str, bytes], donor: dict[str, bytes]) -> dict[str, bytes]:
@@ -294,6 +493,9 @@ def merge_table_set(base: dict[str, bytes], donor: dict[str, bytes]) -> dict[str
     )
     output["CreatureDisplayInfo"] = merge_rows_by_id(
         "CreatureDisplayInfo", base["CreatureDisplayInfo"], donor["CreatureDisplayInfo"], display_ids
+    )
+    output["CreatureDisplayInfo"] = add_world_display_clones(
+        output["CreatureDisplayInfo"], output["ChrRaces"]
     )
     output["CreatureModelData"] = merge_rows_by_id(
         "CreatureModelData", base["CreatureModelData"], donor["CreatureModelData"], model_ids
@@ -489,20 +691,26 @@ def write_server_outputs(base_root: Path, donor_root: Path, output_root: Path) -
     display_ids, model_ids, extra_ids = hd_dependencies(donor["ChrRaces"], donor["CreatureDisplayInfo"])
     continuation_root = output_root / "dbc-continuations"
     continuation_root.mkdir(parents=True, exist_ok=True)
-    for name, ids in (
-        ("CreatureDisplayInfo", display_ids),
-        ("CreatureModelData", model_ids),
-    ):
-        source = _table(donor[name], name)
-        selected = [record for record in source.records if _u32(record, 0) in ids]
-        selected, strings = _rebase_strings(
-            name,
-            selected,
-            source.strings,
-            b"\0",
-            normalize_model_paths=name == "CreatureModelData",
-        )
-        (continuation_root / f"{name}.dbc1-ascension-hd").write_bytes(source.build(selected, strings))
+
+    # The client keeps the full Ascension 141xxx display IDs for Glue, but the
+    # in-world player display path is 16-bit.  Server continuations therefore
+    # use only the 49000-49019 clones while retaining Ascension's model IDs.
+    (continuation_root / "CreatureDisplayInfo.dbc1-ascension-hd").write_bytes(
+        world_display_payload(merged["CreatureDisplayInfo"])
+    )
+
+    source = _table(donor["CreatureModelData"], "CreatureModelData")
+    selected = [record for record in source.records if _u32(record, 0) in model_ids]
+    selected, strings = _rebase_strings(
+        "CreatureModelData",
+        selected,
+        source.strings,
+        b"\0",
+        normalize_model_paths=True,
+    )
+    (continuation_root / "CreatureModelData.dbc1-ascension-hd").write_bytes(
+        source.build(selected, strings)
+    )
     if extra_ids and "CreatureDisplayInfoExtra" in donor:
         source = _table(donor["CreatureDisplayInfoExtra"], "CreatureDisplayInfoExtra")
         selected = [record for record in source.records if _u32(record, 0) in extra_ids]
@@ -510,10 +718,9 @@ def write_server_outputs(base_root: Path, donor_root: Path, output_root: Path) -
         (continuation_root / "CreatureDisplayInfoExtra.dbc1-ascension-hd").write_bytes(
             source.build(selected, strings)
         )
-    race_table = _table(merged["ChrRaces"], "ChrRaces")
-    selected = [record for record in race_table.records if _u32(record, 0) in STOCK_RACES]
-    selected, strings = _rebase_strings("ChrRaces", selected, race_table.strings, b"\0")
-    (continuation_root / "ChrRaces.dbc1-ascension-hd").write_bytes(race_table.build(selected, strings))
+    (continuation_root / "ChrRaces.dbc1-ascension-hd").write_bytes(
+        world_chr_races_payload(merged["ChrRaces"])
+    )
     return {"tables": len(merged), "display_rows": len(display_ids), "model_rows": len(model_ids)}
 
 

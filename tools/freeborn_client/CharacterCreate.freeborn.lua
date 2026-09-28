@@ -52,7 +52,10 @@ if not CharacterFreeborn_Init then
     -- So the store has to be a STRING cvar the client never parses. These two are voice-chat device
     -- names, and voice chat does not exist in 3.3.5, so arbitrary text there is inert. Because they
     -- are strings, one of them holds every Freeborn record at once.
-    CharacterFreeborn_BadgeCVars = { "Sound_VoiceChatInputDriverName", "Sound_VoiceChatOutputDriverName" };
+    -- Dedicated restart-persistent badge slot. ECS deliberately does not use
+    -- Sound_VoiceChatInputDriverName anymore; sharing it caused recursive
+    -- fb:/ecsN: wrapping and eventual Config.wtf corruption.
+    CharacterFreeborn_BadgeCVars = { "Sound_VoiceChatInputDriverName" };
     CharacterFreeborn_BadgeMarker = "fb:";
 
     -- The stock slot is 60x60. The Alliance/Horde crests sit inside their artwork, while the

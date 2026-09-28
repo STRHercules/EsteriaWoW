@@ -1,5 +1,32 @@
 # Ideas
 
+## Next
+- https://github.com/AlsoNotMehh/mod-eluna-teleport-selector
+- https://github.com/AlsoNotMehh/mod-two-names
+- https://github.com/AlsoNotMehh/mod-realm-first-titles
+- https://github.com/AlsoNotMehh/mod-camping
+- https://github.com/AxxusWhoami/mod-warlock-pet-rename
+- https://github.com/nightwreath/mod-hunter-pet-storage
+
+- New Tame Spells
+    - Ability to tame new families;
+        - Drake
+        - Dragonkin
+        - Elementals
+        - Undead
+        - etc
+
+- Dual Pet Talent/Spell
+    - Allows the user to have TWO active pets at once
+
+- Custom Hearthstone
+    - Assign custom location, recall using custom hearthstone
+    - LONG cooldown
+
+
+
+
+
 
 # World Buffs
 
@@ -14,7 +41,7 @@
 - Account-wide
 
 ## Missing Races
-- Highmountain Tauren, Mag'har Orc, Earthen, Mechagnome
+- Highmountain Tauren, Mag'har Orc, Earthen, Mechagnome, Haranir
 
 ## Custom races
 - Implement Ogre race
@@ -45,16 +72,14 @@
 - https://github.com/NeticSoul/DragonUI
 - https://github.com/ghbset/DragonUI_NewEra
 
+
+
+
+
+
+
 ## Potential modules to install
-
-
-
-
-- https://github.com/AlsoNotMehh/mod-camping
-- https://github.com/AlsoNotMehh/mod-two-names
-- https://github.com/AlsoNotMehh/mod-realm-first-titles
 - https://github.com/AlsoNotMehh/mod-eluna-racial-swap
-- https://github.com/AlsoNotMehh/mod-eluna-teleport-selector
 - https://github.com/araxiaonline/Delves
 - https://github.com/Old-Man-Warcraft/mod-guild-levels
 - https://github.com/hermensbas/mod_weather_vibe
@@ -66,7 +91,6 @@
 - https://github.com/pangolp/mod-quest-loot-party
 - https://github.com/nexartgroup/mod-profession-loot-party
 - https://github.com/talamortis/XpWeekend
-- https://github.com/AxxusWhoami/mod-warlock-pet-rename
 - https://github.com/silviu20092/mod-flightmaster-whistle
 - https://github.com/thanhtong89/mod-creature-capture
 - https://github.com/Youpeoples/Black-Market-Auction-House
@@ -85,7 +109,7 @@
 - https://github.com/ekimgh/Premium-NPC
 - https://github.com/Brytenwally/Forging
 - https://github.com/valsan-azerty-boi/mod-barberchair
-- https://github.com/nightwreath/mod-hunter-pet-storage
+
 
 
 
@@ -105,17 +129,6 @@
 
 
 ## Misc
-
-- New Tame Spells
-    - Ability to tame new families;
-        - Drake
-        - Dragonkin
-        - Elementals
-        - Undead
-        - etc
-
-- Dual Pet Talent/Spell
-    - Allows the user to have TWO active pets at once
 
 - Allow users that have pets to RIDE those pets
 
@@ -138,8 +151,6 @@
 - Import Shadowlands/WoD/Retail Gear
 
 ### Priority Fixes
-- Choose your Starting Zone 
-    - Also accurately assigns hearthstone
 - Completely revamp Dream Path Seasonal content
     - Make sure this content is always english
     - Have final seasonal reward be a vehicle mount
@@ -159,15 +170,7 @@
 
 
 ### Other 
-- Invent third playable faction
-    - Freeborn
-    - Any race can be Freeborn?
-    - Specific races can be Freeborn?
-    - Freeborn are hostile towards Alliance AND Horde
 
-- Custom Hearthstone
-    - Assign custom location, recall using custom hearthstone
-    - LONG cooldown
 
 - Tome of Knowledge
     - Grants Talent Point

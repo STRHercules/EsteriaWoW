@@ -157,6 +157,19 @@ const CDN_VERSION = EsteriaConfig.clientVersion;
 
 const CONNECT_TIMEOUT_MS = 30_000;
 const STALL_TIMEOUT_MS = 60_000;
+const HASH_CHUNK_SIZE = 8 * 1024 * 1024;
+const MPQ_DIRECT_DOWNLOAD_THRESHOLD = 2 * 1024 * 1024 * 1024;
+
+const hashDiskFile = (filePath: string): Promise<string> =>
+	new Promise((resolve, reject) => {
+		const hash = crypto.createHash('sha1');
+		const stream = fs.createReadStream(filePath, { highWaterMark: HASH_CHUNK_SIZE });
+		stream.on('error', reject);
+		stream.on('data', (chunk: Buffer) => hash.update(chunk));
+		stream.on('end', () =>
+			resolve(hash.digest('hex').toLocaleUpperCase())
+		);
+	});
 
 const isUnsafeName = (name: string) =>
 	!name ||
@@ -456,15 +469,18 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 
 			try {
 				const fileSize = Number(SFileGetFileSize(hFile).toString());
+				const hash = crypto.createHash('sha1');
+				let remaining = fileSize;
 
-				const buffer = new ArrayBuffer(fileSize);
-				if (fileSize > 0) SFileReadFile(hFile, buffer);
+				while (remaining > 0) {
+					const chunkSize = Math.min(remaining, HASH_CHUNK_SIZE);
+					const buffer = new ArrayBuffer(chunkSize);
+					SFileReadFile(hFile, buffer);
+					hash.update(new Uint8Array(buffer));
+					remaining -= chunkSize;
+				}
 
-				const newHash = crypto
-					.createHash('sha1')
-					.update(new Uint8Array(buffer))
-					.digest('hex')
-					.toLocaleUpperCase();
+				const newHash = hash.digest('hex').toLocaleUpperCase();
 
 				nestedSet(this.#cache, [...m.mpqPath, ...filePath], { [0]: newHash });
 				return newHash;
@@ -486,11 +502,7 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 
 		if (c?.[0] && c[1] === stats.mtimeMs) return c[0];
 
-		const newHash = crypto
-			.createHash('sha1')
-			.update(await fs.readFile(path.join(clientPath, ...filePath)))
-			.digest('hex')
-			.toLocaleUpperCase();
+		const newHash = await hashDiskFile(path.join(clientPath, ...filePath));
 		nestedSet(this.#cache, filePath, {
 			...c,
 			[0]: newHash,
@@ -654,6 +666,21 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 					) {
 						i += item.size;
 						return undefined;
+					}
+
+					if (item.size >= MPQ_DIRECT_DOWNLOAD_THRESHOLD) {
+						i += item.size;
+						Logger.log(
+							`Large MPQ ${path.join(
+								...patchPath
+							)} is ${item.size} bytes; scheduling a streamed full-archive download instead of in-place MPQ patching.`
+						);
+						return {
+							type: 'file',
+							name: `${item.name}.mpq`,
+							hash: item.hash,
+							size: item.size
+						};
 					}
 
 					try {

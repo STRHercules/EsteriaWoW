@@ -1,6 +1,6 @@
 {
 	"name": "esteria-launcher",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "An Electron launcher for the Esteria WotLK 3.3.5a client",
 	"author": "Esteria",
 	"copyright": "Copyright © 2026 Esteria",

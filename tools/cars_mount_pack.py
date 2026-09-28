@@ -1208,7 +1208,7 @@ def render_mount_sql(records: tuple[MountRecord, ...]) -> str:
     )
     display_rows = [
         (
-            record.display_id, record.model_id, 0, 0, 1, 255,
+            record.display_id, record.model_id, 0, 0, _f32_from_u32(record.creature_display_row[4]), 255,
             record.texture_variations[0], record.texture_variations[1], record.texture_variations[2],
             "", 1, 0, 0, 0, 0, 0,
         )

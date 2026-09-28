@@ -47,7 +47,10 @@ local CVAR = "freebornPending";
 -- restart, so it must be a STRING cvar the client never parses -- every integer cvar tried was
 -- normalised on load (readTOS/readEULA to "1", gameTip by clipping the record to a tip index).
 local CARRIERS = { "readTOS" };
-local BADGES = { "Sound_VoiceChatInputDriverName", "Sound_VoiceChatOutputDriverName" };
+-- Dedicated restart-persistent badge slot. ECS reserves the output-driver and
+-- other string CVars for its own store; sharing a slot caused recursive wrapping
+-- and eventually corrupted Config.wtf.
+local BADGES = { "Sound_VoiceChatInputDriverName" };
 local BADGE_MARKER = "fb:";
 local RECORD_BASE = 1000000000;
 local RECORD_MOD = 1000000000;
