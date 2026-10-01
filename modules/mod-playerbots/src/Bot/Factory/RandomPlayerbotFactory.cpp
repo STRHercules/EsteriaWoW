@@ -73,6 +73,10 @@ bool IsSupportedRandomBotRace(uint8 race)
         case RACE_DRAENEI:
         case RACE_WORGEN:
         case RACE_HIGHELF:
+        case RACE_BROKEN_PLAYER:
+        case RACE_PANDAREN_ALLIANCE:
+        case RACE_VULPERA:
+        case RACE_MAGHAR_ORC:
             return true;
         default:
             return false;
@@ -86,7 +90,8 @@ constexpr RandomPlayerbotFactory::NameRaceAndGender RandomPlayerbotFactory::Comb
     NameRaceAndGender baseIndex;
     switch (race)
     {
-        case RACE_ORC:        baseIndex = NameRaceAndGender::OrcMale; break;
+        case RACE_ORC:
+        case RACE_MAGHAR_ORC:  baseIndex = NameRaceAndGender::OrcMale; break;
         case RACE_DWARF:      baseIndex = NameRaceAndGender::DwarfMale; break;
         case RACE_NIGHTELF:   baseIndex = NameRaceAndGender::NightelfMale; break;
         case RACE_TAUREN:     baseIndex = NameRaceAndGender::TaurenMale; break;
@@ -133,7 +138,7 @@ bool RandomPlayerbotFactory::IsValidRaceClassCombination(uint8 race, uint8 cls, 
     if (expansion < EXPANSION_THE_BURNING_CRUSADE && (race == RACE_BLOODELF || race == RACE_DRAENEI))
         return false;
 
-    uint32 raceMask = uint32(1) << (race - 1);
+    uint32 raceMask = GetRaceMaskForRace(race);
     if (!raceMask || !(sRaceMgr->GetPlayableRaceMask() & raceMask))
         return false;
 
@@ -155,7 +160,7 @@ Player* RandomPlayerbotFactory::CreateRandomBot(WorldSession* session, uint8 cls
     for (uint8 race = RACE_HUMAN; race < sRaceMgr->GetMaxRaces(); ++race)
     {
         // skip disabled with config races
-        if ((uint32(1) << (race - 1)) & sWorld->getIntConfig(CONFIG_CHARACTER_CREATING_DISABLED_RACEMASK))
+        if (GetRaceMaskForRace(race) & sWorld->getIntConfig(CONFIG_CHARACTER_CREATING_DISABLED_RACEMASK))
             continue;
 
         // Try to get 50/50 faction distribution for random bot population balance.

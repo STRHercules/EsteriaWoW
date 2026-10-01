@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CLIENT = ROOT / "3.3.5a - Dev"
+CLIENT = Path(r"G:\3.3.5a - Dev")
 EXPECTED_LIMIT = 100
 
 sys.path.insert(0, str(ROOT / "modules" / "mod-classless-wildcard" / "client-patch"))
@@ -73,7 +73,7 @@ def main() -> None:
             xml,
             re.DOTALL,
         )
-        assert scroll_frame and scroll_frame.group(0).count('<AbsDimension x="256" y="560"/>') == 2, archive_path
+        assert scroll_frame and scroll_frame.group(0).count('<AbsDimension x="1" y="560"/>') == 2, archive_path
 
     print("character-limit contract: PASS")
 

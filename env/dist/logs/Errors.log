@@ -223,7 +223,11 @@ Creature (Entry: 600000) has no model defined in table `creature_template_model`
 Creature (Entry: 600001) has no model defined in table `creature_template_model`, can't load. 
 Creature (Entry: 600000) has no model defined in table `creature_template_model`, can't load. 
 Creature (Entry: 600001) has no model defined in table `creature_template_model`, can't load. 
-[1053] Server shutdown in progress
-Unhandled MySQL errno 1053. Unexpected behaviour possible.
-[2013] Lost connection to MySQL server during query
-Lost the connection to the MySQL server!
+Creature (Entry: 600000) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600001) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600000) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600001) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600000) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600001) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600000) has no model defined in table `creature_template_model`, can't load. 
+Creature (Entry: 600001) has no model defined in table `creature_template_model`, can't load. 

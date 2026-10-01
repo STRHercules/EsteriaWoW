@@ -34,6 +34,7 @@
 #include "GridNotifiers.h"
 #include "Group.h"
 #include "GroupMgr.h"
+#include "HighmountainAppearance.h"
 #include "Guild.h"
 #include "InstanceSaveMgr.h"
 #include "LFGMgr.h"
@@ -5140,6 +5141,18 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     SetByteValue(PLAYER_BYTES_2, 3, fields[15].Get<uint8>());
     SetByteValue(PLAYER_BYTES_3, 0, fields[5].Get<uint8>());
     SetByteValue(PLAYER_BYTES_3, 1, fields[54].Get<uint8>());
+    if (getRace() == RACE_HIGHMOUNTAIN_TAUREN)
+    {
+        if (!HighmountainAppearance::Validate(fields[5].Get<uint8>(), {fields[9].Get<uint8>(),
+            fields[10].Get<uint8>(), fields[11].Get<uint8>(), fields[12].Get<uint8>(),
+            fields[13].Get<uint8>(), fields[76].Get<uint8>()}))
+        {
+            LOG_ERROR("entities.player", "Player {} has invalid Highmountain appearance; can't load.",
+                playerGuid.ToString());
+            return false;
+        }
+        SetByteValue(UNIT_FIELD_PADDING, 0, fields[76].Get<uint8>());
+    }
     ReplaceAllPlayerFlags((PlayerFlags)fields[16].Get<uint32>());
 
     RemovePlayerFlag(PLAYER_FLAGS_NO_PLAY_TIME);

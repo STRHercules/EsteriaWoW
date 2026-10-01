@@ -718,6 +718,8 @@ public: /* MiscScript */
     void OnAfterLootTemplateProcess(Loot* loot, LootTemplate const* tab, LootStore const& store, Player* lootOwner, bool personal, bool noEmptyError, uint16 lootMode);
     void OnInstanceSave(InstanceSave* instanceSave);
     void GetDialogStatus(Player* player, Object* questgiver);
+    bool CanNormalizePlayerName(std::string& name, bool& result);
+    bool OnCheckPlayerName(std::string_view name, bool create, uint8& result);
 
 public: /* CommandSC */
 

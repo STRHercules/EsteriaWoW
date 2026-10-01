@@ -42,10 +42,45 @@ const isSkipDir = (...filePath: string[]) =>
 const isPatchDirectory = (file: string) =>
 	/patch-./.test(file) && !file.toLowerCase().endsWith('.mpq');
 
+const bundledDirectories = [
+	{
+		directory: 'Data/Patch-Housing.MPQ',
+		archive: 'Data/Patch-Housing.MPQ.zip'
+	},
+	{
+		directory: 'Data/patch-K.mpq',
+		archive: 'Data/patch-K.mpq.zip'
+	}
+] as const;
+
+const normalizeRelativePath = (...filePath: string[]) =>
+	filePath.join('/').replace(/\\/g, '/').toLowerCase();
+
+const getBundleForDirectory = (...filePath: string[]) =>
+	bundledDirectories.find(
+		bundle => normalizeRelativePath(bundle.directory) === normalizeRelativePath(...filePath)
+	);
+
+const isBundleArchive = (...filePath: string[]) =>
+	bundledDirectories.some(
+		bundle => normalizeRelativePath(bundle.archive) === normalizeRelativePath(...filePath)
+	);
+
 type FolderTags = 'allowExtra';
 
+type DeliveryBundle = {
+	archive: string;
+	hash: string;
+	size: number;
+};
+
 type FileManifest = { name: string } & (
-	| { type: 'dir'; files: FileManifest[]; tags?: FolderTags[] }
+	| {
+			type: 'dir';
+			files: FileManifest[];
+			tags?: FolderTags[];
+			bundle?: DeliveryBundle;
+		}
 	| { type: 'mpq'; files: FileManifest[]; hash: string; size: number }
 	| {
 			type: 'file';
@@ -89,9 +124,18 @@ const countFiles = async (
 	for (const file of files.sort()) {
 		if (skipFiles.has(file)) continue;
 		if (isSkipPattern(file)) continue;
+		if (isBundleArchive(...filePath, file)) continue;
 		const stats = await fs.stat(path.join(dir, file));
 		if (stats.isDirectory()) {
 			if (isSkipDir(...filePath, file)) continue;
+			const bundle = getBundleForDirectory(...filePath, file);
+			if (bundle) {
+				const archivePath = path.join(
+					clientPath,
+					...bundle.archive.split('/')
+				);
+				if (await fs.pathExists(archivePath)) total += 1;
+			}
 			if (isPatchDirectory(file)) {
 				const mpqPath = path.join(dir, `${file}.mpq`);
 				if (await fs.pathExists(mpqPath)) total += 1;
@@ -129,8 +173,16 @@ export const buildCache = async (
 					prevHashByPath.set(mpqKey, node.hash);
 					prevSizeByPath.set(mpqKey, node.size);
 				}
+				if (node.type === 'dir' && node.bundle) {
+					const archiveKey = [
+						...newPrefix.slice(0, -1),
+						node.bundle.archive
+					].join('/');
+					prevHashByPath.set(archiveKey, node.bundle.hash);
+					prevSizeByPath.set(archiveKey, node.bundle.size);
+				}
 				for (const child of node.files) walk(child, newPrefix);
-			} else {
+			} else if (node.type === 'file') {
 				const key = [...prefix, node.name].join('/');
 				prevHashByPath.set(key, node.hash);
 				prevVersionByPath.set(key, node.version);
@@ -181,11 +233,41 @@ export const buildCache = async (
 		for (const file of files.sort()) {
 			if (skipFiles.has(file)) continue;
 			if (isSkipPattern(file)) continue;
+			if (isBundleArchive(...filePath, file)) continue;
 
 			const stats = await fs.stat(path.join(clientPath, ...filePath, file));
 
 			if (stats.isDirectory()) {
 				if (isSkipDir(...filePath, file)) continue;
+				const bundle = getBundleForDirectory(...filePath, file);
+				if (bundle) {
+					const archiveParts = bundle.archive.split('/');
+					const archiveName = archiveParts.at(-1)!;
+					const archivePath = path.join(clientPath, ...archiveParts);
+					if (await fs.pathExists(archivePath)) {
+						const archiveStat = await fs.stat(archivePath);
+						const archiveRelPath = archiveParts.join('/');
+						tree.push({
+							type: 'dir',
+							name: file,
+							files: await buildTree(...filePath, file),
+							bundle: {
+								archive: archiveName,
+								size: archiveStat.size,
+								hash: await getHashCached(
+									archiveRelPath,
+									archiveStat.mtimeMs,
+									...archiveParts
+								)
+							}
+						});
+						tick(archiveRelPath);
+						continue;
+					}
+					console.warn(
+						`bundle: ${bundle.archive} is missing; ${bundle.directory} will fall back to per-file delivery.`
+					);
+				}
 				if (isPatchDirectory(file)) {
 					patches.push(file);
 					const mpqRelPath = path
@@ -312,8 +394,8 @@ export const buildCache = async (
 	const finalPath = path.join(clientPath, 'manifest.json');
 	const tmpPath = path.join(clientPath, 'manifest.json.tmp');
 	await fs.writeJSON(tmpPath, {
-		build: 3,
-		buildName: '3',
+		build: 4,
+		buildName: '4',
 		root: {
 			type: 'dir',
 			name: '',

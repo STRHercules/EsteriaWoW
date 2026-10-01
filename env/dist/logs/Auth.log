@@ -35,8 +35,4 @@ DatabasePool 'acore_auth' opened successfully. 2 total connections running.
 Started auth database connection pool.
 Loading IP Location Database...
  
-Added realm "Esteria" at 136.34.30.2:8085.
-Halting process...
-Closing down DatabasePool 'acore_auth'. Waiting for 0 queries to finish...
-Asynchronous connections on DatabasePool 'acore_auth' terminated. Proceeding with synchronous connections.
-All connections on DatabasePool 'acore_auth' closed.
+Added realm "Esteria" at 127.0.0.1:8085.

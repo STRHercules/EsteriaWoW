@@ -4425,7 +4425,7 @@ bool IsSelfBot(Player* player)
 
 bool IsAlliance(uint8 race)
 {
-    uint32 raceMask = uint32(1) << (race - 1);
+    uint32 raceMask = GetRaceMaskForRace(race);
     return raceMask != 0 && (sRaceMgr->GetAllianceRaceMask() & raceMask) != 0;
 }
 

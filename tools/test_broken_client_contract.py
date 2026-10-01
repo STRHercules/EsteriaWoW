@@ -9,7 +9,7 @@ from lib.clientfs import ClientFiles  # noqa: E402
 from lib.dbc import read_string  # noqa: E402
 
 
-CLIENT_DATA = Path("3.3.5a - Dev/Data")
+CLIENT_DATA = Path(r"G:\3.3.5a - Dev\Data")
 CUSTOM_RACE_LANGUAGE_MASK = 0x787FA000
 LANGUAGE_SKILL_LINES = (98, 109, 111, 113, 115, 137, 138, 139, 140, 141, 313, 315, 673, 759)
 
@@ -170,8 +170,8 @@ def test_custom_glue_uses_one_race_ui_bundle():
         glue_parent, _ = files.find("Interface\\GlueXML\\GlueParent.lua")
         toc, _ = files.find("Interface\\GlueXML\\GlueXML.toc")
 
-        assert b"MAX_RACES = 40" in creator_lua
-        assert b"CharacterCreateRaceButton40" in creator_xml
+        assert b"MAX_RACES = 64" in creator_lua
+        assert b"CharacterCreateRaceButton64" in creator_xml
         assert b"GetCharacterFaction" in select_lua
         assert b"OptionsButton2" in select_xml
         assert b'CharModelFogInfo["ILLIDARI"]' in glue_parent

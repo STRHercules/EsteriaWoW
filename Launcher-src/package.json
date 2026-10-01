@@ -1,6 +1,6 @@
 {
 	"name": "esteria-launcher",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"description": "An Electron launcher for the Esteria WotLK 3.3.5a client",
 	"author": "Esteria",
 	"copyright": "Copyright © 2026 Esteria",
@@ -33,6 +33,7 @@
 		"electron-log": "^5.1.5",
 		"electron-trpc": "^0.5.2",
 		"electron-updater": "^5.3.0",
+		"extract-zip": "^2.0.1",
 		"fs-extra": "^11.1.1",
 		"isomorphic-git": "^1.25.0",
 		"lucide-react": "^0.399.0",

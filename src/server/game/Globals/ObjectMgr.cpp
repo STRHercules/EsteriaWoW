@@ -54,6 +54,8 @@
 #include "World.h"
 #include <boost/algorithm/string.hpp>
 #include <numeric>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "ItemEnchantmentMgr.h"
 
@@ -208,6 +210,10 @@ std::string ScriptInfo::GetDebugInfo() const
 
 bool normalizePlayerName(std::string& name)
 {
+    bool result = false;
+    if (sScriptMgr->CanNormalizePlayerName(name, result))
+        return result;
+
     if (name.empty())
         return false;
 
@@ -1733,8 +1739,13 @@ void ObjectMgr::LoadCreatureModelInfo()
 
         uint32 displayId = fields[0].Get<uint32>();
         CreatureDisplayInfoEntry const* creatureDisplay = sCreatureDisplayInfoStore.LookupEntry(displayId);
-        uint32 modelId = fields[0].Get<uint32>();
+        if (!creatureDisplay)
+        {
+            LOG_ERROR("sql.sql", "Table `creature_model_info` has model for not existed display id ({}).", displayId);
+            continue;
+        }
 
+        uint32 modelId = fields[0].Get<uint32>();
         CreatureModelInfo& modelInfo = _creatureModelStore[modelId];
 
         modelInfo.bounding_radius      = fields[1].Get<float>();
@@ -1744,9 +1755,6 @@ void ObjectMgr::LoadCreatureModelInfo()
         modelInfo.is_trigger           = false;
 
         // Checks
-
-        if (!sCreatureDisplayInfoStore.LookupEntry(modelId))
-            LOG_ERROR("sql.sql", "Table `creature_model_info` has model for not existed display id ({}).", modelId);
 
         if (modelInfo.gender > GENDER_NONE)
         {
@@ -4510,6 +4518,30 @@ void ObjectMgr::LoadPlayerInfo()
         }
     }
 
+    using ExactRaceExclusionMap = std::unordered_map<uint8, std::unordered_set<uint32>>;
+
+    auto LoadExactRaceExclusions = [](WorldDatabaseStatements statement) -> ExactRaceExclusionMap
+    {
+        ExactRaceExclusionMap exclusions;
+        WorldDatabasePreparedStatement* stmt = WorldDatabase.GetPreparedStatement(statement);
+        PreparedQueryResult result = WorldDatabase.Query(stmt);
+        if (!result)
+            return exclusions;
+
+        do
+        {
+            Field* fields = result->Fetch();
+            uint8 const race = fields[0].Get<uint8>();
+            uint32 const value = fields[1].Get<uint32>();
+            exclusions[race].insert(value);
+        } while (result->NextRow());
+
+        return exclusions;
+    };
+
+    ExactRaceExclusionMap const exactSkillExclusions = LoadExactRaceExclusions(WORLD_SEL_CUSTOM_RACE_START_SKILL_EXCLUDE);
+    ExactRaceExclusionMap const exactSpellExclusions = LoadExactRaceExclusions(WORLD_SEL_CUSTOM_RACE_START_SPELL_EXCLUDE);
+
     // Load playercreate skills
     LOG_INFO("server.loading", "Loading Player Create Skill Data...");
     {
@@ -4566,6 +4598,10 @@ void ObjectMgr::LoadPlayerInfo()
                             (raceIndex == RACE_DARKFALLEN_HORDE && skill.SkillId == SKILL_LANG_COMMON))
                             continue;
 
+                        auto const exclusionItr = exactSkillExclusions.find(uint8(raceIndex));
+                        if (exclusionItr != exactSkillExclusions.end() && exclusionItr->second.contains(skill.SkillId))
+                            continue;
+
                         for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
                         {
                             if (classMask == 0 || ((1 << (classIndex - 1)) & classMask))
@@ -4587,6 +4623,64 @@ void ObjectMgr::LoadPlayerInfo()
             LOG_INFO("server.loading", ">> Loaded {} Player Create Skills in {} ms", count, GetMSTimeDiffToNow(oldMSTime));
             LOG_INFO("server.loading", " ");
         }
+    }
+
+    // Load exact-race playercreate skills. These rows deliberately use an exact RaceID instead of a legacy RaceMask.
+    LOG_INFO("server.loading", "Loading Exact-Race Player Create Skill Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+        WorldDatabasePreparedStatement* stmt = WorldDatabase.GetPreparedStatement(WORLD_SEL_CUSTOM_RACE_START_SKILL);
+        PreparedQueryResult result = WorldDatabase.Query(stmt);
+        uint32 count = 0;
+
+        if (result)
+        {
+            do
+            {
+                Field* fields = result->Fetch();
+                uint8 const race = fields[0].Get<uint8>();
+                uint32 const classMask = fields[1].Get<uint32>();
+                PlayerCreateInfoSkill skill;
+                skill.SkillId = fields[2].Get<uint16>();
+                skill.Rank = fields[3].Get<uint16>();
+
+                if (!IsExtendedPlayableRace(race) || race >= sRaceMgr->GetMaxRaces())
+                {
+                    LOG_ERROR("sql.sql", "Wrong exact race {} in `custom_race_start_skill`, ignoring.", race);
+                    continue;
+                }
+
+                if (classMask != 0 && !(classMask & CLASSMASK_ALL_PLAYABLE))
+                {
+                    LOG_ERROR("sql.sql", "Wrong class mask {} in `custom_race_start_skill`, ignoring.", classMask);
+                    continue;
+                }
+
+                if (skill.Rank >= MAX_SKILL_STEP || !sSkillLineStore.LookupEntry(skill.SkillId))
+                {
+                    LOG_ERROR("sql.sql", "Invalid exact-race skill {} rank {} for race {}, ignoring.", skill.SkillId, skill.Rank, race);
+                    continue;
+                }
+
+                for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
+                {
+                    if (classMask != 0 && !((1 << (classIndex - 1)) & classMask))
+                        continue;
+
+                    if (!GetSkillRaceClassInfo(skill.SkillId, race, classIndex))
+                        continue;
+
+                    if (PlayerInfo* info = _playerInfo[race][classIndex])
+                    {
+                        info->skills.push_back(skill);
+                        ++count;
+                    }
+                }
+            } while (result->NextRow());
+        }
+
+        LOG_INFO("server.loading", ">> Loaded {} Exact-Race Player Create Skills in {} ms", count, GetMSTimeDiffToNow(oldMSTime));
+        LOG_INFO("server.loading", " ");
     }
 
     // Load playercreate spells
@@ -4631,6 +4725,10 @@ void ObjectMgr::LoadPlayerInfo()
                             (raceIndex == RACE_DARKFALLEN_HORDE && spellId == 668))
                             continue;
 
+                        auto const exclusionItr = exactSpellExclusions.find(uint8(raceIndex));
+                        if (exclusionItr != exactSpellExclusions.end() && exclusionItr->second.contains(spellId))
+                            continue;
+
                         for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
                         {
                             if (classMask == 0 || ((1 << (classIndex - 1)) & classMask))
@@ -4649,6 +4747,59 @@ void ObjectMgr::LoadPlayerInfo()
             LOG_INFO("server.loading", ">> Loaded {} Custom Player Create Spells in {} ms", count, GetMSTimeDiffToNow(oldMSTime));
             LOG_INFO("server.loading", " ");
         }
+    }
+
+    // Load exact-race playercreate spells after legacy-mask rows and exclusions.
+    LOG_INFO("server.loading", "Loading Exact-Race Player Create Spell Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+        WorldDatabasePreparedStatement* stmt = WorldDatabase.GetPreparedStatement(WORLD_SEL_CUSTOM_RACE_START_SPELL);
+        PreparedQueryResult result = WorldDatabase.Query(stmt);
+        uint32 count = 0;
+
+        if (result)
+        {
+            do
+            {
+                Field* fields = result->Fetch();
+                uint8 const race = fields[0].Get<uint8>();
+                uint32 const classMask = fields[1].Get<uint32>();
+                uint32 const spellId = fields[2].Get<uint32>();
+
+                if (!IsExtendedPlayableRace(race) || race >= sRaceMgr->GetMaxRaces())
+                {
+                    LOG_ERROR("sql.sql", "Wrong exact race {} in `custom_race_start_spell`, ignoring.", race);
+                    continue;
+                }
+
+                if (classMask != 0 && !(classMask & CLASSMASK_ALL_PLAYABLE))
+                {
+                    LOG_ERROR("sql.sql", "Wrong class mask {} in `custom_race_start_spell`, ignoring.", classMask);
+                    continue;
+                }
+
+                if (!sSpellMgr->GetSpellInfo(spellId))
+                {
+                    LOG_ERROR("sql.sql", "Unknown spell {} in `custom_race_start_spell` for race {}, ignoring.", spellId, race);
+                    continue;
+                }
+
+                for (uint32 classIndex = CLASS_WARRIOR; classIndex < MAX_CLASSES; ++classIndex)
+                {
+                    if (classMask != 0 && !((1 << (classIndex - 1)) & classMask))
+                        continue;
+
+                    if (PlayerInfo* info = _playerInfo[race][classIndex])
+                    {
+                        info->customSpells.push_back(spellId);
+                        ++count;
+                    }
+                }
+            } while (result->NextRow());
+        }
+
+        LOG_INFO("server.loading", ">> Loaded {} Exact-Race Player Create Spells in {} ms", count, GetMSTimeDiffToNow(oldMSTime));
+        LOG_INFO("server.loading", " ");
     }
 
     // Load playercreate cast spell
@@ -9287,6 +9438,10 @@ bool isValidString(std::wstring wstr, uint32 strictMask, bool numericOrSpace, bo
 
 uint8 ObjectMgr::CheckPlayerName(std::string_view name, bool create)
 {
+    uint8 result = CHAR_NAME_SUCCESS;
+    if (sScriptMgr->OnCheckPlayerName(name, create, result))
+        return result;
+
     std::wstring wname;
 
     // Check for invalid characters

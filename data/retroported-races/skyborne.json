@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "slug": "skyborne",
+  "name": "Skyborne",
+  "race_ids": [52, 53],
+  "client_file_strings": {"52": "Skyborne", "53": "SkyborneHorde"},
+  "names": {"52": "High Order Skyborne", "53": "Windshaper Skyborne"},
+  "factions": {"52": "alliance", "53": "horde"},
+  "source_patch_root": "G:\\RetroPorterWork\\skyborne\\integration\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\skyborne\\integration\\runtime",
+  "expanded_patch_root": "G:\\RetroPorterWork\\skyborne\\integration\\expanded\\patch-root",
+  "source_race_id": 10,
+  "source_races": {"52": 13, "53": 10},
+  "asset_prefix": "custom\\skyborne",
+  "portrait_sources": {
+    "52": {
+      "male": "R:\\Users\\Zach\\Pictures\\Portraits\\Alliance\\SkybornMale_Alliance.png",
+      "female": "R:\\Users\\Zach\\Pictures\\Portraits\\Alliance\\SkybornFemale_Alliance.png"
+    },
+    "53": {
+      "male": "R:\\Users\\Zach\\Pictures\\Portraits\\Horde\\SkybornMale_Horde.png",
+      "female": "R:\\Users\\Zach\\Pictures\\Portraits\\Horde\\SkybornFemale_Horde.png"
+    }
+  },
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "models": {
+    "male": {
+      "source_model_id": 2208,
+      "source_display_id": 15476,
+      "model_path": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487.m2",
+      "curated_model_path": "custom\\skyborne\\runtime\\male\\7478487.m2",
+      "runtime_model_path": "custom\\skyborne\\expanded\\male\\7478487.m2"
+    },
+    "female": {
+      "source_model_id": 2209,
+      "source_display_id": 15475,
+      "model_path": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494.m2",
+      "curated_model_path": "custom\\skyborne\\runtime\\female\\7478494.m2",
+      "runtime_model_path": "custom\\skyborne\\expanded\\female\\7478494.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-byte-codec-v1",
+    "skins": 5,
+    "faces": 10,
+    "hair_styles": {"male": 25, "female": 29},
+    "hair_colors": 32,
+    "eye_colors": 26,
+    "eyebrow_styles": 4,
+    "feathers": 2,
+    "feather_colors": 8,
+    "facial_hair": {"male": 13, "female": 1},
+    "ears": 3,
+    "native_section_start": 456188,
+    "native_barber_start": 450552,
+    "skin_choices": {
+      "male": [62225, 62226, 62227, 62230, 62231],
+      "female": [62208, 62209, 62210, 62213, 62214]
+    },
+    "horns": false,
+    "bone_face_shapes": false
+  },
+  "racial_profile": "Existing High Elf and Blood Elf profiles for the initial playable version"
+}

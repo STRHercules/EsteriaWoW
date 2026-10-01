@@ -114,6 +114,10 @@ void WorldDatabaseConnection::DoPrepareStatements()
     PrepareStatement(WORLD_SEL_REQ_XP, "SELECT Experience FROM player_xp_for_level WHERE Level = ?", CONNECTION_SYNCH);
     PrepareStatement(WORLD_UPD_VERSION, "UPDATE version SET core_version = ?, core_revision = ?", CONNECTION_ASYNC);
     PrepareStatement(WORLD_DEL_SPAWNGROUP_MEMBER, "DELETE FROM spawn_group WHERE spawnType = ? AND spawnId = ?", CONNECTION_ASYNC);
+    PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SKILL, "SELECT race, classMask, skill, `rank` FROM custom_race_start_skill", CONNECTION_SYNCH);
+    PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SKILL_EXCLUDE, "SELECT race, skill FROM custom_race_start_skill_exclude", CONNECTION_SYNCH);
+    PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SPELL, "SELECT race, classMask, spell FROM custom_race_start_spell", CONNECTION_SYNCH);
+    PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SPELL_EXCLUDE, "SELECT race, spell FROM custom_race_start_spell_exclude", CONNECTION_SYNCH);
 }
 
 WorldDatabaseConnection::WorldDatabaseConnection(MySQLConnectionInfo& connInfo) : MySQLConnection(connInfo)

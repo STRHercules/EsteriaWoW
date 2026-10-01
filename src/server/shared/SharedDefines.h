@@ -95,22 +95,90 @@ enum Races
     RACE_FORSAKEN            = 25,
     RACE_PANDAREN_HORDE      = 26,
     RACE_BROKEN_HORDE        = 27,
-    RACE_DRACTHYR            = 28,
-    RACE_DARKFALLEN_ALLIANCE = 43,
-    RACE_DARKFALLEN_HORDE    = 44
+    RACE_DRACTHYR             = 28,
+    RACE_DARKFALLEN_ALLIANCE  = 43,
+    RACE_DARKFALLEN_HORDE     = 44,
+    RACE_MAGHAR_ORC           = 45,
+    RACE_HIGHMOUNTAIN_TAUREN  = 46,
+    RACE_MECHAGNOME           = 47,
+    RACE_EARTHEN_ALLIANCE     = 48,
+    RACE_EARTHEN_HORDE        = 49,
+    RACE_HARANIR_ALLIANCE     = 50,
+    RACE_HARANIR_HORDE        = 51,
+    RACE_SKYBORNE_ALLIANCE    = 52,
+    RACE_SKYBORNE_HORDE       = 53
 };
 
 uint32 constexpr DARKFALLEN_RACE_MASK = 0x80000000u;
 
-inline constexpr uint32 GetRaceMaskForRace(uint32 race)
+inline constexpr bool IsExtendedPlayableRace(uint32 race)
+{
+    return race >= RACE_MAGHAR_ORC && race <= RACE_SKYBORNE_HORDE;
+}
+
+inline constexpr uint8 GetLegacyMaskRaceForRace(uint32 race)
+{
+    switch (race)
+    {
+        case RACE_MAGHAR_ORC:          return RACE_ORC;
+        case RACE_HIGHMOUNTAIN_TAUREN: return RACE_TAUREN;
+        case RACE_MECHAGNOME:          return RACE_GNOME;
+        case RACE_EARTHEN_ALLIANCE:    return RACE_DWARF;
+        case RACE_EARTHEN_HORDE:       return RACE_ORC;
+        case RACE_HARANIR_ALLIANCE:    return RACE_NIGHTELF;
+        case RACE_HARANIR_HORDE:       return RACE_TROLL;
+        case RACE_SKYBORNE_ALLIANCE:   return RACE_HIGHELF;
+        case RACE_SKYBORNE_HORDE:      return RACE_BLOODELF;
+        default:                        return uint8(race);
+    }
+}
+
+inline constexpr uint8 GetVisualBaseRaceForRace(uint32 race)
+{
+    switch (race)
+    {
+        case RACE_MAGHAR_ORC:          return RACE_ORC;
+        case RACE_HIGHMOUNTAIN_TAUREN: return RACE_TAUREN;
+        case RACE_MECHAGNOME:          return RACE_GNOME;
+        case RACE_EARTHEN_ALLIANCE:
+        case RACE_EARTHEN_HORDE:       return RACE_DWARF;
+        case RACE_HARANIR_ALLIANCE:
+        case RACE_HARANIR_HORDE:       return RACE_NIGHTELF;
+        case RACE_SKYBORNE_ALLIANCE:
+        case RACE_SKYBORNE_HORDE:      return RACE_BLOODELF;
+        default:                        return uint8(race);
+    }
+}
+
+inline constexpr uint8 GetPairedRaceForRace(uint32 race)
+{
+    switch (race)
+    {
+        case RACE_EARTHEN_ALLIANCE:  return RACE_EARTHEN_HORDE;
+        case RACE_EARTHEN_HORDE:     return RACE_EARTHEN_ALLIANCE;
+        case RACE_HARANIR_ALLIANCE:  return RACE_HARANIR_HORDE;
+        case RACE_HARANIR_HORDE:     return RACE_HARANIR_ALLIANCE;
+        case RACE_SKYBORNE_ALLIANCE: return RACE_SKYBORNE_HORDE;
+        case RACE_SKYBORNE_HORDE:    return RACE_SKYBORNE_ALLIANCE;
+        default:                      return RACE_NONE;
+    }
+}
+
+inline constexpr uint32 GetLegacyRaceMaskForRace(uint32 race)
 {
     if (race == RACE_DARKFALLEN_ALLIANCE || race == RACE_DARKFALLEN_HORDE)
         return DARKFALLEN_RACE_MASK;
 
-    if (race >= RACE_HUMAN && race <= 32)
-        return 1u << (race - 1);
+    uint8 const maskRace = GetLegacyMaskRaceForRace(race);
+    if (maskRace >= RACE_HUMAN && maskRace <= 32)
+        return 1u << (maskRace - 1);
 
     return 0;
+}
+
+inline constexpr uint32 GetRaceMaskForRace(uint32 race)
+{
+    return GetLegacyRaceMaskForRace(race);
 }
 
 // DisplayRace values from CreatureDisplayInfoExtra.dbc

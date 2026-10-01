@@ -265,7 +265,7 @@ def splice_dbcs(storm: Storm, target_archive: Path, dbcs: dict[str, bytes]) -> N
     storm.replace_archive_entries(target_archive, entries)
 
 
-def rebuild_archive_streaming(storm: Storm, source_path: Path, target_path: Path) -> None:
+def rebuild_archive_streaming(storm: Storm, source_path: Path, target_path: Path, *, compress: bool = False) -> None:
     """Rebuild an MPQ one entry at a time to discard stale replaced blocks without high memory use."""
 
     if target_path.exists():
@@ -298,7 +298,7 @@ def rebuild_archive_streaming(storm: Storm, source_path: Path, target_path: Path
                 0,
                 len(payload),
                 0,
-                0,
+                0x00000200 if compress else 0,
                 c.byref(file_handle),
             ):
                 raise OSError(f"SFileCreateFile failed while rebuilding: {name} ({c.get_last_error()})")

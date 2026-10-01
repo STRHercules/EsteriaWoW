@@ -2,7 +2,6 @@
 
 ## Next
 - https://github.com/AlsoNotMehh/mod-eluna-teleport-selector
-- https://github.com/AlsoNotMehh/mod-two-names
 - https://github.com/AlsoNotMehh/mod-realm-first-titles
 - https://github.com/AlsoNotMehh/mod-camping
 - https://github.com/AxxusWhoami/mod-warlock-pet-rename
@@ -23,9 +22,11 @@
     - Assign custom location, recall using custom hearthstone
     - LONG cooldown
 
+- Bounty Board
+    - Random procedural generated quests
 
-
-
+- Character Biography in creation
+    - Nicknames
 
 
 # World Buffs
@@ -41,14 +42,15 @@
 - Account-wide
 
 ## Missing Races
-- Highmountain Tauren, Mag'har Orc, Earthen, Mechagnome, Haranir
+- Earthen, Haranir
 
 ## Custom races
+- Third Tauren Gender - Taunka
 - Implement Ogre race
 - Half-Elf Race?
     - Human Body/Skeleton with Blood-Elf ears?
 - Halfling
-    - Shrink Humans to make them Dward Sized, but Human proportions
+    - Shrink Humans to make them Dwarf Sized, but Human proportions?
 - 'Forsaken' Alliance-side Bone-less Scourge
 - Need to find working:
     - Vyrkul

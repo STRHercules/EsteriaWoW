@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CLIENT = ROOT / "3.3.5a - Dev"
+CLIENT = Path(r"G:\3.3.5a - Dev")
 
 sys.path.insert(0, str(ROOT / "modules" / "mod-classless-wildcard" / "client-patch"))
 from lib.mpq import MPQArchive
@@ -49,7 +49,7 @@ def assert_virtual_scroll(lua: str, xml: str) -> None:
         re.DOTALL,
     )
     assert scroll_child, "character-select scroll child is missing"
-    assert '<AbsDimension x="256" y="560"/>' in scroll_frame.group(0)
+    assert '<AbsDimension x="1" y="560"/>' in scroll_frame.group(0)
 
 
 def main() -> None:

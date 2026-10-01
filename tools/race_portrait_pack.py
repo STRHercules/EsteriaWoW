@@ -61,10 +61,11 @@ RACE_ALIASES = {
     "dracthyrvisage": "dracthyr",
     "zandalaritroll": "zandalaritroll",
     "darkirondwarf": "darkirondwarf",
+    "skyborn": "skyborne",
 }
 
 # Race keys that only exist for one faction of a shared picture name.
-FACTION_RACE_KEYS = {("darkfallen", "horde"): "darkfallenhorde"}
+FACTION_RACE_KEYS = {("darkfallen", "horde"): "darkfallenhorde", ("skyborne", "horde"): "skybornehorde"}
 # Art that should be flipped before conversion. The supplied Darkfallen portraits are used
 # exactly as drawn: the two factions are already mirrored versions of each other, so adding a
 # race here would put that faction's portrait back the wrong way round.
@@ -156,8 +157,10 @@ def discover_sources(root: Path) -> tuple[dict[tuple[str, str, str], Path], list
         r"Charactercreate-races_(?P<race>.+?)-(?P<gender>male|female)\d*(?P<faction>_alliance|_horde)?$",
         re.IGNORECASE,
     )
+    skyborn_pattern = re.compile(r"(?P<race>Skyborn)(?P<gender>male|female)(?P<faction>_alliance|_horde)$",
+                                 re.IGNORECASE)
     for path in sorted(root.rglob("*.png")):
-        match = pattern.match(path.stem)
+        match = pattern.match(path.stem) or skyborn_pattern.match(path.stem)
         if not match:
             unmapped.append(path.name)
             continue

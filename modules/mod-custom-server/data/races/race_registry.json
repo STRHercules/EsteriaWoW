@@ -77,6 +77,16 @@
   },
   "playable": [
     {
+      "id": 46,
+      "species_key": "highmountain",
+      "display_name": "Highmountain Tauren",
+      "faction": "horde",
+      "start_profile": "mulgore",
+      "asset_owner": "retroporter_highmountain",
+      "legacy_mask_race": 6,
+      "visual_base_race": 6
+    },
+    {
       "id": 1,
       "species_key": "human",
       "display_name": "Human",
@@ -306,6 +316,36 @@
       "asset_owner": "shadowlands_characters"
     },
     {
+      "id": 45,
+      "species_key": "maghar_orc",
+      "display_name": "Mag'har Orc",
+      "faction": "horde",
+      "start_profile": "durotar",
+      "asset_owner": "retroporter_maghar",
+      "legacy_mask_race": 2,
+      "visual_base_race": 2
+    },
+    {
+      "id": 52,
+      "species_key": "skyborne",
+      "display_name": "High Order Skyborne",
+      "faction": "alliance",
+      "start_profile": "elwynn",
+      "asset_owner": "retroporter_skyborne",
+      "legacy_mask_race": 13,
+      "visual_base_race": 10
+    },
+    {
+      "id": 53,
+      "species_key": "skyborne",
+      "display_name": "Windshaper Skyborne",
+      "faction": "horde",
+      "start_profile": "eversong",
+      "asset_owner": "retroporter_skyborne",
+      "legacy_mask_race": 10,
+      "visual_base_race": 10
+    },
+    {
       "id": 43,
       "species_key": "darkfallen",
       "display_name": "Darkfallen",
@@ -322,6 +362,16 @@
       "mask": 2147483648,
       "start_profile": "tirisfal",
       "asset_owner": "playable_darkfallen"
+    },
+    {
+      "id": 47,
+      "species_key": "mechagnome",
+      "display_name": "Mechagnome",
+      "faction": "alliance",
+      "start_profile": "dun_morogh",
+      "asset_owner": "retroporter_mechagnome",
+      "legacy_mask_race": 7,
+      "visual_base_race": 7
     }
   ],
   "npc_only": [
@@ -338,6 +388,7 @@
     {"id": 42, "name": "Broken NPC", "legacy_id": 25, "not_playable": true}
   ],
   "faction_pairs": [
+    {"species_key": "skyborne", "alliance_id": 52, "horde_id": 53},
     {"species_key": "pandaren", "alliance_id": 18, "horde_id": 26},
     {"species_key": "broken", "alliance_id": 24, "horde_id": 27}
   ],
@@ -357,8 +408,11 @@
     "worgoblin_f041": "RaceStuff/mod-worgoblin-high-elf-master/modpaks/F-041_mod-extra-models",
     "shadowlands_characters": "RaceStuff/Shadowlands to WotLK/Character",
     "playable_darkfallen": "NewModels/_Other/PlayableDarkfallen/Darkfallen",
+    "retroporter_maghar": "G:/RetroPorterWork/maghar/output/patch-root",
+    "retroporter_skyborne": "G:/RetroPorterWork/skyborne/integration/patch-root",
     "shadowlands_dbc": "RaceStuff/Shadowlands to WotLK/DBC/enUS/DBFilesClient",
     "shadowlands_login": "RaceStuff/Shadowlands login screen mix",
-    "worgoblin_hd": "RaceStuff/worgoblin HD patch"
+    "worgoblin_hd": "RaceStuff/worgoblin HD patch",
+    "retroporter_mechagnome": "G:/RetroPorterWork/mechagnome/output/patch-root"
   }
 }

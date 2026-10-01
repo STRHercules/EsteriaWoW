@@ -21,6 +21,7 @@ FRAMES_TO_BACKDROP_COLOR = {
 	"CharacterCreateCharacterClass",
 --	"CharacterCreateCharacterFaction",
 	"CharacterCreateNameEdit",
+	"CharacterCreateLastNameEdit",
 };
 RACE_ICON_TCOORDS = {
 	["HUMAN_MALE"]		= {0, 0.125, 0, 0.25},
@@ -92,6 +93,35 @@ function CharacterCreate_OnLoad(self)
 	local backdropColor = FACTION_BACKDROP_COLOR_TABLE["Alliance"];
 	CharacterCreateNameEdit:SetBackdropBorderColor(backdropColor[1], backdropColor[2], backdropColor[3]);
 	CharacterCreateNameEdit:SetBackdropColor(backdropColor[4], backdropColor[5], backdropColor[6]);
+	CharacterCreateLastNameEdit:SetBackdropBorderColor(backdropColor[1], backdropColor[2], backdropColor[3]);
+	CharacterCreateLastNameEdit:SetBackdropColor(backdropColor[4], backdropColor[5], backdropColor[6]);
+end
+
+function CharacterCreate_SetNameFields(fullName)
+	local firstName = "";
+	local lastName = "";
+	if ( fullName and fullName ~= "" ) then
+		local splitFirst, splitLast = string.match(fullName, "^([^ ]+)%s*(.*)$");
+		firstName = splitFirst or fullName;
+		lastName = splitLast or "";
+	end
+	CharacterCreateNameEdit:SetText(firstName);
+	CharacterCreateLastNameEdit:SetText(lastName);
+end
+
+function CharacterCreate_GetFullName()
+	local firstName = CharacterCreateNameEdit:GetText() or "";
+	local lastName = CharacterCreateLastNameEdit:GetText() or "";
+	if ( firstName == "" ) then
+		return lastName;
+	elseif ( lastName == "" ) then
+		return firstName;
+	end
+	return firstName.." "..lastName;
+end
+
+function CharacterCreate_RandomizeName()
+	CharacterCreate_SetNameFields(GetRandomName());
 end
 
 function CharacterCreate_OnShow()
@@ -108,11 +138,11 @@ function CharacterCreate_OnShow()
 
 	if ( PAID_SERVICE_TYPE ) then
 		CustomizeExistingCharacter( PAID_SERVICE_CHARACTER_ID );
-		CharacterCreateNameEdit:SetText( PaidChange_GetName() );
+		CharacterCreate_SetNameFields(PaidChange_GetName());
 	else
 		--randomly selects a combination
 		ResetCharCustomize();
-		CharacterCreateNameEdit:SetText("");
+		CharacterCreate_SetNameFields("");
 		CharCreateRandomizeButton:Show();
 	end
 
@@ -354,7 +384,7 @@ function CharacterCreate_Okay()
 	if ( PAID_SERVICE_TYPE ) then
 		GlueDialog_Show("CONFIRM_PAID_SERVICE");
 	else
-		CreateCharacter(CharacterCreateNameEdit:GetText());
+		CreateCharacter(CharacterCreate_GetFullName());
 	end
 	PlaySound("gsCharacterCreationCreateChar");
 end

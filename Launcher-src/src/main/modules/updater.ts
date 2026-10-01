@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import { exec } from 'node:child_process';
 import os from 'node:os';
 
+import extractZip from 'extract-zip';
 import fetch from 'node-fetch';
 import fs from 'fs-extra';
 import {
@@ -82,9 +83,21 @@ const friendlyError = (e: unknown): string => {
 };
 
 type FolderTags = 'allowExtra';
+
+type DeliveryBundle = {
+	archive: string;
+	hash: string;
+	size: number;
+};
+
 type FileManifest = { name: string } & (
 	| { type: 'del' }
-	| { type: 'dir'; files: FileManifest[]; tags?: FolderTags[] }
+	| {
+			type: 'dir';
+			files: FileManifest[];
+			tags?: FolderTags[];
+			bundle?: DeliveryBundle;
+		}
 	| { type: 'mpq'; files: FileManifest[]; hash: string; size: number }
 	| {
 			type: 'file';
@@ -94,21 +107,40 @@ type FileManifest = { name: string } & (
 		}
 );
 
+type BundledDirectoryManifest = Extract<FileManifest, { type: 'dir' }> & {
+	bundle: DeliveryBundle;
+};
+
 type CacheEntry = [hash: string, mtime: number];
 type CacheTree = { [key: string]: CacheTree & CacheEntry };
 
-const getManifestSize = (m?: FileManifest): number =>
+const getManifestSize = (m?: FileManifest): number => {
+	if (!m || m.type === 'del') return 0;
+	if (m.type === 'file') return m.size;
+	if (m.type === 'dir' && m.bundle) return m.bundle.size;
+	return m.files.reduce((acc, v) => acc + getManifestSize(v), 0);
+};
+
+const getVerificationSize = (m?: FileManifest): number =>
 	(m?.type === 'del'
 		? 0
 		: m?.type === 'file'
 		? m?.size
-		: m?.files?.reduce((acc, v) => acc + getManifestSize(v), 0)) ?? 0;
+		: m?.files?.reduce((acc, v) => acc + getVerificationSize(v), 0)) ?? 0;
+
+const getBundleExtractionSize = (m?: FileManifest): number => {
+	if (!m || m.type === 'del' || m.type === 'file') return 0;
+	if (m.type === 'dir' && m.bundle) return getVerificationSize(m);
+	return m.files.reduce((acc, v) => acc + getBundleExtractionSize(v), 0);
+};
 
 const getManifestFiles = (m?: FileManifest, p = ''): string[] =>
 	(m?.type === 'del'
 		? [`-- ${path.join(p, m?.name)}`]
 		: m?.type === 'file'
 		? [`++ ${path.join(p, m?.name)}`]
+		: m?.type === 'dir' && m.bundle
+		? [`++ ${path.join(p, m.name)} (bundle: ${m.bundle.archive})`]
 		: m?.files?.flatMap(v => getManifestFiles(v, path.join(p, m?.name)))) ?? [];
 
 const getManifestItem = (
@@ -180,6 +212,8 @@ const isUnsafeName = (name: string) =>
 
 const manifestPathsSafe = (m: FileManifest, isRoot = false): boolean => {
 	if (!isRoot && isUnsafeName(m.name)) return false;
+	if (m.type === 'dir' && m.bundle && isUnsafeName(m.bundle.archive))
+		return false;
 	if (m.type === 'dir' || m.type === 'mpq')
 		return m.files.every(f => manifestPathsSafe(f));
 	return true;
@@ -511,6 +545,117 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 		return newHash;
 	}
 
+	async #directoryMatchesManifest(
+		rootPath: string,
+		children: FileManifest[]
+	): Promise<boolean> {
+		if (!(await fs.pathExists(rootPath))) return false;
+		const rootStats = await fs.stat(rootPath);
+		if (!rootStats.isDirectory()) return false;
+
+		const expectedNames = new Set(
+			children
+				.filter(child => child.type !== 'del')
+				.map(child => child.name.toLowerCase())
+		);
+		const actualNames = await fs.readdir(rootPath);
+		if (
+			actualNames.length !== expectedNames.size ||
+			actualNames.some(name => !expectedNames.has(name.toLowerCase()))
+		)
+			return false;
+
+		for (const child of children) {
+			const childPath = path.join(rootPath, child.name);
+			if (child.type === 'del') {
+				if (await fs.pathExists(childPath)) return false;
+				continue;
+			}
+			if (child.type === 'file') {
+				if (!(await fs.pathExists(childPath))) return false;
+				const stats = await fs.stat(childPath);
+				if (!stats.isFile() || stats.size !== child.size) return false;
+				if ((await hashDiskFile(childPath)) !== child.hash) return false;
+				continue;
+			}
+			if (child.type === 'dir') {
+				if (!(await this.#directoryMatchesManifest(childPath, child.files)))
+					return false;
+				continue;
+			}
+			return false;
+		}
+
+		return true;
+	}
+
+	async #bundleMatches(
+		clientPath: string,
+		item: BundledDirectoryManifest,
+		bundlePath: string[]
+	): Promise<boolean> {
+		const verifyDirectory = async (
+			logicalPath: string[],
+			children: FileManifest[],
+			allowExtra = false
+		): Promise<boolean> => {
+			const fullDir = path.join(clientPath, ...logicalPath);
+			if (!(await fs.pathExists(fullDir))) return false;
+
+			const dirStats = await fs.stat(fullDir);
+			if (!dirStats.isDirectory()) return false;
+
+			if (!allowExtra) {
+				const expectedNames = new Set(
+					children
+						.filter(child => child.type !== 'del')
+						.map(child => child.name.toLowerCase())
+				);
+				const actualNames = await fs.readdir(fullDir);
+				if (actualNames.some(name => !expectedNames.has(name.toLowerCase())))
+					return false;
+			}
+
+			for (const child of children) {
+				const childPath = [...logicalPath, child.name];
+				const childFullPath = path.join(clientPath, ...childPath);
+
+				if (child.type === 'del') {
+					if (await fs.pathExists(childFullPath)) return false;
+					continue;
+				}
+
+				if (child.type === 'file') {
+					if (!(await fs.pathExists(childFullPath))) return false;
+					const stats = await fs.stat(childFullPath);
+					if (!stats.isFile() || stats.size !== child.size) return false;
+					if ((await this.#getHash({ clientPath }, ...childPath)) !== child.hash)
+						return false;
+					continue;
+				}
+
+				if (child.type === 'dir') {
+					if (
+						!(await verifyDirectory(
+							childPath,
+							child.files,
+							child.tags?.includes('allowExtra') ?? false
+						))
+					)
+						return false;
+					continue;
+				}
+
+				// Bundles and MPQs are never expected inside one of these delivery bundles.
+				return false;
+			}
+
+			return true;
+		};
+
+		return verifyDirectory(bundlePath, item.files);
+	}
+
 	protected _value: UpdaterStatus = { state: 'failed' };
 
 	get status() {
@@ -572,7 +717,7 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 			}
 			this.#manifest = { type: 'dir', name: 'root', files: [] };
 
-			const totalSize = getManifestSize(hashTree);
+			const totalSize = getVerificationSize(hashTree);
 			let i = 0;
 
 			const buildMpqTree = async (
@@ -586,6 +731,13 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 				if (item.type === 'del') return item;
 
 				if (item.type === 'dir') {
+					if (item.bundle)
+						throw Error(
+							`There can't be a delivery bundle inside mpq at path ${path.join(
+								...mpqPath,
+								...filePath
+							)}`
+						);
 					const files = (
 						await asyncMap(item.files, f =>
 							buildMpqTree(hMpq, mpqPath, ...filePath, f.name)
@@ -633,6 +785,25 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 				}
 
 				if (item.type === 'dir') {
+					if (item.bundle) {
+						this.status = {
+							state: 'verifying',
+							progress: i / totalSize,
+							message: `Verifying bundle: "${path.join(...filePath)}"...`
+						};
+						i += getVerificationSize(item);
+
+						if (
+							await this.#bundleMatches(
+								clientPath,
+								item as BundledDirectoryManifest,
+								filePath
+							)
+						)
+							return undefined;
+						return item;
+					}
+
 					const files = (
 						await asyncMap(item.files, f => buildTree(...filePath, f.name))
 					).filter(isNotUndef);
@@ -746,12 +917,14 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 				this.#clientTotalBytes - toDownload
 			);
 			const availableSpace = await getAvailableDiskSpace();
+			const requiredWorkingSpace =
+				toDownload + getBundleExtractionSize(this.#manifest);
 
-			if (toDownload > availableSpace) {
+			if (requiredWorkingSpace > availableSpace) {
 				this.status = {
 					state: 'failed',
-					message: `Not enough disk space. Required: ${formatFileSize(
-						toDownload
+					message: `Not enough disk space. Required working space: ${formatFileSize(
+						requiredWorkingSpace
 					)}, Available: ${formatFileSize(availableSpace)}`
 				};
 				return;
@@ -895,6 +1068,13 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 				}
 
 				if (item.type === 'dir') {
+					if (item.bundle)
+						throw Error(
+							`There can't be a delivery bundle inside mpq at path ${path.join(
+								...mpqPath,
+								...filePath
+							)}`
+						);
 					for (const f of item.files)
 						await iterateMpqTree(hMpq, mpqPath, ...filePath, f.name);
 					return;
@@ -958,7 +1138,82 @@ class UpdaterClass extends Observable<UpdaterStatus> {
 				}
 
 				if (item.type === 'dir') {
-					for (const i of item.files) await iterateTree(...filePath, i.name);
+					if (!item.bundle) {
+						for (const i of item.files) await iterateTree(...filePath, i.name);
+						return;
+					}
+
+					const bundle = item.bundle;
+					const archivePath = [
+						...filePath.slice(0, -1),
+						bundle.archive
+					];
+					const archiveFile = path.join(clientPath, ...archivePath);
+					const targetDir = path.join(clientPath, ...filePath);
+					const tempDir = `${targetDir}.installing`;
+					const backupDir = `${targetDir}.previous`;
+					const downloadLabel = `Downloading bundle: "${path.join(
+						...archivePath
+					)}"`;
+
+					emitProgress(downloadLabel, true);
+					await downloadFileToDisk(
+						path.join(...archivePath),
+						archiveFile,
+						bundle.size,
+						delta => {
+							tracker.add(delta);
+							emitProgress(downloadLabel);
+						}
+					);
+
+					try {
+						emitProgress(`Validating bundle: "${path.join(...filePath)}"`, true);
+						const archiveHash = await hashDiskFile(archiveFile);
+						if (archiveHash !== bundle.hash)
+							throw Error(
+								`Bundle hash mismatch for ${path.join(...archivePath)}.`
+							);
+
+						await fs.remove(tempDir);
+						await fs.remove(backupDir);
+						await fs.ensureDir(tempDir);
+
+						emitProgress(`Installing bundle: "${path.join(...filePath)}"`, true);
+						await extractZip(archiveFile, { dir: path.resolve(tempDir) });
+
+						let extractedDir = tempDir;
+						const nestedDir = path.join(tempDir, item.name);
+						if (
+							(await fs.pathExists(nestedDir)) &&
+							(await fs.stat(nestedDir)).isDirectory()
+						)
+							extractedDir = nestedDir;
+
+						if (!(await this.#directoryMatchesManifest(extractedDir, item.files)))
+							throw Error(
+								`Bundle ${bundle.archive} does not match the expected ${item.name} contents.`
+							);
+
+						const hadTarget = await fs.pathExists(targetDir);
+						if (hadTarget)
+							await fs.move(targetDir, backupDir, { overwrite: true });
+
+						try {
+							await fs.move(extractedDir, targetDir, { overwrite: true });
+							await fs.remove(backupDir);
+						} catch (installError) {
+							await fs.remove(targetDir);
+							if (await fs.pathExists(backupDir))
+								await fs.move(backupDir, targetDir, { overwrite: true });
+							throw installError;
+						}
+
+						nestedSet(this.#cache, filePath, undefined);
+					} finally {
+						await fs.remove(tempDir).catch(() => undefined);
+						await fs.remove(archiveFile).catch(() => undefined);
+					}
 					return;
 				}
 

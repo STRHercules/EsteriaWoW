@@ -1,0 +1,77 @@
+#
+# AzerothCore mod-two-names configuration
+#
+
+[worldserver]
+
+###################################################################################################
+# TWO NAMES CONFIGURATION
+#
+#    TwoNames.Enable
+#        Description: Enable or disable the two names module.
+#        Default:     1 (Enabled)
+#                     0 (Disabled)
+#
+
+TwoNames.Enable = 1
+
+#
+#    TwoNames.RequireTwoNames
+#        Description: If set to 1, requires players to have exactly two names (First and Last name).
+#                     If set to 0, players can have either a single name or two names.
+#        Default:     0 (Allow both single and dual names)
+#                     1 (Require First and Last name)
+#
+
+TwoNames.RequireTwoNames = 0
+
+#
+#    TwoNames.MinNameLength
+#        Description: Minimum total character length for character names.
+#        Default:     2
+#
+
+TwoNames.MinNameLength = 2
+
+#
+#    TwoNames.MaxNameLength
+#        Description: Maximum total character length for character names (e.g. 25 like WoW Forever).
+#        Default:     25
+#
+
+TwoNames.MaxNameLength = 25
+
+#
+#    TwoNames.MinPartLength
+#        Description: Minimum character length for each individual name part (First Name and Last Name).
+#                     For example, if set to 2, names like "Jo Do" are allowed, but "J D" is rejected.
+#        Default:     2
+#
+
+TwoNames.MinPartLength = 2
+
+#
+#    TwoNames.MaxPartLength
+#        Description: Maximum character length for each individual name part (First Name and Last Name).
+#                     Standard WoW allows up to 12 characters per word.
+#        Default:     12
+#
+
+TwoNames.MaxPartLength = 12
+
+#
+#    TwoNames.AllowMultipleSpaces
+#        Description: Allow more than one space in character names (e.g. 3 or more names).
+#        Default:     0 (Only 1 space allowed = First and Last Name)
+#                     1 (Allow multiple spaces)
+#
+
+TwoNames.AllowMultipleSpaces = 0
+
+#
+#    TwoNames.StrictPlayerNames
+#        Description: Character naming restriction mask (-1 to use core setting, 0 = any language, 1 = basic latin, 2 = realm language).
+#        Default:     -1 (Use core CONFIG_STRICT_PLAYER_NAMES)
+#
+
+TwoNames.StrictPlayerNames = -1

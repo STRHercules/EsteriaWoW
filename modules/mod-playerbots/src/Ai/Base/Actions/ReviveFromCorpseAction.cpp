@@ -255,7 +255,7 @@ GraveyardStruct const* SpiritHealerAction::GetGrave(bool startZone)
     uint32 teamRaceMask = bot->GetTeamId() == TEAM_ALLIANCE ? sRaceMgr->GetAllianceRaceMask() : sRaceMgr->GetHordeRaceMask();
     for (uint32 race = RACE_HUMAN; race < sRaceMgr->GetMaxRaces(); ++race)
     {
-        if (!((uint32(1) << (race - 1)) & teamRaceMask))
+        if (!(GetRaceMaskForRace(race) & teamRaceMask))
             continue;
 
         for (uint32 cls = 0; cls < MAX_CLASSES; cls++)

@@ -132,6 +132,7 @@ class Storm:
         self._set("SFileCreateFile", [H, c.c_char_p, c.c_uint64, U, U, U, c.POINTER(H)], c.c_bool)
         self._set("SFileSetMaxFileCount", [H, U], c.c_bool)
         self._set("SFileGetMaxFileCount", [H], U)
+        self._set("SFileCompactArchive", [H, c.c_wchar_p, c.c_bool], c.c_bool)
         self._set("SFileWriteFile", [H, H, U, U], c.c_bool)
         self._set("SFileFinishFile", [H], c.c_bool)
 
@@ -213,13 +214,32 @@ class Storm:
         if needed > current:
             self.dll.SFileSetMaxFileCount(archive, needed)
 
+    def compact_archive(self, path: Path) -> None:
+        """Reclaim dead/replaced MPQ blocks without touching the live archive in place."""
+
+        archive = self.open_archive(path)
+        try:
+            if not self.dll.SFileCompactArchive(archive, None, False):
+                raise OSError(f"SFileCompactArchive failed: {path} ({c.get_last_error()})")
+        finally:
+            self.dll.SFileCloseArchive(archive)
+
     def replace_archive_entries(self, path: Path, entries: dict[str, bytes]) -> None:
-        """Add or replace entries without reading/rebuilding unrelated MPQ files."""
+        """Add or replace entries without reading/rebuilding unrelated MPQ files.
+
+        Skip byte-identical files so iterative pack builds do not append duplicate
+        payloads and drive classic MPQs toward their 4 GiB archive limit.
+        """
 
         archive = self.open_archive(path)
         try:
             self.ensure_capacity(archive, len(entries))
             for name, payload in entries.items():
+                try:
+                    if self.read(archive, name) == payload:
+                        continue
+                except OSError:
+                    pass
                 file_handle = H()
                 flags = 0x80000000  # MPQ_FILE_REPLACEEXISTING
                 if not self.dll.SFileCreateFile(

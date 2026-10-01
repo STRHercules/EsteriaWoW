@@ -79,7 +79,7 @@ class PlayableRaceContractTest(unittest.TestCase):
         enum_values = parse_race_enum(SHARED_DEFINES.read_text(encoding="utf-8"))
         supported_names = re.findall(r"case\s+(RACE_[A-Z0-9_]+)\s*:", helper.group(1))
         supported_ids = {enum_values[name] for name in supported_names}
-        expected_supported_ids = set(range(1, 15)) | {18, 20}
+        expected_supported_ids = set(range(1, 15)) | {18, 20, 45}
         self.assertEqual(supported_ids, expected_supported_ids)
 
         deferred_ids = set(range(15, 29)) - expected_supported_ids

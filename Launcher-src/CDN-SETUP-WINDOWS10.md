@@ -70,6 +70,37 @@ Get-ChildItem C:\Esteria\CDN\client\live\Interface
 The source tree, credentials, account WTF data, logs, WDB files, screenshots,
 and other player data must stay outside Git and outside any public repository.
 
+### Bundle-delivered patch directories
+
+Two large extracted patch directories are delivered as single ZIP archives to
+avoid thousands of individual HTTP requests:
+
+```text
+Data\Patch-Housing.MPQ\
+Data\Patch-Housing.MPQ.zip
+Data\patch-K.mpq\
+Data\patch-K.mpq.zip
+```
+
+Keep both the expanded directory and its matching ZIP in the staged client.
+The expanded directory is the authoritative installed layout and is used to
+build the file manifest. The ZIP is only the transport artifact. It is omitted
+from the normal installed-file tree and recorded as delivery metadata on the
+directory entry. Older launchers can ignore that metadata and still fall back
+to per-file delivery, while current launchers use the ZIP bundle.
+
+The ZIP may contain either the directory contents directly or one top-level
+directory with the matching name. Archives larger than 4 GiB must use ZIP64.
+The launcher downloads the ZIP with normal `.part` resume support, verifies
+the archive hash, extracts to a temporary folder, verifies the extracted files
+against the manifest, swaps the completed directory into place, and removes
+the downloaded ZIP. Players therefore end up with only the normal extracted
+folders under `Data`.
+
+Whenever either expanded directory changes, rebuild its matching ZIP before
+regenerating `manifest.json`. A stale or mismatched ZIP will be rejected by
+the launcher instead of replacing the player's working directory.
+
 ## 4. Install and start the CDN service
 
 The server has no dotenv dependency, so set SOURCE_DIR in the PowerShell

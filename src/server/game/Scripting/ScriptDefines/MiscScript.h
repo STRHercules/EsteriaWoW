@@ -20,6 +20,8 @@
 
 #include "ObjectGuid.h"
 #include "ScriptObject.h"
+#include <string>
+#include <string_view>
 #include <vector>
 
 enum MiscHook
@@ -42,6 +44,8 @@ enum MiscHook
     MISCHOOK_ON_PLAYER_SET_PHASE,
     MISCHOOK_ON_INSTANCE_SAVE,
     MISCHOOK_GET_DIALOG_STATUS,
+    MISCHOOK_CAN_NORMALIZE_PLAYER_NAME,
+    MISCHOOK_ON_CHECK_PLAYER_NAME,
     MISCHOOK_END
 };
 
@@ -94,6 +98,10 @@ public:
      * @param questgiver Contains information about the Object
      */
     virtual void GetDialogStatus(Player* /*player*/, Object* /*questgiver*/) { }
+
+    // Return true when handled; result contains the normalization/validation outcome.
+    virtual bool CanNormalizePlayerName(std::string& /*name*/, bool& /*result*/) { return false; }
+    virtual bool OnCheckPlayerName(std::string_view /*name*/, bool /*create*/, uint8& /*result*/) { return false; }
 };
 
 #endif

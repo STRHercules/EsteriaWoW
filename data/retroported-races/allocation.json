@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "race_ids": {
+    "maghar": [45],
+    "highmountain": [46],
+    "mechagnome": [47],
+    "earthen": [48, 49],
+    "haranir": [50, 51],
+    "skyborne": [52, 53]
+  },
+  "dbc_ranges": {
+    "CreatureModelData": [120000, 120199],
+    "CreatureDisplayInfo": [60030, 60047],
+    "CreatureDisplayInfoExtra": [60000, 60999],
+    "CharSections": [450000, 592999],
+    "CharHairGeosets": [450000, 451999],
+    "CharHairTextures": [450000, 451999],
+    "BarberShopStyle": [450000, 452999],
+    "CharStartOutfit": [21000, 21999],
+    "NameGen": [22000, 29999]
+  },
+  "race_allocations": {
+    "highmountain": {
+      "CreatureModelData": {"male": 120047, "female": 120048},
+      "CreatureDisplayInfo": {"male": 60032, "female": 60033},
+      "CharSections": [590000, 592999],
+      "CharHairGeosets": [450300, 450399],
+      "CharHairTextures": [450300, 450399],
+      "BarberShopStyle": [450100, 450499],
+      "CharStartOutfit": [21100, 21199],
+      "NameGen": [25000, 26999]
+    },
+    "mechagnome": {
+      "CreatureModelData": {"male": 120049, "female": 120050},
+      "CreatureDisplayInfo": {"male": 60034, "female": 60035},
+      "CharSections": [520000, 589999],
+      "CharHairGeosets": [450100, 450299],
+      "CharHairTextures": [450100, 450299],
+      "BarberShopStyle": [452000, 452999],
+      "CharStartOutfit": [21200, 21299],
+      "NameGen": [23000, 24999]
+    },
+    "skyborne": {
+      "CreatureModelData": {"male": 120052, "female": 120053},
+      "CreatureDisplayInfo": {"male": 60044, "female": 60045},
+      "CharSections": [455000, 519999],
+      "CharHairGeosets": [450500, 450899],
+      "CharHairTextures": [450500, 450699],
+      "BarberShopStyle": [450500, 451999],
+      "CharStartOutfit": [21500, 21599],
+      "NameGen": [27000, 29999]
+    },
+    "maghar": {
+      "CreatureModelData": {"male": 120045, "female": 120046},
+      "CreatureDisplayInfo": {"male": 60030, "female": 60031},
+      "CharSections": [450000, 450999],
+      "CharHairGeosets": [450000, 450099],
+      "CharHairTextures": [450000, 450099],
+      "BarberShopStyle": [450000, 450099],
+      "CharStartOutfit": [21000, 21099],
+      "NameGen": [22000, 22999]
+    }
+  }
+}

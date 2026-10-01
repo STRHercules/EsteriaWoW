@@ -30,6 +30,7 @@
 #include "GameTime.h"
 #include "GitRevision.h"
 #include "Group.h"
+#include "HighmountainAppearance.h"
 #include "Guild.h"
 #include "GuildMgr.h"
 #include "InstanceSaveMgr.h"
@@ -222,6 +223,8 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
     WorldPacket data(SMSG_CHAR_ENUM, 100);                  // we guess size
 
     uint8 num = 0;
+    ByteBuffer extraAppearances;
+    uint32 extraCount = 0;
 
     data << num;
 
@@ -236,11 +239,22 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
             {
                 _legitCharacters.insert(guid);
                 ++num;
+                if ((*result)[2].Get<uint8>() == RACE_HIGHMOUNTAIN_TAUREN)
+                {
+                    extraAppearances << guid.GetRawValue()
+                        << (*result)[result->GetFieldCount() - 2].Get<uint8>();
+                    ++extraCount;
+                }
             }
         } while (result->NextRow());
     }
 
     data.put<uint8>(0, num);
+    if (extraCount)
+    {
+        data.append(extraAppearances);
+        data << extraCount << uint32(0x31455848); // HXE1, consumed by the native client before stock parsing.
+    }
 
     SendPacket(&data);
 }
@@ -276,6 +290,15 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
         >> createInfo->HairColor
         >> createInfo->FacialHair
         >> createInfo->OutfitId;
+
+    // The stock outfit byte is unused by this core. Race46 uses it as its sixth appearance byte.
+    if (createInfo->Race == RACE_HIGHMOUNTAIN_TAUREN
+        && !HighmountainAppearance::Validate(createInfo->Gender, {createInfo->Skin, createInfo->Face,
+            createInfo->HairStyle, createInfo->HairColor, createInfo->FacialHair, createInfo->OutfitId}))
+    {
+        SendCharCreate(CHAR_CREATE_FAILED);
+        return;
+    }
 
     // A character is always created on its race-origin team. Freeborn is deliberately NOT carried
     // by this packet: the only field Lua can influence here is the name, and a Freeborn name has to

@@ -109,6 +109,18 @@ void ScriptMgr::GetDialogStatus(Player* player, Object* questgiver)
     CALL_ENABLED_HOOKS(MiscScript, MISCHOOK_GET_DIALOG_STATUS, script->GetDialogStatus(player, questgiver));
 }
 
+bool ScriptMgr::CanNormalizePlayerName(std::string& name, bool& result)
+{
+    CALL_ENABLED_BOOLEAN_HOOKS_WITH_DEFAULT_FALSE(MiscScript, MISCHOOK_CAN_NORMALIZE_PLAYER_NAME,
+        script->CanNormalizePlayerName(name, result));
+}
+
+bool ScriptMgr::OnCheckPlayerName(std::string_view name, bool create, uint8& result)
+{
+    CALL_ENABLED_BOOLEAN_HOOKS_WITH_DEFAULT_FALSE(MiscScript, MISCHOOK_ON_CHECK_PLAYER_NAME,
+        script->OnCheckPlayerName(name, create, result));
+}
+
 MiscScript::MiscScript(char const* name, std::vector<uint16> enabledHooks)
     : ScriptObject(name, MISCHOOK_END)
 {

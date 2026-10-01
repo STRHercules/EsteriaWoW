@@ -287,7 +287,11 @@ if not CharacterFreeborn_Init then
     function CharacterCreate_Okay(...)
         local pending = "";
         if ( CharacterFreeborn_IsSelected() and not PAID_SERVICE_TYPE ) then
-            pending = CharacterCreateNameEdit:GetText();
+            if ( CharacterCreate_GetFullName ) then
+                pending = CharacterCreate_GetFullName();
+            else
+                pending = CharacterCreateNameEdit:GetText();
+            end
         end
 
         if ( pending ~= "" ) then

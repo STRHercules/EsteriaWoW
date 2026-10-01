@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "slug": "highmountain",
+  "name": "Highmountain Tauren",
+  "race_ids": [46],
+  "client_file_strings": {"46": "HighmountainTauren"},
+  "source_race_id": 6,
+  "source_patch_root": "G:\\RetroPorterWork\\highmountain\\output\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\highmountain\\integration\\patch-root",
+  "asset_prefix": "custom\\highmountain",
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "models": {
+    "male": {
+      "source_model_id": 59,
+      "source_display_id": 59,
+      "model_path": "custom\\highmountain\\native\\male\\highmountaintaurenmale.m2"
+    },
+    "female": {
+      "source_model_id": 60,
+      "source_display_id": 60,
+      "model_path": "custom\\highmountain\\native\\female\\highmountaintaurenfemale.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-six-byte-codec-v1",
+    "source_retail_race_id": 28,
+    "source_chr_models": [55, 56],
+    "face_bone_morphs": true
+  }
+}

@@ -18,6 +18,7 @@
 #include "SharedDefines.h"
 #include "Define.h"
 #include "SmartEnum.h"
+#include <iterator>
 #include <stdexcept>
 #include <vector>
 
@@ -40,51 +41,71 @@ AC_API_EXPORT EnumText EnumUtils<Races>::ToString(Races value)
         case RACE_TAUREN: return { "RACE_TAUREN", "Tauren", "" };
         case RACE_GNOME: return { "RACE_GNOME", "Gnome", "" };
         case RACE_TROLL: return { "RACE_TROLL", "Troll", "" };
+        case RACE_GOBLIN: return { "RACE_GOBLIN", "Goblin", "" };
         case RACE_BLOODELF: return { "RACE_BLOODELF", "Blood Elf", "" };
         case RACE_DRAENEI: return { "RACE_DRAENEI", "Draenei", "" };
+        case RACE_WORGEN: return { "RACE_WORGEN", "Worgen", "" };
+        case RACE_HIGHELF: return { "RACE_HIGHELF", "High Elf", "" };
+        case RACE_BROKEN_PLAYER: return { "RACE_BROKEN_PLAYER", "Broken", "" };
+        case RACE_SETHRAK: return { "RACE_SETHRAK", "Sethrak", "" };
+        case RACE_EREDAR: return { "RACE_EREDAR", "Eredar", "" };
+        case RACE_NIGHTBORNE: return { "RACE_NIGHTBORNE", "Nightborne", "" };
+        case RACE_PANDAREN_ALLIANCE: return { "RACE_PANDAREN_ALLIANCE", "Pandaren (Alliance)", "" };
+        case RACE_VOIDELF: return { "RACE_VOIDELF", "Void Elf", "" };
+        case RACE_VULPERA: return { "RACE_VULPERA", "Vulpera", "" };
+        case RACE_LIGHTFORGEDDRAENEI: return { "RACE_LIGHTFORGEDDRAENEI", "Lightforged Draenei", "" };
+        case RACE_ZANDALARITROLL: return { "RACE_ZANDALARITROLL", "Zandalari Troll", "" };
+        case RACE_DARKIRONDWARF: return { "RACE_DARKIRONDWARF", "Dark Iron Dwarf", "" };
+        case RACE_BROKEN_ALLIANCE: return { "RACE_BROKEN_ALLIANCE", "Broken (Alliance)", "" };
+        case RACE_FORSAKEN: return { "RACE_FORSAKEN", "Forsaken", "" };
+        case RACE_PANDAREN_HORDE: return { "RACE_PANDAREN_HORDE", "Pandaren (Horde)", "" };
+        case RACE_BROKEN_HORDE: return { "RACE_BROKEN_HORDE", "Broken (Horde)", "" };
+        case RACE_DRACTHYR: return { "RACE_DRACTHYR", "Dracthyr", "" };
+        case RACE_DARKFALLEN_ALLIANCE: return { "RACE_DARKFALLEN_ALLIANCE", "Darkfallen (Alliance)", "" };
+        case RACE_DARKFALLEN_HORDE: return { "RACE_DARKFALLEN_HORDE", "Darkfallen (Horde)", "" };
+        case RACE_MAGHAR_ORC: return { "RACE_MAGHAR_ORC", "Mag'har Orc", "" };
+        case RACE_HIGHMOUNTAIN_TAUREN: return { "RACE_HIGHMOUNTAIN_TAUREN", "Highmountain Tauren", "" };
+        case RACE_MECHAGNOME: return { "RACE_MECHAGNOME", "Mechagnome", "" };
+        case RACE_EARTHEN_ALLIANCE: return { "RACE_EARTHEN_ALLIANCE", "Earthen (Alliance)", "" };
+        case RACE_EARTHEN_HORDE: return { "RACE_EARTHEN_HORDE", "Earthen (Horde)", "" };
+        case RACE_HARANIR_ALLIANCE: return { "RACE_HARANIR_ALLIANCE", "Haranir (Alliance)", "" };
+        case RACE_HARANIR_HORDE: return { "RACE_HARANIR_HORDE", "Haranir (Horde)", "" };
+        case RACE_SKYBORNE_ALLIANCE: return { "RACE_SKYBORNE_ALLIANCE", "High Order Skyborne", "" };
+        case RACE_SKYBORNE_HORDE: return { "RACE_SKYBORNE_HORDE", "Windshaper Skyborne", "" };
         default: throw std::out_of_range("value");
     }
 }
 
 template <>
-AC_API_EXPORT std::size_t EnumUtils<Races>::Count() { return 10; }
+AC_API_EXPORT std::size_t EnumUtils<Races>::Count() { return 39; }
 
 template <>
 AC_API_EXPORT Races EnumUtils<Races>::FromIndex(std::size_t index)
 {
-    switch (index)
-    {
-        case 0: return RACE_HUMAN;
-        case 1: return RACE_ORC;
-        case 2: return RACE_DWARF;
-        case 3: return RACE_NIGHTELF;
-        case 4: return RACE_UNDEAD_PLAYER;
-        case 5: return RACE_TAUREN;
-        case 6: return RACE_GNOME;
-        case 7: return RACE_TROLL;
-        case 8: return RACE_BLOODELF;
-        case 9: return RACE_DRAENEI;
-        default: throw std::out_of_range("index");
-    }
+    static constexpr Races Values[] = {
+        RACE_HUMAN, RACE_ORC, RACE_DWARF, RACE_NIGHTELF, RACE_UNDEAD_PLAYER, RACE_TAUREN, RACE_GNOME,
+        RACE_TROLL, RACE_GOBLIN, RACE_BLOODELF, RACE_DRAENEI, RACE_WORGEN, RACE_HIGHELF, RACE_BROKEN_PLAYER,
+        RACE_SETHRAK, RACE_EREDAR, RACE_NIGHTBORNE, RACE_PANDAREN_ALLIANCE, RACE_VOIDELF, RACE_VULPERA,
+        RACE_LIGHTFORGEDDRAENEI, RACE_ZANDALARITROLL, RACE_DARKIRONDWARF, RACE_BROKEN_ALLIANCE, RACE_FORSAKEN,
+        RACE_PANDAREN_HORDE, RACE_BROKEN_HORDE, RACE_DRACTHYR, RACE_DARKFALLEN_ALLIANCE, RACE_DARKFALLEN_HORDE,
+        RACE_MAGHAR_ORC, RACE_HIGHMOUNTAIN_TAUREN, RACE_MECHAGNOME, RACE_EARTHEN_ALLIANCE, RACE_EARTHEN_HORDE,
+        RACE_HARANIR_ALLIANCE, RACE_HARANIR_HORDE, RACE_SKYBORNE_ALLIANCE, RACE_SKYBORNE_HORDE
+    };
+
+    if (index >= std::size(Values))
+        throw std::out_of_range("index");
+
+    return Values[index];
 }
 
 template <>
 AC_API_EXPORT std::size_t EnumUtils<Races>::ToIndex(Races value)
 {
-    switch (value)
-    {
-        case RACE_HUMAN: return 0;
-        case RACE_ORC: return 1;
-        case RACE_DWARF: return 2;
-        case RACE_NIGHTELF: return 3;
-        case RACE_UNDEAD_PLAYER: return 4;
-        case RACE_TAUREN: return 5;
-        case RACE_GNOME: return 6;
-        case RACE_TROLL: return 7;
-        case RACE_BLOODELF: return 8;
-        case RACE_DRAENEI: return 9;
-        default: throw std::out_of_range("value");
-    }
+    for (std::size_t index = 0; index < EnumUtils<Races>::Count(); ++index)
+        if (EnumUtils<Races>::FromIndex(index) == value)
+            return index;
+
+    throw std::out_of_range("value");
 }
 
 /***************************************************************\

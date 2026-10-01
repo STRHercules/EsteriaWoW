@@ -308,7 +308,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_POWER_COST_MULTIPLIER+6
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_MAXHEALTHMODIFIER
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_HOVERHEIGHT
-    UF_FLAG_NONE,                                           // UNIT_FIELD_PADDING
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_PADDING: Highmountain extra appearance byte
     UF_FLAG_PUBLIC,                                         // PLAYER_DUEL_ARBITER
     UF_FLAG_PUBLIC,                                         // PLAYER_DUEL_ARBITER+1
     UF_FLAG_PUBLIC,                                         // PLAYER_FLAGS

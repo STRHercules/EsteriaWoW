@@ -1,0 +1,6 @@
+AC_ADD_SCRIPT("${CMAKE_CURRENT_LIST_DIR}/src/mod_loot_beam.cpp")
+AC_ADD_SCRIPT("${CMAKE_CURRENT_LIST_DIR}/src/mod_loot_beam_loader.cpp")
+
+CU_SET_PATH("CMAKE_CONFIG_OUTPUT_DIR" "${CMAKE_CURRENT_LIST_DIR}/conf")
+
+CU_ADD_HOOK(AFTER_WORLDSERVER_CMAKE "${CMAKE_CURRENT_LIST_DIR}/conf/mod_loot_beam.conf.dist")

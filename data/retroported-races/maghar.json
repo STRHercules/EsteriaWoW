@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "slug": "maghar",
+  "name": "Mag'har Orc",
+  "race_ids": [45],
+  "client_file_strings": {"45": "Maghar"},
+  "factions": {"45": "horde"},
+  "source_patch_root": "G:\\RetroPorterWork\\maghar\\output\\patch-root",
+  "asset_prefix": "custom\\maghar",
+  "portrait_sources": {
+    "male": "R:\\Users\\Zach\\Pictures\\Portraits\\Horde\\Charactercreate-races_maghar-male.png",
+    "female": "R:\\Users\\Zach\\Pictures\\Portraits\\Horde\\Charactercreate-races_maghar-female.png"
+  },
+  "source_race_id": 2,
+  "legacy_mask_race_id": 2,
+  "visual_base_race_id": 2,
+  "start_profile": "durotar",
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "models": {
+    "male": {
+      "source_model_id": 51,
+      "source_display_id": 51,
+      "model_path": "custom\\maghar\\character\\orc\\male\\orcmale_hd.m2",
+      "runtime_model_path": "Character\\Orc2\\Male\\OrcMale2.m2",
+      "previous_runtime_model_paths": [
+        "custom\\maghar\\character\\orc\\male\\orcmale_hd.m2",
+        "custom\\maghar\\runtime\\male\\orcmale_hd.m2"
+      ]
+    },
+    "female": {
+      "source_model_id": 52,
+      "source_display_id": 52,
+      "model_path": "custom\\maghar\\character\\orc\\female\\orcfemale_hd.m2",
+      "runtime_model_path": "Character\\Orc2\\Female\\OrcFemale2.m2",
+      "previous_runtime_model_paths": [
+        "custom\\maghar\\character\\orc\\female\\orcfemale_hd.m2",
+        "custom\\maghar\\runtime\\female\\orcfemale_hd.m2"
+      ]
+    }
+  },
+  "appearance": {
+    "skin_source_indices": [0, 1, 2, 3, 4, 5, 6, 8, 9],
+    "face_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    "retail_skin_source_indices": [0, 1, 2, 3, 4, 5, 6, 8, 9],
+    "retail_face_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    "hair_color_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    "male_hair_styles": 12,
+    "female_hair_styles": 13,
+    "male_facial_styles": 11,
+    "female_facial_styles": 7
+  },
+  "obsolete_dbc_ids": {
+    "CreatureDisplayInfo": [150045, 150046]
+  },
+  "racial_spells": [110100, 110101, 110102, 110103],
+  "racial_spell_donor_ids": [110001, 110002, 110003, 110004],
+  "legacy_racial_spell_exclusions": [20572, 20573, 20574, 20575, 20576, 33697, 33702],
+  "known_source_gaps": {
+    "skipped_eye_textures": 9,
+    "unsupported_bone_overrides": 27
+  }
+}

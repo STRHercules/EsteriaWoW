@@ -42,14 +42,14 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_SEL_BANNED_NAME, "SELECT characters.name FROM characters, character_banned WHERE character_banned.guid = ? AND character_banned.guid = characters.guid", CONNECTION_SYNCH);
     PrepareStatement(CHAR_SEL_ENUM, "SELECT c.guid, c.name, c.race, c.class, c.gender, c.skin, c.face, c.hairStyle, c.hairColor, c.facialStyle, c.level, c.zone, c.map, c.position_x, c.position_y, c.position_z, "
                      "gm.guildid, c.playerFlags, c.at_login, cp.entry, cp.modelid, cp.level, "
-                     "c.equipmentCache, cb.guid, c.extra_flags, c.teamId "
+                     "c.equipmentCache, cb.guid, c.extra_flags, c.extraAppearance, c.teamId "
                      "FROM characters AS c LEFT JOIN character_pet AS cp ON c.guid = cp.owner "
                      "AND cp.slot = ? "
                      "LEFT JOIN guild_member AS gm ON c.guid = gm.guid "
                      "LEFT JOIN character_banned AS cb ON c.guid = cb.guid AND cb.active = 1 WHERE c.account = ? AND c.deleteInfos_Name IS NULL ORDER BY COALESCE(c.order, c.guid)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_ENUM_DECLINED_NAME, "SELECT c.guid, c.name, c.race, c.class, c.gender, c.skin, c.face, c.hairStyle, c.hairColor, c.facialStyle, c.level, c.zone, c.map, "
                      "c.position_x, c.position_y, c.position_z, gm.guildid, c.playerFlags, c.at_login, cp.entry, cp.modelid, cp.level, c.equipmentCache, "
-                     "cb.guid, c.extra_flags, cd.genitive, c.teamId "
+                     "cb.guid, c.extra_flags, cd.genitive, c.extraAppearance, c.teamId "
                      "FROM characters AS c LEFT JOIN character_pet AS cp ON c.guid = cp.owner "
                      "AND cp.slot = ? "
                      "LEFT JOIN character_declinedname AS cd ON c.guid = cd.guid LEFT JOIN guild_member AS gm ON c.guid = gm.guid "
@@ -79,7 +79,10 @@ void CharacterDatabaseConnection::DoPrepareStatements()
                      "health, power1, power2, power3, power4, power5, power6, power7, instance_id, talentGroupsCount, activeTalentGroup, exploredZones, equipmentCache, ammoId, "
                      "knownTitles, actionBars, grantableLevels, innTriggerId, extraBonusTalentCount, "
                      "UNIX_TIMESTAMP(creation_date), "
-                     "teamId FROM characters WHERE guid = ?", CONNECTION_ASYNC);
+                     "teamId, extraAppearance FROM characters WHERE guid = ?", CONNECTION_ASYNC);
+
+    PrepareStatement(CHAR_UPD_EXTENDED_APPEARANCE,
+        "UPDATE characters SET extraAppearance = ? WHERE guid = ?", CONNECTION_ASYNC);
 
     PrepareStatement(CHAR_SEL_CHARACTER_AURAS, "SELECT casterGuid, itemGuid, spell, effectMask, recalculateMask, stackCount, amount0, amount1, amount2, "
                      "base_amount0, base_amount1, base_amount2, maxDuration, remainTime, remainCharges FROM character_aura WHERE guid = ?", CONNECTION_ASYNC);
