@@ -44,6 +44,10 @@ namespace
     // drop table that somehow reports more is clamped to the top colour rather than sent raw.
     constexpr int kMaxQuality = 7;
 
+    // The hint for a corpse whose loot held money but no gear: it has no quality to describe it, so
+    // the client shows its own "currency" tier. It sits one past the quality range (value 9).
+    constexpr uint32 kCurrencyHint = kMaxQuality + 2;
+
     bool g_enabled = true;
 
     // The highest item quality in the corpse's rolled loot, or -1 when it holds no gear at all.
@@ -78,10 +82,13 @@ public:
         int const  best     = BestLootQuality(creature);
 
         // quality + 1 keeps 0 free for "no hint"; a corpse with no gear (or an item the world does
-        // not know) is left at the sentinel so the client keeps its own fallback tint.
+        // not know) falls back to the currency hint when it still holds money, so the client can tint
+        // it as a money drop, and to 0 otherwise.
         uint32 hint = 0;
         if (best >= 0)
             hint = uint32(std::min(best, kMaxQuality)) + 1;
+        else if (creature->loot.gold > 0)
+            hint = kCurrencyHint;
 
         creature->SetUInt32Value(kHintField, hint);
     }
