@@ -56,7 +56,7 @@ def parent_events(raw, events, parent, output):
     return restored
 
 
-def embed(model, animation_directory):
+def embed(model, animation_directory, stem=None):
     files = {}
     for track in model.tracks():
         if track.global_sequence >= 0:
@@ -75,8 +75,9 @@ def embed(model, animation_directory):
                 visited.add(target)
                 source_index = target
                 sequence = model.sequences[target]
+            model_stem = stem or f"highmountaintauren{animation_directory.name}"
             path = animation_directory / (
-                f"highmountaintauren{animation_directory.name}{sequence['id']:04d}-{sequence['variation_index']:02d}.anim")
+                f"{model_stem}{sequence['id']:04d}-{sequence['variation_index']:02d}.anim")
             if source_index not in track.external:
                 track.timestamps[i] = copy.deepcopy(track.timestamps[source_index])
                 if hasattr(track, "values"):

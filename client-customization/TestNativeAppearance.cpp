@@ -4,6 +4,9 @@
 #include <cstdio>
 #include <cstring>
 #include "../src/server/shared/HighmountainAppearance.h"
+#include "../src/server/shared/EarthenAppearance.h"
+#include "../src/server/shared/HaranirAppearance.h"
+#include "../src/server/shared/VulperaAppearance.h"
 
 int main(int argc, char** argv)
 {
@@ -12,6 +15,38 @@ int main(int argc, char** argv)
     assert(HighmountainAppearance::Validate(1, {}));
     assert(!HighmountainAppearance::Validate(2, {}));
     assert(!HighmountainAppearance::Validate(0, {255, 255, 255, 255, 255, 255}));
+    assert(EarthenAppearance::Validate(0, {195, 79, 164, 195, 164, 49}));
+    assert(EarthenAppearance::Validate(1, {195, 79, 164, 195, 164, 31}));
+    assert(!EarthenAppearance::Validate(1, {195, 79, 164, 195, 164, 32}));
+    for (unsigned gender = 0; gender < 2; ++gender)
+    {
+        auto const& capacities = gender ? VulperaAppearance::FemaleCapacities : VulperaAppearance::MaleCapacities;
+        std::array<std::uint8_t, 5> fields{};
+        for (unsigned i = 0; i < fields.size(); ++i)
+            fields[i] = static_cast<std::uint8_t>(capacities[i] - 1);
+        fields = VulperaAppearance::Normalize(gender, 1, fields);
+        assert(VulperaAppearance::Validate(gender, fields));
+        fields[4] = 3;
+        assert(!VulperaAppearance::Validate(gender, fields));
+        for (unsigned characterClass : {1u, 6u})
+        {
+            fields = VulperaAppearance::Normalize(gender, characterClass, fields);
+            assert(VulperaAppearance::ValidateClass(gender, characterClass, fields));
+        }
+    }
+    for (unsigned gender = 0; gender < 2; ++gender)
+    {
+        auto const& capacities = gender ? HaranirAppearance::FemaleCapacities : HaranirAppearance::MaleCapacities;
+        std::array<std::uint8_t, 13> fields{};
+        for (unsigned i = 0; i < fields.size(); ++i)
+            fields[i] = static_cast<std::uint8_t>(capacities[i] - 1);
+        assert(HaranirAppearance::Validate(gender, fields));
+        auto extra = HaranirAppearance::Extra(fields);
+        assert(HaranirAppearance::Fields(fields[0], fields[1], fields[2], fields[3], fields[4], extra) == fields);
+        assert(extra >> 32); // The old one-byte transport must not silently truncate the new state.
+        fields[12] = 1;
+        assert(!HaranirAppearance::Validate(gender, fields));
+    }
     HMODULE module = LoadLibraryA(argv[1]);
     assert(module);
     auto source = reinterpret_cast<std::uint32_t(__cdecl*)(void const*, void const*)>(
@@ -92,10 +127,36 @@ int main(int argc, char** argv)
     std::strcpy(reinterpret_cast<char*>(model) + 0x3C, "custom\\skyborne\\expanded\\male\\7478487.m2");
     restore(model);
     assert(skin[1] > 19000 && skin[3] == 185073 && skin[11] == 75);
+    std::strcpy(reinterpret_cast<char*>(model) + 0x3C, "custom\\vulpera\\native\\male\\vulperamale.m2");
+    restore(model);
+    assert(skin[1] == 22163 && skin[3] > 65535 && skin[11] == 75);
     auto skillRace = reinterpret_cast<unsigned(__cdecl*)(unsigned)>(GetProcAddress(module, "EsteriaSkillRace"));
     assert(skillRace);
     for (unsigned race = 1; race < 64; ++race)
-        assert(skillRace(race) == (race == 45 ? 2 : race == 46 ? 6 : race == 47 ? 7 : race == 52 ? 13 : race == 53 ? 10 : race));
+        assert(skillRace(race) == (race == 45 ? 2 : race == 46 ? 6 : race == 47 ? 7 : race == 48 ? 3
+            : race == 49 ? 2 : race == 50 ? 4 : race == 51 ? 8 : race == 52 ? 13 : race == 53 ? 10
+            : race == 54 ? 10 : race == 55 ? 3 : race == 56 || race == 58 ? 1
+            : race == 57 || race == 59 ? 2 : race));
+    for (unsigned race : {48u, 49u})
+    {
+        unsigned char earthen[0x200] = {};
+        *reinterpret_cast<unsigned*>(earthen + 0x18) = race;
+        *reinterpret_cast<unsigned*>(earthen + 0x28) = 195;
+        *reinterpret_cast<unsigned*>(earthen + 0x2C) = 79;
+        *reinterpret_cast<unsigned*>(earthen + 0x24) = 195;
+        geometry(earthen);
+        setContext(earthen);
+        unsigned arguments[] = {0, race, 0, 1, 255, 255, 0};
+        resolve(arguments);
+        assert(arguments[4] == 9 && arguments[5] == 13);
+        arguments[3] = 3;
+        resolve(arguments);
+        assert(arguments[4] == 0 && arguments[5] == 13 && sectionCount(arguments) == 196);
+        arguments[1] = 46; // A stale context must not alter a different race's material arguments.
+        arguments[4] = 123;
+        resolve(arguments);
+        assert(arguments[4] == 123);
+    }
     *reinterpret_cast<unsigned*>(character + 0x18) = 47;
     *reinterpret_cast<unsigned*>(character + 0x34) = 49;
     *reinterpret_cast<unsigned*>(character + 0x30) = 10;

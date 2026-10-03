@@ -166,7 +166,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
+    UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_PADDING: Haranir extension high word
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHARM
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHARM+1
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_SUMMON

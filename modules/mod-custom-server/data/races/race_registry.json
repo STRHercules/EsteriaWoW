@@ -1,6 +1,17 @@
 {
   "schema_version": 1,
-  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "classes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
   "start_profiles": {
     "elwynn": {
       "map": 0,
@@ -76,6 +87,28 @@
     }
   },
   "playable": [
+    {
+      "id": 50,
+      "species_key": "haranir",
+      "display_name": "Haranir",
+      "faction": "alliance",
+      "species_selection": true,
+      "start_profile": "teldrassil",
+      "asset_owner": "retroporter_haranir",
+      "legacy_mask_race": 4,
+      "visual_base_race": 4
+    },
+    {
+      "id": 51,
+      "species_key": "haranir",
+      "display_name": "Haranir",
+      "faction": "horde",
+      "species_selection": true,
+      "start_profile": "durotar",
+      "asset_owner": "retroporter_haranir",
+      "legacy_mask_race": 8,
+      "visual_base_race": 4
+    },
     {
       "id": 46,
       "species_key": "highmountain",
@@ -372,25 +405,219 @@
       "asset_owner": "retroporter_mechagnome",
       "legacy_mask_race": 7,
       "visual_base_race": 7
+    },
+    {
+      "id": 48,
+      "species_key": "earthen",
+      "display_name": "Earthen",
+      "faction": "alliance",
+      "species_selection": true,
+      "start_profile": "dun_morogh",
+      "asset_owner": "retroporter_earthen",
+      "legacy_mask_race": 3,
+      "visual_base_race": 3
+    },
+    {
+      "id": 49,
+      "species_key": "earthen",
+      "display_name": "Earthen",
+      "faction": "horde",
+      "species_selection": true,
+      "start_profile": "durotar",
+      "asset_owner": "retroporter_earthen",
+      "legacy_mask_race": 2,
+      "visual_base_race": 3
+    },
+    {
+      "id": 54,
+      "species_key": "naga",
+      "display_name": "Naga",
+      "faction": "horde",
+      "asset_owner": "retroporter_naga",
+      "legacy_mask_race": 10,
+      "visual_base_race": 10,
+      "start_profile": "eversong",
+      "supported_genders": [
+        0,
+        1
+      ],
+      "species_selection": false
+    },
+    {
+      "id": 55,
+      "species_key": "tuskarr",
+      "display_name": "Tuskarr",
+      "faction": "alliance",
+      "asset_owner": "retroporter_tuskarr",
+      "legacy_mask_race": 3,
+      "visual_base_race": 3,
+      "start_profile": "dun_morogh",
+      "supported_genders": [
+        0
+      ],
+      "species_selection": false
+    },
+    {
+      "id": 56,
+      "species_key": "vrykul",
+      "display_name": "Vrykul",
+      "faction": "alliance",
+      "asset_owner": "retroporter_vrykul",
+      "legacy_mask_race": 1,
+      "visual_base_race": 1,
+      "start_profile": "elwynn",
+      "supported_genders": [
+        0
+      ],
+      "species_selection": true
+    },
+    {
+      "id": 57,
+      "species_key": "vrykul",
+      "display_name": "Vrykul",
+      "faction": "horde",
+      "asset_owner": "retroporter_vrykul",
+      "legacy_mask_race": 2,
+      "visual_base_race": 1,
+      "start_profile": "durotar",
+      "supported_genders": [
+        0
+      ],
+      "species_selection": true
+    },
+    {
+      "id": 58,
+      "species_key": "thinhuman",
+      "display_name": "Human",
+      "faction": "alliance",
+      "asset_owner": "retroporter_thinhuman",
+      "legacy_mask_race": 1,
+      "visual_base_race": 1,
+      "start_profile": "elwynn",
+      "supported_genders": [
+        0
+      ],
+      "species_selection": true
+    },
+    {
+      "id": 59,
+      "species_key": "thinhuman",
+      "display_name": "Human",
+      "faction": "horde",
+      "asset_owner": "retroporter_thinhuman",
+      "legacy_mask_race": 2,
+      "visual_base_race": 1,
+      "start_profile": "durotar",
+      "supported_genders": [
+        0
+      ],
+      "species_selection": true
     }
   ],
   "npc_only": [
-    {"id": 32, "name": "Skeleton", "legacy_id": 15, "not_playable": true},
-    {"id": 33, "name": "Vrykul", "legacy_id": 16, "not_playable": true},
-    {"id": 34, "name": "Tuskarr", "legacy_id": 17, "not_playable": true},
-    {"id": 35, "name": "Forest Troll", "legacy_id": 18, "not_playable": true},
-    {"id": 36, "name": "Taunka", "legacy_id": 19, "not_playable": true},
-    {"id": 37, "name": "Northrend Skeleton", "legacy_id": 20, "not_playable": true},
-    {"id": 38, "name": "Ice Troll", "legacy_id": 21, "not_playable": true},
-    {"id": 39, "name": "Naga", "legacy_id": 22, "not_playable": true},
-    {"id": 40, "name": "Gilnean", "legacy_id": 23, "not_playable": true},
-    {"id": 41, "name": "Fel Orc", "legacy_id": 24, "not_playable": true},
-    {"id": 42, "name": "Broken NPC", "legacy_id": 25, "not_playable": true}
+    {
+      "id": 32,
+      "name": "Skeleton",
+      "legacy_id": 15,
+      "not_playable": true
+    },
+    {
+      "id": 33,
+      "name": "Vrykul",
+      "legacy_id": 16,
+      "not_playable": true
+    },
+    {
+      "id": 34,
+      "name": "Tuskarr",
+      "legacy_id": 17,
+      "not_playable": true
+    },
+    {
+      "id": 35,
+      "name": "Forest Troll",
+      "legacy_id": 18,
+      "not_playable": true
+    },
+    {
+      "id": 36,
+      "name": "Taunka",
+      "legacy_id": 19,
+      "not_playable": true
+    },
+    {
+      "id": 37,
+      "name": "Northrend Skeleton",
+      "legacy_id": 20,
+      "not_playable": true
+    },
+    {
+      "id": 38,
+      "name": "Ice Troll",
+      "legacy_id": 21,
+      "not_playable": true
+    },
+    {
+      "id": 39,
+      "name": "Naga",
+      "legacy_id": 22,
+      "not_playable": true
+    },
+    {
+      "id": 40,
+      "name": "Gilnean",
+      "legacy_id": 23,
+      "not_playable": true
+    },
+    {
+      "id": 41,
+      "name": "Fel Orc",
+      "legacy_id": 24,
+      "not_playable": true
+    },
+    {
+      "id": 42,
+      "name": "Broken NPC",
+      "legacy_id": 25,
+      "not_playable": true
+    }
   ],
   "faction_pairs": [
-    {"species_key": "skyborne", "alliance_id": 52, "horde_id": 53},
-    {"species_key": "pandaren", "alliance_id": 18, "horde_id": 26},
-    {"species_key": "broken", "alliance_id": 24, "horde_id": 27}
+    {
+      "species_key": "haranir",
+      "alliance_id": 50,
+      "horde_id": 51
+    },
+    {
+      "species_key": "skyborne",
+      "alliance_id": 52,
+      "horde_id": 53
+    },
+    {
+      "species_key": "pandaren",
+      "alliance_id": 18,
+      "horde_id": 26
+    },
+    {
+      "species_key": "broken",
+      "alliance_id": 24,
+      "horde_id": 27
+    },
+    {
+      "species_key": "earthen",
+      "alliance_id": 48,
+      "horde_id": 49
+    },
+    {
+      "species_key": "vrykul",
+      "alliance_id": 56,
+      "horde_id": 57
+    },
+    {
+      "species_key": "thinhuman",
+      "alliance_id": 58,
+      "horde_id": 59
+    }
   ],
   "sources": {
     "leeviathan_baseline": "RaceStuff/Leeviathan-s_WoD_Character_Models_(3.3.5a)/patch-H.MPQ",
@@ -413,6 +640,11 @@
     "shadowlands_dbc": "RaceStuff/Shadowlands to WotLK/DBC/enUS/DBFilesClient",
     "shadowlands_login": "RaceStuff/Shadowlands login screen mix",
     "worgoblin_hd": "RaceStuff/worgoblin HD patch",
-    "retroporter_mechagnome": "G:/RetroPorterWork/mechagnome/output/patch-root"
+    "retroporter_mechagnome": "G:/RetroPorterWork/mechagnome/output/patch-root",
+    "retroporter_earthen": "G:/RetroPorterWork/earthen/integration/patch-root",
+    "retroporter_naga": "G:\\RetroPorterWork\\naga\\integration\\patch-root",
+    "retroporter_tuskarr": "G:\\RetroPorterWork\\tuskarr\\integration\\patch-root",
+    "retroporter_vrykul": "G:\\RetroPorterWork\\vrykul\\integration\\patch-root",
+    "retroporter_thinhuman": "G:\\RetroPorterWork\\thinhuman\\integration\\patch-root"
   }
 }

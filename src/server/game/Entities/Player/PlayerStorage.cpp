@@ -35,6 +35,8 @@
 #include "Group.h"
 #include "GroupMgr.h"
 #include "HighmountainAppearance.h"
+#include "EarthenAppearance.h"
+#include "HaranirAppearance.h"
 #include "Guild.h"
 #include "InstanceSaveMgr.h"
 #include "LFGMgr.h"
@@ -66,6 +68,7 @@
 #include "Unit.h"
 #include "UpdateFieldFlags.h"
 #include "Util.h"
+#include "VulperaAppearance.h"
 #include "World.h"
 #include "WorldPacket.h"
 
@@ -5073,7 +5076,8 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     }
 
     uint8 Gender = fields[5].Get<uint8>();
-    if (!IsValidGender(Gender))
+    if (!IsValidGender(Gender) || (CreatureAppearance::Uses(fields[3].Get<uint8>())
+        && !CreatureAppearance::GenderAllowed(fields[3].Get<uint8>(), Gender)))
     {
         LOG_ERROR("entities.player", "Player (GUID: {}) has wrong gender ({}), can't be loaded.", guid, Gender);
         return false;
@@ -5141,17 +5145,50 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     SetByteValue(PLAYER_BYTES_2, 3, fields[15].Get<uint8>());
     SetByteValue(PLAYER_BYTES_3, 0, fields[5].Get<uint8>());
     SetByteValue(PLAYER_BYTES_3, 1, fields[54].Get<uint8>());
-    if (getRace() == RACE_HIGHMOUNTAIN_TAUREN)
+    if (getRace() == RACE_VULPERA)
     {
-        if (!HighmountainAppearance::Validate(fields[5].Get<uint8>(), {fields[9].Get<uint8>(),
-            fields[10].Get<uint8>(), fields[11].Get<uint8>(), fields[12].Get<uint8>(),
-            fields[13].Get<uint8>(), fields[76].Get<uint8>()}))
+        auto const appearance = VulperaAppearance::Fields(fields[9].Get<uint8>(), fields[10].Get<uint8>(),
+            fields[11].Get<uint8>(), fields[12].Get<uint8>(), fields[13].Get<uint8>());
+        if (fields[76].Get<uint64>() != 0 || !VulperaAppearance::Validate(fields[5].Get<uint8>(), appearance))
         {
-            LOG_ERROR("entities.player", "Player {} has invalid Highmountain appearance; can't load.",
+            LOG_ERROR("entities.player", "Player {} has invalid Vulpera appearance; can't load.",
                 playerGuid.ToString());
             return false;
         }
-        SetByteValue(UNIT_FIELD_PADDING, 0, fields[76].Get<uint8>());
+        auto const normalized = VulperaAppearance::Normalize(fields[5].Get<uint8>(), getClass(), appearance);
+        for (uint8 i = 0; i < 4; ++i)
+            SetByteValue(PLAYER_BYTES, i, normalized[i]);
+        SetByteValue(PLAYER_BYTES_2, 0, normalized[4]);
+    }
+    if (UsesExtendedAppearance(getRace()))
+    {
+        uint64 extra = fields[76].Get<uint64>();
+        std::array<uint8, 6> const appearance = {fields[9].Get<uint8>(),
+            fields[10].Get<uint8>(), fields[11].Get<uint8>(), fields[12].Get<uint8>(),
+            fields[13].Get<uint8>(), uint8(extra)};
+        if (extra > 255 || !(getRace() == RACE_HIGHMOUNTAIN_TAUREN
+            ? HighmountainAppearance::Validate(fields[5].Get<uint8>(), appearance)
+            : EarthenAppearance::Validate(fields[5].Get<uint8>(), appearance)))
+        {
+            LOG_ERROR("entities.player", "Player {} has invalid extended appearance; can't load.",
+                playerGuid.ToString());
+            return false;
+        }
+        SetByteValue(UNIT_FIELD_PADDING, 0, uint8(extra));
+    }
+    if (UsesHaranirAppearance(getRace()))
+    {
+        uint64 extra = fields[76].Get<uint64>();
+        if (!HaranirAppearance::Validate(fields[5].Get<uint8>(), HaranirAppearance::Fields(
+            fields[9].Get<uint8>(), fields[10].Get<uint8>(), fields[11].Get<uint8>(),
+            fields[12].Get<uint8>(), fields[13].Get<uint8>(), extra)))
+        {
+            LOG_ERROR("entities.player", "Player {} has invalid Haranir appearance; can't load.",
+                playerGuid.ToString());
+            return false;
+        }
+        SetUInt32Value(UNIT_FIELD_PADDING, uint32(extra));
+        SetUInt32Value(OBJECT_FIELD_PADDING, uint32(extra >> 32));
     }
     ReplaceAllPlayerFlags((PlayerFlags)fields[16].Get<uint32>());
 
@@ -7280,6 +7317,14 @@ void Player::SaveToDB(CharacterDatabaseTransaction trans, bool create, bool logo
 
     if (!create)
         sScriptMgr->OnPlayerSave(this);
+
+    if (getRace(true) == RACE_VULPERA && !VulperaAppearance::ValidateClass(GetByteValue(PLAYER_BYTES_3, 0),
+        getClass(), VulperaAppearance::Fields(GetByteValue(PLAYER_BYTES, 0), GetByteValue(PLAYER_BYTES, 1),
+            GetByteValue(PLAYER_BYTES, 2), GetByteValue(PLAYER_BYTES, 3), GetByteValue(PLAYER_BYTES_2, 0))))
+    {
+        LOG_ERROR("entities.player", "Player {} has invalid Vulpera appearance; can't save.", GetGUID().ToString());
+        return;
+    }
 
     _SaveCharacter(create, trans);
 

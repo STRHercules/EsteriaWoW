@@ -1,6 +1,7 @@
 LIBRARY EsteriaAppearance
 EXPORTS
     EsteriaCycle
+    EsteriaDropdownWheelBlocked
     EsteriaWideSource
     EsteriaDrawStart
     EsteriaGeometry

@@ -1,5 +1,288 @@
 # Native Skyborne appearance
 
+## Vulpera Retail rebase (RaceID 20)
+
+The later blue-eye follow-up changed cosmetic group17's fallback from1701 (the additive DK glow sprite)
+to1700 (no sprite). Source-selected Death Knight/Primalist effects retain their explicit1701..1705 records;
+ordinary eye colors and eyesight overlays no longer inherit a permanent blue glow. The check enumerates
+both genders, every eye color and every eyesight setting against the runtime catalog's first-match order.
+Deployment replaces only `EsteriaVulpera.bin`; a fresh client restart reloads the cached selection records.
+
+The October 2 visual follow-up corrected three first-port mistakes. The creator's legacy Vulpera button
+ordinal17 lacked exact race20 metadata, so the expanded native controls never activated. `CharacterInfo.lua`
+now supplies that identity and a Lua5.1 check exercises both genders and stock-race transitions. The head
+default now selects complete head3202 rather than neck ring3201. Tail/feet UVs lie in Wrath face-compositor
+regions8/9; exact source body/pattern crops populate those regions through the checked upper/lower buffers.
+No source vertices were moved and no material-validator guard was bypassed.
+
+Codec v2 follows the Highmountain retention policy for all authored non-Transmog choices. It exposes nine
+changing controls, including33 eye colors and Eye Style Slit/Star/Glow. The latter is available only with
+its fourteen authored source palettes; ordinary, DK and Primalist eyes use their source default. Class
+requirements apply only when the source requirement's class bit is set. The old first-port `ReqType == 3`
+filter incorrectly removed these source choices. Existing fields are migrated by stable source choiceIDs,
+and the previously constant facial-style byte now stores Eye Style. No extra packet bytes or schema are needed.
+
+`tools/vulpera_render_repair.py` prepares and installs this guarded update. Focused checks include
+`tools/test_vulpera_creator.py`, `tools/test_vulpera_models.py`, and native assertions for palette restrictions,
+actual texture slots, both compositor face buffers, cleanup and unchanged five-byte creation packets.
+The original paragraphs below describe the initial v1 installation; the v2 corrections above supersede its
+choice filtering and control counts. A fresh-client visual acceptance remains separate from these checks.
+
+`tools/vulpera_race_pack.py` replaces the legacy race 20 player graph from pinned Retail 12.1.0.69933,
+build `dcfc90fffd79ba00406ae46f5f657592`. Identity, Horde affiliation, prefix Vu, displays 60006/60007,
+classes, starts and implemented racial mechanics stay intact. The two model rows 112885/112886 point to
+`custom\vulpera\native\male\vulperamale.m2` and its female counterpart. No executable patch is needed.
+
+The codec retains eight independently changing controls per gender: Fur Color 8, Face 6, Snout 6,
+Ears 6 male/8 female, Pattern 3, Eye Color 14 ordinary plus the DK eye, Earrings 2, Eyesight 4. The source's single
+Hair Style remains a hidden constant. Five stock bytes suffice; there is no new creation/roster/padding
+extension. Source class masks constrain the creator, randomizer and server validation. Internal/NPC/transmog
+placeholders are inventoried rather than offered as ordinary player choices.
+
+`tools/vulpera_models.py` preserves every geoset in the primary authored SKIN, 336 sequences, 24 male/25 female
+events and original attachments. External animation keys are embedded, palettes respect 75 bones, and the
+existing native geometry catalog handles 92,562 male/94,956 female triangle indices. Models retain 22,163 male/
+22,487 female primary vertices. Retail's additional unused vertex payload is not copied into the playable M2.
+The source has no separate collection or BONE customization graph; face texture and snout mesh are separate.
+
+Retail uses 2048 x 1024 skin atlases. The left standard component atlas maps to Wrath's 512 x 512 body compositor;
+right-square vertices are separated by material and retain their complete authored skinExtra/head atlas on
+slot 8. No low-resolution face rearrangement is needed. `EsteriaVulpera.bin` reuses the bounded selection
+format; `EsteriaVulperaTextures.bin` reuses the checked compressed RGBA bank and client-owned buffer loaders.
+Class changes normalize invalid restricted choices, while render updates restore authenticated packed fields
+after stock sanitation. Existing Haranir/Earthen teardown and buffer ownership rules remain in effect.
+
+`tools/vulpera_equipment.py` converts 550 source Vulpera helmet variants for 275 of 277 installed head-model
+families and their reachable companions/textures. Wrath `_VuM/F` paths alias the source `_vu_m/f` outputs.
+Two legacy families have no matching named Retail variants: `Helm_Plate_BloodKnight_D` and
+`Helm_Robe_AhnQiraj_A`. They remain a named coverage gap. The source `HelmetGeosetData` unconditional
+race 35 hides become kind 4 selection records keyed by actual equipped display. The helper applies them
+after cosmetic selection, restoring accessories when the helmet is removed. Source condition 32 has no
+documented meaning in the installed definitions; it is recorded in `integration/helmet-catalog.json` and
+retains existing stock behavior instead of an invented hide rule. Helmet visual fit still requires gameplay.
+
+`tools/vulpera_migration.py` produces the guarded character update in
+`data/sql/updates/pending_db_characters/rev_20261002200000000.sql`. Only GUID 423/499 are affected; their fur,
+pattern, face, snout and eyes map through old textures/geosets to source choice IDs. Old mismatched ring/ear
+combinations become authored Retail accessory combinations. Original tuples and rollback SQL are retained
+outside mountable client directories. The stock barber continues using combined values; an independent
+in-game barber UI is not added by this port.
+
+Reproduction: source `G:\RetroPorterWork\vulpera\run_source.py`, `inventory_source.py` and
+`convert_recovered.py` preserve source keys, hashes and direct-BLTE header recovery. Then run `header`,
+`prepare`, equipment preparation, `stage`, `equipment_catalog`, `refresh_equipment`, focused native build,
+`validate`, migration preparation and `backup`. Keep final companion/migration hashes current. Stop only
+worldserver for `install`, then recreate it with `docker compose up -d --no-deps --force-recreate ac-worldserver`.
+`tools/test_vulpera_race_pack.py` and the native harnesses verify codecs, class restrictions, all included
+choice fingerprints, source vertices/geosets, atlases, animation/event closure, wide SKIN recovery, texture
+buffer loading, helmet hides, cleanup, archive readbacks, DBC agreement and unchanged unrelated rows.
+Installation receipts live in `C:\Users\Zach\.codex\tmp\vulpera\last-install.json`.
+
+Automated checks and an installed matching image do not establish live acceptance. Creator/gender/class
+switches, every choice, saved characters, nearby appearance, armor/helmets, movement/combat/emotes,
+relog and full exit still require an active-client check. Retail racial abilities are not part of this visual rebase.
+
+## Haranir port (RaceIDs 50/51, installed)
+
+`tools/haranir_race_pack.py` stages the pinned Retail Haranir graph from
+`G:\RetroPorterWork\haranir`. The initial conversion omitted 25 files; reachable playable textures are
+recovered by FileDataID and checked against the pinned content keys. Raw assets stay in the retroporter's
+ignored source cache. All four supplied Alliance/Horde portraits use the existing creator ring and ECS art
+namespaces. The creator exposes every ordinary control: 29 male and 28 female options in two columns.
+
+The full choices require more than the prior six-byte format. `HaranirAppearance.h` encodes them in eleven
+used bytes within a thirteen-byte contract: five stock appearance bytes and an eight-byte extension. The
+first five packing bins contain the ordinary skin, face, hair, color and facial choices; secondary controls
+share those bins where capacity permits. The generated codec is frozen after installation. NPC/internal
+and restricted skin/eye/hair-color placeholders are excluded; ordinary eyesight choices remain available.
+
+`CMSG_CHAR_CREATE` receives a twelve-byte Haranir-only trailer (uint64 extension plus `HRC1` signature),
+validated before creating the character. Mixed Character Select rosters append an `HXE2` GUID/uint64 tail
+after the unchanged `HXE1` tail; the existing native hook strips both before stock parsing. The characters
+column `extraAppearance` widens to BIGINT UNSIGNED without changing existing values. Player save/load uses
+the same character transaction. Live nearby-player updates carry the extension in the unused Unit/Object
+padding words. The helper reads completed updates and retains the proven owner lookup and component-free
+cleanup. It never registers a padding observer or changes the client executable. Item update guards stay
+in place. The native harness covers mixed roster tails, creation bytes, high-word persistence, late stock
+overwrites, both genders' compositor output and the existing teardown/address-reuse checks.
+
+The full-resolution body retains all 401/397 sequences and 37/36 events. External skeletal keys are embedded
+and animation lookups regenerated from IDs. Every selectable accessory style survives in the authored
+second reduced collection LOD; body plus collection totals 57411 male/54660 female vertices. This fits
+Wrath's 65535 SKIN limit without deleting styles or inventing simplified geometry. Native palettes retain
+the established 75-bone cap. The Nose selector retains the source's face meshes; no extra face BONE bake
+is required by this source graph. Boots select rounded feet, while barefoot feet retain the player's
+Normal/Clawed choice.
+
+`EsteriaHaranir.bin` extends the existing bounded selection format with material-layer records.
+`EsteriaHaranirTextures.bin` contains source-derived RGBA layers compressed with Windows LZNT1. Retail
+texture-layer ordering and section layouts drive skin, body/face fur, paint, hair/highlight, eyesight, quill,
+jewelry and clothing composition. The helper uses Windows Imaging Component to produce the indexed body
+and face BLPs required by the stock compositor. Render-only materials use BGRA BLPs. Visited combinations
+are cached under `Interface\AddOns\EsteriaAppearanceCache\Haranir`; the cache is disposable and contains no
+saved choices. Runtime generation occurs in the client directory, so that directory must be writable.
+
+The first live render exposed a missing integration gate: the native file resolver rejected the generated
+relative paths, so body/face layers had failure flag `0x100000` and no image buffer; accessory bindings
+shared the green error texture. Absolute paths alone also failed and were recorded as a disproven repair.
+The checked cache BLPs now have the standard 1172-byte header and mip chains. Indexed layers receive
+validated buffers allocated through the client's `SMemAlloc`; the stock layer destructor owns and frees
+those buffers. Render materials use the existing native BLP decoder and CGTexture constructor, with
+reference-counted component ownership. No global file-loading flag, executable, archive or source model
+changes are needed for this repair.
+
+The first buffer-loader candidate crashed because `SMemAlloc` was declared `cdecl` instead of `stdcall`;
+both caller and callee removed its four arguments. That candidate was rolled back. The corrected harness
+now mirrors the native ABI, and the repair checks the installed allocator's `ret 16` fingerprint. Live
+reads confirm all body/face buffers and material bindings load correctly. The user confirmed no green
+textures, working fur/customization on both genders, and correct Character Select/in-game rendering.
+The corrected DLL has verified rollback copies under
+`C:\Users\Zach\.codex\backups\haranir-render-20261001-225812`. `tools/haranir_render_repair.py validate/install`
+reproduces the helper-only deployment; `tools/haranir_live_render.py <pid>` captures creator bindings without
+writing process memory. The feet-control issue is explicitly deferred at the user's request.
+
+Alliance/Horde compatibility profiles use Night Elf/Troll starts, language skills at step zero and their
+existing racial mechanics. Retail Haranir racials are not implemented. The stock barber edits combined
+appearance values; independent controls are available in the creator. This port does not replace the barber.
+
+Reproduction: `acquire`, `prepare`, `stage`, then `tools/test_haranir_race_pack.py`. Build the native helper
+into `C:\Users\Zach\.codex\tmp\haranir` with `client-customization\build-native.bat`, and build worldserver.
+With WoW/Eclipse closed, run `backup`, stop only `ac-worldserver`, then run `install` and recreate worldserver
+with `--no-deps --no-build --pull never`. Rollback copies and the prior image tag are recorded in
+`C:\Users\Zach\.codex\backups\haranir-*\install-report.json`. Restore its replaced client/server files and
+run `rollback-world.sql` with worldserver stopped. Retain the widened column on rollback to avoid truncating
+new appearance values; any existing Haranir characters require a separate explicit rollback policy.
+
+Automated data/native checks pass. Global C++ lint reports existing unrelated violations; SQL lint cannot
+fetch this repository's missing `origin/master`. Fresh-client acceptance must still cover both factions and
+genders, every control and Randomize, creation, normal chat, equipment, movement/emotes/casting, Character
+Select, saved appearance on relog, nearby players, logout/client exit and an unrelated race.
+
+Installation is complete with verified rollback copies under
+`C:\Users\Zach\.codex\backups\haranir-20261001-203208`. Worldserver image
+`264a515de23bf55f7bd68ac863edef75dab9cb8880a5668e906dc5047cdc311b` reached ready state without Race50/51
+loading errors. All eleven client files and seven mounted server DBCs match the stage. Both migration
+receipts, BIGINT storage, ten class starts per faction and language skill step zero are verified. The
+executable, earlier race catalogs, saved character appearances and unrelated startup data are preserved.
+The data contract passes against the installed files and verified pre-install baseline. Live acceptance
+remains pending; the complete record is `G:\RetroPorterWork\haranir\integration\acceptance.json`.
+
+## Earthen port (RaceIDs 48/49, installed)
+
+The first live test found three follow-ups. `EARTHENHORDE` was absent from GlueParent's Horde background
+table, causing a nonexistent `UI_EarthenHorde` load and a blank Character Select. The sourced Belt choice
+zero is `None`, so the creator now labels `None`/`Gem` instead of `1/2`. The actual Gem collection used
+geoset 1805, shared with stock equipped-waist geometry; its mesh and catalog selector now use group41
+(4105), preserving the ordinary body/armor mesh and all vertices/materials.
+
+Live reads of Rutherford Johnson (GUID518) proved network/database appearance bytes
+`[40,79,153,68,90,43]` survived, while the native component was clamped to `[12,9,0,12,0]`. The completed
+player update callback alone was insufficient: stock `0x004E9D50` sanitizes properties later against
+ordinary DBC counts, and the initial update can finish before the component exists. Both early-restoration
+and early-capture attempts were disproven by fresh-client reads. The revised shared geometry/material
+callback finds the owning Player object by its component pointer and reads the validated player data
+directly. It then restores the encoded bytes after the sanitizer. This is a bounded owner-list lookup during
+dirty component rebuilds; no unit pointer is retained. Component destruction erases cached values,
+preserving the tested teardown/address-reuse contract. Highmountain and non-player paths retain their
+previous behavior. Both native harnesses pass, including no earlier capture, the exact saved-pattern
+regression, late overwrite, and hairstyle/Gem belt selection for the owner fixture.
+`tools/earthen_touchup.py prepare`, `validate`, `install` stages four archive entry changes plus the matched
+helper/geometry/selection catalogs. The repair is installed with hash-verified backup
+`C:\Users\Zach\.codex\backups\earthen-touchup-20261001-183021`. No executable, server or database change
+was needed. The user confirmed the Gem belt visible. The revised helper was installed separately with
+verified backups. The final owner-lookup DLL backup is
+`C:\Users\Zach\.codex\backups\earthen-native-20261001-184511`. A fresh logged-in client read confirms all six
+saved bytes now match `[40,79,153,68,90,43]`, with hairstyle4011, beard102, belt4105, shoulders4203/4303,
+torso4402, arms4503, hands4603 and legs4701 enabled. User visual/relog/client-exit acceptance is pending.
+
+The user then confirmed all in-game options visible, but the Character Select screenshot showed black
+body/face with working hair/accessories. The preview had zero base/face compositor layers despite correct
+encoded fields. Its first base-section validation runs before the setters establish resolver context.
+`EsteriaSelectExtra` now obtains authenticated identity and appearance from the matching roster row,
+restores the sixth-byte roster extension, and seeds context before that first validation. The native harness
+reproduces a newly allocated blank preview and checks its first skin lookup. This helper-only repair is
+installed with backup `C:\Users\Zach\.codex\backups\earthen-native-20261001-185129`; preview and teardown
+live retest is pending.
+
+The user confirmed the preview now looks good. A final foot follow-up showed overlapping toes/boot soles.
+Both runtime models retained alternate Retail foot geosets 2001-2008, all visible because Wrath does not
+select group20. The catalog now selects default2001 and hides the seven alternatives for both genders;
+existing records, model geometry and armor selectors remain intact. `earthen_touchup.py feet` installed
+only that catalog with verified backup `C:\Users\Zach\.codex\backups\earthen-feet-20261001-185656`.
+The native owner fixture now checks that precisely one foot mesh is enabled. Feet live retest is pending.
+
+The user clarified that boots must hide toe shape. A source mesh comparison confirms2001 is the bare
+toe mesh and2002 is the rounded shoe mesh. Native inventory slot7 dispatches to component visual slot6,
+stored at `0x440`; Rutherford's Recruit's Boots use display10141. The shared Earthen selector now chooses
+2002 when that equipped-boot display is nonzero and2001 when it is zero, so live boot removal/equipping
+changes the same component selector. The harness checks boots on/off and retained saved appearance.
+The helper is installed with verified backup `C:\Users\Zach\.codex\backups\earthen-native-20261001-190402`;
+boot-aware feet visual retest remains pending.
+
+Final live acceptance: the user confirmed **"All fixed!"** after the gameplay customization, Character
+Select, Gem belt and boots-on/off foot retests. All reported follow-ups are resolved. Rollback backups and
+the exact installed hashes remain in `G:\RetroPorterWork\earthen\integration\acceptance.json` and the
+corresponding backup install receipts. Face BONE morphs and Retail racial abilities remain outside this port.
+
+Retail Earthen races 84/85 share ChrModel 195/196. Esteria uses separate Alliance/Horde identities 48/49,
+distinct file strings `Earthen`/`EarthenHorde`, and the four supplied faction/gender portraits. The existing
+ring/mask/BLP pipeline supplies creator, Character Select and character-frame portraits.
+
+`tools/earthen_race_pack.py` follows the pinned Retail discovery and source configuration in
+`wow-race-retroporter`. Missing reachable textures, model TXIDs and BONE inputs are fetched by FileDataID
+with content/encoding hashes. The Retail installation is read only. Source additions remain in the ignored
+`sources/retail/races/earthen` cache; derived output stays in `G:\RetroPorterWork\earthen\integration`.
+
+Both genders have 16 independent controls: skin, face texture, hair style/color, beard style, gem color,
+eye color, eyesight, eyebrows, belt, each shoulder, torso, arms, legs and hands. NPC horn/hand effects,
+internal placeholders and NPC-only choices are excluded by the sourced requirement type. The ten face
+textures are retained. Baking all ten BONE face shapes alongside the complete accessories exceeds the
+Wrath SKIN uint16 budget, so face bone morphs are **not implemented** in this port. Cached BONE data is
+retained for a future runtime vertex morph implementation.
+
+`EarthenAppearance.h` encodes these choices in six bytes. Capacities are male `{196,80,165,196,165,50}`
+and female `{196,80,165,196,165,32}`. The native/server code extends Highmountain's existing create, roster,
+unit-update, save and load paths to 48/49. It preserves the tested no-registration teardown repair and
+uses a separate `EsteriaEarthen.bin` selection catalog. Existing native catalogs are preserved; only the
+geometry catalog gains the two Earthen profiles. The existing executable imports already cover this
+extension, so **no executable patch is needed**.
+
+The models retain 361/355 animation sequences and 39/40 event tracks. External keys are embedded using
+the established animation reader. The converted male dance lookup pointed at sequence 698 instead of 69;
+all lookups are regenerated from each sequence's ID and primary variation. Body and collection material
+defaults remain inline global constants, including opacity for every animation. Ordinary collection meshes
+are trimmed before merging, CRC-matched to the player bones, and use native palettes capped at 75 bones.
+Eye atlases and eyesight overlays use the checked opaque UV0 material path. Female Left eyesight names
+both an iris overlay and a lens material; the overlay uses the shared Human atlas while the lens keeps
+its separate source TXID. The package includes only the runtime dependency closure, keeping each copied
+merge archive below the classic 2 GB boundary.
+
+Reproduce the data stage with `tools/earthen_race_pack.py acquire`, `portraits`, `prepare`, `stage`, then
+`tools/test_earthen_race_pack.py`. Stages live at `C:\Users\Zach\.codex\tmp\earthen`. The next authorized
+step is to compile `client-customization/build-native.bat` into that directory, run its native harnesses,
+build the matching worldserver, install with verified backups and import only
+`data/sql/updates/pending_db_world/rev_20261001100000000.sql`. The existing `characters.extraAppearance`
+schema is reused. Alliance inherits the Dwarf start/compatibility profile and Common/Dwarven; Horde
+inherits the Orc start/compatibility profile and Orcish. Retail Earthen racial abilities are not implemented.
+
+The data contract and eight race-ID tests pass. The native helper and worldserver have been compiled;
+both native harnesses pass, including Highmountain materials/lifetime and the Earthen codec/resolver checks.
+The port is installed and worldserver is ready on image
+`sha256:91cc3ecfad68a3ee8db7797b2d6ba0862904c944d5bdda9601f4e146702b151c`.
+Rollback files and the previous server image are preserved in
+`C:\Users\Zach\.codex\backups\earthen-20261001-104947`. All nine installed client files and seven mounted
+server DBC hashes match the stage. Earthen's migration receipt is
+`26E79289C5B5C72B60FB1A2A431E2CAD8A3FA4E5` in state `PENDING`; each faction has ten creation rows.
+Unrelated startup rows and the auth/database containers remain unchanged. The acceptance record is
+`G:\RetroPorterWork\earthen\integration\acceptance.json`. `earthen_race_pack.py backup` and `install`
+implement the hash, empty-target, executable fingerprint, rollback, schema and scoped migration guards.
+
+The global C++ linter reports existing violations outside this change; the SQL linter cannot fetch
+the repository's missing `origin/master`. Scoped whitespace and migration checks pass.
+Live acceptance remains pending. Checks must cover both genders and factions, every control,
+armor/weapons, movement/emotes/casting, chat, Character Select, barber, saved
+appearance after relog, logout/client exit, and the already accepted Highmountain/Mechagnome/Skyborn paths.
+
 ## Highmountain Tauren port (RaceID 46)
 
 Highmountain uses Retail race 28 and ChrModel 55/56. The models' actual SKID references resolve to

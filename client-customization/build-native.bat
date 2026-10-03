@@ -13,4 +13,8 @@ if not "%errorlevel%"=="0" exit /b %errorlevel%
 cl.exe /nologo /std:c++20 /O2 /EHsc /MT "%~dp0TestHighmountainMaterials.cpp" /Fo"%~1\TestHighmountainMaterials.obj" /link /DYNAMICBASE:NO /BASE:0x04000000 /OUT:"%~1\TestHighmountainMaterials.exe"
 if not "%errorlevel%"=="0" exit /b %errorlevel%
 "%~1\TestHighmountainMaterials.exe" "%~1\EsteriaAppearance.dll"
+if not "%errorlevel%"=="0" exit /b %errorlevel%
+cl.exe /nologo /std:c++20 /O2 /EHsc /MT "%~dp0TestCustomizationChoices.cpp" /Fo"%~1\TestCustomizationChoices.obj" /link /DYNAMICBASE:NO /BASE:0x04000000 /OUT:"%~1\TestCustomizationChoices.exe"
+if not "%errorlevel%"=="0" exit /b %errorlevel%
+"%~1\TestCustomizationChoices.exe" "%~1\EsteriaAppearance.dll"
 exit /b %errorlevel%

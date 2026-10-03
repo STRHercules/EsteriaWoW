@@ -5,6 +5,7 @@
  */
 
 #include "RandomPlayerbotFactory.h"
+#include "VulperaAppearance.h"
 #include "AccountMgr.h"
 #include "ArenaTeamMgr.h"
 #include "CharacterCache.h"
@@ -251,6 +252,17 @@ Player* RandomPlayerbotFactory::CreateRandomBot(WorldSession* session, uint8 cls
     std::pair<uint8, uint8> hair = hairs[urand(0, hairs.size() - 1)];
 
     uint8 facialHair = excludeCheck ? 0 : facialHairTypes[urand(0, facialHairTypes.size() - 1)];
+
+    if (race == RACE_VULPERA)
+    {
+        auto const appearance = VulperaAppearance::Normalize(gender, cls, VulperaAppearance::Fields(
+            face.second, face.first, hair.first, hair.second, facialHair));
+        face.second = appearance[0];
+        face.first = appearance[1];
+        hair.first = appearance[2];
+        hair.second = appearance[3];
+        facialHair = appearance[4];
+    }
 
     std::unique_ptr<CharacterCreateInfo> characterInfo = std::make_unique<CharacterCreateInfo>(
         name, race, cls, gender, face.second, face.first, hair.first, hair.second, facialHair);

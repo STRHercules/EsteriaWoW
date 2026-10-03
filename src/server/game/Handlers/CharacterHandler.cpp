@@ -31,6 +31,8 @@
 #include "GitRevision.h"
 #include "Group.h"
 #include "HighmountainAppearance.h"
+#include "EarthenAppearance.h"
+#include "HaranirAppearance.h"
 #include "Guild.h"
 #include "GuildMgr.h"
 #include "InstanceSaveMgr.h"
@@ -59,6 +61,7 @@
 #include "Tokenize.h"
 #include "Transport.h"
 #include "Util.h"
+#include "VulperaAppearance.h"
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
@@ -225,6 +228,8 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
     uint8 num = 0;
     ByteBuffer extraAppearances;
     uint32 extraCount = 0;
+    ByteBuffer haranirAppearances;
+    uint32 haranirCount = 0;
 
     data << num;
 
@@ -239,11 +244,17 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
             {
                 _legitCharacters.insert(guid);
                 ++num;
-                if ((*result)[2].Get<uint8>() == RACE_HIGHMOUNTAIN_TAUREN)
+                if (UsesExtendedAppearance((*result)[2].Get<uint8>()))
                 {
                     extraAppearances << guid.GetRawValue()
-                        << (*result)[result->GetFieldCount() - 2].Get<uint8>();
+                        << uint8((*result)[result->GetFieldCount() - 2].Get<uint64>());
                     ++extraCount;
+                }
+                else if (UsesHaranirAppearance((*result)[2].Get<uint8>()))
+                {
+                    haranirAppearances << guid.GetRawValue()
+                        << (*result)[result->GetFieldCount() - 2].Get<uint64>();
+                    ++haranirCount;
                 }
             }
         } while (result->NextRow());
@@ -254,6 +265,11 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
     {
         data.append(extraAppearances);
         data << extraCount << uint32(0x31455848); // HXE1, consumed by the native client before stock parsing.
+    }
+    if (haranirCount)
+    {
+        data.append(haranirAppearances);
+        data << haranirCount << uint32(0x32455848); // HXE2: GUID + uint64 extension.
     }
 
     SendPacket(&data);
@@ -291,10 +307,49 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
         >> createInfo->FacialHair
         >> createInfo->OutfitId;
 
-    // The stock outfit byte is unused by this core. Race46 uses it as its sixth appearance byte.
-    if (createInfo->Race == RACE_HIGHMOUNTAIN_TAUREN
-        && !HighmountainAppearance::Validate(createInfo->Gender, {createInfo->Skin, createInfo->Face,
-            createInfo->HairStyle, createInfo->HairColor, createInfo->FacialHair, createInfo->OutfitId}))
+    if (CreatureAppearance::Uses(createInfo->Race) && (createInfo->OutfitId != 0
+        || recvData.rpos() != recvData.size() || !CreatureAppearance::Validate(createInfo->Race,
+            createInfo->Gender, {createInfo->Skin, createInfo->Face, createInfo->HairStyle,
+                createInfo->HairColor, createInfo->FacialHair})))
+    {
+        SendCharCreate(CHAR_CREATE_FAILED);
+        return;
+    }
+
+    if (createInfo->Race == RACE_VULPERA && (createInfo->OutfitId != 0
+        || recvData.rpos() != recvData.size() || !VulperaAppearance::ValidateClass(createInfo->Gender,
+            createInfo->Class, VulperaAppearance::Fields(createInfo->Skin, createInfo->Face,
+                createInfo->HairStyle, createInfo->HairColor, createInfo->FacialHair))))
+    {
+        SendCharCreate(CHAR_CREATE_FAILED);
+        return;
+    }
+
+    if (UsesHaranirAppearance(createInfo->Race))
+    {
+        if (recvData.size() - recvData.rpos() != 12)
+        {
+            SendCharCreate(CHAR_CREATE_FAILED);
+            return;
+        }
+        uint32 magic = 0;
+        recvData >> createInfo->HaranirExtra >> magic;
+        if (magic != 0x31435248 || !HaranirAppearance::Validate(createInfo->Gender,
+            HaranirAppearance::Fields(createInfo->Skin, createInfo->Face, createInfo->HairStyle,
+                createInfo->HairColor, createInfo->FacialHair, createInfo->HaranirExtra)))
+        {
+            SendCharCreate(CHAR_CREATE_FAILED);
+            return;
+        }
+    }
+
+    // The stock outfit byte is unused by this core; extended profiles use it as their sixth appearance byte.
+    std::array<uint8, 6> const appearance = {createInfo->Skin, createInfo->Face, createInfo->HairStyle,
+        createInfo->HairColor, createInfo->FacialHair, createInfo->OutfitId};
+    if (UsesExtendedAppearance(createInfo->Race)
+        && !(createInfo->Race == RACE_HIGHMOUNTAIN_TAUREN
+            ? HighmountainAppearance::Validate(createInfo->Gender, appearance)
+            : EarthenAppearance::Validate(createInfo->Gender, appearance)))
     {
         SendCharCreate(CHAR_CREATE_FAILED);
         return;
@@ -1592,6 +1647,25 @@ void WorldSession::HandleAlterAppearance(WorldPacket& recvData)
     if (bs_skinColor && (bs_skinColor->type != 3 || bs_skinColor->race != _player->getRace() || bs_skinColor->gender != _player->getGender()))
         return;
 
+    if (_player->getRace() == RACE_VULPERA && (Color > 255 || bs_hair->hair_id > 255
+        || bs_facialHair->hair_id > 255 || (bs_skinColor && bs_skinColor->hair_id > 255)
+        || !VulperaAppearance::ValidateClass(_player->getGender(), _player->getClass(), VulperaAppearance::Fields(
+            bs_skinColor ? uint8(bs_skinColor->hair_id) : _player->GetByteValue(PLAYER_BYTES, 0),
+            _player->GetByteValue(PLAYER_BYTES, 1), uint8(bs_hair->hair_id), uint8(Color),
+            uint8(bs_facialHair->hair_id)))))
+        return;
+
+    if (UsesHaranirAppearance(_player->getRace()))
+    {
+        uint64 extra = uint64(_player->GetUInt32Value(UNIT_FIELD_PADDING))
+            | (uint64(_player->GetUInt32Value(OBJECT_FIELD_PADDING)) << 32);
+        if (Color > 255 || !HaranirAppearance::Validate(_player->getGender(), HaranirAppearance::Fields(
+            bs_skinColor ? uint8(bs_skinColor->hair_id) : _player->GetByteValue(PLAYER_BYTES, 0),
+            _player->GetByteValue(PLAYER_BYTES, 1), uint8(bs_hair->hair_id), uint8(Color),
+            uint8(bs_facialHair->hair_id), extra)))
+            return;
+    }
+
     GameObject* go = _player->FindNearestGameObjectOfType(GAMEOBJECT_TYPE_BARBER_CHAIR, 5.0f);
     if (!go)
     {
@@ -1744,6 +1818,22 @@ void WorldSession::HandleCharCustomizeCallback(std::shared_ptr<CharacterCustomiz
     //uint8 plrClass = fields[2].Get<uint8>();
     //uint8 plrGender = fields[3].Get<uint8>();
     uint32 atLoginFlags = fields[4].Get<uint16>();
+
+    if (CreatureAppearance::Uses(fields[1].Get<uint8>()) && !CreatureAppearance::Validate(fields[1].Get<uint8>(),
+        customizeInfo->Gender, {customizeInfo->Skin, customizeInfo->Face, customizeInfo->HairStyle,
+            customizeInfo->HairColor, customizeInfo->FacialHair}))
+    {
+        SendCharCustomize(CHAR_CREATE_ERROR, customizeInfo.get());
+        return;
+    }
+
+    if (fields[1].Get<uint8>() == RACE_VULPERA && !VulperaAppearance::ValidateClass(customizeInfo->Gender,
+        fields[2].Get<uint8>(), VulperaAppearance::Fields(customizeInfo->Skin, customizeInfo->Face,
+            customizeInfo->HairStyle, customizeInfo->HairColor, customizeInfo->FacialHair)))
+    {
+        SendCharCustomize(CHAR_CREATE_ERROR, customizeInfo.get());
+        return;
+    }
 
     if (!(atLoginFlags & AT_LOGIN_CUSTOMIZE))
     {
@@ -2051,6 +2141,22 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
     uint8 oldRace = playerData->Race;
     uint8 playerClass = playerData->Class;
     uint8 level = playerData->Level;
+
+    if (CreatureAppearance::Uses(factionChangeInfo->Race) && !CreatureAppearance::Validate(factionChangeInfo->Race,
+        factionChangeInfo->Gender, {factionChangeInfo->Skin, factionChangeInfo->Face, factionChangeInfo->HairStyle,
+            factionChangeInfo->HairColor, factionChangeInfo->FacialHair}))
+    {
+        SendCharFactionChange(CHAR_CREATE_ERROR, factionChangeInfo.get());
+        return;
+    }
+
+    if (factionChangeInfo->Race == RACE_VULPERA && !VulperaAppearance::ValidateClass(factionChangeInfo->Gender,
+        playerClass, VulperaAppearance::Fields(factionChangeInfo->Skin, factionChangeInfo->Face,
+            factionChangeInfo->HairStyle, factionChangeInfo->HairColor, factionChangeInfo->FacialHair)))
+    {
+        SendCharFactionChange(CHAR_CREATE_ERROR, factionChangeInfo.get());
+        return;
+    }
 
     if (!sObjectMgr->GetPlayerInfo(factionChangeInfo->Race, playerClass))
     {

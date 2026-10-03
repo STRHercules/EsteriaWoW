@@ -85,6 +85,7 @@
 #include "Unit.h"
 #include "UpdateData.h"
 #include "Util.h"
+#include "VulperaAppearance.h"
 #include "Vehicle.h"
 #include "Weather.h"
 #include "World.h"
@@ -484,6 +485,16 @@ void Player::CleanupsBeforeDelete(bool finalCleanup)
 
 bool Player::Create(ObjectGuid::LowType guidlow, CharacterCreateInfo* createInfo)
 {
+    if (CreatureAppearance::Uses(createInfo->Race) && !CreatureAppearance::Validate(createInfo->Race,
+        createInfo->Gender, {createInfo->Skin, createInfo->Face, createInfo->HairStyle,
+            createInfo->HairColor, createInfo->FacialHair}))
+        return false;
+
+    if (createInfo->Race == RACE_VULPERA && !VulperaAppearance::ValidateClass(createInfo->Gender,
+        createInfo->Class, VulperaAppearance::Fields(createInfo->Skin, createInfo->Face, createInfo->HairStyle,
+            createInfo->HairColor, createInfo->FacialHair)))
+        return false;
+
     // FIXME: outfitId not used in player creating
     /// @todo: need more checks against packet modifications
     // should check that skin, face, hair* are valid via DBC per race/class
@@ -557,8 +568,13 @@ bool Player::Create(ObjectGuid::LowType guidlow, CharacterCreateInfo* createInfo
                                     (0x00 << 16) |
                                     (((GetSession()->IsARecruiter() || GetSession()->GetRecruiterId() != 0) ? REST_STATE_RAF_LINKED : REST_STATE_NOT_RAF_LINKED) << 24)));
     SetByteValue(PLAYER_BYTES_3, 0, createInfo->Gender);
-    if (createInfo->Race == RACE_HIGHMOUNTAIN_TAUREN)
+    if (UsesExtendedAppearance(createInfo->Race))
         SetByteValue(UNIT_FIELD_PADDING, 0, createInfo->OutfitId);
+    else if (UsesHaranirAppearance(createInfo->Race))
+    {
+        SetUInt32Value(UNIT_FIELD_PADDING, uint32(createInfo->HaranirExtra));
+        SetUInt32Value(OBJECT_FIELD_PADDING, uint32(createInfo->HaranirExtra >> 32));
+    }
     SetByteValue(PLAYER_BYTES_3, 3, 0);                     // BattlefieldArenaFaction (0 or 1)
 
     SetUInt32Value(PLAYER_GUILDID, 0);
@@ -1202,9 +1218,18 @@ bool Player::BuildEnumData(PreparedQueryResult result, WorldPacket* data)
         LOG_ERROR("entities.player", "Player {} has incorrect race/class pair. Don't build enum.", guid.ToString());
         return false;
     }
-    else if (!IsValidGender(gender))
+    else if (!IsValidGender(gender)
+        || (CreatureAppearance::Uses(plrRace) && !CreatureAppearance::GenderAllowed(plrRace, gender)))
     {
         LOG_ERROR("entities.player", "Player ({}) has incorrect gender ({}), don't build enum.", guid.ToString(), gender);
+        return false;
+    }
+
+    if (plrRace == RACE_VULPERA && !VulperaAppearance::Validate(gender, VulperaAppearance::Fields(
+        fields[5].Get<uint8>(), fields[6].Get<uint8>(), fields[7].Get<uint8>(),
+        fields[8].Get<uint8>(), fields[9].Get<uint8>())))
+    {
+        LOG_ERROR("entities.player", "Player {} has invalid Vulpera appearance; don't build enum.", guid.ToString());
         return false;
     }
 
@@ -1219,6 +1244,17 @@ bool Player::BuildEnumData(PreparedQueryResult result, WorldPacket* data)
     uint8 hairStyle = fields[7].Get<uint8>();
     uint8 hairColor = fields[8].Get<uint8>();
     uint8 facialStyle = fields[9].Get<uint8>();
+
+    if (plrRace == RACE_VULPERA)
+    {
+        auto const appearance = VulperaAppearance::Normalize(gender, plrClass,
+            VulperaAppearance::Fields(skin, face, hairStyle, hairColor, facialStyle));
+        skin = appearance[0];
+        face = appearance[1];
+        hairStyle = appearance[2];
+        hairColor = appearance[3];
+        facialStyle = appearance[4];
+    }
 
     uint32 charFlags = 0;
     uint32 playerFlags = fields[17].Get<uint32>();
@@ -15466,10 +15502,13 @@ void Player::_SaveCharacter(bool create, CharacterDatabaseTransaction trans)
     }
 
     trans->Append(stmt);
-    if (getRace() == RACE_HIGHMOUNTAIN_TAUREN)
+    if (UsesExtendedAppearance(getRace()) || UsesHaranirAppearance(getRace()))
     {
         stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPD_EXTENDED_APPEARANCE);
-        stmt->SetData(0, GetByteValue(UNIT_FIELD_PADDING, 0));
+        uint64 extra = GetByteValue(UNIT_FIELD_PADDING, 0);
+        if (UsesHaranirAppearance(getRace()))
+            extra = uint64(GetUInt32Value(UNIT_FIELD_PADDING)) | (uint64(GetUInt32Value(OBJECT_FIELD_PADDING)) << 32);
+        stmt->SetData(0, extra);
         stmt->SetData(1, GetGUID().GetCounter());
         trans->Append(stmt);
     }

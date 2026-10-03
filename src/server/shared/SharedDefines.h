@@ -19,6 +19,7 @@
 #define ACORE_SHAREDDEFINES_H
 
 #include "DBCEnums.h"
+#include "CreatureAppearance.h"
 #include "Define.h"
 #include "EnumFlag.h"
 #include <cassert>
@@ -106,14 +107,30 @@ enum Races
     RACE_HARANIR_ALLIANCE     = 50,
     RACE_HARANIR_HORDE        = 51,
     RACE_SKYBORNE_ALLIANCE    = 52,
-    RACE_SKYBORNE_HORDE       = 53
+    RACE_SKYBORNE_HORDE       = 53,
+    RACE_NAGA_HORDE           = 54,
+    RACE_TUSKARR_ALLIANCE      = 55,
+    RACE_VRYKUL_ALLIANCE       = 56,
+    RACE_VRYKUL_HORDE          = 57,
+    RACE_THIN_HUMAN_ALLIANCE   = 58,
+    RACE_THIN_HUMAN_HORDE      = 59
 };
 
 uint32 constexpr DARKFALLEN_RACE_MASK = 0x80000000u;
 
+inline constexpr bool UsesExtendedAppearance(uint32 race)
+{
+    return race == RACE_HIGHMOUNTAIN_TAUREN || race == RACE_EARTHEN_ALLIANCE || race == RACE_EARTHEN_HORDE;
+}
+
+inline constexpr bool UsesHaranirAppearance(uint32 race)
+{
+    return race == RACE_HARANIR_ALLIANCE || race == RACE_HARANIR_HORDE;
+}
+
 inline constexpr bool IsExtendedPlayableRace(uint32 race)
 {
-    return race >= RACE_MAGHAR_ORC && race <= RACE_SKYBORNE_HORDE;
+    return race >= RACE_MAGHAR_ORC && race <= RACE_THIN_HUMAN_HORDE;
 }
 
 inline constexpr uint8 GetLegacyMaskRaceForRace(uint32 race)
@@ -129,6 +146,12 @@ inline constexpr uint8 GetLegacyMaskRaceForRace(uint32 race)
         case RACE_HARANIR_HORDE:       return RACE_TROLL;
         case RACE_SKYBORNE_ALLIANCE:   return RACE_HIGHELF;
         case RACE_SKYBORNE_HORDE:      return RACE_BLOODELF;
+        case RACE_NAGA_HORDE:          return RACE_BLOODELF;
+        case RACE_TUSKARR_ALLIANCE:     return RACE_DWARF;
+        case RACE_VRYKUL_ALLIANCE:
+        case RACE_THIN_HUMAN_ALLIANCE:  return RACE_HUMAN;
+        case RACE_VRYKUL_HORDE:
+        case RACE_THIN_HUMAN_HORDE:     return RACE_ORC;
         default:                        return uint8(race);
     }
 }
@@ -146,6 +169,12 @@ inline constexpr uint8 GetVisualBaseRaceForRace(uint32 race)
         case RACE_HARANIR_HORDE:       return RACE_NIGHTELF;
         case RACE_SKYBORNE_ALLIANCE:
         case RACE_SKYBORNE_HORDE:      return RACE_BLOODELF;
+        case RACE_NAGA_HORDE:          return RACE_BLOODELF;
+        case RACE_TUSKARR_ALLIANCE:     return RACE_DWARF;
+        case RACE_VRYKUL_ALLIANCE:
+        case RACE_VRYKUL_HORDE:
+        case RACE_THIN_HUMAN_ALLIANCE:
+        case RACE_THIN_HUMAN_HORDE:     return RACE_HUMAN;
         default:                        return uint8(race);
     }
 }
@@ -160,6 +189,10 @@ inline constexpr uint8 GetPairedRaceForRace(uint32 race)
         case RACE_HARANIR_HORDE:     return RACE_HARANIR_ALLIANCE;
         case RACE_SKYBORNE_ALLIANCE: return RACE_SKYBORNE_HORDE;
         case RACE_SKYBORNE_HORDE:    return RACE_SKYBORNE_ALLIANCE;
+        case RACE_VRYKUL_ALLIANCE:   return RACE_VRYKUL_HORDE;
+        case RACE_VRYKUL_HORDE:      return RACE_VRYKUL_ALLIANCE;
+        case RACE_THIN_HUMAN_ALLIANCE: return RACE_THIN_HUMAN_HORDE;
+        case RACE_THIN_HUMAN_HORDE:  return RACE_THIN_HUMAN_ALLIANCE;
         default:                      return RACE_NONE;
     }
 }

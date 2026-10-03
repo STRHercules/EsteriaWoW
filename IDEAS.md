@@ -1,5 +1,72 @@
 # Ideas
 
+# New races
+- All new races need racials
+
+## ThinHuman
+- Rename from 'Human' to something else 
+
+## Tuskarr
+
+
+## Vrykul
+
+
+## Naga
+- Cannot use mounts, instead uses an ability to increase ground run speed (like worgen) and a flight form for flying
+
+
+
+
+- Retroport Sethrak
+    - Implement Two-Forms, akin to Worgen/Dracthyr
+        - Human/Night Elf form when mounting up?
+    - Cannot use mounts, instead uses an ability to increase ground run speed (like worgen) and a flight form for flying
+
+
+
+- Retroport existing races to capture their extended customization options
+    - Void Elf
+    - Nightborne
+    - Zandalari
+    - Lightforged
+    - Pandaren
+    - Dracthyr
+    - Worgen
+    - Goblin
+    - Human
+    - Dwarf
+    - Gnome
+    - Night Elf
+    - Orc
+    - Undead
+    - Troll
+    - Blood Elf
+    - Tauren
+    - Mag'har Orc
+
+- Upright toggle for Orc/Mag'har Orc
+
+- Boneless options added to Undead
+
+- Fix model issues
+    - Earthen, Skyborn need corrected eyes
+
+- Integate Open Azeroth 
+
+- Dual Form Support
+    * I want both forms to be visible in character creation, with both updated in real time depending on options chosen
+    * I want the ability to swap between forms ingame, like in retail. Possibly new morph spells? 
+    - Dracthyr
+    - Worgen
+
+- Druid Forms
+    - Retroport *all* druid forms
+    - Assign native druid forms to races that have them
+
+
+
+
 ## Next
 - https://github.com/AlsoNotMehh/mod-eluna-teleport-selector
 - https://github.com/AlsoNotMehh/mod-realm-first-titles
@@ -42,7 +109,7 @@
 - Account-wide
 
 ## Missing Races
-- Earthen, Haranir
+- Haranir
 
 ## Custom races
 - Third Tauren Gender - Taunka
