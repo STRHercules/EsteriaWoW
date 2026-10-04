@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "slug": "haranir",
+  "name": "Haranir",
+  "race_ids": [50, 51],
+  "client_file_strings": {"50": "Haranir", "51": "HaranirHorde"},
+  "source_race_id": 4,
+  "source_patch_root": "G:\\RetroPorterWork\\haranir\\output\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\haranir\\integration\\patch-root",
+  "asset_prefix": "custom\\haranir",
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "models": {
+    "male": {
+      "source_model_id": 55,
+      "source_display_id": 55,
+      "model_path": "custom\\haranir\\native\\male\\harronirmale.m2"
+    },
+    "female": {
+      "source_model_id": 56,
+      "source_display_id": 56,
+      "model_path": "custom\\haranir\\native\\female\\harronirfemale.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-thirteen-byte-codec-v1",
+    "source_retail_race_ids": [86, 91],
+    "source_chr_models": [200, 201],
+    "ordinary_controls": {"male": 29, "female": 28},
+    "npc_and_restricted_choices": false
+  }
+}

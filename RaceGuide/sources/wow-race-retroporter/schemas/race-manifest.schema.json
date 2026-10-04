@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/wow-race-retroporter/race-manifest.schema.json",
+  "title": "WoW Race Retroporter Race Manifest",
+  "type": "object",
+  "required": ["slug", "display_name", "retail_race_id", "target_race_id", "faction", "base_race"],
+  "properties": {
+    "slug": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "display_name": {"type": "string", "minLength": 1},
+    "retail_race_id": {"type": "integer", "minimum": 1},
+    "target_race_id": {"type": "integer", "minimum": 1, "maximum": 32},
+    "faction": {"enum": ["alliance", "horde", "neutral"]},
+    "base_race": {"type": "string", "minLength": 1},
+    "classes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source": {
+      "type": "object",
+      "description": "Race-specific discovery hints. Retail product/build selection is global in sources/retail/build.yaml.",
+      "properties": {
+        "model_hints": {"type": "array", "items": {"type": "string"}},
+        "db2_tables": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "additionalProperties": true
+    },
+    "customization": {"type": "object"},
+    "starting_zone": {"type": "object"},
+    "conversion": {"type": "object"}
+  },
+  "additionalProperties": true
+}

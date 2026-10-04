@@ -1,0 +1,15 @@
+{
+  "backup": "G:\\EsteriaBackups\\forgotten-name-20261003-082903",
+  "source_hashes": {
+    "Data\\patch-Z.MPQ": "773c64539c0d03cf73ed9ed7b77b6c7b4085a179d22b2e1de3ed05a4f371ee7a",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "2a00758321f6bb019379ee21f60db6f7833dbb25eb45e447fd44a635453017f2"
+  },
+  "stage_hashes": {
+    "Data\\patch-Z.MPQ": "f733ae6679b882f74d656b45560e684ebbd5ee9f04a99329b09c5cab4d0e7347",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "b807cb08531fe3b467b44114f5c62144525de880c345d581782e0b447396d8d5"
+  },
+  "exe_hash": "2ba16bf7bf87396514b3f03181f2519898ff3e50d1334ffa57956cadc24eba35",
+  "status": "installed",
+  "server_hash": "04952653b8b046fb46c1f1caad54e9f60981a7b2cb1132fc45620f09bea98905",
+  "server_installed_hash": "7a840119a96939b7938bc0597b522e2eac886715abf937d550a987c10399fd90"
+}

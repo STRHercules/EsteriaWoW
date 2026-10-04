@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wow-race-retroporter"
+version = "0.2.0"
+description = "Targeted Retail CDN/CASC race retroport scaffold for WotLK 3.3.5a/AzerothCore"
+requires-python = ">=3.12"
+dependencies = ["PyYAML>=6.0.2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+raceporter = "raceporter.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

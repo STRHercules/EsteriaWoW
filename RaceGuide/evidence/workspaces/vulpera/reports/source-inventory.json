@@ -1,0 +1,3663 @@
+{
+  "source_product": "wow",
+  "source_version": "12.1.0.69933",
+  "source_build_key": "dcfc90fffd79ba00406ae46f5f657592",
+  "assets": [
+    {
+      "file_data_id": 623714,
+      "logical_name": "interface\\glues\\models\\ui_horde\\ui_horde.m2",
+      "content_key": "b0630f4fd0c88592e47db6475f2bc909",
+      "sha256": "67db10414159b30d5b60f3a7c1f50c10a25170fc4856ed10fc1d9f0278b9d928",
+      "size": 542000,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\623714.m2"
+    },
+    {
+      "file_data_id": 651558,
+      "logical_name": "interface\\glues\\models\\ui_horde_lowres\\ui_horde_lowres.m2",
+      "content_key": "f7dc66d11dbb065ccd55b26d8bac36c5",
+      "sha256": "d9f26bb55152d53301735aaa31799131b0ee279b85d83840b5fcd80509e30c81",
+      "size": 3968,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\651558.m2"
+    },
+    {
+      "file_data_id": 1890759,
+      "logical_name": "character\\vulpera\\female\\vulperafemale.m2",
+      "content_key": "d5aa7d27fc706b107b9ca9b69f58fa0b",
+      "sha256": "78082d2d6619bfcec7977a6b39aca561935256e5fdf7dae945864b64b6ab7ed6",
+      "size": 17409438,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1890759.m2"
+    },
+    {
+      "file_data_id": 1890761,
+      "logical_name": "character\\vulpera\\male\\vulperamale.m2",
+      "content_key": "22614dad555c886fbe31c7d2fd345994",
+      "sha256": "cb910cfaa3c123c0172e648efd5947c5fd060355e0b1714fb6aeae7c0c162b57",
+      "size": 16315502,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1890761.m2"
+    },
+    {
+      "file_data_id": 1894070,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_00.blp",
+      "content_key": "16843bdccb564aaab51a6026eb08cf7e",
+      "sha256": "d632f714f250985067420e4c975f85aeef396fc4c29ebfdbd3ded2c42f939e51",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894070.blp"
+    },
+    {
+      "file_data_id": 1894073,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_01.blp",
+      "content_key": "4f3ecffb2469ff5d338a65a13933a72c",
+      "sha256": "919e4f0f03750fb01ab87ccacabafee63eeba8dccfdbd6400fde91b140fb0ba6",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894073.blp"
+    },
+    {
+      "file_data_id": 1894074,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_02.blp",
+      "content_key": "9be894b1d0ed28e3c286e099a60e8073",
+      "sha256": "230a94fd855006aab18e22dc1782b6954a2214581becb5b1597987586b802005",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894074.blp"
+    },
+    {
+      "file_data_id": 1894076,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_03.blp",
+      "content_key": "bcd30118b4146d30f1f121be1b6db218",
+      "sha256": "3e1461a8d02c1cc780390ba4f173ba3e8830501596fd593895effaa7c52eb0e1",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894076.blp"
+    },
+    {
+      "file_data_id": 1894077,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_04.blp",
+      "content_key": "47bb13811a3fe846518580b21c7c44b5",
+      "sha256": "add7ca90600ddc8c9925bdcf51f0ded8543521f39fd141ca8156d728b62ebb0d",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894077.blp"
+    },
+    {
+      "file_data_id": 1894078,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_05.blp",
+      "content_key": "c58fcba3f919118b250e07902589063a",
+      "sha256": "0820242dabb0d3ef0f1bc7883895485a3f5e9d7b253381ecc3d1d7723f00230d",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894078.blp"
+    },
+    {
+      "file_data_id": 1894080,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_06.blp",
+      "content_key": "ec68b9b552bebdfc3b12f3e7f895f2db",
+      "sha256": "4c0a399eb97830d0a372cf242a2c3efd9ee83a448f369b17658941049d4438c1",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894080.blp"
+    },
+    {
+      "file_data_id": 1894081,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_07.blp",
+      "content_key": "b560683136f21f8e8d69589befc75e97",
+      "sha256": "3a25b9ede78be62323ee60bcae52a8aeada14648f5f525480b6cba3925216f6c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894081.blp"
+    },
+    {
+      "file_data_id": 1894082,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_00.blp",
+      "content_key": "f25db81dc3dfba9dda21e2ce8e762725",
+      "sha256": "1af59938c7f4dde98b505639c5b597beca7b1c226da0323456702d95a1a3b9a9",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894082.blp"
+    },
+    {
+      "file_data_id": 1894083,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_01.blp",
+      "content_key": "6cc76a4c9f8929ce559efd4f4abcb6fd",
+      "sha256": "c1e36bc1c8c62817e3731f6c9afa6d7a4cd2ab2e242e884c2a678f31eac8d43e",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894083.blp"
+    },
+    {
+      "file_data_id": 1894084,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_02.blp",
+      "content_key": "c872e2b5e53161ac99fedc44f83748ad",
+      "sha256": "0d4c0d1fdf60f1dc3e76b2657aed0a9fbed1d09ef21105772accd878258d9408",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894084.blp"
+    },
+    {
+      "file_data_id": 1894085,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_03.blp",
+      "content_key": "4a795849c0bd358e06507960808d69ea",
+      "sha256": "92d2798868d4fd0efbf721d663fe0e87774006a235abd562ed69748e08ded492",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894085.blp"
+    },
+    {
+      "file_data_id": 1894087,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_04.blp",
+      "content_key": "0e615e10aee6635c705b30beccbbcd3e",
+      "sha256": "e393dc4d5e70b96d0b73c89348bba43b967d0472f705d7354863c3a305ccf549",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894087.blp"
+    },
+    {
+      "file_data_id": 1894088,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_05.blp",
+      "content_key": "4247e1bb2f201159119f5cf7d1772c55",
+      "sha256": "e741faecda90e4035562e68820a8f4d0170b5aa23062606e37799cbfdee24014",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894088.blp"
+    },
+    {
+      "file_data_id": 1894090,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_06.blp",
+      "content_key": "55136101db6d888b62c888efe461b62a",
+      "sha256": "c59ffc80389c4af99191f665f94feda3c1388ee3a7076c6ec09ca09a44b253e3",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894090.blp"
+    },
+    {
+      "file_data_id": 1894091,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper01_07.blp",
+      "content_key": "b38635458a93634f3830b787349e2475",
+      "sha256": "8c7a16f7c8916cf642168ffdf839fe5acc79e5eb1ba2667aae3593d45c516883",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894091.blp"
+    },
+    {
+      "file_data_id": 1894092,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_00.blp",
+      "content_key": "effb6bf7fa5a43243eebd8805c75f979",
+      "sha256": "a746338a3e0cc4f1b1f45ee982f7525a40fbf14e1922c684ec509057f4e98e77",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894092.blp"
+    },
+    {
+      "file_data_id": 1894093,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_01.blp",
+      "content_key": "16372a2583bc433cf696c26f1099f123",
+      "sha256": "333a61b89fd8f95d8f11826a8e3c381eff2bb74b9f0751c1313478ef7b274c5b",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894093.blp"
+    },
+    {
+      "file_data_id": 1894094,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_02.blp",
+      "content_key": "480c42bd14f86cf826634ad12e6e199b",
+      "sha256": "6e0c1a21b47dc6224c44ad6ae13a427f71ed2dfdedfd353c8e95e4f0b752ef7c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894094.blp"
+    },
+    {
+      "file_data_id": 1894095,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_03.blp",
+      "content_key": "62ad220aadd424d50e1754cb34abe13b",
+      "sha256": "3f0bc8bfa0df45fa8637eceb1b36bfd6c88777071754ee57befb8b0bdc05ff5f",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894095.blp"
+    },
+    {
+      "file_data_id": 1894096,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_04.blp",
+      "content_key": "708c824d0ee09cc0ee56a3755819d68a",
+      "sha256": "bfecaf381583900d8398b1af24ca09c950eec9bdb0de97905392db447d86213e",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894096.blp"
+    },
+    {
+      "file_data_id": 1894098,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_05.blp",
+      "content_key": "0176414c740ef7ed1587e04bba5affaa",
+      "sha256": "f66467414ceb86059a26083bb9e0620450a8520d6746480dbf106dd7f6bbc646",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894098.blp"
+    },
+    {
+      "file_data_id": 1894099,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_06.blp",
+      "content_key": "a1452fb59ff286a2e63b06a9fb9b319f",
+      "sha256": "48a95e8edf6798b48c87e355ddd18166519bbd9136eff6c082d7d80354e2b78e",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894099.blp"
+    },
+    {
+      "file_data_id": 1894100,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper02_07.blp",
+      "content_key": "954b69f5699ca3cea21baa0147b7cfd6",
+      "sha256": "ed22fc9cc5b3adb6d233acfc70aa498c3b165b39111bb2623d1f78eddbdbc0db",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894100.blp"
+    },
+    {
+      "file_data_id": 1894102,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_00.blp",
+      "content_key": "fc7e155601b700f374278dc05689b76e",
+      "sha256": "61b762dcae77482e1cc2fc9b4ab3a1d16f92ee881e98a9dbf1805ccad5647587",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894102.blp"
+    },
+    {
+      "file_data_id": 1894103,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_01.blp",
+      "content_key": "d2f56e96f559c1fbc46627e7e7b6948e",
+      "sha256": "e0554c83eb5a1b8a3ac96379c9606fcfa77be9a116d26bc853e78ae592d0d0c7",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894103.blp"
+    },
+    {
+      "file_data_id": 1894104,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_02.blp",
+      "content_key": "db96903e5698977df6f0a211f2d89df4",
+      "sha256": "49e126a9e09aa11a154a98e03e3b0f5a741e708d58bbc5e29867cf7f56581a8f",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894104.blp"
+    },
+    {
+      "file_data_id": 1894105,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_03.blp",
+      "content_key": "188aba605070560a73b24d4ab5ad0b7c",
+      "sha256": "2f54e9ddd9436b2039fdb3b0576d77ff576dd60a15f1e48dbb52cfb656ffef4a",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894105.blp"
+    },
+    {
+      "file_data_id": 1894107,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_04.blp",
+      "content_key": "4ab55cc3d568ed050b3eb7e272e70a4a",
+      "sha256": "04c4c322de8f12f524f457acd9066b41b898c4762a0770ccff64a0ac1be991f9",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894107.blp"
+    },
+    {
+      "file_data_id": 1894109,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_05.blp",
+      "content_key": "576546cbb50b558cc3e4e058b26f982f",
+      "sha256": "011316ad79a52548c1498a0e62a1d90422b7a5c501737ed71c13de44477bf2fd",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894109.blp"
+    },
+    {
+      "file_data_id": 1894110,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_06.blp",
+      "content_key": "f88edccb3e47dd30aa2d5249e9f8714e",
+      "sha256": "76721f526ac00851219c2392df174409d9d8f12b18f9091cda705723ea4debd3",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894110.blp"
+    },
+    {
+      "file_data_id": 1894111,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper03_07.blp",
+      "content_key": "81642e2144303c55fc562d61b9635562",
+      "sha256": "711fc7ebccd5d419cde18f4ac71898cf0fcc43e0736243c7411feb480b06ac21",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894111.blp"
+    },
+    {
+      "file_data_id": 1894114,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_00.blp",
+      "content_key": "f6a30305403c0bd63f5c77e0aa4306c0",
+      "sha256": "cd18b8a5f8a9aeca35a69db82944d13cd18a55b50e25e422ac42a89a6f4945d7",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894114.blp"
+    },
+    {
+      "file_data_id": 1894116,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_01.blp",
+      "content_key": "700bac93b6f713e532d85408edbc98e1",
+      "sha256": "36413f0da5aaf8c647be5375d0c42ae78d3cf26f96bc60ba9eae711b889ac4ac",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894116.blp"
+    },
+    {
+      "file_data_id": 1894118,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_02.blp",
+      "content_key": "f5f9564d6adb5a5201d99aa62363dd0c",
+      "sha256": "ee4c6ba193369ad864eb1b97bd0696ec92a5addf3689e9b7bb6e590fc4bf432a",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894118.blp"
+    },
+    {
+      "file_data_id": 1894119,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_03.blp",
+      "content_key": "6a0445c1e8cb21620c3606cbd9aae9bc",
+      "sha256": "30f795cece09033e78a510290cdc260e71eeaab763c8dc5f377364d7bcd10ece",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894119.blp"
+    },
+    {
+      "file_data_id": 1894120,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_04.blp",
+      "content_key": "44fd90cd10f77ac1daa0e29eeb932d5a",
+      "sha256": "320ac4c4321b4a88c4e389099c2fb9d619f8d95608bf3e0bfa9bd480b9604764",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894120.blp"
+    },
+    {
+      "file_data_id": 1894121,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_05.blp",
+      "content_key": "f0d90d8673d8e202bfe57e47a2ecb992",
+      "sha256": "f3646d6f25b6341cd33460ffcb2b14163e6152701d37c9911ca973fa83bae51c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894121.blp"
+    },
+    {
+      "file_data_id": 1894122,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_06.blp",
+      "content_key": "18bc56116038b35c8c566987bbcf63b4",
+      "sha256": "5db94f549ce09f393c93ec9fec0c7021d4e537d8982697bc31b9d60674f856f1",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894122.blp"
+    },
+    {
+      "file_data_id": 1894123,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper04_07.blp",
+      "content_key": "348148c83f55e97551b7e906f8b8415f",
+      "sha256": "9d44b4d165e6b37642fef88c72008ff0d29afca7fadee617f392a89fe7019f51",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894123.blp"
+    },
+    {
+      "file_data_id": 1894124,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_00.blp",
+      "content_key": "db6810ba45b0b8a7ed35fab69143d174",
+      "sha256": "6182c82dca9a9c06b10381df2756e036cf313aa25a9c7b8b41abb4b65412e915",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894124.blp"
+    },
+    {
+      "file_data_id": 1894125,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_01.blp",
+      "content_key": "934f398525f6841f32b80754fceff766",
+      "sha256": "5e384fe50cbbafb206a8814f1b10531d6bc3e02719c7f755acfd322624135998",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894125.blp"
+    },
+    {
+      "file_data_id": 1894126,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_02.blp",
+      "content_key": "de7c23651d2f35037ae2963a3385d456",
+      "sha256": "2290e84d1f086a3ccd288fbec137efbdbe536af29396b37c1208dfba298decf8",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894126.blp"
+    },
+    {
+      "file_data_id": 1894127,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_03.blp",
+      "content_key": "3e7b5b647f2b0922d90e382391d71372",
+      "sha256": "c145730737b5c4a61564ffc929013c82dd60f5a5c93891af018df615ac1718f0",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894127.blp"
+    },
+    {
+      "file_data_id": 1894128,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_04.blp",
+      "content_key": "dfe5f187d6ed73c5c721a3e0b1b5aad4",
+      "sha256": "bd68e7f51ed185853514cd25941b1fa63b0633d5e6beb56b4e79215c4eee05d2",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894128.blp"
+    },
+    {
+      "file_data_id": 1894129,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_05.blp",
+      "content_key": "b8c1688424495687c8e42d724700f500",
+      "sha256": "46a437d4fdd22d3920c0fea97ee8975576201ba899887bb010744efa201fb608",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894129.blp"
+    },
+    {
+      "file_data_id": 1894130,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_06.blp",
+      "content_key": "3522bfb7be68a1633699a73083382b89",
+      "sha256": "28b78bc8bb9a05d5fd132d44d0cdf4c92b4ecc756ec6cb20540b0c5d05a6c1e0",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894130.blp"
+    },
+    {
+      "file_data_id": 1894131,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper05_07.blp",
+      "content_key": "b132b86346b44f0edd8b596355883187",
+      "sha256": "3de817978dfb8ae0347b72606cd64771dde7df56db3ee43e10f7f83436dd46ec",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894131.blp"
+    },
+    {
+      "file_data_id": 1894132,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_00.blp",
+      "content_key": "a94fb5e6330bf1b9e8fc8c38beaf2e0c",
+      "sha256": "dbadea80d5d70004bf805627b1885e7ab30de74c6a6265dfba43ebc9943bd59c",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894132.blp"
+    },
+    {
+      "file_data_id": 1894133,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_01.blp",
+      "content_key": "a84d92de49ef2f3cc8dcf3cd975c24b6",
+      "sha256": "2522cc747948197b66aa527266f256696c7b2499b699d617fa637ff71cd5b9a8",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894133.blp"
+    },
+    {
+      "file_data_id": 1894134,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_02.blp",
+      "content_key": "8a08ba6913410ad1c2b49da9b3469bca",
+      "sha256": "0d88c4c4275ce88ccc2265c6ba7de716c685a724207af3977443adc07010023e",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894134.blp"
+    },
+    {
+      "file_data_id": 1894135,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_03.blp",
+      "content_key": "4d49736785aef7e73bdad55c445c3d6e",
+      "sha256": "932093d8d27570b260526971a47c20c4f3a488da8e18c00ad8de01ee8c98a907",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894135.blp"
+    },
+    {
+      "file_data_id": 1894136,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_04.blp",
+      "content_key": "9f747e98e65dd90ae0c2aeaeda73d1fc",
+      "sha256": "15f227b070c8444026f21fa6a8f2c3d39fbf25b0b4ca19a410fb277450ab2736",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894136.blp"
+    },
+    {
+      "file_data_id": 1894137,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_05.blp",
+      "content_key": "2562bddfc5c9ecb5db41528495f98d18",
+      "sha256": "f0fec6ddca08e2bcd52268390b082ea68a81d58ec38855828749427b0c20cf6d",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894137.blp"
+    },
+    {
+      "file_data_id": 1894138,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_06.blp",
+      "content_key": "31133ae52e90f099dedf0194b196545b",
+      "sha256": "c9b81a02d7a4fcf80e7df48844db93965a257b57a21fd6c84bebb5f3f7212770",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894138.blp"
+    },
+    {
+      "file_data_id": 1894139,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_07.blp",
+      "content_key": "ceed8f68df5e966e00b93dd793d9ce2b",
+      "sha256": "c323d11d4da58475212bdc8a2db3585bc4fc85e5b7f019e405ab2bd1f0d09909",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894139.blp"
+    },
+    {
+      "file_data_id": 1894140,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_00.blp",
+      "content_key": "8a382c4dfa4785a7eb782132dc282a73",
+      "sha256": "69a19db958eec57f64a3eee8db35e36c9163438950a8231ad68f122a1636f36e",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894140.blp"
+    },
+    {
+      "file_data_id": 1894141,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_01.blp",
+      "content_key": "94232c9251805fd5866ed92d429cab21",
+      "sha256": "90e53a1547920951e316047f45b5a12a594ff91a02dcab46bca54c678e608ce2",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894141.blp"
+    },
+    {
+      "file_data_id": 1894142,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_02.blp",
+      "content_key": "1bd062d668c7f0c6866b3fa78cf3573c",
+      "sha256": "76a0d3e805f8325502af4bfd53244fa0df8aa9cc5799d42fd1ce9c52b6f5e95b",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894142.blp"
+    },
+    {
+      "file_data_id": 1894143,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_03.blp",
+      "content_key": "df7a875aaf06c29a58e048c05cbd354d",
+      "sha256": "9116763126bc2295296ebab6d82d3a68c087f36863c97c01f4418a8656d0b3a5",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894143.blp"
+    },
+    {
+      "file_data_id": 1894144,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_04.blp",
+      "content_key": "8a013af3487176a39aeeb8f296c278c8",
+      "sha256": "6ed63ae29cd562f19db12ec13bd94c405c44fa25f8d02f9b554dcc27f9e25be2",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894144.blp"
+    },
+    {
+      "file_data_id": 1894145,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_05.blp",
+      "content_key": "fd541e14178bb97ee212c9b8552821e7",
+      "sha256": "6fe11f6fe3fee848f5787f7b6e521652f065760f0177fbbc6877393c59474e8a",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894145.blp"
+    },
+    {
+      "file_data_id": 1894146,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_06.blp",
+      "content_key": "0cfc74ac0aef66d14d64e47e47147136",
+      "sha256": "2adfad3140712b896032cc3c8e89d9c0c3676d0480124cd5861ea65a21ed00fb",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894146.blp"
+    },
+    {
+      "file_data_id": 1894147,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_07.blp",
+      "content_key": "d15e95c1a1b162b8aff925f87e12b6a4",
+      "sha256": "340f11c96e1098527d5ee4225f8d762dbc47a65e7fcc73c0af378640712042e2",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894147.blp"
+    },
+    {
+      "file_data_id": 1894148,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_00.blp",
+      "content_key": "97f0ce5035f3f0a7ec9f60737601c2a8",
+      "sha256": "4937184e6c5ebe1e09d4b94f267d38c1d61c8c2f63c6727e3f0d5c67b7eda245",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894148.blp"
+    },
+    {
+      "file_data_id": 1894149,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_01.blp",
+      "content_key": "58cea039b895bb1d0c008d89f4c9cd60",
+      "sha256": "46a75c0c5431f6b4db6ad015c6082838d75d5bae51e436929bc7d6d615d16b30",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894149.blp"
+    },
+    {
+      "file_data_id": 1894150,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_02.blp",
+      "content_key": "83735bae87e1a26812fda9cb7d82c038",
+      "sha256": "819c66b589f5f265685f6efb4e986b7e63ed23ecd34513d5b3d4b6fa26f891e7",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894150.blp"
+    },
+    {
+      "file_data_id": 1894151,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_03.blp",
+      "content_key": "5c3392f6a65991f5d715b177f6074519",
+      "sha256": "4d51c4d79691e4963a93ee2c90d8a329a7e3cadd50b4d91bfbac1c97b80e10ba",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894151.blp"
+    },
+    {
+      "file_data_id": 1894152,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_04.blp",
+      "content_key": "531a93dc18036da4a096fc3cfe58a8ee",
+      "sha256": "0db258a9e8c7d21cac837573f1cc7320dc9ee87f178691faf74067dbf911d156",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894152.blp"
+    },
+    {
+      "file_data_id": 1894153,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_05.blp",
+      "content_key": "04c537fd4ed242013d9d53dd3edd68f2",
+      "sha256": "f42ebf2302ac6c9554019a628888074ad141fc8ad9e744a5522e96cd1f82fb3a",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894153.blp"
+    },
+    {
+      "file_data_id": 1894154,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_06.blp",
+      "content_key": "77df11a04c019c426ed77637afaf9d2f",
+      "sha256": "7870869282fbc1b210a0b5deb6ac5793ee7533960111ae6be9c072cf27091aaa",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894154.blp"
+    },
+    {
+      "file_data_id": 1894155,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_07.blp",
+      "content_key": "e35f31a9023707cd7413e3414c7e4e6a",
+      "sha256": "0710aed7c9c9e8bd3eccffcfc179f132b3a89f1f21dbcc4cf5efab476857998d",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894155.blp"
+    },
+    {
+      "file_data_id": 1938907,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_00.blp",
+      "content_key": "5a404e002f85bb78e0f09bb1bd407dbf",
+      "sha256": "e057e7a54ce01d14da3d2a96567f34dfd5a2de589a6cdf4f6c4795f7ab815b5c",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938907.blp"
+    },
+    {
+      "file_data_id": 1938908,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_01.blp",
+      "content_key": "2997454a4c63fb6d8562f3d7d681de7f",
+      "sha256": "39e31ec5741bcc50845e9c763b4bc0a717758fae38a54e761ce705125b0fe8cc",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938908.blp"
+    },
+    {
+      "file_data_id": 1938909,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_02.blp",
+      "content_key": "5072094074a14df312469435f1f72d1e",
+      "sha256": "7e55d64598cd66d506bf52f37c449fd6d470e671c7842dc61615db9ad3c0e172",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938909.blp"
+    },
+    {
+      "file_data_id": 1938910,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_03.blp",
+      "content_key": "6cb394bbcdd68af9c92728dd9aac5f3b",
+      "sha256": "d1e7bfa35a98201e38c6c8073fd680cfce2d1d6b50044e76e4c2b618e0d191f8",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938910.blp"
+    },
+    {
+      "file_data_id": 1938911,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_04.blp",
+      "content_key": "d8fb07d1d79a2e081fdceed215b9ef77",
+      "sha256": "15f4210712652c2426351384d426cfcfbb4f1c536f909a3b23c9a3898fdba0f0",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938911.blp"
+    },
+    {
+      "file_data_id": 1938912,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_05.blp",
+      "content_key": "c1361f09a1f2724141042ae4604fe566",
+      "sha256": "31660f05baffc4e18068ce84958f46c289dd428c3d502d777abc57a420a8f60d",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938912.blp"
+    },
+    {
+      "file_data_id": 1938913,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_06.blp",
+      "content_key": "188f73c86a43cf9d44270b9eaee3d701",
+      "sha256": "bd51fdf4af9403a2eacfe014fd6f74c19aaba34aaf35902c5c1322712fe9c239",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938913.blp"
+    },
+    {
+      "file_data_id": 1938914,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_00_07.blp",
+      "content_key": "1b22b7bde407bf9da9b1048034d59013",
+      "sha256": "4ce51da784927b15a2e5f40647a63be6dcd8d94b0a5326f0c7ba6a64ad2457f0",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938914.blp"
+    },
+    {
+      "file_data_id": 1938915,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_00.blp",
+      "content_key": "66e04162be23220a28f20274c5b31b84",
+      "sha256": "ed6390a7eb0bb21fae81de7b7be7dd2ebad462f29bc5db073fdb72fd7c09f9fe",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938915.blp"
+    },
+    {
+      "file_data_id": 1938916,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_01.blp",
+      "content_key": "b94f1e285e1849acd68b1c3edb503527",
+      "sha256": "1e02504d489d2650eebb62b12557152461765fe0a65d9b20f26a6b013fdaa8a5",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938916.blp"
+    },
+    {
+      "file_data_id": 1938917,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_02.blp",
+      "content_key": "431a548a381c099a8b3d4f7964ac29ae",
+      "sha256": "d82c30ad49af4a15127013433f68b1e37c46f2e4fa8a4b7dcc6f711873f7a0fa",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938917.blp"
+    },
+    {
+      "file_data_id": 1938918,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_03.blp",
+      "content_key": "e9450c58ecc12289c7d1ff0ff7e90770",
+      "sha256": "07cda0126f344ae07d555e5fc3d8e8605eac49f9814549e140871ec64f8d0ecf",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938918.blp"
+    },
+    {
+      "file_data_id": 1938919,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_04.blp",
+      "content_key": "57a9a5d2d59d7e368c000fd6646b04cf",
+      "sha256": "81fd9dba8a1efa9db2dd97161a1e5acfc1e010895e6b6c9e1e5384c46e9f89a2",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938919.blp"
+    },
+    {
+      "file_data_id": 1938920,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_05.blp",
+      "content_key": "55a69a8524b374550e30ec72ddfb4f16",
+      "sha256": "edc28e1bd680d1afe5a52a33ab750c57015b8db9410c76302fede71725cbfb11",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938920.blp"
+    },
+    {
+      "file_data_id": 1938921,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_06.blp",
+      "content_key": "f07b3c224126d4f58d61a29d2c54da75",
+      "sha256": "cc7396880d4b79201d265261c92df88fb556c52ad5006febdd2e03d1590ca7b3",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938921.blp"
+    },
+    {
+      "file_data_id": 1938922,
+      "logical_name": "character\\vulpera\\female\\vulperafemaletattoo_01_07.blp",
+      "content_key": "b8cd6de15706afe5ef700df486b17f08",
+      "sha256": "22b617965d89e2643ee3fc8874975f63b3f6bdd97d08b5bb6f521c56041acc84",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1938922.blp"
+    },
+    {
+      "file_data_id": 1939950,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_00.blp",
+      "content_key": "fa2db30a812e00c9eaad336cfe60881f",
+      "sha256": "36cfb9bf22feb830c0a3b94ebfaf80021e9434623c71faf834096973ef2da309",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939950.blp"
+    },
+    {
+      "file_data_id": 1939951,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_01.blp",
+      "content_key": "9e2516c197057315408d6d90f75e388d",
+      "sha256": "2a9091e957a4373431f694e0b617852d58438be1b3802f344c15259ed33eab2d",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939951.blp"
+    },
+    {
+      "file_data_id": 1939952,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_02.blp",
+      "content_key": "7830504a79f26c068d9910cdda2300e5",
+      "sha256": "e4636e65584e9b3d350db43f8291bf752515583d0c9b4314ffdd0aee7f8a1383",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939952.blp"
+    },
+    {
+      "file_data_id": 1939953,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_03.blp",
+      "content_key": "0e7e9a4a4cbb86f637d826230e8604da",
+      "sha256": "03fac8810081c92d41beba41735c1b96fc32df3da5615449e102fcad955de4cb",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939953.blp"
+    },
+    {
+      "file_data_id": 1939954,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_04.blp",
+      "content_key": "f92e30f5f6c6a457ef88a1a10d2cce1a",
+      "sha256": "e9a41a7ea797c95c5e396fe0c16fd33ad982a3ba9ad3f348cf4c5efbfc3b3a7c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939954.blp"
+    },
+    {
+      "file_data_id": 1939955,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_05.blp",
+      "content_key": "82d57f59f9d70090444d8e45d71b879a",
+      "sha256": "d622cbf59e4103dfe59d8055a63b5251a46867339d6d1e106f33e4995c7219e4",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939955.blp"
+    },
+    {
+      "file_data_id": 1939956,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_06.blp",
+      "content_key": "4deac45eec772c6ca662fd23f87c2739",
+      "sha256": "417771e15076222fe245d35cd396a4f47a1b2251b31fd942bfbc9e5f4577cc11",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939956.blp"
+    },
+    {
+      "file_data_id": 1939957,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_07.blp",
+      "content_key": "53b7ead3de405af45e84e0372a11e31c",
+      "sha256": "34950504cc96653d149c6d37c9c343f9a2af17f827877687186b57f4b4665317",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939957.blp"
+    },
+    {
+      "file_data_id": 1939958,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_00.blp",
+      "content_key": "68a4636f56e7454fd46b3caacbf9ea53",
+      "sha256": "bd832ff1228afa4635dd7c2ae70efcad4abedc4a1c757a75ec9bfd34c01ac115",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939958.blp"
+    },
+    {
+      "file_data_id": 1939959,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_01.blp",
+      "content_key": "41456ca8940c42b42fbe6aff15aa7ffc",
+      "sha256": "0b747b67033daac30f721f7ddc2cbe2de019715929b1f4694cbc2d6cea8feff0",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939959.blp"
+    },
+    {
+      "file_data_id": 1939960,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_02.blp",
+      "content_key": "98e1303d4d107bb23270b5d1d6556a72",
+      "sha256": "2900b9a74091eecf336f85d12d8cbc30804c683b656c2b6f1d07713c198d4cae",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939960.blp"
+    },
+    {
+      "file_data_id": 1939961,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_03.blp",
+      "content_key": "2bf305cedac3bb8cb46f9f8739984ced",
+      "sha256": "4ae4b954cbf00a7e633270198e56efa5848028144a8a70793aabc3d46076c1ea",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939961.blp"
+    },
+    {
+      "file_data_id": 1939962,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_04.blp",
+      "content_key": "d375de31d76ac4953a9a1172245b6e3a",
+      "sha256": "35dcf04f1acd5e95101d913178f71f1d176e823647f49878cb1919a0129fac6d",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939962.blp"
+    },
+    {
+      "file_data_id": 1939963,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_05.blp",
+      "content_key": "d9b25ec8105ae0c3b54398cd39653172",
+      "sha256": "5074fb3579037c73b35ab1afb59fd8b9a9a581616c89c355fc1bceea900619e1",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939963.blp"
+    },
+    {
+      "file_data_id": 1939964,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_06.blp",
+      "content_key": "c672e050d9ef92708eb44b7ffb645482",
+      "sha256": "39d65b0032fd0f8e30f410600a3917ddcfc2769f00bd173bfa31ee23b9b30536",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939964.blp"
+    },
+    {
+      "file_data_id": 1939965,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper01_07.blp",
+      "content_key": "ff5c8dcb19a9324f28515ee61cdca684",
+      "sha256": "a61722ce776f709fec89011cffb832d0691babbdfa0164e55ea3d72d1b8fb36c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939965.blp"
+    },
+    {
+      "file_data_id": 1939966,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_00.blp",
+      "content_key": "fbbfe3ffecd811372affc3ba1cca9e83",
+      "sha256": "031bd72b7846012814c07d52c0b0611f106f50d1aa7c15ee9ba645760b0d3a60",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939966.blp"
+    },
+    {
+      "file_data_id": 1939967,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_01.blp",
+      "content_key": "7bb15ee468c7bc04a427e7d9fce2bfb6",
+      "sha256": "ac1256919c5bbede3ab9f650ee810c50f63ffad4d299945019a0640abd539595",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939967.blp"
+    },
+    {
+      "file_data_id": 1939968,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_02.blp",
+      "content_key": "41642ceed146da9ea273572a63cc2b0e",
+      "sha256": "b8e101ad7b0fe4932d7a8cd3e0b89c9c9ef050298e539aedc6cdfcd8546785e1",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939968.blp"
+    },
+    {
+      "file_data_id": 1939969,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_03.blp",
+      "content_key": "74865be6a84fe815542d5401548673f7",
+      "sha256": "951a82df589ea89e816ee5d0418d4e41557b39de22d57038c08ec839741db09e",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939969.blp"
+    },
+    {
+      "file_data_id": 1939970,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_04.blp",
+      "content_key": "c35b14bc1b28fcfa98d89dd4a3f9734e",
+      "sha256": "875373c86e85cf20b9dc5c3eca9ebf679f659d7b1637bd227ea409d5f130ad32",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939970.blp"
+    },
+    {
+      "file_data_id": 1939971,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_05.blp",
+      "content_key": "e3aa07c9a85916f70059ce632ef3591b",
+      "sha256": "358522a39254486eeae44bd4fe099c7465db1c089acb895cf6133a964941fbc0",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939971.blp"
+    },
+    {
+      "file_data_id": 1939972,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_06.blp",
+      "content_key": "705d462d70ed796ad4c85e45bccf03dd",
+      "sha256": "801c4c33434b3f22bf960a110a8d97fed1e9624343b84798ae8fa7d64e5531b5",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939972.blp"
+    },
+    {
+      "file_data_id": 1939973,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper02_07.blp",
+      "content_key": "b24107ff92bca3369e7d45673c12f8d1",
+      "sha256": "b791b8707ce416d00af143387be88d360abe171d46f2cc6ef87bff93530f4a0e",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939973.blp"
+    },
+    {
+      "file_data_id": 1939974,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_00.blp",
+      "content_key": "aa63756f4a80533bf3a8a429a200dfc0",
+      "sha256": "6cc8b3b40200469e3b25deec14ae15e1d55d42e2f799688963a80922ca70e7ab",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939974.blp"
+    },
+    {
+      "file_data_id": 1939975,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_01.blp",
+      "content_key": "4e94efb07be7d73738263fe972e6eec7",
+      "sha256": "39f77c472a17bf44963d4dd8ada59bab510117a09fe2a4b2782ecd7a51914d6c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939975.blp"
+    },
+    {
+      "file_data_id": 1939976,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_02.blp",
+      "content_key": "41403a5ff61fa06e123b071d949cb120",
+      "sha256": "d595dad6c9e54aec3c6ed0cf2e10a21a9940a15928a446ed6a464fd3a16f180c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939976.blp"
+    },
+    {
+      "file_data_id": 1939977,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_03.blp",
+      "content_key": "e50a4936d65aea8ec8f75ce15407c6ef",
+      "sha256": "10b790e9f364215fcbd59b9033cea595c9b8fba670c8c1cd7bfa29a3a85a9ce4",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939977.blp"
+    },
+    {
+      "file_data_id": 1939978,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_04.blp",
+      "content_key": "546728857162f9adee9aff071d2b2323",
+      "sha256": "7af3c431076976882b1b660ff43e096c1f977ec3660b0a5f0e4eaf9244a76080",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939978.blp"
+    },
+    {
+      "file_data_id": 1939979,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_05.blp",
+      "content_key": "280d8396c8ef8c41101437f87ab851d6",
+      "sha256": "527feabac14013655fa10794a300983b947ec4089da9485c2a6d47e8f8542c28",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939979.blp"
+    },
+    {
+      "file_data_id": 1939980,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_06.blp",
+      "content_key": "39b85bae18fb5a20993e7a9ad5cee37f",
+      "sha256": "5489b4e82af2fef6c0addfec5c708f63f7927bdbb66869afc8c538769bfd9fbd",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939980.blp"
+    },
+    {
+      "file_data_id": 1939981,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper03_07.blp",
+      "content_key": "362bf03087be8e8f98bd6f6786df2c2a",
+      "sha256": "16eed5f327d0d2b4c7a85f66fc50524e6a38133fc02168aa7f34275da60495c9",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939981.blp"
+    },
+    {
+      "file_data_id": 1939982,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_00.blp",
+      "content_key": "362ff5f2e1f753503339dd37d7825a1c",
+      "sha256": "4f5e1b157fa37405d4239f94d719c0ea68ff018492a036f02a0939728374cdcd",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939982.blp"
+    },
+    {
+      "file_data_id": 1939983,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_01.blp",
+      "content_key": "673296108360830a2e959750cbef12f9",
+      "sha256": "d12b84838fbdc12973987c6db72fdf79684eed37b40e73dfdfeb0f6d08b0c35d",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939983.blp"
+    },
+    {
+      "file_data_id": 1939984,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_02.blp",
+      "content_key": "476c3cf7d480cf5dad7fcd2fb5ca1416",
+      "sha256": "e2e595bcc8d141988690cb420a9159ecde6c3f024428f25454d98b92bc9e9243",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939984.blp"
+    },
+    {
+      "file_data_id": 1939985,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_03.blp",
+      "content_key": "4eb51072898bfb9c6750e216aff1b2da",
+      "sha256": "8c46273c6e68056c232eeacd065428f97edd63e747c28d57de8d45ad872d7a7f",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939985.blp"
+    },
+    {
+      "file_data_id": 1939986,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_04.blp",
+      "content_key": "efb55ce1ac11b23fab162b6aa23f458f",
+      "sha256": "0ee19c0cce26ee2ddf801be35e19ecebed6953858ca4ae5c92a6e78edf47402c",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939986.blp"
+    },
+    {
+      "file_data_id": 1939987,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_05.blp",
+      "content_key": "ff7a1b7f801c2369a9833b7c1f77bfbf",
+      "sha256": "5ffeaacca91df80b457745b2c785ddb28a1397ea77ef09a65ac77a1f61b57faa",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939987.blp"
+    },
+    {
+      "file_data_id": 1939988,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_06.blp",
+      "content_key": "9323dc2ebc74f420685ab4a2b7e9c373",
+      "sha256": "09d0ddc1dad4eab020102d08cf7ebeeb21880b27966cd8e04dd7714957b2e87a",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939988.blp"
+    },
+    {
+      "file_data_id": 1939989,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper04_07.blp",
+      "content_key": "311b5e9da4a146df6c9101256c10ee19",
+      "sha256": "32ba961e2b421f4b3df4621ccf580690cb4ec31e071d1c581fd5204aa99f9641",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939989.blp"
+    },
+    {
+      "file_data_id": 1939990,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_00.blp",
+      "content_key": "b2eac6e6dfaecc96fd77c9ed55fc07a2",
+      "sha256": "46cd5f40bba83da2117eefb83104a5de77dfe1c6b2a3ab68f313190a3ceffce6",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939990.blp"
+    },
+    {
+      "file_data_id": 1939991,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_01.blp",
+      "content_key": "e0093d38d5d5a14f1ef28312b79a6618",
+      "sha256": "8e6950cb126aa7c903a98b716baeba4b0be7b916375a95fffbac95e5d5e3a84b",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939991.blp"
+    },
+    {
+      "file_data_id": 1939992,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_02.blp",
+      "content_key": "88a910e41d492df84a7b4abcc20d440d",
+      "sha256": "eadcff21ec2287ff103713eb7463b146f951595f35483ceeb477539f40ab651b",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939992.blp"
+    },
+    {
+      "file_data_id": 1939993,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_03.blp",
+      "content_key": "9c4422bd946d0ff78c0881901b72f413",
+      "sha256": "e16737932c09cce5621adb6942b54f13b35479362845037f9d9c4ab0b3c95cd0",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939993.blp"
+    },
+    {
+      "file_data_id": 1939994,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_04.blp",
+      "content_key": "d02b9a0c0a4225cc7729f441c22c0397",
+      "sha256": "51f9836d88628b90c7b7abcc34ad849ed3fe0be86d72025705248feea432697b",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939994.blp"
+    },
+    {
+      "file_data_id": 1939995,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_05.blp",
+      "content_key": "b61224fa64844cf874342de96bd84a7a",
+      "sha256": "f3965cc94eec37affd70354bec4e4d71a503e541d2b2da596496814855ca604a",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939995.blp"
+    },
+    {
+      "file_data_id": 1939996,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_06.blp",
+      "content_key": "e7a5a359c9e7e70fd00aa102a5f082b9",
+      "sha256": "f36f6b0c4d38cd83b2efe42b0d82ad05035d6160c1e85752cc84638ba084eb69",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939996.blp"
+    },
+    {
+      "file_data_id": 1939997,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper05_07.blp",
+      "content_key": "30d72eb1e9b80d98a127e7079815d971",
+      "sha256": "6ed60d8353d9ad9bfbb1e6e08e728f40bc15ad456fbdf08e9212a88977788306",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939997.blp"
+    },
+    {
+      "file_data_id": 1939998,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_00.blp",
+      "content_key": "64f1747ccbe2d9d96e2d209f41cce430",
+      "sha256": "fc7d9ef964c3f200fe6edfcce73d3645af529b69f7d3fd19ab58257afb990078",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939998.blp"
+    },
+    {
+      "file_data_id": 1939999,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_01.blp",
+      "content_key": "f409f9c64481dd38fc3dab2ad74787d0",
+      "sha256": "9cbfbf2537d2eeea986f19a73b3e91cf9a7286cc7db5e8a784f5220ee53469fa",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1939999.blp"
+    },
+    {
+      "file_data_id": 1940000,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_02.blp",
+      "content_key": "19181f099b22525a1a422279c0ec14a1",
+      "sha256": "7d379f2d2fd22b4702889a6ea1fbbde37e7be2ff73d666cda5654079f76bdd79",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940000.blp"
+    },
+    {
+      "file_data_id": 1940001,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_03.blp",
+      "content_key": "6c05b13d94c50d5185ed35af3bedc8a2",
+      "sha256": "eda2c70d64cf81373e259e135882c79af783576e0f98004a91b5ac477784999e",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940001.blp"
+    },
+    {
+      "file_data_id": 1940002,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_04.blp",
+      "content_key": "938241963e5f5ddf8edeba82e8c95cae",
+      "sha256": "c61c616f8ac945cf29e82b71814e563300f81504ea5acd2745d2a641bab54125",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940002.blp"
+    },
+    {
+      "file_data_id": 1940003,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_05.blp",
+      "content_key": "01bf0bbaa9b5072fdb12c51ee55077dd",
+      "sha256": "822eea983d87ce79ac68b2dd7a48675f47137aed2807590fb65c78018b7dbb78",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940003.blp"
+    },
+    {
+      "file_data_id": 1940004,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_06.blp",
+      "content_key": "e68801b929d8a82dbea7cf7d75fa0429",
+      "sha256": "223377ed2650a1578d7c1f65743fde6288cf82442efc8951e69a1510c77da8ad",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940004.blp"
+    },
+    {
+      "file_data_id": 1940005,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_07.blp",
+      "content_key": "a0b6aff7d859aba01eb18355e2b55e44",
+      "sha256": "8fd3e63ff1536a94c5b415104b21cd44520434a1a6c3f210b9181cf7d34f4476",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940005.blp"
+    },
+    {
+      "file_data_id": 1940006,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_00.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940006.blp"
+    },
+    {
+      "file_data_id": 1940007,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_01.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940007.blp"
+    },
+    {
+      "file_data_id": 1940008,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_02.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940008.blp"
+    },
+    {
+      "file_data_id": 1940009,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_03.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940009.blp"
+    },
+    {
+      "file_data_id": 1940010,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_04.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940010.blp"
+    },
+    {
+      "file_data_id": 1940011,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_05.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940011.blp"
+    },
+    {
+      "file_data_id": 1940012,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_06.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940012.blp"
+    },
+    {
+      "file_data_id": 1940013,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_07.blp",
+      "content_key": "d3f5f62a715c7fa4d9ac22bac27a530e",
+      "sha256": "03e19d90ab19bda84868377e0ce724879ee300f648ed73984c5af2b896e7d46a",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940013.blp"
+    },
+    {
+      "file_data_id": 1940014,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_00.blp",
+      "content_key": "0a1db8b0ad6633ba5c2887f65ac8a2cc",
+      "sha256": "9445e017a9e2816f3b3a6dc22708f8c153fd0f1ed207affbeed0458055f2c9fa",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940014.blp"
+    },
+    {
+      "file_data_id": 1940015,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_01.blp",
+      "content_key": "f92e9a1c4592a1aa0a43c707a83f6d53",
+      "sha256": "f124048355af18048ee5ebac28fd2ab30abe9c29465f2bf6388c1e4db61695fe",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940015.blp"
+    },
+    {
+      "file_data_id": 1940016,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_02.blp",
+      "content_key": "3a4d9d5e0c074f2e1f6a34e069d9bb0e",
+      "sha256": "06dd4e9bba78771f9e8ed49db51afeb72f4d3763ed249a01eb50a12d9128af51",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940016.blp"
+    },
+    {
+      "file_data_id": 1940017,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_03.blp",
+      "content_key": "93b645f17732d0f48735ea7dff494148",
+      "sha256": "21d6cf8b428e17bfcfde7e5384850555ca543d80c098504ed385e08c7314c2d2",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940017.blp"
+    },
+    {
+      "file_data_id": 1940018,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_04.blp",
+      "content_key": "d63667db3ac14ac64f945d7e6cca8e2f",
+      "sha256": "949ec4eafeb1ace7287bdeb4fd0c20b18b5dd238295717b8cf138eac63bd7c2d",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940018.blp"
+    },
+    {
+      "file_data_id": 1940019,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_05.blp",
+      "content_key": "bf5c320d5415c309abb7d323508a2746",
+      "sha256": "083497c8606de4ccd81c622f518b82707c74da233ab1f8336eeb3be86cb64025",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940019.blp"
+    },
+    {
+      "file_data_id": 1940020,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_06.blp",
+      "content_key": "8538fae875a804bb0a0132b1a1efed5b",
+      "sha256": "07215b1f53b5031ddb57cae44c8e18588e84f37d5bfe96781df9af40fb09b83f",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940020.blp"
+    },
+    {
+      "file_data_id": 1940021,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_07.blp",
+      "content_key": "f011bbae62d3f8ce7daab6c617472c32",
+      "sha256": "2ad788239888e0ba73c49df4331d61ae1163e087fa8bf85cdf3075429541c900",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940021.blp"
+    },
+    {
+      "file_data_id": 1940022,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_00.blp",
+      "content_key": "1c95ac150334ff07e92d279ca4ce09b5",
+      "sha256": "a5c710c33e7707a232b75ae92c25d3c23a37c7daef61460b9aa0639bfe60d2f4",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940022.blp"
+    },
+    {
+      "file_data_id": 1940023,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_01.blp",
+      "content_key": "94c2baec5a9df64346ad3bf7de5836ea",
+      "sha256": "581ec1587a50107a5b2cee10d63b00b271d524a69ef8770277c83e1425b1e7e9",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940023.blp"
+    },
+    {
+      "file_data_id": 1940024,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_02.blp",
+      "content_key": "78390cb366fd5e399b617b7fac3a32b6",
+      "sha256": "04d7c9e9f5320cf3b9d10afec39538123a4d5e4bce5e27823e9f539221c521b5",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940024.blp"
+    },
+    {
+      "file_data_id": 1940025,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_03.blp",
+      "content_key": "4ab98373c077d60ea7a751b51621b5f4",
+      "sha256": "5d52c24907121017c65ca6e0562defcd0b73beb0028cac017df1a4458f12fb25",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940025.blp"
+    },
+    {
+      "file_data_id": 1940026,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_04.blp",
+      "content_key": "fe63e627e637b7b16d98eb2010a3003e",
+      "sha256": "8715a364fe6c8caa1a3a1d0185d4338c81838e7d7a7421bc10505030b9bad55b",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940026.blp"
+    },
+    {
+      "file_data_id": 1940027,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_05.blp",
+      "content_key": "b4173daac87ff341daf3bf56560d33b6",
+      "sha256": "928bb82930a28f5cc19349b398ecdafeb728bd5f7927b2972b9e042fc5bdd4bd",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940027.blp"
+    },
+    {
+      "file_data_id": 1940028,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_06.blp",
+      "content_key": "77b47fc055e95fb18653c21eec78bca5",
+      "sha256": "7b36e4bc92433d2035e1839961f3030b39e43c689076863e22a15fb9a6c16413",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940028.blp"
+    },
+    {
+      "file_data_id": 1940029,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_00_07.blp",
+      "content_key": "ea2cc97d521e43f3486df446644d8dd1",
+      "sha256": "20d0a86ef1a8bd11573fa7ff1075c7df5dd47f14d81994f572bb29cacec4dda0",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940029.blp"
+    },
+    {
+      "file_data_id": 1940030,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_00.blp",
+      "content_key": "6ff78720006b520350ab5da818ecd9c9",
+      "sha256": "36a9caa46eb061a8ba700d3c67517069fda74dc041bceb82ec1e15fbb24cd988",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940030.blp"
+    },
+    {
+      "file_data_id": 1940031,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_01.blp",
+      "content_key": "9ed055ff2b0886d1b27d3aaabd6a5a70",
+      "sha256": "845747c6af23c7f4c37df46439fa8a754f2d7de325d7a4d362e5d46f86ac33bd",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940031.blp"
+    },
+    {
+      "file_data_id": 1940032,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_02.blp",
+      "content_key": "296ec4aa3b8cf6b6b2152eab5c79abec",
+      "sha256": "f1138a2b1b36f0c2e6fae289f268c3be786e8fecf46033bf5275d4100b706632",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940032.blp"
+    },
+    {
+      "file_data_id": 1940033,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_03.blp",
+      "content_key": "f9f3c828166577def87dd611429b863c",
+      "sha256": "f2381bc8b7e224ab7e06edb0c80f00ecb5a53fba76829c8520b9bdc3016cf948",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940033.blp"
+    },
+    {
+      "file_data_id": 1940034,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_04.blp",
+      "content_key": "0473fa7dac9707aa22c9f481349b8752",
+      "sha256": "e4baf7ec343d530db16cf2f57f907d095934b3abf10af121bd183ad679e28c99",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940034.blp"
+    },
+    {
+      "file_data_id": 1940035,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_05.blp",
+      "content_key": "fe256e4d020e20568f452d8dbca40586",
+      "sha256": "31291b5c61738ba6842017e8f6d7f7251ef945e7b3f25cd4bf68d8710b088f81",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940035.blp"
+    },
+    {
+      "file_data_id": 1940036,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_06.blp",
+      "content_key": "c476929e10aef59c295132a21c5a43e0",
+      "sha256": "db303df24b0825394ae4157695036840b4b5f18fc3f51af5cb481df98711ea60",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940036.blp"
+    },
+    {
+      "file_data_id": 1940037,
+      "logical_name": "character\\vulpera\\male\\vulperamaletattoo_01_07.blp",
+      "content_key": "90d79625a9fec401ea678c18bc0a8877",
+      "sha256": "188b1169c5c7ccb26d624fd1c2a7be4ff110d47c8bfe5b3638ba30926742292c",
+      "size": 700260,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1940037.blp"
+    },
+    {
+      "file_data_id": 3060789,
+      "logical_name": "character\\vulpera\\female\\vulperafemalefaceupper00_08.blp",
+      "content_key": "c28019a7ba1607b6251779901461e483",
+      "source_layout": "direct-blte",
+      "sha256": "9dff14f1070319422a52014a09500cd1e4571826d4bba11cb28617b817cd68ec",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060789.blp"
+    },
+    {
+      "file_data_id": 3060790,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_08.blp",
+      "content_key": "a9606c13e8e07abab8150895dbd9960b",
+      "source_layout": "direct-blte",
+      "sha256": "7a00dcaa4a8ae1fc65263e248d0c21ae7f55491d3fe1537d8c8b6a247151609b",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060790.blp"
+    },
+    {
+      "file_data_id": 3060791,
+      "logical_name": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_08.blp",
+      "content_key": "acf62a7ca67bf4b95c5707dd5cbb0255",
+      "source_layout": "direct-blte",
+      "sha256": "ff1f90bfbe26239376eb75ea5130cd5e34620eb1d3fb17977b2462d40761177b",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060791.blp"
+    },
+    {
+      "file_data_id": 3060792,
+      "logical_name": "character\\vulpera\\female\\vulperafemaleskin00_08.blp",
+      "content_key": "79185d9e6ac349c743b213f916d2384c",
+      "source_layout": "direct-blte",
+      "sha256": "e632bad24c07d7d5f92c15b0eedf9d481371f022fb2fe6cef751d5863925da72",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060792.blp"
+    },
+    {
+      "file_data_id": 3060793,
+      "logical_name": "character\\vulpera\\male\\vulperamalefaceupper00_08.blp",
+      "content_key": "84bfdc938efc225e615917155465b6c6",
+      "source_layout": "direct-blte",
+      "sha256": "6c5290f1dcf8046c8d6a99713632aca104087d0439a9539fc6603a8060c8806e",
+      "size": 175948,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060793.blp"
+    },
+    {
+      "file_data_id": 3060794,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_08.blp",
+      "content_key": "59c477ffc2feb40c7c34ad4c3103083b",
+      "source_layout": "direct-blte",
+      "sha256": "17eb4be538660206b217cd560d8388739cbca4d712d566da4dcb8f89c896f8d0",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060794.blp"
+    },
+    {
+      "file_data_id": 3060795,
+      "logical_name": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_08.blp",
+      "content_key": "4d65df0ca67576a3c01e981dc632de87",
+      "source_layout": "direct-blte",
+      "sha256": "6942ea6a3fad67aad9a9fba9e18d9f899a32084c328a96b26be9788403ba8cbf",
+      "size": 23036,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060795.blp"
+    },
+    {
+      "file_data_id": 3060796,
+      "logical_name": "character\\vulpera\\male\\vulperamaleskin00_08.blp",
+      "content_key": "a6ac3706bcfb42d4739300cb2a47a682",
+      "source_layout": "direct-blte",
+      "sha256": "d5b7e09aa942e150c4d1720040ba796dfc807de2e00be4afd9d6d0e1f3b53239",
+      "size": 350716,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3060796.blp"
+    },
+    {
+      "file_data_id": 3188841,
+      "logical_name": "interface\\glues\\models\\ui_vulpera\\ui_vulpera.m2",
+      "content_key": "18d02265882c63cc8f477c9cdeb6b0dd",
+      "sha256": "b86143af5e8797b725eb56f57851c48ee38e96ced085886c95b6b45bdc3660b1",
+      "size": 463792,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3188841.m2"
+    },
+    {
+      "file_data_id": 3635066,
+      "logical_name": "character\\vulpera\\eyes00_00_3635066.blp",
+      "content_key": "e00ff1041fbd335c8b8eeaf32229b473",
+      "source_layout": "direct-blte",
+      "sha256": "9e9497c6b853da8534c87794efc05d6f01c6615391719e1e823bfde975a9704b",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635066.blp"
+    },
+    {
+      "file_data_id": 3635067,
+      "logical_name": "character\\vulpera\\eyes00_01_3635067.blp",
+      "content_key": "ce7c9a432e2ab811a0d042a86e815abd",
+      "source_layout": "direct-blte",
+      "sha256": "5b4fa5f75007db8aa655399d7d8dcbc4463ae5cede9ae07cf7060e1c1d036e4c",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635067.blp"
+    },
+    {
+      "file_data_id": 3635068,
+      "logical_name": "character\\vulpera\\eyes00_02_3635068.blp",
+      "content_key": "7fdb1a78b3129e0931abf86e05631126",
+      "source_layout": "direct-blte",
+      "sha256": "997ac997ac9139b4c0c8a4beb24601d9a7767d6b913caf57526e2cbcef0b21e1",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635068.blp"
+    },
+    {
+      "file_data_id": 3635069,
+      "logical_name": "character\\vulpera\\eyes00_03_3635069.blp",
+      "content_key": "44c02e7ba0bdd85415c400c563a40dee",
+      "source_layout": "direct-blte",
+      "sha256": "e035b123781cf25d7dabe7ad898d4a4f6ecfdae000cfa0e0749873842cfd8536",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635069.blp"
+    },
+    {
+      "file_data_id": 3635070,
+      "logical_name": "character\\vulpera\\eyes00_04_3635070.blp",
+      "content_key": "730e3fd9c29211f10a8486eca825a709",
+      "source_layout": "direct-blte",
+      "sha256": "52386493005f496bf95a81e6922ccbb790c4f64df8cbf71ce3440cb3d804d972",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635070.blp"
+    },
+    {
+      "file_data_id": 3635071,
+      "logical_name": "character\\vulpera\\eyes00_05_3635071.blp",
+      "content_key": "43ce64ffd8c055797a9cc726726bdf03",
+      "source_layout": "direct-blte",
+      "sha256": "3aa415e2a43466cfba443cdfc681010939f1498f954d5df7b49cdb5522cf1143",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635071.blp"
+    },
+    {
+      "file_data_id": 3635072,
+      "logical_name": "character\\vulpera\\eyes00_06_3635072.blp",
+      "content_key": "ff9f4df6f87b03216f85eb231cfff1ed",
+      "source_layout": "direct-blte",
+      "sha256": "442ec59360a579f8cd94a855bb250114e1efb182457564366931c4c7d73b5775",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635072.blp"
+    },
+    {
+      "file_data_id": 3635073,
+      "logical_name": "character\\vulpera\\eyes00_07_3635073.blp",
+      "content_key": "db206b8fac6abdd35e2d0d342a25fa5a",
+      "source_layout": "direct-blte",
+      "sha256": "28a3ecde3d91b39abbc7e4a0a1e79715d3b271c53d54003baca6f11b4f46f2ab",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635073.blp"
+    },
+    {
+      "file_data_id": 3635074,
+      "logical_name": "character\\vulpera\\eyes00_08_3635074.blp",
+      "content_key": "f49cc8bbe1a3ef01eea69450206aeb46",
+      "source_layout": "direct-blte",
+      "sha256": "38f2ac8bf1dd148e3053bee45f733f6a441684f68253553192e66b49d219bfa6",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635074.blp"
+    },
+    {
+      "file_data_id": 3635075,
+      "logical_name": "character\\vulpera\\eyes00_09_3635075.blp",
+      "content_key": "96dddc31036128aa10c92f53cdd9e4a6",
+      "source_layout": "direct-blte",
+      "sha256": "bebf9bcc69a6ff321988c7d57f7990516ea24f66fee3999e55eb57ff99a60ad4",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635075.blp"
+    },
+    {
+      "file_data_id": 3635076,
+      "logical_name": "character\\vulpera\\eyes00_10_3635076.blp",
+      "content_key": "27565578d89cd280873e8629aa5822d7",
+      "source_layout": "direct-blte",
+      "sha256": "7e21f84d8ade85ac68bdf18b1e8ffd4f08bea82e21c1ef7174236ba3a9c721fd",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635076.blp"
+    },
+    {
+      "file_data_id": 3635077,
+      "logical_name": "character\\vulpera\\eyes00_11_3635077.blp",
+      "content_key": "cee2df0e6163831b7dc4083d132477ec",
+      "source_layout": "direct-blte",
+      "sha256": "6119cdd2f774c7ba74ac257a141cf172c7d33d9bd5d311c751fa6b369b92360c",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635077.blp"
+    },
+    {
+      "file_data_id": 3635078,
+      "logical_name": "character\\vulpera\\eyes00_12_3635078.blp",
+      "content_key": "22c68b29746cfd1bb827e82819b88ad4",
+      "source_layout": "direct-blte",
+      "sha256": "71044415824bc1d49dee96f9daa9d5b594a7682e1f6807f7d1fdc91994e8c98f",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635078.blp"
+    },
+    {
+      "file_data_id": 3635079,
+      "logical_name": "character\\vulpera\\eyes00_13_3635079.blp",
+      "content_key": "85d1c2338c711336de0414064dc4baa3",
+      "source_layout": "direct-blte",
+      "sha256": "4ad4a3528794b821ee65db066aee1a1fd4725cf1dd34dffdbc0b08c823a20eab",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3635079.blp"
+    },
+    {
+      "file_data_id": 4261013,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+      "content_key": "c1c09e145a7a61482748ed1bc4804316",
+      "sha256": "7a9e1dedb0f1f4d6f3d1ee556b6b13ae4467d15389e8ae584af87b2f561e3910",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261013.blp"
+    },
+    {
+      "file_data_id": 4261014,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+      "content_key": "6d2e986a460d3dde11bda69a28619847",
+      "sha256": "f776491063fdfb30533b2928afd237ec597c229af3715746ee547ba8414a3a21",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261014.blp"
+    },
+    {
+      "file_data_id": 4261015,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+      "content_key": "abc4e5b3dcd89c276fc705eca0ffd0ee",
+      "sha256": "1bde54a2e37fde57f18b868b0e37d06548dd555b10a282b8a7278cc93e136e32",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261015.blp"
+    },
+    {
+      "file_data_id": 4261016,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+      "content_key": "41d6cf3252d1413cd55d5a827ec0c384",
+      "sha256": "f5dba0f7dae35963c8b3df517eb382d45fbae4d862a7c73707e352273ac5a8a0",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261016.blp"
+    },
+    {
+      "file_data_id": 4261017,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+      "content_key": "4d7243fa9d918ca049cd42ea11d97b0f",
+      "sha256": "4f9a049834d8f6aa44323ea6371861b1e5f71952481ae31771792c70cde0fc44",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261017.blp"
+    },
+    {
+      "file_data_id": 4261018,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+      "content_key": "56ba3224cfec56a1558fea23ea6cce87",
+      "sha256": "3724c340cb870aed807a9da9290d714c42c0b0f81b12e580689c1c38667aea55",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261018.blp"
+    },
+    {
+      "file_data_id": 4261019,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+      "content_key": "a2a0dacbb785323cb0d69e01114f12fc",
+      "sha256": "f761b3a1cd5a2b3dd4462d17073cc9769a5d870468902ac26838da07b15fbad9",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261019.blp"
+    },
+    {
+      "file_data_id": 4261020,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+      "content_key": "477b27cc23b77ab6eea8e0c7f1efb34e",
+      "sha256": "3905cc121079771517dd1f3bcb73dbf038c904d0168882b3334b4a59dc0ad447",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261020.blp"
+    },
+    {
+      "file_data_id": 4261021,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+      "content_key": "610c448db5312d5b4dd3d9b5486fc461",
+      "sha256": "ba0fd9fcdb8c6b2cdf98f54b80e431dd4648d6cfcb6f243373df48e6d03236cd",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261021.blp"
+    },
+    {
+      "file_data_id": 4261022,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+      "content_key": "59215b169239021b0e0793ef73439deb",
+      "sha256": "fd32eb5eafb4c27fe2d0f75e8c464ea6a71e9e67887aa603f1a6f5df1cc71bbf",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261022.blp"
+    },
+    {
+      "file_data_id": 4261023,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+      "content_key": "cb225966d8a30a29cf948224501c0ef5",
+      "sha256": "ca2576fd956277ff3a57c33802835ca219cf314eb4efddaacbf1e915fea7a2fb",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261023.blp"
+    },
+    {
+      "file_data_id": 4261024,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+      "content_key": "837c58223fe0bfbd62ff15b3f7814d24",
+      "sha256": "d4c625bbd435faeaf26ce56a20c91193a16803f737744ce2f9dc759c1b3d5692",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261024.blp"
+    },
+    {
+      "file_data_id": 4261025,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+      "content_key": "7099a3e1ac5d3efce0aa1fee727c8fac",
+      "sha256": "c9b8947c5a05999ca338febc62d36d3e28451401befc61dee5e6e031bcb76369",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261025.blp"
+    },
+    {
+      "file_data_id": 4261026,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+      "content_key": "ab29fbd09b065a5e6bffd74a77a3b8d7",
+      "sha256": "1ca26ceda4c5bcf626e9a15ebbbbc88315d7ef698810a27141636d76fbf8dc55",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261026.blp"
+    },
+    {
+      "file_data_id": 4261027,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+      "content_key": "02308e4a139897b54e7184ab31ca5c36",
+      "sha256": "241463df57a36b4ba401e8350f3f02d499e373654a09dd6bd5d3a765bff4c17b",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261027.blp"
+    },
+    {
+      "file_data_id": 4261028,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+      "content_key": "fab14660b832904c75366b72e91b6ee9",
+      "sha256": "649fdf0ab24ee1bc16b9820dc37eea37a54202ff50e5811f423c8b28546e1673",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261028.blp"
+    },
+    {
+      "file_data_id": 4261029,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+      "content_key": "c9a54970fb45f36eec0baeaf25a499d2",
+      "sha256": "a848c1c2cc00b84ad73fce4df8fab2bf544acc5f0a2991ca74f9134f759d6304",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261029.blp"
+    },
+    {
+      "file_data_id": 4261030,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+      "content_key": "c37e0ac53f808411490403a13f7d9e31",
+      "sha256": "fb50949ea85f196ff6b38a29e24738af4c6cce1fc1e700d4f94b58f83d063303",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261030.blp"
+    },
+    {
+      "file_data_id": 4261031,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+      "content_key": "505ec1eee9e1f51513c35363ea2db88e",
+      "sha256": "310cfdef27c53e6b8302a9e16a8fff5bdca87846376de9431ae55dd7bab80116",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261031.blp"
+    },
+    {
+      "file_data_id": 4261032,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+      "content_key": "a1e7e0cea913f56767623c786315de8a",
+      "sha256": "9f58487738f872bd6a60cbce4155755f5d938d84dd0cb5a77c957866fc06eb80",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261032.blp"
+    },
+    {
+      "file_data_id": 4261033,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+      "content_key": "174611b9311471fd8867159f4cb9660f",
+      "sha256": "a5aaf0fe76abd9b2d0bfdf6bb7fc59f110b4b8ba2361d80045c51089ec0e9fcf",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261033.blp"
+    },
+    {
+      "file_data_id": 4261034,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+      "content_key": "71c8e73a465acf1d336dc234135b0102",
+      "sha256": "4968e25da72830b34b3dc56d5539979b488cdc2a9477d641af5448ce3c06858f",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261034.blp"
+    },
+    {
+      "file_data_id": 4261035,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+      "content_key": "808f092087519aaea4b1633e020093b4",
+      "sha256": "347e5fe51f08c77f5ded9e2373a737713c2dad7bdd637ed587b2c4d35293457c",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261035.blp"
+    },
+    {
+      "file_data_id": 4261036,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+      "content_key": "9b15ade6fad6f50b850586496780cbda",
+      "sha256": "7432f40ad0a8d29c6928e036b271beee4bb25100b6af6a3773e9a4b6f68b472f",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261036.blp"
+    },
+    {
+      "file_data_id": 4261037,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+      "content_key": "fe25679006bce5940702762582d9055e",
+      "sha256": "0fd74d3261957c7c0daed68f424cc6b0f2f4942824c7bd76d0eb7f47642e6be4",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261037.blp"
+    },
+    {
+      "file_data_id": 4261038,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+      "content_key": "087792017a4bc7f17b0df40254741eb1",
+      "sha256": "cf78e9bb8230023402b671db2f97be269c98a984041897085ba753d5e630a7e9",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261038.blp"
+    },
+    {
+      "file_data_id": 4261039,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+      "content_key": "fd038f9daab3d94832cc1b2d65945101",
+      "sha256": "24dbeba7009f91acad89de869795881386137f9b1cfb20e52144813b5d7da43f",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261039.blp"
+    },
+    {
+      "file_data_id": 4261040,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+      "content_key": "d141d347b9ca8e2414dcc17c0b26f577",
+      "sha256": "82c7baff7cf3830da143e6978525351bde0da5076855b44321a0e19b92f31bb3",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261040.blp"
+    },
+    {
+      "file_data_id": 4261041,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp",
+      "content_key": "c83f1978421178d011b4d4cc6a3e3961",
+      "sha256": "ae595cce28ac23f2955d959e95abf8cb9ca428105584fc4d2f51964ab06ecc91",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261041.blp"
+    },
+    {
+      "file_data_id": 4261042,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp",
+      "content_key": "ccd1bd69210fc246926b207261f06b4a",
+      "sha256": "2bfea12ca9c1026bde8b0a83acb95c27f5793ed6724b5ef15afe413aafeb5a33",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261042.blp"
+    },
+    {
+      "file_data_id": 4261043,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp",
+      "content_key": "42ba8da0f4bb516c6d73b05b67174352",
+      "sha256": "d0ab3b1da727421884485bf03ad6f5b272fd7b50d924f9e6ea29f827d1920b60",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261043.blp"
+    },
+    {
+      "file_data_id": 4261044,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp",
+      "content_key": "dc17036534e5f523c1d8847bf38260de",
+      "sha256": "b31d5f500ba3e70c0917112972b38730b8732ef476d9ef784c48cc068d154b83",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261044.blp"
+    },
+    {
+      "file_data_id": 4261045,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp",
+      "content_key": "68972a1f6cb0d913cbadb814cb3be2d9",
+      "sha256": "a15b213386d95d84fa9e7194feb0eb72a027080f7263c633eb7bc2b797474cd7",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261045.blp"
+    },
+    {
+      "file_data_id": 4261046,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp",
+      "content_key": "231be60c81621e5af7dc355d1c6b150e",
+      "sha256": "288768f324bec3d817b8bd0d15edc9566e5179be15c89c7167d98fd112b5d452",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261046.blp"
+    },
+    {
+      "file_data_id": 4261047,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp",
+      "content_key": "0beb83e73adf118546b78c6631bf05e9",
+      "sha256": "e6e7d1cfe61c25227827c441fd310b85743037590e85c5aa0892134fc6251fd3",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261047.blp"
+    },
+    {
+      "file_data_id": 4261048,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp",
+      "content_key": "c48d9ebdbaf20c0e8c1a79b326ebd923",
+      "sha256": "c9118b519d24dd52fbc3995ca81af678f4aaab9b96dc24a8f274020efc393810",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261048.blp"
+    },
+    {
+      "file_data_id": 4261049,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp",
+      "content_key": "ed3b11588f521f4153e305ec31549e34",
+      "sha256": "b563cbf9523f80a36c9fcc2b07471aa36879e8b5901b2e7664a95aeae05371d0",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261049.blp"
+    },
+    {
+      "file_data_id": 4261050,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp",
+      "content_key": "d403cb51fecbc3f314b86064ea670954",
+      "sha256": "7607a7d2e875da451de62c5b1f46f995468bbd989f81fbb511330e3386d1e2eb",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261050.blp"
+    },
+    {
+      "file_data_id": 4261051,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp",
+      "content_key": "e17522c115b15dd20356abe8511b5954",
+      "sha256": "80e0e0534e0379df33f050fee022de7304539df69ff149925f10bb833f0c3fc8",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261051.blp"
+    },
+    {
+      "file_data_id": 4261052,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp",
+      "content_key": "c51f1c5a5c1fd9f68e98b527d1cd16b5",
+      "sha256": "23f155266d26ac74aeb38355ebe8d1a67d737ede54226bb9bf1839938b0a5f05",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261052.blp"
+    },
+    {
+      "file_data_id": 4261053,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp",
+      "content_key": "c1105f6f3cc16a80957050d81916af35",
+      "sha256": "607dadbf23784e1aae83035acd9d6870363b971fa45dbeb6e236f26ac1aaed12",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261053.blp"
+    },
+    {
+      "file_data_id": 4261054,
+      "logical_name": "character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp",
+      "content_key": "2e871d0ff883e7bdd70019421fae7e27",
+      "sha256": "dbfa13730f17d36773086fd35792ec315bf34dc86a0dd0ee80b93a17733e6b9e",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4261054.blp"
+    },
+    {
+      "file_data_id": 4510263,
+      "logical_name": "character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "content_key": "dc71a668ec93ef8b2db73ded3e445a82",
+      "sha256": "3959eaa85518a531523113b1dcd921cfd338ec18b47f809e6aa5d7a55926e1fa",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4510263.blp"
+    },
+    {
+      "file_data_id": 4510264,
+      "logical_name": "character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "content_key": "21c8b16a871b2ca8bdf1d1305abfc65b",
+      "sha256": "6c12248172dfa7b969cf1af04101da47c8ef5e7ff209a98d72ea70cdd98037a8",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4510264.blp"
+    },
+    {
+      "file_data_id": 4510265,
+      "logical_name": "character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "content_key": "74e3840ca848cc3432710fbeadb7e521",
+      "sha256": "d790e0402f2418b93424f897470a926d3dc01bfe6bc5b6bbe9b85d3f7f056acf",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4510265.blp"
+    },
+    {
+      "file_data_id": 4510266,
+      "logical_name": "character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "content_key": "af35b759c315583ca4fd6a183b190e39",
+      "sha256": "6a6aa0367a97fcc6bde496fb323431cde9398810dc52ea24b3ee1920f100910e",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4510266.blp"
+    },
+    {
+      "file_data_id": 4562672,
+      "logical_name": "character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "content_key": "123a47d621ff09c4c56ed34bede0fca6",
+      "sha256": "a35c5852ac942f96bbb11ef8f23858ac63f0d4d80ddfa473d3b6d349aad3cabc",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4562672.blp"
+    },
+    {
+      "file_data_id": 4690426,
+      "logical_name": "world\\expansion09\\doodads\\bones\\10xp_skeleton24.m2",
+      "content_key": "259814ea3ea530f0a3949cd9cff06179",
+      "sha256": "6828d2da12402da5ee98b10111f2e9a1a044c912e5e7f44d36a349a246fe72d3",
+      "size": 147886,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4690426.m2"
+    },
+    {
+      "file_data_id": 4690427,
+      "logical_name": "world\\expansion09\\doodads\\bones\\10xp_skeleton25.m2",
+      "content_key": "9c3fd35e5c9091c73c3f01f491c363fa",
+      "sha256": "ab4139d1e5a1cac0ebe447a5ac5ac6a02724689f7072f70336ac49821bf36ad0",
+      "size": 147166,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4690427.m2"
+    },
+    {
+      "file_data_id": 4705407,
+      "logical_name": "character\\human\\male\\humanmale_hd_eyesight_4705407.blp",
+      "content_key": "db6dd424196b0e9d9f411d2bf65b50e9",
+      "sha256": "f8de1dfacbfe6aaaa029eba72c6f6cb28d3d5040a9f4ed2293e654d4923d53db",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4705407.blp"
+    },
+    {
+      "file_data_id": 4705408,
+      "logical_name": "character\\human\\male\\humanmale_hd_eyesight_4705408.blp",
+      "content_key": "d0739283181f24bc953f8729aeb938cc",
+      "sha256": "d9f4ada0aa68ca058c167250912a9080870bd031b8005acc410ae8a6e4c9c72a",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4705408.blp"
+    },
+    {
+      "file_data_id": 4705409,
+      "logical_name": "character\\human\\male\\humanmale_hd_eyesight_4705409.blp",
+      "content_key": "0acdb5598c3fa1e93ad26baba4821a6b",
+      "sha256": "ca772b8cbfbcf4b3e2629b5c7f57d77c126fc47d006ca82c922bfc522582b395",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4705409.blp"
+    },
+    {
+      "file_data_id": 1893974,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0120-00.anim",
+      "content_key": "a58f1b708f34634856e7fdad73e1d9b8",
+      "sha256": "f75114ec1bb9edf784e3d79173b19d4bbf990517f75d720cde83eb0a3c255ccc",
+      "size": 28760,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893974.anim"
+    },
+    {
+      "file_data_id": 1893975,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0119-00.anim",
+      "content_key": "809e8651f5232cacdedb04160187dcfe",
+      "sha256": "627399cd0d3e3f021f54352780b7c779241250161468f068c3f294a74fb40e05",
+      "size": 53512,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893975.anim"
+    },
+    {
+      "file_data_id": 1893976,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0123-00.anim",
+      "content_key": "508fed70708867002db441d1b004fb40",
+      "sha256": "4b66116da56ea647ff34c413338ef85addff54967af6b5e567518a1881046487",
+      "size": 60968,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893976.anim"
+    },
+    {
+      "file_data_id": 1893977,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0129-00.anim",
+      "content_key": "b25d6a1787222e32fcd72e60dcf7a65b",
+      "sha256": "d43fe1ab3b2d1e424866eaa68555c0bd24634b205ba28e6e88e75811a60e544d",
+      "size": 16520,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893977.anim"
+    },
+    {
+      "file_data_id": 1893978,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0128-00.anim",
+      "content_key": "99b7ab2949c9f71f8af46dd7d71d646f",
+      "sha256": "312cab9f68c5f044eae8609fd1ce2fc2390ce96e0025e48c5fa15459f6d76204",
+      "size": 17128,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893978.anim"
+    },
+    {
+      "file_data_id": 1893979,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0061-00.anim",
+      "content_key": "71eea9b9a807d2f858e45591bc0d781d",
+      "sha256": "d854b088db2d95b55425f442c1c39f15907261453b7fbfad89be9eec8d08d962",
+      "size": 144584,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893979.anim"
+    },
+    {
+      "file_data_id": 1893980,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0097-00.anim",
+      "content_key": "ec8e9fd417b41947b0c4c8f1b71644e0",
+      "sha256": "11b8f8ee7dffacbe02ce3769d0e4cf7c182bef781e7cf726e2d58f10b29d24dc",
+      "size": 22216,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893980.anim"
+    },
+    {
+      "file_data_id": 1894224,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0062-00.anim",
+      "content_key": "3b238bc58d5db1850dd1688097ca6d39",
+      "sha256": "1c5aae1cdb522d89947379c45ace9cfae228a72de3f251a4c70d35172d3d28a3",
+      "size": 45800,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894224.anim"
+    },
+    {
+      "file_data_id": 1893981,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0096-00.anim",
+      "content_key": "dc4b5ba29fc19f1522e9049db53b7a50",
+      "sha256": "cd6dbed5925ef7ce320095ae594d718c3464443e73d1877da8d0e73a76301ec9",
+      "size": 40840,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893981.anim"
+    },
+    {
+      "file_data_id": 1893982,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0098-00.anim",
+      "content_key": "949ec7c5128700ce17b0e5745b145130",
+      "sha256": "0cd3ceed258b751a983a8c98473c92deb4bf0e2f91065a2f91ad0490ee145ad7",
+      "size": 42040,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893982.anim"
+    },
+    {
+      "file_data_id": 1893983,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0079-00.anim",
+      "content_key": "4c2169a3e1753ce41bff6e6fbf432973",
+      "sha256": "0307261ef20127c217358917542904588edfdef3cf6dc0340dc439a84edb9a11",
+      "size": 117096,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893983.anim"
+    },
+    {
+      "file_data_id": 1893984,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0104-00.anim",
+      "content_key": "c98c05b4350b1be0018f4be3e24fc737",
+      "sha256": "3a56cdf6505d4f89c21aa02ce6d332a9849dd4ec052b7301aade41cc096a60a4",
+      "size": 19832,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893984.anim"
+    },
+    {
+      "file_data_id": 1893985,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0102-00.anim",
+      "content_key": "84635f0806719dc6880fea91352b6cfe",
+      "sha256": "8e7cdba763dd992b5780621fd2a53625fd537e12c1d9bafc045b68ba18b7b70c",
+      "size": 18888,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893985.anim"
+    },
+    {
+      "file_data_id": 1893986,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0103-00.anim",
+      "content_key": "4b5b1c342b68eccb7a91f5569afec687",
+      "sha256": "e1ec86bcad9b608c6b891613ffcea88ceb19ec30786a5e9486b997305c0d1b9d",
+      "size": 19512,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893986.anim"
+    },
+    {
+      "file_data_id": 1894225,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0077-00.anim",
+      "content_key": "0c49e81ff11b1a9b4def5779a945555b",
+      "sha256": "f353299f8fdee1b4df4ab8eb684f3691bff84ce32861d917129134be39284d28",
+      "size": 18104,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894225.anim"
+    },
+    {
+      "file_data_id": 1893987,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0075-00.anim",
+      "content_key": "89cfe39ec40f04bdef5a0439269e7c8d",
+      "sha256": "b64867fc39766d25f40279ecbd05781be7b730637c5db27d4e1df591292717af",
+      "size": 56184,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893987.anim"
+    },
+    {
+      "file_data_id": 1893988,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0060-00.anim",
+      "content_key": "5394a01b712008e134d74a59d34020e2",
+      "sha256": "c562a219c11c9abcd068e634c58e19cdecdb2cf7cd2cc8840df56c582a65fafe",
+      "size": 216616,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893988.anim"
+    },
+    {
+      "file_data_id": 1894226,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0066-00.anim",
+      "content_key": "23b2635f856a9f9733b472b3c814e061",
+      "sha256": "8f6267cd2956b783df72b702892953fe3e47fc9f2986686454ae416151dfaa5f",
+      "size": 67720,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894226.anim"
+    },
+    {
+      "file_data_id": 1894227,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0076-00.anim",
+      "content_key": "6eb5355675c747fb4bc5e093be556c34",
+      "sha256": "83c68e7d1e26a54006210b82d6b5a33a2d85c522a1cd6119e0429c225d6a9423",
+      "size": 90200,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894227.anim"
+    },
+    {
+      "file_data_id": 1893989,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0074-00.anim",
+      "content_key": "4dc16358cc39b2d14e5b646659137a02",
+      "sha256": "c0d2acfef3f33281f1e438ef6a6f88b332982149278020dfe33c3ef41b6b24f2",
+      "size": 57240,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893989.anim"
+    },
+    {
+      "file_data_id": 1894228,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0080-00.anim",
+      "content_key": "f7fdd776fb92f7c4d2e2c8dccda78fc1",
+      "sha256": "19f1e95b92c3e405cea038b79ef14d045faa67220a37f8d14e37dc3335771fe7",
+      "size": 62616,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894228.anim"
+    },
+    {
+      "file_data_id": 1894229,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0068-00.anim",
+      "content_key": "c1b2b32bbb8fedc377c538474bea09d4",
+      "sha256": "12ed7ba942f0f3bf5b2761855548025535bcc97e75c090e4fac6228e063f63ae",
+      "size": 69096,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894229.anim"
+    },
+    {
+      "file_data_id": 1893990,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0084-00.anim",
+      "content_key": "85e4c73cac48447822655aaa7d38d5b2",
+      "sha256": "ef58785e6424cda74047628e843f6cc256519765aec23922f197be5fd589086f",
+      "size": 103400,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893990.anim"
+    },
+    {
+      "file_data_id": 1894230,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0064-00.anim",
+      "content_key": "81c0692efd9b002c6728c41a53babc5e",
+      "sha256": "3430447e5eadf6c899795a9f1d73a3a730b87b471eb89ab4959c1e283ab63d36",
+      "size": 62344,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894230.anim"
+    },
+    {
+      "file_data_id": 1894231,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0185-00.anim",
+      "content_key": "354595a672d8b8f5356237d83f36f921",
+      "sha256": "816544fe7987cfe5c84ac42acd239a0a3bf583f9e2e17e549fe0f8a6ef792ce5",
+      "size": 41336,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894231.anim"
+    },
+    {
+      "file_data_id": 1894232,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0186-00.anim",
+      "content_key": "183fb44265d99bf7c3cfc2f0fd19879a",
+      "sha256": "248118cd3e5fe14ed1ac7695fef46e41e3258e2ad4707fe3a2047e337b8cd017",
+      "size": 43576,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894232.anim"
+    },
+    {
+      "file_data_id": 1894233,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0113-00.anim",
+      "content_key": "8dcc0aaf4d9fa126867cded025a17613",
+      "sha256": "abd5fc7197e2dcf5b679f440a47449e79d8991b63de7acd12af0145fe37e3826",
+      "size": 142408,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894233.anim"
+    },
+    {
+      "file_data_id": 1894234,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0081-00.anim",
+      "content_key": "f3471c89e9de4026ea741365fb6a5e78",
+      "sha256": "48bc87b5ba039273feffc3a4743f818164924ab572e9293e9e4a9dcd9af1b656",
+      "size": 59128,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894234.anim"
+    },
+    {
+      "file_data_id": 1894235,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0065-00.anim",
+      "content_key": "0fb822879cb73446e739f1e036bf9673",
+      "sha256": "85769e436b82ccb2ba61544a704a5adeff62f7c98a2b2fa10433dd58a8cb4b61",
+      "size": 75192,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894235.anim"
+    },
+    {
+      "file_data_id": 1893991,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0195-00.anim",
+      "content_key": "d439dc2f852ca9a890dfe9a0f1357fae",
+      "sha256": "1345cea37d3e3323e0a6f6c568802a3462760635e21acb3de8dde196a451427f",
+      "size": 72312,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893991.anim"
+    },
+    {
+      "file_data_id": 1894236,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0067-00.anim",
+      "content_key": "6af17362eb06ec20f6214b3a050206bc",
+      "sha256": "f6d4d8b8d2fc9e1a30116f8e4537ca7b37b2c5299e50a6dd54cb61b651a7e7cf",
+      "size": 61608,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894236.anim"
+    },
+    {
+      "file_data_id": 1894237,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0133-00.anim",
+      "content_key": "a0e586cca9a1cb2725684c178079b089",
+      "sha256": "3537695303dc5918130303b62433ae38f3b2f8e840f05f7169dbf06c7c28ca59",
+      "size": 32136,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894237.anim"
+    },
+    {
+      "file_data_id": 1894238,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0070-00.anim",
+      "content_key": "b25e61f34c6dc76f80ff7c6d1efc73ac",
+      "sha256": "7373374996f36b20e578828136bd391cbe8f1df4af9a3cc81a248139e1298f66",
+      "size": 103240,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894238.anim"
+    },
+    {
+      "file_data_id": 1894239,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0134-00.anim",
+      "content_key": "072b98f1aac770bf1110cfe5e8361757",
+      "sha256": "7609aa0749a3e6d550db1dd55da3057704b7c0e2f576f42c4e23a8d44b0772c4",
+      "size": 31224,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894239.anim"
+    },
+    {
+      "file_data_id": 1894240,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0078-00.anim",
+      "content_key": "731be5c2340142e8062f4afa323e043a",
+      "sha256": "de13c272954696ab5d8638612dffa24ed35ff4b37697e731d3155b4bc173cd5b",
+      "size": 82328,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894240.anim"
+    },
+    {
+      "file_data_id": 1894241,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0082-00.anim",
+      "content_key": "ef8c1e553a489e14d5ee6f359c1ba47e",
+      "sha256": "04bb8a5705091fe2bfba452c85c64d0251bc40ead0ba3d114fd0e9ce40c34816",
+      "size": 108472,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894241.anim"
+    },
+    {
+      "file_data_id": 1894243,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0083-00.anim",
+      "content_key": "a52a1a1d27dd2da141e010b6225899d6",
+      "sha256": "1b76c25a23add4f45fd66a83ddb4718cf987b5e46216d8c1158f10c02b05c524",
+      "size": 80696,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894243.anim"
+    },
+    {
+      "file_data_id": 1893992,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0100-00.anim",
+      "content_key": "3fb4ea642e643793f0920420372d315e",
+      "sha256": "f1b1e6295afec7035022862836ecadc2750d40b27f17d5283e4874f14e6bd882",
+      "size": 31240,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893992.anim"
+    },
+    {
+      "file_data_id": 1893993,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0099-00.anim",
+      "content_key": "8671f757297905c5aa4a1aa7022dbd26",
+      "sha256": "0f762668e352b1e0d35651d523420ea37c793c3e22266f8d97a20efc6769fb73",
+      "size": 80280,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893993.anim"
+    },
+    {
+      "file_data_id": 1893994,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0101-00.anim",
+      "content_key": "bc8e3d4219b00d5ba7468da3840440fc",
+      "sha256": "e0a3117487dd1e7547edcd14cb7b7fd29a4e74513cf1b97c93ae30e46bc0e82a",
+      "size": 146280,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893994.anim"
+    },
+    {
+      "file_data_id": 3166875,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0069-00.anim",
+      "content_key": "6d4f0857e0678341d6712146f7e4af50",
+      "sha256": "0795957673b4ea23ccaead44b2cfa0fc0592fc0268c79d64af37eb2676cd34c0",
+      "size": 225352,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166875.anim"
+    },
+    {
+      "file_data_id": 1894244,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0522-00.anim",
+      "content_key": "7ac0cb2ee81cd8dac584451869e6951f",
+      "sha256": "6a7f51dff00405e10b2e2ca5a9d37e4b6c5294125bae7ff25f1b9be090b18ccd",
+      "size": 24664,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894244.anim"
+    },
+    {
+      "file_data_id": 1894245,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0520-00.anim",
+      "content_key": "2b1da9dc8b3de333984e1223ee26de9d",
+      "sha256": "cc17370bf66ea75afc4588110e1ed6f19fc6c0503ab90ebb83f83809f75aaf17",
+      "size": 21592,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894245.anim"
+    },
+    {
+      "file_data_id": 1894246,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0518-00.anim",
+      "content_key": "f753d5a8e2c66f8e33d4ece285d7da22",
+      "sha256": "635fd7c6dd2d9e99f0347366f4609dad8bf22241ee1473b0e5d5a56349112bcb",
+      "size": 24984,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894246.anim"
+    },
+    {
+      "file_data_id": 1894247,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0732-00.anim",
+      "content_key": "e168f8e3cc7b9e37d85eda349f928f76",
+      "sha256": "c298c8844eedf8421833a14ec256a0a93d1a23df435ed50417331ee752583d21",
+      "size": 53368,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894247.anim"
+    },
+    {
+      "file_data_id": 1958448,
+      "logical_name": "character\\vulpera\\female\\vulperafemale1194-00.anim",
+      "content_key": "5ccd4e5b3d5e2357223d0446373c7082",
+      "sha256": "2303cbc8f5dd0d005b91064271ebea7432deda7c2375726ed37f7b97a62b177f",
+      "size": 24328,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1958448.anim"
+    },
+    {
+      "file_data_id": 1958449,
+      "logical_name": "character\\vulpera\\female\\vulperafemale1196-00.anim",
+      "content_key": "793a55c9c1261f2cab1f1b8a968e1afb",
+      "sha256": "6c8d9519a2fa8e8f52a74a9ed5fa03c339de17f67178aa88d9972c234e401606",
+      "size": 22744,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1958449.anim"
+    },
+    {
+      "file_data_id": 1894242,
+      "logical_name": "character\\vulpera\\female\\vulperafemale0073-00.anim",
+      "content_key": "e79d0adabc9e6d59009e3dccd61549a5",
+      "sha256": "d098f062682e705c2fb6db67b08f061d4f0acf500f766313cf62999f82875dd6",
+      "size": 83816,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1894242.anim"
+    },
+    {
+      "file_data_id": 4643997,
+      "logical_name": "character\\vulpera\\female\\vulperafemale1220-00.anim",
+      "content_key": "1c3c7c0caea649aa71dd8c7c38539c47",
+      "sha256": "c02ac33e242ef95753d55c53e1db319e7433166704933a96d9395774ba6527c0",
+      "size": 13368,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4643997.anim"
+    },
+    {
+      "file_data_id": 5157542,
+      "logical_name": "character\\vulpera\\female\\vulperafemale1492-00.anim",
+      "content_key": "766db23b75a39a0f421778c36ae0a5d2",
+      "sha256": "00e1f9031cfefc8c86ab4ece1922e17d4fe83173a7a604618b9247111f58d397",
+      "size": 89512,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\5157542.anim"
+    },
+    {
+      "file_data_id": 5634736,
+      "logical_name": "character\\vulpera\\female\\vulperafemale1770-00.anim",
+      "content_key": "afad7a13942971ee9febfe31ca49b6db",
+      "sha256": "73d5944465eec40b4a81022054e2c4eaf9fdccd60cbe443be37985d24ecf2846",
+      "size": 28664,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\5634736.anim"
+    },
+    {
+      "file_data_id": 1891282,
+      "logical_name": "character\\vulpera\\female\\vulperafemale00.skin",
+      "content_key": "6df85bcf8bf4e40d8dde227ca42b41a6",
+      "sha256": "ad2454066e047526596aab9e55b646dc9eb2f9e5eee103a2fbff048b06f4bcbf",
+      "size": 331536,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1891282.skin"
+    },
+    {
+      "file_data_id": 2141134,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_lod01.skin",
+      "content_key": "cb08f17addcad61f9e2140dbb7a6237b",
+      "sha256": "1c6002a55ebd08c28d4cdd573811bce001eb5d1381b9b36fb5906b64da12022f",
+      "size": 331536,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141134.skin"
+    },
+    {
+      "file_data_id": 2141136,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_lod02.skin",
+      "content_key": "0acb11e44b2feecc650d6fe973d18f98",
+      "sha256": "6d2a1474428b1d4549607013301150b13b2bb699d227136fd583f247ff88d52e",
+      "size": 327072,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141136.skin"
+    },
+    {
+      "file_data_id": 2141138,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_lod03.skin",
+      "content_key": "d3e54b9808e84146c1832d6cd2db77d5",
+      "sha256": "3d15f2ddd3971243176f7a8fcda684a8f721d19f4ca1bd82b3689478b9f5bdd6",
+      "size": 303792,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141138.skin"
+    },
+    {
+      "file_data_id": 4879084,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_lod04.skin",
+      "content_key": "47efd01b835fd85a6a37bf9f2d08a735",
+      "sha256": "67a981cf4070df04d31497faace84fe5d97ea08fd315f263c70997fd71d63314",
+      "size": 277552,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4879084.skin"
+    },
+    {
+      "file_data_id": 4879085,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_lod05.skin",
+      "content_key": "c7d9c73af33f12451bf1c9787ed8cdea",
+      "sha256": "1ec79289f60da80e5917c107bc2a8397e21360668fec1ed2aba4b5909e92d50f",
+      "size": 265152,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4879085.skin"
+    },
+    {
+      "file_data_id": 4879086,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_lod06.skin",
+      "content_key": "829306eb535f14192620ce3648aacc6e",
+      "sha256": "2b5cca1a3a22d635f40fe70b25f21b38d4090ad0fb8409a1a93ea621cf40eee7",
+      "size": 245600,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4879086.skin"
+    },
+    {
+      "file_data_id": 3552545,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_3552545.blp",
+      "content_key": "b767dcdc0579574daa02d9d3399c2b51",
+      "sha256": "ab65b08ff1efd645f092e96c533d0073d35cad3ae0c1f19b95cde9dd74947700",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3552545.blp"
+    },
+    {
+      "file_data_id": 4531037,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_4531037.blp",
+      "content_key": "4a1b785eeaabe9f623fb1a2d3b0fe30c",
+      "sha256": "8bb6127332e36d397c434d06377baafc826ef45a4598cff9cc9e42f5969e7c2e",
+      "size": 350724,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4531037.blp"
+    },
+    {
+      "file_data_id": 5210161,
+      "logical_name": "character\\vulpera\\female\\vulperafemale_eyereflect.blp",
+      "content_key": "5e9accd070b81371cf9bb4152766dfe0",
+      "sha256": "f537389d4ed369fbb9750fcddf89b6a5d7276702e87bad5b3bd344940501425d",
+      "size": 23044,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\5210161.blp"
+    },
+    {
+      "file_data_id": 1893881,
+      "logical_name": "character\\vulpera\\male\\vulperamale0120-00.anim",
+      "content_key": "26863d96447bce5ed5ebe3b0414ab5d3",
+      "sha256": "423689ce2d66a843582d6fd00be25b86d306ec8102ab0de7a4006d09a74f2965",
+      "size": 27544,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893881.anim"
+    },
+    {
+      "file_data_id": 1893882,
+      "logical_name": "character\\vulpera\\male\\vulperamale0119-00.anim",
+      "content_key": "0393ec10798bcf4008e09eb2e2504fe3",
+      "sha256": "4d37378208677594caca8f6d419cc2b1a4a67019839e5362f560a014eba1f7e0",
+      "size": 50088,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893882.anim"
+    },
+    {
+      "file_data_id": 1893883,
+      "logical_name": "character\\vulpera\\male\\vulperamale0123-00.anim",
+      "content_key": "6f87008509e52da0255743c8bdc37d59",
+      "sha256": "75b69e86e5716a9d1f72ea39cc44d82133094aa5efb7fc09b351e9fea270c9a7",
+      "size": 58520,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893883.anim"
+    },
+    {
+      "file_data_id": 1893884,
+      "logical_name": "character\\vulpera\\male\\vulperamale0129-00.anim",
+      "content_key": "3df5ff6e042050098713ded670002822",
+      "sha256": "8370efec6d0f4fdd5c71e395e6bc703d7c73b3d19805308adb47c53704934b5c",
+      "size": 15832,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893884.anim"
+    },
+    {
+      "file_data_id": 1893885,
+      "logical_name": "character\\vulpera\\male\\vulperamale0128-00.anim",
+      "content_key": "f4c2f0abd40382799d826fde120d7bf1",
+      "sha256": "2b72974af592ace062908958f8f09d5f84a315e258ca846a022cff7a9dc7cd1c",
+      "size": 16440,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893885.anim"
+    },
+    {
+      "file_data_id": 1893886,
+      "logical_name": "character\\vulpera\\male\\vulperamale0061-00.anim",
+      "content_key": "f9c7b71f572dc5109a449f07e9bee390",
+      "sha256": "42d924d5a38648680edb44e940466e5fa8deab306fd49504cb1b1c08717eaf00",
+      "size": 139976,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893886.anim"
+    },
+    {
+      "file_data_id": 1893887,
+      "logical_name": "character\\vulpera\\male\\vulperamale0097-00.anim",
+      "content_key": "b939160851e997455096770fae013494",
+      "sha256": "7548a93e1c4eea4ff810a8e9f664392333ec841685cd9521d97359a618958a8f",
+      "size": 21592,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893887.anim"
+    },
+    {
+      "file_data_id": 2109153,
+      "logical_name": "character\\vulpera\\male\\vulperamale0062-00.anim",
+      "content_key": "8d9285ac673f4939b4146cf9ed875e16",
+      "sha256": "97be3013a6fecfa60771a526e6e153d8405941efcb4f58df20b8704cbbde3243",
+      "size": 42536,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2109153.anim"
+    },
+    {
+      "file_data_id": 1893888,
+      "logical_name": "character\\vulpera\\male\\vulperamale0096-00.anim",
+      "content_key": "28ff8212c869484fba7de882243fd7eb",
+      "sha256": "941e5d617e3ca01389d9a7ed5e1cba5e0e86aa9fdce1620e7032d5d046fd5636",
+      "size": 37976,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893888.anim"
+    },
+    {
+      "file_data_id": 1893889,
+      "logical_name": "character\\vulpera\\male\\vulperamale0098-00.anim",
+      "content_key": "1c3afaee8091ae0f882c19b989ac48a6",
+      "sha256": "1fa9eb36ff767d9c33303593ab2bf5cab7392719b12596a0c8268b6b614b11ca",
+      "size": 39224,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893889.anim"
+    },
+    {
+      "file_data_id": 1893890,
+      "logical_name": "character\\vulpera\\male\\vulperamale0079-00.anim",
+      "content_key": "a7308897ebc551683453627a6d4cdb49",
+      "sha256": "55cd4e80d0b50175ce5355b3da625db0b4d3deb16df2b92d70d498d6c0b51ea7",
+      "size": 112248,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893890.anim"
+    },
+    {
+      "file_data_id": 1893891,
+      "logical_name": "character\\vulpera\\male\\vulperamale0104-00.anim",
+      "content_key": "2da7242da8e5e5edd0bab431b5d790a0",
+      "sha256": "6cd6af0c285e04f8024518b6637424359626a84ecf8345e036e5bd0f5b41bad5",
+      "size": 19128,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893891.anim"
+    },
+    {
+      "file_data_id": 1893892,
+      "logical_name": "character\\vulpera\\male\\vulperamale0102-00.anim",
+      "content_key": "b41a721dde92c30c102ce53ad2b7b2dd",
+      "sha256": "d04f7eb0570e21bbe138e880ed02fe3b17ceb14ade22ec348dfa3930bd35d6d7",
+      "size": 18232,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893892.anim"
+    },
+    {
+      "file_data_id": 1893893,
+      "logical_name": "character\\vulpera\\male\\vulperamale0103-00.anim",
+      "content_key": "cdf3bcc7c510f00eede600b6c788414d",
+      "sha256": "b1c78df59b297f9e4a5889b1d39e83f9a71c69005af87522d8ea0e84b360da59",
+      "size": 18856,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893893.anim"
+    },
+    {
+      "file_data_id": 3166830,
+      "logical_name": "character\\vulpera\\male\\vulperamale0077-00.anim",
+      "content_key": "3e8ff175dcd0fc3fefb54fbfb0e3f224",
+      "sha256": "39be2167002473047a350ba554db10d7428fddc73da18e121f4c80edceb3193a",
+      "size": 17320,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166830.anim"
+    },
+    {
+      "file_data_id": 1893894,
+      "logical_name": "character\\vulpera\\male\\vulperamale0075-00.anim",
+      "content_key": "92494276f2bf69f8e73fdcd9a7c67b3a",
+      "sha256": "21ba3a0b858cb5047ea629a2112be50059e6d05b8db1e2132bb793bb27587605",
+      "size": 53880,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893894.anim"
+    },
+    {
+      "file_data_id": 1893895,
+      "logical_name": "character\\vulpera\\male\\vulperamale0060-00.anim",
+      "content_key": "80fc4cf2203bbd2afde0cea669184678",
+      "sha256": "26f511a804c6c38c7b580630a1566a63031c2559d4e702d749cc296e9ec35118",
+      "size": 209992,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893895.anim"
+    },
+    {
+      "file_data_id": 3166832,
+      "logical_name": "character\\vulpera\\male\\vulperamale0066-00.anim",
+      "content_key": "b631e9e5186e29831d931461e7d32e04",
+      "sha256": "7ed02b79062708b1d2c086ecec81caa0f5558b28172801ee3f0680a9b1131add",
+      "size": 65080,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166832.anim"
+    },
+    {
+      "file_data_id": 3166834,
+      "logical_name": "character\\vulpera\\male\\vulperamale0076-00.anim",
+      "content_key": "8b93e3a9dfebc5068b095c441f081d1c",
+      "sha256": "0b201aedcc64acfabd569396313d9e339264b87d1c6057310a64a8575aa3c771",
+      "size": 87944,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166834.anim"
+    },
+    {
+      "file_data_id": 1893896,
+      "logical_name": "character\\vulpera\\male\\vulperamale0074-00.anim",
+      "content_key": "462344425e54e04f63c7d4f63bc76015",
+      "sha256": "456072402bc8216623a4c3abcbcbe87844ca7dd04a47d9f9250b8eb599597dfa",
+      "size": 52952,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893896.anim"
+    },
+    {
+      "file_data_id": 3166836,
+      "logical_name": "character\\vulpera\\male\\vulperamale0080-00.anim",
+      "content_key": "04c4629f0ff77851213358c35377ff97",
+      "sha256": "42c4cd28b2277b3ac4c879f90546b73f55422eadfc44ff5fec7f8afbd2b3dec0",
+      "size": 59560,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166836.anim"
+    },
+    {
+      "file_data_id": 3166837,
+      "logical_name": "character\\vulpera\\male\\vulperamale0068-00.anim",
+      "content_key": "b764ad8b87e62d2a8e05a29e31c6c37f",
+      "sha256": "fa4dc237aaad109bafa5f5923d26472f3fe088635551b9b0f8a6c0a6a82bc4ca",
+      "size": 65736,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166837.anim"
+    },
+    {
+      "file_data_id": 1893897,
+      "logical_name": "character\\vulpera\\male\\vulperamale0084-00.anim",
+      "content_key": "4250d35ae0ee3d0750d5a58b3f779da3",
+      "sha256": "d1572a4b7a911af6570b0fcb34022ee1f97587785649346e673c8e166b20b3bc",
+      "size": 98760,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893897.anim"
+    },
+    {
+      "file_data_id": 3166839,
+      "logical_name": "character\\vulpera\\male\\vulperamale0064-00.anim",
+      "content_key": "c7eaa7558acc6162a63b1b8ce1ed6da8",
+      "sha256": "232da7fa5906603ef2853019e091403b5a1b56f4c9caccb569ff66242ca7092f",
+      "size": 58344,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166839.anim"
+    },
+    {
+      "file_data_id": 3166841,
+      "logical_name": "character\\vulpera\\male\\vulperamale0185-00.anim",
+      "content_key": "f457c3cb17723f95e0b5d83a704bc7db",
+      "sha256": "a791b7c0ca7e550823b3cdfe26eed3c895ca171f281b94c5a477627d202abd83",
+      "size": 39688,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166841.anim"
+    },
+    {
+      "file_data_id": 3166843,
+      "logical_name": "character\\vulpera\\male\\vulperamale0186-00.anim",
+      "content_key": "bbc204dbbaf33e412e53cb11385df9db",
+      "sha256": "144bba7af07c913123093f7ebd4557d61f8cad73b97e6ac2fa7e3dcdf397b9ec",
+      "size": 42376,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166843.anim"
+    },
+    {
+      "file_data_id": 3166845,
+      "logical_name": "character\\vulpera\\male\\vulperamale0113-00.anim",
+      "content_key": "b7432357cedf0e7798c1e3bed7606571",
+      "sha256": "0fd9232e27c181f56199e59f2ce6d7af68a44e671fc7ed86e01a5979a050149c",
+      "size": 135464,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166845.anim"
+    },
+    {
+      "file_data_id": 3166847,
+      "logical_name": "character\\vulpera\\male\\vulperamale0081-00.anim",
+      "content_key": "451f57bfee1d253b7cd9b863f07834e1",
+      "sha256": "1e70cbb087a76583092c29b76bf4d7e756fbc5a89f5d372decf8f8224800fe19",
+      "size": 57480,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166847.anim"
+    },
+    {
+      "file_data_id": 3166849,
+      "logical_name": "character\\vulpera\\male\\vulperamale0065-00.anim",
+      "content_key": "4cefffac59325a31588aed85cfa2cf47",
+      "sha256": "daec0d0a9922fb4f925677fbd5f5d9d8aeab9b877873be3e28760ed19816485e",
+      "size": 72152,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166849.anim"
+    },
+    {
+      "file_data_id": 1893898,
+      "logical_name": "character\\vulpera\\male\\vulperamale0195-00.anim",
+      "content_key": "1eae94a9e36384d405c87e5f5ec29229",
+      "sha256": "2a90b4543f8c09bd4b8bfcb9b47ee3c96e23fd86759a27a3cdc86dac23cd31b7",
+      "size": 70024,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893898.anim"
+    },
+    {
+      "file_data_id": 2141130,
+      "logical_name": "character\\vulpera\\male\\vulperamale0067-00.anim",
+      "content_key": "6c06544e3a3399b80b55cc4a37d7c965",
+      "sha256": "14a5435fee7ff6cdd736c132d4c1cd28d899497494eecc7a5d37a4388b19a3f2",
+      "size": 59560,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141130.anim"
+    },
+    {
+      "file_data_id": 3166851,
+      "logical_name": "character\\vulpera\\male\\vulperamale0133-00.anim",
+      "content_key": "0f71b8c70b6744c882e657583f8d5270",
+      "sha256": "b9fcc11ac521880071ccd548ef3933101cb408522d4bd15fced0245bfdeee0a6",
+      "size": 29576,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166851.anim"
+    },
+    {
+      "file_data_id": 3166852,
+      "logical_name": "character\\vulpera\\male\\vulperamale0070-00.anim",
+      "content_key": "7a45cc4d9ec920f4b91f4249e1e29b91",
+      "sha256": "a340f1b1feefd42e400c6b53b634e7421d3db3b59c931434d8be12da284eed76",
+      "size": 97752,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166852.anim"
+    },
+    {
+      "file_data_id": 3166853,
+      "logical_name": "character\\vulpera\\male\\vulperamale0134-00.anim",
+      "content_key": "12edc941aa108825f34ca271e53fab5e",
+      "sha256": "438229bc6b1d46c12c10fa6a363ca27762ad4b8999de61870bb8f088243d3778",
+      "size": 29976,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166853.anim"
+    },
+    {
+      "file_data_id": 3166854,
+      "logical_name": "character\\vulpera\\male\\vulperamale0078-00.anim",
+      "content_key": "4cc1f06ce4d419da80e535c8ca362765",
+      "sha256": "f7ad9f2a4c9290364cab3b9219b232a062258ec703b6da6f605a947b9e157805",
+      "size": 76168,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166854.anim"
+    },
+    {
+      "file_data_id": 3166856,
+      "logical_name": "character\\vulpera\\male\\vulperamale0082-00.anim",
+      "content_key": "e2cea2b5aaa4f92f8979d7789d583a76",
+      "sha256": "404237f693e6879ade30b7fd8419462785f3cd71c72e3bba294359c70b2b4c2e",
+      "size": 105880,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166856.anim"
+    },
+    {
+      "file_data_id": 3166858,
+      "logical_name": "character\\vulpera\\male\\vulperamale0083-00.anim",
+      "content_key": "c71e3c6a33b7b693c95676d2ddb955bd",
+      "sha256": "4746ab88a45aec25247e1b161d66baf9dc17c4df6471c440c959633a136c88d4",
+      "size": 78264,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166858.anim"
+    },
+    {
+      "file_data_id": 1893899,
+      "logical_name": "character\\vulpera\\male\\vulperamale0100-00.anim",
+      "content_key": "1c73d2b91adcb9dcf8502de00b2b7d87",
+      "sha256": "55ce91755ad304f97e3f9a802d88a9a7e276cf8a24595e7726e0c51547bfbe04",
+      "size": 30808,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893899.anim"
+    },
+    {
+      "file_data_id": 1893900,
+      "logical_name": "character\\vulpera\\male\\vulperamale0099-00.anim",
+      "content_key": "b5dd9884116757172f2595efed3413ca",
+      "sha256": "1c31466e127ee191572ddc53b141d7e95e7a872be9deb649496f968f9cecf4b6",
+      "size": 75080,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893900.anim"
+    },
+    {
+      "file_data_id": 1893901,
+      "logical_name": "character\\vulpera\\male\\vulperamale0101-00.anim",
+      "content_key": "4beb4872b9651eebb69a689826d2c5f4",
+      "sha256": "86fadf35dafa895b2c105209669ccc6fce3020ec65b4b258ba862fd70217d7bc",
+      "size": 140840,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893901.anim"
+    },
+    {
+      "file_data_id": 3166860,
+      "logical_name": "character\\vulpera\\male\\vulperamale0069-00.anim",
+      "content_key": "0fd8902fa18bf0633a8be702499a3d90",
+      "sha256": "4b0531d00fd2f0eecdfc70a99c0bb4c19edd3b59e7edc97ce4fe110f03d16651",
+      "size": 209144,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166860.anim"
+    },
+    {
+      "file_data_id": 3166862,
+      "logical_name": "character\\vulpera\\male\\vulperamale0522-00.anim",
+      "content_key": "f122d72b976b2754c9aa8c6098e158a7",
+      "sha256": "7cd35d43a2a24963381161afbee5e364394a3721a7c59bfb1c20a8c4051888ed",
+      "size": 23496,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166862.anim"
+    },
+    {
+      "file_data_id": 3166864,
+      "logical_name": "character\\vulpera\\male\\vulperamale0520-00.anim",
+      "content_key": "6b44fdcf02150d08534bc4f0e7f96b5c",
+      "sha256": "d6c26e804f4ed85fd8dd11ffe05042eaee6b2dd97300e9540d31a89c4a1ee03b",
+      "size": 20744,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166864.anim"
+    },
+    {
+      "file_data_id": 3166866,
+      "logical_name": "character\\vulpera\\male\\vulperamale0518-00.anim",
+      "content_key": "a39a38797e50791dd466beeff384a05a",
+      "sha256": "888d8d212b6054c5fa2d4284af03d8e8bee5e9cf5ffcb0cd4e8e449911125a96",
+      "size": 24120,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166866.anim"
+    },
+    {
+      "file_data_id": 3187980,
+      "logical_name": "character\\vulpera\\male\\vulperamale0732-00.anim",
+      "content_key": "764387f5fc2882d5d3b8c13f558da821",
+      "sha256": "24a9993001dd2c1759129f3474be7d17bc71985bed918216449bd21402470fbe",
+      "size": 50216,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3187980.anim"
+    },
+    {
+      "file_data_id": 1958228,
+      "logical_name": "character\\vulpera\\male\\vulperamale1194-00.anim",
+      "content_key": "0f8a34ae3e9c5015da21fa62914bb6b3",
+      "sha256": "f0164b603ff15e86deef1c479d4a7724a4e7873e2a4fe8f2f8e6351c6b6a7120",
+      "size": 23672,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1958228.anim"
+    },
+    {
+      "file_data_id": 1958230,
+      "logical_name": "character\\vulpera\\male\\vulperamale1196-00.anim",
+      "content_key": "fe49376f91d95128fd012a6919f7ebf3",
+      "sha256": "a3937b605b0d7afffb641c74e52cd92d2671f1f48137497677b6cd2f66a49423",
+      "size": 22072,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1958230.anim"
+    },
+    {
+      "file_data_id": 3166868,
+      "logical_name": "character\\vulpera\\male\\vulperamale0073-00.anim",
+      "content_key": "fd16e2addf08a9e7b4c78498a048b1a2",
+      "sha256": "d4fb457bd96cced3955a9cb10616181a7806e783bf115242acba707d7ffcde61",
+      "size": 79384,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3166868.anim"
+    },
+    {
+      "file_data_id": 4643973,
+      "logical_name": "character\\vulpera\\male\\vulperamale1220-00.anim",
+      "content_key": "436c9bc2f21d7ce8b5971b205a9dc077",
+      "sha256": "a07c2a931ee193096c411e3ed966ce75b8e01e4fbaa5aefae4728ecf90c3fdfa",
+      "size": 12712,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4643973.anim"
+    },
+    {
+      "file_data_id": 4905368,
+      "logical_name": "character\\vulpera\\male\\vulperamale1492-00.anim",
+      "content_key": "9ec2106f8eac22f42f0445d789e17bde",
+      "sha256": "425bba51e321008bdc409e95b2f01fd9126ba2ed88639818788b1cb636fe55ce",
+      "size": 87672,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4905368.anim"
+    },
+    {
+      "file_data_id": 5633392,
+      "logical_name": "character\\vulpera\\male\\vulperamale1770-00.anim",
+      "content_key": "cde304877bc2c40ce327e59f47cb0023",
+      "sha256": "9bebdf5df37c142ff693180eb37b3cf2838ea470d75867ee04d4be2988eacae3",
+      "size": 27448,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\5633392.anim"
+    },
+    {
+      "file_data_id": 1893903,
+      "logical_name": "character\\vulpera\\male\\vulperamale00.skin",
+      "content_key": "e6dba4b0dbb24bea8b16e37e5fc41397",
+      "sha256": "6647ddca909bd7ca4577729355db8b4dfaf423ccd3e98e375a6a3cce6942633d",
+      "size": 324480,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\1893903.skin"
+    },
+    {
+      "file_data_id": 2141131,
+      "logical_name": "character\\vulpera\\male\\vulperamale_lod01.skin",
+      "content_key": "42924be293bf9210370c70c456ff2a22",
+      "sha256": "9f1ef21027907e5ef57920c30deefc8bc3e4bee387d956e22ed4c444e43954c3",
+      "size": 324480,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141131.skin"
+    },
+    {
+      "file_data_id": 2141132,
+      "logical_name": "character\\vulpera\\male\\vulperamale_lod02.skin",
+      "content_key": "fb670d2dffa749e3bc02e71f95022438",
+      "sha256": "f1db248df2b091f8e300949d20308daea8bf28bb904f9f305c931529eb4771b4",
+      "size": 320560,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141132.skin"
+    },
+    {
+      "file_data_id": 2141133,
+      "logical_name": "character\\vulpera\\male\\vulperamale_lod03.skin",
+      "content_key": "2a8b4f6f65aab74c41915d01e0d28474",
+      "sha256": "04d541e4f21f59ae099f539083144b2b135bd624d56c7591b18e63d80cdc4b9c",
+      "size": 260912,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\2141133.skin"
+    },
+    {
+      "file_data_id": 4870945,
+      "logical_name": "character\\vulpera\\male\\vulperamale_lod04.skin",
+      "content_key": "dc0168514dc7311cc8b01f845e5a487e",
+      "sha256": "c12e82a340601acb9ea27f6298d9a3c56da429720a852693044d4c7b56eb28cb",
+      "size": 239472,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4870945.skin"
+    },
+    {
+      "file_data_id": 4870946,
+      "logical_name": "character\\vulpera\\male\\vulperamale_lod05.skin",
+      "content_key": "3949c874edcdef1b53bd7b6343f8840c",
+      "sha256": "8480cb8217522a1f3de0a9a045c6239abd096e90376a6befe68f898b499931f0",
+      "size": 218368,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4870946.skin"
+    },
+    {
+      "file_data_id": 4870947,
+      "logical_name": "character\\vulpera\\male\\vulperamale_lod06.skin",
+      "content_key": "e9762d490e74aa66e73e53cb7630d700",
+      "sha256": "3dfbb884777ba3b8db66967f0fc655d83ed39ea9db032665e67ea12d32240a0e",
+      "size": 205136,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4870947.skin"
+    },
+    {
+      "file_data_id": 3552542,
+      "logical_name": "character\\vulpera\\male\\vulperamale_3552542.blp",
+      "content_key": "b767dcdc0579574daa02d9d3399c2b51",
+      "sha256": "ab65b08ff1efd645f092e96c533d0073d35cad3ae0c1f19b95cde9dd74947700",
+      "size": 44900,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\3552542.blp"
+    },
+    {
+      "file_data_id": 4531035,
+      "logical_name": "character\\vulpera\\male\\vulperamale_4531035.blp",
+      "content_key": "4a1b785eeaabe9f623fb1a2d3b0fe30c",
+      "sha256": "8bb6127332e36d397c434d06377baafc826ef45a4598cff9cc9e42f5969e7c2e",
+      "size": 350724,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\4531035.blp"
+    },
+    {
+      "file_data_id": 5210139,
+      "logical_name": "character\\vulpera\\male\\vulperamale_eyereflect.blp",
+      "content_key": "5e9accd070b81371cf9bb4152766dfe0",
+      "sha256": "f537389d4ed369fbb9750fcddf89b6a5d7276702e87bad5b3bd344940501425d",
+      "size": 23044,
+      "raw_path": "G:\\RetroPorterWork\\vulpera\\raw\\5210139.blp"
+    }
+  ],
+  "dependencies": [
+    {
+      "owner": 1890759,
+      "dependency": 1893974,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893975,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893976,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893977,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893978,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893979,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893980,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894224,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893981,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893982,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893983,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893984,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893985,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893986,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894225,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893987,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893988,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894226,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894227,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893989,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894228,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894229,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893990,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894230,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894231,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894232,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894233,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894234,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894235,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893991,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894236,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894237,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894238,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894239,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894240,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894241,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894243,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893992,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893993,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1893994,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 3166875,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894244,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894245,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894246,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894247,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1958448,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1958449,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1894242,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 4643997,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 5157542,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 5634736,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 1891282,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 2141134,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 2141136,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 2141138,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 4879084,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 4879085,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 4879086,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 3552545,
+      "role": "TXID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 4531037,
+      "role": "TXID"
+    },
+    {
+      "owner": 1890759,
+      "dependency": 5210161,
+      "role": "TXID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893881,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893882,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893883,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893884,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893885,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893886,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893887,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 2109153,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893888,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893889,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893890,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893891,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893892,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893893,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166830,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893894,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893895,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166832,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166834,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893896,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166836,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166837,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893897,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166839,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166841,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166843,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166845,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166847,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166849,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893898,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 2141130,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166851,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166852,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166853,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166854,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166856,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166858,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893899,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893900,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893901,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166860,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166862,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166864,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166866,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3187980,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1958228,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1958230,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3166868,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 4643973,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 4905368,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 5633392,
+      "role": "AFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 1893903,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 2141131,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 2141132,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 2141133,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 4870945,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 4870946,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 4870947,
+      "role": "SFID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 3552542,
+      "role": "TXID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 4531035,
+      "role": "TXID"
+    },
+    {
+      "owner": 1890761,
+      "dependency": 5210139,
+      "role": "TXID"
+    }
+  ],
+  "unreadable": [],
+  "role_counts": {
+    "AFID": 102,
+    "SFID": 14,
+    "TXID": 6
+  }
+}

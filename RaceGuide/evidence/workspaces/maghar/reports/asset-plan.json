@@ -1,0 +1,2143 @@
+{
+  "race": "maghar",
+  "path_prefix": "custom\\maghar",
+  "selected_file_ids": [
+    917116,
+    949470,
+    1936112,
+    1936113,
+    1936114,
+    1936115,
+    1936116,
+    1936117,
+    1936118,
+    1936119,
+    1939253,
+    1939254,
+    1939255,
+    1939256,
+    1939257,
+    1939258,
+    1939259,
+    1939260,
+    1939261,
+    1939262,
+    1939263,
+    1939264,
+    1939265,
+    1939266,
+    1939267,
+    1939268,
+    1939269,
+    1939271,
+    1939272,
+    1939273,
+    1939274,
+    1939275,
+    1939276,
+    1939277,
+    1939280,
+    1939281,
+    1939282,
+    1939283,
+    1939285,
+    1939286,
+    1939287,
+    1939288,
+    1939289,
+    1939291,
+    1939292,
+    1939293,
+    1939294,
+    1939295,
+    1939296,
+    1939297,
+    1939298,
+    1939299,
+    1939300,
+    1939301,
+    1939302,
+    1939303,
+    1939304,
+    1939305,
+    1939306,
+    1939307,
+    1939308,
+    1939309,
+    1939310,
+    1939311,
+    1939312,
+    1939313,
+    1939314,
+    1939315,
+    1939316,
+    1939317,
+    1939318,
+    1939319,
+    1939320,
+    1939321,
+    1939322,
+    1939323,
+    1939324,
+    1939325,
+    1939326,
+    1939327,
+    1939328,
+    1939329,
+    1939330,
+    1939331,
+    1939332,
+    1939333,
+    1939334,
+    1939335,
+    1939336,
+    1939337,
+    1939338,
+    1939339,
+    1939340,
+    1939341,
+    1939342,
+    1939343,
+    1939344,
+    1939345,
+    1939346,
+    1939347,
+    1939348,
+    1939349,
+    1939350,
+    1939351,
+    1939352,
+    1939353,
+    1939354,
+    1939355,
+    1939356,
+    1939357,
+    1939358,
+    1939359,
+    1939360,
+    1939361,
+    1939362,
+    1939363,
+    1939364,
+    1939365,
+    1939366,
+    1939367,
+    1939368,
+    1939369,
+    1939370,
+    1939371,
+    1939372,
+    1939373,
+    1939374,
+    1939375,
+    1939376,
+    1939377,
+    1939378,
+    1939379,
+    1939380,
+    1939381,
+    1939382,
+    1939383,
+    1939384,
+    1939385,
+    1939386,
+    1939387,
+    1939388,
+    1939389,
+    1939390,
+    1939391,
+    1939392,
+    1939393,
+    1939394,
+    1939395,
+    1939396,
+    1939397,
+    1939398,
+    1939399,
+    1939400,
+    1939401,
+    1939402,
+    1939403,
+    1939404,
+    1939405,
+    1939406,
+    1939407,
+    1939408,
+    1939409,
+    1939410,
+    1939411,
+    1939412,
+    1939413,
+    1939414,
+    1939415,
+    1939416,
+    1939417,
+    1939418,
+    1939419,
+    1939420,
+    1939421,
+    1939422,
+    1939423,
+    1939424,
+    1939425,
+    1939426,
+    1939427,
+    1939428,
+    1939429,
+    1939430,
+    1939431,
+    1939432,
+    1939433,
+    1939434,
+    1939435,
+    1939436,
+    1939437,
+    1939438,
+    1939439,
+    1939440,
+    1939441,
+    1939442,
+    1939443,
+    1939444,
+    1939445,
+    1939446,
+    1939447,
+    1939448,
+    1939449,
+    1939450,
+    1939451,
+    1939452,
+    1939453,
+    1939454,
+    1939455,
+    1939456,
+    1939457,
+    1939458,
+    1939459,
+    1939460,
+    1939461,
+    1939462,
+    1939463,
+    1939464,
+    1939465,
+    1939466,
+    1939467,
+    1939468,
+    1939469,
+    1939470,
+    1939471,
+    1939472,
+    1939473,
+    1939474,
+    1939475,
+    1939476,
+    1939477,
+    1939478,
+    1939479,
+    1939480,
+    1939481,
+    1939482,
+    1939483,
+    1939484,
+    1939485,
+    1939486,
+    1939487,
+    1939488,
+    1939489,
+    1939490,
+    1939491,
+    1939492,
+    1939493,
+    1939494,
+    1939495,
+    1939496,
+    1968587,
+    1981880,
+    1981881,
+    1981882,
+    1981883,
+    1981884,
+    1981885,
+    1981886,
+    1981887,
+    1981889,
+    1983796,
+    3492836,
+    3492843,
+    3492844,
+    3492845,
+    3492846,
+    3492847,
+    3492848,
+    3492849,
+    3492850,
+    3540975,
+    3548970,
+    3623305,
+    3687546,
+    3687547,
+    3717594,
+    3717595,
+    4531025,
+    4531027,
+    5148991,
+    5148992,
+    5148993,
+    5148994,
+    5210141,
+    5210144,
+    5273683
+  ],
+  "direct_model_texture_file_ids": [
+    3540975,
+    3548970,
+    3623305,
+    3687546,
+    3687547,
+    4531025,
+    4531027,
+    5210141,
+    5210144
+  ],
+  "selected": [
+    {
+      "file_data_id": 917116,
+      "path": "character\\orc\\male\\orcmale_hd.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 949470,
+      "path": "character\\orc\\female\\orcfemale_hd.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 1936112,
+      "path": "character\\orc\\orcclanhair00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936113,
+      "path": "character\\orc\\orcclanhair00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936114,
+      "path": "character\\orc\\orcclanhair00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936115,
+      "path": "character\\orc\\orcclanhair00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936116,
+      "path": "character\\orc\\orcclanhair00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936117,
+      "path": "character\\orc\\orcclanhair00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936118,
+      "path": "character\\orc\\orcclanhair00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1936119,
+      "path": "character\\orc\\orcclanhair00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939253,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939254,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939255,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939256,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939257,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939258,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939259,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939260,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939261,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939262,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939263,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939264,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939265,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939266,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939267,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939268,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939269,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939271,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939272,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper01_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939273,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939274,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939275,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939276,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939277,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939280,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939281,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939282,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939283,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939285,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper02_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939286,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939287,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939288,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939289,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939291,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939292,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939293,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939294,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939295,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939296,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper03_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939297,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939298,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939299,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939300,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939301,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939302,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939303,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939304,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939305,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939306,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper04_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939307,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939308,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939309,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939310,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939311,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939312,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939313,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939314,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939315,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939316,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper05_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939317,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939318,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939319,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939320,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939321,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939322,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939323,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939324,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939325,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939326,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper06_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939327,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939328,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939329,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939330,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939331,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939332,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939333,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939334,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939335,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939336,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper07_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939337,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939338,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939339,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939340,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939341,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939342,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939343,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939344,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939345,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939346,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper08_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939347,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939348,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939349,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939350,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939351,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939352,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939353,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939354,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939355,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939356,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939357,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939358,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939359,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939360,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939361,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939362,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939363,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939364,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939365,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939366,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939367,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939368,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939369,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939370,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939371,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939372,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939373,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939374,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939375,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939376,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939377,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939378,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939379,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939380,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939381,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939382,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939383,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939384,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939385,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939386,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939387,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939388,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939389,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939390,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939391,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939392,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939393,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939394,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939395,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939396,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper01_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939397,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939398,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939399,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939400,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939401,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939402,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939403,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939404,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939405,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939406,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper02_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939407,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939408,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939409,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939410,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939411,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939412,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939413,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939414,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939415,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939416,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper03_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939417,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939418,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939419,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939420,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939421,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939422,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939423,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939424,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939425,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939426,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper04_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939427,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939428,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939429,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939430,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939431,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939432,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939433,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939434,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939435,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939436,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper05_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939437,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939438,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939439,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939440,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939441,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939442,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939443,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939444,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939445,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939446,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper06_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939447,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939448,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939449,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939450,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939451,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939452,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939453,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939454,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939455,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939456,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper07_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939457,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939458,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939459,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939460,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939461,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939462,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939463,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939464,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939465,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939466,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper08_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939467,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939468,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939469,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939470,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939471,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939472,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939473,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939474,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939475,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939476,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939477,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939478,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939479,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939480,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939481,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939482,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939483,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939484,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939485,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939486,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939487,
+      "path": "character\\orc\\male\\orcmaleclanskin00_00.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939488,
+      "path": "character\\orc\\male\\orcmaleclanskin00_01.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939489,
+      "path": "character\\orc\\male\\orcmaleclanskin00_02.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939490,
+      "path": "character\\orc\\male\\orcmaleclanskin00_03.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939491,
+      "path": "character\\orc\\male\\orcmaleclanskin00_04.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939492,
+      "path": "character\\orc\\male\\orcmaleclanskin00_05.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939493,
+      "path": "character\\orc\\male\\orcmaleclanskin00_06.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939494,
+      "path": "character\\orc\\male\\orcmaleclanskin00_07.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939495,
+      "path": "character\\orc\\male\\orcmaleclanskin00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1939496,
+      "path": "character\\orc\\male\\orcmaleclanskin00_09.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1968587,
+      "path": "character\\orc\\male\\orcmaleupright.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 1981880,
+      "path": "character\\orc\\female\\orcfemaleclanfaceupper00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981881,
+      "path": "character\\orc\\female\\orcfemaleclannakedpelvisskin00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981882,
+      "path": "character\\orc\\female\\orcfemaleclannakedtorsoskin00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981883,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981884,
+      "path": "character\\orc\\male\\orcmaleclanfaceupper00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981885,
+      "path": "character\\orc\\male\\orcmaleclannakedpelvisskin00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981886,
+      "path": "character\\orc\\male\\orcmaleclannakedtorsoskin00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981887,
+      "path": "character\\orc\\male\\orcmaleclanskin00_10.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1981889,
+      "path": "character\\orc\\orcclanhair00_08.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 1983796,
+      "path": "character\\orc\\female\\orcfemaleclanskin00_100.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492836,
+      "path": "character\\orc\\eyes00_08_3492836.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492843,
+      "path": "character\\orc\\claneyes00_00_3492843.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492844,
+      "path": "character\\orc\\claneyes00_01_3492844.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492845,
+      "path": "character\\orc\\claneyes00_02_3492845.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492846,
+      "path": "character\\orc\\claneyes00_03_3492846.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492847,
+      "path": "character\\orc\\claneyes00_04_3492847.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492848,
+      "path": "character\\orc\\claneyes00_05_3492848.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492849,
+      "path": "character\\orc\\claneyes00_06_3492849.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3492850,
+      "path": "character\\orc\\claneyes00_07_3492850.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3717594,
+      "path": "character\\orc\\female\\orcfemale_hd_eyesight_3717594.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3717595,
+      "path": "character\\orc\\male\\orcmale_hd_eyesight_3717595.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 5148991,
+      "path": "character\\orc\\female\\orcfemale_hd_eyesight_5148991.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 5148992,
+      "path": "character\\orc\\female\\orcfemale_hd_eyesight_5148992.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 5148993,
+      "path": "character\\orc\\male\\orcmale_hd_eyesight_5148993.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 5148994,
+      "path": "character\\orc\\male\\orcmale_hd_eyesight_5148994.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 5273683,
+      "path": "character\\orc\\male\\orcmale_hd_eye_color_5273683.blp",
+      "reason": "Mag'har Orc customization texture"
+    },
+    {
+      "file_data_id": 3540975,
+      "path": "character\\orc\\female\\orcfemale_hd_3540975.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 3548970,
+      "path": "character\\orc\\male\\orcmale_hd_3548970.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 3623305,
+      "path": "character\\orc\\male\\orcmale_hd_3623305.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 3687546,
+      "path": "character\\orc\\female\\orcfemale_hd_3687546.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 3687547,
+      "path": "character\\orc\\female\\orcfemale_hd_3687547.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 4531025,
+      "path": "character\\orc\\male\\orcmale_hd_4531025.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 4531027,
+      "path": "character\\orc\\female\\orcfemale_hd_4531027.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 5210141,
+      "path": "character\\orc\\male\\orcmale_hd_eyereflect.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 5210144,
+      "path": "character\\orc\\female\\orcfemale_hd_eyereflect.blp",
+      "reason": "core M2 hard texture dependency"
+    }
+  ],
+  "unsupported": [
+    {
+      "file_data_id": 1053773,
+      "path": "character\\orc\\female\\orcfemale_hd_07.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053775,
+      "path": "character\\orc\\female\\orcfemale_hd_01.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053779,
+      "path": "character\\orc\\female\\orcfemale_hd_06.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053781,
+      "path": "character\\orc\\female\\orcfemale_hd_05.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053782,
+      "path": "character\\orc\\female\\orcfemale_hd_00.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053783,
+      "path": "character\\orc\\female\\orcfemale_hd_04.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053785,
+      "path": "character\\orc\\female\\orcfemale_hd_03.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053789,
+      "path": "character\\orc\\female\\orcfemale_hd_02.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1053790,
+      "path": "character\\orc\\female\\orcfemale_hd_08.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054827,
+      "path": "character\\orc\\male\\orcmale_hd_08.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054829,
+      "path": "character\\orc\\male\\orcmale_hd_02.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054832,
+      "path": "character\\orc\\male\\orcmale_hd_04.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054833,
+      "path": "character\\orc\\male\\orcmale_hd_03.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054834,
+      "path": "character\\orc\\male\\orcmale_hd_06.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054836,
+      "path": "character\\orc\\male\\orcmale_hd_05.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054837,
+      "path": "character\\orc\\male\\orcmale_hd_01.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054839,
+      "path": "character\\orc\\male\\orcmale_hd_07.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1054841,
+      "path": "character\\orc\\male\\orcmale_hd_00.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016357,
+      "path": "character\\orc\\male\\orcmaleupright_00.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016358,
+      "path": "character\\orc\\male\\orcmaleupright_01.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016360,
+      "path": "character\\orc\\male\\orcmaleupright_02.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016363,
+      "path": "character\\orc\\male\\orcmaleupright_03.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016364,
+      "path": "character\\orc\\male\\orcmaleupright_04.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016365,
+      "path": "character\\orc\\male\\orcmaleupright_05.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016366,
+      "path": "character\\orc\\male\\orcmaleupright_06.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016367,
+      "path": "character\\orc\\male\\orcmaleupright_07.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 2016368,
+      "path": "character\\orc\\male\\orcmaleupright_08.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    }
+  ],
+  "ignored": [
+    {
+      "file_data_id": 623714,
+      "path": "interface\\glues\\models\\ui_horde\\ui_horde.m2",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 651558,
+      "path": "interface\\glues\\models\\ui_horde_lowres\\ui_horde_lowres.m2",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 2005932,
+      "path": "interface\\glues\\models\\ui_orcclan\\ui_orcclan.m2",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261013,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261014,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261015,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261016,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261017,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261018,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261019,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261020,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261021,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261022,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261023,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261024,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261025,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261026,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261027,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261028,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261029,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261030,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261031,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261032,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261033,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261034,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261035,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261036,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261037,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261038,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261039,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261040,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261041,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261042,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261043,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261044,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261045,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261046,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261047,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261048,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261049,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261050,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261051,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261052,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261053,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4261054,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4510263,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4510264,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4510265,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4510266,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4562672,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4690416,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton14.m2",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4690417,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton15.m2",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4705407,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705407.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4705408,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705408.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    },
+    {
+      "file_data_id": 4705409,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705409.blp",
+      "reason": "not part of the initial Mag'har Orc-safe asset slice"
+    }
+  ]
+}

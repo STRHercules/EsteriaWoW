@@ -1,0 +1,1060 @@
+{
+  "pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "core_models": {
+    "0": 122815,
+    "1": 122815
+  },
+  "assets": {
+    "122809": {
+      "file_data_id": 122809,
+      "logical_name": "character\\vrykul\\hair00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122809.blp",
+      "sha256": "403c551c7b402346357ebb40fdc672d8bdbdcf7c118b33039d986fc17b353b5e",
+      "bytes": 88553,
+      "content_key": "c473b3e168c613eb5ea7d970e87a25e6"
+    },
+    "122815": {
+      "file_data_id": 122815,
+      "logical_name": "character\\vrykul\\male\\vrykulmale.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122815.m2",
+      "sha256": "127aac4e264fd2062c64cbd75e82e6753580d0e21b126bba1db4689d6d86747f",
+      "bytes": 5693906,
+      "content_key": "5877852e42e7b3cfe7ceed07c3468bd7"
+    },
+    "122822": {
+      "file_data_id": 122822,
+      "logical_name": "character\\vrykul\\male\\vrykulmalefaceupper00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122822.blp",
+      "sha256": "7f760c3ab1603df61caf8f86a475fb8081ab98ea59f7d3eaa8b484df6e3deeb2",
+      "bytes": 175948,
+      "content_key": "4af959c28eca35526123d41b2099cdd8"
+    },
+    "122823": {
+      "file_data_id": 122823,
+      "logical_name": "character\\vrykul\\male\\vrykulmalefaceupper00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122823.blp",
+      "sha256": "60ab3ff609414316334184054c29eb8570a96301f31ef095afa30df114194b2b",
+      "bytes": 175948,
+      "content_key": "3c4a0eac594642e700f8c92c7370eb7c"
+    },
+    "122824": {
+      "file_data_id": 122824,
+      "logical_name": "character\\vrykul\\male\\vrykulmalefaceupper00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122824.blp",
+      "sha256": "ca662b3f6ae9b0d181bb018b7e426817c765e865c8aeba5233fbcd51dd99e144",
+      "bytes": 175948,
+      "content_key": "79ff63d06ab1c9c160606e1d8a92e36d"
+    },
+    "122825": {
+      "file_data_id": 122825,
+      "logical_name": "character\\vrykul\\male\\vrykulmalefaceupper00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122825.blp",
+      "sha256": "e654c71800ba56de953215b2991ba4e7d72e2cb7c8ddfcdfd2061c4112e02450",
+      "bytes": 175948,
+      "content_key": "94967d793a4b4e5716177d94c942a37b"
+    },
+    "122826": {
+      "file_data_id": 122826,
+      "logical_name": "character\\vrykul\\male\\vrykulmalefaceupper00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122826.blp",
+      "sha256": "e29b49d02982586336e8f91b9ef6d8a0b1629bc47bb261cf04302eb193f36e76",
+      "bytes": 175948,
+      "content_key": "25cc9248a7b2767763a3b2a3dbaf2f0d"
+    },
+    "122827": {
+      "file_data_id": 122827,
+      "logical_name": "character\\vrykul\\male\\vrykulmalefaceupper00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122827.blp",
+      "sha256": "be59bfde3a1d14c99c8b2b431fff5dce14cafdbc5a8d47b8259293a827e13a10",
+      "bytes": 175948,
+      "content_key": "ab0f3d4699c79011227e8865be2bb4d8"
+    },
+    "122828": {
+      "file_data_id": 122828,
+      "logical_name": "character\\vrykul\\male\\vrykulmalenakedpelvisskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122828.blp",
+      "sha256": "5dd159bef35fec2cc0d8ae6d8d41a549d7539ec9093fbef3868b178f60f6b980",
+      "bytes": 23036,
+      "content_key": "6f66cf3db7dff5d22ca45d006d02d372"
+    },
+    "122829": {
+      "file_data_id": 122829,
+      "logical_name": "character\\vrykul\\male\\vrykulmalenakedpelvisskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122829.blp",
+      "sha256": "21ea4b88e0796ec318387f76979ac33c5f1f46bd5ed724e9a45143eecc044774",
+      "bytes": 23036,
+      "content_key": "e48eb26b24743e879dfcd185fe58b56f"
+    },
+    "122830": {
+      "file_data_id": 122830,
+      "logical_name": "character\\vrykul\\male\\vrykulmalenakedpelvisskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122830.blp",
+      "sha256": "d3b08ca5a529438d55540a36d16acaa3992967765ee27e8281ee6cdddeebe081",
+      "bytes": 23036,
+      "content_key": "0e3096cd7c792f05d64b1fb0d5ef46f5"
+    },
+    "122831": {
+      "file_data_id": 122831,
+      "logical_name": "character\\vrykul\\male\\vrykulmalenakedpelvisskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122831.blp",
+      "sha256": "7c3fb9ffd593d7ffa1c57cd1657d9f8c8656e367c2001b9122ba2b4c6cd7c8bb",
+      "bytes": 23036,
+      "content_key": "24b9b3111dc7bc19f0062ea114f5e41a"
+    },
+    "122832": {
+      "file_data_id": 122832,
+      "logical_name": "character\\vrykul\\male\\vrykulmalenakedpelvisskin00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122832.blp",
+      "sha256": "a8ec87f6b29a756bfc6d118752068beb7c4b6e0c8c04cef10d062d4fcc63d808",
+      "bytes": 23036,
+      "content_key": "53a967408546b35b7afe5368112d64ba"
+    },
+    "122833": {
+      "file_data_id": 122833,
+      "logical_name": "character\\vrykul\\male\\vrykulmalenakedpelvisskin00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122833.blp",
+      "sha256": "758e088047425340ebaf110f109d98d2b7fe5cd76eb82bde6421ab34427bbce5",
+      "bytes": 23036,
+      "content_key": "5db00a0f75de902c4f17d9a6971636cf"
+    },
+    "122840": {
+      "file_data_id": 122840,
+      "logical_name": "character\\vrykul\\male\\vrykulmaleskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122840.blp",
+      "sha256": "d38724c74fa5ca24a9b0532721f84b7221d6526f708099459ee58eac307074fc",
+      "bytes": 350716,
+      "content_key": "77cc116f82c61166d2ee96cb97be4fb6"
+    },
+    "122841": {
+      "file_data_id": 122841,
+      "logical_name": "character\\vrykul\\male\\vrykulmaleskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122841.blp",
+      "sha256": "f08aeb03d1a0d59361b78282c2d621b376c44c40f9360a5f0b47937156351308",
+      "bytes": 350716,
+      "content_key": "72eaa13e344a4b8dfc3b814fe0078a73"
+    },
+    "122842": {
+      "file_data_id": 122842,
+      "logical_name": "character\\vrykul\\male\\vrykulmaleskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122842.blp",
+      "sha256": "b5aad8f8e304674864cd50e5c0f8dd6d3b56cf56ad082bdeae789879ae413de5",
+      "bytes": 350716,
+      "content_key": "cdc9cd50c78a3bfb592245d6b6f85cce"
+    },
+    "122843": {
+      "file_data_id": 122843,
+      "logical_name": "character\\vrykul\\male\\vrykulmaleskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122843.blp",
+      "sha256": "d8c45347f8f27f096e8e8e780c5314c5ddeec03e413a4d9cdadbe09f2c1ba465",
+      "bytes": 350716,
+      "content_key": "52ce6051662113a43174498da85f2b0d"
+    },
+    "122844": {
+      "file_data_id": 122844,
+      "logical_name": "character\\vrykul\\male\\vrykulmaleskin00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122844.blp",
+      "sha256": "2a3a13a3101dedc9f2378fd13f07db383e8a300705f7ea3fb2fd7ad21e07ec4e",
+      "bytes": 350716,
+      "content_key": "e08ec193945e6a3fe1f3c231ac097294"
+    },
+    "122845": {
+      "file_data_id": 122845,
+      "logical_name": "character\\vrykul\\male\\vrykulmaleskin00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\122845.blp",
+      "sha256": "8223152c94063d13715ed5fbf192c8e60c7e9792f59830ceb3bc62687e352637",
+      "bytes": 350716,
+      "content_key": "45bf3b03ef395c1f226cab5b3a4a2579"
+    },
+    "126397": {
+      "file_data_id": 126397,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\126397.m2",
+      "sha256": "aea8022bb0411c80768833377bca5047fec7964155318c96ff40e5688033e7a4",
+      "bytes": 1742562,
+      "content_key": "8c1be564e3c6e65261766fc5f48f96af"
+    },
+    "199682": {
+      "file_data_id": 199682,
+      "logical_name": "world\\generic\\passivedoodads\\deathskeletons\\vrykulmaledeathskeleton.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\199682.m2",
+      "sha256": "6c60a40c672ae4c63cb1b183fb18865ab2707683739575a06245acbb087a2d23",
+      "bytes": 25088,
+      "content_key": "02427d6673337c2bdeba3b108fcd47bb"
+    },
+    "1319062": {
+      "file_data_id": 1319062,
+      "logical_name": "character\\vrykul\\male\\faciallowerhair00_00_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319062.blp",
+      "sha256": "3ab8107d9cd3eca71d95870b45166cba41fdf054a566b5108efffba11358e730",
+      "bytes": 350724,
+      "content_key": "21422c78f9c939689f912f6affe7ca0e"
+    },
+    "1319063": {
+      "file_data_id": 1319063,
+      "logical_name": "character\\vrykul\\male\\faciallowerhair00_01_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319063.blp",
+      "sha256": "1d26d42415367344479d99e8d90a7abb3ecad4d36f1996b8e089ba4cfdcd7127",
+      "bytes": 350724,
+      "content_key": "dd68cf9ffe50c72f1963e829d408aac6"
+    },
+    "1319064": {
+      "file_data_id": 1319064,
+      "logical_name": "character\\vrykul\\male\\faciallowerhair00_02_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319064.blp",
+      "sha256": "b873671156089164f5c2a9fde61699acb60754e9c2618280a696a1d001b65924",
+      "bytes": 350724,
+      "content_key": "53101c8f1fc73b3cedd18ca2cebda766"
+    },
+    "1319065": {
+      "file_data_id": 1319065,
+      "logical_name": "character\\vrykul\\male\\faciallowerhair00_03_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319065.blp",
+      "sha256": "d8be52c21351524c4a1f578b6dcf2e5d19a7b5be6dea2a7ae4ae1d8f806a8f6a",
+      "bytes": 350724,
+      "content_key": "575b08324673af3f0f9cc922792261e2"
+    },
+    "1319066": {
+      "file_data_id": 1319066,
+      "logical_name": "character\\vrykul\\male\\faciallowerhair00_04_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319066.blp",
+      "sha256": "8851eaefa2de599f75beac9214ffd01c132a6298987364848d0525c373ba6e50",
+      "bytes": 350724,
+      "content_key": "897179c7e50a8378034edb5aab9ab24a"
+    },
+    "1319067": {
+      "file_data_id": 1319067,
+      "logical_name": "character\\vrykul\\male\\scalpupperhair00_00_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319067.blp",
+      "sha256": "ade23f4af0fa5ff2e887a75e8ce015fac1793ba05ec60794c4ed1fd06f3bf96e",
+      "bytes": 350724,
+      "content_key": "8cc63c106d9602e93530beadbdb67e14"
+    },
+    "1319068": {
+      "file_data_id": 1319068,
+      "logical_name": "character\\vrykul\\male\\scalpupperhair00_01_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319068.blp",
+      "sha256": "e26a37c321402a5a2e1252f2b0ad44150110c4e8cc6f08f513e983671d9d7f9c",
+      "bytes": 350724,
+      "content_key": "9a8a27e7f6c105a76761393cc867f0ba"
+    },
+    "1319069": {
+      "file_data_id": 1319069,
+      "logical_name": "character\\vrykul\\male\\scalpupperhair00_02_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319069.blp",
+      "sha256": "c38ce007742fa891430d2cdca3474d960fa096e44ad4ae2318475c36dc486755",
+      "bytes": 350724,
+      "content_key": "4d92d4faf00af97010c6741474b6218e"
+    },
+    "1319070": {
+      "file_data_id": 1319070,
+      "logical_name": "character\\vrykul\\male\\scalpupperhair00_03_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319070.blp",
+      "sha256": "b21dc60f4be6cdf2b2409bcfc67ea26a6165b1a1e1e1cf3779a5e55abdc576d3",
+      "bytes": 350724,
+      "content_key": "8c796fe667da23f741dda6db3ea424b7"
+    },
+    "1319071": {
+      "file_data_id": 1319071,
+      "logical_name": "character\\vrykul\\male\\scalpupperhair00_04_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319071.blp",
+      "sha256": "19e9d4354e3ef567179775886a6105dfd7120f732eb0c3852fa5746daca5934e",
+      "bytes": 350724,
+      "content_key": "e02245cfa1b5542a0b961a48975554cc"
+    },
+    "1319072": {
+      "file_data_id": 1319072,
+      "logical_name": "character\\vrykul\\male\\vrykul_hair_00_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319072.blp",
+      "sha256": "bbdb76f2466e3818ca2466b707becd8fbe7b26f2a90264ec14c51b517b5dc3ec",
+      "bytes": 700260,
+      "content_key": "65238146df210067095ea67120eebf39"
+    },
+    "1319073": {
+      "file_data_id": 1319073,
+      "logical_name": "character\\vrykul\\male\\vrykul_hair_01_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319073.blp",
+      "sha256": "bf4ab652064fcf7a5f6caac6ac50122640c3e4bb746e566df43b4e4c10c949b5",
+      "bytes": 700260,
+      "content_key": "82e5a2a41510116e242e73b352ece887"
+    },
+    "1319074": {
+      "file_data_id": 1319074,
+      "logical_name": "character\\vrykul\\male\\vrykul_hair_02_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319074.blp",
+      "sha256": "9bbe9317c1e75530d79a6d391497de804458857502ce788a9642c16e2ae1a120",
+      "bytes": 700260,
+      "content_key": "8a454a95b0e1ef53b55e3920ce90350c"
+    },
+    "1319075": {
+      "file_data_id": 1319075,
+      "logical_name": "character\\vrykul\\male\\vrykul_hair_03_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319075.blp",
+      "sha256": "46a4914c50b367d129da7c29f60585a2bdeb5e9fb79b1d4c98277756115529e3",
+      "bytes": 700260,
+      "content_key": "be77f68aaced4a2c73444e77ad350bd5"
+    },
+    "1319076": {
+      "file_data_id": 1319076,
+      "logical_name": "character\\vrykul\\male\\vrykul_hair_04_hd.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1319076.blp",
+      "sha256": "16cad06c6fdaeffec4b02f7cc44e93401a2e042455767a50cded0088a25028b7",
+      "bytes": 700260,
+      "content_key": "9d4cc492c48e88340bbc6e78dca445ad"
+    },
+    "1339502": {
+      "file_data_id": 1339502,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale2.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339502.m2",
+      "sha256": "2edeb63736044000cf26820a3b7223dea15db5e9f11cf0a4d4338b63b7a9925f",
+      "bytes": 5590058,
+      "content_key": "52110e8832a5a97ca03f64469cb9005f"
+    },
+    "472387": {
+      "file_data_id": 472387,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472387.anim",
+      "sha256": "e2c3ad671841b2e86819e511fe158aaccbef8cc5f74229ab8b778894cd141957",
+      "bytes": 17304,
+      "content_key": "bbf7c0af26b9d45294e77b3f116ce554"
+    },
+    "472384": {
+      "file_data_id": 472384,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472384.anim",
+      "sha256": "a5166223c2597d0c9d6c09aff331303d5b15e90502c7a59330637db8ecb7812a",
+      "bytes": 24200,
+      "content_key": "19179b24397265e86b052cac598594e5"
+    },
+    "472396": {
+      "file_data_id": 472396,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472396.anim",
+      "sha256": "ede5f11577db4323976f834ee189cfc55f8f2cf4eb00a33a8cafe5125528fe37",
+      "bytes": 24616,
+      "content_key": "cc995c3127c2ee97f4f88a69e9fb30d9"
+    },
+    "472390": {
+      "file_data_id": 472390,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0075-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472390.anim",
+      "sha256": "ab7071143beaba9434f3c96fc10c03d633bd10b2d382a457e616f11a2c48c156",
+      "bytes": 51032,
+      "content_key": "93c67c1f10b0a79fb1c07759a6a97533"
+    },
+    "472379": {
+      "file_data_id": 472379,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472379.anim",
+      "sha256": "c44c1f4550717f12541700f2eed97508e7548d0625ad24b889db2cc1f12aa73e",
+      "bytes": 46312,
+      "content_key": "8ff7611910d66d3eeceaf859a4d93707"
+    },
+    "472377": {
+      "file_data_id": 472377,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0062-01.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472377.anim",
+      "sha256": "1d286d06e8bda626e097e5cb86c2d0eb1a7825ac0b5bcd07bd42e6a2a660a91a",
+      "bytes": 62536,
+      "content_key": "d7a0742b821cda0b0f8105cf9eb119c9"
+    },
+    "472386": {
+      "file_data_id": 472386,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472386.anim",
+      "sha256": "0acabf470cfe0c78002d19eb2f1c14bd289c506b7cccb83a29b18bf2beda29b8",
+      "bytes": 28792,
+      "content_key": "2131d1a0ff70e946abb0d59d7f25d7cc"
+    },
+    "472381": {
+      "file_data_id": 472381,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0113-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472381.anim",
+      "sha256": "20daadeeb900f88a6018ed81a5daae3bdf3929913e996da683a9657ae81a2c3e",
+      "bytes": 57608,
+      "content_key": "1d6bb3a281af2bede4684b6b97871f3c"
+    },
+    "472383": {
+      "file_data_id": 472383,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472383.anim",
+      "sha256": "82d1e6372318e0aa5a59bdd6ed8081067c91f19824edcda9d1de1cf91744d40a",
+      "bytes": 42552,
+      "content_key": "61aa55581fcbcf9faba616a95903cfb2"
+    },
+    "472394": {
+      "file_data_id": 472394,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0104-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472394.anim",
+      "sha256": "b6611a71e2cb44bffeeaf8215f0a17c888614cb875f0ab0459be4b79cec8b958",
+      "bytes": 15848,
+      "content_key": "fe5dfd01ceaaa39a861f6e16bccd1931"
+    },
+    "472388": {
+      "file_data_id": 472388,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0068-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472388.anim",
+      "sha256": "0a1829719450c158c57ce0db26fa313c29927a9c427aace5ebcb4433feff7329",
+      "bytes": 36776,
+      "content_key": "8afd433e17a3ab08ab8744dd2fce84f8"
+    },
+    "472382": {
+      "file_data_id": 472382,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472382.anim",
+      "sha256": "ea7282a29292300e8cfc7ce06c100ea424995cc28b1a6d35554613b1f6c22266",
+      "bytes": 9608,
+      "content_key": "2de0c6eb2476196bb8645d483d0b11e5"
+    },
+    "472385": {
+      "file_data_id": 472385,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472385.anim",
+      "sha256": "ec3f4c6d248468a0076486f68c961ded54e1359ea47c383fdebde149edc1aca9",
+      "bytes": 35864,
+      "content_key": "2271b7729382ebd4709bd7b57a51167a"
+    },
+    "472391": {
+      "file_data_id": 472391,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472391.anim",
+      "sha256": "2ed7373255ff5e404f22c42599983e1a10481af6ad2be1867c4515642e90bd2f",
+      "bytes": 9736,
+      "content_key": "6f18ccd11883e148f3a06d8ec0a513dd"
+    },
+    "472392": {
+      "file_data_id": 472392,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0061-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472392.anim",
+      "sha256": "195c03ee6c66fb7852b6abaf1ddd0a89f9a231b7606b1e6a6ea349b946630587",
+      "bytes": 67688,
+      "content_key": "99f3cdcb5aae1b5454d7e30788335bec"
+    },
+    "472389": {
+      "file_data_id": 472389,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0186-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472389.anim",
+      "sha256": "5889ee62040606a93b0c9b262ea5928ad6c4be60a88720cbeceee0d73558fbc2",
+      "bytes": 28152,
+      "content_key": "1e3c5175a402221f8d69e09f87ae48f9"
+    },
+    "472393": {
+      "file_data_id": 472393,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0074-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472393.anim",
+      "sha256": "c71e1824cc90a84a605b9bcc34ec788025a3f549a49af5b17b46b1adc6de44ce",
+      "bytes": 21368,
+      "content_key": "cf8af6b3b69043aeee2f4881b3fe6a8e"
+    },
+    "472380": {
+      "file_data_id": 472380,
+      "logical_name": "character\\vrykul\\male\\vrykulmale0081-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472380.anim",
+      "sha256": "991884dacdfc9f739c4038ba88e5f073fb227058e2b06ec22cc61b6a3f2c39e2",
+      "bytes": 26216,
+      "content_key": "78c7794eae9bbf61e5a3d22cb272ccfe"
+    },
+    "472378": {
+      "file_data_id": 472378,
+      "logical_name": "character\\vrykul\\male\\vrykulmale00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\472378.skin",
+      "sha256": "2141c67b0c4966fb4b4f941cb33a29e98c1f0aa8e7df934136972d53acf4ec78",
+      "bytes": 271616,
+      "content_key": "218958f646a820af32196c356cd96d79"
+    },
+    "2175436": {
+      "file_data_id": 2175436,
+      "logical_name": "character\\vrykul\\male\\vrykulmale_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\2175436.skin",
+      "sha256": "06e07814c06fb8b1e08a0ad62789af387759d81c31972f3d3a8f644ece3a676a",
+      "bytes": 271616,
+      "content_key": "eda8d296e0b198e2bc7e82fcee8cbbcf"
+    },
+    "2175437": {
+      "file_data_id": 2175437,
+      "logical_name": "character\\vrykul\\male\\vrykulmale_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\2175437.skin",
+      "sha256": "5aff88047baa968d2c3a8c262f67058d39983eeec5accc5d011e640d5e0fc02c",
+      "bytes": 218464,
+      "content_key": "74af0ef54979d72ac4278286077613b9"
+    },
+    "2175438": {
+      "file_data_id": 2175438,
+      "logical_name": "character\\vrykul\\male\\vrykulmale_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\2175438.skin",
+      "sha256": "7fcd404f8a6c077cb088fbdc35df1fe8eceaf66691cd1426670a6529f75eb41b",
+      "bytes": 172192,
+      "content_key": "83c0c4107d2364fe46da42bf3fcfe265"
+    },
+    "480711": {
+      "file_data_id": 480711,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480711.anim",
+      "sha256": "cf13051843dfa2df1649332a43aff62045b9de48f739176348172755c07f051d",
+      "bytes": 35656,
+      "content_key": "51174fefd085cb4fc878b3fa3af95a9c"
+    },
+    "480713": {
+      "file_data_id": 480713,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480713.anim",
+      "sha256": "8a3fc7d08294141c775624dddddfe912ebdd845d402313a8220a6c6ffce1bfcf",
+      "bytes": 12120,
+      "content_key": "d1c1512aaf5209464c230cb3147a8705"
+    },
+    "480702": {
+      "file_data_id": 480702,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480702.anim",
+      "sha256": "5c3daed8b7e902675520a068f41f135887080646478b2f708b89155a5347f910",
+      "bytes": 23256,
+      "content_key": "5abb5be839c481c37ac4a9a18eee777c"
+    },
+    "480698": {
+      "file_data_id": 480698,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480698.anim",
+      "sha256": "c8be5a82ba72f8e39bb89c030bddff83ab1a1519e9ca9f7865a97304813461ac",
+      "bytes": 29064,
+      "content_key": "0d81b20ebb828334e52d11fa6a7d3100"
+    },
+    "480714": {
+      "file_data_id": 480714,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480714.anim",
+      "sha256": "0590b63b781a09e8acc3c43c25edcfa5bcf76cc20ee2eedf811676a4521c719c",
+      "bytes": 9368,
+      "content_key": "b31e4a6a34253cc5eb67b07b6b2a6795"
+    },
+    "480666": {
+      "file_data_id": 480666,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480666.anim",
+      "sha256": "18bbb8f776530095958af1cc9706ed2e8d11f9dc313e99d8458e03490a6a0f86",
+      "bytes": 10008,
+      "content_key": "c83f5507ab69e847897ccfaf46ac75bc"
+    },
+    "480684": {
+      "file_data_id": 480684,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480684.anim",
+      "sha256": "1fe7f360b87931119ad5d7674ced00d559350de0764eb177e39d037e99fd1068",
+      "bytes": 6488,
+      "content_key": "282e0d2fcaee8246c9ed3c6114ccdfed"
+    },
+    "480709": {
+      "file_data_id": 480709,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0075-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480709.anim",
+      "sha256": "b526a300825f11bc3a674d59206fb586de1eeb4e6afb141b982d8952df5ee0e9",
+      "bytes": 41656,
+      "content_key": "b8642f310b2bfe969d05ff8a13399b09"
+    },
+    "1346161": {
+      "file_data_id": 1346161,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0120-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1346161.anim",
+      "sha256": "6ee0825da5a4bb29c7f4acc00f84034993be3065ad7760f40cf51b552abc496e",
+      "bytes": 10248,
+      "content_key": "57e460cefb71b064c7cecca96a056f40"
+    },
+    "1346162": {
+      "file_data_id": 1346162,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale0061-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1346162.anim",
+      "sha256": "c26e46816a01e92546ae94228c8ac81047b2d0a3763b409f6c30e41a4e37eaff",
+      "bytes": 14344,
+      "content_key": "2e385468c73abcf5e31207f9e92333ea"
+    },
+    "480726": {
+      "file_data_id": 480726,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480726.skin",
+      "sha256": "8ace2c39403b9a538abc6cbfa36ef80a64987d31ca29aab95808af9f743c7d45",
+      "bytes": 28208,
+      "content_key": "d100df75977244bf1f087200da183544"
+    },
+    "480729": {
+      "file_data_id": 480729,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemale01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\480729.skin",
+      "sha256": "a4749187bd1a4043ac40ec90a9965b4b4e553285a4baca13c349d62ec01b6ad6",
+      "bytes": 28576,
+      "content_key": "fb669f77d830ea0b11614ea07b4e04d6"
+    },
+    "126398": {
+      "file_data_id": 126398,
+      "logical_name": "creature\\vrykulfemale\\vrykulfemaleskin.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\126398.blp",
+      "sha256": "7f9720fdd9171efaf18706d7be8d6eb6bbb4b47a54930da45348b65a7c938de1",
+      "bytes": 175948,
+      "content_key": "cc2b324f66ec39d80ea406455e382b90"
+    },
+    "126399": {
+      "file_data_id": 126399,
+      "logical_name": "creature\\vrykulfemale\\vrykulmalebeardhoney.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\126399.blp",
+      "sha256": "57d4a881be9628e6a1ce21446480bc40f489ddd0ad6f8ce6da623be68075bd52",
+      "bytes": 350724,
+      "content_key": "112bcb742f45382dea07e71b216d2e15"
+    },
+    "126400": {
+      "file_data_id": 126400,
+      "logical_name": "creature\\vrykulfemale\\vrykulmalecape_new.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\126400.blp",
+      "sha256": "08c09c111cd68a0cf6c2e1a84e6d85d5da1215ba34bf502314f72a6622e29447",
+      "bytes": 23036,
+      "content_key": "928896042b00f97f45946407088db84a"
+    },
+    "505564": {
+      "file_data_id": 505564,
+      "logical_name": "world\\generic\\passivedoodads\\deathskeletons\\vrykulmaledeathskeleton00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\505564.skin",
+      "sha256": "198ba27ce601de2340a917b94b89480ce4af65c3b23723afb86ee013d671afae",
+      "bytes": 6592,
+      "content_key": "3008fe5b80bc475ddf6d4f17eb650b90"
+    },
+    "199662": {
+      "file_data_id": 199662,
+      "logical_name": "world\\generic\\passivedoodads\\deathskeletons\\deathskeletonskin.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\199662.blp",
+      "sha256": "6ee92056ee5d98be4a72407a3159e0d470f18467c885e37c5469a837c7367024",
+      "bytes": 44900,
+      "content_key": "cce517553090657447fa9f7d40b9b539"
+    },
+    "1339506": {
+      "file_data_id": 1339506,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339506.anim",
+      "sha256": "9c59508fc5305f091bdd8f2fafa5dac1cd36251a84c6c0626320ce6f8473e245",
+      "bytes": 35240,
+      "content_key": "bb484c7f7fe51721be4ce127d9609bb4"
+    },
+    "1339507": {
+      "file_data_id": 1339507,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339507.anim",
+      "sha256": "a82be492e71aa0772305d98b8f321fccae83a1b8ff5cb426eabf721e407e9b10",
+      "bytes": 14264,
+      "content_key": "46545c755c742ad0948c6826901f18a8"
+    },
+    "1339508": {
+      "file_data_id": 1339508,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339508.anim",
+      "sha256": "27287d23236c5d9a4aa8a682c0c58955692f37392c6b7803fbf9022a64ee466c",
+      "bytes": 24184,
+      "content_key": "7c120390bbffd67e7e314ff6fa8e1e9c"
+    },
+    "1339509": {
+      "file_data_id": 1339509,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339509.anim",
+      "sha256": "9c34cd0876ef7bbafadd8e188526cb036d8cce891c9225f0e979447a83d26dd4",
+      "bytes": 29752,
+      "content_key": "8cf4d7f1abff1a1c95c56b546293d6e8"
+    },
+    "1339510": {
+      "file_data_id": 1339510,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339510.anim",
+      "sha256": "0f85368a9613be8355cc83a7fe20292e614cbf8f1ca671a09739075b04c89600",
+      "bytes": 9544,
+      "content_key": "da8ccac3d4cb37d706509706f418db8c"
+    },
+    "1339511": {
+      "file_data_id": 1339511,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339511.anim",
+      "sha256": "19e6ae346fbc8589e0d01d58e4411af975c8ad616c8b482dc0e53928098c7be9",
+      "bytes": 10312,
+      "content_key": "0bc7f0d941f03c79acb5175a6865460a"
+    },
+    "1339512": {
+      "file_data_id": 1339512,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339512.anim",
+      "sha256": "2ad7bb19f9b9dc2b75c45a267f84ddc8eda676bcd524715ed2f0979f4553a22c",
+      "bytes": 6344,
+      "content_key": "5bbf3a12c58f307406821fcd04d68c81"
+    },
+    "1339513": {
+      "file_data_id": 1339513,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20075-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339513.anim",
+      "sha256": "5223b0184d2723ef9db85f96fbf02c1b849015279906e544bf7a450289b99803",
+      "bytes": 43048,
+      "content_key": "e33b25ceea7ab1f1d12e59669304cc32"
+    },
+    "1350034": {
+      "file_data_id": 1350034,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20120-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1350034.anim",
+      "sha256": "81442a6bb9922595834a045613340712b281d5ec608d7b9f5ab281d88fdc40b8",
+      "bytes": 10632,
+      "content_key": "4537c2e151ff74d1dc71a204e154579a"
+    },
+    "1350035": {
+      "file_data_id": 1350035,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale20061-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1350035.anim",
+      "sha256": "eb1ba24b7e415d7ad8b60df6aef979520c590167336420e49537648a4980fd8e",
+      "bytes": 14520,
+      "content_key": "11546a037c33b8d7c66cd82691d939cc"
+    },
+    "1339514": {
+      "file_data_id": 1339514,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale200.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339514.skin",
+      "sha256": "cc790ee59184b41c6f57d01f0fb3b46071a39c0bf9fc5ea79ab69b1a15089454",
+      "bytes": 415072,
+      "content_key": "c4830a30641f99912e4693764f909e8e"
+    },
+    "6365306": {
+      "file_data_id": 6365306,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale2_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\6365306.skin",
+      "sha256": "43de5400999bacca40e8d47898ef1a2f94a78338dcb2e531b8f8b4b8555a1b0a",
+      "bytes": 277136,
+      "content_key": "5fbf9afa3d79cf295ac4db1631e48242"
+    },
+    "6365308": {
+      "file_data_id": 6365308,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale2_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\6365308.skin",
+      "sha256": "7b3fe8a55d69a725c8745ad163433224cf13778b006974a9caf54c2c16856852",
+      "bytes": 197216,
+      "content_key": "62c262d9c2417ea32cacc0b70bbc6208"
+    },
+    "6365310": {
+      "file_data_id": 6365310,
+      "logical_name": "creature\\vrykulfemale2\\vrykulfemale2_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\6365310.skin",
+      "sha256": "25133cdf9b44d0b25b1e4844b38f22830140156ae9e818cb75e1fac088352b06",
+      "bytes": 146528,
+      "content_key": "a2840dbce08ea47993dd961ee64c2f47"
+    },
+    "1339503": {
+      "file_data_id": 1339503,
+      "logical_name": "creature\\vrykulfemale2\\armorreflect4.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339503.blp",
+      "sha256": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d",
+      "bytes": 3916,
+      "content_key": "abafdf49a88245f37ba062f37175611d"
+    },
+    "1339504": {
+      "file_data_id": 1339504,
+      "logical_name": "creature\\vrykulfemale2\\doomed_fog1.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339504.blp",
+      "sha256": "d7d17ad21974c71aeb75ce8babec62b0df2a6acf5c1c8d17122eec30009c1ef0",
+      "bytes": 23044,
+      "content_key": "5f9c5748e6b716c2489723defacca85f"
+    },
+    "1339505": {
+      "file_data_id": 1339505,
+      "logical_name": "creature\\vrykulfemale2\\doom_fog_alpha1.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\vrykul\\1339505.blp",
+      "sha256": "44f104811952a03d3e8fc557df8779c4c8ef52c7a14d12332d3e6897281358ab",
+      "bytes": 6660,
+      "content_key": "de4325ed769ad3c8042a064ebd46726a"
+    }
+  },
+  "dependencies": [
+    {
+      "owner": 122815,
+      "dependency": 472387,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472384,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472396,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472390,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472379,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472377,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472386,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472381,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472383,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472394,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472388,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472382,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472385,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472391,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472392,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472389,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472393,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472380,
+      "role": "AFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 472378,
+      "role": "SFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 2175436,
+      "role": "SFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 2175437,
+      "role": "SFID"
+    },
+    {
+      "owner": 122815,
+      "dependency": 2175438,
+      "role": "SFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480711,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480713,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480702,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480698,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480714,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480666,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480684,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480709,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 1346161,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 1346162,
+      "role": "AFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480726,
+      "role": "SFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 480729,
+      "role": "SFID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 126398,
+      "role": "TXID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 126399,
+      "role": "TXID"
+    },
+    {
+      "owner": 126397,
+      "dependency": 126400,
+      "role": "TXID"
+    },
+    {
+      "owner": 199682,
+      "dependency": 505564,
+      "role": "SFID"
+    },
+    {
+      "owner": 199682,
+      "dependency": 199662,
+      "role": "TXID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339506,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339507,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339508,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339509,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339510,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339511,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339512,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339513,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1350034,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1350035,
+      "role": "AFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339514,
+      "role": "SFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 6365306,
+      "role": "SFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 6365308,
+      "role": "SFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 6365310,
+      "role": "SFID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339503,
+      "role": "TXID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339504,
+      "role": "TXID"
+    },
+    {
+      "owner": 1339502,
+      "dependency": 1339505,
+      "role": "TXID"
+    }
+  ],
+  "status": "source_graph_complete"
+}

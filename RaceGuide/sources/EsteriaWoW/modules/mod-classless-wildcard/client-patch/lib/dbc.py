@@ -1,0 +1,790 @@
+"""The DBC edits the classless client patch needs.
+
+ChrClasses.dbc         - what every class is called on screen, and that it has
+                         a ranged slot rather than a relic slot.
+CharBaseInfo.dbc       - which race/class pairs the creation screen offers.
+SkillRaceClassInfo.dbc - which class skill lines the client accepts for the
+                         character.
+SkillLineAbility.dbc   - which class each class spell belongs to, which is
+                         what actually decides the spellbook's tab set.
+Spell.dbc              - the class tool a spell demands before it may be cast.
+
+Both are rewritten from the copy already winning in the client's archive stack,
+so a community patch's version is preserved rather than reverted.
+"""
+
+from __future__ import annotations
+
+import struct
+
+WDBC_MAGIC = b"WDBC"
+
+# ChrClasses.dbc, 3.3.5a build 12340: 60 uint32 fields per record.
+#   0      ID
+#   3      pet name token (string)
+#   4-19   Name_lang, one column per locale (string)
+#   20     Name_lang mask
+#   21-36  NameFemale_lang        37 mask
+#   38-53  NameMale_lang          54 mask
+#   55     filename token, e.g. "WARRIOR" (string)  <- class colours and icons
+#          key off this, so it must survive untouched
+CHRCLASSES_FIELDS = 60
+CHRCLASSES_NAME_COLUMNS = list(range(4, 20))
+CHRCLASSES_NAME_FEMALE_COLUMNS = list(range(21, 37))
+CHRCLASSES_NAME_MALE_COLUMNS = list(range(38, 54))
+CHRCLASSES_TOKEN_FIELD = 55
+#   57     Flags, a set of class capability bits. Verified against the shipped
+#          3.3.5a table, where they partition the classes exactly:
+#            0x04  has a pet          Hunter, Warlock
+#            0x08  RELIC slot         Paladin, Death Knight, Shaman, Druid
+#            0x10  mail or better     Warrior, Paladin, Hunter, DK, Shaman
+#            0x20  plate              Warrior, Paladin, Death Knight
+#            0x40  hero class         Death Knight
+CHRCLASSES_FLAGS_FIELD = 57
+CHRCLASSES_FLAG_RELIC_SLOT = 0x08
+
+# Client/server playable races supported by Esteria's custom race pack. The
+# placeholder/NPC rows 15, 24-27 are deliberately left out.
+PLAYABLE_RACES = (
+    1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14,
+    16, 17, 18, 19, 20, 21, 22, 23, 28, 29, 30, 31,
+)
+PLAYABLE_CLASSES = (1, 2, 3, 4, 5, 6, 7, 8, 9, 11)
+
+# SkillRaceClassInfo.dbc, 3.3.5a: 8 uint32 fields per record.
+#   0 ID  1 SkillID  2 RaceMask  3 ClassMask  4 Flags  5 MinLevel
+#   6 SkillTierID  7 SkillCostIndex
+SKILLRACECLASSINFO_FIELDS = 8
+LANGUAGE_SKILL_LINES = (98, 109, 111, 113, 115, 137, 138, 139, 140, 141, 313, 315, 673, 759)
+CUSTOM_RACE_LANGUAGE_MASK = 0x787FA000  # custom races 14, 16-23, 28-31
+
+# The class skill lines the SERVER already opened to every race and class, in
+# data/sql/db-world/cw_world_skillraceclass.sql. The client must be opened the
+# same way, because it decides spellbook tabs from its OWN copy of this table:
+# a Hero given the Balance skill line by the server still gets no Balance tab
+# while the client's table says Balance is for Druids. Keep this in step with
+# that SQL -- selftest.py asserts the two sets are identical.
+CLASS_SKILL_LINES = (
+    6, 8, 26, 38, 39, 43, 44, 45, 46, 50, 51, 54, 55, 56, 78, 96, 118, 120,
+    130, 134, 136, 160, 163, 172, 173, 176, 184, 198, 199, 205, 226, 227,
+    228, 229, 237, 238, 239, 241, 242, 243, 244, 245, 246, 247, 252, 253,
+    254, 255, 256, 257, 258, 260, 262, 263, 264, 267, 268, 269, 272, 273,
+    293, 353, 354, 355, 373, 374, 375, 413, 414, 416, 418, 419, 420, 433,
+    453, 473, 515, 573, 574, 593, 594, 613, 633, 770, 772, 776,
+)
+# Appended rows start here, matching the ids the server SQL uses, well clear
+# of the client's own (max 970).
+CLASS_SKILL_LINES_FIRST_ID = 990000
+
+# SkillLineAbility.dbc, 3.3.5a: 14 uint32 fields per record.
+#   0 ID  1 SkillLine  2 Spell  3 RaceMask  4 ClassMask  5 ExcludeRace
+#   6 ExcludeClass  7 MinSkillLineRank  8 SupercededBySpell  9 AcquireMethod
+#   10 TrivialSkillLineRankHigh  11 TrivialSkillLineRankLow  12 CharacterPoints1
+#   13 CharacterPoints2
+SKILLLINEABILITY_FIELDS = 14
+SKILL_CATEGORY_CLASS = 7
+
+# Spell.dbc, 3.3.5a build 12340: 234 uint32 fields per record. Only the tool
+# columns are touched, and they are the two the tooltip's "Tools:" line and the
+# client's own cast check are built from:
+#   50-51    Totem[2]                 a named item the caster must hold
+#   222-223  RequiredTotemCategoryID  a tool category (Earth Totem, Skinning
+#                                     Knife, Runeforge) the caster must hold
+SPELL_FIELDS = 234
+SPELL_TOTEM_COLUMNS = (50, 51, 222, 223)
+
+# How the CLIENT spells "everyone". The server's GetSkillRaceClassInfo treats a
+# mask of 0 as a wildcard, and the server SQL uses 0/0 -- but that is the
+# server's own convention. The shipped client table has no 0/0 row anywhere;
+# Blizzard writes every-class as 0x5FF (all ten playable classes, bit = class-1)
+# and every-race as 0x7FF or 0xFFFFFFFF, and the client tests the character's
+# own bit. A 0/0 row is therefore invisible to it, which is exactly how the
+# first cut of this patch failed: the rows were there and no tab ever drew.
+ALL_CLASSES_MASK = 0x5FF
+ALL_RACES_MASK = 0xFFFFFFFF
+
+
+class DbcError(ValueError):
+    pass
+
+
+def parse_header(data: bytes):
+    if data[:4] != WDBC_MAGIC:
+        raise DbcError("not a WDBC file (magic is %r)" % data[:4])
+    record_count, field_count, record_size, string_size = struct.unpack_from(
+        "<4I", data, 4)
+    if record_size != field_count * 4 and record_size not in (1, 2, 3):
+        raise DbcError("record size %d does not match %d fields"
+                       % (record_size, field_count))
+    return record_count, field_count, record_size, string_size
+
+
+def read_string(strings: bytes, offset: int) -> str:
+    end = strings.find(b"\0", offset)
+    if end < 0:
+        return ""
+    return strings[offset:end].decode("utf-8", "replace")
+
+
+def rewrite_chr_races(data: bytes, overrides: dict) -> bytes:
+    """Apply the server-aligned custom-race fields to an existing ChrRaces table."""
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != 69 or record_size != 276:
+        raise DbcError("ChrRaces.dbc has an unexpected 3.3.5a layout")
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+    strings = bytearray(data[strings_off:strings_off + string_size])
+
+    for index in range(record_count):
+        base = index * record_size
+        race = struct.unpack_from("<I", records, base)[0]
+        for field, value in overrides.get(race, {}).items():
+            if isinstance(value, str):
+                offset = len(strings)
+                strings.extend(value.encode("utf-8") + b"\0")
+                value = offset
+            struct.pack_into("<I", records, base + field * 4, value)
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, len(strings))
+    return header + bytes(records) + bytes(strings)
+
+
+def rename_all_classes(data: bytes, new_name: str):
+    """Point every localized class-name column at a single new name.
+
+    Returns (new_dbc_bytes, [(class_id, old_name), ...]).
+
+    The original string block is kept intact and the new name appended, because
+    other columns -- the class token especially -- hold offsets into it.
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != CHRCLASSES_FIELDS:
+        raise DbcError(
+            "ChrClasses.dbc has %d fields, expected %d. This client build is "
+            "not the 3.3.5a layout this patch understands."
+            % (field_count, CHRCLASSES_FIELDS))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    strings = data[strings_off:strings_off + string_size]
+
+    name_bytes = new_name.encode("utf-8") + b"\0"
+    name_offset = len(strings)
+    new_strings = bytes(strings) + name_bytes
+
+    columns = (CHRCLASSES_NAME_COLUMNS + CHRCLASSES_NAME_FEMALE_COLUMNS
+               + CHRCLASSES_NAME_MALE_COLUMNS)
+
+    records = bytearray(data[records_off:strings_off])
+    renamed = []
+    for index in range(record_count):
+        base = index * record_size
+        class_id = struct.unpack_from("<I", records, base)[0]
+        old = read_string(strings, struct.unpack_from(
+            "<I", records, base + CHRCLASSES_NAME_COLUMNS[0] * 4)[0])
+        token = read_string(strings, struct.unpack_from(
+            "<I", records, base + CHRCLASSES_TOKEN_FIELD * 4)[0])
+        renamed.append((class_id, old, token))
+        for column in columns:
+            struct.pack_into("<I", records, base + column * 4, name_offset)
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, len(new_strings))
+    return header + bytes(records) + new_strings, renamed
+
+
+def clear_relic_slot(data: bytes):
+    """Give every class an ordinary ranged slot instead of a relic slot.
+
+    Slot 17 is the relic slot for Paladins, Death Knights, Shamans and Druids
+    (Libram / Sigil / Totem / Idol), and the client never draws a relic on the
+    character. On a classless realm every Hero runs one chassis, and the
+    default chassis is Paladin -- so a Hero holding a bow or a gun was carrying
+    an invisible weapon, with nothing appearing when they shot.
+
+    Clearing ChrClasses flag 0x08 tells the client that slot is an ordinary
+    ranged slot, so bows, guns and wands are drawn and the paper doll labels it
+    correctly. Cleared on EVERY class, not just the chassis, because the realm
+    can be configured onto any of them and each is called "Hero" anyway.
+
+    Returns (new_dbc_bytes, [(class_id, old_flags, new_flags), ...]) listing
+    only the classes that actually changed.
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != CHRCLASSES_FIELDS:
+        raise DbcError(
+            "ChrClasses.dbc has %d fields, expected %d. This client build is "
+            "not the 3.3.5a layout this patch understands."
+            % (field_count, CHRCLASSES_FIELDS))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+
+    changed = []
+    for index in range(record_count):
+        base = index * record_size
+        class_id = struct.unpack_from("<I", records, base)[0]
+        offset = base + CHRCLASSES_FLAGS_FIELD * 4
+        flags = struct.unpack_from("<I", records, offset)[0]
+        if not (flags & CHRCLASSES_FLAG_RELIC_SLOT):
+            continue
+        new_flags = flags & ~CHRCLASSES_FLAG_RELIC_SLOT
+        struct.pack_into("<I", records, offset, new_flags)
+        changed.append((class_id, flags, new_flags))
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, string_size)
+    return header + bytes(records) + data[strings_off:], changed
+
+
+def _open_to_all(row) -> bool:
+    """Does this SkillRaceClassInfo row admit every playable race and class?
+
+    Either the client's own all-bits form, or the server's 0 wildcard -- the
+    latter so a table someone already patched the old way still reads as open.
+    """
+    race_ok = row[2] == 0 or (row[2] & 0x7FF) == 0x7FF
+    class_ok = row[3] == 0 or (row[3] & ALL_CLASSES_MASK) == ALL_CLASSES_MASK
+    return race_ok and class_ok
+
+
+TALENTTAB_FIELDS = 24
+TALENTTAB_CLASSMASK = 20
+TALENTTAB_PETMASK = 21
+def open_class_skill_lines(data: bytes):
+    """Let every class hold every class skill line.
+
+    The client files a spell under a spellbook tab by its skill line, but only
+    draws a tab for a line its OWN SkillRaceClassInfo.dbc allows the character's
+    class. The server was opened up long ago (cw_world_skillraceclass.sql) so
+    a Hero can be given Balance for a rolled Moonfire -- and the client then
+    ignored it, because its table still said Balance belongs to Druids. Holy
+    drew a tab only because the chassis is a Paladin.
+
+    Mirror the server's intent, in the client's own dialect: for each line in
+    CLASS_SKILL_LINES append one row whose RaceMask and ClassMask cover every
+    playable race and class the way Blizzard's own universal rows do (see
+    ALL_CLASSES_MASK), copying Flags, MinLevel, tier and cost from the line's
+    most permissive existing row so nothing else about it changes. Existing
+    rows are left untouched and lines that already have an all-comers row are
+    skipped, so this is idempotent over an already-patched file.
+
+    Returns (new_dbc_bytes, [skill ids added], [skill ids already open]).
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != SKILLRACECLASSINFO_FIELDS or record_size != SKILLRACECLASSINFO_FIELDS * 4:
+        raise DbcError(
+            "SkillRaceClassInfo.dbc has %d fields of %d bytes, expected %d of %d. "
+            "This client build is not the 3.3.5a layout this patch understands."
+            % (field_count, record_size, SKILLRACECLASSINFO_FIELDS,
+               SKILLRACECLASSINFO_FIELDS * 4))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+    strings = data[strings_off:strings_off + string_size]
+
+    by_skill = {}
+    max_id = 0
+    for index in range(record_count):
+        row = struct.unpack_from("<8I", records, index * record_size)
+        by_skill.setdefault(row[1], []).append(row)
+        max_id = max(max_id, row[0])
+
+    next_id = max(CLASS_SKILL_LINES_FIRST_ID, max_id + 1)
+    added, already = [], []
+    for skill in CLASS_SKILL_LINES:
+        rows = by_skill.get(skill)
+        if not rows:
+            continue                      # not in this client's table at all
+        if any(_open_to_all(r) for r in rows):
+            already.append(skill)
+            continue
+        # most permissive existing row: fewest restrictions, lowest MinLevel
+        base = sorted(rows, key=lambda r: (bin(r[3]).count("1") if r[3] else 0,
+                                           r[5]))[0]
+        records += struct.pack("<8I", next_id, skill, ALL_RACES_MASK, ALL_CLASSES_MASK,
+                               base[4], base[5], base[6], base[7])
+        added.append(skill)
+        next_id += 1
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count + len(added),
+                                      field_count, record_size, string_size)
+    return header + bytes(records) + bytes(strings), added, already
+
+
+def open_custom_race_languages(data: bytes):
+    """Let the custom races use the faction language the server grants them."""
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if (field_count, record_size) == (SKILLRACECLASSINFO_FIELDS,
+                                      SKILLRACECLASSINFO_FIELDS * 4):
+        race_mask_column = 2
+    elif (field_count, record_size) == (SKILLLINEABILITY_FIELDS,
+                                        SKILLLINEABILITY_FIELDS * 4):
+        race_mask_column = 3
+    else:
+        raise DbcError("unexpected language DBC layout: %d fields of %d bytes"
+                       % (field_count, record_size))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+    changed = 0
+    for index in range(record_count):
+        base = index * record_size
+        skill = struct.unpack_from("<I", records, base + 4)[0]
+        if skill not in LANGUAGE_SKILL_LINES:
+            continue
+        offset = base + race_mask_column * 4
+        race_mask = struct.unpack_from("<I", records, offset)[0]
+        new_mask = race_mask | CUSTOM_RACE_LANGUAGE_MASK
+        if new_mask != race_mask:
+            struct.pack_into("<I", records, offset, new_mask)
+            changed += 1
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, string_size)
+    return header + bytes(records) + data[strings_off:], changed
+
+
+def open_class_abilities(data: bytes, skill_categories: dict):
+    """Make every class spell belong to every class, for the spellbook's sake.
+
+    The client does NOT build spellbook tabs from the character's skill list,
+    nor from SkillRaceClassInfo. It fixes a class's TAB SET from this table:
+    the category-7 skill lines that have a row carrying the class's bit. A
+    known spell is filed under a tab only if its own row's line is in that set;
+    anything else lands in General. That is why a Paladin-chassis Hero saw
+    Holy and Protection and nothing else however many lines the server granted:
+    Eviscerate's only row says Rogue.
+
+    Setting ClassMask to every class on each class-line row makes every spec
+    line part of every class's tab set, so a known spell files under its real
+    school. The client hides tabs with nothing in them, so a Hero sees only the
+    schools they actually know. The 3130 rows with ClassMask 0 and the handful
+    that are race-locked are left exactly as they are.
+
+    `skill_categories` maps skill line id -> SkillLine.categoryId, read from
+    the same client.
+
+    Returns (new_dbc_bytes, rows_changed, rows_already_open).
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != SKILLLINEABILITY_FIELDS or record_size != SKILLLINEABILITY_FIELDS * 4:
+        raise DbcError(
+            "SkillLineAbility.dbc has %d fields of %d bytes, expected %d of %d. "
+            "This client build is not the 3.3.5a layout this patch understands."
+            % (field_count, record_size, SKILLLINEABILITY_FIELDS,
+               SKILLLINEABILITY_FIELDS * 4))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+
+    changed = already = 0
+    for index in range(record_count):
+        base = index * record_size
+        line = struct.unpack_from("<I", records, base + 1 * 4)[0]
+        race_mask = struct.unpack_from("<I", records, base + 3 * 4)[0]
+        class_mask = struct.unpack_from("<I", records, base + 4 * 4)[0]
+        if skill_categories.get(line) != SKILL_CATEGORY_CLASS:
+            continue
+        if not class_mask or race_mask:
+            continue
+        if (class_mask & ALL_CLASSES_MASK) == ALL_CLASSES_MASK:
+            already += 1
+            continue
+        struct.pack_into("<I", records, base + 4 * 4, ALL_CLASSES_MASK)
+        changed += 1
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, string_size)
+    return header + bytes(records) + data[strings_off:], changed, already
+
+
+def clear_spell_tools(data: bytes, class_spells):
+    """Drop the class tool requirement from every class spell in Spell.dbc.
+
+    Stoneskin Totem asks for an Earth Totem and Mana Tide Totem for a Water
+    Totem: relics handed to one class and to nobody else. A Hero draws spells
+    from every class and is handed no class's relics, so those spells arrive
+    with a red "Tools:" line and refuse to cast. The server clears the same two
+    columns on its own copy, unconditionally; clearing them
+    here is what takes the line out of the tooltip and stops the client
+    refusing the cast before the server ever sees it.
+
+    Only the two tool columns, so a spell that asks for a PLACE keeps asking
+    for it: the runeforge enchants still want a runeforge, the same as they do
+    for a Death Knight.
+
+    Reagents are left alone: those are vendor goods anyone can buy.
+
+    `class_spells` is the set of spell ids that appear on a category-7
+    SkillLineAbility row, so profession and item spells keep their tools.
+
+    Returns (new_dbc_bytes, rows_cleared).
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != SPELL_FIELDS or record_size != SPELL_FIELDS * 4:
+        raise DbcError(
+            "Spell.dbc has %d fields of %d bytes, expected %d of %d. "
+            "This client build is not the 3.3.5a layout this patch understands."
+            % (field_count, record_size, SPELL_FIELDS, SPELL_FIELDS * 4))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+
+    cleared = 0
+    for index in range(record_count):
+        base = index * record_size
+        spell_id = struct.unpack_from("<I", records, base)[0]
+        if spell_id not in class_spells:
+            continue
+        touched = False
+        for column in SPELL_TOTEM_COLUMNS:
+            if struct.unpack_from("<I", records, base + column * 4)[0]:
+                struct.pack_into("<I", records, base + column * 4, 0)
+                touched = True
+        if touched:
+            cleared += 1
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, string_size)
+    return header + bytes(records) + data[strings_off:], cleared
+
+
+
+# Spell.dbc columns the cost floor needs (3.3.5a layout, 0-based)
+SPELL_POWERTYPE_COLUMN = 41
+SPELL_MANACOST_COLUMN = 42
+SPELL_MANACOSTPCT_COLUMN = 204     # nearly every caster spell prices itself here
+SPELL_EFFECT_COLUMN = 71          # +1, +2 for the other two effects
+SPELL_DIESIDES_COLUMN = 74
+SPELL_BASEPOINTS_COLUMN = 80
+SPELL_AURA_COLUMN = 95
+SPELL_MISCVALUE_COLUMN = 110
+SPELL_EFFECTCLASSMASK_COLUMN = 122   # three words per effect, effect-major
+SPELL_CLASSSET_COLUMN = 208
+SPELL_CLASSMASK_COLUMN = 209
+
+TALENT_FIELDS = 23
+TALENT_RANK_COLUMNS = range(4, 13)   # SpellRank[9]
+
+_SPELL_EFFECT_APPLY_AURA = 6
+_AURA_ADD_FLAT_MODIFIER = 107
+_AURA_ADD_PCT_MODIFIER = 108
+_SPELLMOD_COST = 14
+# rage and runic power are stored times ten and shown divided
+_POWER_RAGE, _POWER_RUNIC = 1, 6
+
+
+def lower_talent_reduced_costs(spell_data: bytes, talent_data: bytes,
+                               class_spells, stock_costs: bytes = None,
+                               extra_modifier_spells=(), pct_families=()):
+    """Lower each spell's cost to the least any Hero build could pay.
+
+    The client checks power itself before it will send a cast, and it cannot
+    apply a talent from another class to that check any more than it can to a
+    tooltip: the modifier packet carries a class-mask bit and no spell family,
+    so the client only ever matches the chassis's own. With Improved Thunder
+    Clap the server wanted 16 rage and the client still refused at 16, saying
+    "Not enough rage" without sending anything.
+
+    The server is the authority on what a cast costs, so the fix is to make the
+    client's copy permissive: set it to the lowest cost any combination of
+    talents could produce. A Hero WITH the talents can then cast at their real
+    cost, and one WITHOUT gets the same refusal as before -- from the server
+    instead of locally, with the same message.
+
+    The tooltip is not left showing the lowered number: the server sends the
+    true cost for every costed spell a Hero owns and the addon writes it in.
+
+    Never raises a cost, and never takes one to zero -- a cost of zero prints
+    no cost line at all, and then there is nothing for the addon to correct.
+
+    `stock_costs` is the table to read the ORIGINAL cost from, when spell_data
+    has already been through another step. Pass the client's own untouched
+    Spell.dbc: read the base from the row being written and a second run would
+    reduce the already-reduced number, so running the installer twice would walk
+    every cost down to the floor.
+
+    `extra_modifier_spells` names talent spells that Talent.dbc does not list.
+    The Hero tree is a world table on the server and never reaches the client's
+    Talent.dbc, so the talents that reduce a forged spell's cost -- Thrift is
+    the one that does today -- were invisible here: the server charged 70% and
+    the client still refused at 100%, which is the Improved Thunder Clap bug
+    again with the module's own talents. Pass the deepest rank of each such
+    talent; the modifier itself is read out of the spell row like any other.
+
+    `pct_families` names the spell families whose PERCENTAGE cost may also be
+    lowered. A percentage-priced spell has a ManaCost of zero and was skipped
+    outright, so a reduction on one could never reach the client -- but lowering
+    it has a price of its own: the tooltip then reads the lowered number for
+    anyone WITHOUT the talent, and only a correction from the server puts it
+    back. The server sends one for every spell with a flat cost and for none
+    priced by percentage, because doing that once overwrote 1474 correct caster
+    tooltips with the server's own arithmetic. So this is opt-in and empty by
+    default; the installer passes the module's own family, where the correction
+    is guaranteed. Only the multiplying modifiers apply here in any case: a flat
+    modifier is in power units and there is no base mana in this table to turn it
+    into a percentage.
+
+    Returns (new_dbc_bytes, rows_lowered).
+    """
+    record_count, field_count, record_size, string_size = parse_header(spell_data)
+    if field_count != SPELL_FIELDS or record_size != SPELL_FIELDS * 4:
+        raise DbcError(
+            "Spell.dbc has %d fields of %d bytes, expected %d of %d."
+            % (field_count, record_size, SPELL_FIELDS, SPELL_FIELDS * 4))
+
+    stock = spell_data if stock_costs is None else stock_costs
+    s_count, _s_fields, s_size, _s_str = parse_header(stock)
+    stock_cost_of, stock_pct_of = {}, {}
+    for index in range(s_count):
+        base = 20 + index * s_size
+        stock_pct_of[struct.unpack_from("<I", stock, base)[0]] = \
+            struct.unpack_from("<I", stock, base + SPELL_MANACOSTPCT_COLUMN * 4)[0]
+        stock_cost_of[struct.unpack_from("<I", stock, base)[0]] = \
+            struct.unpack_from("<I", stock, base + SPELL_MANACOST_COLUMN * 4)[0]
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(spell_data[records_off:strings_off])
+
+    offset_of = {}
+    for index in range(record_count):
+        base = index * record_size
+        offset_of[struct.unpack_from("<I", records, base)[0]] = base
+
+    def col(base, column):
+        return struct.unpack_from("<I", records, base + column * 4)[0]
+
+    def signed(base, column):
+        return struct.unpack_from("<i", records, base + column * 4)[0]
+
+    # ---- what each talent can take off a cost, at its best rank -------------
+    t_count, t_fields, t_size, _t_str = parse_header(talent_data)
+    if t_fields < max(TALENT_RANK_COLUMNS) + 1:
+        raise DbcError("Talent.dbc has %d fields, too few for SpellRank[9]"
+                       % t_fields)
+
+    def cost_modifier(spell_id):
+        """The deepest cost reduction this spell's own effects carry, or None."""
+        base = offset_of.get(spell_id)
+        if base is None:
+            return None
+        family = col(base, SPELL_CLASSSET_COLUMN)
+        best = None
+        for eff in range(3):
+            if col(base, SPELL_EFFECT_COLUMN + eff) != _SPELL_EFFECT_APPLY_AURA:
+                continue
+            aura = col(base, SPELL_AURA_COLUMN + eff)
+            if aura not in (_AURA_ADD_FLAT_MODIFIER, _AURA_ADD_PCT_MODIFIER):
+                continue
+            if col(base, SPELL_MISCVALUE_COLUMN + eff) != _SPELLMOD_COST:
+                continue
+            value = signed(base, SPELL_BASEPOINTS_COLUMN + eff)
+            if col(base, SPELL_DIESIDES_COLUMN + eff) == 1:
+                value += 1
+            if value >= 0:
+                continue                      # only reductions lower the floor
+            start = SPELL_EFFECTCLASSMASK_COLUMN + 3 * eff
+            mask = (col(base, start), col(base, start + 1), col(base, start + 2))
+            candidate = (family, mask, aura == _AURA_ADD_FLAT_MODIFIER, value)
+            if best is None or value < best[3]:
+                best = candidate
+        return best
+
+    modifiers = []          # (family, mask_words, is_flat, value)
+    for index in range(t_count):
+        row = struct.unpack_from("<%dI" % t_fields, talent_data,
+                                 20 + index * t_size)
+        best = None
+        for column in TALENT_RANK_COLUMNS:
+            candidate = cost_modifier(row[column]) if row[column] else None
+            # ranks of one talent do not stack: keep the deepest cut
+            if candidate is not None and (best is None or candidate[3] < best[3]):
+                best = candidate
+        if best is not None:
+            modifiers.append(best)
+
+    # and the talents the client's own table has never heard of
+    for spell_id in extra_modifier_spells:
+        best = cost_modifier(spell_id)
+        if best is not None:
+            modifiers.append(best)
+
+    # ---- apply every reduction that can reach each spell --------------------
+    lowered = 0
+    for spell_id, base in offset_of.items():
+        if spell_id not in class_spells:
+            continue
+        cost = stock_cost_of.get(spell_id, col(base, SPELL_MANACOST_COLUMN))
+        pct = stock_pct_of.get(spell_id, col(base, SPELL_MANACOSTPCT_COLUMN))
+        if not cost and not pct:
+            continue
+        family = col(base, SPELL_CLASSSET_COLUMN)
+        mask = (col(base, SPELL_CLASSMASK_COLUMN),
+                col(base, SPELL_CLASSMASK_COLUMN + 1),
+                col(base, SPELL_CLASSMASK_COLUMN + 2))
+
+        total_flat, total_mul = 0, 1.0
+        for mod_family, mod_mask, is_flat, value in modifiers:
+            if mod_family != family:
+                continue
+            if not any(a & b for a, b in zip(mod_mask, mask)):
+                continue
+            if is_flat:
+                total_flat += value
+            else:
+                total_mul *= (100.0 + value) / 100.0
+        if not total_flat and total_mul == 1.0:
+            continue
+
+        power = col(base, SPELL_POWERTYPE_COLUMN)
+        floor = 10 if power in (_POWER_RAGE, _POWER_RUNIC) else 1
+        wrote = False
+
+        if cost:
+            new_cost = int(cost * total_mul) + total_flat
+            if new_cost < floor:
+                new_cost = floor
+            if new_cost < cost and col(base, SPELL_MANACOST_COLUMN) != new_cost:
+                struct.pack_into("<I", records,
+                                 base + SPELL_MANACOST_COLUMN * 4, new_cost)
+                wrote = True
+
+        # A percentage of base mana. Only the multiplying modifiers belong here;
+        # see the note in the docstring about the flat ones, and about why this
+        # is limited to the families that are certain to be corrected.
+        if pct and total_mul != 1.0 and family in pct_families:
+            new_pct = int(pct * total_mul)
+            if new_pct < 1:
+                new_pct = 1
+            if new_pct < pct and col(base, SPELL_MANACOSTPCT_COLUMN) != new_pct:
+                struct.pack_into("<I", records,
+                                 base + SPELL_MANACOSTPCT_COLUMN * 4, new_pct)
+                wrote = True
+
+        if wrote:
+            lowered += 1
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count, field_count,
+                                      record_size, string_size)
+    return header + bytes(records) + spell_data[strings_off:], lowered
+
+
+ITEM_FIELDS = 8
+
+
+def append_items(data: bytes, rows):
+    """Add a row per generated item to Item.dbc.
+
+    Item.dbc is how the client draws an item it has never asked the server
+    about: GetItemIcon and GetItemInfo read class, subclass, display and slot
+    straight out of it. A stock item is in there, so its icon appears at once.
+    A custom item is not, so nothing can draw it until an item query comes back
+    -- and a bag addon that renders from a saved slot list paints
+    INV_Misc_QuestionMark in the meantime. Clearing the client's Cache makes it
+    worse: that throws away the only copy the client had.
+
+    Eight int columns, no strings: ID, ClassID, SubclassID,
+    SoundOverrideSubclassID, Material, DisplayInfoID, InventoryType,
+    SheatheType.
+
+    An id already in the table is skipped rather than duplicated, so re-running
+    the installer over its own output changes nothing.
+
+    Returns (new_dbc_bytes, rows_added, rows_skipped).
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if field_count != ITEM_FIELDS or record_size != ITEM_FIELDS * 4:
+        raise DbcError(
+            "Item.dbc has %d fields of %d bytes, expected %d of %d. "
+            "This client build is not the 3.3.5a layout this patch understands."
+            % (field_count, record_size, ITEM_FIELDS, ITEM_FIELDS * 4))
+
+    records_off = 20
+    strings_off = records_off + record_count * record_size
+    records = bytearray(data[records_off:strings_off])
+
+    have = set()
+    for index in range(record_count):
+        have.add(struct.unpack_from("<I", records, index * record_size)[0])
+
+    added = skipped = 0
+    for row in rows:
+        entry = int(row["entry"])
+        if entry in have:
+            skipped += 1
+            continue
+        records += struct.pack(
+            "<8i", entry, int(row["cls"]), int(row["sub"]), int(row["sound_sub"]),
+            int(row["material"]), int(row["display"]), int(row["inv"]),
+            int(row["sheathe"]))
+        have.add(entry)
+        added += 1
+
+    header = WDBC_MAGIC + struct.pack("<4I", record_count + added, field_count,
+                                      record_size, string_size)
+    return header + bytes(records) + data[strings_off:], added, skipped
+
+def class_spell_ids(sla_data: bytes, skill_categories: dict) -> set:
+    """Every spell id on a class (category 7) SkillLineAbility row."""
+    record_count, field_count, record_size, _string_size = parse_header(sla_data)
+    if field_count != SKILLLINEABILITY_FIELDS:
+        raise DbcError("SkillLineAbility.dbc has %d fields, expected %d"
+                       % (field_count, SKILLLINEABILITY_FIELDS))
+    out = set()
+    for index in range(record_count):
+        base = 20 + index * record_size
+        line, spell = struct.unpack_from("<2I", sla_data, base + 1 * 4)
+        if skill_categories.get(line) == SKILL_CATEGORY_CLASS:
+            out.add(spell)
+    return out
+
+
+def skill_line_categories(data: bytes) -> dict:
+    """SkillLine.dbc -> {skill line id: categoryId}. Field 1 is the category."""
+    record_count, field_count, record_size, _string_size = parse_header(data)
+    out = {}
+    for index in range(record_count):
+        row_id, category = struct.unpack_from("<2I", data, 20 + index * record_size)
+        out[row_id] = category
+    return out
+
+
+def single_class_combos(data: bytes, shell_class: int):
+    """Rebuild CharBaseInfo.dbc so every race offers exactly one class.
+
+    The class list is COSMETIC on a classless realm: the server converts every
+    new character to its configured chassis regardless of what the client
+    sends, so offering ten renamed-to-Hero buttons would be ten copies of the
+    same non-choice. One row per playable race, all pointing at one shell
+    class, keeps every race creatable and removes the question.
+
+    The shell has nothing to do with the server's chassis. The installer uses
+    Warrior because vanilla already allows it for 9 of 10 races.
+
+    Returns (new_dbc_bytes, race_count).
+    """
+    record_count, field_count, record_size, string_size = parse_header(data)
+    if record_size != 2:
+        raise DbcError("CharBaseInfo.dbc records are %d bytes, expected 2"
+                       % record_size)
+    if shell_class not in PLAYABLE_CLASSES:
+        raise DbcError("shell class %d is not a playable 3.3.5a class"
+                       % shell_class)
+
+    records = bytearray()
+    for race in PLAYABLE_RACES:
+        records += bytes([race, shell_class])
+
+    header = WDBC_MAGIC + struct.pack("<4I", len(PLAYABLE_RACES), field_count,
+                                      2, 1)
+    return header + bytes(records) + b"\0", len(PLAYABLE_RACES)

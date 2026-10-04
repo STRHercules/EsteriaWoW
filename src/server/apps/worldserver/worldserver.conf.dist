@@ -2280,6 +2280,17 @@ SpellQueue.Enabled = 1
 SpellQueue.Window = 400
 
 #
+#    MoveCast.Enabled
+#        Description: Allow ranged auto-repeat attacks (Auto Shot, wands, thrown
+#                     weapons) to continue while the player is moving. Cast-time
+#                     and channeled spells are controlled per spell by
+#                     Spell.dbc interrupt-flag continuations, not by this option.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+MoveCast.Enabled = 0
+
+#
 ###################################################################################################
 
 ###################################################################################################

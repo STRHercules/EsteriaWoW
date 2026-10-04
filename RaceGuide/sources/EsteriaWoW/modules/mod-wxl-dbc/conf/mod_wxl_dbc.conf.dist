@@ -1,0 +1,17 @@
+#
+# mod-wxl-dbc — WXL DBC continuation loader
+#
+
+[WxlDbc]
+
+# Enable continuation injection after LoadDBCStores().
+# Default: 1 (enabled)
+WxlDbc.Enable = 1
+
+# Folder under DataDir containing continuation .dbc files and wxl-dbc.manifest.
+# Default: dbc-continuations
+#
+# Example layout:
+#   data/dbc/                  vanilla extract (never modified by this module)
+#   data/dbc-continuations/    Spell.dbc1-test, wxl-dbc.manifest, ...
+WxlDbc.ContinuationPath = dbc-continuations

@@ -1,0 +1,43 @@
+                                <CheckButton name="CharacterCreateFreebornButton" inherits="CharacterCreateGenderButtonTemplate">
+                                    <Anchors>
+                                        <Anchor point="CENTER" x="0" y="0"/>
+                                    </Anchors>
+                                    <Layers>
+                                        <Layer level="ARTWORK">
+                                            <FontString name="$parentText" inherits="GlueFontNormalSmall" text="Freeborn">
+                                                <Anchors>
+                                                    <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="2"/>
+                                                </Anchors>
+                                            </FontString>
+                                        </Layer>
+                                    </Layers>
+                                    <Scripts>
+                                        <OnLoad>
+                                            local normal = _G[self:GetName().."NormalTexture"];
+                                            if ( normal ) then
+                                                normal:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Freeborn");
+                                                normal:SetTexCoord(0, 1, 0, 1);
+                                            end
+                                            local pushed = _G[self:GetName().."PushedTexture"];
+                                            if ( pushed ) then
+                                                pushed:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Freeborn");
+                                                pushed:SetTexCoord(0, 1, 0, 1);
+                                            end
+                                        </OnLoad>
+                                        <OnClick>
+                                            if ( CharacterFreeborn_OnClick ) then
+                                                CharacterFreeborn_OnClick(self);
+                                            end
+                                        </OnClick>
+                                        <OnEnter>
+                                            if ( CharacterFreeborn_OnEnter ) then
+                                                CharacterFreeborn_OnEnter(self);
+                                            end
+                                        </OnEnter>
+                                        <OnLeave>
+                                            if ( CharacterFreeborn_OnLeave ) then
+                                                CharacterFreeborn_OnLeave(self);
+                                            end
+                                        </OnLeave>
+                                    </Scripts>
+                                </CheckButton>

@@ -1,0 +1,55 @@
+# Verified against Retail 12.1.0.69933 on 2026-09-28.
+slug = "mechagnome"
+retail_race_id = 37
+client_file_string = "Mechagnome"
+fallback_race_id = 7
+fallback_race = "Gnome"
+path_prefix = "custom\\mechagnome"
+
+[male]
+chr_model_id = 73
+display_id = 90786
+model_file_data_id = 2622502
+model_path = "character\\mechagnome\\male\\mechagnomemale.m2"
+skeleton_file_data_id = 4690408
+
+[female]
+chr_model_id = 74
+display_id = 90787
+model_file_data_id = 2564806
+model_path = "character\\mechagnome\\female\\mechagnomefemale.m2"
+skeleton_file_data_id = 4690408
+
+[collections]
+male_model_file_data_id = 2628212
+male_model_path = "item\\objectcomponents\\collections\\collections_mechagnome_mg_m.m2"
+female_model_file_data_id = 2628213
+female_model_path = "item\\objectcomponents\\collections\\collections_mechagnome_mg_f.m2"
+texture_file_data_ids = [2628215, 2628216]
+
+[discovery]
+customization_options = 23
+customization_choices = 236
+customization_elements = 694
+linked_geosets = 46
+linked_skinned_models = 78
+linked_materials = 402
+linked_bone_sets = 28
+file_data_ids = 393
+
+[conversion]
+written_files = 360
+m2_files = 4
+skin_files = 4
+anim_files = 46
+blp_files = 306
+ok = 46
+lossy = 8
+passthrough = 306
+skipped = 2
+failed = 0
+
+[known_gaps]
+skipped_file_data_ids = [3060787, 3060788]
+unsupported_bone_overrides = 28
+creature_display_info_key_missing = true

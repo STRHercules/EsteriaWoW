@@ -1,0 +1,36 @@
+# Live Retail identifiers verified against WoW 12.1.0.69933.
+# Earthen has two playable Retail race rows that share the same visual models.
+
+slug = "earthen"
+retail_name = "Earthen"
+client_file_string = "EarthenDwarf"
+retail_race_ids = [84, 85]
+
+# RaceID 84 is the Horde-facing row. RaceID 85 is the Alliance-facing row.
+# Both rows point to the same ChrModel records.
+
+male_chr_model_id = 195
+male_display_id = 115279
+male_model_file_data_id = 5548261
+male_model_path = "character\\earthendwarf\\earthendwarfmale.m2"
+
+female_chr_model_id = 196
+female_display_id = 115281
+female_model_file_data_id = 5548259
+female_model_path = "character\\earthendwarf\\earthendwarffemale.m2"
+
+male_collection_file_data_id = 5792408
+male_collection_path = "item\\objectcomponents\\collections\\earthenextras_ed_m.m2"
+
+female_collection_file_data_id = 5792407
+female_collection_path = "item\\objectcomponents\\collections\\earthenextras_ed_f.m2"
+
+collection_texture_file_data_id = 5688294
+collection_texture_path = "item\\objectcomponents\\collections\\earthenextras_ed_m_5688294.blp"
+
+skeleton_file_data_id = 5752243
+skeleton_path = "world\\generic\\passivedoodads\\deathskeletons\\earthendeathskeleton.m2"
+
+# Retail falls back to Dwarf (RaceID 3) for the primary Horde-facing row's
+# model/texture fallback and helmet animation scaling. The Alliance-facing row
+# points its visual fallback at Earthen RaceID 84.

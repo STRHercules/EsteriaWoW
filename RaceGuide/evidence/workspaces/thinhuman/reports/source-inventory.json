@@ -1,0 +1,903 @@
+{
+  "pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "core_models": {
+    "0": 1793470
+  },
+  "assets": {
+    "1728108": {
+      "file_data_id": 1728108,
+      "logical_name": "character\\kultiran\\male\\kultiranmalehair00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728108.blp",
+      "sha256": "fb988b11bed2308ea5722bc23b56c9b048eb1705c02de024135b0db21334b8d2",
+      "bytes": 175948,
+      "content_key": "32b2529c0aaae09741bf4695226a8e85"
+    },
+    "1728109": {
+      "file_data_id": 1728109,
+      "logical_name": "character\\kultiran\\male\\kultiranmalehair00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728109.blp",
+      "sha256": "fd19554efb69f9c0cfacf650dc77795e79100ec2ea4f9b840c6c453073801434",
+      "bytes": 175948,
+      "content_key": "0ac068bb674b9549afa7213ca6f079cc"
+    },
+    "1728110": {
+      "file_data_id": 1728110,
+      "logical_name": "character\\kultiran\\male\\kultiranmalehair00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728110.blp",
+      "sha256": "90ceaf63673349a5b543a5e61b6177d94400e72c59c55ebe3b5c063f3adf5364",
+      "bytes": 175948,
+      "content_key": "95d27e54bd2018162eddf7d20abf4699"
+    },
+    "1728111": {
+      "file_data_id": 1728111,
+      "logical_name": "character\\kultiran\\male\\kultiranmalehair00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728111.blp",
+      "sha256": "2ef00bf9475067cba28426c9ea6e4ce02ed3a15552709c285c3abbdee427a50f",
+      "bytes": 175948,
+      "content_key": "70fec2e00fd3ddb9d91c439c60bdb42f"
+    },
+    "1728183": {
+      "file_data_id": 1728183,
+      "logical_name": "character\\kultiran\\male\\facialupperhair00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728183.blp",
+      "sha256": "2d9e79e3407e63275ee71ee73ccd6873641356a58ec6de84465d854780ec61d9",
+      "bytes": 350724,
+      "content_key": "796f45e36021debdaca82b0cb5ab7204"
+    },
+    "1728184": {
+      "file_data_id": 1728184,
+      "logical_name": "character\\kultiran\\male\\facialupperhair00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728184.blp",
+      "sha256": "2795bbc913f72995450a96cfe37ed18fc1645013ddb8ce1dd4c00fe71d518422",
+      "bytes": 350724,
+      "content_key": "35d137fc5d630270a3c2a6f791ac9b40"
+    },
+    "1728185": {
+      "file_data_id": 1728185,
+      "logical_name": "character\\kultiran\\male\\facialupperhair00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728185.blp",
+      "sha256": "581f78b2d7bd7a4cebabf41e90433c3068257e282a7b45541b2b57bf73c9e878",
+      "bytes": 350724,
+      "content_key": "d8fac6cf9b011fa3d8346fdc5f7ac21b"
+    },
+    "1728186": {
+      "file_data_id": 1728186,
+      "logical_name": "character\\kultiran\\male\\facialupperhair00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1728186.blp",
+      "sha256": "f5e71978a78ce2c597d6e0b0c432968050b2075d0c7b502856167d089e65e034",
+      "bytes": 350724,
+      "content_key": "96e69b527ec8eaf81bea7e111bcae1b7"
+    },
+    "1793470": {
+      "file_data_id": 1793470,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793470.m2",
+      "sha256": "5ed008c621b4ef4572b7c65b61cf2bb53bbca36db5a13d6cae7394fee2fd8ef0",
+      "bytes": 9977244,
+      "content_key": "d0177f04c841009fd27005c975d7b981"
+    },
+    "1843222": {
+      "file_data_id": 1843222,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalefaceupper00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843222.blp",
+      "sha256": "558115a2d024e6fef9a533c93ff9ce6ec37407b42cf6f4c212b8625ba422acd6",
+      "bytes": 175948,
+      "content_key": "2093e6969ee8c905cbb81e3cbed84e98"
+    },
+    "1843223": {
+      "file_data_id": 1843223,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalefaceupper00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843223.blp",
+      "sha256": "9328ecf621de07468bf18fcf342a058cb1f85c9d153e4a52380f8b591f8d8c13",
+      "bytes": 175948,
+      "content_key": "f8db1b6f79744ac0554b4a3f5ca32f0e"
+    },
+    "1843224": {
+      "file_data_id": 1843224,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalefaceupper00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843224.blp",
+      "sha256": "77fd5d87c1506d4ecf77ec0ccd6ce29e642b0e323e9d4ec7ce0607e0ced574fd",
+      "bytes": 175948,
+      "content_key": "4fb9e0023c2f475eca432723b2e017b3"
+    },
+    "1843225": {
+      "file_data_id": 1843225,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalefaceupper00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843225.blp",
+      "sha256": "93db635400285599e6820aac4def29c9a9643afaf4164f32469875acfeb47b3c",
+      "bytes": 175948,
+      "content_key": "874ce78aa2218a736c29563d43306027"
+    },
+    "1843226": {
+      "file_data_id": 1843226,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843226.blp",
+      "sha256": "81e8c8fc47ce6a91ecfed893b7f20475b13656e263ecf0ce89ed52b22eb9f674",
+      "bytes": 23036,
+      "content_key": "6e97cb510f1e58189b9895d41bd6b8cd"
+    },
+    "1843227": {
+      "file_data_id": 1843227,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843227.blp",
+      "sha256": "c24079582640a4664d8e9b8363a0739dd3b5632574cc1d15c4552cd9b793f212",
+      "bytes": 23036,
+      "content_key": "733d70d33b010baf4298318e612409ed"
+    },
+    "1843228": {
+      "file_data_id": 1843228,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843228.blp",
+      "sha256": "09445571713561e9186acd22cc738fafd172a8a027c534e67920f96d66c5899a",
+      "bytes": 23036,
+      "content_key": "b0d4334d71f30ba0013ef01f84609909"
+    },
+    "1843229": {
+      "file_data_id": 1843229,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843229.blp",
+      "sha256": "98c8e027b2cd6fb15cac15f949dcc7ffc7abadb1f7e63b147fba8155f602a2bf",
+      "bytes": 23036,
+      "content_key": "f4eb80975dd56944df3e09ddd4172778"
+    },
+    "1843230": {
+      "file_data_id": 1843230,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843230.blp",
+      "sha256": "f18af5b8d8fcc3f6d74cc93b7e8fc61b21441a98fad13c5ed964a086bf5bb1b7",
+      "bytes": 23036,
+      "content_key": "fee774b6f7ead6ff02e786f4c7a838f3"
+    },
+    "1843231": {
+      "file_data_id": 1843231,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843231.blp",
+      "sha256": "7bf6b0b0f562bcd5a0d507652ea7e5d709449a1a17795a8c2c7570959a51bbb1",
+      "bytes": 23036,
+      "content_key": "af3e4743da4153534bc679151069fbf3"
+    },
+    "1843232": {
+      "file_data_id": 1843232,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843232.blp",
+      "sha256": "d4f64cc79e04503810365810b57200efa6ec1ffb61702b5c9651b89da9c0dfaf",
+      "bytes": 23036,
+      "content_key": "a626dca0450da6797d36c665fab91eca"
+    },
+    "1843233": {
+      "file_data_id": 1843233,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843233.blp",
+      "sha256": "203401ac43d88c1041aebfde3e5328e74b5571fd699376a0dc52ec03683ac3cd",
+      "bytes": 23036,
+      "content_key": "1c72de871e6d364c2034d56a1e6c79bc"
+    },
+    "1843234": {
+      "file_data_id": 1843234,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmaleskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843234.blp",
+      "sha256": "8aacbd55bb33d12a94e91a5e04c5f3f67f4ef1dd3ba557ddf38bca8b6f5395d3",
+      "bytes": 350716,
+      "content_key": "db549d28a34a5af2df30e00f69b71195"
+    },
+    "1843235": {
+      "file_data_id": 1843235,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmaleskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843235.blp",
+      "sha256": "34bef2ed553fbaad200bd3301a645e8862f79f5d1e02eea9608ff113551434e4",
+      "bytes": 350716,
+      "content_key": "b2c741854f6a8c77d3dfdd29b90ddad9"
+    },
+    "1843236": {
+      "file_data_id": 1843236,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmaleskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843236.blp",
+      "sha256": "1f9d7f9dfd04be66b073a465dff408d29fa383fd5b138f5692ea9d0ca1fc8f77",
+      "bytes": 350716,
+      "content_key": "20575ed7fa3c109900780e0e34f02d80"
+    },
+    "1843237": {
+      "file_data_id": 1843237,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmaleskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1843237.blp",
+      "sha256": "1d718e814403595e380bf4bad2039742a8dfdefdc9f6a329896080ef4737566b",
+      "bytes": 350716,
+      "content_key": "7ee97c26a0c9ddeadafc0a164d370b14"
+    },
+    "1827156": {
+      "file_data_id": 1827156,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1827156.anim",
+      "sha256": "9c6ad81cc061db298543274a7f8b8069449764f45b3a475e7386a1b4b53235e6",
+      "bytes": 76936,
+      "content_key": "1bc7c82eec878c8d489dea2e24b1367f"
+    },
+    "1793471": {
+      "file_data_id": 1793471,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793471.anim",
+      "sha256": "1ce5ae2fd4ca3f794f91c7d18de74f6f7d3dc9734e53ff86d6c017b9c6a89b12",
+      "bytes": 30088,
+      "content_key": "1f4e468bfbb004c5a1a5f0cec41e6564"
+    },
+    "1793472": {
+      "file_data_id": 1793472,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793472.anim",
+      "sha256": "8139302720f963365320b50cdfb5f464cb7869e28db70ee69a4703c77223d2ea",
+      "bytes": 72344,
+      "content_key": "78beca60340a03327435fdb70b32cb4a"
+    },
+    "1793473": {
+      "file_data_id": 1793473,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793473.anim",
+      "sha256": "befe10b5d53b955d06dc20f1c058fff3f2cf2fb3fa0eaa950967529b411b8f33",
+      "bytes": 34200,
+      "content_key": "1651ca43fc1d43d57307b5b7ef91e5ed"
+    },
+    "1793474": {
+      "file_data_id": 1793474,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0102-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793474.anim",
+      "sha256": "912c9b4c7c136bae44ee98b3167b880e2dcd3b7f95d960b89606001a3aba6cb4",
+      "bytes": 38664,
+      "content_key": "8cc37a7db44b7ea80ee5917dd07df096"
+    },
+    "1793475": {
+      "file_data_id": 1793475,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0103-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793475.anim",
+      "sha256": "b1d238ccef6924a678b9afa92068d6df9ac3b6843e2faef64971f979f2ca6de3",
+      "bytes": 33528,
+      "content_key": "09ce0affdf2de58f50799668aeec32b9"
+    },
+    "1793476": {
+      "file_data_id": 1793476,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0104-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793476.anim",
+      "sha256": "80890d0b6fc54c2e74b5079531b8217e31af736b38e98ea4306197abff28a67d",
+      "bytes": 32712,
+      "content_key": "9c3b5e4f33031d5d79d50d3de980695e"
+    },
+    "1793477": {
+      "file_data_id": 1793477,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793477.anim",
+      "sha256": "b9dc0f2d8f3e9e524605eafd222f55876b70e0d5c8e28296ac3d2edf614277a5",
+      "bytes": 17016,
+      "content_key": "7774936c1ada48886f716b5811b1abc1"
+    },
+    "1793479": {
+      "file_data_id": 1793479,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793479.anim",
+      "sha256": "d5695748be02ea8c8bb73ef58668667fa37aa8f51c88c39c61de1b267241bd17",
+      "bytes": 50216,
+      "content_key": "12d78105f24162bfbb3a563f678a3624"
+    },
+    "1793480": {
+      "file_data_id": 1793480,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793480.anim",
+      "sha256": "fff7ff8179d532c7769241af64657b53af4137de5c5c8ea604beec91731f08ab",
+      "bytes": 84328,
+      "content_key": "4918a961a7fd9183edc47adb4b0ce2ca"
+    },
+    "1793481": {
+      "file_data_id": 1793481,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0119-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793481.anim",
+      "sha256": "fecede656f0c409a844b2c555571a5a2473d9dc5bfa685da77f33db4fed06059",
+      "bytes": 23624,
+      "content_key": "ef50e6ae303dd56f46d1618706e52033"
+    },
+    "1793482": {
+      "file_data_id": 1793482,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0120-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793482.anim",
+      "sha256": "1022b6a25c2dcef828cb0eba8af7e7f64bf30966f07cb1e0136f46065bcda0a7",
+      "bytes": 29624,
+      "content_key": "3760eb7a2937250e9f7e829f02e2c866"
+    },
+    "1793483": {
+      "file_data_id": 1793483,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0068-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793483.anim",
+      "sha256": "046696a33ec48cd60daf4b9ad28ccf5898f5248e8d9a9172d3b43e2000732ca4",
+      "bytes": 68456,
+      "content_key": "c23be213936da3b3a16c4b033c7d8891"
+    },
+    "1793484": {
+      "file_data_id": 1793484,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0061-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793484.anim",
+      "sha256": "7e7a165cda328178e3ca5ebdf567362b9d68886cf548d3a9e548c59532e0defb",
+      "bytes": 166792,
+      "content_key": "ad97c899639fb578b72f8d354ca5b928"
+    },
+    "1793485": {
+      "file_data_id": 1793485,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0100-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793485.anim",
+      "sha256": "80c51975197f193de17d03e661f0240baf74fc8363397b2b9cdc575c83b2fdcc",
+      "bytes": 19304,
+      "content_key": "d3afbc98561fa5b95941f930e874da39"
+    },
+    "1793486": {
+      "file_data_id": 1793486,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0101-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793486.anim",
+      "sha256": "e57ee4355632853ca75357dbf0c3f76b8ce339f2b71811432a2a8446185d750b",
+      "bytes": 85384,
+      "content_key": "ff49fbb777b55140cb2b7291e6cab24c"
+    },
+    "1793487": {
+      "file_data_id": 1793487,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0067-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793487.anim",
+      "sha256": "72fca3b90a0627fce61eef3591857e27bece3efbfcd1148d2b62f4292f59b53b",
+      "bytes": 48888,
+      "content_key": "2d6a2a8a19cbc1e9689587ef8cf70b66"
+    },
+    "1793488": {
+      "file_data_id": 1793488,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793488.anim",
+      "sha256": "c21160dd8bbd630dbbb11d640a5a54c50b00ca2a633d1ae03cbcde7be46bf092",
+      "bytes": 203464,
+      "content_key": "836d17b1919573099cf189313339d7cf"
+    },
+    "1793489": {
+      "file_data_id": 1793489,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793489.anim",
+      "sha256": "cccea067a29a40b8000510643b30ded5eff019c0844c958bf823b08519b939c9",
+      "bytes": 124744,
+      "content_key": "2dfdb62fec3b4f8a5c58311248674bb8"
+    },
+    "1793490": {
+      "file_data_id": 1793490,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0082-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793490.anim",
+      "sha256": "2ec39347ad25d668f186a837fd128825d4c8eb58f1b84b633e591b171e81af61",
+      "bytes": 66632,
+      "content_key": "dbab597a95a876da07de4734be220b88"
+    },
+    "1793492": {
+      "file_data_id": 1793492,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0074-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793492.anim",
+      "sha256": "43a3f9d8b43c5f8a5e21a4c5a94480242bcce6cbdd2f44a4a6ff60bd7382379d",
+      "bytes": 83320,
+      "content_key": "8d477650e2c1154f495324530543365c"
+    },
+    "1793493": {
+      "file_data_id": 1793493,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0079-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793493.anim",
+      "sha256": "011d41bbd616b8208af50df40b643eb3abb4c58c86d458f8ee91640f7d35b93c",
+      "bytes": 103240,
+      "content_key": "abe3a66e75741133c430d73d5349422d"
+    },
+    "1793494": {
+      "file_data_id": 1793494,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0081-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793494.anim",
+      "sha256": "1cfb73e3291a694a586b9a06bc70e7bc35e52aa1f165521e5bf3165f8349d458",
+      "bytes": 92248,
+      "content_key": "86c014073fa65b3eecd124d2b782df7f"
+    },
+    "1793495": {
+      "file_data_id": 1793495,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0070-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793495.anim",
+      "sha256": "dc3dbfa8877c013423ab25ddf5be7b2f857fe98423f1b7355d42757549c6c846",
+      "bytes": 82248,
+      "content_key": "5b4a6afda1bbe2078836a4a7c62c83bc"
+    },
+    "1793496": {
+      "file_data_id": 1793496,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0077-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793496.anim",
+      "sha256": "6a262f2127f14c2c8f6a3d7d403b8f9f85126e37659817376e56b6838d1440b3",
+      "bytes": 74776,
+      "content_key": "920f263b08b5304027e5536eb7302c93"
+    },
+    "1793497": {
+      "file_data_id": 1793497,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0133-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793497.anim",
+      "sha256": "508c3edd4f18be37564d900c7e19181103b59ac3a32eddc98bf5e7572187b1ba",
+      "bytes": 23944,
+      "content_key": "8c03458b9a8626bc488ce13cdc65bd8a"
+    },
+    "1793498": {
+      "file_data_id": 1793498,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0134-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793498.anim",
+      "sha256": "9e019bb93f7db4316682cdd979a3f3ab4b8e153c1df2a6fe9ac7e9bee74e1ea6",
+      "bytes": 22856,
+      "content_key": "2f9e29b6bdc775a4607237ac171b585f"
+    },
+    "1793499": {
+      "file_data_id": 1793499,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0134-01.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793499.anim",
+      "sha256": "cccaa2d54e8b761f9c3a8aadf15d5c80a44a101b1e12dabb783c51aa9cc254d2",
+      "bytes": 19384,
+      "content_key": "1ac55ab3e1447eb66b76a4763ff94c24"
+    },
+    "1793500": {
+      "file_data_id": 1793500,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0065-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793500.anim",
+      "sha256": "9d334eac83bcc9ce0febc1734364d6b4d5916eed7220f31de3b8e001f5dd8c43",
+      "bytes": 84808,
+      "content_key": "9fbc5de0f3e655372ee2baabe5a925a9"
+    },
+    "1793501": {
+      "file_data_id": 1793501,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0064-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793501.anim",
+      "sha256": "52d9fd6524f40aab7aa3b2addb8d43a73bd54014f46bec234f76596f65a3e1df",
+      "bytes": 93928,
+      "content_key": "9174b03413804c8e74401763468dac41"
+    },
+    "1793502": {
+      "file_data_id": 1793502,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0075-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793502.anim",
+      "sha256": "d2fa719f4ef3998835e706699792fee2282ec9020693418e138e37d1f2a611c7",
+      "bytes": 69928,
+      "content_key": "c3e825be27deaeb71109f54c376960b4"
+    },
+    "1793503": {
+      "file_data_id": 1793503,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0185-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793503.anim",
+      "sha256": "3d78779710369d173e219f0eedc0f9961cdcfeaa42c5cbdbb397ba263e92413f",
+      "bytes": 51624,
+      "content_key": "ff1dfba7f4c3de2eedbe417c4bc51615"
+    },
+    "1793504": {
+      "file_data_id": 1793504,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0186-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793504.anim",
+      "sha256": "6237969547197ceca17719ab3e6d6e51c4c95d772f5e989e22b93e91d31b7939",
+      "bytes": 55480,
+      "content_key": "d218f895c88b5cebbfe98870d8ff15f8"
+    },
+    "1793506": {
+      "file_data_id": 1793506,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0223-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793506.anim",
+      "sha256": "7b805344acf15222d5566948c3630f3dd9417cce665323a4e8ee4ecc0bc8cc81",
+      "bytes": 23592,
+      "content_key": "38d5656282bae064fa46b61dd857d874"
+    },
+    "1793507": {
+      "file_data_id": 1793507,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0522-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793507.anim",
+      "sha256": "4f333e7c870e4322fb4a60f896bfba7f32bb4826eae20a9eb5b809609f6f30e3",
+      "bytes": 40008,
+      "content_key": "334d92c00e622083ba81b71e9664c1a7"
+    },
+    "1793508": {
+      "file_data_id": 1793508,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0520-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793508.anim",
+      "sha256": "629de1ea368dfa46976de384221996202ffdfee3dc30da3bf748c45108f96663",
+      "bytes": 23624,
+      "content_key": "b62a0fed75568c6b7c634b8428723112"
+    },
+    "1793509": {
+      "file_data_id": 1793509,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0518-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793509.anim",
+      "sha256": "b8e77d181378d59a78abb5004fffd0543e626c72b07a5c8eb1fdc28df738d99a",
+      "bytes": 42904,
+      "content_key": "bd52fcb25ed52e655ba5034c0c407a20"
+    },
+    "1793510": {
+      "file_data_id": 1793510,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0732-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793510.anim",
+      "sha256": "e61ddac5af2d50f685c864b49369a2c8ae11fd8e5f9221285bb0e5b7570fcbdf",
+      "bytes": 39320,
+      "content_key": "a0d8680f51f661f6afb3871f9556d50c"
+    },
+    "1793515": {
+      "file_data_id": 1793515,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale1190-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793515.anim",
+      "sha256": "50ae964c461ca59dd2b32960ce48f9bbf6edc96ba1762598b95270f501fd6a20",
+      "bytes": 131016,
+      "content_key": "d7171881b97e7e0a1015c94b962f87d5"
+    },
+    "1793516": {
+      "file_data_id": 1793516,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale1188-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793516.anim",
+      "sha256": "8fd7d7b2a59a02f9c3d77155539b342b6d032fbafde4b925f6bc89cbd645c8ed",
+      "bytes": 50312,
+      "content_key": "706eebda11ee4650ede64c08bb667530"
+    },
+    "1827157": {
+      "file_data_id": 1827157,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale1192-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1827157.anim",
+      "sha256": "65b6e22fe0f95230bad4cfb82737d413d9c2e54c57c0af3c245787fb4ab4d883",
+      "bytes": 360712,
+      "content_key": "eaa59351519c8d23fca57d3eee6629a7"
+    },
+    "2103687": {
+      "file_data_id": 2103687,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0788-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2103687.anim",
+      "sha256": "8a2abdae85de7294eeaa23230bdfa898bb6d2dd1947beca34165174b34c3582e",
+      "bytes": 55848,
+      "content_key": "dcfbf01a8bc3dd806518b9097090c9dc"
+    },
+    "2103688": {
+      "file_data_id": 2103688,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0788-01.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2103688.anim",
+      "sha256": "156cd62a199e36e7bd6a9f48ded39577838e20302155693bf7000d580f014312",
+      "bytes": 100392,
+      "content_key": "df8b2b94c904472d18b9d90f93d92eb4"
+    },
+    "2103689": {
+      "file_data_id": 2103689,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0788-02.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2103689.anim",
+      "sha256": "d695e63140fcb494a8a551f074026670718c66ea81f7e82775c5550a4db6fc20",
+      "bytes": 176840,
+      "content_key": "99f79d58ef4df1dbd41c5b8bba56e70c"
+    },
+    "2103690": {
+      "file_data_id": 2103690,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0614-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2103690.anim",
+      "sha256": "9ae8c6ed8f221bec9fde3881e89195c5d0fafefdc4696611892ce9a880bec34c",
+      "bytes": 130760,
+      "content_key": "9a1a146ad483886ec86ab755fef6fd94"
+    },
+    "2103691": {
+      "file_data_id": 2103691,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0608-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2103691.anim",
+      "sha256": "6047d8fba04d03332152a4c6dfed8b21ee05034e93996613a1491cbbc78b2fed",
+      "bytes": 19464,
+      "content_key": "9fb30579f2127120dddb56e4dfdd4f57"
+    },
+    "2103692": {
+      "file_data_id": 2103692,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale0606-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2103692.anim",
+      "sha256": "2dc0ee1b4e74ef524b7b4795f676b740a183a5997fb7aae9bf5ff0527e8c3a3c",
+      "bytes": 19784,
+      "content_key": "9ae5ebd0c80ad2db4ea3d0a0a80a28d4"
+    },
+    "3136463": {
+      "file_data_id": 3136463,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale1220-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\3136463.anim",
+      "sha256": "3facdf0754f95220600f05d337ece9423b5e5d8f6b845ad4793ef54ff9e62832",
+      "bytes": 16744,
+      "content_key": "63a275ed4831560f1e1f84980f318fa8"
+    },
+    "1793511": {
+      "file_data_id": 1793511,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\1793511.skin",
+      "sha256": "c79716f5a6ce05a6789eac4a402c0c3998646262f16811476635d9917f5e9d80",
+      "bytes": 169376,
+      "content_key": "e559dbe0b85bd6e9efcc8f8349360400"
+    },
+    "2148598": {
+      "file_data_id": 2148598,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2148598.skin",
+      "sha256": "b1d34bb218270112b49178e1a57e24ca91903c966493b42f8ab47c7fa3976999",
+      "bytes": 169376,
+      "content_key": "ad54e1bb4887a73971b0438b4a2df3f5"
+    },
+    "2148599": {
+      "file_data_id": 2148599,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2148599.skin",
+      "sha256": "99b8b6c84a286ac59590d2e22fe18091c5e3fbeeec0b79f199afd4ce51ce5280",
+      "bytes": 124928,
+      "content_key": "f9ff0865ea8e4c8f44c73926713b87b3"
+    },
+    "2148600": {
+      "file_data_id": 2148600,
+      "logical_name": "character\\thinhuman\\male\\thinhumanmale_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\thinhuman\\2148600.skin",
+      "sha256": "8aa03a7598ba07129874f1578201456652b0de83f339eee05ddcc6cdb470f370",
+      "bytes": 83536,
+      "content_key": "629b9b1b9beb7329febad1771af889c6"
+    }
+  },
+  "dependencies": [
+    {
+      "owner": 1793470,
+      "dependency": 1827156,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793471,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793472,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793473,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793474,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793475,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793476,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793477,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793479,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793480,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793481,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793482,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793483,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793484,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793485,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793486,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793487,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793488,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793489,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793490,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793492,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793493,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793494,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793495,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793496,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793497,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793498,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793499,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793500,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793501,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793502,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793503,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793504,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793506,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793507,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793508,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793509,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793510,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793515,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793516,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1827157,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2103687,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2103688,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2103689,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2103690,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2103691,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2103692,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 3136463,
+      "role": "AFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 1793511,
+      "role": "SFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2148598,
+      "role": "SFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2148599,
+      "role": "SFID"
+    },
+    {
+      "owner": 1793470,
+      "dependency": 2148600,
+      "role": "SFID"
+    }
+  ],
+  "status": "source_graph_complete"
+}

@@ -1,0 +1,36 @@
+{
+  "original_build": "1.60.1.70009",
+  "supplemental_source_build": "1.60.1.70124",
+  "source_build_key": "dd3dfc2881c407299f46c2aaf34c130b",
+  "unchanged_core_companions_verified": 118,
+  "recovered_textures": 12,
+  "models": [
+    {
+      "model": "custom\\skyborne\\models\\unknown\\unk_exp00_7845092\\7845092.m2",
+      "named_texture_refs": 0
+    },
+    {
+      "model": "custom\\skyborne\\models\\unknown\\unk_exp00_7845093\\7845093.m2",
+      "named_texture_refs": 0
+    },
+    {
+      "model": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487.m2",
+      "named_texture_refs": 3
+    },
+    {
+      "model": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494.m2",
+      "named_texture_refs": 3
+    },
+    {
+      "model": "custom\\skyborne\\item\\objectcomponents\\collections\\demonhuntergeosets_be_f.m2",
+      "named_texture_refs": 3
+    },
+    {
+      "model": "custom\\skyborne\\item\\objectcomponents\\collections\\demonhuntergeosets_be_m.m2",
+      "named_texture_refs": 3
+    }
+  ],
+  "missing_texture_refs": [],
+  "original_pack_preserved": true,
+  "files": 1231
+}

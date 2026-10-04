@@ -1,0 +1,26 @@
+{
+  "male": {
+    "original_meshes": 124,
+    "face_meshes": 115,
+    "vertices": 64136,
+    "lookups": 64136,
+    "face_shapes": 5,
+    "model_hash": "8e7483c1f80413fd3a2e9bce8911c60f5afd6f182b29b67d7d7421f23dd4c3a3",
+    "skin_hash": "cb47d16ef21a6ccad63957687fa9e3be435953c3889c407db57e3ce4aa2ead37",
+    "inverse_transpose_normals": true,
+    "base_head_geosets": "3201/3202 remapped to always-visible body 0",
+    "bone_pivot_deformation": true
+  },
+  "female": {
+    "original_meshes": 123,
+    "face_meshes": 104,
+    "vertices": 56344,
+    "lookups": 56344,
+    "face_shapes": 4,
+    "model_hash": "fad593e0e090543db6533be5da76478ec54637a1f7357ecc49fdfbfa35d5c14d",
+    "skin_hash": "45376f45b4ac90fd558a800006e79533877311a2de5c2b30e839c6daf7247a23",
+    "inverse_transpose_normals": true,
+    "base_head_geosets": "3201/3202 remapped to always-visible body 0",
+    "bone_pivot_deformation": true
+  }
+}

@@ -1,0 +1,62 @@
+##DebugHook.lua
+GlueStrings.lua
+GlueFonts.xml
+GlueFontStyles.xml
+GlueLocalization.xml
+## add new files after here
+
+## ---- Esteria Character Select (ECS) ------------------------------------------
+## Pure Lua only: no frame access at load, so these are safe to run this early.
+## Order matters - each depends on the ones above it.
+ECS_Constants.lua
+ECS_Schema.lua
+ECS_Order.lua
+ECS_Data.lua
+ECS_Persistence.lua
+ECS_Notes.lua
+ECS_Anim.lua
+ECS_Search.lua
+ECS_Modal.lua
+ECS_Row.lua
+ECS_Roster.lua
+ECS_Tooltip.lua
+## ECS_UI only DEFINES frames; nothing is created until Integrate.Install runs,
+## so it is safe to list here alongside the other pure-Lua modules.
+ECS_UI.lua
+
+GlueBasicControls.xml
+GlueParent.xml
+GlueButtons.xml
+GlueTemplates.xml
+GlueDialog.xml
+GlueDropDownMenu.xml
+GlueTooltip.xml
+GlueSplash.xml
+RealmList.xml
+AddonList.xml
+AccountLogin.xml
+CharacterSelect.xml
+CharacterInfo.lua
+CharacterCreate.xml
+## Loaded AFTER CharacterCreate.xml on purpose: ECS_Integrate wraps
+## UpdateCharacterList, and the Freeborn wrapper in CharacterCreate.lua wraps it
+## too. Running last means ECS wraps the already-wrapped function, so the stock
+## binding and the Freeborn badges both still run before ECS re-skins the rows.
+ECS_Integrate.lua
+PatchDownload.xml
+MovieFrame.xml
+RealmWizard.xml
+CreditsFrame.xml
+SecurityMatrix.xml
+OptionsFrameTemplates.xml
+OptionsPanelTemplates.xml
+TrialConvert.xml
+VideoOptionsFrame.xml
+VideoOptionsPanels.xml
+AudioOptionsFrame.xml
+AudioOptionsPanels.xml
+OptionsSelect.xml
+##CameraSelect.xml
+
+## This Always Runs Last, Add New Items above it.
+GlueLocalizationPost.xml

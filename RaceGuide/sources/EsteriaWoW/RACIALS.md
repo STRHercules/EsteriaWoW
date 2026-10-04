@@ -1,0 +1,15 @@
+For an all-classes WotLK server, I’d give each race **one signature active and two modest passives**, with numbers tuned against the existing racials. Here’s a first pass:
+
+- **Eredar:** **Fel Ward** — absorb some magic damage for a few seconds (2-minute cooldown); **Fel Affinity** — +10 Enchanting; **Demonic Resilience** — slightly reduced Fire and Shadow damage.
+- **Nightborne:** **Arcane Pulse** — briefly slow nearby enemies (2-minute cooldown; no silence); **Ancient Knowledge** — +10 Inscription; **Mana Affinity** — a small boost to mana regeneration out of combat.
+- **Pandaren** *(both factions)*: **Quaking Palm** — incapacitate one target briefly (2-minute cooldown); **Epicurean** — improve food-buff benefits; **Bouncy** — reduce falling damage; **Gourmand** — +10 Cooking.
+- **Void Elf:** **Spatial Rift** — short-range blink (2-minute cooldown); **Entropic Embrace** — occasional small haste boost from attacks or spells, with an internal cooldown; **Void Touched** — modest Shadow resistance.
+- **Vulpera:** **Bag of Tricks** — small heal or damage effect (2-minute cooldown); **Make Camp** — set and return to a camp in the open world, with a long cooldown; **Nose for Trouble** — reduce the first hit taken now and then.
+- **Lightforged Draenei:** **Light’s Judgment** — moderate Holy damage to nearby enemies (2-minute cooldown); **Forge of Light** — +10 Blacksmithing; **Demonbane** — a small bonus against demons, so it’s flavorful without being broadly raid-dominant.
+- **Zandalari Troll:** **Embrace of the Loa** — choose one minor passive boon; **Regeneratin’** — channel a self-heal that breaks when damaged (2-minute cooldown); **Pterrordax Swoop** — reduce falling damage.
+- **Dark Iron Dwarf:** **Fireblood** — clear a harmful effect and gain a modest temporary stat boost (2-minute cooldown); **Forged in Flames** — slightly reduce Fire damage; **Dungeon Delver** — move a little faster indoors.
+- **Dracthyr:** **Soar** — a short, ground-bound glide or burst of movement, not unrestricted flight; **Draconic Scales** — slightly reduce magic damage; **Keen Senses** — modestly improve detection of stealthed enemies.
+- **Kul Tiran:** **Haymaker** — knock back and briefly stun a target (2-minute cooldown); **Brush It Off** — small, slow recovery when not recently hit; **Child of the Sea** — swim faster and breathe underwater.
+- **Illidari** *(both factions)*: **Spectral Sight** — reveal nearby stealthed or invisible enemies briefly (2-minute cooldown); **Demonic Wards** — slightly reduce magic damage; **Fel Acrobatics** — reduce falling damage and allow a small extra jump.
+
+I’d keep **Pandaren**, **Broken**, and **Illidari** faction variants on the same racial package. For Zandalari, I’d make the Loa choice a small, persistent bonus rather than letting players stack several strong racials.

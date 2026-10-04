@@ -1,0 +1,87 @@
+{
+  "race_id": 47,
+  "installed": true,
+  "client_hashes_verified": true,
+  "server_ready": true,
+  "languages": [
+    "Common",
+    "Gnomish"
+  ],
+  "options": {
+    "male": {
+      "Skin Color": 8,
+      "Face": 14,
+      "Hair Style": 7,
+      "Hair Color": 7,
+      "Facial Hair": 6,
+      "Arm Upgrade": 4,
+      "Leg Upgrade": 2,
+      "Modification": 20,
+      "Eye Color": 33,
+      "Paint": 3,
+      "Eyesight": 4,
+      "Eye Style": 3
+    },
+    "female": {
+      "Skin Color": 8,
+      "Face": 14,
+      "Hair Style": 9,
+      "Hair Color": 7,
+      "Facial Hair": 1,
+      "Arm Upgrade": 4,
+      "Leg Upgrade": 2,
+      "Modification": 20,
+      "Eye Color": 33,
+      "Paint": 3,
+      "Eyesight": 4,
+      "Eye Style": 3
+    }
+  },
+  "backups": [
+    "C:/Users/Zach/.codex/backups/mechagnome-20261001-021341",
+    "C:\\Users\\Zach\\.codex\\backups\\mechagnome-20261001-022712",
+    "C:\\Users\\Zach\\.codex\\backups\\mechagnome-20261001-030257"
+  ],
+  "automated_checks": [
+    "native helper harness",
+    "Mechagnome codec/model/archive/language",
+    "native Skyborne",
+    "Maghar/Skyborne touchups",
+    "character select",
+    "character limit",
+    "Broken",
+    "playable race",
+    "Darkfallen",
+    "Freeborn"
+  ],
+  "live_client_acceptance": "Animation and eye/beard repair installed; fresh-client retest pending",
+  "limitations": [
+    "Retail bone face morphs not applied",
+    "Restricted DK and internal skin placeholders excluded",
+    "Initial Gnome racial profile",
+    "Barber cycles encoded combinations"
+  ],
+  "live_client_confirmed": [
+    "creation",
+    "login",
+    "chat",
+    "independent customization controls"
+  ],
+  "animation_inheritance": {
+    "male": {
+      "child_sequences": 61,
+      "inherited_sequences": 291,
+      "total_sequences": 352
+    },
+    "female": {
+      "child_sequences": 63,
+      "inherited_sequences": 296,
+      "total_sequences": 359
+    }
+  },
+  "render_repair": [
+    "complete inherited skeleton sequences and corrected ID lookups",
+    "eye/glow material separation and normal glow suppression",
+    "source type-6 beard hair atlas restored"
+  ]
+}

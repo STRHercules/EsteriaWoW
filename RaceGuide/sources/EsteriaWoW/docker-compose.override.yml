@@ -1,0 +1,85 @@
+services:
+  ac-database:
+    ports: !override
+      - "127.0.0.1:3306:3306"
+  ac-authserver:
+    ports: !override
+      - "127.0.0.1:3724:3724"
+    depends_on:
+      ac-local-realm:
+        condition: service_completed_successfully
+  ac-worldserver:
+    ports: !override
+      - "127.0.0.1:8085:8085"
+    depends_on:
+      ac-local-realm:
+        condition: service_completed_successfully
+    volumes:
+      - ./modules/mod-playerbots:/azerothcore/modules/mod-playerbots:ro
+      - ./modules/mod-worgoblin-high-elf/lua_scripts:/azerothcore/lua_scripts:ro
+      - ./modules/mod-fly-anywhere/data/patch/server/AreaTable.dbc:/azerothcore/env/dist/data/dbc/AreaTable.dbc:ro
+      # Patched so the custom races inherit their host race's SkillRaceClassInfo rows; without
+      # them `Player::LearnDefaultSkill()` bails and the races never learn weapon/armour skills.
+      - ./modules/mod-custom-server/data/dbc/SkillRaceClassInfo.dbc:/azerothcore/env/dist/data/dbc/SkillRaceClassInfo.dbc:ro
+      # Retroported playable races use the same full, standard DBCs as the client. Do not use
+      # .dbc1 continuations for race/model/appearance identity; player display IDs must also stay
+      # below 65536 because AzerothCore PlayerInfo stores them as uint16.
+      - ./modules/mod-custom-server/data/dbc/retroported-races/ChrRaces.dbc:/azerothcore/env/dist/data/dbc/ChrRaces.dbc:ro
+      - ./modules/mod-custom-server/data/dbc/retroported-races/CharStartOutfit.dbc:/azerothcore/env/dist/data/dbc/CharStartOutfit.dbc:ro
+      - ./modules/mod-custom-server/data/dbc/retroported-races/CharSections.dbc:/azerothcore/env/dist/data/dbc/CharSections.dbc:ro
+      - ./modules/mod-custom-server/data/dbc/retroported-races/BarberShopStyle.dbc:/azerothcore/env/dist/data/dbc/BarberShopStyle.dbc:ro
+      - ./modules/mod-custom-server/data/dbc/retroported-races/CreatureDisplayInfo.dbc:/azerothcore/env/dist/data/dbc/CreatureDisplayInfo.dbc:ro
+      - ./modules/mod-custom-server/data/dbc/retroported-races/CreatureModelData.dbc:/azerothcore/env/dist/data/dbc/CreatureModelData.dbc:ro
+      - ./modules/mod-custom-server/data/dbc/retroported-races/Spell.dbc:/azerothcore/env/dist/data/dbc/Spell.dbc:ro
+      # Freeborn intentionally remains a continuation-backed faction extension and is mounted alone.
+      - ./modules/mod-custom-server/data/dbc-continuations/FactionTemplate.dbc1-freeborn:/azerothcore/env/dist/data/dbc-continuations/FactionTemplate.dbc1-freeborn:ro
+
+  ac-local-realm:
+    image: mysql:8.4
+    container_name: ac-local-realm
+    restart: no
+    networks:
+      - ac-network
+    environment:
+      MYSQL_PWD: ${DOCKER_DB_ROOT_PASSWORD:-password}
+    entrypoint:
+      - mysql
+    command:
+      - --host=ac-database
+      - --user=root
+      - acore_auth
+      - --execute=UPDATE realmlist SET address='127.0.0.1', localAddress='127.0.0.1', port=8085 WHERE id=1 AND name='Esteria';
+    depends_on:
+      ac-database:
+        condition: service_healthy
+      ac-db-import:
+        condition: service_completed_successfully
+
+  azerothwebui:
+    image: azerothwebui:latest
+    container_name: azerothwebui
+    restart: no
+    networks:
+      - ac-network
+    depends_on:
+      - ac-database
+      - ac-worldserver
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ${DOCKER_VOL_ETC:-./env/dist/etc}:/azerothcore/env/dist/etc
+    environment:
+      AzerothCore__AuthConnectionString: "Server=ac-database;Port=3306;Database=acore_auth;User=root;Password=${DOCKER_DB_ROOT_PASSWORD:-password};"
+      AzerothCore__CharactersConnectionString: "Server=ac-database;Port=3306;Database=acore_characters;User=root;Password=${DOCKER_DB_ROOT_PASSWORD:-password};"
+      AzerothCore__WorldConnectionString: "Server=ac-database;Port=3306;Database=acore_world;User=root;Password=${DOCKER_DB_ROOT_PASSWORD:-password};"
+      AzerothCore__SoapUrl: "http://ac-worldserver:7878/"
+      AzerothCore__SoapUsername: "WEBUISOAP"
+      AzerothCore__SoapPassword: "${ESTERIA_SOAP_PASSWORD}"
+      AzerothCore__WorldserverConfigPath: "/azerothcore/env/dist/etc/worldserver.conf"
+      AzerothCore__ModuleConfigDirectory: "/azerothcore/env/dist/etc/modules"
+      AzerothWebUI__AdminConnectionString: "Server=ac-database;Port=3306;Database=azerothwebui;User=root;Password=${DOCKER_DB_ROOT_PASSWORD:-password};"
+  ac-dev-server:
+    ports: !override
+      - "127.0.0.1:3724:3724"
+      - "127.0.0.1:8085:8085"
+      - "127.0.0.1:7878:7878"

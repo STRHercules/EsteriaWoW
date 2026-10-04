@@ -1,0 +1,1177 @@
+{
+  "pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "core_models": {
+    "0": 122738,
+    "1": 122738
+  },
+  "assets": {
+    "122729": {
+      "file_data_id": 122729,
+      "logical_name": "character\\tuskarr\\hair00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122729.blp",
+      "sha256": "4424ccbcefc8ff2b378446c923b8df51496a76d232de8efbd271c5f797628bce",
+      "bytes": 23017,
+      "content_key": "6e6146fc17bd0ef000990e9e1f4ae750"
+    },
+    "122730": {
+      "file_data_id": 122730,
+      "logical_name": "character\\tuskarr\\hair00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122730.blp",
+      "sha256": "951538712c0c2cb8ba19cfc4d0ec746f938a2b5c2655dce41f234ffab0b5e3aa",
+      "bytes": 23017,
+      "content_key": "25b2feaa61a3ebee280af56e5985e387"
+    },
+    "122731": {
+      "file_data_id": 122731,
+      "logical_name": "character\\tuskarr\\hair00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122731.blp",
+      "sha256": "4c12961bb0458a09e12f6f61bb8ce0437ca254046edbf0f4c4da1b8091753405",
+      "bytes": 23017,
+      "content_key": "b8b63e469aa79d1142f74240e62df5f1"
+    },
+    "122732": {
+      "file_data_id": 122732,
+      "logical_name": "character\\tuskarr\\hair00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122732.blp",
+      "sha256": "665f514eb36396d7c78e14f23eefbcea50cb2b077cd6c2db8149ea7ecac52c37",
+      "bytes": 23017,
+      "content_key": "eee554d603ba94ec1d549241944b1acc"
+    },
+    "122733": {
+      "file_data_id": 122733,
+      "logical_name": "character\\tuskarr\\hair00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122733.blp",
+      "sha256": "99b2c06ecdba75b0b2c21b1baed76b05cb2b2b8e1b1ec1ae77c9ff19e4f3e752",
+      "bytes": 23017,
+      "content_key": "75ada2a7d4cb2975b221d57dfafb83f3"
+    },
+    "122734": {
+      "file_data_id": 122734,
+      "logical_name": "character\\tuskarr\\hair00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122734.blp",
+      "sha256": "f79c815f9efceda1fb9c1f6c5af3dddff2da35d1d5e8727c6baa30447d4648e7",
+      "bytes": 23017,
+      "content_key": "d2fefa21412c96cdd66d47f02214212b"
+    },
+    "122735": {
+      "file_data_id": 122735,
+      "logical_name": "character\\tuskarr\\hair00_06.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122735.blp",
+      "sha256": "bcf4767324a208ed09c4073db1fe723316a1acd363fb98b6e0a1153003af77d4",
+      "bytes": 23017,
+      "content_key": "75e1f01352ad06aaac56910a704d98f2"
+    },
+    "122738": {
+      "file_data_id": 122738,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122738.m2",
+      "sha256": "08d2173f8fc72afe92a057ba2a2ad2a89e7132a9c9e94390c9c0ccc028bed9f0",
+      "bytes": 1478034,
+      "content_key": "12e7623c75d237f82055d2d3f6c65d5c"
+    },
+    "122739": {
+      "file_data_id": 122739,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122739.blp",
+      "sha256": "9449a04d5fcc9709facf9582f0af67f882c098bd3a8750bba447811de3d9c6e9",
+      "bytes": 12095,
+      "content_key": "218955e83ca67bfd4aa7d045ff49a8d1"
+    },
+    "122740": {
+      "file_data_id": 122740,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122740.blp",
+      "sha256": "b1937cee2d95ea5244d691823fab4ba968124102327496f4b5e4082203ef4e59",
+      "bytes": 12095,
+      "content_key": "df08358f44f25c0a9fd9f5581cc45396"
+    },
+    "122741": {
+      "file_data_id": 122741,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122741.blp",
+      "sha256": "972e8d5f069f14e049abcd5b8177874fe4f1a252d81aadca3a2a40c804bfefe9",
+      "bytes": 12095,
+      "content_key": "4b76d24ed1298503c92eca3a6080db46"
+    },
+    "122742": {
+      "file_data_id": 122742,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122742.blp",
+      "sha256": "ca50227778e121f5b488385f5f688612ffc10c203c17da0bc896b63f90d5ea4f",
+      "bytes": 12095,
+      "content_key": "c370ea0a453ee6a7a6803d13a1c71dd1"
+    },
+    "122743": {
+      "file_data_id": 122743,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122743.blp",
+      "sha256": "8d4f9aae370b148b40aaa95d64e3f6d60f2d3c48a0bf3a148286927e085ad31e",
+      "bytes": 12095,
+      "content_key": "a2e85a1247ad2add7a5299ebcfaa32a7"
+    },
+    "122744": {
+      "file_data_id": 122744,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122744.blp",
+      "sha256": "344cf2185f3b1efbb13bddfd7540fbf35dd9fab3002ab1ead9cbb537d58f69db",
+      "bytes": 12095,
+      "content_key": "71adb5ffda3398f1a51977c6bb2fd733"
+    },
+    "122745": {
+      "file_data_id": 122745,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefacelower00_06.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122745.blp",
+      "sha256": "2421fedbb158b3f5114b0dbe53042e2017f2135024ceb1dd96f051e704b1face",
+      "bytes": 12095,
+      "content_key": "25ee425d2f27037b93eb8ce9679f10d2"
+    },
+    "122752": {
+      "file_data_id": 122752,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122752.blp",
+      "sha256": "131315ebedc3b387fe9904f7ca71cc3241edfd86aa878851f6fae586c41f6b5c",
+      "bytes": 6635,
+      "content_key": "02c20d405444a2e54d3b129d523e47da"
+    },
+    "122753": {
+      "file_data_id": 122753,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122753.blp",
+      "sha256": "995513240040fa6fcd5caf16d6fb959d9988463aa9f43760015d874fb31060ab",
+      "bytes": 6635,
+      "content_key": "e07ebf209c6844beaafe2343e4d7f0ad"
+    },
+    "122754": {
+      "file_data_id": 122754,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122754.blp",
+      "sha256": "62c8539e61855f3b437137ef2304761bf48c58f9723f32ebec35349de528bf01",
+      "bytes": 6635,
+      "content_key": "1598dd9254d3dfe36ab6aceebf20c338"
+    },
+    "122755": {
+      "file_data_id": 122755,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122755.blp",
+      "sha256": "5cdba3ab14edeb1d4575a5ee8a4d4bf77448e53165547983636362dedf03a6ad",
+      "bytes": 6635,
+      "content_key": "bd90890f2ee2353e108cfe8f36d0a559"
+    },
+    "122756": {
+      "file_data_id": 122756,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122756.blp",
+      "sha256": "88d76b2390f067d6a75f80ac31d60915d9ed20fc753a3eb2fe50263203e76bcc",
+      "bytes": 6635,
+      "content_key": "417f6fb3f22c0be660b548cdefd6500c"
+    },
+    "122757": {
+      "file_data_id": 122757,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122757.blp",
+      "sha256": "7e814d1d4c80d28aeb1a6b20e8830f7bd479263cddc563196e91b2d7a12c4b89",
+      "bytes": 6635,
+      "content_key": "052b9b38e98dc5972eeb87dc2a060d96"
+    },
+    "122758": {
+      "file_data_id": 122758,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalefaceupper00_06.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122758.blp",
+      "sha256": "80859164aa9f2c24dfaf1b7626069c470c6fa37b0955772bbb0527a0f586a7b2",
+      "bytes": 6635,
+      "content_key": "8dca5aa89e52694d5de159eef713d9d0"
+    },
+    "122765": {
+      "file_data_id": 122765,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122765.blp",
+      "sha256": "e1fc41866446d56e6ced79ca144e637e9cf19770fe0608d6f1cda9e2c18ae2cf",
+      "bytes": 12095,
+      "content_key": "df3e9608c28b72245e696ca4e68c2d27"
+    },
+    "122766": {
+      "file_data_id": 122766,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122766.blp",
+      "sha256": "dfe069439817cebe52e55bddd05fbebeb02cc26fe971c5a0b73fca45c2447892",
+      "bytes": 12095,
+      "content_key": "9eebec7cb43a4ba20158d3edcdc10956"
+    },
+    "122767": {
+      "file_data_id": 122767,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122767.blp",
+      "sha256": "537a922624f226eae0b5bd54d3958c7fadf04fbbf18f38f179356ad6bffbef4f",
+      "bytes": 12095,
+      "content_key": "95722fbee05d2dfdf861458afe1650fd"
+    },
+    "122768": {
+      "file_data_id": 122768,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122768.blp",
+      "sha256": "80983cc955c803de2778ae7b955488bf684264cc12f865f22fb5d172214b256f",
+      "bytes": 12095,
+      "content_key": "534027503598a5266a95756a1a107fc0"
+    },
+    "122769": {
+      "file_data_id": 122769,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122769.blp",
+      "sha256": "d5c66435f8e69ebb8e44321958927874f39391c32df3f8bf35126223f5788324",
+      "bytes": 12095,
+      "content_key": "2fa561c92e9ec65f9728aada4afa906c"
+    },
+    "122770": {
+      "file_data_id": 122770,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122770.blp",
+      "sha256": "7ba34f600f2c6164942c91a995f756544a72fedc37e25d0cf634cffe8bd73b20",
+      "bytes": 12095,
+      "content_key": "f5d4be540fcf789af2dbeefa91b19ead"
+    },
+    "122771": {
+      "file_data_id": 122771,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_06.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122771.blp",
+      "sha256": "ec2fa77957c78965806d2ab447a827f9215588f6f28b5d0fd42743ce70ffda31",
+      "bytes": 12095,
+      "content_key": "26c4139b380edc5cf9d56e081c1630b8"
+    },
+    "122772": {
+      "file_data_id": 122772,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122772.blp",
+      "sha256": "4d7bd6d11d0048676b0288f8baeea749d8b827fc5cc5799f2f5925261847876c",
+      "bytes": 88553,
+      "content_key": "51393ccc9bb40349ed2adcb43bd8b7ea"
+    },
+    "122773": {
+      "file_data_id": 122773,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122773.blp",
+      "sha256": "118e3d7627e244449f1e329a0619c2db7f16826db4421078c05833b7e6c81191",
+      "bytes": 88553,
+      "content_key": "25dbfdf58bc9169efb442d79660e90e1"
+    },
+    "122774": {
+      "file_data_id": 122774,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122774.blp",
+      "sha256": "05ae046aea97df0d164ddfa92406f1bae88579dcf8292e3c74a68399f696862e",
+      "bytes": 88553,
+      "content_key": "fda4219f2460136bda8b0e9face11370"
+    },
+    "122775": {
+      "file_data_id": 122775,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122775.blp",
+      "sha256": "6edea4f9aa805fe433d371ac31a1b79dea9d63cbec0d0c6bf3da7bd0271d3461",
+      "bytes": 88553,
+      "content_key": "ac690dcc8bd846e442175b59e3f8cddc"
+    },
+    "122776": {
+      "file_data_id": 122776,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122776.blp",
+      "sha256": "bc3774eecc1cf01865633ea289c2455342a39e07be857738a1b46d035eb07fa9",
+      "bytes": 88553,
+      "content_key": "9ab71ec132d0c4728f3ab85ecce041ce"
+    },
+    "122777": {
+      "file_data_id": 122777,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_05.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122777.blp",
+      "sha256": "f2184b0687f167cb73780e0157251b673f75f17a21662fca8f2933298fa4b816",
+      "bytes": 88553,
+      "content_key": "efe55685c92e424a7f4a287d4e55d57b"
+    },
+    "122778": {
+      "file_data_id": 122778,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmaleskin00_06.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\122778.blp",
+      "sha256": "21518f3c396adf14cc13ce18c22f0765e3de413fa81ca69918fb4e345297a53c",
+      "bytes": 88553,
+      "content_key": "a8170c0ff8859201ad51891123d53b28"
+    },
+    "4039115": {
+      "file_data_id": 4039115,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039115.m2",
+      "sha256": "13225dc1220dc7339327f5bcae97132356498fe0c7bd228885615a9a64e3e819",
+      "bytes": 7386892,
+      "content_key": "6d618701de7649b67be94a3c1dafdaeb"
+    },
+    "4039116": {
+      "file_data_id": 4039116,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039116.m2",
+      "sha256": "3dc9c8909916dac95474085c7f390bd2aa32381646c228641d2e5350a650df0d",
+      "bytes": 5854820,
+      "content_key": "1ab98992875d0828faa69a34f38dc1b1"
+    },
+    "472365": {
+      "file_data_id": 472365,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472365.anim",
+      "sha256": "f343781b29bf2bf2f50302f54bba63c95d1fb0c1f55c469787f968017306c89c",
+      "bytes": 18120,
+      "content_key": "6cd4f92adbcdac7cc109f22ca8a34626"
+    },
+    "472366": {
+      "file_data_id": 472366,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472366.anim",
+      "sha256": "82d118d1124862233033915d29118a78b74ba7aea40d531a8ab4363120c92ffd",
+      "bytes": 18520,
+      "content_key": "c4005368f81255948a98cfa28078824f"
+    },
+    "472374": {
+      "file_data_id": 472374,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472374.anim",
+      "sha256": "4f952b8897e9298c3b16e5b3dcd2a059cb844ab0edb6d04280c3d1d7ef4c1828",
+      "bytes": 36680,
+      "content_key": "435b6263ace76ed31eca03f50b448cd4"
+    },
+    "472376": {
+      "file_data_id": 472376,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0133-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472376.anim",
+      "sha256": "e1d47182aaf7f5baffa69d996ed0aa18902da7644819331730db3987313fa7d8",
+      "bytes": 18552,
+      "content_key": "881f0d90b50cbdcbb7257ff9c8c08904"
+    },
+    "472369": {
+      "file_data_id": 472369,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0134-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472369.anim",
+      "sha256": "49c5102a81e3d1fdd76d0b58171ba7678ce2a3b820f4a28da5387c3f8fd3bd33",
+      "bytes": 47640,
+      "content_key": "1cd79238643ed7dbca8aef037968b7af"
+    },
+    "472375": {
+      "file_data_id": 472375,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472375.anim",
+      "sha256": "83bf9e33a5325b93bd09c5fdb0dd4ecdc9e2d19199a5e248abe909344f8a4001",
+      "bytes": 28408,
+      "content_key": "5c1c3f39c37151ae0141e68e9c03385c"
+    },
+    "472373": {
+      "file_data_id": 472373,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472373.anim",
+      "sha256": "1b2a4eb216ea5eeb2e0689723a19834477a8fd7faf1e97c09aac0087679675a9",
+      "bytes": 15240,
+      "content_key": "949937f18c2e57117a1adbe8cd0d9be1"
+    },
+    "472364": {
+      "file_data_id": 472364,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472364.anim",
+      "sha256": "7f11b6113378501a8064e3e62fdd8f1d3bdb2110156b89116d68c29a27dbc1e0",
+      "bytes": 7704,
+      "content_key": "8ca7cca51b77e13c22b15f5b1e201f86"
+    },
+    "472367": {
+      "file_data_id": 472367,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472367.anim",
+      "sha256": "27ca0a29008c6d53bac634ca31058d553ae8d692a4b688445d8bffe312412cb1",
+      "bytes": 12184,
+      "content_key": "afcb5152f440cdd577949b5ccc8c6563"
+    },
+    "472372": {
+      "file_data_id": 472372,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472372.anim",
+      "sha256": "409ae120ca08b78b2774c5edd9e234eb18678344dea33699b22f33dcdbe13a3a",
+      "bytes": 5576,
+      "content_key": "cb89e0b25a4c3de8a192b41941636a81"
+    },
+    "472370": {
+      "file_data_id": 472370,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale0098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472370.anim",
+      "sha256": "eacc6ef7c1844f9bc31bff99cc51897247d2f74d74ad11b815b11d7545b4743a",
+      "bytes": 19336,
+      "content_key": "6b0d3ef59c95a527eef3ebe48cc9afca"
+    },
+    "472368": {
+      "file_data_id": 472368,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472368.skin",
+      "sha256": "b87f57630492f2f8c9c38c2242755283f4b4635aad535b90ce6aad29050cdb76",
+      "bytes": 87344,
+      "content_key": "cb279c58cb6cbbfe8e7aebcb66a46b14"
+    },
+    "472371": {
+      "file_data_id": 472371,
+      "logical_name": "character\\tuskarr\\male\\tuskarrmale01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\472371.skin",
+      "sha256": "3f6aa0899a14efd53c225f77b39acb4423f897febf775ac393071db56b471f61",
+      "bytes": 87904,
+      "content_key": "0f65754682b92b47a8c041039b598c96"
+    },
+    "4039175": {
+      "file_data_id": 4039175,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039175.anim",
+      "sha256": "8a1f0a39dc4a4fc13a711fe9ef15f97bda3bdf10e2bdf548b2238850b02c9ece",
+      "bytes": 48264,
+      "content_key": "d80545c6497f311c4c13966368a54040"
+    },
+    "4039176": {
+      "file_data_id": 4039176,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039176.anim",
+      "sha256": "785defffc6b2dc0e30435c759dd01a4ba202b21a1428fc705578409c422fb43a",
+      "bytes": 63016,
+      "content_key": "340ca8242bc28fa3b2a2cd69a59404a6"
+    },
+    "4039177": {
+      "file_data_id": 4039177,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039177.anim",
+      "sha256": "bb680a290cb745afdffb48970663c0e1f6878a1575f106fc5c62974f9f261b44",
+      "bytes": 119208,
+      "content_key": "b8c9ba74875875768428af3445437135"
+    },
+    "4039178": {
+      "file_data_id": 4039178,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0133-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039178.anim",
+      "sha256": "6910950ec301ce75d88217e7066eed7d7e565942655c6b40c1edc2a7b11960ff",
+      "bytes": 30104,
+      "content_key": "e604e0d96147ece3d350202f9fb4f1ec"
+    },
+    "4039179": {
+      "file_data_id": 4039179,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0134-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039179.anim",
+      "sha256": "04b5e90775f8127dc191e7e15d74ed2aea370aee390d2ea2a33c260c73107c39",
+      "bytes": 73512,
+      "content_key": "889100be1b2ff7fcbe728a5c9d88d8ff"
+    },
+    "4039180": {
+      "file_data_id": 4039180,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039180.anim",
+      "sha256": "9b5edcfcd8f25e8960bc4162f03517bdf42102a784c4bcd5e641f0a9191551ee",
+      "bytes": 37896,
+      "content_key": "469b6159bb1d6d549dec03681eb179f6"
+    },
+    "4039181": {
+      "file_data_id": 4039181,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039181.anim",
+      "sha256": "fcc8dbb19dcf7fff3d303575f9a947bea8cd26b775f394e2a0ee87c1e7a7a412",
+      "bytes": 24904,
+      "content_key": "5c7480d1f244f7ed5029cd532e140ea2"
+    },
+    "4039182": {
+      "file_data_id": 4039182,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039182.anim",
+      "sha256": "aaaa1fe1331c2d9f2cfde58ec954fc125aa6f6a8a4308e8ad2ff7773c2968805",
+      "bytes": 12488,
+      "content_key": "d3350b7ca94926612a212d6c5efc34d2"
+    },
+    "4039183": {
+      "file_data_id": 4039183,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039183.anim",
+      "sha256": "cb2c591ec4fbc7f3b6fb0f10ed3a235bee0c516efb7f10a618595834dc296cc8",
+      "bytes": 59336,
+      "content_key": "76da8cc6d1e133152ec995a44f32e91d"
+    },
+    "4039184": {
+      "file_data_id": 4039184,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039184.anim",
+      "sha256": "e4730fbb49868b1d4fc691810bacb48146149901ab28f6ca1d622ffafa085ab4",
+      "bytes": 9928,
+      "content_key": "95fd1433bf74859e72126349eb5e6aa9"
+    },
+    "4039185": {
+      "file_data_id": 4039185,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039185.anim",
+      "sha256": "646a4e88e5386145770713743ca07173cf6b1ef4ccd9cdd1f211886b45561784",
+      "bytes": 33160,
+      "content_key": "31af52f8088fcc68d00e208930c13192"
+    },
+    "4039186": {
+      "file_data_id": 4039186,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0520-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039186.anim",
+      "sha256": "5aafc959c0c41bac58bc9a5056dfb6d3a93a780aae6bf3c72d7c96a229ddc5ca",
+      "bytes": 64072,
+      "content_key": "3d4622c18e37c12cb3c70e980833d7d5"
+    },
+    "4039187": {
+      "file_data_id": 4039187,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0518-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039187.anim",
+      "sha256": "1eb3808e4efb8aaffad3659701f8c1d414a5637db73d8f5e444f9b2e4623b8fc",
+      "bytes": 22840,
+      "content_key": "a1c5accc5c03da143cdd96ee7914845a"
+    },
+    "4039188": {
+      "file_data_id": 4039188,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd0522-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039188.anim",
+      "sha256": "5e26f6f2212a6d31a6cc0bf231785a4a04ed1205133895be288e5af21ded2f2b",
+      "bytes": 20312,
+      "content_key": "450c6cfb7c769a5f601468b1a0b7fab6"
+    },
+    "4039189": {
+      "file_data_id": 4039189,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd1198-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039189.anim",
+      "sha256": "a9a0ed5c1224b10058cfab08cb42d38c1e405ed748a153818eb8c7cc96542469",
+      "bytes": 27256,
+      "content_key": "77e40509ba4b16ce956ee262f0fa6273"
+    },
+    "4039190": {
+      "file_data_id": 4039190,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd1196-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039190.anim",
+      "sha256": "71e04c53bf805e173953370a158990dccfc49535f9b0016a074d872bb039d407",
+      "bytes": 27480,
+      "content_key": "3f1d4dc4dab960ad8c462590c8994a55"
+    },
+    "4039191": {
+      "file_data_id": 4039191,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd1194-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039191.anim",
+      "sha256": "897b19bd62f78cd389283e16d62d35a1fdaab0dc66381d6376bd38d6b3818521",
+      "bytes": 26312,
+      "content_key": "bf95ee900dacfce176f4cf46724e100c"
+    },
+    "4039192": {
+      "file_data_id": 4039192,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039192.skin",
+      "sha256": "734ebd930a382ec44f6063873e9763df0f2fb00431d5347d7033edbe415690cc",
+      "bytes": 388400,
+      "content_key": "a4875b901d1ae412400fac1fdbcd8d94"
+    },
+    "4039193": {
+      "file_data_id": 4039193,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039193.skin",
+      "sha256": "7a900c80d0cce02876f2b31f9b35c4181d96e5ab39844d9b18ba804dbf3a384f",
+      "bytes": 311024,
+      "content_key": "dc99da9212bcb5a99c1913217b0f35dd"
+    },
+    "4039194": {
+      "file_data_id": 4039194,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039194.skin",
+      "sha256": "a4bdfb3f1b2a16daea45ad9959d371f6372e5eed4c8c22c18947521bbe42cc67",
+      "bytes": 231008,
+      "content_key": "aba9d6e25432e2b39f8caf3b5ca80121"
+    },
+    "4039195": {
+      "file_data_id": 4039195,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039195.skin",
+      "sha256": "b82411e46b03adeddba9c849b39005e88fffbd4595296fc37135565a4b83c9ee",
+      "bytes": 148592,
+      "content_key": "ca3671e42a656e56bc7564ff778d0ee4"
+    },
+    "4859390": {
+      "file_data_id": 4859390,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod04.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4859390.skin",
+      "sha256": "8885f292cb200112297ea89d97613532c9f4b6d1417e9db42a10d29b484b2135",
+      "bytes": 106144,
+      "content_key": "bc24528325b9065713fe85360deea17d"
+    },
+    "4859391": {
+      "file_data_id": 4859391,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod05.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4859391.skin",
+      "sha256": "657f18f8b20b02e7df15adbc33691619fbbc396a780292b55628352cb89a13b2",
+      "bytes": 97136,
+      "content_key": "4e7867592af0a3e48c6d6f39f5562ced"
+    },
+    "4859392": {
+      "file_data_id": 4859392,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod06.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4859392.skin",
+      "sha256": "ca3c07b20e6fdd0d310ba88f1b8183ff927dbd695e7819d79ed19967025fa1b5",
+      "bytes": 88096,
+      "content_key": "240f573d0a9018ac3c0e11ac3b1ea074"
+    },
+    "4859393": {
+      "file_data_id": 4859393,
+      "logical_name": "character\\tuskarr\\tuskarrmale_hd_lod07.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4859393.skin",
+      "sha256": "deafa5d41300c4b18d01def9462d1626fdf8e41674c9258485414bf0f1659a5e",
+      "bytes": 79216,
+      "content_key": "1276d758ea27fad4cedb2d92219be763"
+    },
+    "4039174": {
+      "file_data_id": 4039174,
+      "logical_name": "character\\tuskarr\\armorreflect4_4039174.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039174.blp",
+      "sha256": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d",
+      "bytes": 3916,
+      "content_key": "abafdf49a88245f37ba062f37175611d"
+    },
+    "4039153": {
+      "file_data_id": 4039153,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039153.anim",
+      "sha256": "e3540656c0de080647bd06a703d4df4526feff665335c70e2410455ceafaac76",
+      "bytes": 39272,
+      "content_key": "50407e2e6239f82142a4ecc6fe8b4035"
+    },
+    "4039154": {
+      "file_data_id": 4039154,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039154.anim",
+      "sha256": "9ff0553b7eaa190763b7bccdf78f07b32895d6b91b6e46927c3c2d599cd53d66",
+      "bytes": 49704,
+      "content_key": "6208ea52e3bca08465581a7cc76ebe3d"
+    },
+    "4039155": {
+      "file_data_id": 4039155,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039155.anim",
+      "sha256": "1d1ad4956948337c80dc391007081e79536528ca7182e7bf9d0a65c224ec5ecf",
+      "bytes": 97160,
+      "content_key": "2ee83aa285ad1b3da54c53bed58b28e8"
+    },
+    "4039156": {
+      "file_data_id": 4039156,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0133-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039156.anim",
+      "sha256": "1b611fc81b3f47b13e9e92d25192a5a1c6b6f475d4306e18b847d8faca654690",
+      "bytes": 25432,
+      "content_key": "79c7ed6951a7e2c8737430824b4618e2"
+    },
+    "4039157": {
+      "file_data_id": 4039157,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0134-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039157.anim",
+      "sha256": "af2f4ca287b15981def0d7f0741dce81fa1e9e583743c87ba0f747d949748c38",
+      "bytes": 53864,
+      "content_key": "47fb301dedad3f8d5a7460e0390b988f"
+    },
+    "4039158": {
+      "file_data_id": 4039158,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0096-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039158.anim",
+      "sha256": "156f80460e0bee5c4c61efd4469b4729daa16a06844cb70cb30b50ae2aff01f4",
+      "bytes": 30120,
+      "content_key": "6e66aff0a13cf76aecdb790ef71dc739"
+    },
+    "4039159": {
+      "file_data_id": 4039159,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0097-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039159.anim",
+      "sha256": "95dbf193a5d3b4fb8f5e27dc8a3d5283899101ded40673846903a80f5b805059",
+      "bytes": 17032,
+      "content_key": "8c4d71a76464fc4e6c4b287aa918af23"
+    },
+    "4039160": {
+      "file_data_id": 4039160,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039160.anim",
+      "sha256": "fbd9ccdd0672db61edd4ec04407e042835d053c52fa2177b627e9fe880a82d87",
+      "bytes": 10536,
+      "content_key": "a301284bb085792148ac0847d181dd6d"
+    },
+    "4039161": {
+      "file_data_id": 4039161,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039161.anim",
+      "sha256": "e4547ee7e8f0b26392de5e3063f109576409b7a1a840ca4396fab6574a570906",
+      "bytes": 49928,
+      "content_key": "25f9a50802a1c77649d1136ab39a66e7"
+    },
+    "4039162": {
+      "file_data_id": 4039162,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039162.anim",
+      "sha256": "a617482aa47ef23a1c08d714b930cb03cbb3647c9ec31647067588b0ad9aeaaf",
+      "bytes": 8712,
+      "content_key": "bc369ebe7ba422648962b5c6f739c773"
+    },
+    "4039163": {
+      "file_data_id": 4039163,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0098-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039163.anim",
+      "sha256": "5e5fd1b1ff34b8bfc48906af2d6896023fae29131263a5199e448a508a01114d",
+      "bytes": 26040,
+      "content_key": "22cd5d736bf52be6f6c6080da348149b"
+    },
+    "4039164": {
+      "file_data_id": 4039164,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0520-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039164.anim",
+      "sha256": "5eb5eca8300ff68565e0c14be414730ca3f3ec370683275c0ebbcdff42daa1f3",
+      "bytes": 44888,
+      "content_key": "19117502e4987532994ff015de59bd70"
+    },
+    "4039165": {
+      "file_data_id": 4039165,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0518-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039165.anim",
+      "sha256": "f9ddffb1216bc04d1074c6a51d614227bfa6bd186b6b884efd18623782505c87",
+      "bytes": 20472,
+      "content_key": "ca03f746bc1c4bc0aeec2a3eea36dc53"
+    },
+    "4039166": {
+      "file_data_id": 4039166,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd0522-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039166.anim",
+      "sha256": "29ad8a109ad63c6854f2cace46223200151d2ffc9b6966f83a3dfb56d7c13c17",
+      "bytes": 17064,
+      "content_key": "48b6bc80e1e505efc13949b02c7071d7"
+    },
+    "4039167": {
+      "file_data_id": 4039167,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd1198-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039167.anim",
+      "sha256": "59eb37cea23229f51dfddc721efa12fa131b84dd0040bc90937c07d1919370d6",
+      "bytes": 19240,
+      "content_key": "d2fa7c0a856793e0b8da0773f9612a12"
+    },
+    "4039168": {
+      "file_data_id": 4039168,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd1196-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039168.anim",
+      "sha256": "a068eeb2203f107c09028d6969d95b3eb6987e3e228ce37c69fa12d81136a5e4",
+      "bytes": 19544,
+      "content_key": "5806d9828998853a41179be3ff2b515a"
+    },
+    "4039169": {
+      "file_data_id": 4039169,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd1194-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039169.anim",
+      "sha256": "c6e3ac43b0f543ed650339742c69a966ac6c0b3dbee2abcb9e379fa99f9720c4",
+      "bytes": 18360,
+      "content_key": "dab961615a60bf75f033e0e9b1b4a713"
+    },
+    "4039170": {
+      "file_data_id": 4039170,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039170.skin",
+      "sha256": "aea3d4a7be85d325a25864974945d0f519d770c788c50334ff235d216ad18827",
+      "bytes": 301376,
+      "content_key": "beed0f4ed7991d604d3ebb9aea224f68"
+    },
+    "4039171": {
+      "file_data_id": 4039171,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039171.skin",
+      "sha256": "76ede1392400d501d2e6c99a70b436fdc748599e8d721069c0dae7597fd9c4dc",
+      "bytes": 241792,
+      "content_key": "00b85c1521add8b803ad21c76abfb452"
+    },
+    "4039172": {
+      "file_data_id": 4039172,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039172.skin",
+      "sha256": "058ca718a0c43d4477ce988a06e8e79d814707808c7d237d76d4c7ee2b5651e2",
+      "bytes": 181600,
+      "content_key": "44034a7365e3b5af492ed4e0287e6aaa"
+    },
+    "4039173": {
+      "file_data_id": 4039173,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039173.skin",
+      "sha256": "42e60abda649f916309c13b7afcd8eaa89a84f881b5b2c8f1b5e4357c338477a",
+      "bytes": 119968,
+      "content_key": "8a8e6fdf993d67a6d76b529e424be76c"
+    },
+    "4734092": {
+      "file_data_id": 4734092,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod04.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4734092.skin",
+      "sha256": "2af1d760abbfdb4d1fce83e47e206bb9369498d22524ee8ade47a1601b0871ca",
+      "bytes": 88304,
+      "content_key": "b3d431f492d22b9dfb6f72b8bc272f99"
+    },
+    "4734093": {
+      "file_data_id": 4734093,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod05.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4734093.skin",
+      "sha256": "2d0ded3c7a00c4363b479993b76cecfb4fb7b28a2d1c1c3dc755d1732159909a",
+      "bytes": 81648,
+      "content_key": "e112dcf4e1499712a869a016cc7402bc"
+    },
+    "4734094": {
+      "file_data_id": 4734094,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod06.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4734094.skin",
+      "sha256": "d31e51b2a1bc053d2b8a236eb9f28e27da05496206a44bfd9738eeb393d88a16",
+      "bytes": 75328,
+      "content_key": "277b2af3fd688888b8914791f4c9f2b9"
+    },
+    "4734095": {
+      "file_data_id": 4734095,
+      "logical_name": "character\\tuskarr\\tuskarrfemale_hd_lod07.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4734095.skin",
+      "sha256": "bc15596399bbaaabdb7a935c7f92b905f9eb65569134047651c1e34eb8d4dd27",
+      "bytes": 68560,
+      "content_key": "c8388a3fcb4ca6ccfe0618f3cca14ba6"
+    },
+    "4039152": {
+      "file_data_id": 4039152,
+      "logical_name": "character\\tuskarr\\armorreflect4.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\tuskarr\\4039152.blp",
+      "sha256": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d",
+      "bytes": 3916,
+      "content_key": "abafdf49a88245f37ba062f37175611d"
+    }
+  },
+  "dependencies": [
+    {
+      "owner": 122738,
+      "dependency": 472365,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472366,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472374,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472376,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472369,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472375,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472373,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472364,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472367,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472372,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472370,
+      "role": "AFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472368,
+      "role": "SFID"
+    },
+    {
+      "owner": 122738,
+      "dependency": 472371,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039175,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039176,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039177,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039178,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039179,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039180,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039181,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039182,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039183,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039184,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039185,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039186,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039187,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039188,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039189,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039190,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039191,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039192,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039193,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039194,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039195,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4859390,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4859391,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4859392,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4859393,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039115,
+      "dependency": 4039174,
+      "role": "TXID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039153,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039154,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039155,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039156,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039157,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039158,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039159,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039160,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039161,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039162,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039163,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039164,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039165,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039166,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039167,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039168,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039169,
+      "role": "AFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039170,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039171,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039172,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039173,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4734092,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4734093,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4734094,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4734095,
+      "role": "SFID"
+    },
+    {
+      "owner": 4039116,
+      "dependency": 4039152,
+      "role": "TXID"
+    }
+  ],
+  "status": "source_graph_complete"
+}

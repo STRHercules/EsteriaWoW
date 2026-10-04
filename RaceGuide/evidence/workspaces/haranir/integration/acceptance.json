@@ -1,0 +1,581 @@
+{
+  "status": "rendering_repaired_live_confirmed_feet_deferred",
+  "installed": true,
+  "source": {
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "mode": "online"
+  },
+  "target_races": [
+    50,
+    51
+  ],
+  "controls": {
+    "male": 29,
+    "female": 28
+  },
+  "codec": {
+    "male": {
+      "capacities": [
+        240,
+        184,
+        252,
+        180,
+        144,
+        234,
+        180,
+        216,
+        250,
+        250,
+        160,
+        1,
+        1
+      ],
+      "descriptors": [
+        [
+          2,
+          18,
+          1
+        ],
+        [
+          2,
+          14,
+          18
+        ],
+        [
+          7,
+          4,
+          54
+        ],
+        [
+          5,
+          13,
+          18
+        ],
+        [
+          0,
+          20,
+          1
+        ],
+        [
+          1,
+          8,
+          1
+        ],
+        [
+          3,
+          30,
+          1
+        ],
+        [
+          8,
+          5,
+          1
+        ],
+        [
+          4,
+          18,
+          8
+        ],
+        [
+          5,
+          18,
+          1
+        ],
+        [
+          1,
+          23,
+          8
+        ],
+        [
+          6,
+          10,
+          18
+        ],
+        [
+          0,
+          12,
+          20
+        ],
+        [
+          8,
+          2,
+          125
+        ],
+        [
+          8,
+          5,
+          5
+        ],
+        [
+          10,
+          4,
+          5
+        ],
+        [
+          9,
+          2,
+          125
+        ],
+        [
+          8,
+          5,
+          25
+        ],
+        [
+          9,
+          5,
+          1
+        ],
+        [
+          10,
+          2,
+          80
+        ],
+        [
+          6,
+          18,
+          1
+        ],
+        [
+          4,
+          8,
+          1
+        ],
+        [
+          9,
+          5,
+          5
+        ],
+        [
+          7,
+          9,
+          1
+        ],
+        [
+          3,
+          6,
+          30
+        ],
+        [
+          9,
+          5,
+          25
+        ],
+        [
+          7,
+          6,
+          9
+        ],
+        [
+          10,
+          4,
+          20
+        ],
+        [
+          10,
+          5,
+          1
+        ]
+      ]
+    },
+    "female": {
+      "capacities": [
+        240,
+        207,
+        234,
+        180,
+        252,
+        180,
+        162,
+        150,
+        250,
+        160,
+        16,
+        1,
+        1
+      ],
+      "descriptors": [
+        [
+          2,
+          18,
+          1
+        ],
+        [
+          5,
+          10,
+          18
+        ],
+        [
+          8,
+          2,
+          125
+        ],
+        [
+          4,
+          14,
+          1
+        ],
+        [
+          9,
+          4,
+          5
+        ],
+        [
+          2,
+          13,
+          18
+        ],
+        [
+          7,
+          5,
+          6
+        ],
+        [
+          3,
+          6,
+          30
+        ],
+        [
+          0,
+          12,
+          20
+        ],
+        [
+          1,
+          9,
+          1
+        ],
+        [
+          3,
+          30,
+          1
+        ],
+        [
+          0,
+          20,
+          1
+        ],
+        [
+          1,
+          23,
+          9
+        ],
+        [
+          7,
+          5,
+          30
+        ],
+        [
+          4,
+          18,
+          14
+        ],
+        [
+          9,
+          4,
+          20
+        ],
+        [
+          9,
+          2,
+          80
+        ],
+        [
+          10,
+          2,
+          4
+        ],
+        [
+          5,
+          18,
+          1
+        ],
+        [
+          6,
+          9,
+          18
+        ],
+        [
+          6,
+          18,
+          1
+        ],
+        [
+          10,
+          2,
+          8
+        ],
+        [
+          8,
+          5,
+          1
+        ],
+        [
+          8,
+          5,
+          5
+        ],
+        [
+          8,
+          5,
+          25
+        ],
+        [
+          7,
+          6,
+          1
+        ],
+        [
+          10,
+          4,
+          1
+        ],
+        [
+          9,
+          5,
+          1
+        ]
+      ]
+    }
+  },
+  "rendering": {
+    "male": {
+      "model_path": "custom\\haranir\\native\\male\\harronirmale.m2",
+      "vertices": 57411,
+      "skin_vertices": 57411,
+      "sequences": 401,
+      "events": 37,
+      "collection": {
+        "source": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\male\\6255032_hr_m.m2",
+        "bone_bindings": 79,
+        "meshes": 149
+      },
+      "collection_lod": 2,
+      "collection_vertex_offset": 119126
+    },
+    "female": {
+      "model_path": "custom\\haranir\\native\\female\\harronirfemale.m2",
+      "vertices": 54660,
+      "skin_vertices": 54660,
+      "sequences": 397,
+      "events": 36,
+      "collection": {
+        "source": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\female\\6255031_hr_f.m2",
+        "bone_bindings": 65,
+        "meshes": 126
+      },
+      "collection_lod": 2,
+      "collection_vertex_offset": 110466
+    }
+  },
+  "validation": [
+    "full data contract PASS",
+    "both native harnesses PASS",
+    "mixed HXE1/HXE2 roster and creation trailer PASS",
+    "late stock overwrite and high-word unit state PASS",
+    "both gender WIC BLP readbacks PASS",
+    "8 existing race contracts PASS",
+    "WIC readback: 20 native body/face/material BLPs pass",
+    "Converted male/female vertices and sequence identities match pinned raw Retail source",
+    "Final worldserver build PASS",
+    "Installed archive/server DBC hashes PASS",
+    "Schema and both migration receipts PASS",
+    "Race50/51 starts and language skill step zero PASS",
+    "Worldserver readiness PASS"
+  ],
+  "rollback_backup": "C:\\Users\\Zach\\.codex\\backups\\haranir-20261001-203208",
+  "rollback_worldserver_tag": "acore/ac-wotlk-worldserver:haranir-rollback-20261001-203208",
+  "stage_hashes": {
+    "Data\\patch-Z.MPQ": "efe64cced3ebd607f68d840c3acce0ce37f57893b07095d40a93b757a5af318f",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "723406526c4133b9ce1fb428db8d496bf03cc8a60958d5db42b91b12b2b96ea9",
+    "Data\\Patch-R.MPQ": "51f0de80c2ed0ae6373e902422184dd255c4e76f629dbddc9afa0f2868cd6e14"
+  },
+  "companion_hashes": {
+    "EsteriaAppearance.bin": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+    "EsteriaAppearanceGeometry.bin": "dcaa1246dfcc26852a4ddbcb768918505851e7ad804ec44503fd15a59512a66d",
+    "EsteriaAppearanceMaterials.bin": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+    "EsteriaHighmountain.bin": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938",
+    "EsteriaEarthen.bin": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+    "EsteriaHaranir.bin": "59f31d00e372fd2646e1cf0d9d3d5d671b31edd60ff7b862f8d1ce7e53ba1f2f",
+    "EsteriaHaranirTextures.bin": "99948ca570be2d376f0c67e3b8088739b6fa9f9d2c73985e19f68df77689a229",
+    "EsteriaAppearance.dll": "1e1b7611c4fcbc6a63a3e52fcdcf450c9d77fa0fd103790e4f64b6710333c2b7"
+  },
+  "preserved_exe_sha256": "2ba16bf7bf87396514b3f03181f2519898ff3e50d1334ffa57956cadc24eba35",
+  "limitations": [
+    "Live creator/gameplay/chat/equipment/relog/logout/nearby-player acceptance pending",
+    "Retail racials unimplemented; Night Elf/Troll compatibility profiles",
+    "Authored accessory LOD2 used to fit native SKIN budget; full-resolution body preserved",
+    "Independent controls available in creator; stock barber cycles packed values",
+    "Native client directory must be writable for composed material cache"
+  ],
+  "lint": [
+    "Global C++: existing unrelated violations",
+    "SQL linter: missing origin/master",
+    "Scoped diff whitespace PASS"
+  ],
+  "build_source_hashes": {
+    "src/server/shared/HaranirAppearance.h": "e6c8fca0f2e177f87a813f8292bc58f816077536e16db4567f4d8c0201d27bc5",
+    "src/server/game/Handlers/CharacterHandler.cpp": "05b72438ce8541f3056b268bf53f3be2d3f29780cfc61a09caef8ec6be49d779",
+    "src/server/game/Entities/Player/PlayerStorage.cpp": "d5005142c3cf60453661f2e8db561e0f8b31aab954b22bdb9eabaccd424419a9",
+    "src/server/game/Entities/Player/Player.cpp": "e0fead142a84fff90b27857af12f6518825af78b5970c8aa1b799c1fad079360"
+  },
+  "source_hashes": {
+    "Data\\patch-Z.MPQ": "41adf0cdbb8fc2fd1c029132ad153f273d43305874d14d7b9d28e388c93f2cf6",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "4266098d5ab74a9721be46981b5391206c3c8a3d864e6dd32e2964c3c71644ad",
+    "Data\\Patch-R.MPQ": "e710a0e813ba1f152ef83dd779cf68603148381746ddcebcb887ec5f98fe0eaa"
+  },
+  "tables": [
+    "ChrRaces",
+    "CreatureModelData",
+    "CreatureDisplayInfo",
+    "CharSections",
+    "CharHairGeosets",
+    "CharacterFacialHairStyles",
+    "BarberShopStyle",
+    "CharBaseInfo",
+    "CharStartOutfit",
+    "NameGen",
+    "Spell"
+  ],
+  "assets": 24,
+  "backup": "C:\\Users\\Zach\\.codex\\backups\\haranir-20261001-203208",
+  "files": {
+    "Data\\patch-Z.MPQ": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\pack\\Data\\patch-Z.MPQ",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\pack\\Data\\enUS\\patch-enUS-Z.MPQ",
+    "Data\\Patch-R.MPQ": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\pack\\Data\\Patch-R.MPQ",
+    "EsteriaAppearance.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaAppearance.bin",
+    "EsteriaAppearanceGeometry.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaAppearanceGeometry.bin",
+    "EsteriaAppearanceMaterials.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaAppearanceMaterials.bin",
+    "EsteriaHighmountain.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaHighmountain.bin",
+    "EsteriaEarthen.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaEarthen.bin",
+    "EsteriaHaranir.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaHaranir.bin",
+    "EsteriaHaranirTextures.bin": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaHaranirTextures.bin",
+    "EsteriaAppearance.dll": "C:\\Users\\Zach\\.codex\\tmp\\haranir\\EsteriaAppearance.dll"
+  },
+  "before_hashes": {
+    "Data\\patch-Z.MPQ": "41adf0cdbb8fc2fd1c029132ad153f273d43305874d14d7b9d28e388c93f2cf6",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "4266098d5ab74a9721be46981b5391206c3c8a3d864e6dd32e2964c3c71644ad",
+    "Data\\Patch-R.MPQ": "e710a0e813ba1f152ef83dd779cf68603148381746ddcebcb887ec5f98fe0eaa",
+    "EsteriaAppearance.bin": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+    "EsteriaAppearanceGeometry.bin": "77e38ea7d3061392c1648a753e41eea4fe73121f7027d27f94a7ba38e5b5b3b6",
+    "EsteriaAppearanceMaterials.bin": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+    "EsteriaHighmountain.bin": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938",
+    "EsteriaEarthen.bin": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+    "EsteriaHaranir.bin": null,
+    "EsteriaHaranirTextures.bin": null,
+    "EsteriaAppearance.dll": "cdfe8208a0f14411ca5797cb84fef8edbea7fa1e89aa5896f4546078b15009e8"
+  },
+  "server_before_hashes": {
+    "ChrRaces": "6dedbcbad16d596e0b6e25f70627efde27083af9d1e34814283a5ad177577281",
+    "CharStartOutfit": "0dd66ed122cec7089fc55eb5a4ed4d9c149a1b38803123b015a2187961a0f01b",
+    "CharSections": "11325ec7d47296a74bca692c4ad4958913c17b0393526cced1a194ae07d412ca",
+    "BarberShopStyle": "3c6b24f029cacb800f8052a8ba243bdbe6c292a9ddaf7424ce811b0e6240c5a0",
+    "CreatureDisplayInfo": "04cc08ccbf774e68cbc17389191c270268b6f16f048846148c8d641ad3bf8c8b",
+    "CreatureModelData": "96e68349efd5ea49e203f22a7745c6cad74000dd8ea2a27ca46858e98b0c0875",
+    "Spell": "aad1d7a3d4ef5c8435e69fd75fcf9e4eef9ae51a9f2291c3c6c36a004b6ee1fe"
+  },
+  "prior_schema": "extraAppearance\ttinyint unsigned\tNO\t\t0\t\n",
+  "previous_worldserver_image": "sha256:91cc3ecfad68a3ee8db7797b2d6ba0862904c944d5bdda9601f4e146702b151c",
+  "migration_sha256": "ae3ed69943c3e22071c68b7309dbaf05ae59eca75be9d4853fd353b5569e8ba9",
+  "schema_sha256": "865838e3052b2dc0902701647454852122362c2579a83295206477ecdf0aadc4",
+  "unrelated_world_hashes": {
+    "playercreateinfo": "90cda33d635d415bf94a14419a740207ff3f1d0ff5e85de5d9f2a4c9324d9d15",
+    "player_race_stats": "8640c574474551cbee6aced43252d8797f3bb9af82e0677cb4ec75bdd8d076c1",
+    "playercreateinfo_item": "636dc4f36b70ec557c8df1e3c7583429627e1b876ecc8389812a315562010348",
+    "playercreateinfo_action": "5b9aec45d7d05ec6b4c78a12de4defec62f80f8a139971396f102767c1eba6c0",
+    "player_totem_model": "c14d33b328e6132ce6da66c989b47ee66dbb6a81575c7e4f8b42421764e1f9a8",
+    "custom_race_start_spell": "4bf54569a4eaac249f52fa9e0907a676f211f640fc07e1881fb418a994463cfd",
+    "custom_race_start_skill": "f1f31985e5a1eedabc934616831cb6fd4ffcd7b1a0689ba5167b1da7dc189a1d"
+  },
+  "character_appearance_sha256": "dd8f3b1f1db665ed115c311f5fa804a29f05e625af29c5b429933405a021e0df",
+  "installed_hashes": {
+    "Data\\patch-Z.MPQ": "1c09f52d8b9615551a5f25dedd61285c16fe2a740c60877bd4fe678668e4764e",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "1511a445e1692f736cb291811b543816fc7ef1d7cf4731da2767948893ffbc0f",
+    "Data\\Patch-R.MPQ": "51f0de80c2ed0ae6373e902422184dd255c4e76f629dbddc9afa0f2868cd6e14",
+    "EsteriaAppearance.bin": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+    "EsteriaAppearanceGeometry.bin": "dcaa1246dfcc26852a4ddbcb768918505851e7ad804ec44503fd15a59512a66d",
+    "EsteriaAppearanceMaterials.bin": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+    "EsteriaHighmountain.bin": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938",
+    "EsteriaEarthen.bin": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+    "EsteriaHaranir.bin": "59f31d00e372fd2646e1cf0d9d3d5d671b31edd60ff7b862f8d1ce7e53ba1f2f",
+    "EsteriaHaranirTextures.bin": "99948ca570be2d376f0c67e3b8088739b6fa9f9d2c73985e19f68df77689a229",
+    "EsteriaAppearance.dll": "c7062b9833f40ce63832eafe35d4b2fe1f06fa31a138c1c99230fb9acaf3b063"
+  },
+  "installed_server_hashes": {
+    "ChrRaces": "509a78fb1aec66ea2c3c57e12c102fde5c3c75b042164eecef55c35be9d4730e",
+    "CharStartOutfit": "81d009ab39074ea0f04b6e549b2602fdcb54f7d5e615ec7beea498d21415600b",
+    "CharSections": "45884349eb43b7b95cb1c8fe210ff9f258db1009675bbbe19125c70eabb4c036",
+    "BarberShopStyle": "149d2afa315cd9c96340b4252b19c7511ec15b77c2a2163db6349d44df43582d",
+    "CreatureDisplayInfo": "52e26b03422cac0afc216a47e0aa3eb94459b37c11bc61bd8a0edd490572b31f",
+    "CreatureModelData": "08e27832109ca96c641dba04f985aafd88857144f201c4bbfc588b8c0ec4f0ae",
+    "Spell": "aad1d7a3d4ef5c8435e69fd75fcf9e4eef9ae51a9f2291c3c6c36a004b6ee1fe"
+  },
+  "compiled_native": true,
+  "compiled_worldserver": true,
+  "worldserver_image": "sha256:264a515de23bf55f7bd68ac863edef75dab9cb8880a5668e906dc5047cdc311b",
+  "worldserver_ready": true,
+  "live_acceptance": {
+    "male": "User confirmed textures, fur and most controls working; Character Select and in-game working",
+    "female": "User confirmed fully working rendering; Character Select and in-game working",
+    "feet": "Deferred by explicit user instruction",
+    "loincloth": "Creator preview covered by starting pants; no further failure reported",
+    "relog_logout": "Not separately confirmed in this repair turn"
+  },
+  "latest_render_repair": {
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\haranir-render-20261001-225812",
+    "before_sha256": "17c12c433a97f715e0fb2e5fc9e9f139c4bdfa94f4cfbb9673ded095bca98127",
+    "installed_sha256": "c7062b9833f40ce63832eafe35d4b2fe1f06fa31a138c1c99230fb9acaf3b063",
+    "preserved_hashes": {
+      "Data\\patch-Z.MPQ": "efe64cced3ebd607f68d840c3acce0ce37f57893b07095d40a93b757a5af318f",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "723406526c4133b9ce1fb428db8d496bf03cc8a60958d5db42b91b12b2b96ea9",
+      "Data\\Patch-R.MPQ": "51f0de80c2ed0ae6373e902422184dd255c4e76f629dbddc9afa0f2868cd6e14",
+      "Wow.exe": "2ba16bf7bf87396514b3f03181f2519898ff3e50d1334ffa57956cadc24eba35",
+      "EsteriaAppearance.bin": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+      "EsteriaAppearanceGeometry.bin": "dcaa1246dfcc26852a4ddbcb768918505851e7ad804ec44503fd15a59512a66d",
+      "EsteriaAppearanceMaterials.bin": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+      "EsteriaEarthen.bin": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+      "EsteriaHaranir.bin": "59f31d00e372fd2646e1cf0d9d3d5d671b31edd60ff7b862f8d1ce7e53ba1f2f",
+      "EsteriaHaranirTextures.bin": "99948ca570be2d376f0c67e3b8088739b6fa9f9d2c73985e19f68df77689a229",
+      "EsteriaHighmountain.bin": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938"
+    },
+    "status": "installed_awaiting_live_texture_readback"
+  },
+  "rendering_diagnosis": {
+    "confirmed": "Native character layers could not open generated material files, render materials used green fallback",
+    "disproven": "Absolute path alone does not make the native file resolver load these files",
+    "current_repair": "Validated buffers, stdcall client allocation, native palette layer and CGTexture decoder",
+    "live_status": "Corrected loader confirmed: native image buffers/materials loaded, both genders visually confirmed",
+    "crash": "SMemAlloc declared cdecl instead of stdcall, double stack cleanup; ret16 fingerprint and mock now match client"
+  },
+  "deferred": [
+    "Feet control issue"
+  ],
+  "label_restoration": {
+    "source_hashes": {
+      "Data\\patch-Z.MPQ": "efe64cced3ebd607f68d840c3acce0ce37f57893b07095d40a93b757a5af318f",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "723406526c4133b9ce1fb428db8d496bf03cc8a60958d5db42b91b12b2b96ea9"
+    },
+    "stage_hashes": {
+      "Data\\patch-Z.MPQ": "943f66acd8b1e81d8b1a6f3532247e90c6b33a1665ee717474ee6a630db4b9af",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "15f7350d7ee23611ad877e0504bcf462c602bb1945719f0f89b1adf1b946b779"
+    },
+    "check": "PASS: expanded race to Draenei restores labels and keeps stock selector IDs",
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\customization-labels-20261001-234100",
+    "status": "installed_awaiting_live_race_switch"
+  },
+  "customization_layout": {
+    "source_hashes": {
+      "Data\\patch-Z.MPQ": "943f66acd8b1e81d8b1a6f3532247e90c6b33a1665ee717474ee6a630db4b9af",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "15f7350d7ee23611ad877e0504bcf462c602bb1945719f0f89b1adf1b946b779"
+    },
+    "stage_hashes": {
+      "Data\\patch-Z.MPQ": "1c09f52d8b9615551a5f25dedd61285c16fe2a740c60877bd4fe678668e4764e",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "1511a445e1692f736cb291811b543816fc7ef1d7cf4731da2767948893ffbc0f"
+    },
+    "check": "PASS: balanced edge columns, hidden options, race switches, selector IDs and stock labels",
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\customization-layout-20261002-010219",
+    "status": "installed_awaiting_live_layout_check"
+  }
+}

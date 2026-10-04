@@ -1,0 +1,247 @@
+[
+  {
+    "name": "mod-account-achievements",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-account-achievements\\README.md",
+    "source_files": 7
+  },
+  {
+    "name": "mod-account-mounts",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-account-mounts\\README.md",
+    "source_files": 12
+  },
+  {
+    "name": "mod-adaptive-autoattack",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-adaptive-autoattack\\README.md",
+    "source_files": 26
+  },
+  {
+    "name": "mod-ah-bot",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-ah-bot\\README.md",
+    "source_files": 12
+  },
+  {
+    "name": "mod-anticheat",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-anticheat\\README.md",
+    "source_files": 26
+  },
+  {
+    "name": "mod-aoe-loot",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-aoe-loot\\README.md",
+    "source_files": 13
+  },
+  {
+    "name": "mod-attunement-plus",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-attunement-plus\\README.md",
+    "source_files": 2
+  },
+  {
+    "name": "mod-autobalance",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-autobalance\\README.md",
+    "source_files": 44
+  },
+  {
+    "name": "mod-battlemon",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-battlemon\\README.md",
+    "source_files": 52
+  },
+  {
+    "name": "mod-battlemon-overworld",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-battlemon-overworld\\README.md",
+    "source_files": 15
+  },
+  {
+    "name": "mod-better-item-reloading",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-better-item-reloading\\README.md",
+    "source_files": 9
+  },
+  {
+    "name": "mod-challenge-modes",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-challenge-modes\\README.md",
+    "source_files": 10
+  },
+  {
+    "name": "mod-chat-transmitter",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-chat-transmitter\\README.md",
+    "source_files": 35
+  },
+  {
+    "name": "mod-classless-wildcard",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-classless-wildcard\\README.md",
+    "source_files": 87
+  },
+  {
+    "name": "mod-congrats-on-level",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-congrats-on-level\\README.md",
+    "source_files": 12
+  },
+  {
+    "name": "mod-corpse-respawn",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-corpse-respawn\\README.md",
+    "source_files": 4
+  },
+  {
+    "name": "mod-custom-server",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-custom-server\\README.md",
+    "source_files": 74
+  },
+  {
+    "name": "mod-dungeon-clear",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-dungeon-clear\\README.md",
+    "source_files": 400
+  },
+  {
+    "name": "mod-dungeon-master",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-dungeon-master\\README.md",
+    "source_files": 25
+  },
+  {
+    "name": "mod-Faction-Free",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-Faction-Free\\README.md",
+    "source_files": 9
+  },
+  {
+    "name": "mod-fly-anywhere",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-fly-anywhere\\README.md",
+    "source_files": 9
+  },
+  {
+    "name": "mod-guildhouse",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-guildhouse\\README.md",
+    "source_files": 17
+  },
+  {
+    "name": "mod-improved-bank",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-improved-bank\\README.md",
+    "source_files": 19
+  },
+  {
+    "name": "mod-individual-progression",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-individual-progression\\README.md",
+    "source_files": 235
+  },
+  {
+    "name": "mod-individual-xp",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-individual-xp\\README.md",
+    "source_files": 14
+  },
+  {
+    "name": "mod-instance-reset",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-instance-reset\\README.md",
+    "source_files": 11
+  },
+  {
+    "name": "mod-item-upgrade",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-item-upgrade\\README.md",
+    "source_files": 36
+  },
+  {
+    "name": "mod-loot-beam",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-loot-beam\\README.md",
+    "source_files": 4
+  },
+  {
+    "name": "mod-loyal-steed",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-loyal-steed\\README.md",
+    "source_files": 12
+  },
+  {
+    "name": "mod-mythic-plus",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-mythic-plus\\README.md",
+    "source_files": 44
+  },
+  {
+    "name": "mod-nemesis-system",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-nemesis-system\\README.md",
+    "source_files": 93
+  },
+  {
+    "name": "mod-no-hearthstone-cooldown",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-no-hearthstone-cooldown\\README.md",
+    "source_files": 10
+  },
+  {
+    "name": "mod-no-profession-limit",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-no-profession-limit\\README.md",
+    "source_files": 4
+  },
+  {
+    "name": "mod-npc-beastmaster",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-npc-beastmaster\\README.md",
+    "source_files": 13
+  },
+  {
+    "name": "mod-npc-services",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-npc-services\\README.md",
+    "source_files": 10
+  },
+  {
+    "name": "mod-playerbots",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-playerbots\\README.md",
+    "source_files": 1458
+  },
+  {
+    "name": "mod-premium",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-premium\\README.md",
+    "source_files": 16
+  },
+  {
+    "name": "mod-profession-experience",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-profession-experience\\README.md",
+    "source_files": 5
+  },
+  {
+    "name": "mod-random-enchants",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-random-enchants\\README.md",
+    "source_files": 11
+  },
+  {
+    "name": "mod-reward-played-time",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-reward-played-time\\README.md",
+    "source_files": 11
+  },
+  {
+    "name": "mod-reward-shop",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-reward-shop\\README.md",
+    "source_files": 17
+  },
+  {
+    "name": "mod-seasonpass",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-seasonpass\\README.md",
+    "source_files": 32
+  },
+  {
+    "name": "mod-solo-lfg",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-solo-lfg\\README.md",
+    "source_files": 12
+  },
+  {
+    "name": "mod-starter-guild",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-starter-guild\\README.md",
+    "source_files": 11
+  },
+  {
+    "name": "mod-starting-pet",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-starting-pet\\README.md",
+    "source_files": 9
+  },
+  {
+    "name": "mod-two-names",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-two-names\\README.md",
+    "source_files": 7
+  },
+  {
+    "name": "mod-worgoblin-high-elf",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-worgoblin-high-elf\\README.md",
+    "source_files": 563
+  },
+  {
+    "name": "mod-world-chat",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-world-chat\\README.md",
+    "source_files": 13
+  },
+  {
+    "name": "mod-wxl-dbc",
+    "readme": "R:\\Users\\Zach\\Documents\\GitHub\\EsteriaWoW\\modules\\mod-wxl-dbc\\README.md",
+    "source_files": 12
+  }
+]

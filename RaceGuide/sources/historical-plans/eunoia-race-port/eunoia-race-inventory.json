@@ -1,0 +1,3773 @@
+[
+  {
+    "id": 1,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 49,
+    "female_display": 50,
+    "prefix": "Hu",
+    "client_file": "",
+    "name": "Humain",
+    "male_model": "character\\human\\male\\humanmale_hd.mdx",
+    "female_model": "character\\human\\female\\humanfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "3346/3360",
+    "sections_rows": 140521,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 59,
+    "hair_textures": 16,
+    "facial_styles": 3520,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 2,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 51,
+    "female_display": 52,
+    "prefix": "Or",
+    "client_file": "Hu",
+    "name": "Orc",
+    "male_model": "character\\orc\\male\\orcmale_hd.mdx",
+    "female_model": "character\\orc\\female\\orcfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "3649/3649",
+    "sections_rows": 86988,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 45,
+    "hair_textures": 18,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 3,
+    "flags": 12,
+    "faction": 3,
+    "male_display": 53,
+    "female_display": 54,
+    "prefix": "Dw",
+    "client_file": "",
+    "name": "Nain",
+    "male_model": "character\\dwarf\\male\\dwarfmale_hd.mdx",
+    "female_model": "character\\dwarf\\female\\dwarffemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "2787/2787",
+    "sections_rows": 88956,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 49,
+    "hair_textures": 10,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 4,
+    "flags": 4,
+    "faction": 4,
+    "male_display": 55,
+    "female_display": 56,
+    "prefix": "Ni",
+    "client_file": "",
+    "name": "Elfe de la nuit",
+    "male_model": "character\\nightelf\\male\\nightelfmale_hd.mdx",
+    "female_model": "character\\nightelf\\female\\nightelffemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "7814/7814",
+    "sections_rows": 109752,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 38,
+    "hair_textures": 18,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 5,
+    "flags": 12,
+    "faction": 5,
+    "male_display": 57,
+    "female_display": 58,
+    "prefix": "Sc",
+    "client_file": "Hu",
+    "name": "Mort-vivant",
+    "male_model": "character\\scourge\\male\\scourgemale_hd.mdx",
+    "female_model": "character\\scourge\\female\\scourgefemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1325/1325",
+    "sections_rows": 26462,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 42,
+    "hair_textures": 5,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 6,
+    "flags": 14,
+    "faction": 6,
+    "male_display": 59,
+    "female_display": 60,
+    "prefix": "Ta",
+    "client_file": "Hu",
+    "name": "Tauren",
+    "male_model": "character\\tauren\\male\\taurenmale_hd.mdx",
+    "female_model": "character\\tauren\\female\\taurenfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "2406/2412",
+    "sections_rows": 13023,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 43,
+    "hair_textures": 1,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 7,
+    "flags": 12,
+    "faction": 115,
+    "male_display": 1563,
+    "female_display": 1564,
+    "prefix": "Gn",
+    "client_file": "",
+    "name": "Gnome",
+    "male_model": "character\\gnome\\male\\gnomemale_hd.mdx",
+    "female_model": "character\\gnome\\female\\gnomefemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "779/790",
+    "sections_rows": 7277,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 37,
+    "hair_textures": 1,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 8,
+    "flags": 14,
+    "faction": 116,
+    "male_display": 1478,
+    "female_display": 1479,
+    "prefix": "Tr",
+    "client_file": "Hu",
+    "name": "Troll",
+    "male_model": "character\\troll\\male\\trollmale_hd.mdx",
+    "female_model": "character\\troll\\female\\trollfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "8206/8206",
+    "sections_rows": 111144,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 36,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 9,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 32767,
+    "female_display": 32762,
+    "prefix": "Vu",
+    "client_file": "Hu",
+    "name": "Vulpera",
+    "male_model": "character\\vulpera\\male\\vulperamale.mdx",
+    "female_model": "character\\vulpera\\female\\vulperafemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "248/264",
+    "sections_rows": 170,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 28,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 10,
+    "flags": 12,
+    "faction": 1610,
+    "male_display": 15476,
+    "female_display": 15475,
+    "prefix": "Be",
+    "client_file": "Hu",
+    "name": "Elfe de sang",
+    "male_model": "HD\\Character\\BloodElf\\Male\\BloodElfMale.mdx",
+    "female_model": "Character\\BloodElf\\Female\\BloodElfFemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "727/759",
+    "sections_rows": 8436,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 127,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 11,
+    "flags": 14,
+    "faction": 1629,
+    "male_display": 16125,
+    "female_display": 16126,
+    "prefix": "Dr",
+    "client_file": "",
+    "name": "Draene\u00ef",
+    "male_model": "Character\\Draenei\\Male\\DraeneiMale_hd.mdx",
+    "female_model": "HD\\Character\\Draenei\\Female\\DraeneiFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1264/1264",
+    "sections_rows": 11610,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 46,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 12,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 44993,
+    "female_display": 45115,
+    "prefix": "Wo",
+    "client_file": "",
+    "name": "Worgen",
+    "male_model": "Character\\Worgen\\Male\\WorgenMale.mdx",
+    "female_model": "Character\\Worgen\\Female\\WorgenFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1203/1203",
+    "sections_rows": 8761,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 29,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 13,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 33070,
+    "female_display": 32902,
+    "prefix": "Ni",
+    "client_file": "Hu",
+    "name": "Nightborne",
+    "male_model": "character\\nightborne\\male\\nightbornemale.mdx",
+    "female_model": "character\\nightborne\\female\\nightbornefemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1123/1123",
+    "sections_rows": 88022,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 34,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 14,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 21688,
+    "female_display": 11,
+    "prefix": "Pa",
+    "client_file": "",
+    "name": "Tuskarr",
+    "male_model": "Character\\Tuskarr\\Male\\TuskarrMale.mdx",
+    "female_model": "Character\\Tuskarr\\Male\\TuskarrMale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "4/8",
+    "textures": "35/35",
+    "sections_rows": 142,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 12,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "lichking.mpq",
+      "patch.mpq"
+    ]
+  },
+  {
+    "id": 15,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 33174,
+    "female_display": 1,
+    "prefix": "Be",
+    "client_file": "",
+    "name": "Void Elf",
+    "male_model": "character\\voidelf\\male\\voidelfmale.mdx",
+    "female_model": "character\\voidelf\\female\\voidelffemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "354/354",
+    "sections_rows": 3637,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 24,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 16,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 2,
+    "female_display": 3,
+    "prefix": "Dr",
+    "client_file": "Hu",
+    "name": "Eredar",
+    "male_model": "Character\\eredar\\Male\\Race_EredarMale.mdx",
+    "female_model": "Character\\eredar\\Female\\Race_EredarFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "828/828",
+    "sections_rows": 63352,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 40,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 17,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 5,
+    "female_display": 6,
+    "prefix": "Be",
+    "client_file": "Hu",
+    "name": "Dracthyr",
+    "male_model": "character\\dracthyr\\male\\dracthyrmale.mdx",
+    "female_model": "character\\dracthyr\\female\\dracthyrfemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "7051/7051",
+    "sections_rows": 143204,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 43,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 18,
+    "flags": 12,
+    "faction": 1610,
+    "male_display": 28,
+    "female_display": 29,
+    "prefix": "Tr",
+    "client_file": "Hu",
+    "name": "Zandalari Troll",
+    "male_model": "character\\zandalaritroll\\male\\zandalaritrollmale.mdx",
+    "female_model": "character\\zandalaritroll\\female\\zandalaritrollfemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "223/223",
+    "sections_rows": 2938,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 21,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 19,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 7,
+    "female_display": 8,
+    "prefix": "Pa",
+    "client_file": "Hu",
+    "name": "Ogre",
+    "male_model": "character\\ogre\\male\\ogremale.mdx",
+    "female_model": "character\\ogre\\female\\ogrefemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "6/8",
+    "textures": "320/321",
+    "sections_rows": 495,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 11,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 20,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 32,
+    "female_display": 34,
+    "prefix": "Dr",
+    "client_file": "",
+    "name": "Lightforged Draenei",
+    "male_model": "character\\lightforgeddraenei\\male\\lightforgeddraeneimale.mdx",
+    "female_model": "character\\lightforgeddraenei\\female\\lightforgeddraeneifemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "964/964",
+    "sections_rows": 66936,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 15,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 21,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 35,
+    "female_display": 36,
+    "prefix": "Go",
+    "client_file": "Hu",
+    "name": "Goblin",
+    "male_model": "character\\goblin\\male\\goblinM.mdx",
+    "female_model": "Character\\Goblin\\Female\\GoblinFM.M2",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "728/728",
+    "sections_rows": 93684,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 44,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 22,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 32784,
+    "female_display": 38552,
+    "prefix": "Pa",
+    "client_file": "Hu",
+    "name": "Pandaren",
+    "male_model": "character\\pandaren\\male\\PandaMale.mdx",
+    "female_model": "character\\pandaren\\female\\PandaFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1089/1115",
+    "sections_rows": 1342,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 28,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 23,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 9,
+    "female_display": 10,
+    "prefix": "Dr",
+    "client_file": "",
+    "name": "Broken",
+    "male_model": "CHARACTER\\Broken\\Male\\BrokenMale_HD.mdx",
+    "female_model": "CHARACTER\\Broken\\Female\\BrokenFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "917/917",
+    "sections_rows": 982,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 31,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 24,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 67,
+    "female_display": 70,
+    "prefix": "Ni",
+    "client_file": "",
+    "name": "Elfo de Noche Demonio",
+    "male_model": "Character\\NightElf_Dh\\Male\\Nightelfmale_DH.mdx",
+    "female_model": "Character\\NightElf_Dh\\Female\\Nightelffemale_DH.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1133/1190",
+    "sections_rows": 6181,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 41,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq",
+      "Patch-8.mpq",
+      "Patch-9.mpq"
+    ]
+  },
+  {
+    "id": 25,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 17402,
+    "female_display": 17403,
+    "prefix": "Na",
+    "client_file": "u",
+    "name": "",
+    "male_model": "creature\\madscientist2\\madscientist2.mdx",
+    "female_model": "creature\\giantbeastmount\\giantbeastmount.mdx",
+    "models_present": {
+      "male": false,
+      "female": false
+    },
+    "skins": "0/8",
+    "textures": "222/432",
+    "sections_rows": 450,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 12,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": []
+  },
+  {
+    "id": 26,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 32784,
+    "female_display": 38552,
+    "prefix": "Pa",
+    "client_file": "",
+    "name": "Pandaren",
+    "male_model": "character\\pandaren\\male\\PandaMale.mdx",
+    "female_model": "character\\pandaren\\female\\PandaFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1089/1115",
+    "sections_rows": 1342,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 28,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 27,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 12,
+    "female_display": 24,
+    "prefix": "Be",
+    "client_file": "Hu",
+    "name": "Illidari Blood Elf",
+    "male_model": "Character\\BloodElf_Dh\\Male\\BloodElfMale_DH.mdx",
+    "female_model": "Character\\BloodElf_Dh\\Female\\BloodElfFemale_DH.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1033/1059",
+    "sections_rows": 7253,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 46,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq",
+      "Patch-8.mpq",
+      "Patch-9.mpq"
+    ]
+  },
+  {
+    "id": 28,
+    "flags": 12,
+    "faction": 2,
+    "male_display": 25,
+    "female_display": 27,
+    "prefix": "Dw",
+    "client_file": "Hu",
+    "name": "Murloc",
+    "male_model": "Character\\Murloc\\Male\\MurlocHD.mdx",
+    "female_model": "Character\\Murloc\\Male\\MurlocHD.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "4/8",
+    "textures": "43/45",
+    "sections_rows": 29,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 2,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-4.mpq"
+    ]
+  },
+  {
+    "id": 29,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 27298,
+    "female_display": 14754,
+    "prefix": "Dw",
+    "client_file": "",
+    "name": "Dark Iron Dwarf",
+    "male_model": "character\\darkirondwarf\\male\\darkirondwarfmale.mdx",
+    "female_model": "character\\darkirondwarf\\female\\darkirondwarffemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "551/551",
+    "sections_rows": 8216,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 20,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 30,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 5,
+    "female_display": 6,
+    "prefix": "Be",
+    "client_file": "",
+    "name": "Dracthyr",
+    "male_model": "character\\dracthyr\\male\\dracthyrmale.mdx",
+    "female_model": "character\\dracthyr\\female\\dracthyrfemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "7051/7051",
+    "sections_rows": 143204,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 43,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 31,
+    "flags": 12,
+    "faction": 1,
+    "male_display": 37,
+    "female_display": 41,
+    "prefix": "Ni",
+    "client_file": "",
+    "name": "Kul Tiran",
+    "male_model": "CHARACTER\\Naga_\\male\\kultiranmale.mdx",
+    "female_model": "CHARACTER\\Naga_\\Female\\kultiranfemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "499/499",
+    "sections_rows": 1437,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 24,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 33,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 66,
+    "female_display": 50,
+    "prefix": "Hu",
+    "client_file": "",
+    "name": "",
+    "male_model": "Character\\HUMAN\\MALE\\HumanMale.mdx",
+    "female_model": "character\\human\\female\\humanfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "104/1552",
+    "sections_rows": 1254,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 41,
+    "hair_textures": 16,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "common-2.mpq",
+      "patch-2.mpq",
+      "patch-3.mpq",
+      "Patch-7.mpq",
+      "patch.mpq"
+    ]
+  },
+  {
+    "id": 34,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 51,
+    "female_display": 52,
+    "prefix": "Or",
+    "client_file": "Hu",
+    "name": "",
+    "male_model": "character\\orc\\male\\orcmale_hd.mdx",
+    "female_model": "character\\orc\\female\\orcfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "11/1205",
+    "sections_rows": 855,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 25,
+    "hair_textures": 18,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 35,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 53,
+    "female_display": 54,
+    "prefix": "Dw",
+    "client_file": "",
+    "name": "",
+    "male_model": "character\\dwarf\\male\\dwarfmale_hd.mdx",
+    "female_model": "character\\dwarf\\female\\dwarffemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "168/1069",
+    "sections_rows": 1109,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 35,
+    "hair_textures": 10,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 36,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 55,
+    "female_display": 56,
+    "prefix": "Ni",
+    "client_file": "",
+    "name": "",
+    "male_model": "character\\nightelf\\male\\nightelfmale_hd.mdx",
+    "female_model": "character\\nightelf\\female\\nightelffemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "294/1100",
+    "sections_rows": 872,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 24,
+    "hair_textures": 18,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 37,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 57,
+    "female_display": 58,
+    "prefix": "Sc",
+    "client_file": "Hu",
+    "name": "",
+    "male_model": "character\\scourge\\male\\scourgemale_hd.mdx",
+    "female_model": "character\\scourge\\female\\scourgefemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "252/533",
+    "sections_rows": 824,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 30,
+    "hair_textures": 5,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 38,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 59,
+    "female_display": 60,
+    "prefix": "Ta",
+    "client_file": "Hu",
+    "name": "",
+    "male_model": "character\\tauren\\male\\taurenmale_hd.mdx",
+    "female_model": "character\\tauren\\female\\taurenfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "62/699",
+    "sections_rows": 486,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 25,
+    "hair_textures": 1,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 39,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 1563,
+    "female_display": 1564,
+    "prefix": "Gn",
+    "client_file": "",
+    "name": "",
+    "male_model": "character\\gnome\\male\\gnomemale_hd.mdx",
+    "female_model": "character\\gnome\\female\\gnomefemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "137/746",
+    "sections_rows": 638,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 24,
+    "hair_textures": 1,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 40,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 1478,
+    "female_display": 1479,
+    "prefix": "Tr",
+    "client_file": "Hu",
+    "name": "",
+    "male_model": "character\\troll\\male\\trollmale_hd.mdx",
+    "female_model": "character\\troll\\female\\trollfemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "26/1055",
+    "sections_rows": 672,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 22,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 41,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 6894,
+    "female_display": 6895,
+    "prefix": "Go",
+    "client_file": "u",
+    "name": "",
+    "male_model": "HD\\Character\\Goblin\\Male\\Goblinmale.mdx",
+    "female_model": "HD\\Character\\Goblin\\Female\\GoblinFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "646/653",
+    "sections_rows": 1034,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 35,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 42,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 15476,
+    "female_display": 15475,
+    "prefix": "Be",
+    "client_file": "Hu",
+    "name": "",
+    "male_model": "HD\\Character\\BloodElf\\Male\\BloodElfMale.mdx",
+    "female_model": "Character\\BloodElf\\Female\\BloodElfFemale_hd.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "939/991",
+    "sections_rows": 1067,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 36,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 43,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 16125,
+    "female_display": 16126,
+    "prefix": "Dr",
+    "client_file": "",
+    "name": "",
+    "male_model": "Character\\Draenei\\Male\\DraeneiMale_hd.mdx",
+    "female_model": "HD\\Character\\Draenei\\Female\\DraeneiFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "1174/1202",
+    "sections_rows": 902,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 30,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 44,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 16981,
+    "female_display": 16980,
+    "prefix": "Fo",
+    "client_file": "u",
+    "name": "",
+    "male_model": "",
+    "female_model": "",
+    "models_present": {
+      "male": null,
+      "female": null
+    },
+    "skins": "0/0",
+    "textures": "12/22",
+    "sections_rows": 16,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 2,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": []
+  },
+  {
+    "id": 45,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 17402,
+    "female_display": 17403,
+    "prefix": "Na",
+    "client_file": "u",
+    "name": "",
+    "male_model": "creature\\madscientist2\\madscientist2.mdx",
+    "female_model": "creature\\giantbeastmount\\giantbeastmount.mdx",
+    "models_present": {
+      "male": false,
+      "female": false
+    },
+    "skins": "0/8",
+    "textures": "63/65",
+    "sections_rows": 34,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 2,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": []
+  },
+  {
+    "id": 46,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 17576,
+    "female_display": 17577,
+    "prefix": "Br",
+    "client_file": "u",
+    "name": "",
+    "male_model": "",
+    "female_model": "Character\\Taunka\\Male\\Yaunka.mdx",
+    "models_present": {
+      "male": null,
+      "female": false
+    },
+    "skins": "0/4",
+    "textures": "34/62",
+    "sections_rows": 54,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 4,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": []
+  },
+  {
+    "id": 47,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 17578,
+    "female_display": 17579,
+    "prefix": "Sk",
+    "client_file": "u",
+    "name": "",
+    "male_model": "CHARACTER\\Skeleton\\Male\\SkeletonMale.mdx",
+    "female_model": "CHARACTER\\Skeleton\\Female\\SkeletonFemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "5/8",
+    "textures": "18/21",
+    "sections_rows": 25,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 2,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "common-2.mpq",
+      "Patch-4.mpq"
+    ]
+  },
+  {
+    "id": 48,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 21685,
+    "female_display": 21686,
+    "prefix": "Vr",
+    "client_file": "u",
+    "name": "",
+    "male_model": "Character\\Vrykul\\Male\\VrykulMale.mdx",
+    "female_model": "Character\\Vrykul\\Male\\VrykulMale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "6/8",
+    "textures": "55/62",
+    "sections_rows": 78,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 7,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "lichking.mpq",
+      "patch-2.mpq",
+      "patch.mpq"
+    ]
+  },
+  {
+    "id": 49,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 21780,
+    "female_display": 21781,
+    "prefix": "Tu",
+    "client_file": "u",
+    "name": "",
+    "male_model": "",
+    "female_model": "",
+    "models_present": {
+      "male": null,
+      "female": null
+    },
+    "skins": "0/0",
+    "textures": "35/37",
+    "sections_rows": 76,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 8,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": []
+  },
+  {
+    "id": 50,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 21963,
+    "female_display": 21964,
+    "prefix": "Ft",
+    "client_file": "u",
+    "name": "",
+    "male_model": "character\\zandalaritroll\\male\\zandalaritrollmale.mdx",
+    "female_model": "character\\zandalaritroll\\female\\zandalaritrollfemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "228/230",
+    "sections_rows": 217,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 7,
+    "hair_textures": 2,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 51,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 26316,
+    "female_display": 26317,
+    "prefix": "Wt",
+    "client_file": "u",
+    "name": "",
+    "male_model": "character\\lightforgeddraenei\\male\\lightforgeddraeneimale.mdx",
+    "female_model": "character\\lightforgeddraenei\\female\\lightforgeddraeneifemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "8/8",
+    "textures": "24/27",
+    "sections_rows": 17,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 2,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "Patch-5.mpq"
+    ]
+  },
+  {
+    "id": 52,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 26871,
+    "female_display": 26872,
+    "prefix": "NS",
+    "client_file": "u",
+    "name": "",
+    "male_model": "Character\\NorthrendSkeleton\\Male\\NorthrendSkeletonMale.mdx",
+    "female_model": "CHARACTER\\Naga_\\Female\\kultiranfemale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "6/8",
+    "textures": "12/15",
+    "sections_rows": 20,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 2,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "patch.mpq"
+    ]
+  },
+  {
+    "id": 53,
+    "flags": 5,
+    "faction": 1,
+    "male_display": 26873,
+    "female_display": 26874,
+    "prefix": "It",
+    "client_file": "u",
+    "name": "",
+    "male_model": "Character\\IceTroll\\Male\\IceTrollMale.mdx",
+    "female_model": "Character\\IceTroll\\Male\\IceTrollMale.mdx",
+    "models_present": {
+      "male": true,
+      "female": true
+    },
+    "skins": "4/8",
+    "textures": "21/23",
+    "sections_rows": 49,
+    "sections_shapes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "hair_geosets": 7,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": [
+      "lichking.mpq",
+      "patch.mpq"
+    ]
+  },
+  {
+    "id": 55,
+    "flags": 0,
+    "faction": 0,
+    "male_display": 0,
+    "female_display": 0,
+    "prefix": "",
+    "client_file": "",
+    "name": "",
+    "male_model": "",
+    "female_model": "",
+    "models_present": {
+      "male": null,
+      "female": null
+    },
+    "skins": "0/0",
+    "textures": "0/0",
+    "sections_rows": 0,
+    "sections_shapes": [],
+    "hair_geosets": 0,
+    "hair_textures": 0,
+    "facial_styles": 0,
+    "classes": [],
+    "archive_male": []
+  }
+]

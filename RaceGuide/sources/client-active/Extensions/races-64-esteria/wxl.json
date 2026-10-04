@@ -1,0 +1,27 @@
+{
+  "manifest": 1,
+  "extension": {
+    "id": "races-64-esteria",
+    "version": "1.0.0",
+    "abi": "1.1",
+    "entry": "races-64-esteria.dll",
+    "assets": [],
+    "requires": {},
+    "conflicts": [],
+    "hooks": []
+  },
+  "deploy": {
+    "mode": "release",
+    "match": "*.dll"
+  },
+  "listing": {
+    "title": "Esteria 64 Playable Races",
+    "tagline": "Expands the Esteria 3.3.5a client to race IDs 0 through 63.",
+    "description": "README.md",
+    "gallery": [],
+    "categories": ["character-creation", "gameplay"],
+    "accent": "#8b5cf6"
+  },
+  "license": null,
+  "signature": null
+}

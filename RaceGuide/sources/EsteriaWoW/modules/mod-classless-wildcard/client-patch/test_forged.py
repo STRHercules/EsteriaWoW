@@ -1,0 +1,1730 @@
+#!/usr/bin/env python3
+"""Check the forged spell rows before they ever reach a server.
+
+Reads the generator's own outputs -- forged_manifest.json and
+cw_spells_forged.sql -- and asserts the properties that keep the set safe:
+nothing inherits a class family, nothing is auto-granted, nothing sits off the
+curve, and no hidden companion can show up in a spellbook tab.
+
+Run:  python3 test_forged.py [CLIENT_DIR]
+
+With a client directory it also applies the rows to that client's own tables in
+memory and reads them back, which is the only way to know the appends land where
+the game will look for them. Nothing is written to the client.
+"""
+import io
+import json
+import os
+import re
+import struct
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+MODULE = os.path.join(HERE, os.pardir)
+MANIFEST = os.path.join(HERE, "forged_manifest.json")
+SQL = os.path.join(MODULE, "data", "sql", "db-world", "cw_spells_forged.sql")
+sys.path.insert(0, os.path.join(MODULE, "data", "sql", "generators"))
+
+from gen_forged_spells import (F, RECIPES, HERO_LINE, SPELL_BASE, BLOCK_END,
+                               MANA_COST_PCT, CREATURE_SCRIPT, CREATURE_SPELL,
+                               anchor, resolve, ALL_CLASSES)
+
+# columns the shared F map does not name
+F = dict(F, RangeIndex=46)
+
+FAILS = []
+
+def effects_for(recipe, key):
+    """Which effect list a row was built from."""
+    m = re.search(r"_pet(\d+)$", key)
+    if m:
+        return recipe["pet_spells"][int(m.group(1))]["effects"]
+    if key.endswith("_companion"):
+        return recipe["companion"]["effects"]
+    return recipe["effects"]
+
+
+def recipe_key(key):
+    """A row's key back to its recipe: hidden halves and pet abilities are
+    suffixed, and only the stem names a recipe."""
+    return re.sub(r"_(companion|pet\d+)$", "", key)
+
+
+def is_line(key):
+    """A forged ability line, as opposed to a Hero talent rank. Talents live in
+    the same spell list and the same manifest, but they are not lines: they
+    have no recipe, no rank chain and no skill-line row."""
+    return not key.startswith("talent_")
+
+
+
+def check(label, ok, detail=""):
+    print("  [%s] %s%s" % ("ok  " if ok else "FAIL", label, ("  -- " + detail) if detail else ""))
+    if not ok:
+        FAILS.append(label)
+
+
+
+
+# how many rules live in check_against_client, so a bare run can say what it
+# skipped. The check below keeps this honest if a rule is added or removed.
+CLIENT_RULES = 9
+
+
+def check_against_client(client_dir, doc):
+    """Apply the rows to the client's own tables and read them back."""
+    from lib import clientfs, forged
+
+    print("\n-- against the client at %s" % client_dir)
+    data = os.path.join(client_dir, "Data")
+    locale = clientfs.detect_locales(data)[0]
+    # Read PRISTINE tables, the way install.py does. An installed patch archive
+    # already holds forged rows, and the appenders skip an id they already have,
+    # so reading our own output back as the source would test the last install
+    # rather than this one.
+    exclude = set()
+    for suffix in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        exclude.add("patch-%s.MPQ" % suffix)
+        exclude.add("patch-%s-%s.MPQ" % (locale, suffix))
+    with clientfs.ClientFiles(data, locale, exclude=exclude) as files:
+        payload, report = {}, []
+        forged.apply(files, payload, doc, report)
+
+        def rows(path, fields):
+            raw = payload[path]
+            count, got, rec, _ = dbc.parse_header(raw)
+            assert got == fields, "%s has %d fields" % (path, got)
+            body = raw[20:20 + count * rec]
+            return count, rec, body
+
+        # the Hero line
+        count, rec, body = rows(forged.SKILLLINE, forged.SKILLLINE_FIELDS)
+        line = doc["skill_line"]
+        found = [i for i in range(count)
+                 if struct.unpack_from("<I", body, i * rec)[0] == line["id"]]
+        ok = len(found) == 1
+        if ok:
+            r = found[0]
+            cat = struct.unpack_from("<I", body, r * rec + 4)[0]
+            icon = struct.unpack_from("<I", body, r * rec + forged.SL_ICON * 4)[0]
+            ok = cat == line["category"] and icon == line["icon"]
+        check("SkillLine.dbc: the Hero row lands with its category and icon", ok,
+              "category %d must be 7 or the client will not draw it as a class tab"
+              % line["category"])
+
+        # every spell row
+        count, rec, body = rows(forged.SPELL, 234)
+        ids = {struct.unpack_from("<I", body, i * rec)[0]: i for i in range(count)}
+        missing = [s["id"] for s in doc["spells"] if s["id"] not in ids]
+        check("Spell.dbc: every forged row is appended", not missing,
+              "%d added, missing %s" % (len(doc["spells"]), missing[:4]))
+
+        # The buff tooltip, read back out of what the installer produced. The
+        # generator set column 187 correctly for a whole round while
+        # append_spells wrote the fourth locale block as a hardcoded "", so the
+        # client kept showing a nameless icon. Checking the manifest alone
+        # could never have seen that; this reads the bytes the client will.
+        strings = payload[forged.SPELL][20 + count * rec:]
+
+        def text(row, col):
+            off = struct.unpack_from("<I", body, row * rec + col * 4)[0]
+            end = strings.find(bytes([0]), off)
+            return strings[off:end].decode("utf-8", "replace") if end >= 0 else ""
+
+        blank = []
+        for sp in doc["spells"]:
+            if not sp.get("tooltip"):
+                continue
+            if sp["id"] not in ids:
+                continue
+            if text(ids[sp["id"]], 187) != sp["tooltip"]:
+                blank.append("%s: installed tooltip is %r, manifest says %r"
+                             % (sp["name"], text(ids[sp["id"]], 187)[:30],
+                                sp["tooltip"][:30]))
+        check("Spell.dbc: the buff tooltip the installer writes is the one asked for",
+              not blank, "%d row(s) carry one; %s"
+              % (sum(1 for sp in doc["spells"] if sp.get("tooltip")), blank[:3]))
+
+        # the overrides really applied, spot-checked on every row's school and level
+        wrong = []
+        for sp in doc["spells"]:
+            r = ids.get(sp["id"])
+            if r is None:
+                continue
+            for col in ("225", "39"):        # SchoolMask, SpellLevel
+                if col in sp["fields"]:
+                    got = struct.unpack_from("<I", body, r * rec + int(col) * 4)[0]
+                    if got != sp["fields"][col]:
+                        wrong.append("%d col%s want %s got %d"
+                                     % (sp["id"], col, sp["fields"][col], got))
+        check("Spell.dbc: the manifest's column overrides are what got written",
+              not wrong, "offenders: %s" % wrong[:3])
+
+        # recombined visuals
+        if doc.get("visuals"):
+            count, rec, body = rows(forged.SPELLVISUAL, forged.SPELLVISUAL_FIELDS)
+            vids = {struct.unpack_from("<I", body, i * rec)[0]: i for i in range(count)}
+            bad = []
+            for v in doc["visuals"]:
+                r = vids.get(v["id"])
+                if r is None:
+                    bad.append("%d absent" % v["id"])
+                    continue
+                for col, kit in v["kits"].items():
+                    got = struct.unpack_from("<I", body, r * rec + int(col) * 4)[0]
+                    if got != kit:
+                        bad.append("%d slot%s want %d got %d" % (v["id"], col, kit, got))
+            check("SpellVisual.dbc: every recombined look carries its borrowed kits",
+                  not bad, "%d look(s); %s" % (len(doc["visuals"]), bad[:3]))
+
+        # the tab rows
+        count, rec, body = rows(forged.SKILLLINEABILITY, 14)
+        sla = {}
+        for i in range(count):
+            row = struct.unpack_from("<14I", body, i * rec)
+            sla[row[0]] = row
+        want = [s for s in doc["spells"] if s["sla"]]
+        bad = [s["id"] for s in want
+               if s["sla"][0] not in sla
+               or sla[s["sla"][0]][2] != s["id"]
+               or sla[s["sla"][0]][1] != doc["skill_line"]["id"]
+               or sla[s["sla"][0]][9] != 0]
+        check("SkillLineAbility.dbc: every visible spell files under Hero, none auto-granted",
+              not bad, "%d row(s); offenders %s" % (len(want), bad[:4]))
+
+        hidden = [s["id"] for s in doc["spells"] if not s["sla"]]
+        stray = [i for i in hidden if any(r[2] == i for r in sla.values())]
+        check("SkillLineAbility.dbc: no hidden companion gained a tab row", not stray,
+              "%d companion(s)" % len(hidden))
+
+        # The library dedupes abilities by NAME, so a forged spell sharing a name
+        # with a stock one makes one of the two vanish from the pool. "Gravity
+        # Well" was already two spells before this caught it.
+        # Compare the TEXT, not the string offset. Every appended row gets a
+        # fresh offset even when the name is identical, so an offset comparison
+        # can never see a clash -- which it did not, until this was fixed.
+        raw = payload[forged.SPELL]
+        scount, _f, srec, strsize = dbc.parse_header(raw)
+        sbody = raw[20:20 + scount * srec]
+        blob = raw[20 + scount * srec:20 + scount * srec + strsize]
+
+        def text_at(off):
+            end = blob.find(bytes([0]), off)
+            return blob[off:end].decode("utf-8", "replace") if end >= 0 else ""
+
+        names = {}
+        for i in range(scount):
+            sid = struct.unpack_from("<I", sbody, i * srec)[0]
+            off = struct.unpack_from("<I", sbody, i * srec + 136 * 4)[0]
+            if off:
+                names.setdefault(text_at(off).lower(), []).append(sid)
+        ours = {sp["id"] for sp in doc["spells"]}
+        clashes = []
+        for sp in doc["spells"]:
+            other = [i for i in names.get((sp["name"] or "").lower(), []) if i not in ours]
+            if other:
+                clashes.append("%s clashes with %s" % (sp["name"], other[:2]))
+        check("no forged spell shares a name with a stock one", not clashes,
+              "%s" % clashes[:3])
+
+        # applying twice must not duplicate anything
+        payload2 = dict(payload)
+        forged.apply(files, payload2, doc, [])
+        c1, _, _, _ = dbc.parse_header(payload[forged.SPELL])
+        c2, _, _, _ = dbc.parse_header(payload2[forged.SPELL])
+        check("re-applying the patch adds nothing twice", c1 == c2,
+              "%d rows then %d" % (c1, c2))
+
+
+def main():
+    doc = json.load(io.open(MANIFEST, encoding="utf-8"))
+    spells = doc["spells"]
+
+    # The DBC extract, once, at the top. Several checks read it, and one of
+    # them referenced these helpers before they existed, caught its own
+    # NameError in a bare `except` and passed: it reported OK on a creature
+    # wearing a totem model. An unreadable extract is a FAILURE now, not a
+    # silent skip, so no rule can quietly become a no-op again.
+    from gen_forged_spells import Dbc as _Dbc
+    import os as _os
+    _dbc_dir = _os.environ.get("CW_DBC", r"B:\New folder\dbc")
+    try:
+        _Dbc(_os.path.join(_dbc_dir, "Spell.dbc"))
+        _dbc_ok, _dbc_why = True, None
+    except Exception as exc:
+        _dbc_ok, _dbc_why = False, exc
+    check("the DBC extract is readable, so every check that needs it can run",
+          _dbc_ok, "" if _dbc_ok else "%s at %s; set CW_DBC to the extract"
+          % (_dbc_why, _dbc_dir))
+    if _dbc_ok:
+        # opened once, here, because more than one rule reads them and a handle
+        # created below the rule that uses it is how the last no-op happened
+        _vis2 = _Dbc(_os.path.join(_dbc_dir, "SpellVisual.dbc"))
+        _sp = _Dbc(_os.path.join(_dbc_dir, "Spell.dbc"))
+        _icon = _Dbc(_os.path.join(_dbc_dir, "SpellIcon.dbc"))
+        # a recombined visual's cast kit is its base's unless the recipe
+        # overrode slot 2, so resolve it the same way the installer will
+        appended_castkit = {}
+        appended_precast = {}
+        appended_kits = {}
+        for vv in doc.get("visuals", []):
+            _b = _vis2.row_of(vv["base"])
+            _k = _vis2.u(_b, 2) if _b is not None else 0
+            appended_castkit[vv["id"]] = int(vv.get("kits", {}).get("2", _k))
+            _p = _vis2.u(_b, 1) if _b is not None else 0
+            appended_precast[vv["id"]] = int(vv.get("kits", {}).get("1", _p))
+            for _f in (3, 23, 24, 25):
+                _d = _vis2.u(_b, _f) if _b is not None else 0
+                appended_kits[(vv["id"], _f)] = int(vv.get("kits", {}).get(str(_f), _d))
+    # The generated SQL and the two C++ files, read once here beside the DBC
+    # handles. A rule that opens its own source below the rule that needs it is
+    # how three no-ops have started in this file.
+    sql_all = io.open(SQL, encoding="utf-8").read()
+    cpp_addon = io.open(os.path.join(MODULE, "src", "ClasslessAddon.cpp"),
+                        encoding="utf-8").read()
+    cpp = io.open(os.path.join(MODULE, "src", "ClasslessForgedScripts.cpp"),
+                  encoding="utf-8").read()
+    if not _dbc_ok:
+        # everything below reads it. Stopping here reports one honest
+        # failure instead of a page of checks that looked at nothing.
+        print()
+        print("%d check(s) FAILED" % len(FAILS))
+        return 1
+    by_key = {r["key"]: r for r in RECIPES}
+    print("manifest: %d row(s), generation %s\n" % (len(spells), doc["generation"]))
+
+    # ---- the row itself -----------------------------------------------------
+    check("every row has the 234-field layout",
+          all(len(s["values"]) == 234 for s in spells))
+
+    # ---- no forged spell asks for a class tool ------------------------------
+    # Every row is a donor's row with fields overridden, so anything the
+    # generator does not overwrite is inherited. The tool columns were half
+    # covered: Totem was zeroed, RequiredTotemCategoryID was not, and the
+    # twenty-six totem-shaped recipes copied Stoneclaw Totem's Earth Totem.
+    #
+    # Nothing downstream catches it. The server clears the column at startup,
+    # but the client patch's tool sweep runs over CLASS spells and runs BEFORE
+    # the forged rows are appended, so the client kept the requirement, drew a
+    # red "Tools:" line and refused the cast before the server ever saw it.
+    #
+    # Checked on the written values, not on the manifest's override list, so a
+    # row that inherits one still fails.
+    TOOL_COLUMNS = {"Totem_1": 50, "Totem_2": 51,
+                    "RequiredTotemCategoryID_1": 222, "RequiredTotemCategoryID_2": 223,
+                    "RequiresSpellFocus": 18}
+    tooled = []
+    for sp in spells:
+        for label, col in sorted(TOOL_COLUMNS.items()):
+            if int(sp["values"][col]):
+                tooled.append("%s wants %s=%s" % (sp["name"], label, sp["values"][col]))
+    check("no forged spell asks for a class tool or a spell focus",
+          not tooled, "; ".join(sorted(set(tooled))[:4]))
+
+    # ---- the Hero talent tab --------------------------------------------------
+    # A talent reaches a line through the ordinary spell-mod path, so three
+    # things have to hold or it silently does nothing (or far too much).
+    from gen_forged_spells import (TALENTS, HERO_TALENT_TAB, TALENT_ID_BASE,
+                                   HERO_TAB_CLASSMASK)
+    tal_rows = [s for s in spells if s["key"].startswith("talent_")]
+    # what each talent SHOULD reach, resolved from its own recipe
+    from gen_forged_spells import affect_mask as _affect_mask
+    # A spell-mod talent must name exactly the lines its recipe lists; a dummy
+    # talent names none, because nothing matches against it -- C++ finds it by
+    # family and icon instead.
+    _tal_by_key = {tal["key"]: ((0, 0, 0) if tal.get("dummy")
+                                else _affect_mask(tal["affects"]))
+                   for tal in TALENTS}
+    _tal_dummy = {tal["key"] for tal in TALENTS if tal.get("dummy")}
+    tal_bad = []
+    for s in tal_rows:
+        v = s["values"]
+        # A talent rank is a passive. Without ATTR0 PASSIVE the module would
+        # hand the Hero an uncastable spell instead of an applied aura.
+        if not (v[F["Attributes"]] & 0x40):
+            tal_bad.append("%s is not passive" % s["key"])
+        stem = s["key"].rsplit("_r", 1)[0][len("talent_"):]
+        want_aura = (4,) if stem in _tal_dummy else (107, 108)
+        if v[F["Effect"]] != 6 or v[F["EffectApplyAuraName"]] not in want_aura:
+            tal_bad.append("%s applies aura %d, wanted one of %s"
+                           % (s["key"], v[F["EffectApplyAuraName"]], want_aura))
+        # The mask must name EXACTLY the lines the recipe lists. Zero is not
+        # "no spells" -- IsAffected reads it as every spell in the family -- and
+        # "not zero" is not enough either: the nine columns are grouped by word
+        # then effect, so a transposed index still lands word A in the right
+        # column and only goes wrong for a line whose bit sits in word B. So
+        # this resolves the recipe's own `affects` list and compares.
+        # effect 0's three words are the FIRST three columns: the array is
+        # effect-major (see build_row, and the stock check below)
+        mask = tuple(v[F["EffectSpellClassMask"] + i] for i in range(3))
+        want = _tal_by_key.get(stem)
+        if want is None:
+            tal_bad.append("%s has no recipe" % s["key"])
+        elif mask != want:
+            tal_bad.append("%s reaches %s, recipe says %s" % (s["key"], mask, want))
+        # every other column of the nine belongs to an effect this spell does
+        # not have, and must be clear
+        stray = [i for i in range(3, 9) if v[F["EffectSpellClassMask"] + i]]
+        if stray:
+            tal_bad.append("%s wrote a mask into effect %d, which is empty"
+                           % (s["key"], stray[0] // 3))
+        if v[208] != 14:
+            tal_bad.append("%s is not on the Hero family, so it matches nothing"
+                           % s["key"])
+    check("every talent rank is a passive modifier that names its lines",
+          not tal_bad, "%d rank spell(s); %s" % (len(tal_rows), sorted(set(tal_bad))[:3]))
+
+    # ---- the class-mask layout, pinned to stock data -------------------------
+    # EffectSpellClassMask is EFFECT-major: the core declares
+    # `std::array<flag96, MAX_SPELL_EFFECTS>` and reads `[effIndex]`, so the
+    # nine columns are effect0's three words, then effect1's, then effect2's.
+    # The SQL column names (A_1 A_2 A_3 B_1 ...) read the other way round and
+    # I have already followed them once by mistake, which put every talent's
+    # word 1 into effect 1's slot.
+    #
+    # Improved Thunder Clap settles it and cannot drift: it holds
+    # [128,0,0, 128,0,0, 128,0,0] and all three of its effects modify Thunder
+    # Clap, whose own class flag is [128,0,0]. Read effect-major every effect
+    # gets that mask; read word-major, effects 1 and 2 get nothing and the
+    # damage and slow it grants would do nothing at all.
+    _itc = _sp.row_of(12287)          # Improved Thunder Clap
+    _tc = _sp.row_of(6343)            # Thunder Clap
+    layout = []
+    if _itc is None or _tc is None:
+        layout.append("the stock spells this is pinned to are missing")
+    else:
+        base = F["EffectSpellClassMask"]
+        want = tuple(_sp.u(_tc, 209 + i) for i in range(3))
+        for e in range(3):
+            got = tuple(_sp.u(_itc, base + e * 3 + i) for i in range(3))
+            if got != want:
+                layout.append("effect %d of Improved Thunder Clap reads %s, "
+                              "Thunder Clap's own flags are %s" % (e, got, want))
+    check("the effect class-mask layout is effect-major, as the core reads it",
+          not layout,
+          "reading it word-major puts a talent's mask in another effect's slot; %s"
+          % layout[:2])
+
+    # A dummy talent is located from C++ by GetDummyAuraEffect(family, icon,
+    # effIndex). Family is 14 for all of them, so the ICON is the whole key: two
+    # dummy talents on one icon are the same talent as far as any script can
+    # tell, and each would answer for the other.
+    import collections as _c2
+    _dicons = _c2.Counter(tal["icon"] for tal in TALENTS if tal.get("dummy"))
+    shared_icon = ["icon %d is on %d dummy talents" % (i, n)
+                   for i, n in sorted(_dicons.items()) if n > 1]
+    # The C++ finds each scripted talent by a hard-coded icon number. If the
+    # generator moves an icon and the script does not, GetDummyAuraEffect finds
+    # nothing and the talent silently does nothing at all -- it would still be
+    # buyable, still show in the tree, and simply never fire.
+    cpp_icons = set(int(x) for x in
+                    re.findall(r"constexpr uint32 ICON_\w+ = (\d+);", cpp))
+    want_icons = {tal["icon"] for tal in TALENTS if tal.get("dummy")}
+    icon_drift = []
+    if cpp_icons != want_icons:
+        icon_drift.append("generator has %s, the scripts have %s"
+                          % (sorted(want_icons), sorted(cpp_icons)))
+    check("the scripted talents' icons match the numbers the C++ looks for",
+          not icon_drift,
+          "a mismatch makes GetDummyAuraEffect find nothing and the talent do "
+          "nothing; %s" % icon_drift)
+
+    check("every scripted talent has an icon of its own",
+          not shared_icon,
+          "GetDummyAuraEffect keys on family and icon, and the family is shared; %s"
+          % shared_icon[:3])
+
+    # the two DBC tables, and the ids in them
+    have = {s["id"] for s in spells}
+    tab_bad = []
+    if ("(%d, 'Hero', " % HERO_TALENT_TAB) not in sql_all:
+        tab_bad.append("no talenttab_dbc row for tab %d" % HERO_TALENT_TAB)
+    # the addon puts a tab on a class page by the FIRST set bit of its mask,
+    # and its Hero page is 12; ClasslessAddon must walk far enough to see it
+    first_bit = (HERO_TAB_CLASSMASK & -HERO_TAB_CLASSMASK).bit_length()
+    if first_bit != 12:
+        tab_bad.append("ClassMask %d reports class %d, not the addon's Hero page"
+                       % (HERO_TAB_CLASSMASK, first_bit))
+    if "for (uint8 c = 1; c <= 12; ++c)" not in cpp_addon:
+        tab_bad.append("SendTalentTabs stops before class 12, so the Hero tab "
+                       "would be reported as a Warrior tree")
+    cells, ids = set(), set()
+    for n, tal in enumerate(TALENTS):
+        tid = TALENT_ID_BASE + n
+        row = re.search(r"\(%d, %d, (\d+), (\d+), ([\d, ]+?)\)" % (tid, HERO_TALENT_TAB),
+                        sql_all)
+        if not row:
+            tab_bad.append("no talent_dbc row for %s" % tal["key"])
+            continue
+        if (row.group(1), row.group(2)) in cells:
+            tab_bad.append("%s shares a cell with another talent" % tal["key"])
+        cells.add((row.group(1), row.group(2)))
+        ids.add(tid)
+        ranks = [int(x) for x in row.group(3).split(",")[:5] if int(x)]
+        if len(ranks) != tal["ranks"]:
+            tab_bad.append("%s lists %d rank spells, recipe says %d"
+                           % (tal["key"], len(ranks), tal["ranks"]))
+        for sid in ranks:
+            if sid not in have:
+                tab_bad.append("%s names spell %d, which is not written" % (tal["key"], sid))
+    check("the Hero talent tab and its talents are written whole",
+          not tab_bad, "%d talent(s); %s" % (len(TALENTS), sorted(set(tab_bad))[:3]))
+
+    # ---- the Hero family, and one class bit per line -------------------------
+    # SpellFamilyNames 2, 14 and 16 are unused by every class, and the forged
+    # set claims 14. That is what lets a Hero talent modify these spells --
+    # SpellInfo::IsAffected matches the modifier's family against this one and
+    # then its EffectSpellClassMask against this spell's own class flags. A
+    # class family would hand these spells to that class's talents; family 0
+    # would make EVERY modifier in the game affect them, because IsAffected
+    # returns true outright when the modifier's family is 0.
+    bad_family = [s["id"] for s in spells if s["values"][208] != 14]
+    check("every row is on the Hero spell family", not bad_family,
+          "family must be %d: a class family hands these spells to that class's "
+          "talents and 0 makes every modifier in the game apply; offenders: %s"
+          % (14, bad_family[:5]))
+
+    # Every donor row carried its own class flags -- Makeshift Strike held
+    # Sinister Strike's 8388610 -- inert only while the family was 0 and live
+    # the moment it is not. One deliberate bit per line, shared by that line's
+    # companion and pet spells so a talent naming a line reaches all of it.
+    import collections as _cl
+    linebit = _cl.defaultdict(set)
+    for s in spells:
+        if s["key"].startswith("talent_"):
+            continue          # a talent is not a line and owns no line bit
+        base = s["key"].split("_pet")[0]
+        if base.endswith("_companion"):
+            base = base[:-len("_companion")]
+        linebit[base].add(tuple(s["values"][209:212]))
+    bitbad = []
+    seen_masks = {}
+    for line, masks in sorted(linebit.items()):
+        if len(masks) != 1:
+            bitbad.append("%s: its parts carry %d different masks" % (line, len(masks)))
+            continue
+        mask = masks.pop()
+        ones = sum(bin(w).count("1") for w in mask)
+        if ones != 1:
+            bitbad.append("%s: mask has %d bits set, want exactly 1" % (line, ones))
+            continue
+        if mask in seen_masks:
+            bitbad.append("%s and %s share a class bit" % (line, seen_masks[mask]))
+        seen_masks[mask] = line
+    check("every line owns exactly one class bit, and no two share",
+          not bitbad, "%d line(s); %s" % (len(linebit), bitbad[:3]))
+
+    # A spell mod cannot reach a spell that refuses caster modifiers, and
+    # IsAffectedBySpellMod tests this first, so a donor's bit would make a
+    # talent silently do nothing.
+    unmoddable = [s["name"] for s in spells if s["values"][7] & 0x20000000]
+    check("no row refuses caster modifiers", not unmoddable,
+          "ATTR3 IGNORE_CASTER_MODIFIERS makes every Hero talent a no-op on it; %s"
+          % sorted(set(unmoddable))[:4])
+
+    ids = [s["id"] for s in spells]
+    check("ids are unique", len(ids) == len(set(ids)))
+    check("ids stay inside the reserved block",
+          all(SPELL_BASE <= i <= BLOCK_END for i in ids),
+          "%d..%d" % (min(ids), max(ids)))
+
+    # ---- how they are acquired ---------------------------------------------
+    withsla = [s for s in spells if s["sla"]]
+    check("every visible spell has a Hero-line row",
+          all(s["sla"][1] == HERO_LINE for s in withsla),
+          "%d row(s) on line %d" % (len(withsla), HERO_LINE))
+    check("no forged spell is handed out with the skill line",
+          all(s["sla"][9] == 0 for s in withsla),
+          "AcquireMethod 1 or 2 is what made Seal of Righteousness follow Holy Light around")
+    check("every visible spell is open to all classes",
+          all(s["sla"][4] == ALL_CLASSES for s in withsla))
+
+    companions = [s for s in spells if s["key"].endswith("_companion")]
+    check("hidden companions carry no skill line row",
+          all(s["sla"] is None for s in companions),
+          "%d companion(s); a row would put the hidden half in a spellbook tab" % len(companions))
+
+    # ---- levels -------------------------------------------------------------
+    lines = {}
+    for s in spells:
+        # hidden halves and pet abilities are not lines of their own, and a
+        # talent rank is not a line at all
+        if recipe_key(s["key"]) != s["key"] or not is_line(s["key"]):
+            continue
+        lines.setdefault(s["key"], []).append(s)
+    ok_first, ok_order, ok_cap = True, True, True
+    for key, rows in lines.items():
+        rows.sort(key=lambda x: x["rank"])
+        if rows[0]["level"] != by_key[key]["first_level"]:
+            ok_first = False
+        levels = [r["level"] for r in rows]
+        if levels != sorted(levels) or len(set(levels)) != len(levels):
+            ok_order = False
+        if max(levels) > 80:
+            ok_cap = False
+    check("rank 1 is learnable at the level its recipe states", ok_first)
+    check("levels rise strictly within a line", ok_order)
+    check("no rank is past level 80", ok_cap)
+
+    # ---- the curve ----------------------------------------------------------
+    # A companion's own rank is always 1 (comp["ranks"] = 1 keeps its rank text
+    # empty), but it is BUILT at the index of the rank that triggered it, so a
+    # ("ranks", [...]) literal inside one has to be resolved at that index.
+    # Levels rise strictly within a line, so the level the two share names it.
+    parent_rank = {}
+    for s in spells:
+        if recipe_key(s["key"]) == s["key"]:
+            parent_rank[(s["key"], s["level"])] = s["rank"]
+    off, checked = [], 0
+    for s in spells:
+        if not is_line(s["key"]):
+            continue          # a talent's numbers are literals, not a curve
+        key = recipe_key(s["key"])
+        recipe = by_key[key]
+        effects = effects_for(recipe, s["key"])
+        idx = s["rank"] - 1
+        if s["key"].endswith("_companion"):
+            idx = parent_rank.get((key, s["level"]), s["rank"]) - 1
+        for slot, e in enumerate(effects):
+            base = e.get("base")
+            if not isinstance(base, tuple):
+                continue
+            want = resolve(base, s["level"], idx)
+            got = s["values"][F["EffectBasePoints"] + slot] + 1
+            checked += 1
+            if want and abs(got - want) / want > 0.2:
+                off.append("%s r%d slot%d want %.0f got %d" % (s["key"], s["rank"], slot, want, got))
+    check("every curve-priced value is within 20% of its anchor", not off,
+          "%d value(s) checked; off: %s" % (checked, off[:3]))
+
+    # ---- pet abilities, and what must be true of them -----------------------
+    sql_pets = io.open(SQL, encoding="utf-8").read()
+    ranks_block = re.search(r"INSERT INTO `spell_ranks`[^;]*;", sql_pets, re.S)
+    stray = []
+    if ranks_block:
+        listed = {int(x) for x in re.findall(r"^\(\d+, (\d+), \d+\)",
+                                            ranks_block.group(0), re.M)}
+        hidden_ids = {sp["id"] for sp in spells if not sp["sla"]}
+        stray = sorted(listed & hidden_ids)
+    check("spell_ranks lists only real ranks", not stray,
+          "a hidden half or a pet ability there becomes an ability line of its own; "
+          "offenders %s" % stray[:4])
+
+    # SpellInfo::IsAutocastable refuses PASSIVE (0x40) and NO_AUTOCAST_AI
+    # (attr1 0x20000). Either one and the ability reaches the pet bar greyed out.
+    notcast = [sp["name"] for sp in spells
+               if "_pet" in sp["key"]
+               and (sp["values"][4] & 0x40 or sp["values"][5] & 0x20000)]
+    petcount = sum(1 for sp in spells if "_pet" in sp["key"])
+    check("every pet ability can be autocast", not notcast,
+          "%d pet ability row(s); %s" % (petcount, notcast[:3]))
+
+    percreature = {}
+    for m in re.finditer(r"^\((\d+), (\d+), (\d+), 12340\)", sql_pets, re.M):
+        percreature.setdefault(int(m.group(1)), set()).add(int(m.group(2)))
+    over = [c for c, idx in percreature.items() if len(idx) > 4 or max(idx) > 3]
+    check("no creature carries more spells than the pet bar holds", not over,
+          "MAX_SPELL_CHARM is 4; offenders %s" % over[:3])
+
+    # ---- a pet the core will call permanent ----------------------------------
+    # Pet::IsPermanentPetFor answers for a SUMMON_PET by asking the owner's
+    # class and then the creature's TYPE: warlock wants a demon, death knight an
+    # undead, mage one specific entry. A beast matches no branch, so the pet was
+    # never permanent -- and Player::PetSpellInitialize sends the pet's spell
+    # list only `if (pet->IsPermanentPetFor(this))`, which left the spellbook
+    # with no Pet tab at all. Pet::InitStatsForLevel reads the same type and
+    # scaled a SUMMON_PET as a HUNTER_PET while it was a beast.
+    #
+    # Undead would satisfy the core too, but Pet::LoadPetFromDB bails on
+    # IsClass(DEATH_KNIGHT, PET) && !CanSeeDKPet(), which no Hero has.
+    CREATURE_TYPE_DEMON = 3
+    E_SUMMON_PET = 56
+    # A creature is a PET only if a SUMMON_PET effect names it. The Reclaimed
+    # Sentry has creature_template_spell rows too and is a guardian, so "has pet
+    # spells" is not the test -- the first version of this check failed on it.
+    petentries = set()
+    for sp in spells:
+        v = sp.get("values") or []
+        if len(v) < 113:
+            continue
+        for eff in range(3):
+            if int(v[71 + eff]) == E_SUMMON_PET and int(v[110 + eff]):
+                petentries.add(int(v[110 + eff]))
+    wrongtype = []
+    for m in re.finditer(r"^\((\d+), '([^']*)', '', 1, 80, 35, 0, 1, \d+, (\d+),",
+                         sql_pets, re.M):
+        entry, cname, ctype = int(m.group(1)), m.group(2), int(m.group(3))
+        if entry in petentries and ctype != CREATURE_TYPE_DEMON:
+            wrongtype.append("%s (%d) is type %d" % (cname, entry, ctype))
+    check("every pet is a type the core will make permanent",
+          not wrongtype,
+          "no Pet tab and hunter-pet scaling otherwise; %s"
+          % (wrongtype[:3] if wrongtype else "%d pet creature(s)" % len(petentries)))
+
+    # ---- a buff has to say what it is doing, and be drawable ------------------
+    # Column 187 is the ToolTip the BUFF ICON shows on hover; 170 is the
+    # spellbook Description. Every forged row shipped with 187 empty, so a Hero
+    # could watch a buff run and never find out what it was. And display 11686
+    # is Creature\InvisibleStalker\InvisibleStalker.mdx, which the core uses
+    # when it wants nothing drawn -- Reclaimed Sentry wore it for six rounds.
+    INVISIBLE_DISPLAYS = {11686}
+    silent = [sp["name"] for sp in spells
+              if any(sp["values"][F["Effect"] + i] in (6, 27) for i in range(3))
+              and not sp["values"][187]]
+    check("every spell that applies an aura carries a buff tooltip", not silent,
+          "%d aura row(s); %s" % (
+              sum(1 for sp in spells
+                  if any(sp["values"][F["Effect"] + i] in (6, 27) for i in range(3))),
+              sorted(set(silent))[:3]))
+
+    sql_disp = io.open(SQL, encoding="utf-8").read()
+    invis = ["creature %s is given display %s, which is an invisible model"
+             % (m.group(1), m.group(2))
+             for m in re.finditer(r"^\((99\d{4}), 0, (\d+), ", sql_disp, re.M)
+             if int(m.group(2)) in INVISIBLE_DISPLAYS]
+    check("no summoned creature wears an invisible model", not invis, "%s" % invis[:3])
+
+    # a recombined visual is its donor's look with a kit moved, so two spells
+    # built on one donor look alike whatever ids they carry
+    vid_donor = {v["id"]: v["base"] for v in doc.get("visuals", [])}
+
+    # ---- a caster-centred burst must belong at the caster ---------------------
+    # SpellVisual field 23 is the InstantAreaKit: the area burst a spell paints
+    # around ITSELF. Holy Nova and Arcane Explosion use it because they are
+    # centred on the caster. Overflow, Quicksilver and Draw Attention used it
+    # for a heal, a buff and a taunt aimed at somebody up to forty yards away,
+    # and all three painted the burst on the caster. The kit that plays at each
+    # unit a spell reaches is field 3, the ImpactKit.
+    CASTER_REL = {1, 18, 22, 30, 15, 32, 41, 42, 43, 44}
+    # a charge ends at its target, so the caster IS there when the burst plays
+    ENDS_AT_TARGET = {"Vanguard Rush"}
+    misplaced = []
+    for rec in RECIPES:
+        if "instant_area" not in (rec.get("visual_kits") or {}):
+            continue
+        if rec["name"] in ENDS_AT_TARGET:
+            continue
+        tg = [e.get("tgt") for e in rec["effects"]] + [e.get("tgtb", 0) for e in rec["effects"]]
+        if not all(t in CASTER_REL or not t for t in tg):
+            misplaced.append("%s paints an instant-area burst at the caster but targets %s"
+                             % (rec["name"], sorted({t for t in tg if t})))
+    check("a caster-centred area burst is only on a spell centred on the caster",
+          not misplaced, "%s" % misplaced[:3])
+
+    # ---- a borrowed kit has to be a kit that draws something ------------------
+    # Overflow was given impact kit 3153 on the claim that it was Holy Nova's
+    # expanding ring. It is not: 3153 is Chest:129, a sparkle. The ring is
+    # Base:1722 and lives in Holy Nova's CAST kit. A kit id that exists and is
+    # non-zero told me nothing, so this reads the kit's own effect columns --
+    # the attachment models, not the sound -- and refuses an override that
+    # names a kit which draws nothing at all.
+    _kit = _Dbc(_os.path.join(_dbc_dir, "SpellVisualKit.dbc"))
+    KIT_EFFECT_FIELDS = (3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)   # attachments
+    hollow = []
+    for vv in doc.get("visuals", []):
+        for slot, kid in sorted(vv.get("kits", {}).items()):
+            kid = int(kid)
+            if not kid:
+                continue
+            _r = _kit.row_of(kid)
+            if _r is None:
+                hollow.append("visual %d slot %s names kit %d, which does not exist"
+                              % (vv["id"], slot, kid))
+                continue
+            draws = any(_kit.i(_r, _f) > 0 for _f in KIT_EFFECT_FIELDS)
+            anim = _kit.i(_r, 1) > 0 or _kit.i(_r, 2) > 0
+            if not draws and not anim:
+                hollow.append("visual %d slot %s names kit %d, which has no effect "
+                              "model and no animation" % (vv["id"], slot, kid))
+    check("every borrowed visual kit exists and draws something",
+          not hollow, "%s" % sorted(set(hollow))[:3])
+
+    # ---- a spell that hits somebody has to draw on them ----------------------
+    # Quicksilver wore Presence of Mind's row. Presence of Mind is a SELF buff,
+    # so its impact kit is 0 -- nothing was ever authored to play on a target --
+    # and the ally you spent a three minute cooldown on saw nothing whatsoever.
+    # A spell that reaches a unit draws on it through the impact kit (field 3);
+    # a ground spell draws with the area kits instead, so either will do.
+    UNIT_TARGETS = {1, 6, 21, 15, 16, 30, 31, 104, 63, 25, 45, 53, 57}
+    invisible = []
+    for sp in spells:
+        if sp["sla"] is None:
+            continue          # a hidden half is meant to be unseen
+        v = sp["values"]
+        tg = set()
+        for i in range(3):
+            if v[F["Effect"] + i]:
+                tg.add(v[F["EffectImplicitTargetA"] + i])
+                tg.add(v[F["EffectImplicitTargetB"] + i])
+        if not (tg & UNIT_TARGETS):
+            continue          # pure ground or summon work: area kits carry it
+        vid = v[F["SpellVisual"]]
+
+        def _slot(field):
+            got = appended_kits.get((vid, field))
+            if got is not None:
+                return got
+            _row = _vis2.row_of(vid)
+            return _vis2.u(_row, field) if _row is not None else 0
+
+        if not _slot(3) and not (_slot(23) or _slot(24) or _slot(25)):
+            invisible.append("%s (visual %d)" % (sp["name"], vid))
+    check("every spell that reaches a unit draws something on it",
+          not invisible,
+          "no impact kit and no area kit: the target sees nothing; %s"
+          % sorted(set(invisible))[:4])
+
+    # ---- a cast bar needs something to animate --------------------------------
+    # SpellVisual field 1, the precast kit, is what the caster plays WHILE the
+    # cast bar runs. Three lines sat on donor rows whose field 1 is zero and
+    # stood perfectly still through a two and a half second cast. The
+    # correlation across this set was exact: every line that animated had one.
+    _sct = _Dbc(_os.path.join(_dbc_dir, "SpellCastTimes.dbc"))
+    _cast_ms = {_sct.u(_r, 0): _sct.i(_r, 1) for _r in range(_sct.rows)}
+    still = []
+    for sp in spells:
+        if sp["sla"] is None:
+            continue          # a hidden half has no cast bar of its own
+        # column 28 is CastingTimeIndex; the F dict has no name for it, the
+        # generator writes it as v[28] too
+        if _cast_ms.get(sp["values"][28], 0) <= 0:
+            continue
+        vid = sp["values"][F["SpellVisual"]]
+        pre = appended_precast.get(vid)
+        if pre is None:
+            _row = _vis2.row_of(vid)
+            pre = _vis2.u(_row, 1) if _row is not None else 0
+        if not pre:
+            still.append(sp["name"])
+    check("every spell with a cast time animates while it casts",
+          not still,
+          "no precast kit means the caster stands still through the cast bar; %s"
+          % sorted(set(still))[:4])
+
+    # ---- and an instant strike swings, it does not cast ------------------------
+    # The other end of the same field. A precast kit is a CAST animation: the
+    # caster raises their hands and holds the pose. On a spell with no cast bar
+    # that deals weapon damage it replaces the swing, which is how Crossdraw
+    # spent a release wearing Inner Fire's row -- "character moving with hands
+    # up and do damage", as the report put it. Its siblings all had zero here.
+    WEAPON_EFF = {17, 31, 58, 121}
+    posing = []
+    for sp in spells:
+        if sp["sla"] is None:
+            continue
+        if _cast_ms.get(sp["values"][28], 0) > 0:
+            continue          # it has a cast bar; the rule above owns that case
+        if not ({int(sp["values"][F["Effect"] + e]) for e in range(3)} & WEAPON_EFF):
+            continue
+        vid = sp["values"][F["SpellVisual"]]
+        pre = appended_precast.get(vid)
+        if pre is None:
+            _row = _vis2.row_of(vid)
+            pre = _vis2.u(_row, 1) if _row is not None else 0
+        if pre:
+            posing.append("%s (visual %d, precast kit %d)" % (sp["name"], vid, pre))
+    check("no instant weapon strike plays a cast animation instead of swinging",
+          not posing, "; ".join(sorted(set(posing))[:4]))
+
+    # ---- a look belongs to the shape it was drawn for ------------------------
+    # Overflow wore Holy Nova's row for its expanding impact ring and painted a
+    # nova on the caster for three rounds. The area kit was never the problem:
+    # 3643 does not set field 23. It was CAST kit 3154, and a cast kit plays on
+    # the caster whatever the effects target. A kit override cannot save this --
+    # precast and cast ride along with the donor's row.
+    #
+    # Keyed on the cast kit rather than the visual id, because one visual is
+    # shared by many unrelated spells and any of them may happen to be an area.
+    # A kit counts as caster-centred when at least three stock spells use it and
+    # three quarters of them are an area centred on the caster. The signal is
+    # not marginal: Holy Nova's 3154 is 24 of 26, Circle of Healing's 165 is 7
+    # of 118, Sprint's 395 is 2 of 100.
+    CASTER_AREA = {(22, 15), (22, 30), (22, 7), (18, 31), (22, 45)}
+    _castkit = {_vis2.u(_r, 0): _vis2.u(_r, 2) for _r in range(_vis2.rows)}
+    _tally = {}
+    for _r in range(_sp.rows):
+        _k = _castkit.get(_sp.u(_r, F["SpellVisual"]), 0)
+        if not _k:
+            continue
+        _shapes = {(_sp.u(_r, F["EffectImplicitTargetA"] + _i),
+                    _sp.u(_r, F["EffectImplicitTargetB"] + _i))
+                   for _i in range(3) if _sp.u(_r, F["Effect"] + _i)}
+        _c = _tally.setdefault(_k, [0, 0])
+        _c[1] += 1
+        if _shapes & CASTER_AREA:
+            _c[0] += 1
+    CENTRED_KITS = {_k for _k, (_a, _n) in _tally.items() if _n >= 3 and _a >= 0.75 * _n}
+    # The measure is the shape of a kit's users, which is a proxy for "this kit
+    # draws a big area graphic" and not the thing itself. A shout is an
+    # animation on the shouter, so the roar kit reads fine on one target -- and
+    # Blizzard agrees: three of its twenty users are single target.
+    CENTRED_OK = {
+        "Rattle": "cast kit 351 is the roar kit, and Demoralize, Howling Blade and "
+                  "Ignored are stock single-target spells on it: a shout plays on "
+                  "the shouter and draws no ring",
+    }
+    borrowed = []
+    for sp in spells:
+        v = sp["values"]
+        vid = v[F["SpellVisual"]]
+        kit = appended_castkit.get(vid)
+        if kit is None:
+            _row = _vis2.row_of(vid)
+            kit = _vis2.u(_row, 2) if _row is not None else 0
+        if kit not in CENTRED_KITS:
+            continue
+        mine = {(v[F["EffectImplicitTargetA"] + i], v[F["EffectImplicitTargetB"] + i])
+                for i in range(3) if v[F["Effect"] + i]}
+        if mine & CASTER_AREA or sp["name"] in CENTRED_OK:
+            continue
+        borrowed.append("%s takes cast kit %d, which stock uses for an area centred "
+                        "on the caster" % (sp["name"], kit))
+    check("no line borrows a cast kit drawn for an area centred on the caster",
+          not borrowed,
+          "a cast kit plays on the caster and no kit override removes it; %s"
+          % sorted(set(borrowed))[:3])
+
+    # ---- two lines must not share a look --------------------------------------
+    # Recombining one donor with a different kit slot barely changes what a
+    # spell looks like, so three spells built on Hand of Freedom read as the
+    # same effect however different their kits. A spell and its own hidden half
+    # are meant to match; anything else is reuse.
+    import collections as _c
+    donors = _c.defaultdict(set)
+    for sp in spells:
+        base = sp["key"]
+        for suffix in ("_companion", "_pet0", "_pet1", "_pet2"):
+            if base.endswith(suffix):
+                base = base[:-len(suffix)]
+        vid = sp["values"][F["SpellVisual"]]
+        if not vid:
+            continue    # no look at all is not a shared look: a companion that
+                        # only energizes the caster carries none on purpose
+        donors[vid_donor.get(vid, vid)].add(base)
+    shared = ["visual %d is on %s" % (v, ", ".join(sorted(w)))
+              for v, w in sorted(donors.items()) if len(w) > 1]
+    check("no two forged lines are built on the same donor visual", not shared,
+          "%d distinct donor(s) over %d lines; %s"
+          % (len(donors), len(spells), shared[:3]))
+
+    # ---- a marker must not wear a totem ---------------------------------------
+    # A shaman totem model standing beside real totems is confusing, and none of
+    # these is a totem in any mechanical sense. Checked against the model path
+    # in the client's own files rather than a list of ids.
+    totemish = []
+    _cdi = _Dbc(_os.path.join(_dbc_dir, "CreatureDisplayInfo.dbc"))
+    _cmd = _Dbc(_os.path.join(_dbc_dir, "CreatureModelData.dbc"))
+    if _cdi is not None:
+        _paths = {_cmd.u(r, 0): _cmd.s(r, 2) for r in range(_cmd.rows)}
+        for m in re.finditer(r"^\((99\d{4}), 0, (\d+), ", io.open(SQL, encoding="utf-8").read(), re.M):
+            row = _cdi.row_of(int(m.group(2)))
+            path = _paths.get(_cdi.u(row, 1), "") if row is not None else ""
+            if "totem" in path.lower():
+                totemish.append("creature %s wears %s" % (m.group(1), path.split("\\")[-1]))
+    check("no summoned creature wears a totem model", not totemish, "%s" % totemish[:3])
+
+    # ---- a summoned creature must not be a "trigger" --------------------------
+    # Unit.cpp:16978 rewrites the display id in the update block sent to each
+    # client: a creature template with CREATURE_FLAG_EXTRA_TRIGGER (0x80) is
+    # given GetFirstInvisibleModel() for every viewer who is not in GM mode,
+    # whatever creature_template_model says. Every marker carried that bit, and
+    # it defeated a model fix, a summon-properties fix and a targeting fix in
+    # turn -- the creature was there and the client was told to draw nothing.
+    sql_cre = io.open(SQL, encoding="utf-8").read()
+    triggers = []
+    for m in re.finditer(r"^\((99\d{4}), '([^']*)', '', 1, 80, \d+, \d+, \d+, "
+                         r"\d+, \d+, \d+, \d+, (\d+),", sql_cre, re.M):
+        if int(m.group(3)) & 0x80:
+            triggers.append("%s (%s) has CREATURE_FLAG_EXTRA_TRIGGER, so the client is "
+                            "told to draw an invisible model" % (m.group(2), m.group(1)))
+    check("no summoned creature is flagged as a trigger", not triggers,
+          "%s" % triggers[:3])
+
+    # ---- every summon has a creature, and that creature has a model ---------
+    # Models live in creature_template_model, not creature_template. A creature
+    # with no row there spawns invisible: the spell works and nothing appears.
+    missing = []
+    for sp in spells:
+        for i in range(3):
+            if sp["values"][F["Effect"] + i] not in (28, 56):   # SUMMON, SUMMON_PET
+                continue
+            entry = sp["values"][F["EffectMiscValue"] + i]
+            if re.search(r"INSERT INTO `creature_template`[^;]*\(%d," % entry, sql_all, re.S) is None:
+                missing.append("%s: no creature_template for %d" % (sp["name"], entry))
+            if re.search(r"INSERT INTO `creature_template_model`[^;]*\(%d, 0, \d+" % entry,
+                         sql_all, re.S) is None:
+                missing.append("%s: creature %d has no model" % (sp["name"], entry))
+    check("every summon has a creature and a model", not missing,
+          "%s" % sorted(set(missing))[:3])
+
+    # ---- what a donor must not bring with it --------------------------------
+    # Copying a row copies everything that made the donor a CLASS spell. None of
+    # these shows up as an error: SpellInfo::CheckShapeshift simply refuses the
+    # cast for anyone not in the donor's form, and a missing reagent simply
+    # fails. Charge brought Battle Stance and Psychic Scream brought Shadowform.
+    inherited = []
+    for sp in spells:
+        if not is_line(sp["key"]):
+            continue          # a talent rank is a passive by design
+        v = sp["values"]
+        who = "%s r%d" % (sp["name"], sp["rank"])
+        if v[12] or v[14]:
+            inherited.append("%s: form mask 0x%X/0x%X" % (who, v[12], v[14]))
+        if v[18]:
+            inherited.append("%s: spell focus %d" % (who, v[18]))
+        if any(v[52 + i] for i in range(8)) or v[50] or v[51]:
+            inherited.append("%s: needs an item" % who)
+        # Charge is out-of-combat only; NOT_SHAPESHIFTED would lock out any Hero
+        # who rolled a form. Values read from the core's SharedDefines.
+        for bit, why in ((0x10000000, "out-of-combat only"),
+                         (0x00010000, "not while shapeshifted"),
+                         (0x00004000, "indoors only"),
+                         (0x00008000, "outdoors only"),
+                         (0x00020000, "stealth only"),
+                         (0x00000040, "passive")):
+            if v[4] & bit:
+                inherited.append("%s: %s" % (who, why))
+    check("no forged spell inherits its donor's form, focus or reagent",
+          not inherited, "%d row(s) checked; %s" % (len(spells), inherited[:3]))
+
+    # ---- effect, target and duration have to agree --------------------------
+    # An area effect with a zero radius hits a point. An aura with no duration
+    # never expires. A heal aimed at an enemy heals nobody. None of the three
+    # errors anywhere: RADIUS_10YD was index 36 for a while, which is 0 yards.
+    coherence = []
+    rad = _Dbc(_os.path.join(_dbc_dir, "SpellRadius.dbc"))
+    # Implicit target ids by what they select, from the table in SpellInfo.cpp.
+    # A SRC or DEST id sets a position and selects nobody, so an aura, a heal
+    # or a weapon swing given one of those alone lands on nothing. Vertigo,
+    # Wide Arc, Sinkhole and Spore Wash shipped exactly that way, and the old
+    # version of this check called 22 and 28 "area targets" and let them by.
+    UNIT_T = {1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 20, 21, 24, 25, 27, 30, 31, 33, 34,
+              35, 37, 38, 45, 54, 104}
+    DEST_T = {9, 17, 18, 28, 29, 32, 36, 41, 42, 43, 44, 46, 47, 48, 49, 50, 53,
+              55, 63, 87}
+    SRC_T = {22}
+    # 24 and 104 are the two cone targets; both need a radius, and 104 is the
+    # only one the player pool uses (Cone of Cold, Dragon's Breath)
+    AREA_T = {7, 8, 15, 16, 20, 30, 31, 33, 34, 37, 28, 24, 104}
+    LANDS_ON_UNITS = {2, 6, 10, 30, 31, 64, 68, 96, 114, 121, 145}
+    HEAL_EFFECTS = {10, 65}
+    DAMAGE_EFFECTS = {2, 31, 121, 58, 17}
+    for sp in spells:
+        v = sp["values"]
+        has_aura = False
+        for i in range(3):
+            eff = v[F["Effect"] + i]
+            if not eff:
+                continue
+            tgt = v[F["EffectImplicitTargetA"] + i]
+            tgtb = v[F["EffectImplicitTargetB"] + i]
+            if eff in (6, 27):
+                has_aura = True
+            if tgt not in UNIT_T | DEST_T | SRC_T:
+                coherence.append("%s: effect %d uses target %d, which is not in the table"
+                                 % (sp["name"], i, tgt))
+            if eff in LANDS_ON_UNITS and tgt not in UNIT_T and tgtb not in UNIT_T:
+                coherence.append("%s: effect %d lands on units but targets a position (%d/%d)"
+                                 % (sp["name"], i, tgt, tgtb))
+            if eff == 27 and tgt not in DEST_T:
+                coherence.append("%s: effect %d is a persistent area with no destination"
+                                 % (sp["name"], i))
+            # Consecration's area applies 3 (PERIODIC_DAMAGE); 4 is DUMMY, and
+            # Sinkhole and Reclaimed Sentry shipped dealing nothing with it
+            if eff == 27 and v[F["EffectApplyAuraName"] + i] not in (3, 8, 23, 53, 89, 226):
+                coherence.append("%s: effect %d is a persistent area applying aura %d, which does nothing"
+                                 % (sp["name"], i, v[F["EffectApplyAuraName"] + i]))
+            # rage is stored ten to the displayed point: a 20 shows as "2 Rage"
+            if v[41] == 1 and v[42] and (v[42] % 10 or v[42] < 50):
+                coherence.append("%s: costs %d stored rage, which shows as %.1f"
+                                 % (sp["name"], v[42], v[42] / 10.0))
+            # ENERGIZE of energy cannot usefully exceed the 100-point pool
+            if eff == 30 and v[F["EffectMiscValue"] + i] == 3 \
+                    and v[F["EffectBasePoints"] + i] + 1 > 100:
+                coherence.append("%s: effect %d restores %d energy into a pool of 100"
+                                 % (sp["name"], i, v[F["EffectBasePoints"] + i] + 1))
+            if rad is not None and (tgt in AREA_T or tgtb in AREA_T):
+                row = rad.row_of(v[F["EffectRadiusIndex"] + i])
+                if row is None or not rad.f(row, 1):
+                    coherence.append("%s: effect %d is an area target with no radius"
+                                     % (sp["name"], i))
+            if eff in HEAL_EFFECTS and tgt == 6:
+                coherence.append("%s: effect %d heals an enemy" % (sp["name"], i))
+            if eff in DAMAGE_EFFECTS and tgt in (1, 21):
+                coherence.append("%s: effect %d damages the caster or an ally"
+                                 % (sp["name"], i))
+            if v[F["RangeIndex"]] == 1 and 6 in (tgt, tgtb):
+                coherence.append("%s: effect %d targets an enemy at self range"
+                                 % (sp["name"], i))
+        # A talent's passive has no duration on purpose: it lasts as long as
+        # the talent is owned. Everything else that applies an aura needs one.
+        if has_aura and not v[F["DurationIndex"]] and is_line(sp["key"]):
+            coherence.append("%s: applies an aura with no duration" % sp["name"])
+    check("effects, targets and durations agree", not coherence,
+          "%d row(s) checked; %s" % (len(spells), coherence[:3]))
+
+    # ---- a script hook has to name the effect the spell actually has ----------
+    # A SpellScript hook names an effect INDEX and an effect TYPE. If the row's
+    # effect at that index is something else the hook is never called, the spell
+    # quietly loses the half that made it interesting, and nothing logs it.
+    # Read from the C++ rather than assumed, so moving an effect breaks this.
+    E_CONST = {"SPELL_EFFECT_SCHOOL_DAMAGE": 2, "SPELL_EFFECT_DUMMY": 3,
+               "SPELL_EFFECT_APPLY_AURA": 6, "SPELL_EFFECT_HEAL": 10,
+               "SPELL_EFFECT_PERSISTENT_AREA_AURA": 27, "SPELL_EFFECT_SUMMON": 28,
+               "SPELL_EFFECT_ENERGIZE": 30, "SPELL_EFFECT_WEAPON_PERCENT_DAMAGE": 31,
+               "SPELL_EFFECT_TRIGGER_SPELL": 64, "SPELL_EFFECT_INTERRUPT_CAST": 68,
+               "SPELL_EFFECT_CHARGE": 96, "SPELL_EFFECT_NORMALIZED_WEAPON_DMG": 121}
+    A_CONST = {"SPELL_AURA_MOD_DAMAGE_PERCENT_DONE": 79, "SPELL_AURA_PERIODIC_DAMAGE": 3,
+               "SPELL_AURA_MOD_MELEE_RANGED_HASTE": 192, "SPELL_AURA_DUMMY": 4,
+               "SPELL_AURA_MOD_CASTING_SPEED_NOT_STACK": 65}
+    # Implicit targets a target-select hook can name, from the table in
+    # SpellInfo.cpp. A name that is not here fails rather than being skipped.
+    T_CONST = {"TARGET_UNIT_TARGET_ENEMY": 6, "TARGET_UNIT_SRC_AREA_ENEMY": 15,
+               "TARGET_UNIT_DEST_AREA_ENEMY": 16, "TARGET_UNIT_TARGET_ALLY": 21,
+               "TARGET_SRC_CASTER": 22, "TARGET_UNIT_SRC_AREA_ALLY": 30,
+               "TARGET_UNIT_DEST_AREA_ALLY": 31, "TARGET_DEST_TARGET_ANY": 63,
+               "TARGET_DEST_DEST": 87}
+    sql_scripts = io.open(SQL, encoding="utf-8").read()
+    bound = {}
+    for m in re.finditer(r"^\((\d+), '(spell_cw_[a-z_]+)'\)", sql_scripts, re.M):
+        bound.setdefault(m.group(2), []).append(int(m.group(1)))
+    blocks = [(m.group(1), m.start()) for m in
+              re.finditer(r"class (spell_cw_[a-z_]+)\s*:\s*public\s+\w+Script", cpp)]
+    blocks.append(("__end__", len(cpp)))
+    by_sid = {sp["id"]: sp for sp in spells}
+    mismatch = []
+    for n in range(len(blocks) - 1):
+        cls, a = blocks[n]
+        body = cpp[a:blocks[n + 1][1]]
+        ids = bound.get(cls, [])
+        if not ids:
+            mismatch.append("%s is registered but no spell_script_names row names it" % cls)
+            continue
+        for mm in re.finditer(r"EFFECT_(\d)\s*,\s*(SPELL_(?:EFFECT|AURA)_[A-Z_0-9]+)", body):
+            idx, want = int(mm.group(1)), mm.group(2)
+            for sid in ids:
+                v = by_sid[sid]["values"]
+                got_e = v[F["Effect"] + idx]
+                got_a = v[F["EffectApplyAuraName"] + idx]
+                if want in E_CONST and got_e != E_CONST[want]:
+                    mismatch.append("%s hooks EFFECT_%d as %s but %d has effect %d"
+                                    % (cls, idx, want, sid, got_e))
+                elif want in A_CONST and (got_e != 6 or got_a != A_CONST[want]):
+                    mismatch.append("%s hooks EFFECT_%d as %s but %d has aura %d"
+                                    % (cls, idx, want, sid, got_a))
+        # A target-select hook names the implicit target as well as the index,
+        # and AC drops the handler if either disagrees with the row.
+        for mm in re.finditer(r"EFFECT_(\d)\s*,\s*(TARGET_[A-Z_0-9]+)", body):
+            idx, want = int(mm.group(1)), mm.group(2)
+            if want not in T_CONST:
+                mismatch.append("%s names %s, which this check does not know: "
+                                "add it to T_CONST" % (cls, want))
+                continue
+            for sid in ids:
+                v = by_sid[sid]["values"]
+                got = (v[F["EffectImplicitTargetA"] + idx],
+                       v[F["EffectImplicitTargetB"] + idx])
+                if T_CONST[want] not in got:
+                    mismatch.append("%s hooks EFFECT_%d as %s but %d targets %s"
+                                    % (cls, idx, want, sid, got))
+        for idx in {int(x) for x in re.findall(r"Effects\[EFFECT_(\d)\]", body)}:
+            for sid in ids:
+                if not by_sid[sid]["values"][F["Effect"] + idx]:
+                    mismatch.append("%s reads EFFECT_%d, empty on %d" % (cls, idx, sid))
+    check("every script hook names the effect its spell actually has",
+          not mismatch, "%s" % sorted(set(mismatch))[:3])
+
+    # ---- what a script spends and what the spell charges must agree -----------
+    # Quickening empties every point of rage and energy -- that IS its cost --
+    # and also declared 15% of base mana, so a Hero at full energy with a drained
+    # mana bar was told "Not enough mana" for a spell that never touches mana.
+    # A script that spends a pool means the spell either charges nothing, or
+    # charges one of the pools it spends, or is a deliberate two-pool design
+    # named here with its reason.
+    POWER_NAME = {0: "mana", 1: "rage", 3: "energy"}
+    TWO_POOL = {   # spell name -> why a second pool is intended and stated in the tooltip
+        "Ricochet Shot": "energy fires the shot, mana is charged per ricochet and the "
+                         "tooltip says so",
+        "Quickening": "mana pays for the cast, then every point of rage and energy is "
+                      "consumed to size the buff; the description says exactly that",
+    }
+    # A class body runs to its matching brace, not to wherever the next class
+    # happens to start: Ricochet Shot's per-bounce mana lives in an anonymous
+    # namespace written above its class and below Crossdraw's, and reading
+    # "until the next class" credited that spend to Crossdraw. Helpers are
+    # written directly above the class that uses them throughout this file, so
+    # a namespace block is credited forward, to the class that follows it.
+    def _class_body(src, start):
+        i = src.index("{", start)
+        depth, j = 0, i
+        while j < len(src):
+            if src[j] == "{":
+                depth += 1
+            elif src[j] == "}":
+                depth -= 1
+                if depth == 0:
+                    return src[i:j + 1], j
+            j += 1
+        return src[i:], len(src)
+
+    owned = {}
+    ends = []
+    for n in range(len(blocks) - 1):
+        cls, a = blocks[n]
+        body, end = _class_body(cpp, a)
+        owned[cls] = body
+        ends.append((cls, a, end))
+    # every anonymous namespace goes to the next class that starts after it
+    for m in re.finditer(r"\nnamespace\s*\n?\s*\{", cpp):
+        helper, _ = _class_body(cpp, m.start())
+        nxt = [c for c, a, _e in ends if a > m.start()]
+        if nxt:
+            owned[nxt[0]] = owned.get(nxt[0], "") + helper
+    spend = {}
+    for cls, body in owned.items():
+        pools = set(re.findall(r"ModifyPower\(POWER_(\w+),\s*-", body))
+        if pools:
+            spend[cls] = {p.lower() for p in pools}
+    pool_bad = []
+    for cls, pools in spend.items():
+        for sid in bound.get(cls, []):
+            sp = by_sid[sid]
+            v = sp["values"]
+            cost = v[42] or v[MANA_COST_PCT]
+            if not cost:
+                continue
+            declared = POWER_NAME.get(v[41], str(v[41]))
+            if declared in pools or sp["name"] in TWO_POOL:
+                continue
+            pool_bad.append("%s spends %s but charges %s"
+                            % (sp["name"], "+".join(sorted(pools)), declared))
+    # `not mismatch` stood here, which is the list the check ABOVE builds and
+    # which was empty, so this rule passed no matter what pool_bad held.
+    check("a script's pool and the spell's declared cost agree", not pool_bad,
+          "%s" % sorted(set(pool_bad))[:3])
+
+
+    # ---- a power restore has to be allowed to reach a pool that is not the bar --
+    # EffectEnergize, EffectEnergizePct and HandlePeriodicEnergizeAuraTick all
+    # begin the same way:
+    #
+    #   if (unitTarget->IsPlayer() && !unitTarget->HasActivePowerType(power)
+    #       && !m_spellInfo->HasAttribute(SPELL_ATTR7_ONLY_IN_SPELLBOOK_UNTIL_LEARNED))
+    #       return;
+    #
+    # and Player::HasActivePowerType is getPowerType() == power, the displayed
+    # bar alone. This module gives every Hero mana, rage AND energy, so two of
+    # any Hero's three pools are always "not active": without AttributesEx7 bit
+    # 16 the effect returns without a word. Adrenaline restored energy to
+    # nobody but an energy chassis for this reason, and Makeshift Strike's
+    # "restores mana to you" reached only casters.
+    ENERGIZE_EFFECTS = (30, 137)     # SPELL_EFFECT_ENERGIZE, _ENERGIZE_PCT
+    AURA_PERIODIC_ENERGIZE = 21
+    ATTR7_RESTORE_SECONDARY = 0x00010000
+    ATTRIBUTES_EX7 = 11
+    unreachable = []
+    for sp in spells:
+        v = sp["values"]
+        restores = any(v[F["Effect"] + i] in ENERGIZE_EFFECTS
+                       or (v[F["Effect"] + i] == 6
+                           and v[F["EffectApplyAuraName"] + i] == AURA_PERIODIC_ENERGIZE)
+                       for i in range(3))
+        if restores and not (v[ATTRIBUTES_EX7] & ATTR7_RESTORE_SECONDARY):
+            unreachable.append("%s (%d)" % (sp["name"], sp["id"]))
+    check("every spell that restores power may reach a pool that is not the bar",
+          not unreachable,
+          "without AttributesEx7 bit 16 the server drops the restore for any player "
+          "whose displayed pool differs; offenders: %s" % sorted(set(unreachable))[:4])
+
+    # ---- the art a spell points at has to exist -------------------------------
+    # An icon id that is not in SpellIcon.dbc is a question mark in the
+    # spellbook; a visual that is neither appended nor shipped draws nothing.
+    art = []
+    if _icon is not None:
+        appended = {vv["id"] for vv in doc.get("visuals", [])}
+        for sp in spells:
+            v = sp["values"]
+            if v[F["SpellIconID"]] and _icon.row_of(v[F["SpellIconID"]]) is None:
+                art.append("%s: icon %d does not exist" % (sp["name"], v[F["SpellIconID"]]))
+            vi = v[F["SpellVisual"]]
+            if vi and vi not in appended and _vis2.row_of(vi) is None:
+                art.append("%s: visual %d is neither appended nor shipped" % (sp["name"], vi))
+        for vv in doc.get("visuals", []):
+            if _vis2.row_of(vv["base"]) is None:
+                art.append("recombined visual %d copies a base that does not exist" % vv["id"])
+    check("every icon and visual a spell points at exists", not art, "%s" % art[:3])
+
+    # ---- no donor condition survives that would change how a spell plays ------
+    # Hand of Freedom is castable while stunned on purpose, and six spells that
+    # copied its row inherited that: defensive and offensive cooldowns a stun
+    # could not answer. USES_RANGED_SLOT on Ricochet Shot is the one bit here
+    # that is meant: it is a shot, and Multi-Shot carries the same.
+    STUCK_BITS = [
+        (4, 0x00000004, "ON_NEXT_SWING_NO_DAMAGE"), (4, 0x00000400, "ON_NEXT_SWING"),
+        (4, 0x00000020, "IS_TRADESKILL"), (4, 0x00000200, "HELD_ITEM_ONLY"),
+        (4, 0x00020000, "ONLY_STEALTHED"), (4, 0x00010000, "NOT_SHAPESHIFTED"),
+        (4, 0x00004000, "ONLY_INDOORS"), (4, 0x00008000, "ONLY_OUTDOORS"),
+        (4, 0x10000000, "NOT_IN_COMBAT_ONLY_PEACEFUL"), (4, 0x00000040, "PASSIVE"),
+        (4, 0x00080000, "SCALES_WITH_CREATURE_LEVEL"),
+        (9, 0x00000008, "ALLOW_WHILE_STUNNED"),
+        # a finishing move's combo-point requirement, which arrives with the
+        # donor: Rip's turned a ranged Nature bleed into "That ability requires
+        # combo points" with nothing in the spell to do with them
+        (5, 0x00100000, "FINISHING_MOVE_DAMAGE (requires combo points)"),
+        (5, 0x00400000, "FINISHING_MOVE_DURATION (requires combo points)"),
+    ]
+    RANGED_OK = {"Ricochet Shot"}
+    stuck = []
+    for sp in spells:
+        if not is_line(sp["key"]):
+            continue          # a talent rank IS a passive, on purpose
+        v = sp["values"]
+        for col, bit, nm in STUCK_BITS:
+            if v[col] & bit:
+                stuck.append("%s: kept %s from its donor" % (sp["name"], nm))
+        if v[4] & 0x00000002 and sp["name"] not in RANGED_OK:
+            stuck.append("%s: kept USES_RANGED_SLOT from its donor" % sp["name"])
+    check("no donor condition survives that would change how a spell plays",
+          not stuck, "%s" % sorted(set(stuck))[:3])
+
+    # ---- a spell has to FUNCTION, not merely be shaped right ------------------
+    # The faults that leave a correctly-targeted spell behaving wrongly in play:
+    # a periodic with no tick, an aura with no duration, a donor's cooldown
+    # category or proc flags still driving it, a rank that does not improve.
+    function = []
+    _dur = _Dbc(_os.path.join(_dbc_dir, "SpellDuration.dbc"))
+    PERIODIC = {3, 8, 23, 24, 53, 64, 89}          # 4 is DUMMY, not a periodic
+    by_line = {}
+    for sp in spells:
+        by_line.setdefault(sp["key"], []).append(sp)
+    for sp in spells:
+        v = sp["values"]
+        who = "%s r%d" % (sp["name"], sp["rank"])
+        dms = 0
+        if _dur is not None and v[F["DurationIndex"]]:
+            row = _dur.row_of(v[F["DurationIndex"]])
+            dms = _dur.i(row, 1) if row is not None else 0
+        for i in range(3):
+            eff, aura = v[F["Effect"] + i], v[F["EffectApplyAuraName"] + i]
+            if not eff:
+                continue
+            amp = v[F["EffectAmplitude"] + i]
+            if eff in (6, 27) and aura in PERIODIC and not amp:
+                function.append("%s: effect %d is periodic with no tick" % (who, i))
+            if eff in (6, 27) and aura in PERIODIC and amp and dms > 0 and amp > dms:
+                function.append("%s: effect %d ticks slower than its duration" % (who, i))
+            if eff in (6, 27) and not aura:
+                function.append("%s: effect %d applies aura 0" % (who, i))
+        if v[1]:
+            function.append("%s: kept its donor's cooldown category %d" % (who, v[1]))
+        if v[49]:
+            function.append("%s: kept its donor's StackAmount %d" % (who, v[49]))
+        if v[27] and not any(v[F["EffectApplyAuraName"] + i] in (42, 43, 109)
+                             for i in range(3)):
+            function.append("%s: kept its donor's ProcFlags %#x with no proc aura"
+                            % (who, v[27]))
+    for key, rws in by_line.items():
+        rws = sorted(rws, key=lambda x: x["rank"])
+        for i in range(3):
+            vals = [r["values"][F["EffectBasePoints"] + i] + 1 for r in rws
+                    if r["values"][F["Effect"] + i]]
+            if len(vals) != len(rws) or len(set(vals)) < 2:
+                continue
+            mag = [abs(x) for x in vals]
+            if any(b < a for a, b in zip(mag, mag[1:])):
+                function.append("%s: effect %d gets weaker with rank: %s"
+                                % (rws[0]["name"], i, vals))
+    check("every spell functions: ticks, durations, ranks and no donor leftovers",
+          not function, "%s" % sorted(set(function))[:3])
+
+    # ---- every (effect, targetA, targetB) has to be a shape the game uses ----
+    # Copying a donor row and changing its effects produces target combinations
+    # nothing ships. Five markers applied an aura with target 31 alone, which no
+    # player spell in the game does, and Wide Arc kept a melee range index after
+    # becoming a point-blank swing. Both were invisible until the shape was
+    # compared with the shipped spells that do the same thing.
+    unknown_shape = []
+    _sla = _Dbc(_os.path.join(_dbc_dir, "SkillLineAbility.dbc"))
+    _skl = _Dbc(_os.path.join(_dbc_dir, "SkillLine.dbc"))
+    if _sp is not None:
+        _cls = {_skl.u(r, 0) for r in range(_skl.rows) if _skl.u(r, 1) == 7}
+        _pool = {_sla.u(r, 2) for r in range(_sla.rows)
+                 if _sla.u(r, 1) in _cls and _sla.u(r, 4)}
+        shapes = set()
+        for r in range(_sp.rows):
+            if _sp.u(r, 0) not in _pool:
+                continue
+            for i in range(3):
+                if _sp.u(r, F["Effect"] + i):
+                    shapes.add((_sp.u(r, F["Effect"] + i),
+                                _sp.u(r, F["EffectImplicitTargetA"] + i),
+                                _sp.u(r, F["EffectImplicitTargetB"] + i)))
+        # the two the set uses on purpose, each half proven on its own
+        ALLOWED_NEW = {(145, 16, 0)}       # a ground-targeted pull; no stock one exists
+        for sp in spells:
+            v = sp["values"]
+            for i in range(3):
+                if not v[F["Effect"] + i]:
+                    continue
+                sh = (v[F["Effect"] + i], v[F["EffectImplicitTargetA"] + i],
+                      v[F["EffectImplicitTargetB"] + i])
+                if sh not in shapes and sh not in ALLOWED_NEW:
+                    unknown_shape.append("%s: effect %d is %s, a shape no player spell uses"
+                                         % (sp["name"], i, sh))
+    check("every effect uses a target shape the game itself ships", not unknown_shape,
+          "%s" % sorted(set(unknown_shape))[:3])
+
+    # ---- a summon has to name a summon type that exists -----------------------
+    # Spell::EffectSummonType looks up SummonProperties by the effect's
+    # MiscValueB and returns immediately when there is no such row, logging
+    # "Unhandled summon type". Every marker in this file wrote 0, and there is
+    # no SummonProperties row 0, so seven spells summoned nothing at all while
+    # their creature and model rows sat unused. Effect 56 (SUMMON_PET) does not
+    # read it and is exempt.
+    props = _Dbc(_os.path.join(_dbc_dir, "SummonProperties.dbc"))
+    bad_summon = []
+    if props is not None:
+        for sp in spells:
+            v = sp["values"]
+            for i in range(3):
+                if v[F["Effect"] + i] != 28:
+                    continue
+                b = v[F["EffectMiscValueB"] + i]
+                if not b or props.row_of(b) is None:
+                    bad_summon.append("%s: effect %d summons with type %d, which is not a "
+                                      "SummonProperties row" % (sp["name"], i, b))
+                elif props.u(props.row_of(b), 4):          # Slot
+                    bad_summon.append("%s: effect %d uses summon type %d, which takes totem "
+                                      "slot %d" % (sp["name"], i, b, props.u(props.row_of(b), 4)))
+    check("every summon names a summon type the core can look up", not bad_summon,
+          "%s" % bad_summon[:3])
+
+    # ---- a missile that is drawn has to travel -------------------------------
+    # Spell.dbc column 47 is Speed, in yards per second (Fireball 24, Arcane
+    # Shot 40, every melee spell 0). The generator never wrote it, so every
+    # projectile in the set arrived the instant the cast ended with nothing
+    # drawn between caster and target. SpellVisual field 7 says whether the
+    # look has a missile at all, so the two have to agree.
+    missiles = []
+    vdbc = _Dbc(_os.path.join(_dbc_dir, "SpellVisual.dbc"))
+    if vdbc is not None:
+        # a recombined look is a donor's row with some kit slots moved, so
+        # whether it carries a missile is the DONOR's answer; without this the
+        # rule silently skipped every spell that got a new look
+        donor_of = {v["id"]: v["base"] for v in doc.get("visuals", [])}
+        for sp in spells:
+            v = sp["values"]
+            vid = v[F["SpellVisual"]]
+            if not vid:
+                continue          # 0 is "draw nothing", which Throw itself uses
+            row = vdbc.row_of(donor_of.get(vid, vid))
+            if row is None:
+                missiles.append("%s: visual %d resolves to no SpellVisual row"
+                                % (sp["name"], vid))
+                continue
+            has = vdbc.u(row, 7)
+            if has and not v[47]:
+                missiles.append("%s: visual %d draws a missile but Speed is 0"
+                                % (sp["name"], v[F["SpellVisual"]]))
+            if v[47] and not has:
+                missiles.append("%s: Speed %.0f but visual %d draws no missile"
+                                % (sp["name"], v[47], v[F["SpellVisual"]]))
+    check("a drawn missile has a speed, and a speed has a missile", not missiles,
+          "%d row(s) checked; %s" % (len(spells), missiles[:3]))
+
+    # ---- the tooltips -------------------------------------------------------
+    # $s3 on a spell with two effects renders as literal "$s3" in the client, and
+    # $d on a spell with no duration renders as nothing. Both are silent: the
+    # spell works and only its description is wrong.
+    bad_var = []
+    by_id = {sp["id"]: sp for sp in spells}
+    for sp in spells:
+        text = sp["description"] or ""
+        vals = sp["values"]
+        effects = [vals[F["Effect"] + i] for i in range(3)]
+        # $/10;s1 is Blizzard's own form for a rage amount, which is stored
+        # times ten. Without the optional divisor here the pattern misses it
+        # and the reference inside goes unchecked.
+        for m in re.finditer(r"\$(?:/\d+;)?([soa])(\d)", text):
+            kind, slot = m.group(1), int(m.group(2)) - 1
+            if slot < 0 or slot > 2 or not effects[slot]:
+                bad_var.append("%s: $%s%d has no effect" % (sp["name"], kind, slot + 1))
+                continue
+            if kind == "o" and not vals[F["EffectAmplitude"] + slot]:
+                bad_var.append("%s: $o%d is not periodic" % (sp["name"], slot + 1))
+            if kind == "a" and not vals[F["EffectRadiusIndex"] + slot]:
+                bad_var.append("%s: $a%d has no radius" % (sp["name"], slot + 1))
+        if "$d" in text and not vals[F["DurationIndex"]]:
+            bad_var.append("%s: $d but no duration" % sp["name"])
+        # $<spellid>s1 is the client's reference to another spell's value; the
+        # generator fills it with the rank's companion, so it has to name a row
+        # in this manifest with an effect in that slot
+        for m in re.finditer(r"\$(?:/\d+;)?(\d+)([soa])(\d)", text):
+            other = by_id.get(int(m.group(1)))
+            slot = int(m.group(3)) - 1
+            if other is None or slot < 0 or slot > 2 or not other["values"][F["Effect"] + slot]:
+                bad_var.append("%s: $%s%s%s points at nothing"
+                               % (sp["name"], m.group(1), m.group(2), m.group(3)))
+    check("every tooltip variable points at something real", not bad_var,
+          "%d description(s) checked; %s" % (len(spells), bad_var[:4]))
+
+    # ---- the SQL ------------------------------------------------------------
+    sql = io.open(SQL, encoding="utf-8").read()
+    # ---- every INSERT names as many columns as it writes values --------------
+    # This whole set opened with "Unknown column 'type' in 'field list'" on a
+    # realm, and the talent table shipped 24 values into 23 columns before this
+    # rule existed. MySQL refuses the whole file either way, so one miscount
+    # takes the migration down with it.
+    def _top_level_values(body):
+        """Count comma-separated values, ignoring commas inside quotes."""
+        depth, count, instr, prev = 0, 1, False, ""
+        for ch in body:
+            if instr:
+                if ch == "'" and prev != "\\":
+                    instr = False
+            elif ch == "'":
+                instr = True
+            elif ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+            elif ch == "," and depth == 0:
+                count += 1
+            prev = ch
+        return count
+
+    arity, table, ncols = [], None, 0
+    for line in sql_all.splitlines():
+        head = re.match(r"INSERT INTO `(\w+)` \((.*)\) VALUES", line.strip())
+        if head:
+            table = head.group(1)
+            ncols = _top_level_values(head.group(2))
+            continue
+        if not table:
+            continue
+        row = line.strip()
+        if row.startswith("(") and row.rstrip(",;").endswith(")"):
+            got = _top_level_values(row.rstrip(",;")[1:-1])
+            if got != ncols:
+                arity.append("%s: a row writes %d values into %d columns"
+                             % (table, got, ncols))
+                table = None
+        elif row and not row.startswith("--"):
+            table = None
+    check("every INSERT writes one value per column it names",
+          not arity, "MySQL refuses the whole file on a miscount; %s"
+          % sorted(set(arity))[:3])
+
+    check("the Hero skill line row is written",
+          re.search(r"INSERT INTO `skillline_dbc`", sql) is not None
+          and ("(%d, 7, 0, 'Hero'" % HERO_LINE) in sql,
+          "without it GetSkillRangeType returns SKILL_RANGE_NONE")
+    check("a race/class row exists for the Hero line",
+          re.search(r"INSERT INTO `skillraceclassinfo_dbc`[^;]*\(\d+, %d, 0, 0," % HERO_LINE,
+                    sql, re.S) is not None,
+          "without it _LoadSkills deletes the skill at every login")
+    # The server compiles the Hero line id in (SyncSpellbookTabs hands the
+    # skill out by it); the generator writes the rows under HERO_LINE. Two
+    # numbers, one meaning.
+    header = io.open(os.path.join(MODULE, "src", "ClasslessWildcard.h"), encoding="utf-8").read()
+    m = re.search(r"constexpr uint32 HERO_SKILL_LINE = (\d+);", header)
+    check("the Hero line id is the one the server compiled in",
+          m is not None and int(m.group(1)) == HERO_LINE,
+          "header says %s, generator says %d" % (m.group(1) if m else None, HERO_LINE))
+    check("the run is stamped with a generation id",
+          "cw_forged_meta" in sql and doc["generation"] in sql)
+    check("the SQL deletes its own id range before inserting",
+          ("DELETE FROM `spell_dbc` WHERE `ID` BETWEEN %d AND %d;" % (SPELL_BASE, BLOCK_END)) in sql)
+
+    # This one shipped: CREATE TABLE IF NOT EXISTS leaves a table that already
+    # exists exactly as it found it, so a realm that had applied an earlier
+    # build kept a cw_forged_spells with no `type` column, and the INSERT below
+    # died with "Unknown column 'type' in 'field list'". For every table this
+    # file creates, each column a later write names has to be either the
+    # primary key, which no version has been without, or one a guarded ALTER
+    # adds first.
+    unmigrated, tables = [], re.findall(r"CREATE TABLE IF NOT EXISTS `(\w+)`", sql)
+    for table in tables:
+        pk = re.search(r"CREATE TABLE IF NOT EXISTS `%s`.*?PRIMARY KEY \(`(\w+)`\)"
+                       % table, sql, re.S)
+        added = {m.group(1): m.start() for m in
+                 re.finditer(r"ALTER TABLE `%s` ADD COLUMN `(\w+)`" % table, sql)}
+        for w in re.finditer(r"(?:INSERT|REPLACE) INTO `%s` \(([^)]*)\)" % table, sql):
+            for c in re.findall(r"`(\w+)`", w.group(1)):
+                if pk and c == pk.group(1):
+                    continue
+                at = added.get(c)
+                if (at is None or at > w.start()
+                        or "IF NOT EXISTS" not in sql[max(0, at - 400):at]):
+                    unmigrated.append("%s.%s" % (table, c))
+    check("every column a write names survives an older copy of its table",
+          len(tables) >= 2 and not unmigrated,
+          "%d table(s); a column with no guarded ALTER above the write that "
+          "names it is an Unknown column error on any realm that applied an "
+          "older build; unmigrated %s" % (len(tables), unmigrated))
+
+    scripted_keys = {r["key"] for r in RECIPES if r.get("script")}
+    bounce_keys = {r["key"] for r in RECIPES if r.get("companion_script")}
+    # A pet spell can name a script of its own: Healing Spit is bound to one so
+    # the beetle aims it at whoever is hurt worst.
+    pet_keys = {"%s_pet%d" % (r["key"], i)
+                for r in RECIPES
+                for i, ps in enumerate(r.get("pet_spells", []))
+                if ps.get("script")}
+    want_rows = sum(1 for sp in doc["spells"]
+                    if (sp["key"] in scripted_keys and not sp["key"].endswith("_companion"))
+                    or (sp["key"].endswith("_companion") and sp["key"][:-len("_companion")] in bounce_keys)
+                    or sp["key"] in pet_keys)
+    got_rows = re.findall(r"^\((\d+), 'spell_cw_([a-z_]+)'\)", sql, re.M)
+    check("every rank of a scripted line binds to its script",
+          len(got_rows) == want_rows and want_rows > 0,
+          "%d row(s) for %d scripted rank(s); a missing rank loses its script silently"
+          % (len(got_rows), want_rows))
+    # Which LINE each script row is on, resolved by spell id: a shared script
+    # name (Second Nature and Adrenaline both answer to spell_cw_reserve_break)
+    # is not the recipe key and never was meant to be.
+    _line_of = {}
+    for sp in doc["spells"]:
+        key = sp["key"]
+        if key.endswith("_companion"):
+            key = key[:-len("_companion")]
+        _line_of[str(sp["id"])] = key
+    unscripted = [i for i, _name in got_rows
+                  if _line_of.get(i) not in scripted_keys | bounce_keys | pet_keys]
+
+    # A spell_script_names row naming a class that does not exist is not an
+    # error anywhere: the spell simply loads without the script and the talent
+    # that depended on it does nothing. Every name the SQL writes has to be a
+    # class this build registers.
+    _names = sorted({name if not name.endswith("_bounce")
+                     else name for _i, name in got_rows})
+    missing_class = [n for n in _names
+                     if ("RegisterSpellScript(spell_cw_%s);" % n) not in cpp]
+    check("every script name in the SQL is a class the C++ registers",
+          not missing_class,
+          "a spell_script_names row naming no class loads silently and does "
+          "nothing; %s" % missing_class)
+
+    # And the mirror: a script class that nothing binds to. Writing the C++ and
+    # forgetting `script=True` on the recipe leaves a talent that reads well,
+    # buys fine, and never runs -- with nothing anywhere to say so.
+    _bound = {"spell_cw_%s" % name for _i, name in got_rows}
+    orphan_scripts = sorted(n for n in
+                            set(re.findall(r"RegisterSpellScript\((spell_cw_\w+)\);", cpp))
+                            if n not in _bound)
+    check("every script class the C++ registers has spells bound to it",
+          not orphan_scripts,
+          "a registered class with no spell_script_names row never runs; %s"
+          % orphan_scripts)
+    # ---- an emplacement that acts needs a script AND a spell ------------------
+    # Reclaimed Sentry's turret has an AI only because creature_template names
+    # one, and it knows what to fire only because creature_template_spell puts
+    # a bolt in slot 0 -- Creature::UpdateEntry copies that into m_spells and
+    # the AI fires m_spells[0]. A marker summon records no spell id at all, so
+    # the creature entry is the ONLY thing that tells rank 1's turret from
+    # rank 3's. Drop either row and it is back to standing there.
+    emplacement = []
+    for entry, script in sorted(CREATURE_SCRIPT.items()):
+        if re.search(r"INSERT INTO `creature_template`[^;]*\(%d, '[^']*', '', [^)]*'%s', 12340\)"
+                     % (entry, re.escape(script)), sql_all, re.S) is None:
+            emplacement.append("creature %d does not carry ScriptName %s" % (entry, script))
+        # the C++ CLASS name and the script name it registers under are
+        # different strings, so resolve the class from the constructor
+        klass = re.search(r"class (\w+)\s*:\s*public CreatureScript.{0,4000}?"
+                          r'CreatureScript\("%s"\)' % re.escape(script), cpp, re.S)
+        if not klass:
+            emplacement.append("%s: no CreatureScript registers that name" % script)
+        elif ("new %s();" % klass.group(1)) not in cpp.split("AddClasslessForgedScripts")[-1]:
+            emplacement.append("%s: class %s is never constructed in "
+                               "AddClasslessForgedScripts" % (script, klass.group(1)))
+    for entry, (key, idx) in sorted(CREATURE_SPELL.items()):
+        want = next((sp["id"] for sp in spells
+                     if sp["key"] == "%s_pet%d" % (key, idx)), None)
+        if want is None:
+            emplacement.append("creature %d wants %s_pet%d, which no spell provides"
+                               % (entry, key, idx))
+            continue
+        if re.search(r"INSERT INTO `creature_template_spell`[^;]*\(%d, 0, %d, 12340\)"
+                     % (entry, want), sql_all, re.S) is None:
+            emplacement.append("creature %d has no slot-0 row for spell %d" % (entry, want))
+    check("every scripted emplacement carries its script and its spell",
+          not emplacement, "%s" % sorted(set(emplacement))[:4])
+
+    # ---- a talent-only pet spell ---------------------------------------------
+    # It is reached from C++ by slot and gated by SpellLevel, and both of those
+    # are silent when wrong: the wrong slot teaches the wrong spell, and a
+    # SpellLevel a pet can reach teaches it to every pet for nothing.
+    petslot = []
+    _slot_m = re.search(r"constexpr uint8 \w*SLOT\w* = (\d+);", cpp)
+    for r in RECIPES:
+        for i, ps in enumerate(r.get("pet_spells", [])):
+            if not ps.get("script"):
+                continue
+            if _slot_m is None:
+                petslot.append("no slot constant in the C++ for %s" % ps["name"])
+            elif int(_slot_m.group(1)) != i:
+                petslot.append("%s is pet_spells[%d] but the C++ reads slot %s"
+                               % (ps["name"], i, _slot_m.group(1)))
+            sp = next((x for x in doc["spells"]
+                       if x["key"] == "%s_pet%d" % (r["key"], i)), None)
+            if not sp:
+                petslot.append("%s has no spell row" % ps["name"])
+                continue
+            if sp["values"][F["SpellLevel"]] <= 80:
+                petslot.append("%s has SpellLevel %d, which every pet reaches: it is "
+                               "no longer talent-only"
+                               % (ps["name"], sp["values"][F["SpellLevel"]]))
+            if re.search(r"INSERT INTO `creature_template_spell`[^;]*\(\d+, %d, %d, 12340\)"
+                         % (i, sp["id"]), sql_all, re.S) is None:
+                petslot.append("%s is not in creature_template_spell at index %d"
+                               % (ps["name"], i))
+    check("a talent-only pet spell sits where the C++ looks and no pet can learn it",
+          not petslot,
+          "the talent would teach the wrong spell, or every pet would get it "
+          "free; %s" % petslot)
+
+    check("no unscripted line was given a script row", not unscripted,
+          "offenders %s" % unscripted[:4])
+
+    sla_rows = re.findall(r"^\((\d+), (\d+), (\d+), 0, (\d+), 0, 0, 1, (\d+), (\d+),",
+                          sql, re.M)
+    # ---- the suite knows how many rules it has ---------------------------------
+    # A bare run prints "SKIPPED: N client-side rule(s)". If a rule is added to
+    # check_against_client and that N is not moved, the run under-reports what
+    # it left out, which is how a silent gap starts.
+    _src = io.open(os.path.join(HERE, "test_forged.py"), encoding="utf-8").read()
+    _body = _src[_src.index("def check_against_client("):_src.index("def main(")]
+    _n = len(re.findall(r'check\(\s*"', _body))
+    check("the count of client-side rules matches the rules there are",
+          _n == CLIENT_RULES,
+          "check_against_client holds %d rule(s), CLIENT_RULES says %d" % (_n, CLIENT_RULES))
+
+    check("every SQL skill-line row matches the manifest",
+          len(sla_rows) == len(withsla) and all(int(r[5]) == 0 for r in sla_rows),
+          "%d row(s)" % len(sla_rows))
+
+    if len(sys.argv) > 1:
+        sys.path.insert(0, HERE)
+        global dbc
+        from lib import dbc
+        check_against_client(sys.argv[1], doc)
+    else:
+        # Nine rules read the bytes the installer actually writes, and they are
+        # the only ones that can catch an installer that drops a field. Saying
+        # "all checks pass" while they sat out is the same lie as a rule that
+        # never fires, so the run says what it did not do.
+        print()
+        print("SKIPPED: %d client-side rule(s) need the client -- "
+              r'pass its path, e.g. test_forged.py "B:\World.of.Warcraft.3.3.5a"'
+              % CLIENT_RULES)
+
+    print()
+    if FAILS:
+        print("%d check(s) FAILED" % len(FAILS))
+        return 1
+    print("all forged spell checks pass")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

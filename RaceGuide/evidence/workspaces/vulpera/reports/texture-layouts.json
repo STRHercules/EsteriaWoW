@@ -1,0 +1,783 @@
+{
+  "CharComponentTextureLayouts": [
+    {
+      "_row_id": 145,
+      "Width": 2048,
+      "Height": 1024,
+      "ID": 145
+    },
+    {
+      "_row_id": 146,
+      "Width": 2048,
+      "Height": 1024,
+      "ID": 146
+    }
+  ],
+  "CharComponentTextureSections": [
+    {
+      "_row_id": 578,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 10,
+      "X": 1024,
+      "Y": 0,
+      "Width": 1024,
+      "Height": 1024,
+      "OverlapSectionMask": 0,
+      "ID": 578
+    },
+    {
+      "_row_id": 579,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 0,
+      "X": 0,
+      "Y": 0,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 579
+    },
+    {
+      "_row_id": 580,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 1,
+      "X": 0,
+      "Y": 256,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 580
+    },
+    {
+      "_row_id": 581,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 2,
+      "X": 0,
+      "Y": 512,
+      "Width": 512,
+      "Height": 128,
+      "OverlapSectionMask": 0,
+      "ID": 581
+    },
+    {
+      "_row_id": 582,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 3,
+      "X": 512,
+      "Y": 0,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 582
+    },
+    {
+      "_row_id": 583,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 4,
+      "X": 512,
+      "Y": 256,
+      "Width": 512,
+      "Height": 128,
+      "OverlapSectionMask": 0,
+      "ID": 583
+    },
+    {
+      "_row_id": 584,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 5,
+      "X": 512,
+      "Y": 384,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 584
+    },
+    {
+      "_row_id": 585,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 6,
+      "X": 512,
+      "Y": 640,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 585
+    },
+    {
+      "_row_id": 586,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 7,
+      "X": 512,
+      "Y": 896,
+      "Width": 512,
+      "Height": 128,
+      "OverlapSectionMask": 0,
+      "ID": 586
+    },
+    {
+      "_row_id": 587,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 9,
+      "X": 1024,
+      "Y": 0,
+      "Width": 1024,
+      "Height": 1024,
+      "OverlapSectionMask": 0,
+      "ID": 587
+    },
+    {
+      "_row_id": 588,
+      "CharComponentTextureLayoutID": 145,
+      "SectionType": 13,
+      "X": 0,
+      "Y": 0,
+      "Width": 2048,
+      "Height": 1024,
+      "OverlapSectionMask": 1791,
+      "ID": 588
+    },
+    {
+      "_row_id": 589,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 1,
+      "X": 0,
+      "Y": 256,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 589
+    },
+    {
+      "_row_id": 590,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 2,
+      "X": 0,
+      "Y": 512,
+      "Width": 512,
+      "Height": 128,
+      "OverlapSectionMask": 0,
+      "ID": 590
+    },
+    {
+      "_row_id": 591,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 3,
+      "X": 512,
+      "Y": 0,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 591
+    },
+    {
+      "_row_id": 592,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 0,
+      "X": 0,
+      "Y": 0,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 592
+    },
+    {
+      "_row_id": 593,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 4,
+      "X": 512,
+      "Y": 256,
+      "Width": 512,
+      "Height": 128,
+      "OverlapSectionMask": 0,
+      "ID": 593
+    },
+    {
+      "_row_id": 594,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 5,
+      "X": 512,
+      "Y": 384,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 594
+    },
+    {
+      "_row_id": 595,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 6,
+      "X": 512,
+      "Y": 640,
+      "Width": 512,
+      "Height": 256,
+      "OverlapSectionMask": 0,
+      "ID": 595
+    },
+    {
+      "_row_id": 596,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 7,
+      "X": 512,
+      "Y": 896,
+      "Width": 512,
+      "Height": 128,
+      "OverlapSectionMask": 0,
+      "ID": 596
+    },
+    {
+      "_row_id": 597,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 9,
+      "X": 1024,
+      "Y": 0,
+      "Width": 1024,
+      "Height": 1024,
+      "OverlapSectionMask": 0,
+      "ID": 597
+    },
+    {
+      "_row_id": 598,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 10,
+      "X": 1024,
+      "Y": 0,
+      "Width": 1024,
+      "Height": 1024,
+      "OverlapSectionMask": 0,
+      "ID": 598
+    },
+    {
+      "_row_id": 599,
+      "CharComponentTextureLayoutID": 146,
+      "SectionType": 13,
+      "X": 0,
+      "Y": 0,
+      "Width": 2048,
+      "Height": 1024,
+      "OverlapSectionMask": 1791,
+      "ID": 599
+    }
+  ],
+  "ChrModelMaterial": [],
+  "ChrModelTextureLayer": [
+    {
+      "TextureType": 1,
+      "Layer": 0,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        1,
+        0
+      ],
+      "ID": 501,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 501
+    },
+    {
+      "TextureType": 8,
+      "Layer": 1,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        2,
+        0
+      ],
+      "ID": 502,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 502
+    },
+    {
+      "TextureType": 6,
+      "Layer": 2,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        10,
+        0
+      ],
+      "ID": 503,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 503
+    },
+    {
+      "TextureType": 1,
+      "Layer": 3,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 512,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        4,
+        0
+      ],
+      "ID": 504,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 504
+    },
+    {
+      "TextureType": 1,
+      "Layer": 4,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 1024,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        5,
+        0
+      ],
+      "ID": 505,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 505
+    },
+    {
+      "TextureType": 1,
+      "Layer": 5,
+      "Flags": 0,
+      "BlendMode": 9,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        16,
+        0
+      ],
+      "ID": 506,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 506
+    },
+    {
+      "TextureType": 1,
+      "Layer": 6,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 32,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        13,
+        0
+      ],
+      "ID": 507,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 507
+    },
+    {
+      "TextureType": 1,
+      "Layer": 7,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 1024,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        11,
+        0
+      ],
+      "ID": 508,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 508
+    },
+    {
+      "TextureType": 1,
+      "Layer": 8,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 512,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        12,
+        0
+      ],
+      "ID": 509,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 509
+    },
+    {
+      "TextureType": 1,
+      "Layer": 9,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 1024,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        7,
+        0
+      ],
+      "ID": 510,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 510
+    },
+    {
+      "TextureType": 1,
+      "Layer": 10,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 512,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        8,
+        0
+      ],
+      "ID": 511,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 511
+    },
+    {
+      "TextureType": 19,
+      "Layer": 11,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        25,
+        0
+      ],
+      "ID": 512,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 512
+    },
+    {
+      "TextureType": 1,
+      "Layer": 0,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        1,
+        0
+      ],
+      "ID": 514,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 514
+    },
+    {
+      "TextureType": 6,
+      "Layer": 1,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        10,
+        0
+      ],
+      "ID": 515,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 515
+    },
+    {
+      "TextureType": 1,
+      "Layer": 2,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 512,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        4,
+        0
+      ],
+      "ID": 516,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 516
+    },
+    {
+      "TextureType": 1,
+      "Layer": 3,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 1024,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        5,
+        0
+      ],
+      "ID": 517,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 517
+    },
+    {
+      "TextureType": 1,
+      "Layer": 4,
+      "Flags": 0,
+      "BlendMode": 9,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        16,
+        0
+      ],
+      "ID": 518,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 518
+    },
+    {
+      "TextureType": 1,
+      "Layer": 5,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 32,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        13,
+        0
+      ],
+      "ID": 519,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 519
+    },
+    {
+      "TextureType": 1,
+      "Layer": 6,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 8,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        14,
+        0
+      ],
+      "ID": 520,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 520
+    },
+    {
+      "TextureType": 1,
+      "Layer": 7,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 1024,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        11,
+        0
+      ],
+      "ID": 521,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 521
+    },
+    {
+      "TextureType": 1,
+      "Layer": 8,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 512,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        12,
+        0
+      ],
+      "ID": 522,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 522
+    },
+    {
+      "TextureType": 1,
+      "Layer": 9,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 1024,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        7,
+        0
+      ],
+      "ID": 523,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 523
+    },
+    {
+      "TextureType": 1,
+      "Layer": 10,
+      "Flags": 0,
+      "BlendMode": 15,
+      "TextureSectionTypeBitMask": 512,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        8,
+        0
+      ],
+      "ID": 524,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 524
+    },
+    {
+      "TextureType": 19,
+      "Layer": 11,
+      "Flags": 0,
+      "BlendMode": 1,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        25,
+        0
+      ],
+      "ID": 641,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 641
+    },
+    {
+      "TextureType": 19,
+      "Layer": 12,
+      "Flags": 0,
+      "BlendMode": 9,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        44,
+        0
+      ],
+      "ID": 4046,
+      "CharComponentTextureLayoutsID": 145,
+      "_row_id": 4046
+    },
+    {
+      "TextureType": 19,
+      "Layer": 12,
+      "Flags": 0,
+      "BlendMode": 9,
+      "TextureSectionTypeBitMask": -1,
+      "TextureSectionTypeBitMask2": -1,
+      "Field_9_0_1_34365_006": [
+        0,
+        0,
+        0
+      ],
+      "ChrModelTextureTargetID": [
+        44,
+        0
+      ],
+      "ID": 4047,
+      "CharComponentTextureLayoutsID": 146,
+      "_row_id": 4047
+    }
+  ]
+}

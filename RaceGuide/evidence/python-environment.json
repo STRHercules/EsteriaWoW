@@ -1,0 +1,74 @@
+{
+  "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+  "packages": {
+    "wotlkconv": {
+      "version": "0.1.0",
+      "direct_url": "{\"url\": \"https://github.com/Bar3b0n3s/Converter.git\", \"vcs_info\": {\"commit_id\": \"d71523c645ebe1313e15fe47fbea57577adf8c80\", \"vcs\": \"git\"}}",
+      "requires": [
+        "pytest>=7; extra == \"dev\""
+      ]
+    },
+    "Pillow": {
+      "version": "12.2.0",
+      "direct_url": null,
+      "requires": [
+        "furo; extra == \"docs\"",
+        "olefile; extra == \"docs\"",
+        "sphinx>=8.2; extra == \"docs\"",
+        "sphinx-autobuild; extra == \"docs\"",
+        "sphinx-copybutton; extra == \"docs\"",
+        "sphinx-inline-tabs; extra == \"docs\"",
+        "sphinxext-opengraph; extra == \"docs\"",
+        "olefile; extra == \"fpx\"",
+        "olefile; extra == \"mic\"",
+        "arro3-compute; extra == \"test-arrow\"",
+        "arro3-core; extra == \"test-arrow\"",
+        "nanoarrow; extra == \"test-arrow\"",
+        "pyarrow; extra == \"test-arrow\"",
+        "check-manifest; extra == \"tests\"",
+        "coverage>=7.4.2; extra == \"tests\"",
+        "defusedxml; extra == \"tests\"",
+        "markdown2; extra == \"tests\"",
+        "olefile; extra == \"tests\"",
+        "packaging; extra == \"tests\"",
+        "pyroma>=5; extra == \"tests\"",
+        "pytest; extra == \"tests\"",
+        "pytest-cov; extra == \"tests\"",
+        "pytest-timeout; extra == \"tests\"",
+        "pytest-xdist; extra == \"tests\"",
+        "trove-classifiers>=2024.10.12; extra == \"tests\"",
+        "defusedxml; extra == \"xmp\""
+      ]
+    },
+    "lupa": {
+      "version": "2.8",
+      "direct_url": null,
+      "requires": null
+    },
+    "PyYAML": {
+      "version": "6.0.3",
+      "direct_url": null,
+      "requires": null
+    },
+    "minidump": {
+      "version": "0.0.24",
+      "direct_url": null,
+      "requires": null
+    },
+    "esteria-retroporter": {
+      "version": "0.1.0",
+      "direct_url": "{\"dir_info\": {\"editable\": true}, \"url\": \"file:///R:/Users/Zach/Documents/GitHub/RetroPorter\"}",
+      "requires": null
+    },
+    "wow-race-retroporter": {
+      "available": false
+    },
+    "capstone": {
+      "version": "5.0.9",
+      "direct_url": null,
+      "requires": [
+        "importlib-resources ; python_version < \"3.9\""
+      ]
+    }
+  }
+}

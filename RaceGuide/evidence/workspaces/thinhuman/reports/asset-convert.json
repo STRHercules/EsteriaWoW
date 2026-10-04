@@ -1,0 +1,1963 @@
+{
+  "source_pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "models": {
+    "1793470": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale.m2",
+      "result": {
+        "source": "character/thinhuman/male/thinhumanmale.m2",
+        "target": null,
+        "kind": "m2",
+        "status": "lossy",
+        "bytes_in": 9977244,
+        "bytes_out": 8125812,
+        "elapsed_ms": 1957.68,
+        "source_version": "M2 v274 (chunked)",
+        "target_version": "M2 v264",
+        "notes": [
+          {
+            "level": "info",
+            "code": "m2.sequence.blendtime",
+            "message": "folded 281 split blend-in/blend-out time(s) into 3.3.5a's single blend time"
+          },
+          {
+            "level": "info",
+            "code": "m2.camera.fov",
+            "message": "camera FoV tracks flattened to scalars"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.global",
+            "message": "cleared post-Wrath global flags 0x202080"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.sequence",
+            "message": "cleared post-Wrath flag bits on 227 sequence(s)",
+            "detail": {
+              "sequences": 227
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.bone",
+            "message": "cleared post-Wrath flag bits on 78 bone(s)",
+            "detail": {
+              "bones": 78
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.lod.dropped",
+            "message": "dropped 3 Legion LOD skin reference(s); 3.3.5a only loads Model00-03.skin",
+            "detail": {
+              "count": 3
+            }
+          },
+          {
+            "level": "lossy",
+            "code": "m2.chunks.dropped",
+            "message": "dropped chunks with no 3.3.5a equivalent: LDV1 (level-of-detail data), TXAC (per-texture animation coefficients)",
+            "detail": {
+              "chunks": [
+                "LDV1",
+                "SFID.lod",
+                "TXAC"
+              ]
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.vertices.compacted",
+            "message": "dropped 25736 vertex/vertices no submesh draws, leaving 11118",
+            "detail": {
+              "dropped": 25736,
+              "kept": 11118
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.texture_coord_combos.rebuilt",
+            "message": "pointed 28 batch(es) whose texture coordinate lookup ran past the model's table (retail leaves it empty) at entries built from their shaders",
+            "detail": {
+              "batches": 28,
+              "entries": 1
+            }
+          }
+        ],
+        "extra": {
+          "name": "ThinHumanMale",
+          "vertices": 11118,
+          "bones": 188,
+          "sequences": 281,
+          "textures": 2,
+          "particles": 0,
+          "skin_profiles": 1,
+          "parts": 1
+        }
+      },
+      "companions": [
+        {
+          "source": "thinhumanmale00.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 1793511,
+          "bytes_in": 0,
+          "bytes_out": 169004,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 11118 verts, 16705 tris, 28 submeshes",
+          "target_version": "SKIN wotlk 11118 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 28 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 28
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 256 (the source said 0; its largest submesh uses 103 bones)",
+              "detail": {
+                "source": 0,
+                "written": 256
+              }
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0062-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1827156,
+          "bytes_in": 76936,
+          "bytes_out": 76928,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "812 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 76928-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0128-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793471,
+          "bytes_in": 30088,
+          "bytes_out": 30080,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "363 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 30080-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0123-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793472,
+          "bytes_in": 72344,
+          "bytes_out": 72336,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "666 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 72336-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0129-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793473,
+          "bytes_in": 34200,
+          "bytes_out": 34192,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "363 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 34192-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0102-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793474,
+          "bytes_in": 38664,
+          "bytes_out": 38656,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "395 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 38656-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0103-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793475,
+          "bytes_in": 33528,
+          "bytes_out": 33520,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "365 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 33520-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0104-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793476,
+          "bytes_in": 32712,
+          "bytes_out": 32704,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "385 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 32704-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0097-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793477,
+          "bytes_in": 17016,
+          "bytes_out": 17008,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "359 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 17008-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0096-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793479,
+          "bytes_in": 50216,
+          "bytes_out": 50208,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "390 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 50208-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0098-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793480,
+          "bytes_in": 84328,
+          "bytes_out": 84320,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "402 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 84320-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0119-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793481,
+          "bytes_in": 23624,
+          "bytes_out": 23616,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "361 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 23616-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0120-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793482,
+          "bytes_in": 29624,
+          "bytes_out": 29616,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "378 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 29616-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0068-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793483,
+          "bytes_in": 68456,
+          "bytes_out": 68448,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "390 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 68448-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0061-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793484,
+          "bytes_in": 166792,
+          "bytes_out": 166784,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "816 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 166784-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0100-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793485,
+          "bytes_in": 19304,
+          "bytes_out": 19296,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "350 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19296-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0101-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793486,
+          "bytes_in": 85384,
+          "bytes_out": 85376,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "394 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 85376-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0067-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793487,
+          "bytes_in": 48888,
+          "bytes_out": 48880,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "371 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 48880-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0060-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793488,
+          "bytes_in": 203464,
+          "bytes_out": 203456,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "702 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 203456-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0084-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793489,
+          "bytes_in": 124744,
+          "bytes_out": 124736,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "710 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 124736-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0082-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793490,
+          "bytes_in": 66632,
+          "bytes_out": 66624,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "363 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 66624-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0074-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793492,
+          "bytes_in": 83320,
+          "bytes_out": 83312,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "425 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 83312-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0079-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793493,
+          "bytes_in": 103240,
+          "bytes_out": 103232,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 103232-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0081-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793494,
+          "bytes_in": 92248,
+          "bytes_out": 92240,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 92240-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0070-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793495,
+          "bytes_in": 82248,
+          "bytes_out": 82240,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 82240-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0077-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793496,
+          "bytes_in": 74776,
+          "bytes_out": 74768,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "371 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 74768-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0133-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793497,
+          "bytes_in": 23944,
+          "bytes_out": 23936,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "370 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 23936-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0134-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793498,
+          "bytes_in": 22856,
+          "bytes_out": 22848,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 22848-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0134-01.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793499,
+          "bytes_in": 19384,
+          "bytes_out": 19376,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19376-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0065-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793500,
+          "bytes_in": 84808,
+          "bytes_out": 84800,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "351 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 84800-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0064-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793501,
+          "bytes_in": 93928,
+          "bytes_out": 93920,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 93920-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0075-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793502,
+          "bytes_in": 69928,
+          "bytes_out": 69920,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "377 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 69920-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0185-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793503,
+          "bytes_in": 51624,
+          "bytes_out": 51616,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "363 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 51616-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0186-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793504,
+          "bytes_in": 55480,
+          "bytes_out": 55472,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "353 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 55472-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0223-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793506,
+          "bytes_in": 23592,
+          "bytes_out": 23584,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "361 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 23584-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0522-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793507,
+          "bytes_in": 40008,
+          "bytes_out": 40000,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "368 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 40000-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0520-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793508,
+          "bytes_in": 23624,
+          "bytes_out": 23616,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "360 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 23616-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0518-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793509,
+          "bytes_in": 42904,
+          "bytes_out": 42896,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "372 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 42896-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0732-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793510,
+          "bytes_in": 39320,
+          "bytes_out": 39312,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "336 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 39312-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale1190-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793515,
+          "bytes_in": 131016,
+          "bytes_out": 131008,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "388 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 131008-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale1188-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1793516,
+          "bytes_in": 50312,
+          "bytes_out": 50304,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "378 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 50304-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale1192-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 1827157,
+          "bytes_in": 360712,
+          "bytes_out": 360704,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "396 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 360704-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0788-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2103687,
+          "bytes_in": 55848,
+          "bytes_out": 55840,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "342 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 55840-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0788-01.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2103688,
+          "bytes_in": 100392,
+          "bytes_out": 100384,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "353 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 100384-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0788-02.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2103689,
+          "bytes_in": 176840,
+          "bytes_out": 176832,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "366 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 176832-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0614-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2103690,
+          "bytes_in": 130760,
+          "bytes_out": 130752,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "370 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 130752-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0608-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2103691,
+          "bytes_in": 19464,
+          "bytes_out": 19456,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "397 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19456-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale0606-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2103692,
+          "bytes_in": 19784,
+          "bytes_out": 19776,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "375 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19776-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "thinhumanmale1220-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 3136463,
+          "bytes_in": 16744,
+          "bytes_out": 16736,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "322 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 16736-byte flat blob"
+            }
+          ]
+        }
+      ],
+      "source_vertices": 36854,
+      "vertices": 11118,
+      "skin_vertices": 11118,
+      "sequences": 281,
+      "events": 30,
+      "geosets": [
+        0,
+        2,
+        3,
+        4,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        401,
+        402,
+        403,
+        404,
+        501,
+        502,
+        503,
+        504,
+        505,
+        802,
+        903,
+        1002,
+        1102,
+        1104,
+        1202,
+        1302,
+        1802,
+        2002
+      ],
+      "attachments": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        47,
+        48,
+        49,
+        53,
+        54,
+        55
+      ],
+      "texture_types": [
+        1,
+        6
+      ]
+    }
+  },
+  "textures": {
+    "1728108": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_00.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\kultiranmalehair00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.33,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1728109": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_01.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\kultiranmalehair00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.17,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1728110": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_02.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\kultiranmalehair00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.15,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1728111": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_03.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\kultiranmalehair00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.12,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1728183": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_00.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\facialupperhair00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350724,
+        "bytes_out": 350724,
+        "elapsed_ms": 0.45,
+        "source_version": "BLP2/DXT5 512x512 mips=10",
+        "target_version": "BLP2/DXT5 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1728184": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_01.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\facialupperhair00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350724,
+        "bytes_out": 350724,
+        "elapsed_ms": 0.39,
+        "source_version": "BLP2/DXT5 512x512 mips=10",
+        "target_version": "BLP2/DXT5 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1728185": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_02.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\facialupperhair00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350724,
+        "bytes_out": 350724,
+        "elapsed_ms": 0.34,
+        "source_version": "BLP2/DXT5 512x512 mips=10",
+        "target_version": "BLP2/DXT5 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1728186": {
+      "path": "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_03.blp",
+      "result": {
+        "source": "character\\kultiran\\male\\facialupperhair00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350724,
+        "bytes_out": 350724,
+        "elapsed_ms": 0.48,
+        "source_version": "BLP2/DXT5 512x512 mips=10",
+        "target_version": "BLP2/DXT5 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1843222": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_00.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalefaceupper00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.46,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843223": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_01.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalefaceupper00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.19,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843224": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_02.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalefaceupper00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.27,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843225": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_03.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalefaceupper00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 175948,
+        "bytes_out": 175948,
+        "elapsed_ms": 0.14,
+        "source_version": "BLP2/DXT1 512x512 mips=10",
+        "target_version": "BLP2/DXT1 512x512 mips=10",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843226": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_00.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.11,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843227": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_01.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843228": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_02.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.09,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843229": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_03.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843230": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_00.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.12,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843231": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_01.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843232": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_02.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.09,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843233": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_03.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23036,
+        "bytes_out": 23036,
+        "elapsed_ms": 0.09,
+        "source_version": "BLP2/DXT1 256x128 mips=9",
+        "target_version": "BLP2/DXT1 256x128 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843234": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_00.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmaleskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.51,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843235": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_01.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmaleskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.27,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843236": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_02.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmaleskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.33,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "1843237": {
+      "path": "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_03.blp",
+      "result": {
+        "source": "character\\thinhuman\\male\\thinhumanmaleskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.17,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    }
+  },
+  "files": {
+    "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_00.blp": "fb988b11bed2308ea5722bc23b56c9b048eb1705c02de024135b0db21334b8d2",
+    "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_01.blp": "fd19554efb69f9c0cfacf650dc77795e79100ec2ea4f9b840c6c453073801434",
+    "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_02.blp": "90ceaf63673349a5b543a5e61b6177d94400e72c59c55ebe3b5c063f3adf5364",
+    "custom\\thinhuman\\character\\kultiran\\male\\kultiranmalehair00_03.blp": "2ef00bf9475067cba28426c9ea6e4ce02ed3a15552709c285c3abbdee427a50f",
+    "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_00.blp": "2d9e79e3407e63275ee71ee73ccd6873641356a58ec6de84465d854780ec61d9",
+    "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_01.blp": "2795bbc913f72995450a96cfe37ed18fc1645013ddb8ce1dd4c00fe71d518422",
+    "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_02.blp": "581f78b2d7bd7a4cebabf41e90433c3068257e282a7b45541b2b57bf73c9e878",
+    "custom\\thinhuman\\character\\kultiran\\male\\facialupperhair00_03.blp": "f5e71978a78ce2c597d6e0b0c432968050b2075d0c7b502856167d089e65e034",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale.m2": "4ece2ee73ec9e208b2e183b6321dda64a5b52ec91c9f8349bdf2157d9067477b",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale00.skin": "5c88eecbfdd0a3566c3e1b43c9c6d313e8b24896e8ceee958f8f3d63d55ad48c",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0062-00.anim": "0c56c2ee064206a531cbc5765ef6fd9f7ee4e6ac052055597825686e47282667",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0128-00.anim": "75d9f4f1aae1db8183a8693afc5a7d4de6d77e154289b454f729f69561d064b1",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0123-00.anim": "974e6e10a8238d85164d4428dcbfe4c26eb0d3f84d0b8b99c0cf8782fcce50b7",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0129-00.anim": "e54d225223db22e13168fc09953cbcf8652d873149782a2648e067ed37995b5c",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0102-00.anim": "69f41348af1938f3558cf58a5f24560a13942dbb1aa6fcf41a71a4ba57edefbd",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0103-00.anim": "cce3e5215c2eda9cf36aed42df79fe85e60fb6d2ce90583fe2120e4676082846",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0104-00.anim": "cf471c3a391f000ebdca7b762fb11da16d88ab4cdc71a287ad88c63035e37d60",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0097-00.anim": "33e7bbdc9b0e4671516a0803f1b35391e9526068420e4e37857ee098e76d9414",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0096-00.anim": "129147597416545fa1fbff47c4b699d9b4cafbd35b12c78074f3b12b29e2b244",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0098-00.anim": "ecd1d36dfb972dc9b4b5aabb0e0111a54dadaafe58012e67223af6789138f9ce",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0119-00.anim": "534db689387131a60f7a0daf1b89ae70061aa3677b3a86b6259a5fd056dd3fcf",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0120-00.anim": "f69fbe600fe8bd1adc68612651adea0b246deeacd5591949e8bbb3964c1a77a8",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0068-00.anim": "931f795055b655b0ec998d32f207218852b48038a90cd3ec8a1a01ed2d90a828",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0061-00.anim": "77891f30cd8294153c1a5348f0afb4cd27d064ca74fec27dca1b6f5ebc18eacf",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0100-00.anim": "8edc6c7dd009c1c641d81735d08591b2a371e84dfe5809d4b43835f75ffb3b91",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0101-00.anim": "8d84d26b07586331375c08f8eb1ee93defdcfca5003eacb6f984a37bea7ae09a",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0067-00.anim": "a236c81156f8d190982e4e10f51060fdbccea4fae2fe68d8fa118b0f6547e2b8",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0060-00.anim": "080af53b7ccf45f139ccd719313e2ea400400df8e4bb2700695e8531d557bf37",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0084-00.anim": "67785c6ab82647a66d6f1781cf2d2544d48b941d18a0d0f097655ed6f68be0dd",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0082-00.anim": "38c759705867e38b9ff77951e6c0a513ff2300cc93561071d73e3b8e0ac33567",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0074-00.anim": "a6c862fe258bf003219b8b3cdc8dec5c5c126fa2db0398aabfc7e6f5aee019c0",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0079-00.anim": "f4fa4699c9cce9e63eada6e42534d5ca61f00830c0cb549cf3a61a1b2b248990",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0081-00.anim": "72fff1a44a090286fed01456218746b607a0e2080eae1357c38d07703c515fc1",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0070-00.anim": "a44a62269e50cda7bdbfa24db556e3fb883aff1fd272b1390340de8be871e8eb",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0077-00.anim": "54e4b6a0ad661f74ae74dabb1ea357e9104f35ab0dd5994dbec5d5097e179dd5",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0133-00.anim": "fb629471bb6157adb2383ea5d0954a8c44f1dcd6d04b73042a425181aab216b3",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0134-00.anim": "e45512c186f0c8fe73b438378ffaa827cd5c5d511afa9aeaf15471a5ed810ed3",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0134-01.anim": "7efb35daf5d9853d5ec9781bd801436d1f3a0b23895723e429169ce79fc23e5c",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0065-00.anim": "aab884fae33db98d4922e59a44891bc186fe71293d51b9b2a24f929cdc6dfae6",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0064-00.anim": "250dbc03cf8f5bb7325651e515549d2d20eafa2c79f175878091c8d7191081c3",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0075-00.anim": "dc7027fdeb29aa638539eed444236c794ba4b9576fc6b9cc3b37892ffa2a1ccc",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0185-00.anim": "dd7498f5553a97336814b0efde799dd18e5b572f45518cbfe85c31acfb2d114d",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0186-00.anim": "6e2591c876332ee2c3124d0f95f41d332052ff4de59483ee13f00e67a9ddcb56",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0223-00.anim": "88ca4cf8a74c811ca0491f63772673f0a5d8085752770d0cc678769da2b05460",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0522-00.anim": "6dd1ddc7652cc97ab38b478de5128e49391a6318e56aef7e5cb9a97f23104aad",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0520-00.anim": "d967a2e69d0673377a98599c1d068d5b4dcb2ff1a5e7e0fa8382496fcb2bb060",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0518-00.anim": "c3f1aa5a4de6c60a4796dadad20f1e60a94fd65603ddaf6d5dc7a7114f55fe19",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0732-00.anim": "7af90f5cb03c45af6e7892a79f9a8d806044f9736dc16fcda27026c5f42aff64",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale1190-00.anim": "e6f7365b00493350004430ac868163026061f5a761588ea388c9988472510dfc",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale1188-00.anim": "7af51de155d3006cb95b1f97ad643bbdb8b53f250a509c1a1903ce1fa893a89a",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale1192-00.anim": "557d5a4585ed2d72189e76c8a6c2016ad46b6a84d7f11761f74fe5bf7a7df136",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0788-00.anim": "6b5cb62a88bb50b6c754729c78133863ada64803657eab2001becd1f62171a30",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0788-01.anim": "2de49cc430bc73662f0730c26f9928746c705c7370f5c936738ce10268e08324",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0788-02.anim": "1771feace4ad64ac9ab9e3c9437b65fd3ae31a89cbb0876ea0d998597773fa21",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0614-00.anim": "aadeefbc7245d83bce3f4cdc7240587f509c0683de57d90905768b2326f3bddf",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0608-00.anim": "93cb55f2d6377376953f40c9a37cadc99d1759f50b51edb596fe1fd262ea47bb",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale0606-00.anim": "90e26cb42a2257a24933e48677a481489530d86b5886506c89e7de95f4933dd9",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmale1220-00.anim": "c23d4ccb7cf1b12dec68cf1fe23ca00b8467fdac40bfe1fb1bd166997c1a285c",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_00.blp": "558115a2d024e6fef9a533c93ff9ce6ec37407b42cf6f4c212b8625ba422acd6",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_01.blp": "9328ecf621de07468bf18fcf342a058cb1f85c9d153e4a52380f8b591f8d8c13",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_02.blp": "77fd5d87c1506d4ecf77ec0ccd6ce29e642b0e323e9d4ec7ce0607e0ced574fd",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalefaceupper00_03.blp": "93db635400285599e6820aac4def29c9a9643afaf4164f32469875acfeb47b3c",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_00.blp": "81e8c8fc47ce6a91ecfed893b7f20475b13656e263ecf0ce89ed52b22eb9f674",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_01.blp": "c24079582640a4664d8e9b8363a0739dd3b5632574cc1d15c4552cd9b793f212",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_02.blp": "09445571713561e9186acd22cc738fafd172a8a027c534e67920f96d66c5899a",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedpelvisskin00_03.blp": "98c8e027b2cd6fb15cac15f949dcc7ffc7abadb1f7e63b147fba8155f602a2bf",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_00.blp": "f18af5b8d8fcc3f6d74cc93b7e8fc61b21441a98fad13c5ed964a086bf5bb1b7",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_01.blp": "7bf6b0b0f562bcd5a0d507652ea7e5d709449a1a17795a8c2c7570959a51bbb1",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_02.blp": "d4f64cc79e04503810365810b57200efa6ec1ffb61702b5c9651b89da9c0dfaf",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmalenakedtorsoskin00_03.blp": "203401ac43d88c1041aebfde3e5328e74b5571fd699376a0dc52ec03683ac3cd",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_00.blp": "8aacbd55bb33d12a94e91a5e04c5f3f67f4ef1dd3ba557ddf38bca8b6f5395d3",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_01.blp": "34bef2ed553fbaad200bd3301a645e8862f79f5d1e02eea9608ff113551434e4",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_02.blp": "1f9d7f9dfd04be66b073a465dff408d29fa383fd5b138f5692ea9d0ca1fc8f77",
+    "custom\\thinhuman\\character\\thinhuman\\male\\thinhumanmaleskin00_03.blp": "1d718e814403595e380bf4bad2039742a8dfdefdc9f6a329896080ef4737566b"
+  },
+  "status": "assets_converted_awaiting_playable_integration"
+}

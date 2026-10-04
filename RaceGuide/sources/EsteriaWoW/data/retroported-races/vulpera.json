@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "slug": "vulpera",
+  "name": "Vulpera",
+  "race_ids": [
+    20
+  ],
+  "client_file_strings": {
+    "20": "Vulpera"
+  },
+  "source_patch_root": "G:\\RetroPorterWork\\vulpera\\output\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\vulpera\\integration\\patch-root",
+  "asset_prefix": "custom\\vulpera",
+  "classes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "models": {
+    "male": {
+      "model_id": 112885,
+      "display_id": 60006,
+      "model_path": "custom\\vulpera\\native\\male\\vulperamale.m2"
+    },
+    "female": {
+      "model_id": 112886,
+      "display_id": 60007,
+      "model_path": "custom\\vulpera\\native\\female\\vulperafemale.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-five-byte-codec-v2",
+    "source_retail_race_ids": [
+      35
+    ],
+    "source_chr_models": [
+      69,
+      70
+    ],
+    "source_build": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "constant_controls": [
+      "Hair Style"
+    ],
+    "class_restricted_choices": true,
+    "authored_eye_colors": 33,
+    "eye_styles": [
+      "Slit",
+      "Star",
+      "Glow"
+    ],
+    "source_special_choices": true,
+    "eye_style_requires_authored_palette": true,
+    "independent_controls": {
+      "male": 9,
+      "female": 9
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "installed_awaiting_portrait_and_preview_visual_retest",
+  "target_races": [
+    55
+  ],
+  "source_mesh_limits": "Race model has no authored sleeve, tabard or robe variant meshes.",
+  "installed_receipt": "C:\\Users\\Zach\\.codex\\tmp\\creature-races\\last-install.json",
+  "backup": "C:\\Users\\Zach\\.codex\\backups\\creature-races-20261002-203642",
+  "live_client": "unverified",
+  "animation_repair_receipt": "C:\\Users\\Zach\\.codex\\tmp\\creature-races\\repair\\last-install.json",
+  "portrait_update_receipt": "C:\\Users\\Zach\\.codex\\tmp\\creature-races\\portraits\\last-install.json",
+  "preview_size": null
+}

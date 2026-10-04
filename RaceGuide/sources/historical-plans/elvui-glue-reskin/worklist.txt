@@ -1,0 +1,197 @@
+resolved 70 GlueXML files
+
+124 distinct Interface textures referenced by glue Lua/XML
+
+=== NOT YET RESKINNED (candidates) ===
+  Interface/Glues/Common/generic
+        used by: gluetemplates.xml
+  Interface\Buttons\ButtonHilight-Square
+        used by: accountlogin.xml, characterselect.xml
+  Interface\Buttons\UI-AutoCastButton.mdx
+        used by: securitymatrix.xml
+  Interface\Buttons\UI-Common-MouseHilight
+        used by: accountlogin.xml, charactercreate.xml, characterselect.xml
+  Interface\Buttons\UI-EmptySlot
+        used by: securitymatrix.xml
+  Interface\Buttons\UI-GuildButton-PublicNote-Up
+        used by: addonlist.xml
+  Interface\Buttons\UI-MinusButton-DOWN
+        used by: optionsframetemplates.xml
+  Interface\Buttons\UI-MinusButton-UP
+        used by: optionsframetemplates.xml
+  Interface\Buttons\UI-PaidCharacterCustomization-Button
+        used by: characterselect.xml
+  Interface\Buttons\UI-Panel-Button-Disabled
+        used by: gluebasiccontrols.xml
+  Interface\Buttons\UI-Panel-Button-Disabled-Down
+        used by: gluetemplates.xml
+  Interface\Buttons\UI-Panel-Button-Down
+        used by: gluebasiccontrols.xml
+  Interface\Buttons\UI-Panel-Button-Highlight
+        used by: gluebasiccontrols.xml
+  Interface\Buttons\UI-Panel-Button-Up
+        used by: gluebasiccontrols.xml
+  Interface\Buttons\UI-PlusButton-Hilight
+        used by: optionsframetemplates.xml
+  Interface\Buttons\UI-SliderBar-Background
+        used by: optionspaneltemplates.xml
+  Interface\Buttons\UI-SliderBar-Button-Horizontal
+        used by: optionspaneltemplates.xml
+  Interface\Buttons\UI-SortArrow
+        used by: realmlist.xml
+  Interface\ChatFrame\ChatFrameColorSwatch
+        used by: gluedropdownmenutemplates.xml
+  Interface\ChatFrame\ChatFrameExpandArrow
+        used by: gluedropdownmenutemplates.xml
+  Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled
+        used by: gluedropdownmenutemplates.xml
+  Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down
+        used by: gluedropdownmenutemplates.xml
+  Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up
+        used by: gluedropdownmenutemplates.xml
+  Interface\ChatFrame\UI-ChatInputBorder-Left
+        used by: characterselect.xml, gluedialog.xml
+  Interface\ChatFrame\UI-ChatInputBorder-Right
+        used by: characterselect.xml, gluedialog.xml
+  Interface\Common\Common-Input-Border
+        used by: accountlogin.xml
+  Interface\DialogFrame\DialogAlertIcon
+        used by: characterselect.xml
+  Interface\DialogFrame\UI-Dialog-Icon-AlertNew
+        used by: characterselect.xml, gluedialog.xml
+  Interface\DialogFrame\UI-DialogBox-Background
+        used by: accountlogin.xml, addonlist.xml, characterselect.xml
+  Interface\DialogFrame\UI-DialogBox-Border
+        used by: characterselect.xml, gluebasiccontrols.xml, gluedropdownmenutemplates.xml
+  Interface\DialogFrame\UI-DialogBox-Header
+        used by: accountlogin.xml, addonlist.xml, optionsselect.xml
+  Interface\Glues\CharacterCreate\charactercreate
+        used by: charactercreate.xml
+  Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame
+        used by: gluedropdownmenutemplates.xml
+  Interface\Glues\CharacterCreate\UI-CharacterCreate-Gender_Round
+        used by: charactercreate.xml
+  Interface\Glues\CharacterCreate\UI-CharacterCreate-InfoBox
+        used by: charactercreate.xml
+  Interface\Glues\CharacterCreate\UI-CharacterCreate-Races
+        used by: charactercreate.xml
+  Interface\Glues\CharacterCreate\UI-CHARACTERCREATE-RACES-ClASS
+        used by: charactercreate.xml
+  Interface\Glues\CharacterCreate\UI-CharacterCreate-RacesRound
+        used by: charactercreate.xml
+  Interface\Glues\CharacterSelect\Glue-CharacterSelect-Highlight
+        used by: characterselect.xml
+  Interface\Glues\CharacterSelect\Glues-AddOn-Icons
+        used by: addonlist.xml
+  Interface\Glues\CharacterSelect\uicharacterselectglues2x
+        used by: characterselect.xml
+  Interface\Glues\Common\Glue-Tooltip-Background
+        used by: characterselect.xml, realmwizard.xml
+  Interface\Glues\Common\Glue-Tooltip-Border
+        used by: characterselect.xml, realmwizard.xml
+  Interface\Glues\Common\Glues-BigButton-Glow
+        used by: characterselect.xml
+  Interface\Glues\Common\Glues-Splash-L1a
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-L1b
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-L1c
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-L2a
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-L2b
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-L2c
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-R1a
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-R1b
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-R1c
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-R2a
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-R2b
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-Splash-R2c
+        used by: gluesplash.xml
+  Interface\Glues\Common\Glues-WoW-Logo
+        used by: trialconvert.xml
+  Interface\Glues\Common\Glues-WoW-WotLKLogo
+        used by: charactercreate.xml, characterselect.xml, creditsframe.xml
+  Interface\Glues\Common\perks
+        used by: charactercreate.xml
+  Interface\Glues\Common\redbutton2x
+        used by: accountlogin.xml
+  Interface\Glues\Credits\Border1
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment1
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment2
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment3
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment4
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment5
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment6
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment7
+        used by: creditsframe.xml
+  Interface\Glues\Credits\Parchment8
+        used by: creditsframe.xml
+  Interface\Glues\Login\Glues-TOS-TopRight
+        used by: realmlist.xml
+  Interface\Glues\Login\UI-BackArrow
+        used by: accountlogin.xml
+  Interface\Glues\Models\UI_NightElf\UI_NightElf.mdx
+        used by: patchdownload.xml, trialconvert.xml
+  Interface\HelpFrame\HelpFrame-BotLeft
+        used by: realmlist.xml
+  Interface\HelpFrame\HelpFrame-BotRight
+        used by: realmlist.xml
+  Interface\HelpFrame\HelpFrame-Bottom
+        used by: realmlist.xml
+  Interface\HelpFrame\HelpFrame-Top
+        used by: realmlist.xml
+  Interface\HelpFrame\HelpFrame-TopLeft
+        used by: realmlist.xml
+  Interface\OptionsFrame\21stepgrayscale
+        used by: videooptionspanels.xml
+  Interface\OptionsFrame\UI-OptionsFrame-ActiveTab
+        used by: optionsframetemplates.xml
+  Interface\OptionsFrame\UI-OptionsFrame-InActiveTab
+        used by: optionsframetemplates.xml
+  Interface\OptionsFrame\UI-OptionsFrame-Spacer
+        used by: optionsframetemplates.xml
+  Interface\PaperDollInfoFrame\UI-Character-ActiveTab
+        used by: realmlist.xml
+  Interface\PaperDollInfoFrame\UI-Character-InActiveTab
+        used by: realmlist.xml
+  Interface\PaperDollInfoFrame\UI-Character-ScrollBar
+        used by: addonlist.xml, realmlist.xml
+  Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight
+        used by: optionsframetemplates.xml, realmlist.xml
+  Interface\QuestFrame\UI-QuestLogTitleHighlight
+        used by: optionsframetemplates.xml, realmlist.xml
+  Interface\QuestFrame\UI-QuestTitleHighlight
+        used by: gluedropdownmenutemplates.xml
+  Interface\Tooltips\BorderAlert
+        used by: accountlogin.xml
+  Interface\tooltips\BorderAlert
+        used by: accountlogin.xml, gluedialog.xml, optionsselect.xml
+  Interface\tooltips\Glue-Tooltip-Border
+        used by: characterselect.xml, optionspaneltemplates.xml
+  Interface\Tooltips\UI-Tooltip-Background
+        used by: accountlogin.xml, addonlist.xml, charactercreate.xml
+  Interface\Tooltips\UI-Tooltip-Border
+        used by: gluedropdownmenutemplates.xml, gluetooltip.xml, optionsframetemplates.xml
+  Interface\tooltips\ui-tooltip-border-maw
+        used by: addonlist.xml, characterselect.xml, optionsframetemplates.xml
+  Interface\tooltips\ui-tooltip-border-mawBlack
+        used by: accountlogin.xml
+  Interface\Tooltips\ui-tooltip-border-mawBlack
+        used by: addonlist.xml, videooptionspanels.xml
+
+95 candidates

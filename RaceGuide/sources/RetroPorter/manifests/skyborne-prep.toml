@@ -1,0 +1,15 @@
+# Historical preparation marker. Superseded by manifests/skyborne.toml.
+slug = "skyborne"
+status = "superseded"
+ready_for_assets = true
+completed_manifest = "manifests/skyborne.toml"
+completed_doc = "docs/SKYBORNE.md"
+
+[source]
+product_family = "World of Warcraft: Forever"
+install_root = "D:\\Blizzard\\World of Warcraft"
+product_key = "wow_classic_beta"
+version = "1.60.1.70009"
+
+[notes]
+message = "Skyborne discovery and conversion completed successfully on 2026-09-28. Use the finalized manifest and documentation."

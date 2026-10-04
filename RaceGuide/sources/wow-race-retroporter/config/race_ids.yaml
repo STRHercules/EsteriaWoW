@@ -1,0 +1,30 @@
+# Project target IDs. Edit deliberately before creating persistent characters.
+races:
+  human: 1
+  orc: 2
+  dwarf: 3
+  night_elf: 4
+  undead: 5
+  tauren: 6
+  gnome: 7
+  troll: 8
+  goblin: 9
+  blood_elf: 10
+  draenei: 11
+  worgen: 12
+
+  # Proposed custom allocation for this project. Change before production if needed.
+  vulpera: 13
+  nightborne: 14
+  void_elf: 15
+  lightforged_draenei: 16
+  zandalari_troll: 17
+  dark_iron_dwarf: 18
+  maghar_orc: 45
+  highmountain_tauren: 46
+  kul_tiran: 21
+  mechagnome: 22
+  pandaren: 23
+  earthen: 48
+  earthen_horde: 49
+  dracthyr: 25

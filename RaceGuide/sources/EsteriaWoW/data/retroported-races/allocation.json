@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "race_ids": {
+    "maghar": [
+      45
+    ],
+    "highmountain": [
+      46
+    ],
+    "mechagnome": [
+      47
+    ],
+    "earthen": [
+      48,
+      49
+    ],
+    "haranir": [
+      50,
+      51
+    ],
+    "skyborne": [
+      52,
+      53
+    ],
+    "vulpera": [
+      20
+    ],
+    "naga": [
+      54
+    ],
+    "tuskarr": [
+      55
+    ],
+    "vrykul": [
+      56,
+      57
+    ],
+    "thinhuman": [
+      58,
+      59
+    ]
+  },
+  "dbc_ranges": {
+    "CreatureModelData": [
+      120000,
+      120199
+    ],
+    "CreatureDisplayInfo": [
+      60030,
+      60052
+    ],
+    "CreatureDisplayInfoExtra": [
+      60000,
+      60999
+    ],
+    "CharSections": [
+      450000,
+      1002199
+    ],
+    "CharHairGeosets": [
+      450000,
+      1002199
+    ],
+    "CharHairTextures": [
+      450000,
+      451999
+    ],
+    "BarberShopStyle": [
+      450000,
+      1002199
+    ],
+    "CharStartOutfit": [
+      21000,
+      21999
+    ],
+    "NameGen": [
+      22000,
+      59999
+    ]
+  },
+  "race_allocations": {
+    "haranir": {
+      "CreatureModelData": {
+        "male": 120055,
+        "female": 120056
+      },
+      "CreatureDisplayInfo": {
+        "male": 60038,
+        "female": 60039
+      },
+      "CharSections": [
+        451000,
+        454999
+      ],
+      "CharHairGeosets": [
+        451000,
+        451099
+      ],
+      "CharHairTextures": [
+        451000,
+        451099
+      ],
+      "BarberShopStyle": [
+        455200,
+        458199
+      ],
+      "CharStartOutfit": [
+        21400,
+        21499
+      ],
+      "NameGen": [
+        34000,
+        35999
+      ]
+    },
+    "earthen": {
+      "CreatureModelData": {
+        "male": 120051,
+        "female": 120054
+      },
+      "CreatureDisplayInfo": {
+        "male": 60036,
+        "female": 60037
+      },
+      "CharSections": [
+        593000,
+        599999
+      ],
+      "CharHairGeosets": [
+        450400,
+        450499
+      ],
+      "CharHairTextures": [
+        450400,
+        450499
+      ],
+      "BarberShopStyle": [
+        453000,
+        455199
+      ],
+      "CharStartOutfit": [
+        21300,
+        21399
+      ],
+      "NameGen": [
+        30000,
+        33999
+      ]
+    },
+    "highmountain": {
+      "CreatureModelData": {
+        "male": 120047,
+        "female": 120048
+      },
+      "CreatureDisplayInfo": {
+        "male": 60032,
+        "female": 60033
+      },
+      "CharSections": [
+        590000,
+        592999
+      ],
+      "CharHairGeosets": [
+        450300,
+        450399
+      ],
+      "CharHairTextures": [
+        450300,
+        450399
+      ],
+      "BarberShopStyle": [
+        450100,
+        450499
+      ],
+      "CharStartOutfit": [
+        21100,
+        21199
+      ],
+      "NameGen": [
+        25000,
+        26999
+      ]
+    },
+    "mechagnome": {
+      "CreatureModelData": {
+        "male": 120049,
+        "female": 120050
+      },
+      "CreatureDisplayInfo": {
+        "male": 60034,
+        "female": 60035
+      },
+      "CharSections": [
+        520000,
+        589999
+      ],
+      "CharHairGeosets": [
+        450100,
+        450299
+      ],
+      "CharHairTextures": [
+        450100,
+        450299
+      ],
+      "BarberShopStyle": [
+        452000,
+        452999
+      ],
+      "CharStartOutfit": [
+        21200,
+        21299
+      ],
+      "NameGen": [
+        23000,
+        24999
+      ]
+    },
+    "skyborne": {
+      "CreatureModelData": {
+        "male": 120052,
+        "female": 120053
+      },
+      "CreatureDisplayInfo": {
+        "male": 60044,
+        "female": 60045
+      },
+      "CharSections": [
+        455000,
+        519999
+      ],
+      "CharHairGeosets": [
+        450500,
+        450899
+      ],
+      "CharHairTextures": [
+        450500,
+        450699
+      ],
+      "BarberShopStyle": [
+        450500,
+        451999
+      ],
+      "CharStartOutfit": [
+        21500,
+        21599
+      ],
+      "NameGen": [
+        27000,
+        29999
+      ]
+    },
+    "maghar": {
+      "CreatureModelData": {
+        "male": 120045,
+        "female": 120046
+      },
+      "CreatureDisplayInfo": {
+        "male": 60030,
+        "female": 60031
+      },
+      "CharSections": [
+        450000,
+        450999
+      ],
+      "CharHairGeosets": [
+        450000,
+        450099
+      ],
+      "CharHairTextures": [
+        450000,
+        450099
+      ],
+      "BarberShopStyle": [
+        450000,
+        450099
+      ],
+      "CharStartOutfit": [
+        21000,
+        21099
+      ],
+      "NameGen": [
+        22000,
+        22999
+      ]
+    },
+    "vulpera": {
+      "CreatureModelData": {
+        "male": 112885,
+        "female": 112886
+      },
+      "CreatureDisplayInfo": {
+        "male": 60006,
+        "female": 60007
+      },
+      "CharSections": [
+        1000000,
+        1000009
+      ],
+      "CharHairGeosets": [
+        1000000,
+        1000001
+      ],
+      "BarberShopStyle": [
+        1000000,
+        1000199
+      ]
+    },
+    "naga": {
+      "CreatureModelData": {
+        "male": 120057,
+        "female": 120058
+      },
+      "CreatureDisplayInfo": {
+        "male": 60048,
+        "female": 60049
+      },
+      "CharSections": [
+        1000200,
+        1000699
+      ],
+      "CharHairGeosets": [
+        1000200,
+        1000699
+      ],
+      "BarberShopStyle": [
+        1000200,
+        1000699
+      ],
+      "CharStartOutfit": [
+        21600,
+        21699
+      ],
+      "NameGen": [
+        36000,
+        41999
+      ]
+    },
+    "tuskarr": {
+      "CreatureModelData": {
+        "male": 120059
+      },
+      "CreatureDisplayInfo": {
+        "male": 60050
+      },
+      "CharSections": [
+        1000700,
+        1001199
+      ],
+      "CharHairGeosets": [
+        1000700,
+        1001199
+      ],
+      "BarberShopStyle": [
+        1000700,
+        1001199
+      ],
+      "CharStartOutfit": [
+        21700,
+        21799
+      ],
+      "NameGen": [
+        42000,
+        47999
+      ]
+    },
+    "vrykul": {
+      "CreatureModelData": {
+        "male": 120060
+      },
+      "CreatureDisplayInfo": {
+        "male": 60051
+      },
+      "CharSections": [
+        1001200,
+        1001699
+      ],
+      "CharHairGeosets": [
+        1001200,
+        1001699
+      ],
+      "BarberShopStyle": [
+        1001200,
+        1001699
+      ],
+      "CharStartOutfit": [
+        21800,
+        21899
+      ],
+      "NameGen": [
+        48000,
+        53999
+      ]
+    },
+    "thinhuman": {
+      "CreatureModelData": {
+        "male": 120061
+      },
+      "CreatureDisplayInfo": {
+        "male": 60052
+      },
+      "CharSections": [
+        1001700,
+        1002199
+      ],
+      "CharHairGeosets": [
+        1001700,
+        1002199
+      ],
+      "BarberShopStyle": [
+        1001700,
+        1002199
+      ],
+      "CharStartOutfit": [
+        21900,
+        21999
+      ],
+      "NameGen": [
+        54000,
+        59999
+      ]
+    }
+  }
+}

@@ -1,0 +1,1530 @@
+{
+  "race": "vulpera",
+  "path_prefix": "custom\\vulpera",
+  "selected_file_ids": [
+    1890759,
+    1890761,
+    1894070,
+    1894073,
+    1894074,
+    1894076,
+    1894077,
+    1894078,
+    1894080,
+    1894081,
+    1894082,
+    1894083,
+    1894084,
+    1894085,
+    1894087,
+    1894088,
+    1894090,
+    1894091,
+    1894092,
+    1894093,
+    1894094,
+    1894095,
+    1894096,
+    1894098,
+    1894099,
+    1894100,
+    1894102,
+    1894103,
+    1894104,
+    1894105,
+    1894107,
+    1894109,
+    1894110,
+    1894111,
+    1894114,
+    1894116,
+    1894118,
+    1894119,
+    1894120,
+    1894121,
+    1894122,
+    1894123,
+    1894124,
+    1894125,
+    1894126,
+    1894127,
+    1894128,
+    1894129,
+    1894130,
+    1894131,
+    1894132,
+    1894133,
+    1894134,
+    1894135,
+    1894136,
+    1894137,
+    1894138,
+    1894139,
+    1894140,
+    1894141,
+    1894142,
+    1894143,
+    1894144,
+    1894145,
+    1894146,
+    1894147,
+    1894148,
+    1894149,
+    1894150,
+    1894151,
+    1894152,
+    1894153,
+    1894154,
+    1894155,
+    1938907,
+    1938908,
+    1938909,
+    1938910,
+    1938911,
+    1938912,
+    1938913,
+    1938914,
+    1938915,
+    1938916,
+    1938917,
+    1938918,
+    1938919,
+    1938920,
+    1938921,
+    1938922,
+    1939950,
+    1939951,
+    1939952,
+    1939953,
+    1939954,
+    1939955,
+    1939956,
+    1939957,
+    1939958,
+    1939959,
+    1939960,
+    1939961,
+    1939962,
+    1939963,
+    1939964,
+    1939965,
+    1939966,
+    1939967,
+    1939968,
+    1939969,
+    1939970,
+    1939971,
+    1939972,
+    1939973,
+    1939974,
+    1939975,
+    1939976,
+    1939977,
+    1939978,
+    1939979,
+    1939980,
+    1939981,
+    1939982,
+    1939983,
+    1939984,
+    1939985,
+    1939986,
+    1939987,
+    1939988,
+    1939989,
+    1939990,
+    1939991,
+    1939992,
+    1939993,
+    1939994,
+    1939995,
+    1939996,
+    1939997,
+    1939998,
+    1939999,
+    1940000,
+    1940001,
+    1940002,
+    1940003,
+    1940004,
+    1940005,
+    1940006,
+    1940007,
+    1940008,
+    1940009,
+    1940010,
+    1940011,
+    1940012,
+    1940013,
+    1940014,
+    1940015,
+    1940016,
+    1940017,
+    1940018,
+    1940019,
+    1940020,
+    1940021,
+    1940022,
+    1940023,
+    1940024,
+    1940025,
+    1940026,
+    1940027,
+    1940028,
+    1940029,
+    1940030,
+    1940031,
+    1940032,
+    1940033,
+    1940034,
+    1940035,
+    1940036,
+    1940037,
+    3060789,
+    3060790,
+    3060791,
+    3060792,
+    3060793,
+    3060794,
+    3060795,
+    3060796,
+    3552542,
+    3552545,
+    3635066,
+    3635067,
+    3635068,
+    3635069,
+    3635070,
+    3635071,
+    3635072,
+    3635073,
+    3635074,
+    3635075,
+    3635076,
+    3635077,
+    3635078,
+    3635079,
+    4531035,
+    4531037,
+    5210139,
+    5210161
+  ],
+  "direct_model_texture_file_ids": [
+    3552542,
+    3552545,
+    4531035,
+    4531037,
+    5210139,
+    5210161
+  ],
+  "selected": [
+    {
+      "file_data_id": 1894070,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894073,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894074,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894076,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894077,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894078,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894080,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894081,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894082,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894083,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894084,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894085,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894087,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894088,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894090,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894091,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper01_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894092,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894093,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894094,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894095,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894096,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894098,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894099,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894100,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper02_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894102,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894103,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894104,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894105,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894107,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894109,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894110,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894111,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper03_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894114,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894116,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894118,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894119,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894120,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894121,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894122,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894123,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper04_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894124,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894125,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894126,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894127,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894128,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894129,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894130,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894131,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper05_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894132,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894133,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894134,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894135,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894136,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894137,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894138,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894139,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894140,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894141,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894142,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894143,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894144,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894145,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894146,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894147,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894148,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894149,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894150,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894151,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894152,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894153,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894154,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1894155,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938907,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938908,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938909,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938910,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938911,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938912,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938913,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938914,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938915,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938916,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938917,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938918,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938919,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938920,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938921,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1938922,
+      "path": "character\\vulpera\\female\\vulperafemaletattoo_01_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939950,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939951,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939952,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939953,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939954,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939955,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939956,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939957,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939958,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939959,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939960,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939961,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939962,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939963,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939964,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939965,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper01_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939966,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939967,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939968,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939969,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939970,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939971,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939972,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939973,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper02_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939974,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939975,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939976,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939977,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939978,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939979,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939980,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939981,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper03_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939982,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939983,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939984,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939985,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939986,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939987,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939988,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939989,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper04_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939990,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939991,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939992,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939993,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939994,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939995,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939996,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939997,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper05_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939998,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1939999,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940000,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940001,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940002,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940003,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940004,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940005,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940006,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940007,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940008,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940009,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940010,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940011,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940012,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940013,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940014,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940015,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940016,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940017,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940018,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940019,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940020,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940021,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940022,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940023,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940024,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940025,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940026,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940027,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940028,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940029,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_00_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940030,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_00.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940031,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_01.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940032,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_02.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940033,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_03.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940034,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_04.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940035,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_05.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940036,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_06.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1940037,
+      "path": "character\\vulpera\\male\\vulperamaletattoo_01_07.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060789,
+      "path": "character\\vulpera\\female\\vulperafemalefaceupper00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060790,
+      "path": "character\\vulpera\\female\\vulperafemalenakedpelvisskin00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060791,
+      "path": "character\\vulpera\\female\\vulperafemalenakedtorsoskin00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060792,
+      "path": "character\\vulpera\\female\\vulperafemaleskin00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060793,
+      "path": "character\\vulpera\\male\\vulperamalefaceupper00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060794,
+      "path": "character\\vulpera\\male\\vulperamalenakedpelvisskin00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060795,
+      "path": "character\\vulpera\\male\\vulperamalenakedtorsoskin00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3060796,
+      "path": "character\\vulpera\\male\\vulperamaleskin00_08.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635066,
+      "path": "character\\vulpera\\eyes00_00_3635066.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635067,
+      "path": "character\\vulpera\\eyes00_01_3635067.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635068,
+      "path": "character\\vulpera\\eyes00_02_3635068.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635069,
+      "path": "character\\vulpera\\eyes00_03_3635069.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635070,
+      "path": "character\\vulpera\\eyes00_04_3635070.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635071,
+      "path": "character\\vulpera\\eyes00_05_3635071.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635072,
+      "path": "character\\vulpera\\eyes00_06_3635072.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635073,
+      "path": "character\\vulpera\\eyes00_07_3635073.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635074,
+      "path": "character\\vulpera\\eyes00_08_3635074.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635075,
+      "path": "character\\vulpera\\eyes00_09_3635075.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635076,
+      "path": "character\\vulpera\\eyes00_10_3635076.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635077,
+      "path": "character\\vulpera\\eyes00_11_3635077.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635078,
+      "path": "character\\vulpera\\eyes00_12_3635078.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 3635079,
+      "path": "character\\vulpera\\eyes00_13_3635079.blp",
+      "reason": "Vulpera customization texture"
+    },
+    {
+      "file_data_id": 1890759,
+      "path": "character\\vulpera\\female\\vulperafemale.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 1890761,
+      "path": "character\\vulpera\\male\\vulperamale.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 3552542,
+      "path": "character\\vulpera\\male\\vulperamale_3552542.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 3552545,
+      "path": "character\\vulpera\\female\\vulperafemale_3552545.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 4531035,
+      "path": "character\\vulpera\\male\\vulperamale_4531035.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 4531037,
+      "path": "character\\vulpera\\female\\vulperafemale_4531037.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 5210139,
+      "path": "character\\vulpera\\male\\vulperamale_eyereflect.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 5210161,
+      "path": "character\\vulpera\\female\\vulperafemale_eyereflect.blp",
+      "reason": "core M2 hard texture dependency"
+    }
+  ],
+  "unsupported": [],
+  "ignored": [
+    {
+      "file_data_id": 623714,
+      "path": "interface\\glues\\models\\ui_horde\\ui_horde.m2",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 651558,
+      "path": "interface\\glues\\models\\ui_horde_lowres\\ui_horde_lowres.m2",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 3188841,
+      "path": "interface\\glues\\models\\ui_vulpera\\ui_vulpera.m2",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261013,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261014,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261015,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261016,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261017,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261018,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261019,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261020,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261021,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261022,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261023,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261024,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261025,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261026,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261027,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261028,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261029,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261030,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261031,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261032,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261033,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261034,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261035,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261036,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261037,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261038,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261039,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261040,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261041,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261042,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261043,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261044,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261045,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261046,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261047,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261048,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261049,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261050,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261051,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261052,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261053,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4261054,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4510263,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4510264,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4510265,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4510266,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4562672,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4690426,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton24.m2",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4690427,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton25.m2",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4705407,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705407.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4705408,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705408.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    },
+    {
+      "file_data_id": 4705409,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705409.blp",
+      "reason": "not part of the initial Vulpera-safe asset slice"
+    }
+  ]
+}

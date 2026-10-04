@@ -1,0 +1,5298 @@
+{
+  "race": 47,
+  "labels": [
+    "Skin Color",
+    "Face",
+    "Hair Style",
+    "Hair Color",
+    "Facial Hair",
+    "Arm Upgrade",
+    "Leg Upgrade",
+    "Modification",
+    "Eye Color",
+    "Paint",
+    "Eyesight",
+    "Eye Style"
+  ],
+  "sexes": {
+    "male": {
+      "model_path": "custom\\mechagnome\\native\\male\\mechagnomemale.m2",
+      "vertices": 44236,
+      "indices": 116595,
+      "geosets": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        102,
+        103,
+        104,
+        105,
+        106,
+        301,
+        302,
+        303,
+        304,
+        501,
+        502,
+        701,
+        702,
+        703,
+        704,
+        705,
+        1001,
+        1002,
+        1202,
+        1203,
+        1204,
+        1302,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1507,
+        1508,
+        1509,
+        1510,
+        1601,
+        1602,
+        1603,
+        1604,
+        1701,
+        1702,
+        1703,
+        1704,
+        1705,
+        1803
+      ],
+      "profile": {
+        "choices": {
+          "Skin Color": [
+            {
+              "_row_id": 8938,
+              "Name_lang": "",
+              "ID": 8938,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -21376,
+                0
+              ]
+            },
+            {
+              "_row_id": 8939,
+              "Name_lang": "",
+              "ID": 8939,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -26781,
+                0
+              ]
+            },
+            {
+              "_row_id": 8940,
+              "Name_lang": "",
+              "ID": 8940,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -552590,
+                0
+              ]
+            },
+            {
+              "_row_id": 8941,
+              "Name_lang": "",
+              "ID": 8941,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -1864350,
+                0
+              ]
+            },
+            {
+              "_row_id": 8942,
+              "Name_lang": "",
+              "ID": 8942,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -3376835,
+                0
+              ]
+            },
+            {
+              "_row_id": 8949,
+              "Name_lang": "",
+              "ID": 8949,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -6534623,
+                0
+              ]
+            },
+            {
+              "_row_id": 8950,
+              "Name_lang": "",
+              "ID": 8950,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -11395304,
+                0
+              ]
+            },
+            {
+              "_row_id": 8951,
+              "Name_lang": "",
+              "ID": 8951,
+              "ChrCustomizationOptionID": 360,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -13559530,
+                0
+              ]
+            }
+          ],
+          "Face": [
+            {
+              "_row_id": 8966,
+              "Name_lang": "",
+              "ID": 8966,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8967,
+              "Name_lang": "",
+              "ID": 8967,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8968,
+              "Name_lang": "",
+              "ID": 8968,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8969,
+              "Name_lang": "",
+              "ID": 8969,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8970,
+              "Name_lang": "",
+              "ID": 8970,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8971,
+              "Name_lang": "",
+              "ID": 8971,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8972,
+              "Name_lang": "",
+              "ID": 8972,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8973,
+              "Name_lang": "",
+              "ID": 8973,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8974,
+              "Name_lang": "",
+              "ID": 8974,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8975,
+              "Name_lang": "",
+              "ID": 8975,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 9,
+              "UiOrderIndex": 9,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8976,
+              "Name_lang": "",
+              "ID": 8976,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 10,
+              "UiOrderIndex": 10,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8977,
+              "Name_lang": "",
+              "ID": 8977,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8978,
+              "Name_lang": "",
+              "ID": 8978,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8979,
+              "Name_lang": "",
+              "ID": 8979,
+              "ChrCustomizationOptionID": 361,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Hair Style": [
+            {
+              "_row_id": 3493,
+              "Name_lang": "Bald",
+              "ID": 3493,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3494,
+              "Name_lang": "Head Gasket",
+              "ID": 3494,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3495,
+              "Name_lang": "Impish",
+              "ID": 3495,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3496,
+              "Name_lang": "G.O.A.T.",
+              "ID": 3496,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3497,
+              "Name_lang": "Hotrod",
+              "ID": 3497,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3498,
+              "Name_lang": "Inventor",
+              "ID": 3498,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3499,
+              "Name_lang": "Hairodynamic",
+              "ID": 3499,
+              "ChrCustomizationOptionID": 362,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Hair Color": [
+            {
+              "_row_id": 3500,
+              "Name_lang": "",
+              "ID": 3500,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                3356221,
+                0
+              ]
+            },
+            {
+              "_row_id": 3501,
+              "Name_lang": "",
+              "ID": 3501,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -9407657,
+                0
+              ]
+            },
+            {
+              "_row_id": 3502,
+              "Name_lang": "",
+              "ID": 3502,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -10405337,
+                0
+              ]
+            },
+            {
+              "_row_id": 3503,
+              "Name_lang": "",
+              "ID": 3503,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                11516055,
+                0
+              ]
+            },
+            {
+              "_row_id": 3504,
+              "Name_lang": "",
+              "ID": 3504,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -4036288,
+                0
+              ]
+            },
+            {
+              "_row_id": 3505,
+              "Name_lang": "",
+              "ID": 3505,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -5749715,
+                0
+              ]
+            },
+            {
+              "_row_id": 3506,
+              "Name_lang": "",
+              "ID": 3506,
+              "ChrCustomizationOptionID": 363,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -1531820,
+                0
+              ]
+            }
+          ],
+          "Facial Hair": [
+            {
+              "_row_id": 3508,
+              "Name_lang": "Clean",
+              "ID": 3508,
+              "ChrCustomizationOptionID": 364,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3509,
+              "Name_lang": "Propeller",
+              "ID": 3509,
+              "ChrCustomizationOptionID": 364,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3510,
+              "Name_lang": "Handlebar",
+              "ID": 3510,
+              "ChrCustomizationOptionID": 364,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3511,
+              "Name_lang": "Prospector",
+              "ID": 3511,
+              "ChrCustomizationOptionID": 364,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3512,
+              "Name_lang": "The Show",
+              "ID": 3512,
+              "ChrCustomizationOptionID": 364,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3513,
+              "Name_lang": "Tuskarr",
+              "ID": 3513,
+              "ChrCustomizationOptionID": 364,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Arm Upgrade": [
+            {
+              "_row_id": 3534,
+              "Name_lang": "Standard",
+              "ID": 3534,
+              "ChrCustomizationOptionID": 366,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3535,
+              "Name_lang": "Steel Plating",
+              "ID": 3535,
+              "ChrCustomizationOptionID": 366,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3536,
+              "Name_lang": "Iron Grips",
+              "ID": 3536,
+              "ChrCustomizationOptionID": 366,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3537,
+              "Name_lang": "Thorium Grips",
+              "ID": 3537,
+              "ChrCustomizationOptionID": 366,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Leg Upgrade": [
+            {
+              "_row_id": 3538,
+              "Name_lang": "",
+              "ID": 3538,
+              "ChrCustomizationOptionID": 367,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3539,
+              "Name_lang": "",
+              "ID": 3539,
+              "ChrCustomizationOptionID": 367,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Modification": [
+            {
+              "_row_id": 3514,
+              "Name_lang": "None",
+              "ID": 3514,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3515,
+              "Name_lang": "Ears",
+              "ID": 3515,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3516,
+              "Name_lang": "Antennas",
+              "ID": 3516,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3517,
+              "Name_lang": "Transducers",
+              "ID": 3517,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3518,
+              "Name_lang": "Infra-Sight",
+              "ID": 3518,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3519,
+              "Name_lang": "Plated Ears",
+              "ID": 3519,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3520,
+              "Name_lang": "Receivers",
+              "ID": 3520,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3521,
+              "Name_lang": "Conductors",
+              "ID": 3521,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3522,
+              "Name_lang": "Optics",
+              "ID": 3522,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3523,
+              "Name_lang": "Cyber Ears",
+              "ID": 3523,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 9,
+              "UiOrderIndex": 9,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3524,
+              "Name_lang": "Wires",
+              "ID": 3524,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 10,
+              "UiOrderIndex": 10,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3525,
+              "Name_lang": "Earphones",
+              "ID": 3525,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3526,
+              "Name_lang": "Tactical Visor",
+              "ID": 3526,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3527,
+              "Name_lang": "Mech Ears",
+              "ID": 3527,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3528,
+              "Name_lang": "Sensors",
+              "ID": 3528,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 14,
+              "UiOrderIndex": 14,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3529,
+              "Name_lang": "Transceivers",
+              "ID": 3529,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 15,
+              "UiOrderIndex": 15,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3530,
+              "Name_lang": "Bifocals",
+              "ID": 3530,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 16,
+              "UiOrderIndex": 16,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3531,
+              "Name_lang": "Bionic Ears",
+              "ID": 3531,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 17,
+              "UiOrderIndex": 17,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3532,
+              "Name_lang": "Feelers",
+              "ID": 3532,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 18,
+              "UiOrderIndex": 18,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3533,
+              "Name_lang": "Sonic Amplifiers",
+              "ID": 3533,
+              "ChrCustomizationOptionID": 415,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 19,
+              "UiOrderIndex": 19,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Eye Color": [
+            {
+              "_row_id": 8899,
+              "Name_lang": "",
+              "ID": 8899,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -9327810,
+                0
+              ]
+            },
+            {
+              "_row_id": 8900,
+              "Name_lang": "",
+              "ID": 8900,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -2846464,
+                0
+              ]
+            },
+            {
+              "_row_id": 8901,
+              "Name_lang": "",
+              "ID": 8901,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -1720576,
+                0
+              ]
+            },
+            {
+              "_row_id": 8902,
+              "Name_lang": "",
+              "ID": 8902,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -13461871,
+                0
+              ]
+            },
+            {
+              "_row_id": 8903,
+              "Name_lang": "",
+              "ID": 8903,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -8538833,
+                0
+              ]
+            },
+            {
+              "_row_id": 8904,
+              "Name_lang": "",
+              "ID": 8904,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 10,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -7625825,
+                0
+              ]
+            },
+            {
+              "_row_id": 8905,
+              "Name_lang": "",
+              "ID": 8905,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -6839977,
+                0
+              ]
+            },
+            {
+              "_row_id": 8906,
+              "Name_lang": "",
+              "ID": 8906,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 9,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -12991946,
+                0
+              ]
+            },
+            {
+              "_row_id": 8907,
+              "Name_lang": "",
+              "ID": 8907,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -14381183,
+                0
+              ]
+            },
+            {
+              "_row_id": 8908,
+              "Name_lang": "",
+              "ID": 8908,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 9,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -5980374,
+                0
+              ]
+            },
+            {
+              "_row_id": 8909,
+              "Name_lang": "",
+              "ID": 8909,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 10,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -4038383,
+                0
+              ]
+            },
+            {
+              "_row_id": 8910,
+              "Name_lang": "",
+              "ID": 8910,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -6280448,
+                0
+              ]
+            },
+            {
+              "_row_id": 8911,
+              "Name_lang": "",
+              "ID": 8911,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 100,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                5663302,
+                0
+              ]
+            },
+            {
+              "_row_id": 8912,
+              "Name_lang": "",
+              "ID": 8912,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -8630138,
+                0
+              ]
+            },
+            {
+              "_row_id": 8913,
+              "Name_lang": "",
+              "ID": 8913,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 14,
+              "UiOrderIndex": 101,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26220,
+              "Name_lang": "",
+              "ID": 26220,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 16,
+              "UiOrderIndex": 16,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26221,
+              "Name_lang": "",
+              "ID": 26221,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 17,
+              "UiOrderIndex": 17,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26222,
+              "Name_lang": "",
+              "ID": 26222,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 18,
+              "UiOrderIndex": 18,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26223,
+              "Name_lang": "",
+              "ID": 26223,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 19,
+              "UiOrderIndex": 19,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26224,
+              "Name_lang": "",
+              "ID": 26224,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 20,
+              "UiOrderIndex": 20,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26225,
+              "Name_lang": "",
+              "ID": 26225,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 21,
+              "UiOrderIndex": 21,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26226,
+              "Name_lang": "",
+              "ID": 26226,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 22,
+              "UiOrderIndex": 22,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26227,
+              "Name_lang": "",
+              "ID": 26227,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 23,
+              "UiOrderIndex": 23,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26228,
+              "Name_lang": "",
+              "ID": 26228,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 24,
+              "UiOrderIndex": 24,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26229,
+              "Name_lang": "",
+              "ID": 26229,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 25,
+              "UiOrderIndex": 25,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26230,
+              "Name_lang": "",
+              "ID": 26230,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 26,
+              "UiOrderIndex": 26,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26231,
+              "Name_lang": "",
+              "ID": 26231,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 27,
+              "UiOrderIndex": 27,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26232,
+              "Name_lang": "",
+              "ID": 26232,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 28,
+              "UiOrderIndex": 28,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26233,
+              "Name_lang": "",
+              "ID": 26233,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 29,
+              "UiOrderIndex": 29,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 29606,
+              "Name_lang": "Primalist - Earth",
+              "ID": 29606,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 143,
+              "UiOrderIndex": 143,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                13333005,
+                0
+              ]
+            },
+            {
+              "_row_id": 29650,
+              "Name_lang": "Primalist - Fire",
+              "ID": 29650,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 144,
+              "UiOrderIndex": 144,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                16719616,
+                0
+              ]
+            },
+            {
+              "_row_id": 29694,
+              "Name_lang": "Primalist - Air",
+              "ID": 29694,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 145,
+              "UiOrderIndex": 145,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                10000312,
+                0
+              ]
+            },
+            {
+              "_row_id": 29738,
+              "Name_lang": "Primalist - Water",
+              "ID": 29738,
+              "ChrCustomizationOptionID": 794,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 146,
+              "UiOrderIndex": 146,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                4083438,
+                0
+              ]
+            }
+          ],
+          "Paint": [
+            {
+              "_row_id": 8997,
+              "Name_lang": "",
+              "ID": 8997,
+              "ChrCustomizationOptionID": 797,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                16751125,
+                0
+              ]
+            },
+            {
+              "_row_id": 8998,
+              "Name_lang": "",
+              "ID": 8998,
+              "ChrCustomizationOptionID": 797,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -9750248,
+                0
+              ]
+            },
+            {
+              "_row_id": 8999,
+              "Name_lang": "",
+              "ID": 8999,
+              "ChrCustomizationOptionID": 797,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                9605524,
+                0
+              ]
+            }
+          ],
+          "Eyesight": [
+            {
+              "_row_id": 45254,
+              "Name_lang": "Both",
+              "ID": 45254,
+              "ChrCustomizationOptionID": 6380,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 45255,
+              "Name_lang": "Right",
+              "ID": 45255,
+              "ChrCustomizationOptionID": 6380,
+              "ChrCustomizationReqID": 144,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 8,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 45256,
+              "Name_lang": "Left",
+              "ID": 45256,
+              "ChrCustomizationOptionID": 6380,
+              "ChrCustomizationReqID": 144,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 8,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 45257,
+              "Name_lang": "Neither",
+              "ID": 45257,
+              "ChrCustomizationOptionID": 6380,
+              "ChrCustomizationReqID": 144,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 8,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Eye Style": [
+            {
+              "_row_id": 54485,
+              "Name_lang": "Slit",
+              "ID": 54485,
+              "ChrCustomizationOptionID": 8566,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 0,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 54486,
+              "Name_lang": "Star",
+              "ID": 54486,
+              "ChrCustomizationOptionID": 8566,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 0,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 54487,
+              "Name_lang": "Glow",
+              "ID": 54487,
+              "ChrCustomizationOptionID": 8566,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 0,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        "omitted": [
+          {
+            "id": 8943,
+            "option": "Skin Color",
+            "requirement": 12
+          },
+          {
+            "id": 8944,
+            "option": "Skin Color",
+            "requirement": 12
+          },
+          {
+            "id": 8945,
+            "option": "Skin Color",
+            "requirement": 191
+          },
+          {
+            "id": 8946,
+            "option": "Skin Color",
+            "requirement": 191
+          },
+          {
+            "id": 8947,
+            "option": "Skin Color",
+            "requirement": 191
+          },
+          {
+            "id": 8948,
+            "option": "Skin Color",
+            "requirement": 10
+          },
+          {
+            "id": 3507,
+            "option": "Hair Color",
+            "requirement": 10
+          },
+          {
+            "id": 8929,
+            "option": "Eye Color",
+            "requirement": 10
+          },
+          {
+            "id": 15733,
+            "option": "Paint",
+            "requirement": 10
+          }
+        ],
+        "materials": {
+          "8938": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemaleskin00_00_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemalenakedpelvisskin00_00_hd.blp"
+          },
+          "8939": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemaleskin00_01_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemalenakedpelvisskin00_01_hd.blp"
+          },
+          "8940": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemaleskin00_02_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemalenakedpelvisskin00_02_hd.blp"
+          },
+          "8941": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemaleskin00_03_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemalenakedpelvisskin00_03_hd.blp"
+          },
+          "8942": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemaleskin00_04_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemalenakedpelvisskin00_04_hd.blp"
+          },
+          "8949": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_skin_color_3487138.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_skin_color_3452158.blp"
+          },
+          "8950": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_skin_color_3452161.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_skin_color_3452159.blp"
+          },
+          "8951": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_skin_color_3452162.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_skin_color_3452160.blp"
+          },
+          "8966": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_04_hd.blp",
+            "5:8948": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_10_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452137.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452138.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452139.blp"
+          },
+          "8967": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper01_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper01_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper01_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper01_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper01_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452140.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452141.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452142.blp"
+          },
+          "8968": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452143.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452144.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452145.blp"
+          },
+          "8969": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452146.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452147.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452148.blp"
+          },
+          "8970": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper04_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper04_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper04_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper04_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper04_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452149.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452150.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452151.blp"
+          },
+          "8971": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper05_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper05_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper05_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper05_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper05_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452152.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452153.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452154.blp"
+          },
+          "8972": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper06_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper06_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper06_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper06_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper06_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452155.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452156.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452157.blp"
+          },
+          "8973": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper07_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper07_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper07_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper07_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper07_04_hd.blp",
+            "5:8945": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_05_hd.blp",
+            "5:8946": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_06_hd.blp",
+            "5:8947": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper00_07_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452137.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452138.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452139.blp"
+          },
+          "8974": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper08_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper08_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper08_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper08_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper08_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452140.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452141.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452142.blp"
+          },
+          "8975": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper09_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper09_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper09_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper09_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper09_04_hd.blp",
+            "5:8945": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_05_hd.blp",
+            "5:8946": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_06_hd.blp",
+            "5:8947": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper02_07_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452143.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452144.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452145.blp"
+          },
+          "8976": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper10_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper10_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper10_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper10_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper10_04_hd.blp",
+            "5:8945": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_05_hd.blp",
+            "5:8946": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_06_hd.blp",
+            "5:8947": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper03_07_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452146.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452147.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452148.blp"
+          },
+          "8977": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper11_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper11_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper11_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper11_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper11_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452149.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452150.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452151.blp"
+          },
+          "8978": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper12_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper12_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper12_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper12_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper12_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452152.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452153.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452154.blp"
+          },
+          "8979": {
+            "5:8938": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper13_00_hd.blp",
+            "5:8939": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper13_01_hd.blp",
+            "5:8940": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper13_02_hd.blp",
+            "5:8941": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper13_03_hd.blp",
+            "5:8942": "custom\\mechagnome\\character\\gnome\\male\\gnomemalefaceupper13_04_hd.blp",
+            "5:8949": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452155.blp",
+            "5:8950": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452156.blp",
+            "5:8951": "custom\\mechagnome\\character\\gnome\\male\\gnomemale_hd_face_3452157.blp"
+          },
+          "3493": {},
+          "3494": {},
+          "3495": {},
+          "3496": {},
+          "3497": {},
+          "3498": {},
+          "3499": {},
+          "3500": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675279.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_00_2626724.blp"
+          },
+          "3501": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675295.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_01_2626725.blp"
+          },
+          "3502": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675306.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_02_2626726.blp"
+          },
+          "3503": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675320.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_03_2626727.blp"
+          },
+          "3504": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675331.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_04_2626728.blp"
+          },
+          "3505": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675347.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_05_2626729.blp"
+          },
+          "3506": {
+            "8:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_facial_hair_3675360.blp",
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_06_2626730.blp"
+          },
+          "3508": {},
+          "3509": {},
+          "3510": {},
+          "3511": {},
+          "3512": {},
+          "3513": {},
+          "3534": {},
+          "3535": {},
+          "3536": {},
+          "3537": {},
+          "3538": {},
+          "3539": {},
+          "3514": {},
+          "3515": {},
+          "3516": {},
+          "3517": {},
+          "3518": {},
+          "3519": {},
+          "3520": {},
+          "3521": {},
+          "3522": {},
+          "3523": {},
+          "3524": {},
+          "3525": {},
+          "3526": {},
+          "3527": {},
+          "3528": {},
+          "3529": {},
+          "3530": {},
+          "3531": {},
+          "3532": {},
+          "3533": {},
+          "8899": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_01_3484611.blp"
+          },
+          "8900": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_02_3484612.blp"
+          },
+          "8901": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_03_3484614.blp"
+          },
+          "8902": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_04_3484615.blp"
+          },
+          "8903": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_05_3484617.blp"
+          },
+          "8904": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_06_3484619.blp"
+          },
+          "8905": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_07_3484620.blp"
+          },
+          "8906": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_08_3484622.blp"
+          },
+          "8907": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_09_3484624.blp"
+          },
+          "8908": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_10_3484625.blp"
+          },
+          "8909": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_11_3484627.blp"
+          },
+          "8910": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_12_3484628.blp"
+          },
+          "8911": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_13_3484630.blp"
+          },
+          "8912": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_00_3597804.blp"
+          },
+          "8913": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4562672.blp"
+          },
+          "26220": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp"
+          },
+          "26221": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp"
+          },
+          "26222": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp"
+          },
+          "26223": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp"
+          },
+          "26224": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp"
+          },
+          "26225": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp"
+          },
+          "26226": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp"
+          },
+          "26227": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp"
+          },
+          "26228": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp"
+          },
+          "26229": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp"
+          },
+          "26230": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp"
+          },
+          "26231": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp"
+          },
+          "26232": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp"
+          },
+          "26233": {
+            "25:54485": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+            "25:54486": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+            "25:54487": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp"
+          },
+          "29606": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510263.blp"
+          },
+          "29650": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510264.blp"
+          },
+          "29694": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510265.blp"
+          },
+          "29738": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510266.blp"
+          },
+          "8997": {
+            "2:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_paint_2628237.blp"
+          },
+          "8998": {
+            "2:0": "custom\\mechagnome\\item\\objectcomponents\\collections\\gnomemaleskin00_01_extra_hd.blp"
+          },
+          "8999": {
+            "2:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_paint_2628239.blp"
+          },
+          "45254": {},
+          "45255": {
+            "44:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eyesight_4705409.blp"
+          },
+          "45256": {
+            "44:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eyesight_4705408.blp"
+          },
+          "45257": {
+            "44:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eyesight_4705407.blp"
+          },
+          "54485": {},
+          "54486": {},
+          "54487": {}
+        },
+        "geometry": {
+          "8938": [],
+          "8939": [],
+          "8940": [],
+          "8941": [],
+          "8942": [],
+          "8949": [],
+          "8950": [],
+          "8951": [],
+          "8966": [],
+          "8967": [],
+          "8968": [],
+          "8969": [],
+          "8970": [],
+          "8971": [],
+          "8972": [],
+          "8973": [],
+          "8974": [],
+          "8975": [],
+          "8976": [],
+          "8977": [],
+          "8978": [],
+          "8979": [],
+          "3493": [
+            0
+          ],
+          "3494": [
+            2
+          ],
+          "3495": [
+            3
+          ],
+          "3496": [
+            4
+          ],
+          "3497": [
+            5
+          ],
+          "3498": [
+            6
+          ],
+          "3499": [
+            7
+          ],
+          "3500": [],
+          "3501": [],
+          "3502": [],
+          "3503": [],
+          "3504": [],
+          "3505": [],
+          "3506": [],
+          "3508": [
+            100
+          ],
+          "3509": [
+            102
+          ],
+          "3510": [
+            103
+          ],
+          "3511": [
+            104
+          ],
+          "3512": [
+            105
+          ],
+          "3513": [
+            106
+          ],
+          "3534": [
+            2901
+          ],
+          "3535": [
+            2902
+          ],
+          "3536": [
+            2903
+          ],
+          "3537": [
+            2904
+          ],
+          "3538": [
+            3001,
+            3101
+          ],
+          "3539": [
+            3002,
+            3102
+          ],
+          "3514": [
+            702,
+            2400
+          ],
+          "3515": [
+            703,
+            2400
+          ],
+          "3516": [
+            704,
+            2400
+          ],
+          "3517": [
+            705,
+            2400
+          ],
+          "3518": [
+            702,
+            2402
+          ],
+          "3519": [
+            703,
+            2402
+          ],
+          "3520": [
+            704,
+            2402
+          ],
+          "3521": [
+            705,
+            2402
+          ],
+          "3522": [
+            702,
+            1603,
+            2403
+          ],
+          "3523": [
+            703,
+            1603,
+            2403
+          ],
+          "3524": [
+            704,
+            1603,
+            2403
+          ],
+          "3525": [
+            705,
+            1603,
+            2403
+          ],
+          "3526": [
+            702,
+            2404
+          ],
+          "3527": [
+            703,
+            2404
+          ],
+          "3528": [
+            704,
+            2404
+          ],
+          "3529": [
+            705,
+            2404
+          ],
+          "3530": [
+            702,
+            2403
+          ],
+          "3531": [
+            703,
+            2403
+          ],
+          "3532": [
+            704,
+            2403
+          ],
+          "3533": [
+            705,
+            2403
+          ],
+          "8899": [],
+          "8900": [],
+          "8901": [],
+          "8902": [],
+          "8903": [],
+          "8904": [],
+          "8905": [],
+          "8906": [],
+          "8907": [],
+          "8908": [],
+          "8909": [],
+          "8910": [],
+          "8911": [],
+          "8912": [],
+          "8913": [
+            1701,
+            5100
+          ],
+          "26220": [],
+          "26221": [],
+          "26222": [],
+          "26223": [],
+          "26224": [],
+          "26225": [],
+          "26226": [],
+          "26227": [],
+          "26228": [],
+          "26229": [],
+          "26230": [],
+          "26231": [],
+          "26232": [],
+          "26233": [],
+          "29606": [
+            1702
+          ],
+          "29650": [
+            1703
+          ],
+          "29694": [
+            1704
+          ],
+          "29738": [
+            1705
+          ],
+          "8997": [],
+          "8998": [],
+          "8999": [],
+          "45254": [],
+          "45255": [],
+          "45256": [],
+          "45257": [],
+          "54485": [],
+          "54486": [],
+          "54487": []
+        }
+      },
+      "animation_inheritance": {
+        "child_sequences": 61,
+        "inherited_sequences": 291,
+        "total_sequences": 352
+      }
+    },
+    "female": {
+      "model_path": "custom\\mechagnome\\native\\female\\mechagnomefemale.m2",
+      "vertices": 44534,
+      "indices": 117498,
+      "geosets": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        301,
+        302,
+        303,
+        304,
+        501,
+        502,
+        702,
+        703,
+        704,
+        705,
+        1001,
+        1002,
+        1202,
+        1203,
+        1204,
+        1302,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1507,
+        1508,
+        1509,
+        1510,
+        1601,
+        1602,
+        1603,
+        1604,
+        1701,
+        1702,
+        1703,
+        1704,
+        1705,
+        1803
+      ],
+      "profile": {
+        "choices": {
+          "Skin Color": [
+            {
+              "_row_id": 8952,
+              "Name_lang": "",
+              "ID": 8952,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -2583183,
+                0
+              ]
+            },
+            {
+              "_row_id": 8953,
+              "Name_lang": "",
+              "ID": 8953,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -2450060,
+                0
+              ]
+            },
+            {
+              "_row_id": 8954,
+              "Name_lang": "",
+              "ID": 8954,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -4293286,
+                0
+              ]
+            },
+            {
+              "_row_id": 8955,
+              "Name_lang": "",
+              "ID": 8955,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -3435929,
+                0
+              ]
+            },
+            {
+              "_row_id": 8956,
+              "Name_lang": "",
+              "ID": 8956,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -3111591,
+                0
+              ]
+            },
+            {
+              "_row_id": 8963,
+              "Name_lang": "",
+              "ID": 8963,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -6534623,
+                0
+              ]
+            },
+            {
+              "_row_id": 8964,
+              "Name_lang": "",
+              "ID": 8964,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -11395304,
+                0
+              ]
+            },
+            {
+              "_row_id": 8965,
+              "Name_lang": "",
+              "ID": 8965,
+              "ChrCustomizationOptionID": 368,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -13559530,
+                0
+              ]
+            }
+          ],
+          "Face": [
+            {
+              "_row_id": 8980,
+              "Name_lang": "",
+              "ID": 8980,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8981,
+              "Name_lang": "",
+              "ID": 8981,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8982,
+              "Name_lang": "",
+              "ID": 8982,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8983,
+              "Name_lang": "",
+              "ID": 8983,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8984,
+              "Name_lang": "",
+              "ID": 8984,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8985,
+              "Name_lang": "",
+              "ID": 8985,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8986,
+              "Name_lang": "",
+              "ID": 8986,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8987,
+              "Name_lang": "",
+              "ID": 8987,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8988,
+              "Name_lang": "",
+              "ID": 8988,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8989,
+              "Name_lang": "",
+              "ID": 8989,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 9,
+              "UiOrderIndex": 9,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8990,
+              "Name_lang": "",
+              "ID": 8990,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 10,
+              "UiOrderIndex": 10,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8991,
+              "Name_lang": "",
+              "ID": 8991,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8992,
+              "Name_lang": "",
+              "ID": 8992,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 8993,
+              "Name_lang": "",
+              "ID": 8993,
+              "ChrCustomizationOptionID": 369,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Hair Style": [
+            {
+              "_row_id": 3562,
+              "Name_lang": "Bunches",
+              "ID": 3562,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3563,
+              "Name_lang": "Victory Curls",
+              "ID": 3563,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3564,
+              "Name_lang": "Bouffant",
+              "ID": 3564,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3565,
+              "Name_lang": "Pistons",
+              "ID": 3565,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3566,
+              "Name_lang": "Rocker",
+              "ID": 3566,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3567,
+              "Name_lang": "Crankshaft",
+              "ID": 3567,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3568,
+              "Name_lang": "Mad Pixie",
+              "ID": 3568,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3569,
+              "Name_lang": "Soft Waves",
+              "ID": 3569,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 7476,
+              "Name_lang": "Bald",
+              "ID": 7476,
+              "ChrCustomizationOptionID": 370,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Hair Color": [
+            {
+              "_row_id": 3570,
+              "Name_lang": "",
+              "ID": 3570,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                3356221,
+                0
+              ]
+            },
+            {
+              "_row_id": 3571,
+              "Name_lang": "",
+              "ID": 3571,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -9407657,
+                0
+              ]
+            },
+            {
+              "_row_id": 3572,
+              "Name_lang": "",
+              "ID": 3572,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -10405337,
+                0
+              ]
+            },
+            {
+              "_row_id": 3573,
+              "Name_lang": "",
+              "ID": 3573,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                11516055,
+                0
+              ]
+            },
+            {
+              "_row_id": 3574,
+              "Name_lang": "",
+              "ID": 3574,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -4036288,
+                0
+              ]
+            },
+            {
+              "_row_id": 3575,
+              "Name_lang": "",
+              "ID": 3575,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -5749715,
+                0
+              ]
+            },
+            {
+              "_row_id": 3576,
+              "Name_lang": "",
+              "ID": 3576,
+              "ChrCustomizationOptionID": 371,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -1531820,
+                0
+              ]
+            }
+          ],
+          "Facial Hair": [],
+          "Arm Upgrade": [
+            {
+              "_row_id": 3598,
+              "Name_lang": "Standard",
+              "ID": 3598,
+              "ChrCustomizationOptionID": 374,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3599,
+              "Name_lang": "Steel Plating",
+              "ID": 3599,
+              "ChrCustomizationOptionID": 374,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3600,
+              "Name_lang": "Iron Grips",
+              "ID": 3600,
+              "ChrCustomizationOptionID": 374,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3601,
+              "Name_lang": "Thorium Grips",
+              "ID": 3601,
+              "ChrCustomizationOptionID": 374,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Leg Upgrade": [
+            {
+              "_row_id": 3602,
+              "Name_lang": "",
+              "ID": 3602,
+              "ChrCustomizationOptionID": 375,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3603,
+              "Name_lang": "",
+              "ID": 3603,
+              "ChrCustomizationOptionID": 375,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Modification": [
+            {
+              "_row_id": 3578,
+              "Name_lang": "None",
+              "ID": 3578,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3579,
+              "Name_lang": "Ears",
+              "ID": 3579,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3580,
+              "Name_lang": "Antennas",
+              "ID": 3580,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3581,
+              "Name_lang": "Transducers",
+              "ID": 3581,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3582,
+              "Name_lang": "Infra-Sight",
+              "ID": 3582,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3583,
+              "Name_lang": "Plated Ears",
+              "ID": 3583,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3584,
+              "Name_lang": "Receivers",
+              "ID": 3584,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3585,
+              "Name_lang": "Conductors",
+              "ID": 3585,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3586,
+              "Name_lang": "Optics",
+              "ID": 3586,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3587,
+              "Name_lang": "Cyber Ears",
+              "ID": 3587,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 9,
+              "UiOrderIndex": 9,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3588,
+              "Name_lang": "Wires",
+              "ID": 3588,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 10,
+              "UiOrderIndex": 10,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3589,
+              "Name_lang": "Earphones",
+              "ID": 3589,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3590,
+              "Name_lang": "Tactical Visor",
+              "ID": 3590,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3591,
+              "Name_lang": "Mech Ears",
+              "ID": 3591,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3592,
+              "Name_lang": "Sensors",
+              "ID": 3592,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 14,
+              "UiOrderIndex": 14,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3593,
+              "Name_lang": "Transceivers",
+              "ID": 3593,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 15,
+              "UiOrderIndex": 15,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3594,
+              "Name_lang": "Bifocals",
+              "ID": 3594,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 16,
+              "UiOrderIndex": 16,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3595,
+              "Name_lang": "Bionic Ears",
+              "ID": 3595,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 17,
+              "UiOrderIndex": 17,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3596,
+              "Name_lang": "Feelers",
+              "ID": 3596,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 18,
+              "UiOrderIndex": 18,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3597,
+              "Name_lang": "Sonic Amplifiers",
+              "ID": 3597,
+              "ChrCustomizationOptionID": 416,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 19,
+              "UiOrderIndex": 19,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Eye Color": [
+            {
+              "_row_id": 8914,
+              "Name_lang": "",
+              "ID": 8914,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 8,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -9327810,
+                0
+              ]
+            },
+            {
+              "_row_id": 8915,
+              "Name_lang": "",
+              "ID": 8915,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -2846464,
+                0
+              ]
+            },
+            {
+              "_row_id": 8916,
+              "Name_lang": "",
+              "ID": 8916,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -1720576,
+                0
+              ]
+            },
+            {
+              "_row_id": 8917,
+              "Name_lang": "",
+              "ID": 8917,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 12,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -13461871,
+                0
+              ]
+            },
+            {
+              "_row_id": 8918,
+              "Name_lang": "",
+              "ID": 8918,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 7,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -8538833,
+                0
+              ]
+            },
+            {
+              "_row_id": 8919,
+              "Name_lang": "",
+              "ID": 8919,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 10,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -7625825,
+                0
+              ]
+            },
+            {
+              "_row_id": 8920,
+              "Name_lang": "",
+              "ID": 8920,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -6839977,
+                0
+              ]
+            },
+            {
+              "_row_id": 8921,
+              "Name_lang": "",
+              "ID": 8921,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 7,
+              "UiOrderIndex": 9,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -12991946,
+                0
+              ]
+            },
+            {
+              "_row_id": 8922,
+              "Name_lang": "",
+              "ID": 8922,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 8,
+              "UiOrderIndex": 11,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -14381183,
+                0
+              ]
+            },
+            {
+              "_row_id": 8923,
+              "Name_lang": "",
+              "ID": 8923,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 9,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -5980374,
+                0
+              ]
+            },
+            {
+              "_row_id": 8924,
+              "Name_lang": "",
+              "ID": 8924,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 10,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -4038383,
+                0
+              ]
+            },
+            {
+              "_row_id": 8925,
+              "Name_lang": "",
+              "ID": 8925,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 11,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -6280448,
+                0
+              ]
+            },
+            {
+              "_row_id": 8926,
+              "Name_lang": "",
+              "ID": 8926,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 12,
+              "UiOrderIndex": 100,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                5663302,
+                0
+              ]
+            },
+            {
+              "_row_id": 8927,
+              "Name_lang": "",
+              "ID": 8927,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 146,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 13,
+              "UiOrderIndex": 13,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -8630138,
+                0
+              ]
+            },
+            {
+              "_row_id": 8928,
+              "Name_lang": "",
+              "ID": 8928,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 142,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 14,
+              "UiOrderIndex": 101,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26347,
+              "Name_lang": "",
+              "ID": 26347,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 16,
+              "UiOrderIndex": 16,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26348,
+              "Name_lang": "",
+              "ID": 26348,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 17,
+              "UiOrderIndex": 17,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26349,
+              "Name_lang": "",
+              "ID": 26349,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 18,
+              "UiOrderIndex": 18,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26350,
+              "Name_lang": "",
+              "ID": 26350,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 19,
+              "UiOrderIndex": 19,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26351,
+              "Name_lang": "",
+              "ID": 26351,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 20,
+              "UiOrderIndex": 20,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26352,
+              "Name_lang": "",
+              "ID": 26352,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 21,
+              "UiOrderIndex": 21,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26353,
+              "Name_lang": "",
+              "ID": 26353,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 22,
+              "UiOrderIndex": 22,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26354,
+              "Name_lang": "",
+              "ID": 26354,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 23,
+              "UiOrderIndex": 23,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26355,
+              "Name_lang": "",
+              "ID": 26355,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 24,
+              "UiOrderIndex": 24,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26356,
+              "Name_lang": "",
+              "ID": 26356,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 25,
+              "UiOrderIndex": 25,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26357,
+              "Name_lang": "",
+              "ID": 26357,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 26,
+              "UiOrderIndex": 26,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26358,
+              "Name_lang": "",
+              "ID": 26358,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 27,
+              "UiOrderIndex": 27,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26359,
+              "Name_lang": "",
+              "ID": 26359,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 28,
+              "UiOrderIndex": 28,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 26360,
+              "Name_lang": "",
+              "ID": 26360,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 29,
+              "UiOrderIndex": 29,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 29607,
+              "Name_lang": "Primalist - Earth",
+              "ID": 29607,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 143,
+              "UiOrderIndex": 143,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                13333005,
+                0
+              ]
+            },
+            {
+              "_row_id": 29651,
+              "Name_lang": "Primalist - Fire",
+              "ID": 29651,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 144,
+              "UiOrderIndex": 144,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                16719616,
+                0
+              ]
+            },
+            {
+              "_row_id": 29695,
+              "Name_lang": "Primalist - Air",
+              "ID": 29695,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 145,
+              "UiOrderIndex": 145,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                10000312,
+                0
+              ]
+            },
+            {
+              "_row_id": 29739,
+              "Name_lang": "Primalist - Water",
+              "ID": 29739,
+              "ChrCustomizationOptionID": 795,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 146,
+              "UiOrderIndex": 146,
+              "Flags": 0,
+              "AddedInPatch": 100000,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                4083438,
+                0
+              ]
+            }
+          ],
+          "Paint": [
+            {
+              "_row_id": 9003,
+              "Name_lang": "",
+              "ID": 9003,
+              "ChrCustomizationOptionID": 799,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -26091,
+                0
+              ]
+            },
+            {
+              "_row_id": 9004,
+              "Name_lang": "",
+              "ID": 9004,
+              "ChrCustomizationOptionID": 799,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -9750248,
+                0
+              ]
+            },
+            {
+              "_row_id": 9005,
+              "Name_lang": "",
+              "ID": 9005,
+              "ChrCustomizationOptionID": 799,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                -7171692,
+                0
+              ]
+            }
+          ],
+          "Eyesight": [
+            {
+              "_row_id": 45258,
+              "Name_lang": "Both",
+              "ID": 45258,
+              "ChrCustomizationOptionID": 6381,
+              "ChrCustomizationReqID": 141,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 45259,
+              "Name_lang": "Right",
+              "ID": 45259,
+              "ChrCustomizationOptionID": 6381,
+              "ChrCustomizationReqID": 144,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 8,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 45260,
+              "Name_lang": "Left",
+              "ID": 45260,
+              "ChrCustomizationOptionID": 6381,
+              "ChrCustomizationReqID": 144,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 8,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 45261,
+              "Name_lang": "Neither",
+              "ID": 45261,
+              "ChrCustomizationOptionID": 6381,
+              "ChrCustomizationReqID": 144,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 8,
+              "AddedInPatch": 100100,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ],
+          "Eye Style": [
+            {
+              "_row_id": 54488,
+              "Name_lang": "Slit",
+              "ID": 54488,
+              "ChrCustomizationOptionID": 8567,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 0,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 54489,
+              "Name_lang": "Star",
+              "ID": 54489,
+              "ChrCustomizationOptionID": 8567,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 0,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 54490,
+              "Name_lang": "Glow",
+              "ID": 54490,
+              "ChrCustomizationOptionID": 8567,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 0,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        "omitted": [
+          {
+            "id": 8957,
+            "option": "Skin Color",
+            "requirement": 12
+          },
+          {
+            "id": 8958,
+            "option": "Skin Color",
+            "requirement": 12
+          },
+          {
+            "id": 8959,
+            "option": "Skin Color",
+            "requirement": 190
+          },
+          {
+            "id": 8960,
+            "option": "Skin Color",
+            "requirement": 190
+          },
+          {
+            "id": 8961,
+            "option": "Skin Color",
+            "requirement": 190
+          },
+          {
+            "id": 8962,
+            "option": "Skin Color",
+            "requirement": 10
+          },
+          {
+            "id": 3577,
+            "option": "Hair Color",
+            "requirement": 10
+          },
+          {
+            "id": 8930,
+            "option": "Eye Color",
+            "requirement": 10
+          },
+          {
+            "id": 15734,
+            "option": "Paint",
+            "requirement": 10
+          }
+        ],
+        "materials": {
+          "8952": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemaleskin00_00_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedpelvisskin00_00_hd.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedtorsoskin00_00_hd.blp"
+          },
+          "8953": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemaleskin00_01_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedpelvisskin00_01_hd.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedtorsoskin00_01_hd.blp"
+          },
+          "8954": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemaleskin00_02_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedpelvisskin00_02_hd.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedtorsoskin00_02_hd.blp"
+          },
+          "8955": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemaleskin00_03_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedpelvisskin00_03_hd.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedtorsoskin00_03_hd.blp"
+          },
+          "8956": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemaleskin00_04_hd.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedpelvisskin00_04_hd.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalenakedtorsoskin00_04_hd.blp"
+          },
+          "8963": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448752.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448746.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448749.blp"
+          },
+          "8964": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448753.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448747.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448750.blp"
+          },
+          "8965": {
+            "1:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448754.blp",
+            "13:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448748.blp",
+            "14:0": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_skin_color_3448751.blp"
+          },
+          "8980": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448725.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448726.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448727.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_04_hd.blp",
+            "5:8962": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_10_hd.blp"
+          },
+          "8981": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448728.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448729.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448730.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper01_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper01_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper01_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper01_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper01_04_hd.blp"
+          },
+          "8982": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448731.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448732.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448733.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper02_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper02_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper02_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper02_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper02_04_hd.blp"
+          },
+          "8983": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448734.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448735.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448736.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_04_hd.blp"
+          },
+          "8984": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448737.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448738.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448739.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper04_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper04_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper04_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper04_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper04_04_hd.blp"
+          },
+          "8985": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448740.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448741.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448742.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_04_hd.blp"
+          },
+          "8986": {
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448743.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448744.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448745.blp",
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper06_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper06_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper06_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper06_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper06_04_hd.blp"
+          },
+          "8987": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper07_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper07_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper07_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper07_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper07_04_hd.blp",
+            "5:8959": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_05_hd.blp",
+            "5:8960": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_06_hd.blp",
+            "5:8961": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper00_07_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448725.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448726.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448727.blp"
+          },
+          "8988": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper08_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper08_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper08_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper08_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper08_04_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448728.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448729.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448730.blp"
+          },
+          "8989": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper09_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper09_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper09_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper09_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper09_04_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448731.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448732.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448733.blp"
+          },
+          "8990": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper10_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper10_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper10_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper10_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper10_04_hd.blp",
+            "5:8959": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_05_hd.blp",
+            "5:8960": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_06_hd.blp",
+            "5:8961": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper03_07_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448734.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448735.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448736.blp"
+          },
+          "8991": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper11_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper11_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper11_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper11_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper11_04_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448737.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448738.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448739.blp"
+          },
+          "8992": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper12_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper12_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper12_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper12_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper12_04_hd.blp",
+            "5:8959": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_05_hd.blp",
+            "5:8960": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_06_hd.blp",
+            "5:8961": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper05_07_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448740.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448741.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448742.blp"
+          },
+          "8993": {
+            "5:8952": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper13_00_hd.blp",
+            "5:8953": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper13_01_hd.blp",
+            "5:8954": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper13_02_hd.blp",
+            "5:8955": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper13_03_hd.blp",
+            "5:8956": "custom\\mechagnome\\character\\gnome\\female\\gnomefemalefaceupper13_04_hd.blp",
+            "5:8963": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448743.blp",
+            "5:8964": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448744.blp",
+            "5:8965": "custom\\mechagnome\\character\\gnome\\female\\gnomefemale_hd_face_3448745.blp"
+          },
+          "3562": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "3563": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp",
+            "11:3577": "custom\\mechagnome\\character\\gnome\\female\\scalpupperhair00_12_hd.blp"
+          },
+          "3564": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "3565": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "3566": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "3567": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "3568": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "3569": {
+            "11:3570": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+            "11:3571": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+            "11:3572": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+            "11:3573": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+            "11:3574": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+            "11:3575": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+            "11:3576": "custom\\mechagnome\\character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp"
+          },
+          "7476": {},
+          "3570": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_00_2626724.blp"
+          },
+          "3571": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_01_2626725.blp"
+          },
+          "3572": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_02_2626726.blp"
+          },
+          "3573": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_03_2626727.blp"
+          },
+          "3574": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_04_2626728.blp"
+          },
+          "3575": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_05_2626729.blp"
+          },
+          "3576": {
+            "10:0": "custom\\mechagnome\\character\\mechagnome\\hair00_06_2626730.blp"
+          },
+          "3598": {},
+          "3599": {},
+          "3600": {},
+          "3601": {},
+          "3602": {},
+          "3603": {},
+          "3578": {},
+          "3579": {},
+          "3580": {},
+          "3581": {},
+          "3582": {},
+          "3583": {},
+          "3584": {},
+          "3585": {},
+          "3586": {},
+          "3587": {},
+          "3588": {},
+          "3589": {},
+          "3590": {},
+          "3591": {},
+          "3592": {},
+          "3593": {},
+          "3594": {},
+          "3595": {},
+          "3596": {},
+          "3597": {},
+          "8914": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_01_3484611.blp"
+          },
+          "8915": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_02_3484612.blp"
+          },
+          "8916": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_03_3484614.blp"
+          },
+          "8917": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_04_3484615.blp"
+          },
+          "8918": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_05_3484617.blp"
+          },
+          "8919": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_06_3484619.blp"
+          },
+          "8920": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_07_3484620.blp"
+          },
+          "8921": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_08_3484622.blp"
+          },
+          "8922": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_09_3484624.blp"
+          },
+          "8923": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_10_3484625.blp"
+          },
+          "8924": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_11_3484627.blp"
+          },
+          "8925": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_12_3484628.blp"
+          },
+          "8926": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_13_3484630.blp"
+          },
+          "8927": {
+            "25:0": "custom\\mechagnome\\character\\gnome\\eyes00_00_3597804.blp"
+          },
+          "8928": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4562672.blp"
+          },
+          "26347": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp"
+          },
+          "26348": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp"
+          },
+          "26349": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp"
+          },
+          "26350": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp"
+          },
+          "26351": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp"
+          },
+          "26352": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp"
+          },
+          "26353": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp"
+          },
+          "26354": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp"
+          },
+          "26355": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp"
+          },
+          "26356": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp"
+          },
+          "26357": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp"
+          },
+          "26358": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp"
+          },
+          "26359": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp"
+          },
+          "26360": {
+            "25:54488": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+            "25:54489": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+            "25:54490": "custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp"
+          },
+          "29607": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510263.blp"
+          },
+          "29651": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510264.blp"
+          },
+          "29695": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510265.blp"
+          },
+          "29739": {
+            "25:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510266.blp"
+          },
+          "9003": {
+            "2:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_paint_2628237.blp"
+          },
+          "9004": {
+            "2:0": "custom\\mechagnome\\item\\objectcomponents\\collections\\gnomemaleskin00_01_extra_hd.blp"
+          },
+          "9005": {
+            "2:0": "custom\\mechagnome\\character\\mechagnome\\male\\mechagnomemale_paint_2628239.blp"
+          },
+          "45258": {},
+          "45259": {
+            "44:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eyesight_4705409.blp"
+          },
+          "45260": {
+            "44:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eyesight_4705408.blp"
+          },
+          "45261": {
+            "44:0": "custom\\mechagnome\\character\\human\\male\\humanmale_hd_eyesight_4705407.blp"
+          },
+          "54488": {},
+          "54489": {},
+          "54490": {}
+        },
+        "geometry": {
+          "8952": [],
+          "8953": [],
+          "8954": [],
+          "8955": [],
+          "8956": [],
+          "8963": [],
+          "8964": [],
+          "8965": [],
+          "8980": [],
+          "8981": [],
+          "8982": [],
+          "8983": [],
+          "8984": [],
+          "8985": [],
+          "8986": [],
+          "8987": [],
+          "8988": [],
+          "8989": [],
+          "8990": [],
+          "8991": [],
+          "8992": [],
+          "8993": [],
+          "3562": [
+            2
+          ],
+          "3563": [
+            3
+          ],
+          "3564": [
+            4
+          ],
+          "3565": [
+            5
+          ],
+          "3566": [
+            6
+          ],
+          "3567": [
+            7
+          ],
+          "3568": [
+            8
+          ],
+          "3569": [
+            9
+          ],
+          "7476": [
+            0
+          ],
+          "3570": [],
+          "3571": [],
+          "3572": [],
+          "3573": [],
+          "3574": [],
+          "3575": [],
+          "3576": [],
+          "3598": [
+            2901
+          ],
+          "3599": [
+            2902
+          ],
+          "3600": [
+            2903
+          ],
+          "3601": [
+            2904
+          ],
+          "3602": [
+            3001,
+            3101
+          ],
+          "3603": [
+            3002,
+            3102
+          ],
+          "3578": [
+            702,
+            2400
+          ],
+          "3579": [
+            703,
+            2400
+          ],
+          "3580": [
+            704,
+            2400
+          ],
+          "3581": [
+            705,
+            2400
+          ],
+          "3582": [
+            702,
+            2402
+          ],
+          "3583": [
+            703,
+            2402
+          ],
+          "3584": [
+            704,
+            2402
+          ],
+          "3585": [
+            705,
+            2402
+          ],
+          "3586": [
+            702,
+            1603,
+            2403
+          ],
+          "3587": [
+            703,
+            1603,
+            2403
+          ],
+          "3588": [
+            704,
+            1603,
+            2403
+          ],
+          "3589": [
+            705,
+            1603,
+            2403
+          ],
+          "3590": [
+            702,
+            2404
+          ],
+          "3591": [
+            703,
+            2404
+          ],
+          "3592": [
+            704,
+            2404
+          ],
+          "3593": [
+            705,
+            2404
+          ],
+          "3594": [
+            702,
+            2403
+          ],
+          "3595": [
+            703,
+            2403
+          ],
+          "3596": [
+            704,
+            2403
+          ],
+          "3597": [
+            705,
+            2403
+          ],
+          "8914": [],
+          "8915": [],
+          "8916": [],
+          "8917": [],
+          "8918": [],
+          "8919": [],
+          "8920": [],
+          "8921": [],
+          "8922": [],
+          "8923": [],
+          "8924": [],
+          "8925": [],
+          "8926": [],
+          "8927": [],
+          "8928": [
+            1701,
+            5100
+          ],
+          "26347": [],
+          "26348": [],
+          "26349": [],
+          "26350": [],
+          "26351": [],
+          "26352": [],
+          "26353": [],
+          "26354": [],
+          "26355": [],
+          "26356": [],
+          "26357": [],
+          "26358": [],
+          "26359": [],
+          "26360": [],
+          "29607": [
+            1702
+          ],
+          "29651": [
+            1703
+          ],
+          "29695": [
+            1704
+          ],
+          "29739": [
+            1705
+          ],
+          "9003": [],
+          "9004": [],
+          "9005": [],
+          "45258": [],
+          "45259": [],
+          "45260": [],
+          "45261": [],
+          "54488": [],
+          "54489": [],
+          "54490": []
+        }
+      },
+      "animation_inheritance": {
+        "child_sequences": 63,
+        "inherited_sequences": 296,
+        "total_sequences": 359
+      }
+    }
+  }
+}

@@ -1,0 +1,2670 @@
+{
+  "race": "earthen",
+  "path_prefix": "custom\\earthen",
+  "selected_file_ids": [
+    5547345,
+    5547346,
+    5547347,
+    5547348,
+    5547349,
+    5547350,
+    5547351,
+    5547352,
+    5547353,
+    5547354,
+    5547355,
+    5547356,
+    5547357,
+    5547358,
+    5547359,
+    5547360,
+    5547361,
+    5547362,
+    5548259,
+    5548261,
+    5548317,
+    5548318,
+    5548319,
+    5548320,
+    5548321,
+    5548322,
+    5548335,
+    5548338,
+    5548353,
+    5565688,
+    5648365,
+    5648366,
+    5648367,
+    5648368,
+    5648369,
+    5648370,
+    5648375,
+    5662332,
+    5662333,
+    5662334,
+    5662335,
+    5662336,
+    5662337,
+    5662338,
+    5662339,
+    5662340,
+    5662341,
+    5662342,
+    5662343,
+    5662344,
+    5662345,
+    5662346,
+    5662347,
+    5662372,
+    5662373,
+    5662374,
+    5662375,
+    5662376,
+    5662377,
+    5662378,
+    5662379,
+    5662381,
+    5662382,
+    5662383,
+    5662384,
+    5662385,
+    5662386,
+    5662387,
+    5662388,
+    5662389,
+    5662390,
+    5662391,
+    5662392,
+    5662393,
+    5662394,
+    5662395,
+    5662396,
+    5662397,
+    5662398,
+    5662408,
+    5662409,
+    5662410,
+    5662489,
+    5662490,
+    5662491,
+    5662492,
+    5662493,
+    5662494,
+    5662495,
+    5662496,
+    5662497,
+    5662498,
+    5662499,
+    5662500,
+    5662501,
+    5662502,
+    5662503,
+    5662504,
+    5662505,
+    5662506,
+    5662507,
+    5662508,
+    5662509,
+    5662519,
+    5662520,
+    5662521,
+    5662645,
+    5662646,
+    5662647,
+    5662648,
+    5688294,
+    5733878,
+    5733879,
+    5733880,
+    5733881,
+    5733882,
+    5733883,
+    5733884,
+    5733885,
+    5733886,
+    5733887,
+    5733888,
+    5733889,
+    5733890,
+    5733891,
+    5733892,
+    5733893,
+    5736192,
+    5736193,
+    5736194,
+    5736195,
+    5736196,
+    5736197,
+    5736198,
+    5736199,
+    5738047,
+    5738048,
+    5738049,
+    5738050,
+    5738051,
+    5738052,
+    5738053,
+    5738054,
+    5738055,
+    5738056,
+    5738057,
+    5738058,
+    5738059,
+    5738060,
+    5738061,
+    5738062,
+    5738063,
+    5738064,
+    5738065,
+    5738066,
+    5738067,
+    5738068,
+    5738069,
+    5738070,
+    5738071,
+    5738072,
+    5738073,
+    5738074,
+    5738075,
+    5738076,
+    5738077,
+    5738078,
+    5738079,
+    5738080,
+    5738081,
+    5738082,
+    5738083,
+    5738084,
+    5738085,
+    5738086,
+    5738087,
+    5738088,
+    5738089,
+    5738090,
+    5738091,
+    5738092,
+    5738093,
+    5738094,
+    5738095,
+    5738096,
+    5738097,
+    5738098,
+    5738099,
+    5738100,
+    5738101,
+    5738102,
+    5738103,
+    5738104,
+    5738105,
+    5738106,
+    5738107,
+    5738108,
+    5738109,
+    5738110,
+    5738111,
+    5738112,
+    5738113,
+    5738114,
+    5738115,
+    5738116,
+    5738117,
+    5738118,
+    5738119,
+    5738120,
+    5738121,
+    5738122,
+    5738123,
+    5738124,
+    5738125,
+    5738126,
+    5738127,
+    5738128,
+    5738129,
+    5738130,
+    5738131,
+    5738132,
+    5738133,
+    5738134,
+    5738135,
+    5738136,
+    5738137,
+    5738138,
+    5738139,
+    5738140,
+    5738141,
+    5738142,
+    5738143,
+    5738144,
+    5738145,
+    5738146,
+    5738147,
+    5738148,
+    5738149,
+    5738150,
+    5738151,
+    5738152,
+    5738153,
+    5738154,
+    5738155,
+    5738156,
+    5738157,
+    5738158,
+    5738159,
+    5738160,
+    5738161,
+    5738162,
+    5738163,
+    5738164,
+    5738165,
+    5738166,
+    5738167,
+    5738168,
+    5738169,
+    5738170,
+    5738171,
+    5738172,
+    5738173,
+    5738174,
+    5738177,
+    5738178,
+    5738179,
+    5738180,
+    5738181,
+    5739630,
+    5739632,
+    5739633,
+    5739634,
+    5739635,
+    5739636,
+    5739637,
+    5739638,
+    5739639,
+    5739640,
+    5739641,
+    5739642,
+    5739643,
+    5739644,
+    5739645,
+    5739646,
+    5739647,
+    5739648,
+    5739649,
+    5739650,
+    5739651,
+    5739652,
+    5739653,
+    5739654,
+    5739655,
+    5739656,
+    5739657,
+    5739658,
+    5739659,
+    5739660,
+    5739661,
+    5739662,
+    5739663,
+    5739664,
+    5739665,
+    5739666,
+    5739667,
+    5739668,
+    5739669,
+    5739670,
+    5739671,
+    5739672,
+    5739673,
+    5739674,
+    5739675,
+    5739676,
+    5739677,
+    5739678,
+    5739679,
+    5739680,
+    5739681,
+    5739682,
+    5739683,
+    5739684,
+    5739685,
+    5739686,
+    5739687,
+    5739688,
+    5739689,
+    5739690,
+    5739691,
+    5739692,
+    5739693,
+    5739694,
+    5739695,
+    5739696,
+    5739697,
+    5739698,
+    5739699,
+    5739700,
+    5739701,
+    5739702,
+    5739703,
+    5739704,
+    5739705,
+    5739706,
+    5739707,
+    5739708,
+    5739709,
+    5739710,
+    5739711,
+    5739712,
+    5739713,
+    5739714,
+    5739715,
+    5739716,
+    5739717,
+    5739718,
+    5739719,
+    5739720,
+    5739721,
+    5739722,
+    5739723,
+    5739724,
+    5739725,
+    5739726,
+    5739727,
+    5739728,
+    5739729,
+    5739730,
+    5739731,
+    5739732,
+    5739733,
+    5739734,
+    5739735,
+    5739736,
+    5739737,
+    5739738,
+    5739739,
+    5739740,
+    5739741,
+    5739742,
+    5739743,
+    5739744,
+    5739745,
+    5739746,
+    5739747,
+    5739748,
+    5739749,
+    5739750,
+    5739751,
+    5739752,
+    5739753,
+    5739754,
+    5739755,
+    5739756,
+    5739757,
+    5739758,
+    5739759,
+    5739760,
+    5739761,
+    5739762,
+    5739763,
+    5739764,
+    5739765,
+    5739766,
+    5742569,
+    5742570,
+    5742571,
+    5742572,
+    5742573,
+    5742574,
+    5772717,
+    5792407,
+    5792408
+  ],
+  "selected": [
+    {
+      "file_data_id": 5547345,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5547345.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547346,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5547346.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547347,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5547347.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547348,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5547348.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547349,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5547349.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547350,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5547350.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547351,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5547351.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547352,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5547352.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547353,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5547353.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547354,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5547354.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547355,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5547355.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547356,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5547356.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547357,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5547357.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547358,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5547358.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547359,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5547359.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547360,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5547360.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547361,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5547361.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5547362,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5547362.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548259,
+      "path": "character\\earthendwarf\\earthendwarffemale.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 5548261,
+      "path": "character\\earthendwarf\\earthendwarfmale.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 5548317,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5548317.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548318,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5548318.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548319,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5548319.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548320,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5548320.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548321,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5548321.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548322,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5548322.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548335,
+      "path": "character\\earthendwarf\\earthendwarffemale_5548335.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548338,
+      "path": "character\\earthendwarf\\eyes_lense.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5548353,
+      "path": "character\\earthendwarf\\earthendwarfmale_5548353.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5565688,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5565688.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648365,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5648365.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648366,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5648366.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648367,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5648367.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648368,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5648368.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648369,
+      "path": "character\\earthendwarf\\earthendwarffemale_hair_color_5648369.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648370,
+      "path": "character\\earthendwarf\\earthendwarffemale_hair_color_5648370.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5648375,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5648375.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662332,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662332.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662333,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662333.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662334,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662334.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662335,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662335.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662336,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662336.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662337,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662337.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662338,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662338.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662339,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662339.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662340,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662340.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662341,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662341.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662342,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662342.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662343,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662343.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662344,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662344.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662345,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662345.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662346,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662346.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662347,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662347.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662372,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662372.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662373,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662373.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662374,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662374.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662375,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662375.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662376,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662376.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662377,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662377.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662378,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662378.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662379,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662379.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662381,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662381.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662382,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662382.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662383,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662383.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662384,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662384.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662385,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662385.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662386,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662386.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662387,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662387.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662388,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662388.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662389,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662389.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662390,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662390.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662391,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662391.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662392,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662392.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662393,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662393.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662394,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662394.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662395,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662395.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662396,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662396.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662397,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662397.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662398,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662398.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662408,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662408.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662409,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662409.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662410,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662410.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662489,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662489.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662490,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662490.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662491,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662491.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662492,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662492.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662493,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662493.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662494,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662494.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662495,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662495.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662496,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662496.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662497,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662497.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662498,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662498.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662499,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662499.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662500,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662500.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662501,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662501.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662502,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662502.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662503,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662503.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662504,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662504.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662505,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662505.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662506,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662506.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662507,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662507.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662508,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662508.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662509,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662509.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662519,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662519.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662520,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662520.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662521,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662521.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662645,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5662645.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662646,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5662646.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662647,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5662647.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5662648,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5662648.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733878,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733878.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733879,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733879.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733880,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733880.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733881,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733881.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733882,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733882.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733883,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733883.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733884,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733884.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733885,
+      "path": "character\\earthendwarf\\earthendwarfmale_eye_color_5733885.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733886,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733886.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733887,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733887.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733888,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733888.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733889,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733889.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733890,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733890.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733891,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733891.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733892,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733892.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5733893,
+      "path": "character\\earthendwarf\\earthendwarfmale_gem_color_5733893.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736192,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736192.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736193,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736193.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736194,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736194.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736195,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736195.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736196,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736196.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736197,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736197.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736198,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736198.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5736199,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5736199.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738047,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738047.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738048,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738048.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738049,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738049.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738050,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738050.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738051,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738051.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738052,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738052.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738053,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738053.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738054,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738054.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738055,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738055.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738056,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738056.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738057,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738057.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738058,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738058.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738059,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738059.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738060,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738060.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738061,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738061.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738062,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738062.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738063,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738063.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738064,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738064.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738065,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738065.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738066,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738066.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738067,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738067.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738068,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738068.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738069,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738069.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738070,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738070.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738071,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738071.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738072,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738072.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738073,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738073.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738074,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738074.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738075,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738075.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738076,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738076.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738077,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738077.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738078,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738078.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738079,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738079.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738080,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738080.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738081,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738081.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738082,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738082.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738083,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738083.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738084,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738084.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738085,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738085.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738086,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738086.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738087,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738087.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738088,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738088.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738089,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738089.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738090,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738090.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738091,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738091.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738092,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738092.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738093,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738093.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738094,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738094.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738095,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738095.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738096,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738096.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738097,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738097.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738098,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738098.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738099,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738099.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738100,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738100.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738101,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738101.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738102,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738102.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738103,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738103.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738104,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738104.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738105,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738105.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738106,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738106.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738107,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738107.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738108,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738108.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738109,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738109.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738110,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738110.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738111,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738111.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738112,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738112.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738113,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738113.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738114,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738114.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738115,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738115.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738116,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738116.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738117,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738117.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738118,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738118.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738119,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738119.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738120,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738120.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738121,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738121.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738122,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738122.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738123,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738123.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738124,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738124.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738125,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738125.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738126,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738126.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738127,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738127.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738128,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738128.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738129,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738129.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738130,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738130.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738131,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738131.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738132,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738132.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738133,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738133.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738134,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738134.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738135,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738135.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738136,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738136.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738137,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738137.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738138,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738138.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738139,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738139.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738140,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738140.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738141,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738141.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738142,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738142.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738143,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738143.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738144,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738144.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738145,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738145.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738146,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738146.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738147,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738147.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738148,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738148.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738149,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738149.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738150,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738150.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738151,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738151.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738152,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738152.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738153,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738153.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738154,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738154.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738155,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738155.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738156,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738156.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738157,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738157.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738158,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738158.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738159,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738159.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738160,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738160.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738161,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738161.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738162,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738162.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738163,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738163.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738164,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738164.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738165,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738165.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738166,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738166.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738167,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738167.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738168,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738168.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738169,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738169.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738170,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738170.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738171,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738171.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738172,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738172.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738173,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738173.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738174,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5738174.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738177,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5738177.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738178,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5738178.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738179,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5738179.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738180,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5738180.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5738181,
+      "path": "character\\earthendwarf\\earthendwarfmale_skin_color_5738181.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739630,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739630.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739632,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739632.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739633,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739633.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739634,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739634.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739635,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739635.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739636,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739636.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739637,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739637.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739638,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739638.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739639,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739639.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739640,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739640.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739641,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739641.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739642,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739642.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739643,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739643.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739644,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739644.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739645,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739645.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739646,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739646.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739647,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739647.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739648,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739648.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739649,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739649.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739650,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739650.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739651,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739651.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739652,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739652.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739653,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739653.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739654,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739654.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739655,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739655.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739656,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739656.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739657,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739657.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739658,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739658.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739659,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739659.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739660,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739660.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739661,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739661.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739662,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739662.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739663,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739663.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739664,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739664.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739665,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739665.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739666,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739666.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739667,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739667.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739668,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739668.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739669,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739669.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739670,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739670.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739671,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739671.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739672,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739672.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739673,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739673.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739674,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739674.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739675,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739675.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739676,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739676.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739677,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739677.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739678,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739678.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739679,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739679.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739680,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739680.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739681,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739681.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739682,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739682.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739683,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739683.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739684,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739684.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739685,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739685.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739686,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739686.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739687,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739687.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739688,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739688.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739689,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739689.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739690,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739690.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739691,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739691.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739692,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739692.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739693,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739693.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739694,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739694.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739695,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739695.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739696,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739696.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739697,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739697.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739698,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739698.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739699,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739699.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739700,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739700.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739701,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739701.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739702,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739702.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739703,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739703.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739704,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739704.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739705,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739705.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739706,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739706.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739707,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739707.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739708,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739708.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739709,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739709.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739710,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739710.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739711,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739711.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739712,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739712.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739713,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739713.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739714,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739714.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739715,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739715.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739716,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739716.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739717,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739717.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739718,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739718.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739719,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739719.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739720,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739720.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739721,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739721.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739722,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739722.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739723,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739723.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739724,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739724.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739725,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739725.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739726,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739726.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739727,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739727.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739728,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739728.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739729,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739729.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739730,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739730.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739731,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739731.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739732,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739732.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739733,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739733.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739734,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739734.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739735,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739735.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739736,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739736.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739737,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739737.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739738,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739738.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739739,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739739.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739740,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739740.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739741,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739741.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739742,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739742.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739743,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739743.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739744,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739744.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739745,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739745.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739746,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739746.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739747,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739747.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739748,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739748.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739749,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739749.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739750,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739750.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739751,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739751.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739752,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739752.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739753,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739753.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739754,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739754.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739755,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739755.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739756,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739756.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739757,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739757.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739758,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739758.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739759,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739759.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739760,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739760.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739761,
+      "path": "character\\earthendwarf\\earthendwarffemale_face_5739761.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739762,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5739762.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739763,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5739763.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739764,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5739764.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739765,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5739765.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5739766,
+      "path": "character\\earthendwarf\\earthendwarffemale_skin_color_5739766.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5742569,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5742569.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5742570,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5742570.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5742571,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5742571.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5742572,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5742572.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5742573,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5742573.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5742574,
+      "path": "character\\earthendwarf\\earthendwarfmale_face_5742574.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5772717,
+      "path": "character\\earthendwarf\\earthendwarfmale_hair_color_5772717.blp",
+      "reason": "Earthen customization texture"
+    },
+    {
+      "file_data_id": 5792407,
+      "path": "item\\objectcomponents\\collections\\earthenextras_ed_f.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 5792408,
+      "path": "item\\objectcomponents\\collections\\earthenextras_ed_m.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 5688294,
+      "path": "item\\objectcomponents\\collections\\earthenextras_ed_m_5688294.blp",
+      "reason": "required race dependency"
+    }
+  ],
+  "unsupported": [
+    {
+      "file_data_id": 5744689,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744689.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744690,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744690.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744691,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744691.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744692,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744692.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744693,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744693.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744694,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744694.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744695,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744695.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744696,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744696.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744697,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744697.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744698,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744698.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744699,
+      "path": "character\\earthendwarf\\earthendwarffemale_5744699.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744709,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744709.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744710,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744710.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744711,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744711.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744712,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744712.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744713,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744713.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744714,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744714.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744715,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744715.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744716,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744716.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744717,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744717.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744718,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744718.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 5744719,
+      "path": "character\\earthendwarf\\earthendwarfmale_5744719.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    }
+  ],
+  "ignored": [
+    {
+      "file_data_id": 623712,
+      "path": "interface\\glues\\models\\ui_alliance\\ui_alliance.m2",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 623714,
+      "path": "interface\\glues\\models\\ui_horde\\ui_horde.m2",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 651555,
+      "path": "interface\\glues\\models\\ui_alliance_lowres\\ui_alliance_lowres.m2",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 651558,
+      "path": "interface\\glues\\models\\ui_horde_lowres\\ui_horde_lowres.m2",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4510263,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4510264,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4510265,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4510266,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4562672,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4705407,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705407.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4705408,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705408.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 4705409,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705409.blp",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 5752243,
+      "path": "world\\generic\\passivedoodads\\deathskeletons\\earthendeathskeleton.m2",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    },
+    {
+      "file_data_id": 5797525,
+      "path": "interface\\glues\\models\\ui_earthen\\ui_earthen.m2",
+      "reason": "not part of the initial Earthen-safe asset slice"
+    }
+  ]
+}

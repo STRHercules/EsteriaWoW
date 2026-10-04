@@ -1,0 +1,46 @@
+# Verified against Retail 12.1.0.69933 on 2026-09-28.
+# This file contains identifiers and paths only, never Blizzard asset bytes.
+
+slug = "maghar"
+name = "Mag'har Orc"
+retail_client_file_string = "MagharOrc"
+retail_race_id = 36
+retail_product = "wow"
+verified_retail_build = "12.1.0.69933"
+path_prefix = "custom\\maghar"
+
+[models.male]
+chr_model_id = 71
+display_id = 84558
+core_model_file_data_id = 917116
+core_model_path = "character\\orc\\male\\orcmale_hd.m2"
+retail_skeleton_file_data_id = 4690417
+fallback_race_id = 2
+
+[models.female]
+chr_model_id = 72
+display_id = 84560
+core_model_file_data_id = 949470
+core_model_path = "character\\orc\\female\\orcfemale_hd.m2"
+retail_skeleton_file_data_id = 4690416
+fallback_race_id = 2
+
+[models.male_upright]
+core_model_file_data_id = 1968587
+core_model_path = "character\\orc\\male\\orcmaleupright.m2"
+
+[conversion]
+canonical_patch_root = "G:\\RetroPorterWork\\maghar\\output\\patch-root"
+converter_source_files = 276
+written_files = 439
+ok = 160
+lossy = 6
+passthrough = 273
+skipped = 9
+failed = 0
+
+[known_gaps]
+missing_creature_display_info_key = "583C5B29BF208655"
+unsupported_bone_overrides = 27
+skipped_eye_textures = 9
+direct_m2_texture_dependencies = 9

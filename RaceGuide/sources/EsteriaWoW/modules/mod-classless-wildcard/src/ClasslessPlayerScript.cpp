@@ -1,0 +1,1275 @@
+/*
+ * mod-classless-wildcard
+ * Copyright (C) 2026 Dustin Hendrickson
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
+
+#include "Chat.h"
+#include "ClasslessMgr.h"
+#include "DBCStores.h"
+#include "DatabaseEnv.h"
+#include "Duration.h"
+#include "GameTime.h"
+#include "Item.h"
+#include "Optional.h"
+#include "Pet.h"
+#include <mutex>
+#include <vector>
+#include "Player.h"
+#include "ScriptMgr.h"
+#include "SpellAuraEffects.h"
+#include "SpellDefines.h"   // SPELLVALUE_BASE_POINT0
+#include "SpellMgr.h"
+#include "SpellScript.h"
+#include "StringFormat.h"
+#include "World.h"
+
+using namespace ClasslessWildcard;
+
+class ClasslessWorldScript : public WorldScript
+{
+public:
+    ClasslessWorldScript() : WorldScript("ClasslessWorldScript", {
+        WORLDHOOK_ON_BEFORE_CONFIG_LOAD,
+        WORLDHOOK_ON_STARTUP
+    }) { }
+
+    void OnBeforeConfigLoad(bool reload) override
+    {
+        sClasslessMgr->LoadConfig(reload);
+    }
+
+    void OnStartup() override
+    {
+        sClasslessMgr->BuildLibrary();
+    }
+};
+
+class ClasslessPlayerScript : public PlayerScript
+{
+    // The last money a character SPENT, and the world tick it happened on.
+    // A class trainer takes the gold and then teaches the spell, and the
+    // module takes the spell straight back -- so without this the Hero pays
+    // for nothing. Keyed on the tick because the two happen inside one
+    // opcode: a debit from any other source is a different tick.
+    struct Spend { uint32 copper = 0; uint32 tick = 0; };
+    // Guarded for the same reason _states is: maps update on their own threads
+    // and this is one container shared by all of them. Cold enough -- a money
+    // change, not a tick -- that a plain lock costs nothing worth measuring.
+    std::mutex _lastSpendLock;
+    std::unordered_map<uint64, Spend> _lastSpend;
+
+public:
+    ClasslessPlayerScript() : PlayerScript("ClasslessPlayerScript", {
+        PLAYERHOOK_ON_CREATE,
+        PLAYERHOOK_ON_FIRST_LOGIN,
+        PLAYERHOOK_ON_LOGIN,
+        PLAYERHOOK_ON_LOGOUT,
+        PLAYERHOOK_ON_DELETE_FROM_DB,
+        PLAYERHOOK_ON_LEVEL_CHANGED,
+        PLAYERHOOK_ON_CALCULATE_TALENTS_POINTS,
+        PLAYERHOOK_CAN_LEARN_TALENT,
+        PLAYERHOOK_ON_LEARN_SPELL,
+        PLAYERHOOK_ON_MONEY_CHANGED,
+        PLAYERHOOK_ON_AFTER_UPDATE_MAX_POWER,
+        PLAYERHOOK_ON_PLAYER_IS_CLASS,
+        PLAYERHOOK_ON_PLAYER_HAS_ACTIVE_POWER_TYPE,
+        PLAYERHOOK_ON_BEFORE_GUARDIAN_INIT_STATS_FOR_LEVEL,
+        PLAYERHOOK_ON_UPDATE
+    }) { }
+
+    // Runs before the money actually moves, with the signed delta.
+    void OnPlayerMoneyChanged(Player* player, int32& amount) override
+    {
+        if (!sClasslessMgr->cfg.enabled || amount >= 0)
+            return;
+        std::lock_guard<std::mutex> spendGuard(_lastSpendLock);
+        Spend& spend = _lastSpend[player->GetGUID().GetCounter()];
+        spend.copper = uint32(-amount);
+        spend.tick = uint32(GameTime::GetGameTimeMS().count());
+    }
+
+    // "Does this Hero count as a <class> for the purposes of X?"
+    //
+    // The core asks this wherever behaviour is class-specific, tagging each
+    // question with a ClassContext. Every Hero runs one chassis (Paladin by
+    // default), so without an answer here the chassis quietly decides what a
+    // classless character may do -- a Hero could equip a Libram but never an
+    // Idol, Totem or Sigil, however much druid or shaman a build had bought.
+    //
+    // Answered only for the contexts where the chassis would otherwise take
+    // something away. std::nullopt everywhere else means "use my real class",
+    // deliberately: the untouched contexts drive Death Knight rune machinery
+    // and the stat/talent maths this module already replaces, where claiming
+    // to be every class at once breaks things rather than freeing them.
+    // Counterattack is the only thing AURA_STATE_HUNTER_PARRY feeds, so a
+    // Hero is a hunter for the parry question exactly when they hold it.
+    // Ranks, oldest first; HasSpell is a hash lookup and this runs only on a
+    // parry.
+    // Overpower's bit in the warrior family's 96-bit class mask, column 209 of
+    // Spell.dbc. Every rank of Overpower carries it and nothing else in the
+    // family does.
+    static constexpr uint32 OVERPOWER_FAMILY_FLAG = 0x00000004;
+
+    static bool OwnsCounterattack(Player const* player)
+    {
+        static constexpr uint32 COUNTERATTACK_RANKS[] =
+            { 19306, 20909, 20910, 27067, 48998, 48999 };
+        for (uint32 id : COUNTERATTACK_RANKS)
+            if (player->HasSpell(id))
+                return true;
+        return false;
+    }
+
+    // And the same question for Overpower, which is what the WARRIOR answer
+    // drives -- all of it, in three places and both directions.
+    //
+    // "Only useable after the target dodges" is not a state of its own. The
+    // core grants the warrior a COMBO POINT on the dodge (Unit.cpp, the
+    // PROC_EX_DODGE attacker branch) and Overpower carries
+    // SPELL_ATTR1_FINISHING_MOVE_DAMAGE, so NeedsComboPoints() gates it. The
+    // window is closed again by ClearComboPoints() when REACTIVE_OVERPOWER
+    // expires, and once more in ClearAllReactives.
+    //
+    // Answering yes for every Hero, as this used to, did both halves to
+    // everyone: any Hero got a combo point whenever a target dodged, which
+    // fires Overpower with no dodge of its own for anyone holding a rogue
+    // build's points -- and, five seconds after any dodge at all, wiped the
+    // combo points that build had spent its global cooldowns earning.
+    //
+    // So answer it the way the hunter question is answered: from what the Hero
+    // actually owns. A Hero who bought an Overpower line lives with warrior
+    // combo-point rules, including the wipe -- that is the ability they chose.
+    // A Hero who did not is left alone, and their points are their own.
+    //
+    // Discovered rather than listed, because the elemental variants are
+    // Overpower too: Holy Overpower and its siblings are generated into
+    // spell_dbc carrying the warrior family and Overpower's own class bit, and
+    // a hardcoded list of the four stock ranks would miss every one of them.
+    // Within SPELLFAMILY_WARRIOR that bit belongs to Overpower alone -- the
+    // only other holders in the client's table are Overpower's own NPC copies.
+    static std::vector<uint32> const& OverpowerSpells()
+    {
+        // Built once, on the first dodge a Hero lands, which is long after the
+        // spell store and spell_dbc are loaded. A `.reload spell_dbc` will not
+        // refresh it; a restart will.
+        static std::vector<uint32> const ids = []
+        {
+            std::vector<uint32> found;
+            for (uint32 id = 0; id < sSpellMgr->GetSpellInfoStoreSize(); ++id)
+                if (SpellInfo const* info = sSpellMgr->GetSpellInfo(id))
+                    if (info->SpellFamilyName == SPELLFAMILY_WARRIOR
+                        && (info->SpellFamilyFlags[0] & OVERPOWER_FAMILY_FLAG))
+                        found.push_back(id);
+            return found;
+        }();
+        return ids;
+    }
+
+    static bool OwnsOverpower(Player const* player)
+    {
+        for (uint32 id : OverpowerSpells())
+            if (player->HasSpell(id))
+                return true;
+        return false;
+    }
+
+    // Does this character have that power at all?
+    //
+    // The core asks this before every rage grant there is, and its own answer
+    // is `getPowerType() == power` -- the bar on screen. A Hero has mana, rage
+    // and energy at once and shows one of them, so the honest answer for all
+    // three is yes, and the five rage paths this module cannot hook (damage
+    // taken, absorbed damage, block, dodge and parry, and EffectEnergize for
+    // every rage-granting spell in the game) start working.
+    //
+    // Returning false is not "no": it hands the question back to the core,
+    // whose answer is the displayed bar.
+    //
+    // Nothing is asked of the character's state until it is in the world.
+    // Player::Create asks this while building a brand new character, and the
+    // state is loaded with database queries -- so before then the core's own
+    // answer stands, which is what it was doing anyway.
+    bool OnPlayerHasActivePowerType(Player const* player, Powers power) override
+    {
+        if (!sClasslessMgr->cfg.enabled || !player || !player->IsInWorld())
+            return false;
+        // bots and system accounts keep vanilla resource rules. In the world
+        // the state is already loaded, so this is a map lookup.
+        if (sClasslessMgr->IsExempt(const_cast<Player*>(player)))
+            return false;
+
+        switch (power)
+        {
+            // the three UniversalResources gives every Hero a real maximum in
+            case POWER_MANA:
+            case POWER_RAGE:
+            case POWER_ENERGY:
+                return true;
+            // Runes are per character and opt-in, so this one is read rather
+            // than assumed.
+            case POWER_RUNIC_POWER:
+                return sClasslessMgr->GetState(const_cast<Player*>(player)).runes;
+            default:
+                return false;
+        }
+    }
+
+    Optional<bool> OnPlayerIsClass(Player const* player, Classes playerClass, ClassContext context) override
+    {
+        Config const& cfg = sClasslessMgr->cfg;
+        if (!cfg.enabled)
+            return std::nullopt;
+
+        // Decide on the context BEFORE looking the character up. IsClass runs
+        // in combat paths and during login, and the state lookup can pull a
+        // character in from the database; every context we do not answer must
+        // cost nothing but this switch.
+        switch (context)
+        {
+            // Relics: Libram, Idol, Totem, Sigil and the warlock relic all
+            // live in slot 17, but the core hands that slot out only to the
+            // one class each belongs to -- in FindEquipSlot and again in
+            // CanUseItem. A Hero should be able to wear whichever matches the
+            // spells they actually bought.
+            case CLASS_CONTEXT_EQUIP_RELIC:
+            // Shields are restricted to Paladin/Warrior/Shaman. The default
+            // chassis already passes that test, but a realm configured onto
+            // any other chassis would silently lose shields.
+            case CLASS_CONTEXT_EQUIP_SHIELDS:
+            // Reactive abilities -- Overpower, Revenge, Riposte, Counterattack
+            // -- light up only when the core sets the matching aura state, and
+            // this is the ONE context where "a Hero is every class" is the
+            // wrong answer, because the core uses these questions to choose
+            // BETWEEN states that exclude each other:
+            //
+            //   dodge  Unit.cpp: `if (!IsClass(CLASS_ROGUE, ...))` sets
+            //          AURA_STATE_DEFENSE. Answering yes skipped it, so
+            //          Revenge never came up after a dodge.
+            //   parry  `if (IsClass(CLASS_HUNTER, ...))` sets HUNTER_PARRY,
+            //          else DEFENSE. Answering yes took the hunter branch, so
+            //          Revenge never came up after a parry either.
+            //   block  unconditional, which is why blocks worked and were the
+            //          only thing that did.
+            //
+            //   dodge, as the ATTACKER
+            //          `if (IsClass(CLASS_WARRIOR, ...))` grants a combo point
+            //          and starts REACTIVE_OVERPOWER; its expiry, and
+            //          ClearAllReactives, call ClearComboPoints(). That is how
+            //          "only useable after a dodge" is built, and answering yes
+            //          handed both halves to every Hero -- a free Overpower to
+            //          anyone carrying rogue combo points, and a wipe of those
+            //          points five seconds after any dodge.
+            //
+            // So answer from what the Hero actually owns. A Hero holding
+            // Counterattack is a hunter for the parry question and gets
+            // HUNTER_PARRY; everyone else gets DEFENSE and Revenge works. A
+            // Hero holding an Overpower is a warrior for the dodge question and
+            // gets the combo point and the wipe that goes with it; everyone
+            // else keeps the points they earned.
+            // Nobody is a rogue here: the rogue answer exists only to DENY
+            // the defense state on a dodge, and Riposte reads that same state,
+            // so saying no costs a Riposte holder nothing and hands Revenge
+            // back to everyone.
+            //
+            // One thing this cannot fix: a Hero who buys BOTH an Overpower and
+            // a rogue finisher shares one combo-point pool, because the core
+            // has one. Overpower's window closes by clearing it, so it clears
+            // theirs. Separating the two would mean a second pool.
+            case CLASS_CONTEXT_ABILITY_REACTIVE:
+                if (playerClass == CLASS_ROGUE)
+                    return false;
+                if (playerClass == CLASS_HUNTER)
+                {
+                    if (sClasslessMgr->IsExempt(const_cast<Player*>(player)))
+                        return std::nullopt;
+                    return OwnsCounterattack(player);
+                }
+                if (playerClass == CLASS_WARRIOR)
+                {
+                    if (sClasslessMgr->IsExempt(const_cast<Player*>(player)))
+                        return std::nullopt;
+                    return OwnsOverpower(player);
+                }
+                break;
+            // Stats are the chassis's, deliberately: the module adds its own
+            // attack and spell power on top and the addon quotes the chassis
+            // rates, so a blanket answer here would rewrite formulas it has
+            // already accounted for. Druid is the one exception worth making,
+            // and only for the three sites that ask it:
+            //
+            //   Player.cpp    the feral attack power carried on a WEAPON. Only
+            //                 the druid branch reads it, so a Hero in Cat or
+            //                 Bear got nothing at all from a feral weapon.
+            //   StatSystem    ranged attack power, which the druid branch puts
+            //                 at zero in a feral form and leaves at Agility-10
+            //                 outside one -- the same as the default branch.
+            //   StatSystem    melee attack power, which is UNREACHABLE: the
+            //                 chain tests Paladin, Death Knight and Warrior,
+            //                 then Hunter, Shaman and Rogue, before it ever
+            //                 reaches druid.
+            //
+            // That last one is what makes this safe, and it is safe only while
+            // the chassis is one of those six. A realm on a Mage or Priest
+            // chassis would fall through to the druid formula and have its
+            // melee attack power rewritten, so the answer is withheld there.
+            case CLASS_CONTEXT_STATS:
+                // Every class but druid keeps the chassis's own answer. A
+                // `break` here would fall through to the yes below and make a
+                // Hero every class at once for the attack and spell power
+                // formulas, which is the whole thing this case exists to avoid.
+                if (playerClass != CLASS_DRUID)
+                    return std::nullopt;
+                switch (player->getClass())
+                {
+                    case CLASS_PALADIN:
+                    case CLASS_DEATH_KNIGHT:
+                    case CLASS_WARRIOR:
+                    case CLASS_HUNTER:
+                    case CLASS_SHAMAN:
+                    case CLASS_ROGUE:
+                        break;                 // the melee chain stops first
+                    default:
+                        return std::nullopt;   // it would not, so say nothing
+                }
+                break;
+            // Class quests are open to every Hero in the database, but a few
+            // chains gate a scripted STEP in C++ as well, where no SQL can
+            // reach: the Moonglade gossip that hands out the druid's aquatic
+            // form quest, and the Death Knight duel quest. Without an answer
+            // here a Hero can accept a chain the module opened and then find
+            // the NPC that finishes it will not talk.
+            case CLASS_CONTEXT_QUEST:
+            // The same gossip's free flight to Moonglade, and the Acherus
+            // taxi's mount fix, which is guarded on the node id so it reaches
+            // nothing else.
+            case CLASS_CONTEXT_TAXI:
+            // Enslave Demon. The core hands a charmed DEMON to CharmAI and
+            // fixes up the class byte the client reads only when the charmer
+            // is a warlock; a Hero's enslaved demon kept its creature AI
+            // instead. Both branches are already guarded on the creature
+            // being a demon, so there is nothing else this can touch.
+            case CLASS_CONTEXT_PET_CHARM:
+                break;
+            // Runes, and only the Death Knight question, and only when Death
+            // Knight content is switched on.
+            //
+            // Three sites share this context for CLASS_DEATH_KNIGHT and they
+            // must agree: Player::InitRunes allocates m_runes, Player::Update
+            // ticks rune cooldowns through it, and Regenerate(RUNIC_POWER)
+            // refills the bar. The rune accessors dereference m_runes with no
+            // null check, so answering some and not others would allocate
+            // nothing and then read it. Answering none -- which is where this
+            // module stood -- is self-consistent but leaves a Hero who has
+            // bought a rune-cost spell casting into a null rune block.
+            //
+            // Tied to IncludeDeathKnight so a realm that does not use Death
+            // Knight abilities pays neither the allocation nor the per-tick
+            // rune loop.
+            // This context is not only the rune question. LootHandler asks it
+            // three times as `IsClass(CLASS_ROGUE, CLASS_CONTEXT_ABILITY)`
+            // before it will let anyone pick a pocket, which is why a Hero was
+            // told they had no permission to loot. The other uses are all safe
+            // to answer yes to: the shaman one scales a weapon totem enchant,
+            // the paladin one removes Righteous Fury on a spec switch, and the
+            // priest one is gated again on actually holding Spirit of
+            // Redemption. Only the Death Knight answer has to stay conditional.
+            case CLASS_CONTEXT_ABILITY:
+                if (playerClass != CLASS_DEATH_KNIGHT)
+                    break;
+                // From the character's own snapshot, NOT the live config: this
+                // same question gates both the one-time InitRunes allocation
+                // and the per-tick loop that reads the block it allocates. If
+                // a `.reload config` could change the answer underneath a
+                // logged-in character, the loop would read a block InitRunes
+                // never made.
+                return sClasslessMgr->GetState(const_cast<Player*>(player)).runes;
+            // Pets. Answered from the pet the Hero actually has, not from the
+            // class alone, because two call sites need opposite answers.
+            //
+            // Pet::IsPermanentPetFor runs an if/else chain -- warlock, then
+            // death knight, then mage -- and permanence decides the pet
+            // spellbook, the pet tab and whether owner auras reach it. A flat
+            // "yes" to warlock wins that chain every time and answers
+            // "is it a demon?" for a ghoul, so a ghoul could never be
+            // permanent. Answering per class from the pet's creature type lets
+            // the core's own chain fall through to the right branch.
+            //
+            // Meanwhile LoadPetFromDB bails out on
+            //   IsClass(DEATH_KNIGHT, PET) && !CanSeeDKPet()
+            // and CanSeeDKPet is the Master of Ghouls flag no Hero has, so
+            // claiming death knight there would stop pets loading from the
+            // database at all. That call happens while the pet is being
+            // restored and the Hero therefore has none, so returning nullopt
+            // when there is no pet keeps that path on the real class -- the
+            // hazard is closed by construction rather than by remembering.
+            case CLASS_CONTEXT_PET:
+            {
+                // answers inline below, so it checks the exemption itself
+                if (sClasslessMgr->IsExempt(const_cast<Player*>(player)))
+                    return std::nullopt;
+                Pet* pet = player->GetPet();
+                // With no pet there is nothing to read a type from, and this is
+                // exactly when taming asks: Spell::EffectTameCreature and
+                // EffectCreateTamedPet both check before the pet exists.
+                // Falling through to the chassis meant the tame finished and
+                // silently produced nothing. A Hero may keep any class's pet,
+                // so with none the answer is yes.
+                if (!pet || !pet->GetCreatureTemplate())
+                    return true;
+                uint32 const creatureType = pet->GetCreatureTemplate()->type;
+                switch (playerClass)
+                {
+                    case CLASS_WARLOCK:      return creatureType == CREATURE_TYPE_DEMON;
+                    case CLASS_DEATH_KNIGHT: return creatureType == CREATURE_TYPE_UNDEAD;
+                    case CLASS_MAGE:         return creatureType == CREATURE_TYPE_ELEMENTAL;
+                    case CLASS_HUNTER:       return creatureType == CREATURE_TYPE_BEAST;
+                    default:                 return std::nullopt;
+                }
+            }
+            default:
+                return std::nullopt;
+        }
+
+        // bots and system accounts play by vanilla class rules
+        if (sClasslessMgr->IsExempt(const_cast<Player*>(player)))
+            return std::nullopt;
+
+        return true;
+    }
+
+    // What KIND of pet is this?
+    //
+    // Pet::Create works it out from the owner's class, so on a one-chassis
+    // realm it worked it out as "none": petType stayed MAX_PET_TYPE, the core
+    // logged "Unknown type pet ... summoned by player class 2" on every
+    // summon, the pet never got UNIT_FLAG_PLAYER_CONTROLLED (no dismiss
+    // prompt), and it was not recorded as the player's current pet. The pet
+    // still appeared and still took orders, which is why it looks fine.
+    //
+    // This hook takes petType by reference and runs before that guess, so
+    // decide from the pet instead of from the owner: hunters tame beasts,
+    // every other pet a class summons -- demon, undead, elemental -- is a
+    // summoned pet. Setting it here also skips the class chain entirely, so a
+    // tamed beast cannot be mistyped as a summon.
+    void OnPlayerBeforeGuardianInitStatsForLevel(Player* player, Guardian* guardian,
+                                                 CreatureTemplate const* cinfo, PetType& petType) override
+    {
+        Config const& cfg = sClasslessMgr->cfg;
+        if (!cfg.enabled || !player || !guardian || !cinfo)
+            return;
+        if (sClasslessMgr->IsExempt(player))
+            return;
+        if (!guardian->IsPet())
+            return;
+
+        petType = (cinfo->type == CREATURE_TYPE_BEAST) ? HUNTER_PET : SUMMON_PET;
+    }
+
+    // Universal resources: every Hero keeps mana, rage AND energy pools alive
+    // simultaneously (the client already tracks all pools — druids prove it —
+    // only the chassis bar is displayed; the addon renders the off-pools).
+    // This hook fires at the end of Player::UpdateMaxPower for every power
+    // type on every stat update, so the pools can never be zeroed out.
+    void OnPlayerAfterUpdateMaxPower(Player* player, Powers& power, float& value) override
+    {
+        Config const& cfg = sClasslessMgr->cfg;
+        if (!cfg.enabled)
+            return;
+        if (sClasslessMgr->IsExempt(player)) // bots/system accounts stay vanilla
+            return;
+
+        switch (power)
+        {
+            case POWER_RAGE:
+                value = std::max(value, float(cfg.urMaxRage));
+                break;
+            case POWER_ENERGY:
+                value = std::max(value, float(cfg.urMaxEnergy));
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Put the character on the one chassis the moment it is created, so the
+    // character list, its starting stats and its saved class all agree from
+    // the very first byte written.
+    void OnPlayerCreate(Player* player) override
+    {
+        if (sClasslessMgr->cfg.enabled)
+        {
+            sClasslessMgr->EnforceChassis(player);
+            // Dress the Hero in the neutral outfit now, so the character-select
+            // screen shows it instead of the shell class's starting gear. This
+            // hook fires AFTER creation's SaveToDB already committed, so the
+            // gear change must be saved again or it silently evaporates.
+            if (sClasslessMgr->ApplyStarterGear(player))
+                player->SaveToDB(false, false);
+        }
+    }
+
+    void OnPlayerFirstLogin(Player* player) override
+    {
+        if (sClasslessMgr->cfg.enabled)
+            sClasslessMgr->HandleFirstLogin(player);
+    }
+
+    void OnPlayerLogin(Player* player) override
+    {
+        Config const& cfg = sClasslessMgr->cfg;
+        if (!cfg.enabled)
+            return;
+
+        // characters that predate the module, or predate a chassis change,
+        // convert here on their next login
+        sClasslessMgr->EnforceChassis(player);
+
+        sClasslessMgr->HandleLogin(player);
+
+        // InitTalentForLevel hands out (ceiling - used) free points whenever the
+        // core recalculates, and it recalculates on login. Spending them is
+        // refused by OnPlayerCanLearnTalent, but the number itself should read
+        // zero, so take them straight back.
+        if (!sClasslessMgr->IsExempt(player))
+            player->SetFreeTalentPoints(0);
+
+        // A Hero may keep an undead pet, so let them see one.
+        //
+        // CanSeeDKPet is the Master of Ghouls flag, and the core leans on it
+        // twice: LoadPetFromDB refuses to restore a pet for anyone who counts
+        // as a Death Knight without it, and the character-select screen hides
+        // a stored ghoul. Since the module answers the Death Knight pet
+        // question for a Hero holding an undead pet, leaving the flag off
+        // would let that refusal fire while a ghoul is already out and block
+        // the next pet from loading. Setting it makes the check moot in the
+        // right direction and shows the ghoul on the login screen besides.
+        if (!sClasslessMgr->IsExempt(player))
+            player->SetShowDKPet(true);
+
+        // Restore the saved main-bar choice once the login stat pass has
+        // settled. The chassis owns the mana pool itself -- it is a real class
+        // with a real base mana, so there is nothing here to build.
+        if (!sClasslessMgr->IsExempt(player))
+            player->m_Events.AddEventAtOffset([player]()
+            {
+                sClasslessMgr->ApplyDisplayPower(player); // saved bar choice
+            }, 2s);
+    }
+
+    // A deleted character has to take its module rows with it.
+    //
+    // ObjectMgr::SetHighestGuids sets the player GUID counter to MAX(guid) + 1
+    // at EVERY startup, so deleting the highest character and restarting hands
+    // that same GUID to the next character created. Without this, that new
+    // character would load the deleted Hero's abilities, talents, essence,
+    // stat allocation, chosen path and reroll cooldowns -- a fresh level 1 with
+    // somebody else's level 80 build. Even where the GUID is not reused the
+    // rows would simply accumulate forever.
+    //
+    // Appended to the core's own delete transaction, so the rows go with the
+    // character or not at all.
+    void OnPlayerDeleteFromDB(CharacterDatabaseTransaction trans, uint32 guid) override
+    {
+        trans->Append("DELETE FROM cw_char_state WHERE guid = {}", guid);
+        trans->Append("DELETE FROM cw_char_abilities WHERE guid = {}", guid);
+        trans->Append("DELETE FROM cw_char_talents WHERE guid = {}", guid);
+        trans->Append("DELETE FROM cw_char_bans WHERE guid = {}", guid);
+        sClasslessMgr->UnloadState(ObjectGuid::Create<HighGuid::Player>(guid));
+    }
+
+    void OnPlayerLogout(Player* player) override
+    {
+        std::lock_guard<std::mutex> spendGuard(_lastSpendLock);
+        _lastSpend.erase(player->GetGUID().GetCounter());
+        sClasslessMgr->UnloadState(player->GetGUID());
+    }
+
+    // 2-second maintenance tick:
+    //  * universal STAT layer — fills the gaps the chassis math leaves so
+    //    every allocatable stat matters on a classless Hero:
+    //    AGI -> melee/ranged AP, INT -> spell power.
+    //    (STR->AP/block, STA->health, AGI->crit/dodge, INT->mana/spell crit
+    //    already work uniformly through the shared chassis.)
+    void OnPlayerUpdate(Player* player, uint32 p_time) override
+    {
+        Config const& cfg = sClasslessMgr->cfg;
+        if (!cfg.enabled)
+            return;
+        if (!player->IsInWorld() || !player->IsAlive())
+            return;
+
+        // The stock 3.3.5 client only shows combo points for rogues and cat
+        // druids -- Wow.exe gates GetComboPoints by class, so a Hero never SEES
+        // the points the server tracks (retail warriors had the same hidden
+        // Overpower combo points). Mirror them over the addon channel whenever
+        // they change; the addon lights its own pips from this.
+        // FindState, not GetState. GetState CREATES the entry when it is
+        // missing, and this runs for every player on every map update -- an
+        // unordered_map insert on the hottest path in the module, from
+        // whichever map thread arrived first. There is nothing to say about a
+        // character whose state has not loaded yet, so there is nothing to
+        // create either.
+        CharState* state = sClasslessMgr->FindState(player);
+        if (!state)
+            return;
+
+        {
+            CharState& cpSt = *state;
+            if (!cpSt.exempt)
+            {
+                // Report points for the CURRENT target only, matching what the
+                // client would show: combo points stay attached to the unit
+                // they were built on, so selecting another mob (or deselecting)
+                // must read as zero rather than leaving stale pips lit.
+                Unit* selected = player->GetSelectedUnit();
+                uint8 cp = selected ? player->GetComboPoints(selected) : 0;
+                if (cp != cpSt.lastComboPush)
+                {
+                    cpSt.lastComboPush = cp;
+                    PushAddon(player, Acore::StringFormat("CP|{}", uint32(cp)));
+                }
+
+                // Runes have the same problem, one step worse: the stock UI
+                // draws the rune bar only for real Death Knight characters, so
+                // a Hero with rune-cost abilities gets no way at all to see
+                // which runes are up. Mirror the block over the addon channel
+                // and let the addon draw it.
+                //
+                // Guarded by the character's own snapshot, which is exactly
+                // the condition under which InitRunes allocated the block --
+                // reading it otherwise would dereference a null pointer.
+                //
+                // And only for a Hero who has bought something that SPENDS
+                // them. Every Hero carries a rune block whether they use it or
+                // not, and six pips plus a runic bar is the tallest thing on
+                // the resource frame, so drawing it for all of them fills the
+                // frame with something most will never spend. Recomputed at
+                // most once a second: rolling an ability in or out is rare,
+                // and scanning the owned list every tick for every player
+                // online is not worth the answer.
+                if (cpSt.runes)
+                {
+                    cpSt.runeOwnAcc += p_time;
+                    if (cpSt.lastRuneOwn < 0 || cpSt.runeOwnAcc >= 1000)
+                    {
+                        cpSt.runeOwnAcc = 0;
+                        int8 own = 0;
+                        for (auto const& entry : cpSt.abilities)
+                        {
+                            SpellInfo const* info = sSpellMgr->GetSpellInfo(entry.first);
+                            if (info && (info->RuneCostID
+                                         || info->PowerType == POWER_RUNIC_POWER))
+                            {
+                                own = 1;
+                                break;
+                            }
+                        }
+                        if (own != cpSt.lastRuneOwn)
+                        {
+                            cpSt.lastRuneOwn = own;
+                            // turning ON: forget what was sent so the next
+                            // block below pushes the real state at once.
+                            // turning OFF: say so, or the row the addon has
+                            // already drawn stays until the next login.
+                            cpSt.lastRuneSig = 0xFFFFFFFF;
+                            cpSt.lastRunicBucket = 255;
+                            if (!own)
+                                PushAddon(player, "RU|0|0");
+                        }
+                    }
+                }
+
+                if (cpSt.runes && cpSt.lastRuneOwn > 0)
+                {
+                    // Summarise first, send only if it actually changed. Rune
+                    // cooldowns count down every frame, so comparing the
+                    // rendered message would send one addon message per tick
+                    // for the whole ten seconds a rune takes to come back.
+                    // The signature is what the bar SHOWS: rune types and
+                    // which are up. Runic power is handled separately below.
+                    uint32 maxRunic = player->GetMaxPower(POWER_RUNIC_POWER);
+                    uint32 runic = player->GetPower(POWER_RUNIC_POWER);
+                    uint32 sig = 0;
+                    for (uint8 i = 0; i < MAX_RUNES; ++i)
+                    {
+                        sig = sig * 8 + uint32(player->GetCurrentRune(i));
+                        sig = sig * 2 + (player->GetRuneCooldown(i) ? 0u : 1u);
+                    }
+                    uint8 bucket = maxRunic ? uint8(runic * 20 / maxRunic) : uint8(0);
+
+                    // A rune changing state is an event and redraws at once.
+                    // Runic power moves continuously, so on its own it redraws
+                    // at most once a second -- otherwise it, not the runes,
+                    // sets the message rate.
+                    cpSt.runeAcc += p_time;
+                    bool const runesChanged = (sig != cpSt.lastRuneSig);
+                    bool const runicDue = (bucket != cpSt.lastRunicBucket) && cpSt.runeAcc >= 1000;
+
+                    if (runesChanged || runicDue)
+                    {
+                        cpSt.lastRuneSig = sig;
+                        cpSt.lastRunicBucket = bucket;
+                        cpSt.runeAcc = 0;
+                        // "RU|<runic>|<maxRunic>|<type>,<ready>|... x6"
+                        std::string msg = Acore::StringFormat("RU|{}|{}", runic, maxRunic);
+                        for (uint8 i = 0; i < MAX_RUNES; ++i)
+                            msg += Acore::StringFormat("|{},{}",
+                                uint32(player->GetCurrentRune(i)),
+                                player->GetRuneCooldown(i) ? 0 : 1);
+                        PushAddon(player, msg);
+                    }
+                }
+            }
+        }
+
+        uint32& acc = state->tickAcc;
+        acc += p_time;
+        if (acc < 2000)
+            return;
+        acc %= 2000;
+
+        if (sClasslessMgr->IsExempt(player))
+            return;
+
+        // the one FindState above already answered this, and it created
+        // nothing to do it
+        CharState& st = *state;
+
+        // A pet that was away when its spell went is not caught by the sweep in
+        // RemoveAbilityInternal: mounting temporarily unsummons it, so a Hero
+        // who rerolls Summon Imp while mounted has no pet to send home at that
+        // moment and gets the imp back on dismounting. Costs a map lookup and a
+        // known-spell check every two seconds.
+        sClasslessMgr->DismissOrphanedSummons(player);
+
+        // Player::InitDataForForm resets the displayed power to the CLASS's own
+        // whenever a shapeshift starts or ends, and a warrior stance counts --
+        // so a Hero who picked the rage bar was put back on mana the first time
+        // they used Battle Stance. Cat, Ghoul, Bear and Dire Bear are the forms
+        // the core gives a power type of their own; in anything else, including
+        // no form at all, the Hero's own choice stands.
+        if (st.displayPower != 255)
+        {
+            switch (player->GetShapeshiftForm())
+            {
+                case FORM_CAT:
+                case FORM_GHOUL:
+                case FORM_BEAR:
+                case FORM_DIREBEAR:
+                    break;
+                default:
+                    sClasslessMgr->ApplyDisplayPower(player);
+                    break;
+            }
+        }
+
+        // The universal stat layer. Not optional: on one chassis, Agility and
+        // Intellect do nothing for most builds without it, and a Hero who spent
+        // points there would have spent them on nothing.
+        {
+            int32 agi = int32(player->GetStat(STAT_AGILITY));
+            int32 intel = int32(player->GetStat(STAT_INTELLECT));
+            int32 meleeAP = int32(agi * cfg.usMeleeAPPerAgi);
+            int32 rangedAP = int32(agi * cfg.usRangedAPPerAgi);
+            int32 spellPower = int32(std::max<int32>(0, intel - 10) * cfg.usSpellPowerPerInt);
+
+            if (meleeAP != st.usMeleeAP)
+            {
+                player->HandleStatFlatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_VALUE, float(meleeAP - st.usMeleeAP), true);
+                st.usMeleeAP = meleeAP;
+            }
+            if (rangedAP != st.usRangedAP)
+            {
+                player->HandleStatFlatModifier(UNIT_MOD_ATTACK_POWER_RANGED, TOTAL_VALUE, float(rangedAP - st.usRangedAP), true);
+                st.usRangedAP = rangedAP;
+            }
+            if (spellPower != st.usSpellPower)
+            {
+                player->ApplySpellPowerBonus(spellPower - st.usSpellPower, true);
+                st.usSpellPower = spellPower;
+            }
+        }
+
+    }
+
+    void OnPlayerLevelChanged(Player* player, uint8 oldLevel) override
+    {
+        if (sClasslessMgr->cfg.enabled)
+            sClasslessMgr->HandleLevelUp(player, oldLevel);
+        // a level-up recalculates the points, so put them back to zero
+        if (sClasslessMgr->cfg.enabled && !sClasslessMgr->IsExempt(player))
+            player->SetFreeTalentPoints(0);
+    }
+
+    // Talents flow through the module — suppress the native talent frame
+    // economy (except for exempt bot/system accounts, which play vanilla).
+    //
+    // Report the points the Hero has ALREADY SPENT, not zero. Two things
+    // depend on it:
+    //
+    //   * InitTalentForLevel does `if (m_usedTalentCount > talentPointsForLevel)
+    //     resetTalents(true)` — with zero here, the first talent the module
+    //     records would wipe every talent the character owns on the next
+    //     level-up or login.
+    //   * The other branch is `SetFreeTalentPoints(talentPointsForLevel -
+    //     m_usedTalentCount)`, and free points have to stay at zero or the
+    //     stock frame runs a second talent economy beside this one.
+    //
+    // The exact used count would satisfy both at once, but m_usedTalentCount is
+    // protected and the module cannot read it; deriving it from the module's own
+    // state would be a guess that costs a character every talent it owns if the
+    // two ever disagree by one — at login, mid-respec, or in any order the core
+    // decides to call this. So report a ceiling no Hero can reach, which makes
+    // the reset branch unreachable, and put the free points back to zero
+    // wherever the module can reach them (below, and after every grant). The
+    // stock frame is refused by OnPlayerCanLearnTalent regardless, so the worst
+    // case is a number in a window the module replaces.
+    static constexpr uint32 TALENT_POINT_CEILING = 500;
+
+    void OnPlayerCalculateTalentsPoints(Player const* player, uint32& talentPointsForLevel) override
+    {
+        if (!sClasslessMgr->cfg.enabled)
+            return;
+        if (sClasslessMgr->IsExempt(const_cast<Player*>(player)))
+            return;
+        talentPointsForLevel = TALENT_POINT_CEILING;
+    }
+
+
+    bool OnPlayerCanLearnTalent(Player* player, TalentEntry const* /*talent*/, uint32 /*rank*/) override
+    {
+        if (!sClasslessMgr->cfg.enabled)
+            return true;
+        return sClasslessMgr->IsExempt(player);
+    }
+
+    // Class trainers (and quest rewards) would bypass the essence/roll economy:
+    // a Warrior chassis could still buy warrior spells for gold. When a
+    // class-library spell is learned outside the module, revert it and point
+    // the player at the Hero Advancement system instead.
+    void OnPlayerLearnSpell(Player* player, uint32 spellID) override
+    {
+        using namespace ClasslessWildcard;
+
+        Config const& cfg = sClasslessMgr->cfg;
+        if (!cfg.enabled)
+            return;
+        if (sClasslessMgr->IsApplyingGrant())
+            return; // our own grant
+        if (!player->IsInWorld())
+            return; // character-creation starter spells
+        if (sClasslessMgr->IsExempt(player))
+            return; // bot/system accounts learn spells normally
+
+        if (SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellID);
+            spellInfo && spellInfo->HasAura(SPELL_AURA_MOUNTED))
+        {
+            sClasslessMgr->SyncSpellbookTabs(player);
+            return;
+        }
+
+        for (uint32 allowed : cfg.proficiencySpells)
+            if (allowed == spellID)
+                return;
+
+        AbilityEntry const* e = sClasslessMgr->FindAbilityBySpell(spellID);
+        if (!e)
+            return; // not part of the classless library (professions, mounts, ...)
+
+        CharState& st = sClasslessMgr->GetState(player);
+        if (st.mode == Mode::Unchosen || st.abilities.count(e->firstSpellId))
+            return; // no mode yet, or a rank of a line the Hero legitimately owns
+
+        // A class trainer takes the gold in Trainer::TeachSpell and teaches the
+        // spell immediately afterwards, so by the time this fires the Hero has
+        // already paid for something they are about to lose. Give it back.
+        // Only a debit from this same world tick counts, which is the one the
+        // trainer just took: the two happen inside a single opcode.
+        uint32 refund = 0;
+        std::lock_guard<std::mutex> spendGuard(_lastSpendLock);
+        if (auto itr = _lastSpend.find(player->GetGUID().GetCounter()); itr != _lastSpend.end())
+            if (itr->second.tick == uint32(GameTime::GetGameTimeMS().count()))
+            {
+                refund = itr->second.copper;
+                itr->second.copper = 0;   // never refund the same payment twice
+            }
+
+        // revert after the learn completes (safe outside the learn call stack)
+        uint32 firstSpell = e->firstSpellId;
+        player->m_Events.AddEventAtOffset([player, firstSpell, refund]()
+        {
+            AbilityEntry const* entry = sClasslessMgr->GetAbility(firstSpell);
+            if (!entry)
+                return;
+            for (uint32 rankSpell : entry->ranks)
+                if (player->HasSpell(rankSpell))
+                    player->removeSpell(rankSpell, SPEC_MASK_ALL, false);
+            if (refund)
+                player->ModifyMoney(int32(refund));
+            ChatHandler(player->GetSession()).SendSysMessage(
+                refund
+                ? "|cff00ccff[Classless]|r That spell is managed by the classless system. Your money has been "
+                  "returned. Learn it through the Hero Advancement NPC (or /cw) instead of a class trainer."
+                : "|cff00ccff[Classless]|r That spell is managed by the classless system. Learn it through the "
+                  "Hero Advancement NPC (or /cw) instead of a class trainer.");
+        }, 1ms);
+    }
+};
+
+// There was a spell script here that waived SPELL_FAILED_NO_POWER for any
+// ability drawing on a pool other than the displayed one. It did nothing, and
+// it must not be brought back:
+//
+//   * Spell::CheckCast calls the OnSpellCheckCast hook as its FIRST statement,
+//     with the result still SPELL_CAST_OK, so no check has run yet and the
+//     failure it was looking for can never be seen.
+//   * Nothing is missing. Spell::CheckPower reads the pool the SPELL uses, not
+//     the one on the unit frame, and RegenerateAll refills energy and mana for
+//     every class while the module keeps rage flowing. A Hero with rage casts
+//     rage abilities; a Hero without rage should not.
+//   * Had it worked it would have been a hole: every off-chassis ability would
+//     have been castable on an empty pool, which is most of a classless build.
+
+
+// =====================================================================
+// Stock spells that ask which bar you are showing
+//
+// A Hero has mana, rage and energy at once and the client can only draw one of
+// them, so "what power type are you" is a question about a UI limit, not about
+// the character. Most of the core asks it through HasActivePowerType, which
+// this module answers; these two ask getPowerType() directly and hand back
+// nothing when the answer is not the one they wanted.
+//
+// Both are the core's own implementation with that one question replaced. The
+// module takes the spell_script_names binding over from the core script rather
+// than adding a second script, because CheckProc handlers are ANDed across
+// every script on an aura -- the core's `false` would veto the proc whatever a
+// second script said.
+// =====================================================================
+namespace
+{
+    // Stock ids, stable since 3.3.5.
+    constexpr uint32 SPELL_FRENZIED_REGENERATION_HEAL = 22845;
+    constexpr uint32 SPELL_JUDGEMENT_OF_WISDOM_MANA = 20268;
+
+    // Does this character use that resource? For a Hero the pool answers, not
+    // the bar. Anyone the module leaves alone keeps the core's own test, so a
+    // bot or an exempt character behaves exactly as it did.
+    bool UsesPower(Unit* unit, Powers power)
+    {
+        if (!unit)
+            return false;
+        if (Player* player = unit->ToPlayer())
+            if (sClasslessMgr->cfg.enabled && !sClasslessMgr->IsExempt(player))
+                return player->GetMaxPower(power) > 0;
+        return unit->getPowerType() == power;
+    }
+}
+
+// 22842 - Frenzied Regeneration
+class spell_cw_frenzied_regeneration : public AuraScript
+{
+    PrepareAuraScript(spell_cw_frenzied_regeneration);
+
+    void HandlePeriodic(AuraEffect const* aurEff)
+    {
+        Unit* target = GetTarget();
+        if (!UsesPower(target, POWER_RAGE))
+            return;
+
+        uint32 rage = target->GetPower(POWER_RAGE);
+        if (!rage)
+            return;
+
+        int32 const mod = std::min(static_cast<int32>(rage), 100);
+        int32 const points = GetSpellInfo()->Effects[EFFECT_1].CalcValue(target);
+        int32 const regen = CalculatePct(target->GetMaxHealth(), points * mod / 100.f);
+        target->CastCustomSpell(SPELL_FRENZIED_REGENERATION_HEAL, SPELLVALUE_BASE_POINT0,
+                                regen, target, true, nullptr, aurEff);
+        target->SetPower(POWER_RAGE, rage - mod);
+    }
+
+    void Register() override
+    {
+        OnEffectPeriodic += AuraEffectPeriodicFn(spell_cw_frenzied_regeneration::HandlePeriodic,
+                                                 EFFECT_0, SPELL_AURA_PERIODIC_DUMMY);
+    }
+};
+
+// 20186 - Judgement of Wisdom, the debuff that pays the attacker
+class spell_cw_judgement_of_wisdom : public AuraScript
+{
+    PrepareAuraScript(spell_cw_judgement_of_wisdom);
+
+    bool CheckProc(ProcEventInfo& eventInfo)
+    {
+        return UsesPower(eventInfo.GetActor(), POWER_MANA);
+    }
+
+    void HandleProc(AuraEffect const* aurEff, ProcEventInfo& eventInfo)
+    {
+        PreventDefaultAction();
+
+        Unit* attacker = eventInfo.GetActor();
+        if (!attacker)
+            return;
+
+        SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(SPELL_JUDGEMENT_OF_WISDOM_MANA);
+        if (!spellInfo)
+            return;
+
+        int32 bp = int32(CalculatePct(attacker->GetCreateMana(),
+                                      spellInfo->Effects[EFFECT_0].CalcValue()));
+        attacker->CastCustomSpell(attacker, SPELL_JUDGEMENT_OF_WISDOM_MANA, &bp, nullptr, nullptr,
+                                  true, nullptr, aurEff, GetCasterGUID());
+    }
+
+    void Register() override
+    {
+        DoCheckProc += AuraCheckProcFn(spell_cw_judgement_of_wisdom::CheckProc);
+        OnEffectProc += AuraEffectProcFn(spell_cw_judgement_of_wisdom::HandleProc,
+                                         EFFECT_0, SPELL_AURA_DUMMY);
+    }
+};
+
+// 61013 - Warlock Pet Scaling 05, 61017 - Hunter Pet Scaling 04
+//
+// How much of the owner's hit and expertise a pet inherits. The core picks the
+// source with `IsClass(CLASS_HUNTER, ...)` and then `getPowerType()` -- the bar
+// the player happens to be SHOWING. A Hero has mana, rage and energy at once
+// and chooses which one is on the main bar, so a pet's hit and expertise moved
+// every time its owner clicked a mini-bar.
+//
+// The third spell in this file with that fault, and the same fix: ask the pool
+// rather than the bar. The class test goes the same way -- what it stands in
+// for is "is this a hunter's pet", which the pet itself can answer, so a Hero
+// with a tamed beast inherits ranged hit the way a hunter does whatever the
+// chassis is.
+//
+// Everything else is the core's own script, copied so the binding can be taken
+// over whole: spell_script_names is a multimap and both scripts would otherwise
+// calculate, with the loser's answer landing second.
+class spell_cw_pet_hit_expertise_scaling : public AuraScript
+{
+    PrepareAuraScript(spell_cw_pet_hit_expertise_scaling);
+
+    static int32 Percent(float hitChance, float cap, float maxChance)
+    {
+        return int32((hitChance / cap) * maxChance);
+    }
+
+    // `maxChance` is the effect's own ceiling: 8 for hit, 17 for spell hit,
+    // 26 for expertise, exactly as the core passes them.
+    int32 Inherited(float maxChance)
+    {
+        Unit* pet = GetUnitOwner();
+        Player* modOwner = pet ? pet->GetSpellModOwner() : nullptr;
+        if (!modOwner)
+            return 0;
+
+        bool hunterPet = false;
+        if (Pet const* asPet = pet->ToPet())
+            hunterPet = asPet->getPetType() == HUNTER_PET;
+
+        if (hunterPet || modOwner->IsClass(CLASS_HUNTER, CLASS_CONTEXT_STATS))
+            return Percent(modOwner->m_modRangedHitChance, 8.0f, maxChance);
+        if (UsesPower(modOwner, POWER_MANA))
+            return Percent(modOwner->m_modSpellHitChance, 17.0f, maxChance);
+        return Percent(modOwner->m_modMeleeHitChance, 8.0f, maxChance);
+    }
+
+    void CalculateHitAmount(AuraEffect const* /*aurEff*/, int32& amount, bool& /*recalc*/)
+    {
+        amount = Inherited(8.0f);
+    }
+
+    void CalculateSpellHitAmount(AuraEffect const* /*aurEff*/, int32& amount, bool& /*recalc*/)
+    {
+        amount = Inherited(17.0f);
+    }
+
+    void CalculateExpertiseAmount(AuraEffect const* /*aurEff*/, int32& amount, bool& /*recalc*/)
+    {
+        amount = Inherited(26.0f);
+    }
+
+    void HandleEffectApply(AuraEffect const* aurEff, AuraEffectHandleModes /*mode*/)
+    {
+        GetUnitOwner()->ApplySpellImmune(GetId(), IMMUNITY_STATE, aurEff->GetAuraType(), true,
+                                         SPELL_BLOCK_TYPE_POSITIVE);
+    }
+
+    void CalcPeriodic(AuraEffect const* /*aurEff*/, bool& isPeriodic, int32& amplitude)
+    {
+        if (!GetUnitOwner()->IsPet())
+            return;
+
+        isPeriodic = true;
+        amplitude = 3 * IN_MILLISECONDS;
+    }
+
+    void HandlePeriodic(AuraEffect const* aurEff)
+    {
+        PreventDefaultAction();
+        GetEffect(aurEff->GetEffIndex())->RecalculateAmount();
+    }
+
+    void Register() override
+    {
+        DoEffectCalcAmount += AuraEffectCalcAmountFn(
+            spell_cw_pet_hit_expertise_scaling::CalculateHitAmount, EFFECT_0, SPELL_AURA_MOD_HIT_CHANCE);
+        DoEffectCalcAmount += AuraEffectCalcAmountFn(
+            spell_cw_pet_hit_expertise_scaling::CalculateSpellHitAmount, EFFECT_1, SPELL_AURA_MOD_SPELL_HIT_CHANCE);
+        DoEffectCalcAmount += AuraEffectCalcAmountFn(
+            spell_cw_pet_hit_expertise_scaling::CalculateExpertiseAmount, EFFECT_2, SPELL_AURA_MOD_EXPERTISE);
+
+        OnEffectApply += AuraEffectApplyFn(
+            spell_cw_pet_hit_expertise_scaling::HandleEffectApply, EFFECT_ALL, SPELL_AURA_ANY,
+            AURA_EFFECT_HANDLE_REAL);
+        DoEffectCalcPeriodic += AuraEffectCalcPeriodicFn(
+            spell_cw_pet_hit_expertise_scaling::CalcPeriodic, EFFECT_ALL, SPELL_AURA_ANY);
+        OnEffectPeriodic += AuraEffectPeriodicFn(
+            spell_cw_pet_hit_expertise_scaling::HandlePeriodic, EFFECT_ALL, SPELL_AURA_ANY);
+    }
+};
+
+// 5019 - Shoot, the wand attack
+//
+// The core gives the shot the WAND's own damage school -- fire, shadow,
+// arcane -- but only for CLASSMASK_WAND_USERS, which is mage, priest and
+// warlock. That is a raw class mask with no hook behind it, so a Hero's wand
+// fired as PHYSICAL (Shoot's own school is 1) and had its damage cut by the
+// target's armour however elemental the wand was. The module teaches wand
+// proficiency and Shoot on purpose, so Heroes do carry them.
+//
+// Only fills the gap: a real wand user already has the core's override, and
+// this leaves them alone rather than doing it twice.
+
+// -49182 Blade Barrier, and -49208 / -49467 / -54639 Death Rune
+//
+// Four Death Knight talents a Hero can buy and could never make work. Their
+// core scripts ask `getClass() != CLASS_DEATH_KNIGHT` outright -- a raw
+// comparison with no hook behind it -- and return before touching a rune, so
+// Blade Barrier never procs and Blood of the North, Reaping and Death Rune
+// Mastery never convert a rune. Everything else in them already works for a
+// Hero: the module allocates m_runes, ticks their cooldowns and refills runic
+// power, all off CLASS_CONTEXT_ABILITY.
+//
+// These are the core's own implementations with that one question asked the way
+// the rest of the module asks it. A real Death Knight answers yes through the
+// core, a Hero answers yes through this module when Death Knight content is on,
+// and anyone else answers no and keeps the core's behaviour exactly -- which
+// matters, because the rune accessors dereference m_runes with no null check
+// and a player without runes must never reach them.
+class spell_cw_dk_blade_barrier : public AuraScript
+{
+    PrepareAuraScript(spell_cw_dk_blade_barrier);
+
+    bool CheckProc(ProcEventInfo& eventInfo)
+    {
+        if (eventInfo.GetSpellInfo())
+            if (Player* player = eventInfo.GetActor()->ToPlayer())
+                if (player->IsClass(CLASS_DEATH_KNIGHT, CLASS_CONTEXT_ABILITY)
+                    && player->IsBaseRuneSlotsOnCooldown(RUNE_BLOOD))
+                    return true;
+
+        return false;
+    }
+
+    void Register() override
+    {
+        DoCheckProc += AuraCheckProcFn(spell_cw_dk_blade_barrier::CheckProc);
+    }
+};
+
+class spell_cw_dk_death_rune : public AuraScript
+{
+    PrepareAuraScript(spell_cw_dk_death_rune);
+
+    bool Load() override
+    {
+        Player* owner = GetUnitOwner() ? GetUnitOwner()->ToPlayer() : nullptr;
+        return owner && owner->IsClass(CLASS_DEATH_KNIGHT, CLASS_CONTEXT_ABILITY);
+    }
+
+    bool CheckProc(ProcEventInfo& eventInfo)
+    {
+        Unit* caster = eventInfo.GetActor();
+        if (!caster || !caster->IsPlayer())
+            return false;
+
+        return caster->ToPlayer()->IsClass(CLASS_DEATH_KNIGHT, CLASS_CONTEXT_ABILITY);
+    }
+
+    void HandleProc(ProcEventInfo& eventInfo)
+    {
+        Player* player = eventInfo.GetActor()->ToPlayer();
+        AuraEffect* aurEff = GetEffect(EFFECT_0);
+        if (!aurEff)
+            return;
+
+        // Reset amplitude - set death rune remove timer to 30s
+        aurEff->ResetPeriodic(true);
+
+        uint32 runesLeft = 1;
+        // Death Rune Mastery (SpellIconID 2622)
+        if (GetSpellInfo()->SpellIconID == 2622)
+            runesLeft = 2;
+
+        for (uint8 i = 0; i < MAX_RUNES && runesLeft; ++i)
+        {
+            if (GetSpellInfo()->SpellIconID == 2622)
+            {
+                if (player->GetBaseRune(i) == RUNE_BLOOD)
+                    continue;
+            }
+            else
+            {
+                if (player->GetBaseRune(i) != RUNE_BLOOD)
+                    continue;
+            }
+
+            // Check if rune just went on cooldown
+            if (player->GetRuneCooldown(i) != player->GetRuneBaseCooldown(i, false))
+                continue;
+
+            --runesLeft;
+            player->AddRuneByAuraEffect(i, RUNE_DEATH, aurEff);
+        }
+    }
+
+    void PeriodicTick(AuraEffect const* aurEff)
+    {
+        if (Player* player = GetTarget() ? GetTarget()->ToPlayer() : nullptr)
+            player->RemoveRunesByAuraEffect(aurEff);
+    }
+
+    void Register() override
+    {
+        DoCheckProc += AuraCheckProcFn(spell_cw_dk_death_rune::CheckProc);
+        OnProc += AuraProcFn(spell_cw_dk_death_rune::HandleProc);
+        OnEffectPeriodic += AuraEffectPeriodicFn(spell_cw_dk_death_rune::PeriodicTick,
+                                                 EFFECT_0, SPELL_AURA_PERIODIC_DUMMY);
+    }
+};
+
+void AddClasslessPlayerScripts()
+{
+    new ClasslessWorldScript();
+    new ClasslessPlayerScript();
+    RegisterSpellScript(spell_cw_frenzied_regeneration);
+    RegisterSpellScript(spell_cw_judgement_of_wisdom);
+    RegisterSpellScript(spell_cw_pet_hit_expertise_scaling);
+    RegisterSpellScript(spell_cw_dk_blade_barrier);
+    RegisterSpellScript(spell_cw_dk_death_rune);
+}

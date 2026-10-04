@@ -1,0 +1,38 @@
+# Highmountain Tauren Retail source manifest
+# Verified against Retail 12.1.0.69933 on 2026-09-28.
+
+slug = "highmountain"
+retail_name = "Highmountain Tauren"
+retail_client_file_string = "HighmountainTauren"
+retail_race_id = 28
+fallback_race_id = 6
+asset_root = "character\\highmountaintauren\\"
+path_prefix = "custom\\highmountain"
+
+[male]
+chr_model_id = 55
+display_id = 75080
+model_file_data_id = 1630218
+model_path = "character\\highmountaintauren\\male\\highmountaintaurenmale.m2"
+skeleton_file_data_id = 4690423
+
+[female]
+chr_model_id = 56
+display_id = 75081
+model_file_data_id = 1630402
+model_path = "character\\highmountaintauren\\female\\highmountaintaurenfemale.m2"
+skeleton_file_data_id = 4690422
+
+[conversion]
+selected_assets = 181
+unsupported_bone_assets = 9
+written_files = 279
+m2_files = 2
+skin_files = 2
+anim_files = 103
+blp_files = 172
+ok = 103
+lossy = 4
+passthrough = 172
+skipped = 7
+failed = 0

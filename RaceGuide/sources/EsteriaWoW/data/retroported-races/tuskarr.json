@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "slug": "tuskarr",
+  "name": "Tuskarr",
+  "race_ids": [
+    55
+  ],
+  "client_file_strings": {
+    "55": "Tuskarr"
+  },
+  "source_races": {
+    "55": 3
+  },
+  "classes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "source_patch_root": "G:\\RetroPorterWork\\tuskarr\\output\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\tuskarr\\integration\\patch-root",
+  "asset_prefix": "custom\\tuskarr",
+  "models": {
+    "male": {
+      "model_id": 120059,
+      "display_id": 60050,
+      "model_path": "custom\\tuskarr\\native\\male\\tuskarrmale.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-stock-five-byte-v1",
+    "source_retail_race_ids": [
+      17
+    ],
+    "supported_genders": [
+      0
+    ],
+    "profiles": {
+      "0": {
+        "options": [
+          {
+            "label": "Skin Color",
+            "id": 169,
+            "field": 0,
+            "count": 7,
+            "factor": 1,
+            "choices": [
+              {
+                "_row_id": 2097,
+                "Name_lang": "",
+                "ID": 2097,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 0,
+                "UiOrderIndex": 0,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2098,
+                "Name_lang": "",
+                "ID": 2098,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 1,
+                "UiOrderIndex": 1,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2099,
+                "Name_lang": "",
+                "ID": 2099,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 2,
+                "UiOrderIndex": 2,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2100,
+                "Name_lang": "",
+                "ID": 2100,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 3,
+                "UiOrderIndex": 3,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2101,
+                "Name_lang": "",
+                "ID": 2101,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 4,
+                "UiOrderIndex": 4,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2102,
+                "Name_lang": "",
+                "ID": 2102,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 5,
+                "UiOrderIndex": 5,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2103,
+                "Name_lang": "",
+                "ID": 2103,
+                "ChrCustomizationOptionID": 169,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 6,
+                "UiOrderIndex": 6,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Face",
+            "id": 170,
+            "field": 1,
+            "count": 1,
+            "factor": 1,
+            "choices": [
+              {
+                "_row_id": 2104,
+                "Name_lang": "",
+                "ID": 2104,
+                "ChrCustomizationOptionID": 170,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 0,
+                "UiOrderIndex": 0,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Hair Style",
+            "id": 171,
+            "field": 2,
+            "count": 7,
+            "factor": 1,
+            "choices": [
+              {
+                "_row_id": 2105,
+                "Name_lang": "",
+                "ID": 2105,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 0,
+                "UiOrderIndex": 0,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2106,
+                "Name_lang": "",
+                "ID": 2106,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 1,
+                "UiOrderIndex": 1,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2107,
+                "Name_lang": "",
+                "ID": 2107,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 2,
+                "UiOrderIndex": 2,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2108,
+                "Name_lang": "",
+                "ID": 2108,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 3,
+                "UiOrderIndex": 3,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2109,
+                "Name_lang": "",
+                "ID": 2109,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 4,
+                "UiOrderIndex": 4,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2110,
+                "Name_lang": "",
+                "ID": 2110,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 5,
+                "UiOrderIndex": 5,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2111,
+                "Name_lang": "",
+                "ID": 2111,
+                "ChrCustomizationOptionID": 171,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 6,
+                "UiOrderIndex": 6,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Hair Color",
+            "id": 172,
+            "field": 3,
+            "count": 7,
+            "factor": 1,
+            "choices": [
+              {
+                "_row_id": 2112,
+                "Name_lang": "",
+                "ID": 2112,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 0,
+                "UiOrderIndex": 0,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2113,
+                "Name_lang": "",
+                "ID": 2113,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 1,
+                "UiOrderIndex": 1,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2114,
+                "Name_lang": "",
+                "ID": 2114,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 2,
+                "UiOrderIndex": 2,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2115,
+                "Name_lang": "",
+                "ID": 2115,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 3,
+                "UiOrderIndex": 3,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2116,
+                "Name_lang": "",
+                "ID": 2116,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 4,
+                "UiOrderIndex": 4,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2117,
+                "Name_lang": "",
+                "ID": 2117,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 5,
+                "UiOrderIndex": 5,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2118,
+                "Name_lang": "",
+                "ID": 2118,
+                "ChrCustomizationOptionID": 172,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 6,
+                "UiOrderIndex": 6,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Facial Hair",
+            "id": 173,
+            "field": 4,
+            "count": 7,
+            "factor": 1,
+            "choices": [
+              {
+                "_row_id": 2119,
+                "Name_lang": "",
+                "ID": 2119,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 146,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 0,
+                "UiOrderIndex": 0,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2120,
+                "Name_lang": "",
+                "ID": 2120,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 141,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 1,
+                "UiOrderIndex": 1,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2121,
+                "Name_lang": "",
+                "ID": 2121,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 141,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 2,
+                "UiOrderIndex": 2,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2122,
+                "Name_lang": "",
+                "ID": 2122,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 141,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 3,
+                "UiOrderIndex": 3,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2123,
+                "Name_lang": "",
+                "ID": 2123,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 141,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 4,
+                "UiOrderIndex": 4,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2124,
+                "Name_lang": "",
+                "ID": 2124,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 141,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 5,
+                "UiOrderIndex": 5,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "_row_id": 2125,
+                "Name_lang": "",
+                "ID": 2125,
+                "ChrCustomizationOptionID": 173,
+                "ChrCustomizationReqID": 141,
+                "ChrCustomizationVisReqID": 0,
+                "OrderIndex": 6,
+                "UiOrderIndex": 6,
+                "Flags": 0,
+                "AddedInPatch": 90001,
+                "SoundKitID": 0,
+                "SwatchColor": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        ],
+        "capacities": [
+          7,
+          1,
+          7,
+          7,
+          7
+        ]
+      }
+    },
+    "hide_helm": true,
+    "hide_feet": false,
+    "source_build": "12.1.0.69933"
+  }
+}

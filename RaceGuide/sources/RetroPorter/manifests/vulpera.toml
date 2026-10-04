@@ -1,0 +1,44 @@
+# Verified against installed Retail 12.1.0.69933 on 2026-10-02.
+slug = "vulpera"
+retail_name = "Vulpera"
+retail_client_file_string = "Vulpera"
+retail_race_id = 35
+asset_root = "character\\vulpera\\"
+path_prefix = "custom\\vulpera"
+source_root = "G:\\Blizzard\\World of Warcraft"
+source_product = "wow"
+source_version = "12.1.0.69933"
+source_build_key = "dcfc90fffd79ba00406ae46f5f657592"
+source_cdn_key = "43061ca8e9f0e2603c8ab50bcae97c2d"
+
+[male]
+chr_model_id = 69
+display_id = 83913
+model_file_data_id = 1890761
+model_path = "character\\vulpera\\male\\vulperamale.m2"
+char_component_texture_layout_id = 145
+
+[female]
+chr_model_id = 70
+display_id = 83914
+model_file_data_id = 1890759
+model_path = "character\\vulpera\\female\\vulperafemale.m2"
+char_component_texture_layout_id = 146
+
+[discovery]
+customization_options = 20
+customization_choices = 150
+customization_elements = 386
+customization_geosets = 52
+customization_materials = 293
+reachable_source_assets = 377
+unreadable_source_assets = 0
+direct_blte_recoveries = 22
+
+[conversion]
+written_files = 310
+m2_files = 2
+skin_files = 2
+anim_files = 102
+blp_files = 204
+failed = 0

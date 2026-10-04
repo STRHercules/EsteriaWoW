@@ -1,0 +1,61 @@
+slug: maghar_orc
+display_name: "Mag'har Orc"
+retail_race_id: 36
+target_race_id: 45
+faction: horde
+base_race: orc
+
+source:
+  model_hints:
+    - "Retail identifies Mag'har as an Orc fallback-model race. For build 12340 production, use the known-good Wrath-HD Orc2 player geometry and apply Mag'har-specific Retail materials through legacy customization DBCs. Directly converted Retail Orc M2s retain modern geoset groups and are experimental until those groups are explicitly flattened/remapped."
+  db2_tables:
+    - ChrRaces
+    - ChrRaceXChrModel
+    - ChrModel
+    - ChrCustomizationOption
+    - ChrCustomizationChoice
+    - ChrCustomizationElement
+    - ChrCustomizationGeoset
+    - ChrCustomizationMaterial
+    - ChrCustomizationReq
+    - ChrCustomizationReqChoice
+    - ChrCustomizationSkinnedModel
+    - ChrCustomizationBoneSet
+    - ChrCustomizationDisplayInfo
+    - ChrCustomizationCondModel
+
+classes:
+  - warrior
+  - hunter
+  - rogue
+  - priest
+  - shaman
+  - mage
+  - warlock
+  - death_knight
+
+customization:
+  profile: minimum_viable
+  target:
+    skin_options: 4
+    face_options: 4
+    hair_styles: 4
+    hair_colors: 4
+    facial_styles: 3
+  priorities:
+    - skin_tone
+    - face
+    - hair_style
+    - hair_color
+    - facial_hair
+    - scars
+    - tattoos
+
+starting_zone:
+  strategy: inherit
+  inherit_from: orc
+
+conversion:
+  test_as_npc_first: true
+  preserve_external_animations: true
+  allow_blender_checkpoint: true

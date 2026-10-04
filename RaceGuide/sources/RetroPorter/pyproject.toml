@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "esteria-retroporter"
+version = "0.1.0"
+description = "Repeatable Retail -> WoW 3.3.5a character retroport workflow for Esteria"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+retroporter = "retroporter.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,2615 @@
+{
+  "source_pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "models": {
+    "122738": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale.m2",
+      "result": {
+        "source": "character/tuskarr/male/tuskarrmale.m2",
+        "target": null,
+        "kind": "m2",
+        "status": "lossy",
+        "bytes_in": 1478034,
+        "bytes_out": 1424672,
+        "elapsed_ms": 202.69,
+        "source_version": "M2 v274 (chunked)",
+        "target_version": "M2 v264",
+        "notes": [
+          {
+            "level": "info",
+            "code": "m2.sequence.blendtime",
+            "message": "folded 69 split blend-in/blend-out time(s) into 3.3.5a's single blend time"
+          },
+          {
+            "level": "info",
+            "code": "m2.camera.fov",
+            "message": "camera FoV tracks flattened to scalars"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.global",
+            "message": "cleared post-Wrath global flags 0x202080"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.sequence",
+            "message": "cleared post-Wrath flag bits on 57 sequence(s)",
+            "detail": {
+              "sequences": 57
+            }
+          },
+          {
+            "level": "lossy",
+            "code": "m2.chunks.dropped",
+            "message": "dropped chunks with no 3.3.5a equivalent: LDV1 (level-of-detail data), TXAC (per-texture animation coefficients)",
+            "detail": {
+              "chunks": [
+                "LDV1",
+                "SFID.lod",
+                "TXAC"
+              ]
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.texture_coord_combos.rebuilt",
+            "message": "pointed 60 batch(es) whose texture coordinate lookup ran past the model's table (retail leaves it empty) at entries built from their shaders",
+            "detail": {
+              "batches": 60,
+              "entries": 1
+            }
+          }
+        ],
+        "extra": {
+          "name": "TuskarrMale",
+          "vertices": 5906,
+          "bones": 112,
+          "sequences": 69,
+          "textures": 3,
+          "particles": 0,
+          "skin_profiles": 2,
+          "parts": 1
+        }
+      },
+      "companions": [
+        {
+          "source": "tuskarrmale00.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 472368,
+          "bytes_in": 0,
+          "bytes_out": 86940,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 5906 verts, 8228 tris, 29 submeshes",
+          "target_version": "SKIN wotlk 5906 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 29 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 29
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 53 (the source said 0; its largest submesh uses 52 bones)",
+              "detail": {
+                "source": 0,
+                "written": 53
+              }
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale01.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 472371,
+          "bytes_in": 0,
+          "bytes_out": 87476,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 5971 verts, 8228 tris, 31 submeshes",
+          "target_version": "SKIN wotlk 5971 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 31 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 31
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 21 (the source said 0; its largest submesh uses 21 bones)",
+              "detail": {
+                "source": 0,
+                "written": 21
+              }
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0062-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472365,
+          "bytes_in": 18120,
+          "bytes_out": 18112,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "166 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 18112-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0084-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472366,
+          "bytes_in": 18520,
+          "bytes_out": 18512,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "130 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 18512-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0060-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472374,
+          "bytes_in": 36680,
+          "bytes_out": 36672,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "124 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 36672-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0133-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472376,
+          "bytes_in": 18552,
+          "bytes_out": 18544,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "130 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 18544-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0134-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472369,
+          "bytes_in": 47640,
+          "bytes_out": 47632,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "117 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 47632-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0096-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472375,
+          "bytes_in": 28408,
+          "bytes_out": 28400,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "122 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 28400-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0097-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472373,
+          "bytes_in": 15240,
+          "bytes_out": 15232,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "119 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 15232-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0129-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472364,
+          "bytes_in": 7704,
+          "bytes_out": 7696,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "120 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 7696-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0123-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472367,
+          "bytes_in": 12184,
+          "bytes_out": 12176,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "116 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 12176-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0128-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472372,
+          "bytes_in": 5576,
+          "bytes_out": 5568,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "122 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 5568-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale0098-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 472370,
+          "bytes_in": 19336,
+          "bytes_out": 19328,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "128 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19328-byte flat blob"
+            }
+          ]
+        }
+      ],
+      "source_vertices": 5906,
+      "vertices": 5906,
+      "skin_vertices": 5906,
+      "sequences": 69,
+      "events": 19,
+      "geosets": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        401,
+        402,
+        403,
+        404,
+        501,
+        502,
+        503,
+        504,
+        1002,
+        1003,
+        1004,
+        1502,
+        1802
+      ],
+      "attachments": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "texture_types": [
+        1,
+        6,
+        2
+      ]
+    },
+    "4039115": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd.m2",
+      "result": {
+        "source": "character/tuskarr/tuskarrmale_hd.m2",
+        "target": null,
+        "kind": "m2",
+        "status": "lossy",
+        "bytes_in": 7386892,
+        "bytes_out": 3432744,
+        "elapsed_ms": 370.48,
+        "source_version": "M2 v274 (chunked)",
+        "target_version": "M2 v264",
+        "notes": [
+          {
+            "level": "info",
+            "code": "m2.texture.resolved",
+            "message": "resolved 1 texture FileDataID(s) to paths",
+            "detail": {
+              "count": 1
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.sequence.blendtime",
+            "message": "folded 86 split blend-in/blend-out time(s) into 3.3.5a's single blend time"
+          },
+          {
+            "level": "info",
+            "code": "m2.camera.fov",
+            "message": "camera FoV tracks flattened to scalars"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.global",
+            "message": "cleared post-Wrath global flags 0x202080"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.sequence",
+            "message": "cleared post-Wrath flag bits on 64 sequence(s)",
+            "detail": {
+              "sequences": 64
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.lod.dropped",
+            "message": "dropped 7 Legion LOD skin reference(s); 3.3.5a only loads Model00-03.skin",
+            "detail": {
+              "count": 7
+            }
+          },
+          {
+            "level": "lossy",
+            "code": "m2.chunks.dropped",
+            "message": "dropped chunks with no 3.3.5a equivalent: LDV1 (level-of-detail data), TXAC (per-texture animation coefficients)",
+            "detail": {
+              "chunks": [
+                "LDV1",
+                "SFID.lod",
+                "TXAC"
+              ]
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.vertices.compacted",
+            "message": "dropped 80349 vertex/vertices no submesh draws, leaving 26926",
+            "detail": {
+              "dropped": 80349,
+              "kept": 26926
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.texture_coord_combos.rebuilt",
+            "message": "pointed 46 batch(es) whose texture coordinate lookup ran past the model's table (retail leaves it empty) at entries built from their shaders",
+            "detail": {
+              "batches": 46,
+              "entries": 2
+            }
+          }
+        ],
+        "extra": {
+          "name": "",
+          "vertices": 26926,
+          "bones": 138,
+          "sequences": 86,
+          "textures": 3,
+          "particles": 0,
+          "skin_profiles": 1,
+          "parts": 1
+        }
+      },
+      "companions": [
+        {
+          "source": "tuskarrmale_hd00.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 4039192,
+          "bytes_in": 0,
+          "bytes_out": 387804,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 26926 verts, 37148 tris, 46 submeshes",
+          "target_version": "SKIN wotlk 26926 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 46 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 46
+              }
+            },
+            {
+              "level": "lossy",
+              "code": "skin.batch.shader",
+              "message": "46 batch(es) referenced a shader 3.3.5a does not have; reset to the default combiner",
+              "detail": {
+                "batches": 46
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 256 (the source said 0; its largest submesh uses 84 bones)",
+              "detail": {
+                "source": 0,
+                "written": 256
+              }
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0062-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039175,
+          "bytes_in": 48264,
+          "bytes_out": 48256,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "424 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 48256-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0084-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039176,
+          "bytes_in": 63016,
+          "bytes_out": 63008,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "402 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 63008-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0060-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039177,
+          "bytes_in": 119208,
+          "bytes_out": 119200,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "412 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 119200-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0133-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039178,
+          "bytes_in": 30104,
+          "bytes_out": 30096,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "228 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 30096-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0134-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039179,
+          "bytes_in": 73512,
+          "bytes_out": 73504,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "209 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 73504-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0096-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039180,
+          "bytes_in": 37896,
+          "bytes_out": 37888,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "230 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 37888-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0097-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039181,
+          "bytes_in": 24904,
+          "bytes_out": 24896,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "197 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 24896-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0129-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039182,
+          "bytes_in": 12488,
+          "bytes_out": 12480,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "212 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 12480-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0123-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039183,
+          "bytes_in": 59336,
+          "bytes_out": 59328,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "420 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 59328-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0128-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039184,
+          "bytes_in": 9928,
+          "bytes_out": 9920,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "216 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 9920-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0098-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039185,
+          "bytes_in": 33160,
+          "bytes_out": 33152,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "234 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 33152-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0520-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039186,
+          "bytes_in": 64072,
+          "bytes_out": 64064,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "196 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 64064-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0518-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039187,
+          "bytes_in": 22840,
+          "bytes_out": 22832,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "228 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 22832-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd0522-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039188,
+          "bytes_in": 20312,
+          "bytes_out": 20304,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "210 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 20304-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd1198-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039189,
+          "bytes_in": 27256,
+          "bytes_out": 27248,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "214 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 27248-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd1196-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039190,
+          "bytes_in": 27480,
+          "bytes_out": 27472,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "214 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 27472-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrmale_hd1194-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039191,
+          "bytes_in": 26312,
+          "bytes_out": 26304,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "206 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 26304-byte flat blob"
+            }
+          ]
+        }
+      ],
+      "source_vertices": 107275,
+      "vertices": 26926,
+      "skin_vertices": 26926,
+      "sequences": 86,
+      "events": 22,
+      "geosets": [
+        0,
+        101,
+        102,
+        103,
+        104,
+        202,
+        203,
+        204,
+        205,
+        206,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        402,
+        403,
+        502,
+        503,
+        602,
+        603,
+        604,
+        605,
+        701,
+        702,
+        703,
+        704,
+        705,
+        706,
+        802,
+        803,
+        804,
+        902,
+        903,
+        904,
+        905,
+        906,
+        1002,
+        1003,
+        1004,
+        1101,
+        1102
+      ],
+      "attachments": [
+        0,
+        1,
+        2,
+        11,
+        12,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        37,
+        38
+      ],
+      "texture_types": [
+        11,
+        0,
+        12
+      ]
+    },
+    "4039116": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd.m2",
+      "result": {
+        "source": "character/tuskarr/tuskarrfemale_hd.m2",
+        "target": null,
+        "kind": "m2",
+        "status": "lossy",
+        "bytes_in": 5854820,
+        "bytes_out": 2742992,
+        "elapsed_ms": 395.99,
+        "source_version": "M2 v274 (chunked)",
+        "target_version": "M2 v264",
+        "notes": [
+          {
+            "level": "info",
+            "code": "m2.texture.resolved",
+            "message": "resolved 1 texture FileDataID(s) to paths",
+            "detail": {
+              "count": 1
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.sequence.blendtime",
+            "message": "folded 86 split blend-in/blend-out time(s) into 3.3.5a's single blend time"
+          },
+          {
+            "level": "info",
+            "code": "m2.camera.fov",
+            "message": "camera FoV tracks flattened to scalars"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.global",
+            "message": "cleared post-Wrath global flags 0x202080"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.sequence",
+            "message": "cleared post-Wrath flag bits on 64 sequence(s)",
+            "detail": {
+              "sequences": 64
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.lod.dropped",
+            "message": "dropped 7 Legion LOD skin reference(s); 3.3.5a only loads Model00-03.skin",
+            "detail": {
+              "count": 7
+            }
+          },
+          {
+            "level": "lossy",
+            "code": "m2.chunks.dropped",
+            "message": "dropped chunks with no 3.3.5a equivalent: LDV1 (level-of-detail data), TXAC (per-texture animation coefficients)",
+            "detail": {
+              "chunks": [
+                "LDV1",
+                "SFID.lod",
+                "TXAC"
+              ]
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.vertices.compacted",
+            "message": "dropped 62992 vertex/vertices no submesh draws, leaving 20327",
+            "detail": {
+              "dropped": 62992,
+              "kept": 20327
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.texture_coord_combos.rebuilt",
+            "message": "pointed 41 batch(es) whose texture coordinate lookup ran past the model's table (retail leaves it empty) at entries built from their shaders",
+            "detail": {
+              "batches": 41,
+              "entries": 2
+            }
+          }
+        ],
+        "extra": {
+          "name": "",
+          "vertices": 20327,
+          "bones": 128,
+          "sequences": 86,
+          "textures": 4,
+          "particles": 0,
+          "skin_profiles": 1,
+          "parts": 1
+        }
+      },
+      "companions": [
+        {
+          "source": "tuskarrfemale_hd00.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 4039170,
+          "bytes_in": 0,
+          "bytes_out": 300844,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 20327 verts, 29313 tris, 41 submeshes",
+          "target_version": "SKIN wotlk 20327 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 41 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 41
+              }
+            },
+            {
+              "level": "lossy",
+              "code": "skin.batch.shader",
+              "message": "41 batch(es) referenced a shader 3.3.5a does not have; reset to the default combiner",
+              "detail": {
+                "batches": 41
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 256 (the source said 0; its largest submesh uses 74 bones)",
+              "detail": {
+                "source": 0,
+                "written": 256
+              }
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0062-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039153,
+          "bytes_in": 39272,
+          "bytes_out": 39264,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "384 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 39264-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0084-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039154,
+          "bytes_in": 49704,
+          "bytes_out": 49696,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "362 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 49696-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0060-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039155,
+          "bytes_in": 97160,
+          "bytes_out": 97152,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "372 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 97152-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0133-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039156,
+          "bytes_in": 25432,
+          "bytes_out": 25424,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "208 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 25424-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0134-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039157,
+          "bytes_in": 53864,
+          "bytes_out": 53856,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "193 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 53856-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0096-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039158,
+          "bytes_in": 30120,
+          "bytes_out": 30112,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "210 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 30112-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0097-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039159,
+          "bytes_in": 17032,
+          "bytes_out": 17024,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "177 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 17024-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0129-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039160,
+          "bytes_in": 10536,
+          "bytes_out": 10528,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "190 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 10528-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0123-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039161,
+          "bytes_in": 49928,
+          "bytes_out": 49920,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "376 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 49920-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0128-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039162,
+          "bytes_in": 8712,
+          "bytes_out": 8704,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "194 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 8704-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0098-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039163,
+          "bytes_in": 26040,
+          "bytes_out": 26032,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "214 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 26032-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0520-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039164,
+          "bytes_in": 44888,
+          "bytes_out": 44880,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "176 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 44880-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0518-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039165,
+          "bytes_in": 20472,
+          "bytes_out": 20464,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "208 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 20464-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd0522-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039166,
+          "bytes_in": 17064,
+          "bytes_out": 17056,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "190 keyframe array(s) confirm the offsets are counted from the AFM2 payload, ending exactly at its end"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 17056-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd1198-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039167,
+          "bytes_in": 19240,
+          "bytes_out": 19232,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "192 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19232-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd1196-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039168,
+          "bytes_in": 19544,
+          "bytes_out": 19536,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "194 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19536-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "tuskarrfemale_hd1194-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 4039169,
+          "bytes_in": 18360,
+          "bytes_out": 18352,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "186 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 18352-byte flat blob"
+            }
+          ]
+        }
+      ],
+      "source_vertices": 83319,
+      "vertices": 20327,
+      "skin_vertices": 20327,
+      "sequences": 86,
+      "events": 22,
+      "geosets": [
+        0,
+        101,
+        102,
+        103,
+        104,
+        202,
+        203,
+        204,
+        205,
+        301,
+        302,
+        303,
+        304,
+        402,
+        403,
+        404,
+        501,
+        502,
+        503,
+        504,
+        505,
+        602,
+        603,
+        702,
+        703,
+        704,
+        802,
+        803,
+        902,
+        903,
+        1002,
+        1003,
+        1004,
+        1101,
+        1102
+      ],
+      "attachments": [
+        0,
+        1,
+        2,
+        11,
+        12,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        37,
+        38
+      ],
+      "texture_types": [
+        11,
+        0,
+        12,
+        13
+      ]
+    }
+  },
+  "textures": {
+    "122729": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_00.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.22,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122730": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_01.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.11,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122731": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_02.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.1,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122732": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_03.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.06,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122733": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_04.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122734": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_05.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_05.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122735": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\hair00_06.blp",
+      "result": {
+        "source": "character\\tuskarr\\hair00_06.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 23017,
+        "bytes_out": 23017,
+        "elapsed_ms": 0.05,
+        "source_version": "BLP2/PAL8A0 128x128 mips=8",
+        "target_version": "BLP2/PAL8A0 128x128 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122739": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_00.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.28,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122740": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_01.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.09,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122741": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_02.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122742": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_03.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122743": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_04.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122744": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_05.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_05.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122745": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_06.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefacelower00_06.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.06,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122752": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_00.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.04,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122753": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_01.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122754": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_02.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.05,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122755": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_03.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.04,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122756": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_04.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122757": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_05.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_05.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.06,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122758": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_06.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalefaceupper00_06.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 6635,
+        "bytes_out": 6635,
+        "elapsed_ms": 0.06,
+        "source_version": "BLP2/PAL8A0 128x32 mips=8",
+        "target_version": "BLP2/PAL8A0 128x32 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122765": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_00.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122766": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_01.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122767": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_02.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.04,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122768": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_03.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122769": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_04.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122770": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_05.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_05.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122771": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_06.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_06.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 12095,
+        "bytes_out": 12095,
+        "elapsed_ms": 0.05,
+        "source_version": "BLP2/PAL8A0 128x64 mips=8",
+        "target_version": "BLP2/PAL8A0 128x64 mips=8",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122772": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_00.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.13,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122773": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_01.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.14,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122774": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_02.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.09,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122775": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_03.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.09,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122776": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_04.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.12,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122777": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_05.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_05.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.07,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "122778": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_06.blp",
+      "result": {
+        "source": "character\\tuskarr\\male\\tuskarrmaleskin00_06.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 88553,
+        "bytes_out": 88553,
+        "elapsed_ms": 0.08,
+        "source_version": "BLP2/PAL8A0 256x256 mips=9",
+        "target_version": "BLP2/PAL8A0 256x256 mips=9",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (PAL8A0)"
+          }
+        ]
+      }
+    },
+    "4039174": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\armorreflect4_4039174.blp",
+      "result": {
+        "source": "character\\tuskarr\\armorreflect4_4039174.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 3916,
+        "bytes_out": 3916,
+        "elapsed_ms": 0.11,
+        "source_version": "BLP2/DXT1 64x64 mips=7",
+        "target_version": "BLP2/DXT1 64x64 mips=7",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "4039152": {
+      "path": "custom\\tuskarr\\character\\tuskarr\\armorreflect4.blp",
+      "result": {
+        "source": "character\\tuskarr\\armorreflect4.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 3916,
+        "bytes_out": 3916,
+        "elapsed_ms": 0.11,
+        "source_version": "BLP2/DXT1 64x64 mips=7",
+        "target_version": "BLP2/DXT1 64x64 mips=7",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    }
+  },
+  "files": {
+    "custom\\tuskarr\\character\\tuskarr\\hair00_00.blp": "4424ccbcefc8ff2b378446c923b8df51496a76d232de8efbd271c5f797628bce",
+    "custom\\tuskarr\\character\\tuskarr\\hair00_01.blp": "951538712c0c2cb8ba19cfc4d0ec746f938a2b5c2655dce41f234ffab0b5e3aa",
+    "custom\\tuskarr\\character\\tuskarr\\hair00_02.blp": "4c12961bb0458a09e12f6f61bb8ce0437ca254046edbf0f4c4da1b8091753405",
+    "custom\\tuskarr\\character\\tuskarr\\hair00_03.blp": "665f514eb36396d7c78e14f23eefbcea50cb2b077cd6c2db8149ea7ecac52c37",
+    "custom\\tuskarr\\character\\tuskarr\\hair00_04.blp": "99b2c06ecdba75b0b2c21b1baed76b05cb2b2b8e1b1ec1ae77c9ff19e4f3e752",
+    "custom\\tuskarr\\character\\tuskarr\\hair00_05.blp": "f79c815f9efceda1fb9c1f6c5af3dddff2da35d1d5e8727c6baa30447d4648e7",
+    "custom\\tuskarr\\character\\tuskarr\\hair00_06.blp": "bcf4767324a208ed09c4073db1fe723316a1acd363fb98b6e0a1153003af77d4",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale.m2": "08d8c6ee07cd32d3f59268c26925c3fa9caf11dd0c212ad7cd23b353a4ce6e49",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale00.skin": "d430076c40dc9fad2635f60bc2e04f2f1845f309749edac52e39d2495e9024d4",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale01.skin": "b4a58fca9356af68ca15095ac72c1d76e2978ce60c3a0b9bcc5cc1c0e25517c7",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0062-00.anim": "074bf9524d38b475ea77719dbee976ca61734bba4bfb4ad748759eee5a11d36e",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0084-00.anim": "a56c92df20b30a5ef66d9f4c6beda051f53def25b45f6ccb1cbf6cf279a63ffe",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0060-00.anim": "87fd74426ea9907554d13c846cf9cad6d8f482a08b095e06ef07519b5915e384",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0133-00.anim": "d7ae28e159c4e8f992e03c25741b181d5897625e37070f6fde58abe8661d03a4",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0134-00.anim": "648921c2332a9fa968891b214164b3ecd90927e852447f29cdf7c4ac5c4ea889",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0096-00.anim": "cfdedbdab51611481a3543a11be91bff89e91bd353e1ec2f4d5d104dc9ac8ffe",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0097-00.anim": "64d31127364e5b16d45971f9d837d93c47e1e9454e408a022f93db2387b666b6",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0129-00.anim": "016bc707c7bd32426244cf3d77640c9010453015975d2b4012d035e9d7edffd1",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0123-00.anim": "80a18fb4b671cd55e58e1f89472fd4d9f757d2a70e4f45bb3e1b454150f50bd9",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0128-00.anim": "3313666609073e3344d66ef9ea2df10244043f678fe3830a571f4138773ea9d0",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmale0098-00.anim": "f5bb30702d03e9aac4fbe7ee47a17cb89ed9c21e79df01628ef61dfd61215f65",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_00.blp": "9449a04d5fcc9709facf9582f0af67f882c098bd3a8750bba447811de3d9c6e9",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_01.blp": "b1937cee2d95ea5244d691823fab4ba968124102327496f4b5e4082203ef4e59",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_02.blp": "972e8d5f069f14e049abcd5b8177874fe4f1a252d81aadca3a2a40c804bfefe9",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_03.blp": "ca50227778e121f5b488385f5f688612ffc10c203c17da0bc896b63f90d5ea4f",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_04.blp": "8d4f9aae370b148b40aaa95d64e3f6d60f2d3c48a0bf3a148286927e085ad31e",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_05.blp": "344cf2185f3b1efbb13bddfd7540fbf35dd9fab3002ab1ead9cbb537d58f69db",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefacelower00_06.blp": "2421fedbb158b3f5114b0dbe53042e2017f2135024ceb1dd96f051e704b1face",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_00.blp": "131315ebedc3b387fe9904f7ca71cc3241edfd86aa878851f6fae586c41f6b5c",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_01.blp": "995513240040fa6fcd5caf16d6fb959d9988463aa9f43760015d874fb31060ab",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_02.blp": "62c8539e61855f3b437137ef2304761bf48c58f9723f32ebec35349de528bf01",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_03.blp": "5cdba3ab14edeb1d4575a5ee8a4d4bf77448e53165547983636362dedf03a6ad",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_04.blp": "88d76b2390f067d6a75f80ac31d60915d9ed20fc753a3eb2fe50263203e76bcc",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_05.blp": "7e814d1d4c80d28aeb1a6b20e8830f7bd479263cddc563196e91b2d7a12c4b89",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalefaceupper00_06.blp": "80859164aa9f2c24dfaf1b7626069c470c6fa37b0955772bbb0527a0f586a7b2",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_00.blp": "e1fc41866446d56e6ced79ca144e637e9cf19770fe0608d6f1cda9e2c18ae2cf",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_01.blp": "dfe069439817cebe52e55bddd05fbebeb02cc26fe971c5a0b73fca45c2447892",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_02.blp": "537a922624f226eae0b5bd54d3958c7fadf04fbbf18f38f179356ad6bffbef4f",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_03.blp": "80983cc955c803de2778ae7b955488bf684264cc12f865f22fb5d172214b256f",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_04.blp": "d5c66435f8e69ebb8e44321958927874f39391c32df3f8bf35126223f5788324",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_05.blp": "7ba34f600f2c6164942c91a995f756544a72fedc37e25d0cf634cffe8bd73b20",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmalenakedpelvisskin00_06.blp": "ec2fa77957c78965806d2ab447a827f9215588f6f28b5d0fd42743ce70ffda31",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_00.blp": "4d7bd6d11d0048676b0288f8baeea749d8b827fc5cc5799f2f5925261847876c",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_01.blp": "118e3d7627e244449f1e329a0619c2db7f16826db4421078c05833b7e6c81191",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_02.blp": "05ae046aea97df0d164ddfa92406f1bae88579dcf8292e3c74a68399f696862e",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_03.blp": "6edea4f9aa805fe433d371ac31a1b79dea9d63cbec0d0c6bf3da7bd0271d3461",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_04.blp": "bc3774eecc1cf01865633ea289c2455342a39e07be857738a1b46d035eb07fa9",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_05.blp": "f2184b0687f167cb73780e0157251b673f75f17a21662fca8f2933298fa4b816",
+    "custom\\tuskarr\\character\\tuskarr\\male\\tuskarrmaleskin00_06.blp": "21518f3c396adf14cc13ce18c22f0765e3de413fa81ca69918fb4e345297a53c",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd.m2": "43c9cbfc245a7925ba23c2e2e982f2ffddb4f05bb38a1d5b18abda85cc0ff2d7",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd00.skin": "664114a6c57429a7a1ef44a305711cea37886c5001c17fb67e8bef16da774e29",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0062-00.anim": "1b4f291e28bf41bed3541f4452d658e126f04aba49ff7b70e87664ff6cf63b08",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0084-00.anim": "56cc643ff84c458b1f13863875dda4c4044226754c64db9acc2ed5f6d686ba63",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0060-00.anim": "f8b78224fd2709a77e9029d5bd315e160a0a24b3f81a4baac88289a9c44f8498",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0133-00.anim": "246b033927161352942a7d76ebb0c3d29921dcc59d46dee0cd1806761a6a77d2",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0134-00.anim": "cb5a50ea18bb46064c065013e530bd7229a5e8fec27a5435821a2553d5fa5bc3",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0096-00.anim": "8b048dad037688a11b9608b88ba0b245153c0ae38ab215d8da27661102d0f87f",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0097-00.anim": "a6e3741d29e785f84f65fffb48cdabfad4da22cbc99c935b52f40dcebaf0785e",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0129-00.anim": "174d0022e1dc2d9b0c82e60756747be91c9d116353e38af6f8d35529fff41045",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0123-00.anim": "0af6d0a3e9b95210600af49dc5b4f793d7a0072fbfd313be8742ee0966dabb87",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0128-00.anim": "f43973d676117226971dd2f807ec3ed48ebe711448d100b60851dfb26a5f6921",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0098-00.anim": "199868bff2f143804c804a898e7e41f8c11563003d92ce85e5e3176513bf2af4",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0520-00.anim": "951c02491686e7b8d13d97ed2ced903367e9ded10a2cd56aa66d4a011da16649",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0518-00.anim": "f4494174cc98c0cf855f5636d53082faa0f0efdff44967f570bd8e77b12dafdd",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd0522-00.anim": "e16657a6e0c6a0758a6cb0d5a1515c574650c525b6bb6fb937dfb0dbfb607620",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd1198-00.anim": "81bea725971c967a17cfb3308315452f086aceb363b2218aed6ba5d7272a119e",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd1196-00.anim": "8a97b205e80c439ed831cc1883e654081cabefd0a656802034cc605d945549f8",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrmale_hd1194-00.anim": "e2db24d08f6b96f61aafc92aeee6071b1e8ad6f8b2ec4deff089f04824e1d5e8",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd.m2": "8cc6237aafa6b271ecb8a2ab04d422c816755103a89faa536b769a51b552a8c0",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd00.skin": "0a8c2df86b204dab2f3097de9e0d7f77c26b12d453869f354c98577fa5ea220b",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0062-00.anim": "44edc786aa89224cfa8d1a7d4a84cfb37d2a6a67ade8a9662fccfa0d07a2f996",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0084-00.anim": "9bebb1c15f5fe85cba8cd1d74465edd7b383c7af462137ea09f4a28d9a5d38c0",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0060-00.anim": "1ed6e73c330ea10ef1351516d0ac43b9c0a9ba6554625b056d18e37e9a0d0478",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0133-00.anim": "3a779a6d1bba35b84c320df376c990c1d52c7d2c8c75f7931619336e7330f2d5",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0134-00.anim": "fc88debd9e80e9c88155790aa7ef3a4a7eef47803ea2c63f98b9a4a1fe173316",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0096-00.anim": "8d7fa848d2ab9e5d62689f45bcf3f2268c36c6ef95ad2f303565c59ce62a5274",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0097-00.anim": "3dc85b4d28b02ddd45f907e1a14192410875c7d4535da207eacce6f611405d64",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0129-00.anim": "6cd4d3d76378b9cd849b792902e8c48fce86d10419a52368e55a9330902c60d9",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0123-00.anim": "c2f8febee0eda67685e290f21a6d867899d32ec8dd1d8b5ce9830996c51a0a44",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0128-00.anim": "071fbf520856be16bd1d09c30663f3ea38a1caffb1fe80cae1fe417b0783f2ed",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0098-00.anim": "f9221f7948e512ed38cc2c8c603dfa54833dbfb9c93997b03de053d7abc8ae8f",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0520-00.anim": "33f25757ae20dbc4a8754e0a76c3b5dd95ee3d4d7ec07930f7397fbe14559abe",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0518-00.anim": "a028c39b6ba121ac3410df6737e90d438218df82eba57c95f903fe9b464ffa56",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd0522-00.anim": "f522358ca1e99e409ad6c418e02df24f6323fc95fe8405ca537ce097fc61a944",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd1198-00.anim": "596b43a9a4c83dd32eb392a7b684c2e68de1aa139707aa9335f665ff5cdf9e56",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd1196-00.anim": "51fd50abcbbd07f395f87b0c1e346379ab8e4b3147466e93b24390af8061f467",
+    "custom\\tuskarr\\character\\tuskarr\\tuskarrfemale_hd1194-00.anim": "08a962665472997d886fcac5af4b195b542caa8107d7d5fb29e636b8474139bf",
+    "custom\\tuskarr\\character\\tuskarr\\armorreflect4_4039174.blp": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d",
+    "custom\\tuskarr\\character\\tuskarr\\armorreflect4.blp": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d"
+  },
+  "status": "assets_converted_awaiting_playable_integration"
+}

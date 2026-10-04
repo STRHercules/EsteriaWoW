@@ -1,0 +1,47 @@
+# Copy this file to races/<slug>.yaml and replace the identity values.
+slug: example_race
+display_name: "Example Race"
+retail_race_id: 1
+target_race_id: 1
+faction: neutral
+base_race: human
+
+# Global Retail product/build selection comes from sources/retail/build.yaml.
+source:
+  model_hints: []
+  db2_tables:
+    - ChrRaces
+    - ChrRaceXChrModel
+    - ChrModel
+    - ChrCustomizationOption
+    - ChrCustomizationChoice
+    - ChrCustomizationElement
+    - ChrCustomizationReq
+    - ChrCustomizationReqChoice
+    - ChrCustomizationGeoset
+    - ChrCustomizationSkinnedModel
+    - ChrCustomizationMaterial
+    - ChrCustomizationBoneSet
+    - ChrCustomizationDisplayInfo
+    - ChrCustomizationCondModel
+
+classes:
+  - warrior
+
+customization:
+  profile: minimum_viable
+  target:
+    skin_options: 4
+    face_options: 4
+    hair_styles: 4
+    hair_colors: 4
+    facial_styles: 3
+
+starting_zone:
+  strategy: inherit
+  inherit_from: human
+
+conversion:
+  test_as_npc_first: true
+  preserve_external_animations: true
+  allow_blender_checkpoint: true

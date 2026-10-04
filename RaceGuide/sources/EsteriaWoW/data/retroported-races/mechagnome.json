@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "slug": "mechagnome",
+  "name": "Mechagnome",
+  "race_ids": [47],
+  "client_file_strings": {"47": "Mechagnome"},
+  "source_race_id": 7,
+  "source_patch_root": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\mechagnome\\integration\\patch-root",
+  "asset_prefix": "custom\\mechagnome",
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "models": {
+    "male": {
+      "source_model_id": 182,
+      "source_display_id": 1563,
+      "model_path": "custom\\mechagnome\\native\\male\\mechagnomemale.m2"
+    },
+    "female": {
+      "source_model_id": 183,
+      "source_display_id": 1564,
+      "model_path": "custom\\mechagnome\\native\\female\\mechagnomefemale.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-byte-codec-v1",
+    "source_retail_race_id": 37,
+    "source_chr_models": [73, 74],
+    "face_bone_morphs": false
+  }
+}

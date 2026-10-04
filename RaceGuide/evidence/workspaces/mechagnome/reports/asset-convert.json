@@ -1,0 +1,977 @@
+{
+  "tool": "wotlkconv",
+  "target": {
+    "patch": "3.3.5a",
+    "build": 12340
+  },
+  "started": 1790837573.4603903,
+  "finished": 1790837594.1456072,
+  "elapsed_s": 20.685,
+  "counts": {
+    "skipped": 2,
+    "passthrough": 48
+  },
+  "accounting": {
+    "inputs": 50,
+    "written": 48,
+    "merged": 0,
+    "skipped": 2,
+    "failed": 0,
+    "results": 50,
+    "extra_outputs": 0
+  },
+  "files": [
+    {
+      "source": "character\\mechagnome\\male\\mechagnomemale_hair_color_3060788.blp",
+      "target": null,
+      "kind": "unknown",
+      "status": "skipped",
+      "file_id": 3060788,
+      "bytes_in": 0,
+      "bytes_out": 0,
+      "elapsed_ms": 0.0,
+      "notes": [
+        {
+          "level": "info",
+          "code": "casc.unavailable",
+          "message": "not a BLTE stream (magic b'*\\xdb\\x93S')",
+          "detail": {
+            "file_id": 3060788
+          }
+        }
+      ]
+    },
+    {
+      "source": "character\\mechagnome\\male\\mechagnomemale_paint_3060787.blp",
+      "target": null,
+      "kind": "unknown",
+      "status": "skipped",
+      "file_id": 3060787,
+      "bytes_in": 0,
+      "bytes_out": 0,
+      "elapsed_ms": 0.0,
+      "notes": [
+        {
+          "level": "info",
+          "code": "casc.unavailable",
+          "message": "not a BLTE stream (magic b'J\\x9a<\\xba')",
+          "detail": {
+            "file_id": 3060787
+          }
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261013.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261013,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.26,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261014.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261014,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.18,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261015.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261015,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261016.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261016,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.18,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261017.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261017,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.19,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261018.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261018,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.21,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261019.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261019,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.23,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261020.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261020,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.22,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261021.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261021,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.11,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261022.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261022,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.13,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261023.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261023,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.24,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261024.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261024,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.17,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261025.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261025,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.23,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261026.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261026,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.1,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261027.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261027,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.17,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261028.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261028,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.13,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261029.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261029,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.52,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261030.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261030,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.15,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261031.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261031,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.13,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261032.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261032,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.1,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261033.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261033,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261034.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261034,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.11,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261035.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261035,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261036.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261036,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.22,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261037.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261037,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.2,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261038.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261038,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261039.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261039,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.13,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261040.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261040,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.09,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261041.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261041,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.08,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261042.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261042,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261043.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261043,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.09,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261044.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261044,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.16,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261045.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261045,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261046.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261046,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.27,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261047.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261047,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.16,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261048.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261048,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.14,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261049.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261049,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.1,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261050.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261050,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.09,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261051.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261051,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.16,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261052.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261052,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261053.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261053,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/dracthyr/dracthyrdragon_eye_color_4261054.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4261054,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.08,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/human/male/humanmale_hd_eye_color_4510263.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4510263,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/human/male/humanmale_hd_eye_color_4510264.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4510264,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.08,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/human/male/humanmale_hd_eye_color_4510265.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4510265,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.11,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/human/male/humanmale_hd_eye_color_4510266.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4510266,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.11,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "character/human/male/humanmale_hd_eye_color_4562672.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 4562672,
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.08,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "item/objectcomponents/collections/gnomemaleskin00_01_extra_hd.blp",
+      "target": "G:\\RetroPorterWork\\mechagnome\\output\\patch-root\\custom\\mechagnome\\item\\objectcomponents\\collections\\gnomemaleskin00_01_extra_hd.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "file_id": 2628238,
+      "bytes_in": 1399300,
+      "bytes_out": 1399300,
+      "elapsed_ms": 2.04,
+      "source_version": "BLP2/DXT5 1024x1024 mips=11",
+      "target_version": "BLP2/DXT5 1024x1024 mips=11",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    }
+  ]
+}

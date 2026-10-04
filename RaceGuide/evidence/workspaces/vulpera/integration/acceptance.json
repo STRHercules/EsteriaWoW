@@ -1,0 +1,53 @@
+{
+  "status": "repaired_server_ready_live_client_acceptance_pending",
+  "source_complete": true,
+  "stage_validated": true,
+  "installed": true,
+  "server_ready": true,
+  "live_accepted": false,
+  "retail_parity": false,
+  "known_limits": [
+    "Two unrelated legacy helmet families have no matching Retail variants.",
+    "Helmet visibility condition32 remains undocumented.",
+    "Stock barber retains combined-value controls."
+  ],
+  "receipt": "C:\\Users\\Zach\\.codex\\tmp\\vulpera\\last-install.json",
+  "lint": {
+    "diff_whitespace": "pass",
+    "cpp_codestyle": "ran; existing repository-wide violations remain",
+    "sql_codestyle": "blocked: origin/master absent"
+  },
+  "codec_version": 2,
+  "creator_identity_check": "PASS",
+  "head_and_tail_checks": "PASS",
+  "repair_lint": {
+    "diff_whitespace": "PASS",
+    "cpp": "ran; existing unrelated repository violations remain",
+    "sql": "tool aborted on existing input/output encoding error"
+  },
+  "eye_glow_fix": {
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\vulpera-eye-glow-20261002-174715",
+    "before_sha256": "911db763aa67fddff8104a7926eb15d502e62e0866f0bc50a4c08a059180ab63",
+    "after_sha256": "c5434993b9af4a17d881965e4735cd2ac379e39c7142aac9844adff9528562d4",
+    "changed_records": [
+      [
+        0,
+        33
+      ],
+      [
+        1,
+        271
+      ]
+    ],
+    "default_glow_geoset": 1700,
+    "authored_glow_choices_preserved": [
+      14,
+      29,
+      30,
+      31,
+      32
+    ],
+    "checks": "PASS: both genders, all 33 eye colors and all four vision settings",
+    "live_visual_acceptance": "pending fresh client restart"
+  }
+}

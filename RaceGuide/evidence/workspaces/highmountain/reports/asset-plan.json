@@ -1,0 +1,1418 @@
+{
+  "race": "highmountain",
+  "path_prefix": "custom\\highmountain",
+  "selected_file_ids": [
+    1630218,
+    1630402,
+    1661635,
+    1661638,
+    1661639,
+    1661640,
+    1661641,
+    1661642,
+    1661643,
+    1661644,
+    1661645,
+    1661646,
+    1661647,
+    1661648,
+    1661649,
+    1661650,
+    1661651,
+    1661652,
+    1661653,
+    1661654,
+    1661656,
+    1661658,
+    1661659,
+    1661660,
+    1661661,
+    1661663,
+    1661664,
+    1661665,
+    1661666,
+    1661667,
+    1661668,
+    1661669,
+    1661670,
+    1661671,
+    1661672,
+    1661677,
+    1661678,
+    1661679,
+    1661680,
+    1661681,
+    1661682,
+    1661683,
+    1661684,
+    1661685,
+    1661686,
+    1661687,
+    1661688,
+    1661689,
+    1661690,
+    1661691,
+    1661692,
+    1661693,
+    1661694,
+    1661695,
+    1661696,
+    1661706,
+    1661714,
+    1661715,
+    1661716,
+    1661717,
+    1661718,
+    1661719,
+    1661720,
+    1816975,
+    1816976,
+    1816979,
+    1816980,
+    1816981,
+    1816986,
+    1845693,
+    1845694,
+    1845695,
+    1845696,
+    1845697,
+    1845698,
+    1845699,
+    1845700,
+    1845701,
+    1846287,
+    1846288,
+    1846289,
+    1846290,
+    1846291,
+    1846292,
+    1846293,
+    1846294,
+    1846295,
+    1852868,
+    1852869,
+    3649403,
+    3649404,
+    3649405,
+    3649406,
+    3649407,
+    3649408,
+    3649409,
+    4249687,
+    4249688,
+    4249689,
+    4249690,
+    4249691,
+    4249692,
+    4249693,
+    4249694,
+    4249695,
+    4249696,
+    4249702,
+    4249704,
+    4249706,
+    4249708,
+    4249710,
+    4249712,
+    4249714,
+    4249716,
+    4249719,
+    4249721,
+    4249722,
+    4249723,
+    4249724,
+    4249725,
+    4249726,
+    4249727,
+    4249728,
+    4249729,
+    4249730,
+    4249731,
+    4249732,
+    4249733,
+    4249734,
+    4249735,
+    4249736,
+    4249737,
+    4249738,
+    4249739,
+    4249740,
+    4249741,
+    4249742,
+    4249743,
+    4249744,
+    4249745,
+    4252364,
+    4252375,
+    4252376,
+    4252377,
+    4252378,
+    4252379,
+    4252380,
+    4252381,
+    4252382,
+    4252383,
+    4252384,
+    4252385,
+    4252390,
+    4252391,
+    4252392,
+    4252393,
+    4252394,
+    4252395,
+    4252396,
+    4252397,
+    4252398,
+    4252399,
+    4252400,
+    4252401,
+    4252402,
+    4252403,
+    4252404,
+    4252405,
+    4252406,
+    4252407,
+    4252408,
+    4252409,
+    4252410,
+    4252411,
+    4252412,
+    4252413,
+    4252414,
+    4252415,
+    4252416,
+    4252417,
+    4253440
+  ],
+  "selected": [
+    {
+      "file_data_id": 1630218,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale.m2",
+      "reason": "core player model"
+    },
+    {
+      "file_data_id": 1630402,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale.m2",
+      "reason": "core player model"
+    },
+    {
+      "file_data_id": 1661635,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661638,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper00_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661639,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper00_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661640,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper00_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661641,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper01_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661642,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper01_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661643,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper01_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661644,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper01_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661645,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper02_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661646,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper02_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661647,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper02_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661648,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper02_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661649,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper03_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661650,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper03_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661651,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper03_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661652,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper03_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661653,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalehorns_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661654,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalehorns_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661656,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedpelvisskin00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661658,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedpelvisskin00_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661659,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedpelvisskin00_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661660,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedpelvisskin00_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661661,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedtorsoskin00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661663,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedtorsoskin00_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661664,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedtorsoskin00_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661665,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalenakedtorsoskin00_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661666,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661667,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_00_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661668,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661669,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_01_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661670,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661671,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_02_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661672,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661677,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661678,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper00_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661679,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper00_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661680,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper00_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661681,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper01_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661682,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper01_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661683,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper01_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661684,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper01_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661685,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper02_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661686,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper02_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661687,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper02_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661688,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper02_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661689,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper03_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661690,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper03_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661691,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper03_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661692,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper03_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661693,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper04_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661694,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper04_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661695,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper04_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661696,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper04_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661706,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalenakedpelvisskin00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661714,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_00.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661715,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_00_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661716,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_01.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661717,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_01_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661718,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_02.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661719,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_02_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1661720,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_03.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1816975,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalefaceupper00_04.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1816976,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemalehorns_06.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1816979,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_03_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1816980,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_04.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1816981,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmalefaceupper00_04.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1816986,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_04.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845693,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo01_blue.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845694,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo01_green.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845695,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo01_red.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845696,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo02_blue.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845697,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo02_green.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845698,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo02_red.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845699,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo03_blue.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845700,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo03_green.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1845701,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaletattoo03_red.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846287,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo01_blue.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846288,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo01_green.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846289,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo01_red.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846290,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo02_blue.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846291,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo02_green.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846292,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo02_red.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846293,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo03_blue.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846294,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo03_green.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1846295,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaletattoo03_red.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1852868,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmaleskin00_04_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 1852869,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemaleskin00_04_extra.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649403,
+      "path": "character\\highmountaintauren\\eyes00_00_3649403.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649404,
+      "path": "character\\highmountaintauren\\eyes00_01_3649404.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649405,
+      "path": "character\\highmountaintauren\\eyes00_02_3649405.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649406,
+      "path": "character\\highmountaintauren\\eyes00_03_3649406.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649407,
+      "path": "character\\highmountaintauren\\eyes00_04_3649407.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649408,
+      "path": "character\\highmountaintauren\\eyes00_05_3649408.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 3649409,
+      "path": "character\\highmountaintauren\\eyes00_06_3649409.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249687,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249687.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249688,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249688.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249689,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249689.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249690,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249690.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249691,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249691.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249692,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249692.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249693,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249693.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249694,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249694.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249695,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249695.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249696,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249696.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249702,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249702.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249704,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249704.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249706,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249706.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249708,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249708.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249710,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249710.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249712,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249712.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249714,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249714.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249716,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249716.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249719,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249719.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249721,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249721.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249722,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249722.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249723,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249723.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249724,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249724.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249725,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249725.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249726,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_face_4249726.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249727,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249727.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249728,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249728.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249729,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249729.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249730,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249730.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249731,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249731.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249732,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249732.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249733,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249733.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249734,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249734.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249735,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249735.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249736,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_skin_color_4249736.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249737,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249737.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249738,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249738.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249739,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249739.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249740,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249740.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249741,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249741.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249742,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249742.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249743,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249743.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249744,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4249744.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4249745,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_jewelry_color_4249745.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252364,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252364.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252375,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252375.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252376,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252376.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252377,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252377.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252378,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252378.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252379,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252379.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252380,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252380.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252381,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252381.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252382,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252382.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252383,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252383.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252384,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252384.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252385,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252385.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252390,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252390.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252391,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252391.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252392,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252392.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252393,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252393.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252394,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252394.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252395,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252395.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252396,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252396.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252397,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_face_4252397.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252398,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252398.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252399,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252399.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252400,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252400.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252401,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252401.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252402,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252402.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252403,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252403.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252404,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252404.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252405,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252405.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252406,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252406.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252407,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_skin_color_4252407.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252408,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252408.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252409,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252409.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252410,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252410.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252411,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252411.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252412,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252412.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252413,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252413.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252414,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252414.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252415,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252415.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252416,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_horn_color_4252416.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4252417,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_jewelry_color_4252417.blp",
+      "reason": "Highmountain Tauren customization texture"
+    },
+    {
+      "file_data_id": 4253440,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_horn_color_4253440.blp",
+      "reason": "Highmountain Tauren customization texture"
+    }
+  ],
+  "unsupported": [
+    {
+      "file_data_id": 1630590,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_00.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630591,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_01.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630592,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_02.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630593,
+      "path": "character\\highmountaintauren\\female\\highmountaintaurenfemale_03.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630655,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_00.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630656,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_01.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630657,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_02.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630658,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_03.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 1630659,
+      "path": "character\\highmountaintauren\\male\\highmountaintaurenmale_04.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    }
+  ],
+  "ignored": [
+    {
+      "file_data_id": 623714,
+      "path": "interface\\glues\\models\\ui_horde\\ui_horde.m2",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 651558,
+      "path": "interface\\glues\\models\\ui_horde_lowres\\ui_horde_lowres.m2",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 1662239,
+      "path": "interface\\glues\\models\\ui_highmountaintauren\\ui_highmountaintauren.m2",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261013,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261014,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261015,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261016,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261017,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261018,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261019,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261020,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261021,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261022,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261023,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261024,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261025,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261026,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261027,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261028,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261029,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261030,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261031,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261032,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261033,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261034,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261035,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261036,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261037,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261038,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261039,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261040,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261041,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261042,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261043,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261044,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261045,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261046,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261047,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261048,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261049,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261050,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261051,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261052,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261053,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4261054,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4510263,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4510264,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4510265,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4510266,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4562672,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4690422,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton20.m2",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4690423,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton21.m2",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4705407,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705407.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4705408,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705408.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    },
+    {
+      "file_data_id": 4705409,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705409.blp",
+      "reason": "not part of the initial Highmountain Tauren-safe asset slice"
+    }
+  ]
+}

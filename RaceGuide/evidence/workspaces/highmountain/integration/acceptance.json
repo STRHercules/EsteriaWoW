@@ -1,0 +1,333 @@
+{
+  "status": "animation_track_repair_installed_awaiting_live_retest",
+  "target_race_id": 46,
+  "retail_race_id": 28,
+  "controls": {
+    "male": 20,
+    "female": 22
+  },
+  "source_choices": {
+    "male": 127,
+    "female": 118
+  },
+  "internal_transmog_placeholders_excluded": 6,
+  "animations": {
+    "male": 349,
+    "female": 341
+  },
+  "face_shapes": {
+    "male": {
+      "original_meshes": 124,
+      "face_meshes": 115,
+      "vertices": 64136,
+      "lookups": 64136,
+      "face_shapes": 5,
+      "model_hash": "c5f1e690fd64088a075d8154a91635c0d9e9c77ca4a9f7594fe96525590bbcc8",
+      "skin_hash": "20ce613cf45cbdec300e7f5b5b2a47646731f96b8d33c703190944fb5eacae67",
+      "inverse_transpose_normals": true
+    },
+    "female": {
+      "original_meshes": 123,
+      "face_meshes": 104,
+      "vertices": 56344,
+      "lookups": 56344,
+      "face_shapes": 4,
+      "model_hash": "952fb78111378385f6f5f8b45c58fa0373e5883ddabdf3667b6ed2edcba312d2",
+      "skin_hash": "c1ec8e10b88a715785b374cdb3ede7cd713f8b37b1bed1b1912582d5588dbf4e",
+      "inverse_transpose_normals": true
+    }
+  },
+  "customization_texture_count": 229,
+  "additional_hard_txid_texture_count": 7,
+  "languages": [
+    "Orcish",
+    "Taurahe"
+  ],
+  "startup_and_initial_racial_profile": "Tauren",
+  "native_harness": "passed without WXL",
+  "automated_checks": [
+    "Highmountain source and staged assets",
+    "combined native helper",
+    "matched root/locale/server DBCs",
+    "unrelated row/catalog preservation",
+    "Mechagnome including languages and animation ranges",
+    "Maghar/Skyborn touchups",
+    "two names",
+    "character select",
+    "character limit",
+    "Broken",
+    "retroported race contracts"
+  ],
+  "client_hashes_verified": true,
+  "server_dbc_hashes_verified": true,
+  "server": {
+    "container_image_and_running": "sha256:f4f1eed0909569c864326fc53a823e02cfa237835d5cc9471e0c7d3dc2b85d32 true",
+    "ready_tcp_8085": true,
+    "build_record": "ugudldegm1qnu5pt51g3kq65v"
+  },
+  "backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-20261001-045931",
+  "source_build": {
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "product": "wow",
+    "mode": "online",
+    "metadata_index": "G:\\Blizzard\\World of Warcraft"
+  },
+  "live_acceptance": {
+    "female": "ERROR134: failed body0.blp read from root archive",
+    "male": "ERROR132 at 004EA198: direct hair material table indexing",
+    "confirmed_root_cause": "encoded selector validated as row zero, but native direct getter used original selector"
+  },
+  "stock_barber": "legacy selectors; full independent controls are in creation",
+  "lint_limits": [
+    "repository C++ linter has pre-existing violations",
+    "SQL linter cannot fetch missing origin/master"
+  ],
+  "shared_material_regression": {
+    "reported": "Highmountain fur on every race after switching races",
+    "native_evidence": "Human component race1 and Human material DBC rows were correct, but stock layer setters were skipped",
+    "root_cause": "MSVC x86 bool returns AL; wrappers incorrectly tested full EAX and treated dirty upper bytes as true",
+    "fix": "all three native material wrappers test AL and preserve original fallback; staged executable fingerprint verified",
+    "installed_fix": "all three wrappers test AL; legacy getter fallback preserved"
+  },
+  "creator_repair": {
+    "source_hashes": {
+      "Data\\patch-Z.MPQ": "916f127053600141052b6acb8ec690f62361f5925d6246fb20b80e8842d3dff7",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "f46500b7712e7b217860905195868c5b45926ff4b614de9c67eea7d36d729057",
+      "Data\\Patch-R.MPQ": "7a21a37902413b2e46f2e8bfd9cc2a94f9bd30ab5e374c8cd33ffac9cf98ce0a"
+    },
+    "stage_hashes": {
+      "Data\\patch-Z.MPQ": "b107a74f1ee044a66b5df90f7c267b1d2747dedbe3fd7be1d0ff718470a2752a",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "c44a095389cbdcf8248d449334c90f615195299dbae1a538cfa0dcea95419107",
+      "Data\\Patch-R.MPQ": "3fd115fc24d583526a0825d389100a364dde8a555777d76d8a308a213313fbf6"
+    },
+    "compositor_entries": 2160,
+    "unique_compositor_palettes": 1584,
+    "archives": {
+      "Data\\patch-Z.MPQ": {
+        "bytes": 1398742364,
+        "verified_entries": 26560
+      },
+      "Data\\enUS\\patch-enUS-Z.MPQ": {
+        "bytes": 690706898,
+        "verified_entries": 9593
+      },
+      "Data\\Patch-R.MPQ": {
+        "bytes": 582471156,
+        "verified_entries": 7581
+      }
+    },
+    "companion_hashes": {
+      "Wow.exe": "9e0949a90b19486325beafc255a10bda715beabb1df16d8d9eab1fa868a4375f",
+      "EsteriaAppearance.dll": "b3f0c7ece6ca033b4276f11b48491aa15462d033832a2ac7bc6c5c20ea623fdd"
+    },
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-creator-20261001-054458",
+    "installed_hashes": {
+      "Data\\patch-Z.MPQ": "b107a74f1ee044a66b5df90f7c267b1d2747dedbe3fd7be1d0ff718470a2752a",
+      "Data\\enUS\\patch-enUS-Z.MPQ": "c44a095389cbdcf8248d449334c90f615195299dbae1a538cfa0dcea95419107",
+      "Data\\Patch-R.MPQ": "3fd115fc24d583526a0825d389100a364dde8a555777d76d8a308a213313fbf6",
+      "Wow.exe": "9e0949a90b19486325beafc255a10bda715beabb1df16d8d9eab1fa868a4375f",
+      "EsteriaAppearance.dll": "b3f0c7ece6ca033b4276f11b48491aa15462d033832a2ac7bc6c5c20ea623fdd"
+    },
+    "helper_refresh_backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-helper-20261001-055220",
+    "native_refresh_backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-native-20261001-061134"
+  },
+  "stock_race_live_acceptance": "User confirmed all other races fixed after AL wrapper correction",
+  "head_visibility_issue": {
+    "reported": "male/female Highmountain heads invisible",
+    "live_evidence": "male full head geoset3202 and selected baked variant19601 both had visibility0; fragment3201 had visibility1",
+    "root_cause": "group32 was treated as an exclusive selector; base head3202 was disabled",
+    "fix": "remap3201/3202 to body geoset0 and set all nine corresponding face-variant source selectors to0",
+    "checks": "all nine face variants; only intended SKIN IDs/catalog sources change; matching restored geometry catalogs",
+    "stage": "C:\\Users\\Zach\\.codex\\tmp\\highmountain\\head-repair",
+    "installed_backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-head-20261001-063540",
+    "installed_hashes_verified": true,
+    "live_acceptance": "User confirmed faces load; geometry distorted"
+  },
+  "face_pivot_issue": {
+    "reported": "faces visible but geometry WAYY off; screenshot elongated muzzle",
+    "root_cause": "BOMT scale/rotation applied about world/model origin instead of facial bone pivot",
+    "fix": "subtract bone pivot, apply authored matrix, add bone pivot and translation; normals retain inverse-transpose transformation",
+    "checks": "known-pivot rotation/scale; full M2 bytes outside positions/normals identical; original body vertices preserved",
+    "models": {
+      "male": {
+        "path": "custom\\highmountain\\native\\male\\highmountaintaurenmale.m2",
+        "vertices": 64136,
+        "face_shapes": 5,
+        "corrected_vertices": 11403,
+        "maximum_origin_error_corrected": 0.6682462658794648,
+        "sha256": "8e7483c1f80413fd3a2e9bce8911c60f5afd6f182b29b67d7d7421f23dd4c3a3",
+        "source_sha256": "c5f1e690fd64088a075d8154a91635c0d9e9c77ca4a9f7594fe96525590bbcc8"
+      },
+      "female": {
+        "path": "custom\\highmountain\\native\\female\\highmountaintaurenfemale.m2",
+        "vertices": 56344,
+        "face_shapes": 4,
+        "corrected_vertices": 11856,
+        "maximum_origin_error_corrected": 0.803157662189071,
+        "sha256": "fad593e0e090543db6533be5da76478ec54637a1f7357ecc49fdfbfa35d5c14d",
+        "source_sha256": "952fb78111378385f6f5f8b45c58fa0373e5883ddabdf3667b6ed2edcba312d2"
+      }
+    },
+    "live_acceptance": "User confirmed fresh-launch face geometry fixed",
+    "installed_backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-face-pivots-20261001-064710",
+    "installed_hashes_verified": true
+  },
+  "eye_material_issue": {
+    "reported": "eyes missing after geometry fixed",
+    "root_cause": "actual iris batch retained Retail shader144, two duplicated texture samplers and alpha-key blending",
+    "fix": "opaque unlit shader0, one slot5 iris texture, UV0; separate glow unchanged",
+    "checks": "both genders; accepted vertices, face geometry, skeleton sequences, submesh/index/bone arrays unchanged",
+    "installation": {
+      "source_hashes": {
+        "Data\\patch-Z.MPQ": "75667a51ad16276a5102aa9760f83674dd91ca856423427b79cd4bbe28711a9f",
+        "Data\\enUS\\patch-enUS-Z.MPQ": "f0d1eca7c726a18c7ab0fa080dcd094e35c40b122695e1502dd3f916c1caf6e8",
+        "Data\\Patch-R.MPQ": "4364a61dc31a27f7c4cd8a9351da99ba1d10b030537b8e68be3e3bdbe7460dfa"
+      },
+      "stage_hashes": {
+        "Data\\patch-Z.MPQ": "4b3d2fc844bd90506b1045fafe6b6ee2d85993e5a1a9e4db62ec38df11c741cc",
+        "Data\\enUS\\patch-enUS-Z.MPQ": "bf7d416c2bba27f17cdc54e4156707e46f68d702e9cc9182d612df8fb5b63d2f",
+        "Data\\Patch-R.MPQ": "794b79f1651272e7b5384f3274ccd2d1c4c2c334aaa73b77d973c40aac9c64b6"
+      },
+      "companion_hashes": {
+        "EsteriaAppearanceGeometry.bin": "bcb22a9b00caba21a2af598c651eeea559ed1cc04de1aacf79c744700b6cecb2"
+      },
+      "models": {
+        "male": {
+          "model_path": "custom\\highmountain\\native\\male\\highmountaintaurenmale.m2",
+          "eye_batches": 1,
+          "binding": "slot5, opaque, unlit, shader0, one UV0 texture"
+        },
+        "female": {
+          "model_path": "custom\\highmountain\\native\\female\\highmountaintaurenfemale.m2",
+          "eye_batches": 1,
+          "binding": "slot5, opaque, unlit, shader0, one UV0 texture"
+        }
+      },
+      "backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-eyes-20261001-065746",
+      "installed_hashes": {
+        "Data\\patch-Z.MPQ": "4b3d2fc844bd90506b1045fafe6b6ee2d85993e5a1a9e4db62ec38df11c741cc",
+        "Data\\enUS\\patch-enUS-Z.MPQ": "bf7d416c2bba27f17cdc54e4156707e46f68d702e9cc9182d612df8fb5b63d2f",
+        "Data\\Patch-R.MPQ": "794b79f1651272e7b5384f3274ccd2d1c4c2c334aaa73b77d973c40aac9c64b6",
+        "EsteriaAppearanceGeometry.bin": "bcb22a9b00caba21a2af598c651eeea559ed1cc04de1aacf79c744700b6cecb2"
+      }
+    },
+    "live_acceptance": "User confirmed eyes fixed"
+  },
+  "animation_runtime_issue": {
+    "reported": "talk invisible, dance roughly20percent opacity, weapon drawing does not follow hands",
+    "findings": [
+      "own opacity keys became stale external spans during model rewrites",
+      "skeletal tracks expanded twice because flat own_tracks includes bones/attachments",
+      "Retail terminal socket modifiers differed from working Tauren sockets"
+    ],
+    "fixes": [
+      "model material keys stay inline and opaque for all sequences",
+      "expand each skeletal track once",
+      "reuse CRC-matched Tauren terminal socket tracks with mapped global durations; keep Highmountain parent hand animation"
+    ],
+    "checks": "opacity every349/341 sequences; talk/dance hand transforms; all external ranges; geometry/textures/materials unchanged; race touchup regressions pass",
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-animations-20261001-074413",
+    "live_acceptance": "First repair disproven: no visible change, talk invisible, dance crash, sword/shield remain sheathed"
+  },
+  "complete_animation_tracks": {
+    "crash_report": "G:\\3.3.5a - Dev\\Errors\\2026-10-01 07.49.09 Crash.txt",
+    "crash_site": "008310AC event timestamp traversal; invalid timestamp pointer D29C93CC",
+    "findings": [
+      "PEDC parent event tables omitted during conversion, including left/right sheath triggers",
+      "in-model event/material/camera keys corrupted by external-track marking and model rewrites",
+      "two-step animation alias retained unrelocated offsets into the wrong file region"
+    ],
+    "repair": [
+      "restore raw PEDC events, opaque default, source UV transforms and downgraded source cameras",
+      "embed skeletal and attachment keys; resolve final alias target spans",
+      "retain all 349 male/341 female sequences and accepted geometry, textures and SKINs"
+    ],
+    "checks": "inline spans, sorted finite keys, source events within durations, sheath89/90, alias equality, talk/dance/sheath hand-key equality, three-archive readback and installed SHA256",
+    "unrelated_entries_verified_identical": 43728,
+    "installation": {
+      "source_hashes": {
+        "Data\\patch-Z.MPQ": "50276d3c11fae2a40bed0c10adb36c2490bf4a07788cdff29bbc7d7b8ac59d2c",
+        "Data\\enUS\\patch-enUS-Z.MPQ": "d3e385695b7748273a1385fb78012a580f966d8a89c2b6d4a7b5c9d6a11d669e",
+        "Data\\Patch-R.MPQ": "573d36414a510be2fbfc7ee0fa0007f63ac870a4ae3de45087e1d706aa970ab6"
+      },
+      "stage_hashes": {
+        "Data\\patch-Z.MPQ": "67d1ba2e75efaffdc4dca99deff1f7d8e382e54c111ef68aab9495f5bd85ff1a",
+        "Data\\enUS\\patch-enUS-Z.MPQ": "b50a4dc65186bff6b7127e319a0754e68212ec7f466849c0ef1ad93143872de1",
+        "Data\\Patch-R.MPQ": "a6cd53402840799ca48dfa66fe12689d740c46ec8cd11775f0ea7275befbdd8e"
+      },
+      "companion_hashes": {},
+      "models": {
+        "male": {
+          "model_path": "custom\\highmountain\\native\\male\\highmountaintaurenmale.m2",
+          "sequences": 349,
+          "events": 31,
+          "event_timestamp_count": 746,
+          "bytes": 28771096,
+          "all_keys_in_model": true
+        },
+        "female": {
+          "model_path": "custom\\highmountain\\native\\female\\highmountaintaurenfemale.m2",
+          "sequences": 341,
+          "events": 30,
+          "event_timestamp_count": 542,
+          "bytes": 26075852,
+          "all_keys_in_model": true
+        }
+      },
+      "backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-complete-tracks-20261001-082040",
+      "installed_hashes": {
+        "Data\\patch-Z.MPQ": "67d1ba2e75efaffdc4dca99deff1f7d8e382e54c111ef68aab9495f5bd85ff1a",
+        "Data\\enUS\\patch-enUS-Z.MPQ": "b50a4dc65186bff6b7127e319a0754e68212ec7f466849c0ef1ad93143872de1",
+        "Data\\Patch-R.MPQ": "a6cd53402840799ca48dfa66fe12689d740c46ec8cd11775f0ea7275befbdd8e"
+      }
+    },
+    "live_acceptance": "User reported Highmountain gameplay fully working; shared logout/exit failure diagnosed separately"
+  },
+  "native_teardown_issue": {
+    "reported": "Every character logout or client exit crashes; NPC despawn also reproduces while playing",
+    "fault_site": "0074604E: GUID-field notification-list unlink writes through null previous link",
+    "watchpoint_evidence": {
+      "victim_unit": "BFE634D0",
+      "npc_entry": 3209,
+      "link": "BFE6351C",
+      "initialized_link_value": "BFE63519",
+      "corrupt_value": "00000000",
+      "writer": "0040CC70",
+      "caller": "004D533B",
+      "source_unit": "BFE62080",
+      "copied_field_offset": "0000024C",
+      "absolute_update_field": "00000093"
+    },
+    "root_cause": "Padding observer registration has no stock old-value cache slot; fallback copy overruns NPC snapshot storage into the next unit notification-list link",
+    "repair": "Remove unsupported cached-field observer; read padding after object update; reject non-unit objects; invalidate appearance state before freeing component",
+    "checks": "x86 update/free thunks, retained AL ABI, source fingerprint/foundation/Lua validation, native material/customization harness, live sixth-byte changes, guarded item memory, freed-context invalidation and component address reuse",
+    "fresh_client_memory": "All 24 nearby NPC GUID-field lists intact, including the watched NPC",
+    "installation": {
+      "source_hashes": {
+        "Wow.exe": "9e0949a90b19486325beafc255a10bda715beabb1df16d8d9eab1fa868a4375f",
+        "EsteriaAppearance.dll": "b3f0c7ece6ca033b4276f11b48491aa15462d033832a2ac7bc6c5c20ea623fdd"
+      },
+      "stage_hashes": {
+        "Wow.exe": "2ba16bf7bf87396514b3f03181f2519898ff3e50d1334ffa57956cadc24eba35",
+        "EsteriaAppearance.dll": "03c572df420945d8d0e663a76c48b1432e0b978b4c3d648a09eb3de9447d34e8"
+      },
+      "preserved_hashes": {
+        "Data/patch-Z.MPQ": "67d1ba2e75efaffdc4dca99deff1f7d8e382e54c111ef68aab9495f5bd85ff1a",
+        "Data/enUS/patch-enUS-Z.MPQ": "b50a4dc65186bff6b7127e319a0754e68212ec7f466849c0ef1ad93143872de1",
+        "Data/Patch-R.MPQ": "a6cd53402840799ca48dfa66fe12689d740c46ec8cd11775f0ea7275befbdd8e",
+        "EsteriaAppearance.bin": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+        "EsteriaAppearanceGeometry.bin": "bcb22a9b00caba21a2af598c651eeea559ed1cc04de1aacf79c744700b6cecb2",
+        "EsteriaAppearanceMaterials.bin": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+        "EsteriaHighmountain.bin": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938"
+      },
+      "backup": "C:\\Users\\Zach\\.codex\\backups\\highmountain-teardown-20261001-093630",
+      "installed_hashes": {
+        "Wow.exe": "2ba16bf7bf87396514b3f03181f2519898ff3e50d1334ffa57956cadc24eba35",
+        "EsteriaAppearance.dll": "03c572df420945d8d0e663a76c48b1432e0b978b4c3d648a09eb3de9447d34e8"
+      }
+    },
+    "live_acceptance": "User confirmed two logout/relog cycles, ordinary-race logout, full client exit, and Highmountain appearance/talk/dance/weapon attachment: everything worked as intended, no issues/crashes"
+  }
+}

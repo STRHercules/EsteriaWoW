@@ -1,0 +1,931 @@
+{
+  "profiles": {
+    "0": {
+      "options": [
+        {
+          "label": "Skin Color",
+          "id": 310,
+          "field": 0,
+          "count": 4,
+          "factor": 1,
+          "choices": [
+            {
+              "_row_id": 3186,
+              "Name_lang": "",
+              "ID": 3186,
+              "ChrCustomizationOptionID": 310,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3187,
+              "Name_lang": "",
+              "ID": 3187,
+              "ChrCustomizationOptionID": 310,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3188,
+              "Name_lang": "",
+              "ID": 3188,
+              "ChrCustomizationOptionID": 310,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3189,
+              "Name_lang": "",
+              "ID": 3189,
+              "ChrCustomizationOptionID": 310,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Face",
+          "id": 311,
+          "field": 1,
+          "count": 1,
+          "factor": 1,
+          "choices": [
+            {
+              "_row_id": 3190,
+              "Name_lang": "",
+              "ID": 3190,
+              "ChrCustomizationOptionID": 311,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Hair Style",
+          "id": 312,
+          "field": 2,
+          "count": 4,
+          "factor": 1,
+          "choices": [
+            {
+              "_row_id": 3191,
+              "Name_lang": "",
+              "ID": 3191,
+              "ChrCustomizationOptionID": 312,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3192,
+              "Name_lang": "",
+              "ID": 3192,
+              "ChrCustomizationOptionID": 312,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3193,
+              "Name_lang": "",
+              "ID": 3193,
+              "ChrCustomizationOptionID": 312,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3194,
+              "Name_lang": "",
+              "ID": 3194,
+              "ChrCustomizationOptionID": 312,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Hair Color",
+          "id": 313,
+          "field": 3,
+          "count": 4,
+          "factor": 1,
+          "choices": [
+            {
+              "_row_id": 3195,
+              "Name_lang": "",
+              "ID": 3195,
+              "ChrCustomizationOptionID": 313,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 1002,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3196,
+              "Name_lang": "",
+              "ID": 3196,
+              "ChrCustomizationOptionID": 313,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1003,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3197,
+              "Name_lang": "",
+              "ID": 3197,
+              "ChrCustomizationOptionID": 313,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 1004,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3198,
+              "Name_lang": "",
+              "ID": 3198,
+              "ChrCustomizationOptionID": 313,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 1005,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Facial Hair",
+          "id": 314,
+          "field": 4,
+          "count": 7,
+          "factor": 1,
+          "choices": [
+            {
+              "_row_id": 3199,
+              "Name_lang": "",
+              "ID": 3199,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 0,
+              "UiOrderIndex": 0,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3200,
+              "Name_lang": "",
+              "ID": 3200,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 1,
+              "UiOrderIndex": 1,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3201,
+              "Name_lang": "",
+              "ID": 3201,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 2,
+              "UiOrderIndex": 2,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3202,
+              "Name_lang": "",
+              "ID": 3202,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 3,
+              "UiOrderIndex": 3,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3203,
+              "Name_lang": "",
+              "ID": 3203,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 4,
+              "UiOrderIndex": 4,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3204,
+              "Name_lang": "",
+              "ID": 3204,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 5,
+              "UiOrderIndex": 5,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            },
+            {
+              "_row_id": 3205,
+              "Name_lang": "",
+              "ID": 3205,
+              "ChrCustomizationOptionID": 314,
+              "ChrCustomizationReqID": 12,
+              "ChrCustomizationVisReqID": 0,
+              "OrderIndex": 6,
+              "UiOrderIndex": 6,
+              "Flags": 0,
+              "AddedInPatch": 90001,
+              "SoundKitID": 0,
+              "SwatchColor": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "capacities": [
+        4,
+        1,
+        4,
+        4,
+        7
+      ]
+    }
+  },
+  "models": {
+    "0": {
+      "path": "custom\\thinhuman\\native\\male\\thinhumanmale.m2",
+      "vertices": 11921,
+      "skin_vertices": 12147,
+      "sequences": 286,
+      "events": 30,
+      "geosets": [
+        2,
+        3,
+        4,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        401,
+        402,
+        403,
+        404,
+        501,
+        502,
+        503,
+        504,
+        505,
+        802,
+        903,
+        1002,
+        1102,
+        1104,
+        1202,
+        1302,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1802,
+        2002,
+        10000
+      ],
+      "atlas": {
+        "body_vertices_remapped": 8161,
+        "submeshes": 29,
+        "source_triangles": 16705,
+        "target_triangles": 16705
+      },
+      "unconditional_body_meshes": [
+        0,
+        1
+      ],
+      "hide_helm": false,
+      "action_repair": {
+        "added_actions": [],
+        "wrath_action_aliases": [
+          {
+            "animation": 2,
+            "authored_source": 53
+          },
+          {
+            "animation": 31,
+            "authored_source": 51
+          },
+          {
+            "animation": 32,
+            "authored_source": 53
+          },
+          {
+            "animation": 33,
+            "authored_source": 54
+          },
+          {
+            "animation": 72,
+            "authored_source": 97
+          }
+        ]
+      },
+      "equipment_repair": {
+        "boot_dependency": [
+          504,
+          505
+        ],
+        "cloak_vertices": 803,
+        "cloak_geosets": [
+          1502,
+          1503,
+          1504,
+          1505,
+          1506
+        ],
+        "donor": "Character\\Human2\\Male\\HumanMale2.m2",
+        "donor_provider": "G:\\3.3.5a - Dev\\Data\\patch-Z.MPQ",
+        "donor_sha256": "dd5699c0dd31727bbff43e23c73d23f811579fed80fe8ea7be1ab1251412ecde"
+      }
+    }
+  },
+  "layers": [
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 4,
+      "file_id": 1843234,
+      "selectors": [
+        [
+          0,
+          0
+        ]
+      ],
+      "offset": 16
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 0,
+      "file_id": 1843234,
+      "selectors": [
+        [
+          0,
+          0
+        ]
+      ],
+      "offset": 366171
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 1,
+      "file_id": 1843234,
+      "selectors": [
+        [
+          0,
+          0
+        ]
+      ],
+      "offset": 789410
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 4,
+      "file_id": 1843235,
+      "selectors": [
+        [
+          0,
+          1
+        ]
+      ],
+      "offset": 807202
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 0,
+      "file_id": 1843235,
+      "selectors": [
+        [
+          0,
+          1
+        ]
+      ],
+      "offset": 1179634
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 1,
+      "file_id": 1843235,
+      "selectors": [
+        [
+          0,
+          1
+        ]
+      ],
+      "offset": 1604198
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 4,
+      "file_id": 1843236,
+      "selectors": [
+        [
+          0,
+          2
+        ]
+      ],
+      "offset": 1621975
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 0,
+      "file_id": 1843236,
+      "selectors": [
+        [
+          0,
+          2
+        ]
+      ],
+      "offset": 2002895
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 1,
+      "file_id": 1843236,
+      "selectors": [
+        [
+          0,
+          2
+        ]
+      ],
+      "offset": 2433086
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 4,
+      "file_id": 1843237,
+      "selectors": [
+        [
+          0,
+          3
+        ]
+      ],
+      "offset": 2451022
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 0,
+      "file_id": 1843237,
+      "selectors": [
+        [
+          0,
+          3
+        ]
+      ],
+      "offset": 2819257
+    },
+    {
+      "gender": 0,
+      "target": 1,
+      "group": 1,
+      "file_id": 1843237,
+      "selectors": [
+        [
+          0,
+          3
+        ]
+      ],
+      "offset": 3193826
+    },
+    {
+      "gender": 0,
+      "target": 10,
+      "group": 2,
+      "file_id": 1728108,
+      "selectors": [
+        [
+          3,
+          0
+        ]
+      ],
+      "offset": 3212680
+    },
+    {
+      "gender": 0,
+      "target": 10,
+      "group": 2,
+      "file_id": 1728110,
+      "selectors": [
+        [
+          3,
+          2
+        ]
+      ],
+      "offset": 3515641
+    },
+    {
+      "gender": 0,
+      "target": 10,
+      "group": 2,
+      "file_id": 1728109,
+      "selectors": [
+        [
+          3,
+          1
+        ]
+      ],
+      "offset": 3811131
+    },
+    {
+      "gender": 0,
+      "target": 10,
+      "group": 2,
+      "file_id": 1728111,
+      "selectors": [
+        [
+          3,
+          3
+        ]
+      ],
+      "offset": 4176034
+    },
+    {
+      "gender": 0,
+      "target": 5,
+      "group": 4,
+      "file_id": 1843222,
+      "selectors": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "offset": 4501412
+    },
+    {
+      "gender": 0,
+      "target": 5,
+      "group": 4,
+      "file_id": 1843223,
+      "selectors": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "offset": 4867554
+    },
+    {
+      "gender": 0,
+      "target": 5,
+      "group": 4,
+      "file_id": 1843224,
+      "selectors": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "offset": 5239946
+    },
+    {
+      "gender": 0,
+      "target": 5,
+      "group": 4,
+      "file_id": 1843225,
+      "selectors": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "offset": 5620820
+    },
+    {
+      "gender": 0,
+      "target": 13,
+      "group": 0,
+      "file_id": 1843226,
+      "selectors": [
+        [
+          0,
+          0
+        ]
+      ],
+      "offset": 5989053
+    },
+    {
+      "gender": 0,
+      "target": 13,
+      "group": 0,
+      "file_id": 1843227,
+      "selectors": [
+        [
+          0,
+          1
+        ]
+      ],
+      "offset": 6055710
+    },
+    {
+      "gender": 0,
+      "target": 13,
+      "group": 0,
+      "file_id": 1843228,
+      "selectors": [
+        [
+          0,
+          2
+        ]
+      ],
+      "offset": 6122866
+    },
+    {
+      "gender": 0,
+      "target": 13,
+      "group": 0,
+      "file_id": 1843229,
+      "selectors": [
+        [
+          0,
+          3
+        ]
+      ],
+      "offset": 6190504
+    },
+    {
+      "gender": 0,
+      "target": 14,
+      "group": 0,
+      "file_id": 1843230,
+      "selectors": [
+        [
+          0,
+          0
+        ]
+      ],
+      "offset": 6253426
+    },
+    {
+      "gender": 0,
+      "target": 14,
+      "group": 0,
+      "file_id": 1843231,
+      "selectors": [
+        [
+          0,
+          1
+        ]
+      ],
+      "offset": 6326028
+    },
+    {
+      "gender": 0,
+      "target": 14,
+      "group": 0,
+      "file_id": 1843232,
+      "selectors": [
+        [
+          0,
+          2
+        ]
+      ],
+      "offset": 6398823
+    },
+    {
+      "gender": 0,
+      "target": 14,
+      "group": 0,
+      "file_id": 1843233,
+      "selectors": [
+        [
+          0,
+          3
+        ]
+      ],
+      "offset": 6470787
+    },
+    {
+      "gender": 0,
+      "target": 8,
+      "group": 4,
+      "file_id": 1728183,
+      "selectors": [
+        [
+          3,
+          0
+        ]
+      ],
+      "offset": 6537354
+    },
+    {
+      "gender": 0,
+      "target": 8,
+      "group": 4,
+      "file_id": 1728184,
+      "selectors": [
+        [
+          3,
+          1
+        ]
+      ],
+      "offset": 6549680
+    },
+    {
+      "gender": 0,
+      "target": 8,
+      "group": 4,
+      "file_id": 1728185,
+      "selectors": [
+        [
+          3,
+          2
+        ]
+      ],
+      "offset": 6582927
+    },
+    {
+      "gender": 0,
+      "target": 8,
+      "group": 4,
+      "file_id": 1728186,
+      "selectors": [
+        [
+          3,
+          3
+        ]
+      ],
+      "offset": 6609278
+    }
+  ]
+}

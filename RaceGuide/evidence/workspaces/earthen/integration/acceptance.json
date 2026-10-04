@@ -1,0 +1,200 @@
+{
+  "status": "reported_touchups_live_accepted",
+  "retail_source": {
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "mode": "online"
+  },
+  "target_races": [
+    48,
+    49
+  ],
+  "installed": true,
+  "compiled_native": true,
+  "compiled_worldserver": true,
+  "data_checks": "tools/test_earthen_race_pack.py PASS",
+  "regression_checks": [
+    "8 race-ID contracts PASS",
+    "installed Highmountain teardown and material/lifetime harness PASS"
+  ],
+  "models": {
+    "male": {
+      "vertices": 53661,
+      "skin_vertices": 53661,
+      "sequences": 361,
+      "events": 39,
+      "face_textures": 10,
+      "bone_morphs": false
+    },
+    "female": {
+      "vertices": 55177,
+      "skin_vertices": 55177,
+      "sequences": 355,
+      "events": 40,
+      "face_textures": 10,
+      "bone_morphs": false
+    }
+  },
+  "portraits": {
+    "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenMale.blp": "e59cd5447f3a5377d927c3f61be6048eef540bd2f4273a28638881cc64b0d125",
+    "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenMale.blp": "f9f466b374a0cc7d41827e0c541dcf9c88dafd1b32a2811d03d7eb77e3d71e5e",
+    "Interface\\CharacterFrame\\TemporaryPortrait-Male-Earthen.blp": "f9f466b374a0cc7d41827e0c541dcf9c88dafd1b32a2811d03d7eb77e3d71e5e",
+    "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenFemale.blp": "8ec0a038083145f40fae8d151d87e6b8079114644d4a72902b43edcc973930a8",
+    "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenFemale.blp": "4ac74a8d79da3e1adeab982f036cf04376b0d55cfefea17d646af4d615ada1a7",
+    "Interface\\CharacterFrame\\TemporaryPortrait-Female-Earthen.blp": "4ac74a8d79da3e1adeab982f036cf04376b0d55cfefea17d646af4d615ada1a7",
+    "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenHordeMale.blp": "c0ad61dcbbc22f65940b4848b1a00f48c987b93f6fa91833b9bb188e702d82bd",
+    "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenHordeMale.blp": "7e217f211e84a21679849271603a85bea581220535ab711ca4f6d699a3dc5601",
+    "Interface\\CharacterFrame\\TemporaryPortrait-Male-EarthenHorde.blp": "7e217f211e84a21679849271603a85bea581220535ab711ca4f6d699a3dc5601",
+    "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenHordeFemale.blp": "3d82f8f834dfebb2e8ede98d959e2a489215f40934efc864b3ae599a0ff8b938",
+    "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenHordeFemale.blp": "d7db48b6028805a77acb93f5862e54028c4a9a36709e6125e1a7499339d8767f",
+    "Interface\\CharacterFrame\\TemporaryPortrait-Female-EarthenHorde.blp": "d7db48b6028805a77acb93f5862e54028c4a9a36709e6125e1a7499339d8767f"
+  },
+  "source_archive_hashes": {
+    "Data\\patch-Z.MPQ": "67d1ba2e75efaffdc4dca99deff1f7d8e382e54c111ef68aab9495f5bd85ff1a",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "b50a4dc65186bff6b7127e319a0754e68212ec7f466849c0ef1ad93143872de1",
+    "Data\\Patch-R.MPQ": "a6cd53402840799ca48dfa66fe12689d740c46ec8cd11775f0ea7275befbdd8e"
+  },
+  "staged_archive_hashes": {
+    "Data\\patch-Z.MPQ": "ae56b1ae9b6c1c7288d19a39a154d0e0245918137a9fd21b2473a84db29d85b6",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "3f25776db2c9cc1238721eb9cabea399751888b7ff3d7908c864239eed8dd054",
+    "Data\\Patch-R.MPQ": "822fb3c2ec45f788706f6ffc1d3b2767a93ceec6cf3c915b6aa6efc551b85f28"
+  },
+  "staged_archive_sizes": {
+    "Data\\patch-Z.MPQ": 1810842707,
+    "Data\\enUS\\patch-enUS-Z.MPQ": 1103069414,
+    "Data\\Patch-R.MPQ": 1051641460
+  },
+  "limitations": [
+    "Face BONE morphs unported: static face variants plus accessories exceed Wrath SKIN uint16 capacity",
+    "Retail Earthen racials unimplemented; Dwarf/Orc compatibility profiles",
+    "NPC-only and internal customization choices excluded"
+  ],
+  "lint": [
+    "global C++ linter reports existing unrelated violations",
+    "SQL linter blocked by missing origin/master",
+    "diff whitespace and scoped migration checks PASS"
+  ],
+  "required_next_steps": [],
+  "native_harnesses": "PASS: NativeAppearance and HighmountainMaterials/lifetime",
+  "backup": "C:\\Users\\Zach\\.codex\\backups\\earthen-20261001-104947",
+  "preserved_services": {
+    "authserver_id": "a29ece2304b9a5fe0287afe755163f804e17901e5c8569149d882c7777fc6026",
+    "database_id": "29a90b597985fa968a176623a6d8730ede05da6ff65cbe1c72a826453174176f"
+  },
+  "worldserver_image": "sha256:91cc3ecfad68a3ee8db7797b2d6ba0862904c944d5bdda9601f4e146702b151c",
+  "installed_verification": "PASS: all client and mounted server hashes, scoped migration, startup data, preserved services",
+  "live_acceptance": "User confirmed: All fixed! after gameplay customization, Character Select textures, Gem belt, overlapping feet, and boots-on/off retests",
+  "migration_receipt_sha1": "26E79289C5B5C72B60FB1A2A431E2CAD8A3FA4E5",
+  "worldserver_ready": true,
+  "reported_issues": [
+    "Horde Character Select background absent",
+    "Belt 1 None ambiguous; Gem belt shared equipment selector",
+    "Gameplay native component clamps encoded saved appearance"
+  ],
+  "live_diagnosis": {
+    "guid": 518,
+    "server_and_network_bytes": [
+      40,
+      79,
+      153,
+      68,
+      90,
+      43
+    ],
+    "component_bytes": [
+      12,
+      9,
+      0,
+      12,
+      0
+    ],
+    "database_appearance_preserved": true
+  },
+  "touchup_backup": "C:\\Users\\Zach\\.codex\\backups\\earthen-touchup-20261001-183021",
+  "touchup_checks": "PASS: both native harnesses, exact encoded bytes, belt-only mesh/catalog changes, installed hashes, Lua",
+  "disproved_repairs": [
+    "restoring fields only in earlier unit update: overwritten later by sanitizer",
+    "retaining fields only from earlier unit update: component can be created after update; owner never captured"
+  ],
+  "owner_lookup_harness": "PASS: no earlier capture, saved bytes restored, hairstyle4011 and Gem belt4105 selected, destruction state erased",
+  "native_backup": "C:\\Users\\Zach\\.codex\\backups\\earthen-native-20261001-190402",
+  "live_after": {
+    "guid": 518,
+    "component_bytes": [
+      40,
+      79,
+      153,
+      68,
+      90,
+      43
+    ],
+    "network_hex": "284f99445a",
+    "enabled_custom_meshes": [
+      4011,
+      102,
+      4105,
+      4203,
+      4303,
+      4402,
+      4503,
+      4603,
+      4603,
+      4701
+    ]
+  },
+  "preview_diagnosis": {
+    "guid": 518,
+    "saved_bytes_present": true,
+    "base_texture_layer": null,
+    "face_texture_layers": null,
+    "finding": "first preview validation precedes stock resolver-context setters"
+  },
+  "preview_live_after": {
+    "guid": 518,
+    "base_texture_layer_loaded": true,
+    "face_texture_layers_loaded": true,
+    "encoded_fields_match": true
+  },
+  "resolved_issues": [
+    "Horde Character Select background",
+    "None/Gem belt label and Gem belt visibility",
+    "Saved options visible in game",
+    "Character Select body and face textures",
+    "Alternate foot mesh overlap",
+    "Rounded feet in boots; bare toes without boots"
+  ],
+  "feet_repair": {
+    "backup": "C:\\Users\\Zach\\.codex\\backups\\earthen-feet-20261001-185656",
+    "installed_hash": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+    "both_genders": true,
+    "visible_foot_geoset": 2001,
+    "hidden_alternatives": [
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008
+    ],
+    "preserved_previous_records": 298,
+    "new_records": 2,
+    "bare_geoset": 2001,
+    "boot_geoset": 2002,
+    "boot_display_field": "0x440",
+    "native_harness": "PASS: boots10141 on/off, single foot mesh, appearance preserved",
+    "live_acceptance": "User confirmed all fixed"
+  },
+  "latest_installed_hashes": {
+    "Data\\patch-Z.MPQ": "41adf0cdbb8fc2fd1c029132ad153f273d43305874d14d7b9d28e388c93f2cf6",
+    "Data\\enUS\\patch-enUS-Z.MPQ": "4266098d5ab74a9721be46981b5391206c3c8a3d864e6dd32e2964c3c71644ad",
+    "Data\\Patch-R.MPQ": "e710a0e813ba1f152ef83dd779cf68603148381746ddcebcb887ec5f98fe0eaa",
+    "EsteriaAppearance.bin": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+    "EsteriaAppearanceGeometry.bin": "77e38ea7d3061392c1648a753e41eea4fe73121f7027d27f94a7ba38e5b5b3b6",
+    "EsteriaAppearanceMaterials.bin": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+    "EsteriaHighmountain.bin": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938",
+    "EsteriaEarthen.bin": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+    "EsteriaAppearance.dll": "cdfe8208a0f14411ca5797cb84fef8edbea7fa1e89aa5896f4546078b15009e8"
+  }
+}

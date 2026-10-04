@@ -1,0 +1,14 @@
+{
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-HaranirMale.blp": "aab9b97bb2b5090ccd5562a42b0482e4b25650ff83c9eeb2a1f2154aa7a78e04",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-HaranirMale.blp": "9dcc3162193676e1aaaa76a8ff450793d5b719c6695ca04bcc0e45c557f74436",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Male-Haranir.blp": "9dcc3162193676e1aaaa76a8ff450793d5b719c6695ca04bcc0e45c557f74436",
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-HaranirFemale.blp": "639de3ec694c3eca11ac1461414800ca480ffa994b42a25c3a2ce59e44e428fd",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-HaranirFemale.blp": "0339a4c37016d155d4a384b6068a65c9fd3f442d9ddc86ffdc3ee93a3ce64f30",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Female-Haranir.blp": "0339a4c37016d155d4a384b6068a65c9fd3f442d9ddc86ffdc3ee93a3ce64f30",
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-HaranirHordeMale.blp": "a90df112b949c38010022ef8ece6debc89e1f2aeca04df14011107c12e952149",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-HaranirHordeMale.blp": "0aea515766bd40cfe9a6f1d0586cf98c656f8cc2a00da07a8140d59a049a79e5",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Male-HaranirHorde.blp": "0aea515766bd40cfe9a6f1d0586cf98c656f8cc2a00da07a8140d59a049a79e5",
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-HaranirHordeFemale.blp": "44b12c2df980efe8f3523eb788676a4d644356ef99a55b493bdcafdfd2298844",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-HaranirHordeFemale.blp": "e8a54fb7c7e54fd325ac17019ddb69ae364a70de418756f901e1431d3aa0bdae",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Female-HaranirHorde.blp": "e8a54fb7c7e54fd325ac17019ddb69ae364a70de418756f901e1431d3aa0bdae"
+}

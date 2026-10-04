@@ -1,0 +1,171 @@
+{
+  "eredar": {
+    "race": "Eredar",
+    "race_id": 16,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\Eredar\\Male\\EredarMale.mdx",
+      "female": "Character\\Eredar\\Female\\EredarFemale.mdx"
+    },
+    "textures": 828,
+    "sections": 63352,
+    "hair_geosets": 40,
+    "anims": 0
+  },
+  "nightborne": {
+    "race": "Nightborne",
+    "race_id": 17,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\Nightborne\\Male\\NightborneMale.mdx",
+      "female": "Character\\Nightborne\\Female\\NightborneFemale.mdx"
+    },
+    "textures": 1123,
+    "sections": 88022,
+    "hair_geosets": 34,
+    "icon": "staged",
+    "anims": 0
+  },
+  "voidelf": {
+    "race": "Void Elf",
+    "race_id": 19,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\Voidelf\\Male\\VoidelfMale.mdx",
+      "female": "Character\\Voidelf\\Female\\VoidelfFemale.mdx"
+    },
+    "textures": 354,
+    "sections": 3637,
+    "hair_geosets": 24,
+    "icon": "staged",
+    "anims": 0
+  },
+  "lightforged": {
+    "race": "Lightforged Draenei",
+    "race_id": 21,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\lightforgeddraenei\\male\\lightforgeddraeneimale.mdx",
+      "female": "Character\\lightforgeddraenei\\female\\lightforgeddraeneifemale.mdx"
+    },
+    "textures": 964,
+    "sections": 66936,
+    "hair_geosets": 15,
+    "icon": "staged",
+    "anims": 0
+  },
+  "zandalari": {
+    "race": "Zandalari Troll",
+    "race_id": 22,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\zandalaritroll\\male\\zandalaritrollmale.mdx",
+      "female": "Character\\zandalaritroll\\female\\zandalaritrollfemale.mdx"
+    },
+    "textures": 223,
+    "sections": 2938,
+    "hair_geosets": 21,
+    "icon": "staged",
+    "anims": 0
+  },
+  "darkiron": {
+    "race": "Dark Iron Dwarf",
+    "race_id": 23,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\Darkirondwarf\\male\\darkirondwarfMale.mdx",
+      "female": "Character\\Darkirondwarf\\female\\darkirondwarfFemale.mdx"
+    },
+    "textures": 551,
+    "sections": 8216,
+    "hair_geosets": 20,
+    "icon": "staged",
+    "anims": 0
+  },
+  "dracthyr": {
+    "race": "Dracthyr",
+    "race_id": 28,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "Character\\Dracthyr\\Male\\DracthyrMale.mdx",
+      "female": "Character\\Dracthyr\\Female\\DracthyrFemale.mdx"
+    },
+    "textures": 7051,
+    "sections": 143204,
+    "hair_geosets": 43,
+    "icon": "staged",
+    "anims": 0
+  },
+  "kultiran": {
+    "race": "Kul Tiran",
+    "race_id": 29,
+    "art": 2,
+    "skins": 8,
+    "missing": [],
+    "target_paths": {
+      "male": "CHARACTER\\Naga_\\male\\kultiranmale.mdx",
+      "female": "CHARACTER\\Naga_\\Female\\kultiranfemale.mdx"
+    },
+    "textures": 499,
+    "sections": 1437,
+    "hair_geosets": 24,
+    "icon": "staged",
+    "anims": 0
+  },
+  "illidari": {
+    "race": "Illidari",
+    "race_id": 30,
+    "art": 2,
+    "skins": 8,
+    "missing": [
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_00_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_01_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_02_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_03_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_04_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_05_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_06_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_07_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_08_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_09_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_10_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_11_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpLowerHair00_12_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_00_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_01_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_02_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_03_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_04_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_05_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_06_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_07_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_08_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_09_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_10_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_11_HD.blp",
+      "Character\\BloodElf_Dh\\ScalpUpperHair00_12_HD.blp"
+    ],
+    "target_paths": {
+      "male": "Character\\BloodElf_Dh\\Male\\BloodElfMale_DH.mdx",
+      "female": "Character\\BloodElf_Dh\\Female\\BloodElfFemale_DH.mdx"
+    },
+    "textures": 1033,
+    "sections": 7253,
+    "hair_geosets": 46,
+    "anims": 0
+  }
+}

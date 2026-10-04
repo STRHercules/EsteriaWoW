@@ -1,0 +1,413 @@
+{
+  "pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "core_models": {
+    "0": 120294,
+    "1": 120263
+  },
+  "assets": {
+    "120263": {
+      "file_data_id": 120263,
+      "logical_name": "character\\naga_\\female\\naga_female.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120263.m2",
+      "sha256": "71b61e5090a046d5c219f9bf83000dc195828e302c850f4e806a0a8e90de0e0e",
+      "bytes": 2036702,
+      "content_key": "c7fbf4aa36902e78b60ca5f1d49ef363"
+    },
+    "120284": {
+      "file_data_id": 120284,
+      "logical_name": "character\\naga_\\female\\naga_femaleskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120284.blp",
+      "sha256": "3e0708d7c1d0a6114ce2bbea3288b8010baed2fce076f0c0be5bfeec17904deb",
+      "bytes": 350716,
+      "content_key": "58ccb4395602d3d6da14db3d19487cb3"
+    },
+    "120286": {
+      "file_data_id": 120286,
+      "logical_name": "character\\naga_\\female\\naga_femaleskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120286.blp",
+      "sha256": "a68d4da6472ab59d002b6a6187566d87cf5927688789669b91a457420bba2119",
+      "bytes": 350716,
+      "content_key": "850e9c36b25e96f1cf8b392052fee43a"
+    },
+    "120288": {
+      "file_data_id": 120288,
+      "logical_name": "character\\naga_\\female\\naga_femaleskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120288.blp",
+      "sha256": "bcca3c81401e89d27da2d366a570b17ad918a006cf5bf81e5405f4804e83669d",
+      "bytes": 350716,
+      "content_key": "06fca858faec3d321f7c040bd45688dc"
+    },
+    "120290": {
+      "file_data_id": 120290,
+      "logical_name": "character\\naga_\\female\\naga_femaleskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120290.blp",
+      "sha256": "7e6d2a2d3f68fae25a8073abf9ea2bbb912ed0343610e8cd283559ea262dad09",
+      "bytes": 350716,
+      "content_key": "647aeedf7becbf34e9ca3991e9e660e7"
+    },
+    "120292": {
+      "file_data_id": 120292,
+      "logical_name": "character\\naga_\\female\\naga_femaleskin00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120292.blp",
+      "sha256": "11d31e7997277996180c75a89b176c4e5fb6655e964910a561661bb156c45296",
+      "bytes": 350716,
+      "content_key": "327ba352ea2cad1f1676128c707ca676"
+    },
+    "120294": {
+      "file_data_id": 120294,
+      "logical_name": "character\\naga_\\male\\naga_male.m2",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120294.m2",
+      "sha256": "00bb65745a780bffb3234e23d3f0d2a95cc1ba3bef1ddae69b37bf94b62df4cd",
+      "bytes": 2300340,
+      "content_key": "7deda3703619081f9ffe59247595c6b4"
+    },
+    "120315": {
+      "file_data_id": 120315,
+      "logical_name": "character\\naga_\\male\\naga_maleskin00_00.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120315.blp",
+      "sha256": "138d983104fcc42e24c5126fcdcb463e0928db01e9dc6ad68091e69ebd8aba84",
+      "bytes": 700260,
+      "content_key": "ac029acb0d9b3c51f8a615a17541e52f"
+    },
+    "120317": {
+      "file_data_id": 120317,
+      "logical_name": "character\\naga_\\male\\naga_maleskin00_01.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120317.blp",
+      "sha256": "e01869a6610eb281e73b15ee4a196574ffe4955b4ee8fbdc21488cb36919be7c",
+      "bytes": 700260,
+      "content_key": "3fe685256e651b31be45f3d2fc9ab978"
+    },
+    "120319": {
+      "file_data_id": 120319,
+      "logical_name": "character\\naga_\\male\\naga_maleskin00_02.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120319.blp",
+      "sha256": "371329f8ff1f45cabf9c1c53984352dc5dc4ae8457b2ab2b134055e67753f609",
+      "bytes": 700260,
+      "content_key": "fb448082c4a643e5e1dbf66efaf68093"
+    },
+    "120321": {
+      "file_data_id": 120321,
+      "logical_name": "character\\naga_\\male\\naga_maleskin00_03.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120321.blp",
+      "sha256": "13bd857e04e8c4152a8f197feadd1be0b0d395c94f89387ec5e74ccb782f5cf5",
+      "bytes": 700260,
+      "content_key": "f5ef7781aa29f7deccd611ac2f105694"
+    },
+    "120323": {
+      "file_data_id": 120323,
+      "logical_name": "character\\naga_\\male\\naga_maleskin00_04.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\120323.blp",
+      "sha256": "35e7f4e6d8ed3b8cb0b5fea6771a5061d357cc88a4d45568bd9c502fbdcffe2d",
+      "bytes": 700260,
+      "content_key": "7ab50bfa7177f1a4d7030e2b8a230b70"
+    },
+    "1585633": {
+      "file_data_id": 1585633,
+      "logical_name": "character\\naga_\\female\\naga_femaleskin00_fel.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\1585633.blp",
+      "sha256": "cf2e1c69391364545b04bc38614d29c715258fac4c496eac29bf0c86b370877a",
+      "bytes": 700260,
+      "content_key": "815f8825b4af7c5562df2b6eda554ccc"
+    },
+    "1585634": {
+      "file_data_id": 1585634,
+      "logical_name": "character\\naga_\\male\\naga_maleskin00_fel.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\1585634.blp",
+      "sha256": "67336d1befed58de6c562e87f3bf9c2a89d73ec71299bc365f532d25e2a140ad",
+      "bytes": 700260,
+      "content_key": "19589bbdbb5aef61e59e8b885086d818"
+    },
+    "471195": {
+      "file_data_id": 471195,
+      "logical_name": "character\\naga_\\female\\naga_female0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\471195.anim",
+      "sha256": "932f4f56e4271a6946ff22fd23426b7bf39d1215a95a84f54df41bdd89f3991c",
+      "bytes": 20168,
+      "content_key": "1feae6a9b1ea204eeb2a6c811e796648"
+    },
+    "471196": {
+      "file_data_id": 471196,
+      "logical_name": "character\\naga_\\female\\naga_female0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\471196.anim",
+      "sha256": "f42b3fc2f4f2b62eae846bac0bc9490da10ae9fbbb7e38a4cd39a04d1402b888",
+      "bytes": 19032,
+      "content_key": "3b0900daf4ffe0de4e9a7169d1dce0bb"
+    },
+    "2741821": {
+      "file_data_id": 2741821,
+      "logical_name": "character\\naga_\\female\\naga_female0075-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2741821.anim",
+      "sha256": "f45426c6ee2a6a265797edce75b2a0a20ffaccde81080b38a8bc479dbe13c945",
+      "bytes": 56856,
+      "content_key": "f852091b93337b41ca21d270a6150e8a"
+    },
+    "2741823": {
+      "file_data_id": 2741823,
+      "logical_name": "character\\naga_\\female\\naga_female0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2741823.anim",
+      "sha256": "6d35b7a0d078e56bebcbc512d15c9a8ccae3f865336fcf534bb5719ef427aa1e",
+      "bytes": 78568,
+      "content_key": "05017562bb5a81134786b2b1a988244d"
+    },
+    "2741824": {
+      "file_data_id": 2741824,
+      "logical_name": "character\\naga_\\female\\naga_female0129-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2741824.anim",
+      "sha256": "34ffbf1a60a8dc057f1018e27f55514f43c1d1d2ae526bb8646ad3509a43a581",
+      "bytes": 10248,
+      "content_key": "36dc816a02db4a7d9d052da39534e5d2"
+    },
+    "2741826": {
+      "file_data_id": 2741826,
+      "logical_name": "character\\naga_\\female\\naga_female0123-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2741826.anim",
+      "sha256": "9b0345d0f0fcff63c17645035d5d37b7e0889748c9485a5473eed033d2b72741",
+      "bytes": 211064,
+      "content_key": "35dec6a78d11a1f703a174e74ca35a6b"
+    },
+    "2741828": {
+      "file_data_id": 2741828,
+      "logical_name": "character\\naga_\\female\\naga_female0128-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2741828.anim",
+      "sha256": "8e9dab41e4f509af1fadf2389c2a41f5e774e43a756c1adf2ab18c3d75524839",
+      "bytes": 11048,
+      "content_key": "54fa9c74c570871a510b93cd62e359de"
+    },
+    "471193": {
+      "file_data_id": 471193,
+      "logical_name": "character\\naga_\\female\\naga_female00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\471193.skin",
+      "sha256": "92409ef7a3b67139be51964eab1543280f41e793dba481a4f8286fb816b09f3f",
+      "bytes": 78992,
+      "content_key": "2aa40ee4a203bc906ebef11d40f7b49a"
+    },
+    "2964826": {
+      "file_data_id": 2964826,
+      "logical_name": "character\\naga_\\female\\naga_female_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2964826.skin",
+      "sha256": "f2e40a3cb10bd5de8547cf9ce41546826d5f9f95aede1c36f68e7a657e400f46",
+      "bytes": 78992,
+      "content_key": "ce78db7a5580f5dd7dbd92a6e3155582"
+    },
+    "2964827": {
+      "file_data_id": 2964827,
+      "logical_name": "character\\naga_\\female\\naga_female_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2964827.skin",
+      "sha256": "99d349fd146d73a72f797f75aae76d8eace2be700023bccaab3f4772a9d29e75",
+      "bytes": 54976,
+      "content_key": "de1fc734949ccbcad108378206ef9f12"
+    },
+    "2964828": {
+      "file_data_id": 2964828,
+      "logical_name": "character\\naga_\\female\\naga_female_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2964828.skin",
+      "sha256": "8d0d3e07556fc9ce8974a6c5869908177019e1f3aa9b7af476af168aa7398ebf",
+      "bytes": 32736,
+      "content_key": "a577172e56bd43db0af1890aa10b85c6"
+    },
+    "471202": {
+      "file_data_id": 471202,
+      "logical_name": "character\\naga_\\male\\naga_male0060-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\471202.anim",
+      "sha256": "af3128cc1a0b41ae0334b05a05fc574ced1e08f4b58c466cd10a700f7c2e4875",
+      "bytes": 33048,
+      "content_key": "bb61c8697c77637c92b0d182d0a6bc57"
+    },
+    "471200": {
+      "file_data_id": 471200,
+      "logical_name": "character\\naga_\\male\\naga_male0062-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\471200.anim",
+      "sha256": "17de356338964c690cd8a91cf0fe9fc60c14b91a466982aabdd45e759d37ac06",
+      "bytes": 39144,
+      "content_key": "596beef352bd4fc41593cce082307552"
+    },
+    "2623063": {
+      "file_data_id": 2623063,
+      "logical_name": "character\\naga_\\male\\naga_male0075-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2623063.anim",
+      "sha256": "3f38ad215af935b90f9563b14dfe7161310aa8ef51668cf6788e0168e9dafaf9",
+      "bytes": 92424,
+      "content_key": "f700887c187f71d2654d856389a17b8f"
+    },
+    "2623064": {
+      "file_data_id": 2623064,
+      "logical_name": "character\\naga_\\male\\naga_male0084-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2623064.anim",
+      "sha256": "e89092fcc72ca56d802178a1c17bc46b47f21f469a9a94604cf30f70be70a83b",
+      "bytes": 55720,
+      "content_key": "b5934d7350d56a2ca72ca4d0121f0ba8"
+    },
+    "2764009": {
+      "file_data_id": 2764009,
+      "logical_name": "character\\naga_\\male\\naga_male1194-00.anim",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2764009.anim",
+      "sha256": "f2129f96c7fb77cab62a08d29f36bdec6b9afbd4fb859971b06102bda39d9d32",
+      "bytes": 46936,
+      "content_key": "40753ea8c488cf033c58ed1a736b5146"
+    },
+    "471198": {
+      "file_data_id": 471198,
+      "logical_name": "character\\naga_\\male\\naga_male00.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\471198.skin",
+      "sha256": "b89e21bd0c427b732e0968a9c92ae031efc57b252400097a6e28efdaf6036504",
+      "bytes": 78112,
+      "content_key": "5f9821fd5798544d7ea7503c0c40ff40"
+    },
+    "2964708": {
+      "file_data_id": 2964708,
+      "logical_name": "character\\naga_\\male\\naga_male_lod01.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2964708.skin",
+      "sha256": "7ae56997224c1d603867f631605cf5f0f67dee288bf5eb83fd179761a15dd0b3",
+      "bytes": 78112,
+      "content_key": "653cb16c5e3f9964e0438271ada23330"
+    },
+    "2964710": {
+      "file_data_id": 2964710,
+      "logical_name": "character\\naga_\\male\\naga_male_lod02.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2964710.skin",
+      "sha256": "5c98197bb75f4b0988c591fd2be0e67369a9eefc2063760606422fbc0c9db503",
+      "bytes": 53120,
+      "content_key": "fb475fccd0d45c703e288585789ffe54"
+    },
+    "2964711": {
+      "file_data_id": 2964711,
+      "logical_name": "character\\naga_\\male\\naga_male_lod03.skin",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\2964711.skin",
+      "sha256": "0f02c57944011eb8aed76fb41dee221cec333a43c007f75272cf3fb788c09a94",
+      "bytes": 34144,
+      "content_key": "b674933d6973050d993e32e6c8540b66"
+    },
+    "1337120": {
+      "file_data_id": 1337120,
+      "logical_name": "character\\naga_\\male\\armorreflect4.blp",
+      "path": "R:\\Users\\Zach\\Documents\\GitHub\\wow-race-retroporter\\sources\\retail\\races\\naga\\1337120.blp",
+      "sha256": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d",
+      "bytes": 3916,
+      "content_key": "abafdf49a88245f37ba062f37175611d"
+    }
+  },
+  "dependencies": [
+    {
+      "owner": 120263,
+      "dependency": 471195,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 471196,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2741821,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2741823,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2741824,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2741826,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2741828,
+      "role": "AFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 471193,
+      "role": "SFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2964826,
+      "role": "SFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2964827,
+      "role": "SFID"
+    },
+    {
+      "owner": 120263,
+      "dependency": 2964828,
+      "role": "SFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 471202,
+      "role": "AFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 471200,
+      "role": "AFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 2623063,
+      "role": "AFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 2623064,
+      "role": "AFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 2764009,
+      "role": "AFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 471198,
+      "role": "SFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 2964708,
+      "role": "SFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 2964710,
+      "role": "SFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 2964711,
+      "role": "SFID"
+    },
+    {
+      "owner": 120294,
+      "dependency": 1337120,
+      "role": "TXID"
+    }
+  ],
+  "status": "source_graph_complete"
+}

@@ -1,0 +1,1336 @@
+{
+  "race_id": 13,
+  "race_ids": [
+    13
+  ],
+  "race": {
+    "_row_id": 13,
+    "ClientPrefix": "Na",
+    "ClientFileString": "Naga_",
+    "Name_lang": "Naga",
+    "Name_female_lang": "",
+    "Name_lowercase_lang": "naga",
+    "Name_female_lowercase_lang": "",
+    "Lore_name_lang": "",
+    "Lore_name_female_lang": "",
+    "Lore_name_lower_lang": "",
+    "Lore_name_lower_female_lang": "",
+    "LoreDescription_lang": "",
+    "Short_name_lang": "",
+    "Short_name_female_lang": "",
+    "Short_name_lower_lang": "",
+    "Short_name_lower_female_lang": "",
+    "Flags": 1,
+    "FactionID": 1,
+    "CinematicSequenceID": 0,
+    "ResSicknessSpellID": 15007,
+    "SplashSoundID": 1096,
+    "CreateScreenFileDataID": 0,
+    "SelectScreenFileDataID": 0,
+    "LowResScreenFileDataID": 0,
+    "AlteredFormStartVisualKitID": [
+      0,
+      0,
+      0
+    ],
+    "AlteredFormFinishVisualKitID": [
+      0,
+      0,
+      0
+    ],
+    "HeritageArmorAchievementID": 0,
+    "StartingLevel": 1,
+    "UiDisplayOrder": 0,
+    "PlayableRaceBit": -1,
+    "TransmogrifyDisabledSlotMask": 0,
+    "AlteredFormCustomizeOffsetFallback": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "AlteredFormCustomizeRotationFallback": 0.0,
+    "Field_9_1_0_38312_030": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Field_9_1_0_38312_031": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "BaseLanguage": 7,
+    "CreatureType": 7,
+    "Alliance": 2,
+    "Race_related": 0,
+    "UnalteredVisualRaceID": 0,
+    "DefaultClassID": 0,
+    "NeutralRaceID": 0,
+    "MaleModelFallbackRaceID": 0,
+    "MaleModelFallbackSex": -1,
+    "FemaleModelFallbackRaceID": 0,
+    "FemaleModelFallbackSex": -1,
+    "MaleTextureFallbackRaceID": 0,
+    "MaleTextureFallbackSex": -1,
+    "FemaleTextureFallbackRaceID": 0,
+    "FemaleTextureFallbackSex": -1,
+    "HelmetAnimScalingRaceID": 0,
+    "UnalteredVisualCustomizationRaceID": 0,
+    "ID": 13
+  },
+  "races": [
+    {
+      "_row_id": 13,
+      "ClientPrefix": "Na",
+      "ClientFileString": "Naga_",
+      "Name_lang": "Naga",
+      "Name_female_lang": "",
+      "Name_lowercase_lang": "naga",
+      "Name_female_lowercase_lang": "",
+      "Lore_name_lang": "",
+      "Lore_name_female_lang": "",
+      "Lore_name_lower_lang": "",
+      "Lore_name_lower_female_lang": "",
+      "LoreDescription_lang": "",
+      "Short_name_lang": "",
+      "Short_name_female_lang": "",
+      "Short_name_lower_lang": "",
+      "Short_name_lower_female_lang": "",
+      "Flags": 1,
+      "FactionID": 1,
+      "CinematicSequenceID": 0,
+      "ResSicknessSpellID": 15007,
+      "SplashSoundID": 1096,
+      "CreateScreenFileDataID": 0,
+      "SelectScreenFileDataID": 0,
+      "LowResScreenFileDataID": 0,
+      "AlteredFormStartVisualKitID": [
+        0,
+        0,
+        0
+      ],
+      "AlteredFormFinishVisualKitID": [
+        0,
+        0,
+        0
+      ],
+      "HeritageArmorAchievementID": 0,
+      "StartingLevel": 1,
+      "UiDisplayOrder": 0,
+      "PlayableRaceBit": -1,
+      "TransmogrifyDisabledSlotMask": 0,
+      "AlteredFormCustomizeOffsetFallback": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "AlteredFormCustomizeRotationFallback": 0.0,
+      "Field_9_1_0_38312_030": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Field_9_1_0_38312_031": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "BaseLanguage": 7,
+      "CreatureType": 7,
+      "Alliance": 2,
+      "Race_related": 0,
+      "UnalteredVisualRaceID": 0,
+      "DefaultClassID": 0,
+      "NeutralRaceID": 0,
+      "MaleModelFallbackRaceID": 0,
+      "MaleModelFallbackSex": -1,
+      "FemaleModelFallbackRaceID": 0,
+      "FemaleModelFallbackSex": -1,
+      "MaleTextureFallbackRaceID": 0,
+      "MaleTextureFallbackSex": -1,
+      "FemaleTextureFallbackRaceID": 0,
+      "FemaleTextureFallbackSex": -1,
+      "HelmetAnimScalingRaceID": 0,
+      "UnalteredVisualCustomizationRaceID": 0,
+      "ID": 13
+    }
+  ],
+  "model_links": [
+    {
+      "_row_id": 25,
+      "ChrRacesID": 13,
+      "ChrModelID": 25,
+      "Sex": 0,
+      "AllowedTransmogSlots": 0,
+      "ID": 25
+    },
+    {
+      "_row_id": 26,
+      "ChrRacesID": 13,
+      "ChrModelID": 26,
+      "Sex": 1,
+      "AllowedTransmogSlots": 0,
+      "ID": 26
+    }
+  ],
+  "models": [
+    {
+      "_row_id": 25,
+      "FaceCustomizationOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "CustomizeOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ID": 25,
+      "Sex": 0,
+      "DisplayID": 17402,
+      "CharComponentTextureLayoutID": 2,
+      "Flags": 0,
+      "SkeletonFileDataID": 0,
+      "ModelFallbackChrModelID": 0,
+      "TextureFallbackChrModelID": 0,
+      "HelmVisFallbackChrModelID": 0,
+      "CustomizeScale": 1.0,
+      "CustomizeFacing": 0.0,
+      "CameraDistanceOffset": 0.0,
+      "BarberShopCameraOffsetScale": 0.0,
+      "BarberShopCameraRotationFacing": 0.0,
+      "BarberShopCameraRotationOffset": 0.0
+    },
+    {
+      "_row_id": 26,
+      "FaceCustomizationOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "CustomizeOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ID": 26,
+      "Sex": 1,
+      "DisplayID": 17403,
+      "CharComponentTextureLayoutID": 2,
+      "Flags": 0,
+      "SkeletonFileDataID": 0,
+      "ModelFallbackChrModelID": 0,
+      "TextureFallbackChrModelID": 0,
+      "HelmVisFallbackChrModelID": 0,
+      "CustomizeScale": 1.0,
+      "CustomizeFacing": 0.0,
+      "CameraDistanceOffset": 0.0,
+      "BarberShopCameraOffsetScale": 0.0,
+      "BarberShopCameraRotationFacing": 0.0,
+      "BarberShopCameraRotationOffset": 0.0
+    }
+  ],
+  "display_rows": [
+    {
+      "_row_id": 17402,
+      "ID": 17402,
+      "ModelID": 2353,
+      "SoundID": 0,
+      "SizeClass": 0,
+      "CreatureModelScale": 1.0,
+      "CreatureModelAlpha": 255,
+      "BloodID": 0,
+      "ExtendedDisplayInfoID": 0,
+      "NPCSoundID": 0,
+      "ParticleColorID": 0,
+      "PortraitCreatureDisplayInfoID": 0,
+      "PortraitTextureFileDataID": 0,
+      "ObjectEffectPackageID": 0,
+      "AnimReplacementSetID": 0,
+      "Flags": 0,
+      "StateSpellVisualKitID": 0,
+      "PlayerOverrideScale": 0.0,
+      "PetInstanceScale": 1.0,
+      "UnarmedWeaponType": -1,
+      "MountPoofSpellVisualKitID": 0,
+      "DissolveEffectID": 0,
+      "Gender": 0,
+      "DissolveOutEffectID": 0,
+      "CreatureModelMinLod": 0,
+      "ConditionalCreatureModelID": 0,
+      "MountMaxBankingAngle": 45.0,
+      "Field_11_0_0_54210_026": 0,
+      "TextureVariationFileDataID": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 17403,
+      "ID": 17403,
+      "ModelID": 2354,
+      "SoundID": 0,
+      "SizeClass": 0,
+      "CreatureModelScale": 1.0,
+      "CreatureModelAlpha": 255,
+      "BloodID": 0,
+      "ExtendedDisplayInfoID": 0,
+      "NPCSoundID": 0,
+      "ParticleColorID": 0,
+      "PortraitCreatureDisplayInfoID": 0,
+      "PortraitTextureFileDataID": 0,
+      "ObjectEffectPackageID": 0,
+      "AnimReplacementSetID": 0,
+      "Flags": 0,
+      "StateSpellVisualKitID": 0,
+      "PlayerOverrideScale": 0.0,
+      "PetInstanceScale": 1.0,
+      "UnarmedWeaponType": -1,
+      "MountPoofSpellVisualKitID": 0,
+      "DissolveEffectID": 0,
+      "Gender": 1,
+      "DissolveOutEffectID": 0,
+      "CreatureModelMinLod": 0,
+      "ConditionalCreatureModelID": 0,
+      "MountMaxBankingAngle": 45.0,
+      "Field_11_0_0_54210_026": 0,
+      "TextureVariationFileDataID": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "creature_model_rows": [
+    {
+      "_row_id": 2353,
+      "GeoBox": [
+        -1.6483283042907715,
+        -1.0907232761383057,
+        -0.045230671763420105,
+        0.760438084602356,
+        1.107932209968567,
+        2.764085054397583
+      ],
+      "Flags": 0,
+      "FileDataID": 120294,
+      "WalkSpeed": 2.5,
+      "RunSpeed": 8.0,
+      "BloodID": 1,
+      "FootprintTextureID": 1,
+      "FootprintTextureLength": 0.0,
+      "FootprintTextureWidth": 0.0,
+      "FootprintParticleScale": 0.0,
+      "FoleyMaterialID": 0,
+      "FootstepCameraEffectID": 0,
+      "DeathThudCameraEffectID": 0,
+      "SoundID": 5022,
+      "SizeClass": 0,
+      "CollisionWidth": 0.6111111044883728,
+      "CollisionHeight": 2.031277894973755,
+      "WorldEffectScale": 1.0,
+      "CreatureGeosetDataID": 0,
+      "HoverHeight": 0.0,
+      "AttachedEffectScale": 1.0,
+      "ModelScale": 1.0,
+      "MissileCollisionRadius": 0.0,
+      "MissileCollisionPush": 0.0,
+      "MissileCollisionRaise": 0.0,
+      "MountHeight": 1.3952232599258423,
+      "OverrideLootEffectScale": 0.0,
+      "OverrideNameScale": 0.0,
+      "OverrideSelectionRadius": 0.0,
+      "TamedPetBaseScale": 1.0,
+      "MountScaleOtherIndex": 0,
+      "MountScaleSelf": 1.0,
+      "Field_11_0_0_54210_032": 0,
+      "MountScaleOther": [
+        1.0,
+        1.0
+      ],
+      "ID": 2353
+    },
+    {
+      "_row_id": 2354,
+      "GeoBox": [
+        -1.8432756662368774,
+        -0.9455348253250122,
+        -0.02851978689432144,
+        0.984276533126831,
+        1.025744080543518,
+        2.39973521232605
+      ],
+      "Flags": 4,
+      "FileDataID": 120263,
+      "WalkSpeed": 2.5,
+      "RunSpeed": 8.0,
+      "BloodID": 4,
+      "FootprintTextureID": 1,
+      "FootprintTextureLength": 0.0,
+      "FootprintTextureWidth": 0.0,
+      "FootprintParticleScale": 0.0,
+      "FoleyMaterialID": 0,
+      "FootstepCameraEffectID": 0,
+      "DeathThudCameraEffectID": 0,
+      "SoundID": 2282,
+      "SizeClass": 0,
+      "CollisionWidth": 0.6111111044883728,
+      "CollisionHeight": 2.031277894973755,
+      "WorldEffectScale": 1.0,
+      "CreatureGeosetDataID": 0,
+      "HoverHeight": 0.0,
+      "AttachedEffectScale": 0.75,
+      "ModelScale": 1.0,
+      "MissileCollisionRadius": 0.0,
+      "MissileCollisionPush": 0.0,
+      "MissileCollisionRaise": 0.0,
+      "MountHeight": 2.0049448013305664,
+      "OverrideLootEffectScale": 0.0,
+      "OverrideNameScale": 0.0,
+      "OverrideSelectionRadius": 0.0,
+      "TamedPetBaseScale": 1.0,
+      "MountScaleOtherIndex": 0,
+      "MountScaleSelf": 1.0,
+      "Field_11_0_0_54210_032": 0,
+      "MountScaleOther": [
+        1.0,
+        1.0
+      ],
+      "ID": 2354
+    }
+  ],
+  "options": [
+    {
+      "_row_id": 144,
+      "Name_lang": "Skin Color",
+      "ID": 144,
+      "SecondaryID": 142,
+      "Flags": 18,
+      "ChrModelID": 25,
+      "OrderIndex": 1,
+      "ChrCustomizationCategoryID": 2,
+      "OptionType": 0,
+      "BarberShopCostModifier": 0.0,
+      "ChrCustomizationID": 1,
+      "Requirement": 0,
+      "SecondaryOrderIndex": 1,
+      "AddedInPatch": 90001
+    },
+    {
+      "_row_id": 145,
+      "Name_lang": "Hair Style",
+      "ID": 145,
+      "SecondaryID": 143,
+      "Flags": 0,
+      "ChrModelID": 25,
+      "OrderIndex": 2,
+      "ChrCustomizationCategoryID": 4,
+      "OptionType": 0,
+      "BarberShopCostModifier": 0.0,
+      "ChrCustomizationID": 3,
+      "Requirement": 0,
+      "SecondaryOrderIndex": 2,
+      "AddedInPatch": 90001
+    },
+    {
+      "_row_id": 146,
+      "Name_lang": "Hair Color",
+      "ID": 146,
+      "SecondaryID": 144,
+      "Flags": 2,
+      "ChrModelID": 25,
+      "OrderIndex": 3,
+      "ChrCustomizationCategoryID": 4,
+      "OptionType": 0,
+      "BarberShopCostModifier": 0.0,
+      "ChrCustomizationID": 4,
+      "Requirement": 0,
+      "SecondaryOrderIndex": 3,
+      "AddedInPatch": 90001
+    },
+    {
+      "_row_id": 147,
+      "Name_lang": "Skin Color",
+      "ID": 147,
+      "SecondaryID": 145,
+      "Flags": 18,
+      "ChrModelID": 26,
+      "OrderIndex": 1,
+      "ChrCustomizationCategoryID": 2,
+      "OptionType": 0,
+      "BarberShopCostModifier": 0.0,
+      "ChrCustomizationID": 1,
+      "Requirement": 0,
+      "SecondaryOrderIndex": 1,
+      "AddedInPatch": 90001
+    },
+    {
+      "_row_id": 148,
+      "Name_lang": "Hair Style",
+      "ID": 148,
+      "SecondaryID": 146,
+      "Flags": 0,
+      "ChrModelID": 26,
+      "OrderIndex": 2,
+      "ChrCustomizationCategoryID": 4,
+      "OptionType": 0,
+      "BarberShopCostModifier": 0.0,
+      "ChrCustomizationID": 3,
+      "Requirement": 0,
+      "SecondaryOrderIndex": 2,
+      "AddedInPatch": 90001
+    },
+    {
+      "_row_id": 149,
+      "Name_lang": "Hair Color",
+      "ID": 149,
+      "SecondaryID": 147,
+      "Flags": 2,
+      "ChrModelID": 26,
+      "OrderIndex": 3,
+      "ChrCustomizationCategoryID": 4,
+      "OptionType": 0,
+      "BarberShopCostModifier": 0.0,
+      "ChrCustomizationID": 4,
+      "Requirement": 0,
+      "SecondaryOrderIndex": 3,
+      "AddedInPatch": 90001
+    }
+  ],
+  "choices": [
+    {
+      "_row_id": 2027,
+      "Name_lang": "",
+      "ID": 2027,
+      "ChrCustomizationOptionID": 144,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 0,
+      "UiOrderIndex": 0,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2028,
+      "Name_lang": "",
+      "ID": 2028,
+      "ChrCustomizationOptionID": 144,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 1,
+      "UiOrderIndex": 1,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2029,
+      "Name_lang": "",
+      "ID": 2029,
+      "ChrCustomizationOptionID": 144,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 2,
+      "UiOrderIndex": 2,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2030,
+      "Name_lang": "",
+      "ID": 2030,
+      "ChrCustomizationOptionID": 144,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 3,
+      "UiOrderIndex": 3,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2031,
+      "Name_lang": "",
+      "ID": 2031,
+      "ChrCustomizationOptionID": 144,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 4,
+      "UiOrderIndex": 4,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2032,
+      "Name_lang": "",
+      "ID": 2032,
+      "ChrCustomizationOptionID": 144,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 5,
+      "UiOrderIndex": 5,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2033,
+      "Name_lang": "",
+      "ID": 2033,
+      "ChrCustomizationOptionID": 145,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 0,
+      "UiOrderIndex": 0,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2034,
+      "Name_lang": "",
+      "ID": 2034,
+      "ChrCustomizationOptionID": 146,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 0,
+      "UiOrderIndex": 0,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2035,
+      "Name_lang": "",
+      "ID": 2035,
+      "ChrCustomizationOptionID": 147,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 0,
+      "UiOrderIndex": 0,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2036,
+      "Name_lang": "",
+      "ID": 2036,
+      "ChrCustomizationOptionID": 147,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 1,
+      "UiOrderIndex": 1,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2037,
+      "Name_lang": "",
+      "ID": 2037,
+      "ChrCustomizationOptionID": 147,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 2,
+      "UiOrderIndex": 2,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2038,
+      "Name_lang": "",
+      "ID": 2038,
+      "ChrCustomizationOptionID": 147,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 3,
+      "UiOrderIndex": 3,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2039,
+      "Name_lang": "",
+      "ID": 2039,
+      "ChrCustomizationOptionID": 147,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 4,
+      "UiOrderIndex": 4,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2040,
+      "Name_lang": "",
+      "ID": 2040,
+      "ChrCustomizationOptionID": 147,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 5,
+      "UiOrderIndex": 5,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2041,
+      "Name_lang": "",
+      "ID": 2041,
+      "ChrCustomizationOptionID": 148,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 0,
+      "UiOrderIndex": 0,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    },
+    {
+      "_row_id": 2042,
+      "Name_lang": "",
+      "ID": 2042,
+      "ChrCustomizationOptionID": 149,
+      "ChrCustomizationReqID": 146,
+      "ChrCustomizationVisReqID": 0,
+      "OrderIndex": 0,
+      "UiOrderIndex": 0,
+      "Flags": 0,
+      "AddedInPatch": 90001,
+      "SoundKitID": 0,
+      "SwatchColor": [
+        0,
+        0
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "_row_id": 146,
+      "ReqSource_lang": "",
+      "ReqType": 3,
+      "ClassMask": 32735,
+      "RegionGroupMask": 0,
+      "ReqAchievementID": 0,
+      "ReqQuestID": 0,
+      "OverrideArchive": -1,
+      "ReqItemModifiedAppearanceID": 0,
+      "RaceMasks": [
+        -1,
+        -1
+      ],
+      "ID": 146
+    }
+  ],
+  "requirement_choices": [],
+  "visibility_requirements": [],
+  "elements": [
+    {
+      "_row_id": 1050,
+      "ChrCustomizationChoiceID": 2033,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 1050,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 0,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 1050
+    },
+    {
+      "_row_id": 1051,
+      "ChrCustomizationChoiceID": 2041,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 1051,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 0,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 1051
+    },
+    {
+      "_row_id": 11064,
+      "ChrCustomizationChoiceID": 2027,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8988,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11064
+    },
+    {
+      "_row_id": 11065,
+      "ChrCustomizationChoiceID": 2028,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8989,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11065
+    },
+    {
+      "_row_id": 11066,
+      "ChrCustomizationChoiceID": 2029,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8990,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11066
+    },
+    {
+      "_row_id": 11067,
+      "ChrCustomizationChoiceID": 2030,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8991,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11067
+    },
+    {
+      "_row_id": 11068,
+      "ChrCustomizationChoiceID": 2031,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8992,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11068
+    },
+    {
+      "_row_id": 11069,
+      "ChrCustomizationChoiceID": 2032,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8993,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11069
+    },
+    {
+      "_row_id": 11070,
+      "ChrCustomizationChoiceID": 2035,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8994,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11070
+    },
+    {
+      "_row_id": 11071,
+      "ChrCustomizationChoiceID": 2036,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8995,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11071
+    },
+    {
+      "_row_id": 11072,
+      "ChrCustomizationChoiceID": 2037,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8996,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11072
+    },
+    {
+      "_row_id": 11073,
+      "ChrCustomizationChoiceID": 2038,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8997,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11073
+    },
+    {
+      "_row_id": 11074,
+      "ChrCustomizationChoiceID": 2039,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8998,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11074
+    },
+    {
+      "_row_id": 11075,
+      "ChrCustomizationChoiceID": 2040,
+      "RelatedChrCustomizationChoiceID": 0,
+      "ChrCustomizationGeosetID": 0,
+      "ChrCustomizationSkinnedModelID": 0,
+      "ChrCustomizationMaterialID": 8999,
+      "ChrCustomizationBoneSetID": 0,
+      "ChrCustomizationCondModelID": 0,
+      "ChrCustomizationDisplayInfoID": 0,
+      "ChrCustItemGeoModifyID": 0,
+      "ChrCustomizationVoiceID": 0,
+      "AnimKitID": 0,
+      "ParticleColorID": 0,
+      "ChrCustGeoComponentLinkID": 0,
+      "ID": 11075
+    }
+  ],
+  "linked": {
+    "ChrCustomizationGeoset": [
+      {
+        "_row_id": 1050,
+        "GeosetType": 0,
+        "GeosetID": 0,
+        "Modifier": -1,
+        "ID": 1050
+      },
+      {
+        "_row_id": 1051,
+        "GeosetType": 0,
+        "GeosetID": 0,
+        "Modifier": -1,
+        "ID": 1051
+      }
+    ],
+    "ChrCustomizationMaterial": [
+      {
+        "_row_id": 8988,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6350,
+        "ID": 8988
+      },
+      {
+        "_row_id": 8989,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6352,
+        "ID": 8989
+      },
+      {
+        "_row_id": 8990,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6354,
+        "ID": 8990
+      },
+      {
+        "_row_id": 8991,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6363,
+        "ID": 8991
+      },
+      {
+        "_row_id": 8992,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6357,
+        "ID": 8992
+      },
+      {
+        "_row_id": 8993,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 370777,
+        "ID": 8993
+      },
+      {
+        "_row_id": 8994,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6320,
+        "ID": 8994
+      },
+      {
+        "_row_id": 8995,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6322,
+        "ID": 8995
+      },
+      {
+        "_row_id": 8996,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6324,
+        "ID": 8996
+      },
+      {
+        "_row_id": 8997,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6326,
+        "ID": 8997
+      },
+      {
+        "_row_id": 8998,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 6328,
+        "ID": 8998
+      },
+      {
+        "_row_id": 8999,
+        "ChrModelTextureTargetID": 1,
+        "MaterialResourcesID": 370767,
+        "ID": 8999
+      }
+    ]
+  },
+  "texture_files": [
+    {
+      "_row_id": 120284,
+      "FileDataID": 120284,
+      "UsageType": 0,
+      "MaterialResourcesID": 6320
+    },
+    {
+      "_row_id": 120286,
+      "FileDataID": 120286,
+      "UsageType": 0,
+      "MaterialResourcesID": 6322
+    },
+    {
+      "_row_id": 120288,
+      "FileDataID": 120288,
+      "UsageType": 0,
+      "MaterialResourcesID": 6324
+    },
+    {
+      "_row_id": 120290,
+      "FileDataID": 120290,
+      "UsageType": 0,
+      "MaterialResourcesID": 6326
+    },
+    {
+      "_row_id": 120292,
+      "FileDataID": 120292,
+      "UsageType": 0,
+      "MaterialResourcesID": 6328
+    },
+    {
+      "_row_id": 120315,
+      "FileDataID": 120315,
+      "UsageType": 0,
+      "MaterialResourcesID": 6350
+    },
+    {
+      "_row_id": 120317,
+      "FileDataID": 120317,
+      "UsageType": 0,
+      "MaterialResourcesID": 6352
+    },
+    {
+      "_row_id": 120319,
+      "FileDataID": 120319,
+      "UsageType": 0,
+      "MaterialResourcesID": 6354
+    },
+    {
+      "_row_id": 120321,
+      "FileDataID": 120321,
+      "UsageType": 0,
+      "MaterialResourcesID": 6363
+    },
+    {
+      "_row_id": 120323,
+      "FileDataID": 120323,
+      "UsageType": 0,
+      "MaterialResourcesID": 6357
+    },
+    {
+      "_row_id": 1585633,
+      "FileDataID": 1585633,
+      "UsageType": 0,
+      "MaterialResourcesID": 370767
+    },
+    {
+      "_row_id": 1585634,
+      "FileDataID": 1585634,
+      "UsageType": 0,
+      "MaterialResourcesID": 370777
+    }
+  ],
+  "file_data_ids": [
+    120263,
+    120284,
+    120286,
+    120288,
+    120290,
+    120292,
+    120294,
+    120315,
+    120317,
+    120319,
+    120321,
+    120323,
+    1585633,
+    1585634
+  ],
+  "file_assets": [
+    {
+      "file_data_id": 120263,
+      "path": "character\\naga_\\female\\naga_female.m2"
+    },
+    {
+      "file_data_id": 120284,
+      "path": "character\\naga_\\female\\naga_femaleskin00_00.blp"
+    },
+    {
+      "file_data_id": 120286,
+      "path": "character\\naga_\\female\\naga_femaleskin00_01.blp"
+    },
+    {
+      "file_data_id": 120288,
+      "path": "character\\naga_\\female\\naga_femaleskin00_02.blp"
+    },
+    {
+      "file_data_id": 120290,
+      "path": "character\\naga_\\female\\naga_femaleskin00_03.blp"
+    },
+    {
+      "file_data_id": 120292,
+      "path": "character\\naga_\\female\\naga_femaleskin00_04.blp"
+    },
+    {
+      "file_data_id": 120294,
+      "path": "character\\naga_\\male\\naga_male.m2"
+    },
+    {
+      "file_data_id": 120315,
+      "path": "character\\naga_\\male\\naga_maleskin00_00.blp"
+    },
+    {
+      "file_data_id": 120317,
+      "path": "character\\naga_\\male\\naga_maleskin00_01.blp"
+    },
+    {
+      "file_data_id": 120319,
+      "path": "character\\naga_\\male\\naga_maleskin00_02.blp"
+    },
+    {
+      "file_data_id": 120321,
+      "path": "character\\naga_\\male\\naga_maleskin00_03.blp"
+    },
+    {
+      "file_data_id": 120323,
+      "path": "character\\naga_\\male\\naga_maleskin00_04.blp"
+    },
+    {
+      "file_data_id": 1585633,
+      "path": "character\\naga_\\female\\naga_femaleskin00_fel.blp"
+    },
+    {
+      "file_data_id": 1585634,
+      "path": "character\\naga_\\male\\naga_maleskin00_fel.blp"
+    }
+  ],
+  "selected_models": [
+    {
+      "_row_id": 25,
+      "FaceCustomizationOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "CustomizeOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ID": 25,
+      "Sex": 0,
+      "DisplayID": 17402,
+      "CharComponentTextureLayoutID": 2,
+      "Flags": 0,
+      "SkeletonFileDataID": 0,
+      "ModelFallbackChrModelID": 0,
+      "TextureFallbackChrModelID": 0,
+      "HelmVisFallbackChrModelID": 0,
+      "CustomizeScale": 1.0,
+      "CustomizeFacing": 0.0,
+      "CameraDistanceOffset": 0.0,
+      "BarberShopCameraOffsetScale": 0.0,
+      "BarberShopCameraRotationFacing": 0.0,
+      "BarberShopCameraRotationOffset": 0.0
+    },
+    {
+      "_row_id": 26,
+      "FaceCustomizationOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "CustomizeOffset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ID": 26,
+      "Sex": 1,
+      "DisplayID": 17403,
+      "CharComponentTextureLayoutID": 2,
+      "Flags": 0,
+      "SkeletonFileDataID": 0,
+      "ModelFallbackChrModelID": 0,
+      "TextureFallbackChrModelID": 0,
+      "HelmVisFallbackChrModelID": 0,
+      "CustomizeScale": 1.0,
+      "CustomizeFacing": 0.0,
+      "CameraDistanceOffset": 0.0,
+      "BarberShopCameraOffsetScale": 0.0,
+      "BarberShopCameraRotationFacing": 0.0,
+      "BarberShopCameraRotationOffset": 0.0
+    }
+  ]
+}

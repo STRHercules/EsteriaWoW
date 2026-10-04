@@ -1,0 +1,17 @@
+slug: highmountain_tauren
+display_name: Highmountain Tauren
+retail_race_id: 28
+target_race_id: 46
+faction: horde
+base_race: tauren
+customization:
+  profile: complete
+  include_face_bone_shapes: true
+  preserve_requirements: true
+starting_zone:
+  strategy: inherit
+  inherit_from: tauren
+conversion:
+  preserve_external_animations: true
+  flatten_parent_skeleton: true
+  integration_tool: tools/highmountain_race_pack.py

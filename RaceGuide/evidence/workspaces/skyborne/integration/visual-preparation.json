@@ -1,0 +1,626 @@
+{
+  "schema_version": 1,
+  "scope": "curated presets",
+  "sexes": {
+    "male": {
+      "model_path": "custom\\skyborne\\runtime\\male\\7478487.m2",
+      "vertices": 44330,
+      "collections": [
+        {
+          "source": "G:\\RetroPorterWork\\skyborne\\integration\\patch-root\\custom\\skyborne\\models\\unknown\\unk_exp00_7845093\\7845093.m2",
+          "bone_bindings": 52,
+          "meshes": 3
+        }
+      ],
+      "head_vertices": 1900,
+      "body_vertices": 9894,
+      "triangle_indices": 62238,
+      "animations": 53,
+      "appearance": [
+        {
+          "path": "custom\\skyborne\\runtime\\male\\body00.blp",
+          "sha256": "a6f16e6d9df3e14a12112348a59dba8d1852e21c19c0365fb0ae2be620ed6a19"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\pelvis00.blp",
+          "sha256": "46ae448626aeef87da09cfbce0b14188c90e038c58a240fc0516cf886e9a33f0"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper00_00.blp",
+          "sha256": "90e254f80753efdea38155855280953c580e7bc60262a70af2c272b6564d4168"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower00_00.blp",
+          "sha256": "8fd924e68572b7d6682d6929218f473a80557241593eb11e9412e53969d59ce4"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper01_00.blp",
+          "sha256": "b6ebb5acfa483532c1f87cea71ced8463001f08c3e65b65430d85365b8f74cf2"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower01_00.blp",
+          "sha256": "45aa43c29eb0dff6e576a834259d2a8ca6e7149e2aec0e0e3404f806adfae31b"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper02_00.blp",
+          "sha256": "c8f3381a05f5d31ce79b108c9bff33a239dc52d2a9abcb3167198eede38e64a7"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower02_00.blp",
+          "sha256": "f31adb1fa6d6e5b875df423ba8ae8c9d67b3fad2a8a158790c39cc1109a0624f"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper03_00.blp",
+          "sha256": "d2e4b24c00143e1dd18e974aaad9714c663f7d1c9cfa30f9a44f5c184fa6a2d8"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower03_00.blp",
+          "sha256": "1bcaed32fdc637a9174adabe77be544223aff7fb309e70e651e3d4a5b8d43abd"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\body01.blp",
+          "sha256": "473c94d86e9c3e71e352967ab163871cc99746b81410da3e9ef8a3f4f8d7ceee"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\pelvis01.blp",
+          "sha256": "3b610681206a51a19a66c6bf758de38d94996874fe4191652f303f200f535a4a"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper00_01.blp",
+          "sha256": "61c9f3dbf86c06fe0828413500a304338208e4b258452dce176f1b369684cd5e"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower00_01.blp",
+          "sha256": "946ae0a7ee1edbd04fa7518e223dcb83803ade06fea562e9eebbc1018d80070a"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper01_01.blp",
+          "sha256": "4015308262256545a75f2926a3c16cde1ee94fd85e02b736af48d5ddd976ed06"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower01_01.blp",
+          "sha256": "643aedafe8bd3300c6e0918e82d9359800b6b5ec895dce2e3366f3d06c319077"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper02_01.blp",
+          "sha256": "a8d528d2c523f441627980e484a18087bb05c568a9b70a26fef93fe0eedabd31"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower02_01.blp",
+          "sha256": "6cec2cabbf28416c4ea8a5107ea806d21985e33d82f5c6949524376e6deac9aa"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper03_01.blp",
+          "sha256": "963a716d4184618acb2448a45fd6294fefe45aea88866193ff9de12b13d539ce"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower03_01.blp",
+          "sha256": "7b0f2c1a712554c6ea9f3cad9394f6d5be7d1556cf0e3603cacd2aa412e4cc38"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\body02.blp",
+          "sha256": "67540f77f232eeb11238d2dac2475a6e34c5fd7d81bafcf1e5775044fdce03dc"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\pelvis02.blp",
+          "sha256": "987a2fa8d6135d2f3b40587b4517fc9d269a75e7d4144a7172502cbfe135fda0"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper00_02.blp",
+          "sha256": "cf5e12292925f678eca41fb577565aeda8a90e5476fc32908bdd777739cfbbab"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower00_02.blp",
+          "sha256": "1bdf64f214f7f6477d54ff47092cd5dce2e852269275023c66d992268ea1e066"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper01_02.blp",
+          "sha256": "0a8c32be13139ec0671a99f6d2a7b7dbfb09616d36add8435e4a1921fdfcfa38"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower01_02.blp",
+          "sha256": "9d6a7c23c75ebb35fa81b8ba0b1baad9b170421ec97b6530717fea80a2823b3a"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper02_02.blp",
+          "sha256": "c52ed2878fc6b917411e69b7c11ca2ca83f749cb1d76297511f6a994ccc183b4"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower02_02.blp",
+          "sha256": "2504321c7a6484ee0ae521bfa406af506545a8e83cc8c82eab6af085bda919b5"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper03_02.blp",
+          "sha256": "f0a9faa22efe892cfa7c7f07338cf97dca87f2ea40259486886459f734d9c7d2"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower03_02.blp",
+          "sha256": "d53543e532525b0158099c0cce4b770fc157489509912e0a5d718767a3cbf8ea"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\body03.blp",
+          "sha256": "4b4586330d005e41dc22b9c7c3f730af0f5f70ddc1f413be9b9ced6f1dff8b98"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\pelvis03.blp",
+          "sha256": "6b77e030d7c77451952967367ed07ed6c891f70a22eb4cd7d8e0760795060e81"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper00_03.blp",
+          "sha256": "2f2c4892c681bbe04b3530fdf1997f9f1497cc453e907f47e073d23756196e16"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower00_03.blp",
+          "sha256": "de4de71272af6f50849da4aaee8c53b89f06ae685719e084f7b1a567b8e721fd"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper01_03.blp",
+          "sha256": "f55d9024e19af0a10b1012f4d212f5268c3f6bfdae149304dc034add4aa2de80"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower01_03.blp",
+          "sha256": "50eb38dd2b30d474b565d11bd93c0eb2e86cc7fd8c322a8e54dfe2a5aaa4cbfa"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper02_03.blp",
+          "sha256": "b0b3b8131c2d2f74a818356d463f46055eee66dcd698906a19ce82f6074017b2"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower02_03.blp",
+          "sha256": "2ce9149c4a05ceb1db16d36c599a707ff6394344d9ea850d9337895cd79db323"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper03_03.blp",
+          "sha256": "be31c3a353716dee5eb27a4fa0265ce01e7fceab501aaa0e9dcaa70d24d87044"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower03_03.blp",
+          "sha256": "385f5938179e05f8a61f8d7661fbb70aa67483098141b31d650f516a48a81dc8"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\body04.blp",
+          "sha256": "7ae9ec82698661877efe1f2c2f77011852ee8d9bf824e13852cc7a8e40163c43"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\pelvis04.blp",
+          "sha256": "f94ec4d5179b09141865c28cd3b112444df350a8f538a228c948d5133594a8e1"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper00_04.blp",
+          "sha256": "d9744cb164a18a04456e9644f6a62e9517e31ca41a299e6a7c4ad867a4162720"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower00_04.blp",
+          "sha256": "e662f06ba9693851269f045da855cd5c9afa0ca1a3ed2131589ac499eb34817b"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper01_04.blp",
+          "sha256": "6efe813e5c6899b80682a90954e158029d55afcf6cccd6902cf61efac0a3cf43"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower01_04.blp",
+          "sha256": "f34bea1939a7363789722fe39dbd8d789bbcc1f01c52bbd64ac0e9e242137e0d"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper02_04.blp",
+          "sha256": "38d6b3f9d11a0a906415db673ebbf3a631b5a06a3fb57e291d1641539689f143"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower02_04.blp",
+          "sha256": "63a77aff964f88bf2073a79b211c774e465af844e6d3f6af3b2c58ad6644d6fc"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\faceupper03_04.blp",
+          "sha256": "ad538291609f1962a9ba3a354fb45d6185725241df741258bf79c5d39aa99f37"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\male\\facelower03_04.blp",
+          "sha256": "31ead369398b2a5792cdf52ca3d1eec97686ddaa8922bc82d38776821abb4758"
+        }
+      ],
+      "profile": {
+        "skins": [
+          {
+            "choice_id": 62225,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_skin_color_7485498.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484958.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484991.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485027.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485060.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_skin_color_7494165.blp",
+            "torso": null
+          },
+          {
+            "choice_id": 62226,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_skin_color_7485499.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484959.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484992.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485028.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485061.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_skin_color_7494165.blp",
+            "torso": null
+          },
+          {
+            "choice_id": 62227,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_skin_color_7485500.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484960.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484993.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485029.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485062.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_skin_color_7494165.blp",
+            "torso": null
+          },
+          {
+            "choice_id": 62230,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_skin_color_7485505.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484965.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484998.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485034.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485067.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_skin_color_7494165.blp",
+            "torso": null
+          },
+          {
+            "choice_id": 62231,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_skin_color_7485506.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484966.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7484999.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485035.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478487\\7478487_face_7485068.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_skin_color_7494165.blp",
+            "torso": null
+          }
+        ],
+        "hair_textures": [
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485541.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485545.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485550.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485554.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485559.blp",
+          "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7485563.blp",
+          "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7485568.blp",
+          "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7683181.blp"
+        ],
+        "feather_texture": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7485563.blp",
+        "eye_texture": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_eye_color_7500034.blp",
+        "face_choices": [
+          60766,
+          60767,
+          60768,
+          60769
+        ],
+        "face_bone_morphs_applied": false
+      }
+    },
+    "female": {
+      "model_path": "custom\\skyborne\\runtime\\female\\7478494.m2",
+      "vertices": 38530,
+      "collections": [
+        {
+          "source": "G:\\RetroPorterWork\\skyborne\\integration\\patch-root\\custom\\skyborne\\models\\unknown\\unk_exp00_7845092\\7845092.m2",
+          "bone_bindings": 42,
+          "meshes": 3
+        }
+      ],
+      "head_vertices": 2234,
+      "body_vertices": 10006,
+      "triangle_indices": 56505,
+      "animations": 53,
+      "appearance": [
+        {
+          "path": "custom\\skyborne\\runtime\\female\\body00.blp",
+          "sha256": "6dbaf15b670ef6fd6bf53993b312a35b0cb78a77fcb0ecc858ef7e0c4e67095d"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\pelvis00.blp",
+          "sha256": "700d007b5295a218a8c33fa56b0101e37d5a4b902aa3dbeecb3b5c2512e5ce2c"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\torso00.blp",
+          "sha256": "46979bdc5219a51662d15622c968e5998ddacebaca68033cff074d1e08ad8eff"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper00_00.blp",
+          "sha256": "31994ee7c1c2bde712bb09edc786254646d82535a51e0464faeeaed8a1a022dc"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower00_00.blp",
+          "sha256": "1e3c605220067025197afda035ca27b321cf0851ba703509d1ea2f631ea1e7db"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper01_00.blp",
+          "sha256": "6ce52ef1d48e751716cb41c595e06aa871188f934c4982011ddb35e6015aa0f6"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower01_00.blp",
+          "sha256": "e83a05a0e7ad325dca1bfb3b3c3b34c62f483b1202ff53746608d4cb1768dd6b"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper02_00.blp",
+          "sha256": "6ce52ef1d48e751716cb41c595e06aa871188f934c4982011ddb35e6015aa0f6"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower02_00.blp",
+          "sha256": "ebe84c13ffa326fcf0972d485a15088f04734d4ad59e17b8f89541c07ff01386"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper03_00.blp",
+          "sha256": "6ce52ef1d48e751716cb41c595e06aa871188f934c4982011ddb35e6015aa0f6"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower03_00.blp",
+          "sha256": "4fce0f2a7440f16084af372fb9078bd93f9b8925b641cf701771fbb002d9116d"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\body01.blp",
+          "sha256": "50fab23f516f2b4f3f6736c3f0d41988cbbf21b6bfd843944e805770fc878a75"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\pelvis01.blp",
+          "sha256": "7f11474313ec0bdba7101ac1601ddf5e3d1f6e0ea30f9d9ea96e464efad01462"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\torso01.blp",
+          "sha256": "b7c34faad080320e9215f52fc1a5b4f20f29b692dfd82fa3396d12c5a2a734a6"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper00_01.blp",
+          "sha256": "4ab071357e4f460572fc1936ed0413cf57cf9319283555be070c5fede4635a7d"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower00_01.blp",
+          "sha256": "26f60c6bd78610205b08fa7511d0ad7641e90dc4b1215529414979e7ac75e741"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper01_01.blp",
+          "sha256": "4941cbc9f88e9c17d665eab9f49b884933ace07d80116d3422d28c698407d3be"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower01_01.blp",
+          "sha256": "f9345b02f0ad58a65a247388cfb6d1a67713c0193f0039910432019b2f3c1b48"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper02_01.blp",
+          "sha256": "4941cbc9f88e9c17d665eab9f49b884933ace07d80116d3422d28c698407d3be"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower02_01.blp",
+          "sha256": "f197125784f2de38d16140117ed1dc505a746fcc71f3da6cfebf2a6b6998cc51"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper03_01.blp",
+          "sha256": "4941cbc9f88e9c17d665eab9f49b884933ace07d80116d3422d28c698407d3be"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower03_01.blp",
+          "sha256": "da502a9c0b33b0c5e775f69af2a5b5b6f713cb14c2ce61f9a97197d8098fabdd"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\body02.blp",
+          "sha256": "3715991749231369e3acd8d073df53319594d8631209a17e68458ba6b70b3f9a"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\pelvis02.blp",
+          "sha256": "a04207ea348b6cbade6eaba163bf8302e3723d325da92b835ba5b5006dca0e17"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\torso02.blp",
+          "sha256": "18da94e66b444d247434d74a6c51fcfaeb29b7e077aa18204ec7097b4f2fb141"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper00_02.blp",
+          "sha256": "fab7aaa7814c3e76c01d20cf3ac6a15da05d3b09c316e7a54fb33165dd53450e"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower00_02.blp",
+          "sha256": "9d26faa4cd8321c2121e1a96ea4683970c08987918df41aada008232e4c237cc"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper01_02.blp",
+          "sha256": "e699525b42de42693aed8f10a18849237e48d170871e0ae8d75dcb915d6af826"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower01_02.blp",
+          "sha256": "0dfa6347cd2ca5eae2d821755aab56948e750302dda2cc4100c3a1f77aa8467b"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper02_02.blp",
+          "sha256": "e699525b42de42693aed8f10a18849237e48d170871e0ae8d75dcb915d6af826"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower02_02.blp",
+          "sha256": "fa8ea00b586a8f13a9797b933f54fb5896a3bdfdf42f82ed692d36f422fd6d2d"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper03_02.blp",
+          "sha256": "e699525b42de42693aed8f10a18849237e48d170871e0ae8d75dcb915d6af826"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower03_02.blp",
+          "sha256": "e67e602de33c9c35893dc3a392d79f1baf5f8a201d598ea1b639f56a0f1cbabc"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\body03.blp",
+          "sha256": "aa133cd14124fe6591d8443c4b6359435626cad48980ed0f8570ec2a91cd678f"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\pelvis03.blp",
+          "sha256": "bfb098351b32295b4fcab3e9109da6baaba2faeef8c57b129925c4b4f31fd507"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\torso03.blp",
+          "sha256": "00f7b175cf2e5ff30396b3dbc79f946456904efefe5d47b96ee112758fbc4a49"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper00_03.blp",
+          "sha256": "43a6837c042ca202b37a3f0e815fc2495f411675fb2ef404450826a9a267e5ef"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower00_03.blp",
+          "sha256": "9024bb5da2c8505aac556b88d35ad1312a8bd6fed6593c5ce8a2ad26b65b9917"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper01_03.blp",
+          "sha256": "6d73efce9e4cf25259e56d5f83f7c1e815cb0485081032f4a2e0f7024de56d24"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower01_03.blp",
+          "sha256": "34630748e37136d0e969ce143bb3aeae8bf9562e3b6a2cfbffd87198b42690b5"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper02_03.blp",
+          "sha256": "6d73efce9e4cf25259e56d5f83f7c1e815cb0485081032f4a2e0f7024de56d24"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower02_03.blp",
+          "sha256": "33edc2852ecd47ab356bc522eae4d86f24c8a2173321968b7f5d0a6c2f069388"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper03_03.blp",
+          "sha256": "6d73efce9e4cf25259e56d5f83f7c1e815cb0485081032f4a2e0f7024de56d24"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower03_03.blp",
+          "sha256": "db893974aa1e034ce5b538f579bbca79d6866ad8c0195d899f7094655ff877dd"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\body04.blp",
+          "sha256": "be8f61bd7991201930609ff98245f5711bdfb7e31481c23bbffba40a19ae99c3"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\pelvis04.blp",
+          "sha256": "422b921ba17ca81eba9aa394eaa520aca163038178ac5e97906073233875478c"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\torso04.blp",
+          "sha256": "1f86d165406a23c6e1f81a5b8dffd534f62f08041fee598c61c72f6bfac77f9f"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper00_04.blp",
+          "sha256": "4b1fef789f1a961323a9d1d96bec17fd396158b092df632be35ea6cc807886bc"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower00_04.blp",
+          "sha256": "955a7d41cf0b165f7a6884ddd149b2b7d6c98ed6f55d9295777c44640640158b"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper01_04.blp",
+          "sha256": "8e54918bf5f95addb970229e931e35d16e290b7fd4fef0728e6d529e5f795976"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower01_04.blp",
+          "sha256": "24ed9e5bc7c50f367fa3c03ae2c42f3a9e0da5ecfebef8053efbdedcec4c1970"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper02_04.blp",
+          "sha256": "7e3efc84caa845083f697f14a8d04e825d9d4351e5bca5da7e45e4e01d018ff3"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower02_04.blp",
+          "sha256": "9e9766b19ad49ebe067075a08d8fe8663ce1d11b44cde206e99aeece192a3cfa"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\faceupper03_04.blp",
+          "sha256": "7e3efc84caa845083f697f14a8d04e825d9d4351e5bca5da7e45e4e01d018ff3"
+        },
+        {
+          "path": "custom\\skyborne\\runtime\\female\\facelower03_04.blp",
+          "sha256": "c10730e03cd59f0ad4ab429156e172a2b2f6605e454fb2984a5673b60c39da44"
+        }
+      ],
+      "profile": {
+        "skins": [
+          {
+            "choice_id": 62208,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_skin_color_7484918.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484248.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484279.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484316.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484360.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494043.blp",
+            "torso": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494001.blp"
+          },
+          {
+            "choice_id": 62209,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_skin_color_7484919.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484249.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484280.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484317.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484361.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494043.blp",
+            "torso": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494001.blp"
+          },
+          {
+            "choice_id": 62210,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_skin_color_7484920.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484250.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484281.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484318.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484362.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494043.blp",
+            "torso": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494001.blp"
+          },
+          {
+            "choice_id": 62213,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_skin_color_7484925.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484255.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484286.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484323.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484367.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494043.blp",
+            "torso": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494001.blp"
+          },
+          {
+            "choice_id": 62214,
+            "body": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_skin_color_7484927.blp",
+            "faces": [
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484256.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484287.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484324.blp",
+              "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_face_7484368.blp"
+            ],
+            "pelvis": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494043.blp",
+            "torso": "custom\\skyborne\\character\\bloodelf\\female\\bloodelffemale_hd_skin_color_7494001.blp"
+          }
+        ],
+        "hair_textures": [
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485541.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485545.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485550.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485554.blp",
+          "custom\\skyborne\\character\\bloodelf\\male\\bloodelfmale_hd_hair_color_7485559.blp",
+          "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7485563.blp",
+          "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7485568.blp",
+          "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7683181.blp"
+        ],
+        "feather_texture": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_feather_color_7485563.blp",
+        "eye_texture": "custom\\skyborne\\models\\creature\\unk_exp00_7478494\\7478494_eye_color_7500034.blp",
+        "face_choices": [
+          60948,
+          60949,
+          60950,
+          60951
+        ],
+        "face_bone_morphs_applied": false
+      }
+    }
+  }
+}

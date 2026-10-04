@@ -1,0 +1,19 @@
+{
+  "product": "wow",
+  "branch": "us",
+  "version": "12.1.0.69933",
+  "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+  "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+  "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+  "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+  "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+  "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+  "build_name": "WOW-69933patch12.1.0_Retail",
+  "cdn_hosts": [
+    "level3.blizzard.com",
+    "us.cdn.blizzard.com"
+  ],
+  "cdn_path": "tpr/wow",
+  "source_root": "G:\\Blizzard\\World of Warcraft",
+  "build_info_sha256": "ff68c9cc51455aaa23f627b1e45772fbe265fe3cf7db0d3cc97c5fa5dd080cb5"
+}

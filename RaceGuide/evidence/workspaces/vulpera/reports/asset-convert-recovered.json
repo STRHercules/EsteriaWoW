@@ -1,0 +1,420 @@
+{
+  "tool": "wotlkconv",
+  "target": {
+    "patch": "3.3.5a",
+    "build": 12340
+  },
+  "started": 1790941944.8239152,
+  "finished": 1790941956.8708057,
+  "elapsed_s": 12.047,
+  "counts": {
+    "passthrough": 22
+  },
+  "accounting": {
+    "inputs": 22,
+    "written": 22,
+    "merged": 0,
+    "skipped": 0,
+    "failed": 0,
+    "results": 22,
+    "extra_outputs": 0
+  },
+  "files": [
+    {
+      "source": "3060789.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\female\\vulperafemalefaceupper00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 175948,
+      "bytes_out": 175948,
+      "elapsed_ms": 0.37,
+      "source_version": "BLP2/DXT1 512x512 mips=10",
+      "target_version": "BLP2/DXT1 512x512 mips=10",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060790.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\female\\vulperafemalenakedpelvisskin00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 23036,
+      "bytes_out": 23036,
+      "elapsed_ms": 0.15,
+      "source_version": "BLP2/DXT1 256x128 mips=9",
+      "target_version": "BLP2/DXT1 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060791.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\female\\vulperafemalenakedtorsoskin00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 23036,
+      "bytes_out": 23036,
+      "elapsed_ms": 0.06,
+      "source_version": "BLP2/DXT1 256x128 mips=9",
+      "target_version": "BLP2/DXT1 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060792.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\female\\vulperafemaleskin00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 350716,
+      "bytes_out": 350716,
+      "elapsed_ms": 0.48,
+      "source_version": "BLP2/DXT1 1024x512 mips=11",
+      "target_version": "BLP2/DXT1 1024x512 mips=11",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060793.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\male\\vulperamalefaceupper00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 175948,
+      "bytes_out": 175948,
+      "elapsed_ms": 0.24,
+      "source_version": "BLP2/DXT1 512x512 mips=10",
+      "target_version": "BLP2/DXT1 512x512 mips=10",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060794.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\male\\vulperamalenakedpelvisskin00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 23036,
+      "bytes_out": 23036,
+      "elapsed_ms": 0.08,
+      "source_version": "BLP2/DXT1 256x128 mips=9",
+      "target_version": "BLP2/DXT1 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060795.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\male\\vulperamalenakedtorsoskin00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 23036,
+      "bytes_out": 23036,
+      "elapsed_ms": 0.05,
+      "source_version": "BLP2/DXT1 256x128 mips=9",
+      "target_version": "BLP2/DXT1 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3060796.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\male\\vulperamaleskin00_08.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 350716,
+      "bytes_out": 350716,
+      "elapsed_ms": 0.39,
+      "source_version": "BLP2/DXT1 1024x512 mips=11",
+      "target_version": "BLP2/DXT1 1024x512 mips=11",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT1)"
+        }
+      ]
+    },
+    {
+      "source": "3635066.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_00_3635066.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.12,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635067.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_01_3635067.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.05,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635068.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_02_3635068.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.05,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635069.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_03_3635069.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.05,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635070.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_04_3635070.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.06,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635071.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_05_3635071.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.06,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635072.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_06_3635072.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.08,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635073.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_07_3635073.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635074.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_08_3635074.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.05,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635075.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_09_3635075.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.06,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635076.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_10_3635076.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635077.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_11_3635077.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.06,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635078.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_12_3635078.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    },
+    {
+      "source": "3635079.blp",
+      "target": "G:\\RetroPorterWork\\vulpera\\output\\patch-root\\custom\\vulpera\\character\\vulpera\\eyes00_13_3635079.blp",
+      "kind": "blp",
+      "status": "passthrough",
+      "bytes_in": 44900,
+      "bytes_out": 44900,
+      "elapsed_ms": 0.07,
+      "source_version": "BLP2/DXT5 256x128 mips=9",
+      "target_version": "BLP2/DXT5 256x128 mips=9",
+      "notes": [
+        {
+          "level": "info",
+          "code": "blp.passthrough",
+          "message": "already 3.3.5a-compatible (DXT5)"
+        }
+      ]
+    }
+  ]
+}

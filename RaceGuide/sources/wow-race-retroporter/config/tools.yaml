@@ -1,0 +1,34 @@
+tools:
+  wow_export:
+    mode: assisted
+    executable: "tools/wow-export/wow.export.exe"
+    source_modes: [online, local]
+    required_for: [discover, extract]
+    notes: "Preferred assisted source browser/exporter; online-capable workflows avoid a full local client."
+
+  cascexplorer:
+    mode: assisted
+    executable: "tools/cascexplorer/CASCExplorer.exe"
+    source_modes: [local]
+    required_for: [extract]
+    notes: "Optional local-CASC fallback; not required by online source mode."
+
+  m2mod:
+    mode: assisted
+    executable: "tools/m2mod/M2Mod.exe"
+    required_for: [convert-model]
+
+  multiconverter:
+    mode: automatic
+    executable: "tools/multiconverter/MultiConverter.exe"
+    required_for: [convert-model]
+
+  dbc_editor:
+    mode: manual
+    executable: "tools/dbc-editor/WDBXEditor.exe"
+    required_for: [generate-dbc]
+
+  mpq_tool:
+    mode: assisted
+    executable: "tools/mpq/MPQEditor.exe"
+    required_for: [package]

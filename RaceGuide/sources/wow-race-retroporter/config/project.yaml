@@ -1,0 +1,27 @@
+project:
+  name: wow-race-retroporter
+  target_client: "WotLK 3.3.5a"
+  target_core: AzerothCore
+
+paths:
+  retail_source_manifest: sources/retail/build.yaml
+  sources_root: sources
+  retail_sources_root: sources/retail
+  retail_db2_root: sources/retail/db2
+  retail_races_root: sources/retail/races
+  cache_root: cache
+  casc_cache_root: cache/casc
+  tools_root: tools
+  workspace_root: workspace
+  extracted_root: workspace/extracted
+  converted_root: workspace/converted
+  generated_root: workspace/generated
+  packages_root: workspace/packages
+  state_root: workspace/state
+  logs_root: workspace/logs
+
+safety:
+  retail_sources_read_only_after_fetch: true
+  exclude_sources_from_packages: true
+  exclude_cache_from_packages: true
+  exclude_tool_binaries_from_packages: true

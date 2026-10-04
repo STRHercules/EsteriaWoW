@@ -1,0 +1,969 @@
+{
+  "source_pin": {
+    "product": "wow",
+    "branch": "us",
+    "version": "12.1.0.69933",
+    "build_key": "dcfc90fffd79ba00406ae46f5f657592",
+    "cdn_key": "43061ca8e9f0e2603c8ab50bcae97c2d",
+    "root_ckey": "df28e4cf1de787affeedcb1be8eabc27",
+    "encoding_ckey": "1b44dac4fd97b78ac24f22747ac5d40e",
+    "encoding_ekey": "53dcc8beeb4c9e75b69c5f2a8a67c7e4",
+    "install_ckey": "e96597d51f9262be82e8a46bad18242c",
+    "build_name": "WOW-69933patch12.1.0_Retail",
+    "cdn_hosts": [
+      "level3.blizzard.com",
+      "us.cdn.blizzard.com"
+    ],
+    "cdn_path": "tpr/wow"
+  },
+  "models": {
+    "120263": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_female.m2",
+      "result": {
+        "source": "character/naga_/female/naga_female.m2",
+        "target": null,
+        "kind": "m2",
+        "status": "lossy",
+        "bytes_in": 2036702,
+        "bytes_out": 1381712,
+        "elapsed_ms": 236.85,
+        "source_version": "M2 v274 (chunked)",
+        "target_version": "M2 v264",
+        "notes": [
+          {
+            "level": "info",
+            "code": "m2.sequence.blendtime",
+            "message": "folded 67 split blend-in/blend-out time(s) into 3.3.5a's single blend time"
+          },
+          {
+            "level": "info",
+            "code": "m2.camera.fov",
+            "message": "camera FoV tracks flattened to scalars"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.global",
+            "message": "cleared post-Wrath global flags 0x202080"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.sequence",
+            "message": "cleared post-Wrath flag bits on 57 sequence(s)",
+            "detail": {
+              "sequences": 57
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.bone",
+            "message": "cleared post-Wrath flag bits on 36 bone(s)",
+            "detail": {
+              "bones": 36
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.lod.dropped",
+            "message": "dropped 3 Legion LOD skin reference(s); 3.3.5a only loads Model00-03.skin",
+            "detail": {
+              "count": 3
+            }
+          },
+          {
+            "level": "lossy",
+            "code": "m2.chunks.dropped",
+            "message": "dropped chunks with no 3.3.5a equivalent: LDV1 (level-of-detail data), TXAC (per-texture animation coefficients)",
+            "detail": {
+              "chunks": [
+                "LDV1",
+                "SFID.lod",
+                "TXAC"
+              ]
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.vertices.compacted",
+            "message": "dropped 12429 vertex/vertices no submesh draws, leaving 5626",
+            "detail": {
+              "dropped": 12429,
+              "kept": 5626
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.texture_coord_combos.rebuilt",
+            "message": "pointed 5 batch(es) whose texture coordinate lookup ran past the model's table (retail leaves it empty) at entries built from their shaders",
+            "detail": {
+              "batches": 5,
+              "entries": 1
+            }
+          }
+        ],
+        "extra": {
+          "name": "",
+          "vertices": 5626,
+          "bones": 116,
+          "sequences": 67,
+          "textures": 1,
+          "particles": 0,
+          "skin_profiles": 1,
+          "parts": 1
+        }
+      },
+      "companions": [
+        {
+          "source": "naga_female00.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 471193,
+          "bytes_in": 0,
+          "bytes_out": 78876,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 5626 verts, 7452 tris, 5 submeshes",
+          "target_version": "SKIN wotlk 5626 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 5 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 5
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 256 (the source said 0; its largest submesh uses 68 bones)",
+              "detail": {
+                "source": 0,
+                "written": 256
+              }
+            }
+          ]
+        },
+        {
+          "source": "naga_female0060-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 471195,
+          "bytes_in": 20168,
+          "bytes_out": 20160,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "145 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 20160-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_female0062-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 471196,
+          "bytes_in": 19032,
+          "bytes_out": 19024,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "151 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 19024-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_female0075-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2741821,
+          "bytes_in": 56856,
+          "bytes_out": 56848,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "146 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 56848-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_female0084-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2741823,
+          "bytes_in": 78568,
+          "bytes_out": 78560,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "284 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 78560-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_female0129-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2741824,
+          "bytes_in": 10248,
+          "bytes_out": 10240,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "138 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 10240-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_female0123-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2741826,
+          "bytes_in": 211064,
+          "bytes_out": 211056,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "278 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 211056-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_female0128-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2741828,
+          "bytes_in": 11048,
+          "bytes_out": 11040,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "138 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 11040-byte flat blob"
+            }
+          ]
+        }
+      ],
+      "source_vertices": 18055,
+      "vertices": 5626,
+      "skin_vertices": 5626,
+      "sequences": 67,
+      "events": 20,
+      "geosets": [
+        0,
+        802,
+        803,
+        1202,
+        1302
+      ],
+      "attachments": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        11,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        27,
+        31,
+        32,
+        33,
+        34,
+        35,
+        37,
+        38,
+        47,
+        48
+      ],
+      "texture_types": [
+        1
+      ]
+    },
+    "120294": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_male.m2",
+      "result": {
+        "source": "character/naga_/male/naga_male.m2",
+        "target": null,
+        "kind": "m2",
+        "status": "lossy",
+        "bytes_in": 2300340,
+        "bytes_out": 1683896,
+        "elapsed_ms": 202.67,
+        "source_version": "M2 v274 (chunked)",
+        "target_version": "M2 v264",
+        "notes": [
+          {
+            "level": "info",
+            "code": "m2.texture.resolved",
+            "message": "resolved 1 texture FileDataID(s) to paths",
+            "detail": {
+              "count": 1
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.sequence.blendtime",
+            "message": "folded 57 split blend-in/blend-out time(s) into 3.3.5a's single blend time"
+          },
+          {
+            "level": "info",
+            "code": "m2.camera.fov",
+            "message": "camera FoV tracks flattened to scalars"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.global",
+            "message": "cleared post-Wrath global flags 0x202080"
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.sequence",
+            "message": "cleared post-Wrath flag bits on 50 sequence(s)",
+            "detail": {
+              "sequences": 50
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.flags.bone",
+            "message": "cleared post-Wrath flag bits on 36 bone(s)",
+            "detail": {
+              "bones": 36
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.lod.dropped",
+            "message": "dropped 3 Legion LOD skin reference(s); 3.3.5a only loads Model00-03.skin",
+            "detail": {
+              "count": 3
+            }
+          },
+          {
+            "level": "lossy",
+            "code": "m2.chunks.dropped",
+            "message": "dropped chunks with no 3.3.5a equivalent: LDV1 (level-of-detail data), TXAC (per-texture animation coefficients)",
+            "detail": {
+              "chunks": [
+                "LDV1",
+                "SFID.lod",
+                "TXAC"
+              ]
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.vertices.compacted",
+            "message": "dropped 11817 vertex/vertices no submesh draws, leaving 5593",
+            "detail": {
+              "dropped": 11817,
+              "kept": 5593
+            }
+          },
+          {
+            "level": "info",
+            "code": "m2.texture_coord_combos.rebuilt",
+            "message": "pointed 9 batch(es) whose texture coordinate lookup ran past the model's table (retail leaves it empty) at entries built from their shaders",
+            "detail": {
+              "batches": 9,
+              "entries": 2
+            }
+          }
+        ],
+        "extra": {
+          "name": "",
+          "vertices": 5593,
+          "bones": 101,
+          "sequences": 57,
+          "textures": 2,
+          "particles": 0,
+          "skin_profiles": 1,
+          "parts": 1
+        }
+      },
+      "companions": [
+        {
+          "source": "naga_male00.skin",
+          "target": null,
+          "kind": "skin",
+          "status": "lossy",
+          "file_id": 471198,
+          "bytes_in": 0,
+          "bytes_out": 77948,
+          "elapsed_ms": 0.0,
+          "source_version": "SKIN 5593 verts, 7282 tris, 9 submeshes",
+          "target_version": "SKIN wotlk 5593 verts",
+          "notes": [
+            {
+              "level": "lossy",
+              "code": "skin.shadow_batches",
+              "message": "dropped 9 shadow batch(es); 3.3.5a draws model shadows from a blob texture instead",
+              "detail": {
+                "batches": 9
+              }
+            },
+            {
+              "level": "lossy",
+              "code": "skin.batch.shader",
+              "message": "9 batch(es) referenced a shader 3.3.5a does not have; reset to the default combiner",
+              "detail": {
+                "batches": 9
+              }
+            },
+            {
+              "level": "info",
+              "code": "skin.bone_count_max",
+              "message": "declared a bone palette of 256 (the source said 0; its largest submesh uses 69 bones)",
+              "detail": {
+                "source": 0,
+                "written": 256
+              }
+            }
+          ]
+        },
+        {
+          "source": "naga_male0060-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 471202,
+          "bytes_in": 33048,
+          "bytes_out": 33040,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "138 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 33040-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_male0062-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 471200,
+          "bytes_in": 39144,
+          "bytes_out": 39136,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "314 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 39136-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_male0075-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2623063,
+          "bytes_in": 92424,
+          "bytes_out": 92416,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "138 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 92416-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_male0084-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2623064,
+          "bytes_in": 55720,
+          "bytes_out": 55712,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "276 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 55712-byte flat blob"
+            }
+          ]
+        },
+        {
+          "source": "naga_male1194-00.anim",
+          "target": null,
+          "kind": "anim",
+          "status": "ok",
+          "file_id": 2764009,
+          "bytes_in": 46936,
+          "bytes_out": 46928,
+          "elapsed_ms": 0.0,
+          "source_version": "anim (chunked, 1 chunk kinds)",
+          "target_version": "anim (flat)",
+          "notes": [
+            {
+              "level": "info",
+              "code": "anim.offsets.payload",
+              "message": "120 keyframe array(s) confirm the offsets are counted from the AFM2 payload"
+            },
+            {
+              "level": "info",
+              "code": "anim.unwrapped",
+              "message": "unwrapped AFM2 into a 46928-byte flat blob"
+            }
+          ]
+        }
+      ],
+      "source_vertices": 17410,
+      "vertices": 5593,
+      "skin_vertices": 5593,
+      "sequences": 57,
+      "events": 14,
+      "geosets": [
+        0,
+        401,
+        402,
+        403,
+        404,
+        802,
+        803,
+        1202,
+        1302
+      ],
+      "attachments": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        11,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        34,
+        37,
+        38
+      ],
+      "texture_types": [
+        1,
+        0
+      ]
+    }
+  },
+  "textures": {
+    "120284": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_00.blp",
+      "result": {
+        "source": "character\\naga_\\female\\naga_femaleskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.49,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "120286": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_01.blp",
+      "result": {
+        "source": "character\\naga_\\female\\naga_femaleskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.43,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "120288": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_02.blp",
+      "result": {
+        "source": "character\\naga_\\female\\naga_femaleskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.16,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "120290": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_03.blp",
+      "result": {
+        "source": "character\\naga_\\female\\naga_femaleskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.18,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "120292": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_04.blp",
+      "result": {
+        "source": "character\\naga_\\female\\naga_femaleskin00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 350716,
+        "bytes_out": 350716,
+        "elapsed_ms": 0.25,
+        "source_version": "BLP2/DXT1 1024x512 mips=11",
+        "target_version": "BLP2/DXT1 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    },
+    "120315": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_maleskin00_00.blp",
+      "result": {
+        "source": "character\\naga_\\male\\naga_maleskin00_00.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.51,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "120317": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_maleskin00_01.blp",
+      "result": {
+        "source": "character\\naga_\\male\\naga_maleskin00_01.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.62,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "120319": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_maleskin00_02.blp",
+      "result": {
+        "source": "character\\naga_\\male\\naga_maleskin00_02.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.54,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "120321": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_maleskin00_03.blp",
+      "result": {
+        "source": "character\\naga_\\male\\naga_maleskin00_03.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.4,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "120323": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_maleskin00_04.blp",
+      "result": {
+        "source": "character\\naga_\\male\\naga_maleskin00_04.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.63,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1585633": {
+      "path": "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_fel.blp",
+      "result": {
+        "source": "character\\naga_\\female\\naga_femaleskin00_fel.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.34,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1585634": {
+      "path": "custom\\naga\\character\\naga_\\male\\naga_maleskin00_fel.blp",
+      "result": {
+        "source": "character\\naga_\\male\\naga_maleskin00_fel.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 700260,
+        "bytes_out": 700260,
+        "elapsed_ms": 0.38,
+        "source_version": "BLP2/DXT5 1024x512 mips=11",
+        "target_version": "BLP2/DXT5 1024x512 mips=11",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT5)"
+          }
+        ]
+      }
+    },
+    "1337120": {
+      "path": "custom\\naga\\character\\naga_\\male\\armorreflect4.blp",
+      "result": {
+        "source": "character\\naga_\\male\\armorreflect4.blp",
+        "target": null,
+        "kind": "blp",
+        "status": "passthrough",
+        "bytes_in": 3916,
+        "bytes_out": 3916,
+        "elapsed_ms": 0.1,
+        "source_version": "BLP2/DXT1 64x64 mips=7",
+        "target_version": "BLP2/DXT1 64x64 mips=7",
+        "notes": [
+          {
+            "level": "info",
+            "code": "blp.passthrough",
+            "message": "already 3.3.5a-compatible (DXT1)"
+          }
+        ]
+      }
+    }
+  },
+  "files": {
+    "custom\\naga\\character\\naga_\\female\\naga_female.m2": "b52476cbcf7bc8874a13aefcbf1ca6e92adc38012a1da36b906c43bdf3418eba",
+    "custom\\naga\\character\\naga_\\female\\naga_female00.skin": "465f901bf14aff175a3853fdf5b3714b663d2305b46c999b853deee81a3c4134",
+    "custom\\naga\\character\\naga_\\female\\naga_female0060-00.anim": "b576b10a4ae2f82a0a9c4e0c8a334bda8a4f1bfc47b40720551e147ce2d292b1",
+    "custom\\naga\\character\\naga_\\female\\naga_female0062-00.anim": "21afd7d309a1f46a41ad66ec1f4baecf00948024127c1b64748b6bfe9222983b",
+    "custom\\naga\\character\\naga_\\female\\naga_female0075-00.anim": "123376c1d7e4641ea66c903c215aad79ece9352c2a5e1136f85f185ed9dd54d0",
+    "custom\\naga\\character\\naga_\\female\\naga_female0084-00.anim": "0c707d39744625b49db2bba28dd678c5a572e40a0428843f33b3a50bbadde38c",
+    "custom\\naga\\character\\naga_\\female\\naga_female0129-00.anim": "277fa0eefafb96df749b99d6bcd8caccf1076c1ab740e2f8e40021eb77c1ffdc",
+    "custom\\naga\\character\\naga_\\female\\naga_female0123-00.anim": "7cc8548cdd2142ddd8bb05b304db1f0f5688a31895b2944c52e5edce3ecd4907",
+    "custom\\naga\\character\\naga_\\female\\naga_female0128-00.anim": "0ca9320accf608960bb1459dc697a217fbcb050d59d85d25031bf4aa89502df6",
+    "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_00.blp": "3e0708d7c1d0a6114ce2bbea3288b8010baed2fce076f0c0be5bfeec17904deb",
+    "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_01.blp": "a68d4da6472ab59d002b6a6187566d87cf5927688789669b91a457420bba2119",
+    "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_02.blp": "bcca3c81401e89d27da2d366a570b17ad918a006cf5bf81e5405f4804e83669d",
+    "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_03.blp": "7e6d2a2d3f68fae25a8073abf9ea2bbb912ed0343610e8cd283559ea262dad09",
+    "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_04.blp": "11d31e7997277996180c75a89b176c4e5fb6655e964910a561661bb156c45296",
+    "custom\\naga\\character\\naga_\\male\\naga_male.m2": "f9a9bad21f3106d12c44985d8abe63c5cb0081803da554516c39f91f6de3d790",
+    "custom\\naga\\character\\naga_\\male\\naga_male00.skin": "3cf8c2a117236ddcb74f5dc28ee0b0e1c728d5b2ba4846f6d7ca9c5f7cf20a84",
+    "custom\\naga\\character\\naga_\\male\\naga_male0060-00.anim": "bfaebf363d7b08261e6f56a4b8a18c1f2bfb7354118c6b25665a6902f94d4b94",
+    "custom\\naga\\character\\naga_\\male\\naga_male0062-00.anim": "2005a4fac5905c0d03ca95a2b68988591522e30ab66d3ec7919e42251b02870c",
+    "custom\\naga\\character\\naga_\\male\\naga_male0075-00.anim": "f2196ec4b4c3e1881c09078f620fa15c177c77438e3b35e49c74800fab315843",
+    "custom\\naga\\character\\naga_\\male\\naga_male0084-00.anim": "d5e24087a709d6b76eca79ac80849a3071522938b4f70809fd7943ba83ca5f6c",
+    "custom\\naga\\character\\naga_\\male\\naga_male1194-00.anim": "c137ffa4ec7c4d177e7c29bd239c9293ceedeb05ee3d04ec7b4c7de32e9011c8",
+    "custom\\naga\\character\\naga_\\male\\naga_maleskin00_00.blp": "138d983104fcc42e24c5126fcdcb463e0928db01e9dc6ad68091e69ebd8aba84",
+    "custom\\naga\\character\\naga_\\male\\naga_maleskin00_01.blp": "e01869a6610eb281e73b15ee4a196574ffe4955b4ee8fbdc21488cb36919be7c",
+    "custom\\naga\\character\\naga_\\male\\naga_maleskin00_02.blp": "371329f8ff1f45cabf9c1c53984352dc5dc4ae8457b2ab2b134055e67753f609",
+    "custom\\naga\\character\\naga_\\male\\naga_maleskin00_03.blp": "13bd857e04e8c4152a8f197feadd1be0b0d395c94f89387ec5e74ccb782f5cf5",
+    "custom\\naga\\character\\naga_\\male\\naga_maleskin00_04.blp": "35e7f4e6d8ed3b8cb0b5fea6771a5061d357cc88a4d45568bd9c502fbdcffe2d",
+    "custom\\naga\\character\\naga_\\female\\naga_femaleskin00_fel.blp": "cf2e1c69391364545b04bc38614d29c715258fac4c496eac29bf0c86b370877a",
+    "custom\\naga\\character\\naga_\\male\\naga_maleskin00_fel.blp": "67336d1befed58de6c562e87f3bf9c2a89d73ec71299bc365f532d25e2a140ad",
+    "custom\\naga\\character\\naga_\\male\\armorreflect4.blp": "10347b0a7502f994e7b556e279dc8709a8755c6536163b57a3b388151c48fb1d"
+  },
+  "status": "assets_converted_awaiting_playable_integration"
+}

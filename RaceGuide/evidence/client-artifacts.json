@@ -1,0 +1,540 @@
+{
+  "artifacts": [
+    {
+      "path": "G:\\3.3.5a - Dev\\Battle.net.dll",
+      "bytes": 15588224,
+      "sha256": "88116951b04723cbb1073a1a0ff72dfdc40367f6649dffd08c602caa3ef1141f"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Client.dll",
+      "bytes": 3072,
+      "sha256": "528bcb5c9525c1407fd680476cb258da9c404170a648c6fb0a15bbe38b04bc1e"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\CoAVolFog.dll",
+      "bytes": 1579008,
+      "sha256": "1c3ead7fea50305f8b90a4fb02346709183d1a23170bc253e41887450b71fe9a"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\dbghelp.dll",
+      "bytes": 1039728,
+      "sha256": "3f9ad6986eb1f3a09eb0b5cad888ba656f9148b3339399076f2541b3bc59213c"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\dinput8.dll",
+      "bytes": 4962816,
+      "sha256": "49694da8a4dd2e13a6f7d1d86073b0e1da875ac62c7a03a4a8e69c90b0895688"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\DivxDecoder.dll",
+      "bytes": 413696,
+      "sha256": "ed34d37b575c91a56704218eb9f6abbefda8b7de0e2ed44c96191abd0f9915a5"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaAppearance.bin",
+      "bytes": 13908,
+      "sha256": "83db0e73d10172c38a1568801ae135cbe939e663cbb79c27c7ef0f012aca6581",
+      "header_u32": [
+        1347436869,
+        2,
+        6
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaAppearance.dll",
+      "bytes": 258048,
+      "sha256": "fe125a5a3fd7384e12a47f6926e0617752e5ab688b4c9fedd3ac7c60f445e7cc"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaAppearanceGeometry.bin",
+      "bytes": 8268968,
+      "sha256": "8b11aae6b96c2fe0c6586c5bc8b8bd605c1c5bd56783fcc99466d126bd13d789",
+      "header_u32": [
+        1296515397,
+        1,
+        17
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaAppearanceMaterials.bin",
+      "bytes": 148908,
+      "sha256": "f72f027f54a55c05aa0f76b457b97b484fe0e1aedc0e068cc0e0ca53e1878cba",
+      "header_u32": [
+        1414349125,
+        1,
+        792
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaEarthen.bin",
+      "bytes": 46812,
+      "sha256": "8a0db93ba2d5c756b44ed84f2f7bc7c15eef13be6a7d87baf1383c6c0c624e02",
+      "header_u32": [
+        827148357,
+        1,
+        300
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaHaranir.bin",
+      "bytes": 232764,
+      "sha256": "59f31d00e372fd2646e1cf0d9d3d5d671b31edd60ff7b862f8d1ce7e53ba1f2f",
+      "header_u32": [
+        827148357,
+        1,
+        1492
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaHaranirTextures.bin",
+      "bytes": 151935044,
+      "sha256": "99948ca570be2d376f0c67e3b8088739b6fa9f9d2c73985e19f68df77689a229",
+      "header_u32": [
+        827607109,
+        1,
+        986
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaHighmountain.bin",
+      "bytes": 163344,
+      "sha256": "e83349252ad2687ac23fcfc5623db7401cf32e5faf47a5a7be20c2f94b014938",
+      "header_u32": [
+        827148357,
+        1,
+        1047
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaNaga.bin",
+      "bytes": 6252,
+      "sha256": "8a154b9593c254a5c9eebe3717cf74995f4dd0317554d24fc27b2ba1dfb46335",
+      "header_u32": [
+        827148357,
+        1,
+        40
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaNagaTextures.bin",
+      "bytes": 14238561,
+      "sha256": "f45493aed4065d5cf29153495b61fb38c2b5b971f0a99dd816f25f35d4bcb0b5",
+      "header_u32": [
+        827607109,
+        1,
+        36
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaThinHuman.bin",
+      "bytes": 7188,
+      "sha256": "75794d192ea0c228b3da7bf7d0bdff1119f79d3f9bfef6650cd5e1a2b5d106eb",
+      "header_u32": [
+        827148357,
+        1,
+        46
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaThinHumanTextures.bin",
+      "bytes": 6628215,
+      "sha256": "02aeb4c05893d06125b8b58fdb7c2a56fe3d66a7d094706a44b43cb503d1731e",
+      "header_u32": [
+        827607109,
+        1,
+        32
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaTuskarr.bin",
+      "bytes": 9060,
+      "sha256": "ecbe7ef490ba67eca029a57639192db61238522618491549766fe38529914387",
+      "header_u32": [
+        827148357,
+        1,
+        58
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaTuskarrTextures.bin",
+      "bytes": 6747335,
+      "sha256": "e2116c2c83adea079126fd5da765d20da24f044d4f161c4124e4368cb3d6bc71",
+      "header_u32": [
+        827607109,
+        1,
+        42
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaVrykul.bin",
+      "bytes": 12492,
+      "sha256": "39e2b7b4c67997dbbd34bae840bd606a59290f7f2fc82565a0ba00090335415c",
+      "header_u32": [
+        827148357,
+        1,
+        80
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaVrykulTextures.bin",
+      "bytes": 7761643,
+      "sha256": "46098750a0e235724c6e9cc8d9d4e26550aa47bef95fd5f0f82efe5e945bf296",
+      "header_u32": [
+        827607109,
+        1,
+        39
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaVulpera.bin",
+      "bytes": 319968,
+      "sha256": "c5434993b9af4a17d881965e4735cd2ac379e39c7142aac9844adff9528562d4",
+      "header_u32": [
+        827148357,
+        1,
+        2051
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\EsteriaVulperaTextures.bin",
+      "bytes": 88704196,
+      "sha256": "1ab844e74684aced2b069f1b91cd563aade45e05bd5e23f866a6c0c301cb098e",
+      "header_u32": [
+        827607109,
+        1,
+        392
+      ]
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\races-64-esteria\\races-64-esteria.dll",
+      "bytes": 102912,
+      "sha256": "441e16f71e99c7a81a65ab36dc15413e0e0618e64c8a1fe1660ee5c26add1f4f"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-awesome-wotlk\\wxl-awesome-wotlk.dll",
+      "bytes": 144896,
+      "sha256": "6c457fca4f6835331c33500204273fe12db60b1c878dba4b079bc6ed19ae9d33"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-azeroth-plex\\libmpv-2.dll",
+      "bytes": 95715328,
+      "sha256": "d8a2184524150e77ca585b5a04d49274c852c93b61cc7801349585c42f1e6428"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-azeroth-plex\\wxl-azeroth-plex.dll",
+      "bytes": 336896,
+      "sha256": "e9cd289af527a02f1b29bb239ba5415421c5ec691234dfbac5190bc8a2fe823e"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-db2\\wxl-db2.dll",
+      "bytes": 302592,
+      "sha256": "09bce56214f6b022eee2c6ecffe077bbca1f6ab023c0811c73137120a7d63287"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-extended-dbc\\wxl-extended-dbc.dll",
+      "bytes": 222208,
+      "sha256": "89779553920782a544857e717f52bee3ad0e4a32020a83b1e3fab521d376e41c"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-glue-zoom\\wxl-glue-zoom.dll",
+      "bytes": 116736,
+      "sha256": "80cf34a0fd90692b1289ded11436148b39b73def148fd68b520dc4d785e43390"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-grasswind\\wxl-grasswind.dll",
+      "bytes": 112640,
+      "sha256": "3a6c5e6973efb3584580b6210b874caa182c088247c61d8779d18f1cf4b0bc74"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-housing\\wxl-housing.dll",
+      "bytes": 953856,
+      "sha256": "5df61348e5fa27fec8ad76037edb0648d741ac152027ce9196a5c1113defa249"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-loot-beam\\wxl-loot-beam.dll",
+      "bytes": 194048,
+      "sha256": "371690a3ae876fc029a16593dff010f675e43f6dba0696b775cf3e0ff2fb05f5"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-maxzoom\\wxl-maxzoom.dll",
+      "bytes": 132096,
+      "sha256": "ab68b55e68920cd44faafce5907167d57e3d3fd19bb8a4eda540d4e9115aade2"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-modern-adt\\wxl-modern-adt.dll",
+      "bytes": 226816,
+      "sha256": "b0d4406e99ba98418dcc29af8bfa3b00a2978a9218aee63fdc47a6b39548d63b"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-modern-m2\\wxl-modern-m2.dll",
+      "bytes": 208384,
+      "sha256": "daada1341ba3e480585fbaf16a7badea85c8e7141036a572c5c1e72001b65766"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-modern-wmo\\wxl-modern-wmo.dll",
+      "bytes": 198656,
+      "sha256": "65f201ca562a573081a2afd45e202a90f4dea07f0185e87ce5772eba26cd58ba"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-no-transparent-characters\\wxl-no-transparent-characters.dll",
+      "bytes": 102400,
+      "sha256": "7d2fbeba442836a9128eb0788f0a9bfdd0ae60d9c8351ecaca911b0fa6a6ec0f"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-stormwind-occlusion\\wxl-stormwind-occlusion.dll",
+      "bytes": 102400,
+      "sha256": "e8b406a036681fe5b0980c6f48b32a861f9cb71949ddfaa22701da168d430c80"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-time-scale\\wxl-time-scale.dll",
+      "bytes": 363008,
+      "sha256": "05f94751bbabffdf5bb1a7239dba8d984577c309dc6cc691ed72fbe39fa7a47f"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-treewind\\wxl-treewind.dll",
+      "bytes": 107008,
+      "sha256": "6ed97c56f641bc883ca5338e72a4597b08fc5b0b76ed8735c7de714eb659a95b"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\wxl-wrathclassicapi\\wxl-wrathclassicapi.dll",
+      "bytes": 418304,
+      "sha256": "28d4cf0aef2b2e86c44ae4a4be28f31ca0f75ea407e362c0e43859524b9b28f1"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\z-darkfallen-character-select\\darkfallen-character-select.dll",
+      "bytes": 82944,
+      "sha256": "818b272563d074cbc687ab05a6c2302ca1a3ce85b3d715746ac0e72219bf24b7"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Extensions\\z-darkfallen-character-select\\z-darkfallen-character-select.dll",
+      "bytes": 85504,
+      "sha256": "255c1ba527e4357aed907b194b75021b3e03bf6490f47a9e19474578d348fb7b"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\ijl15.dll",
+      "bytes": 372736,
+      "sha256": "334aa12f7dee453d1c6cb1b661a3bb3494d3e4cc9c2ff3f9002064c78404e43a"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\msvcr80.dll",
+      "bytes": 632656,
+      "sha256": "9382aaed2db19cd75a70e38964f06c63f19f63c9dfb5a33b0c2d445bb41b6e46"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Scan.dll",
+      "bytes": 47876,
+      "sha256": "0ca274f1c6f38be6864a8ef18a5601d3139c9336e1de29328c50abc07bc74807"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\skia.dll",
+      "bytes": 2833920,
+      "sha256": "ef23addd3f27c748f5ef07608da2c71c3551454debdcb8d4d40141b6e9a057d4"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\unicows.dll",
+      "bytes": 245408,
+      "sha256": "22f23cc65698741184ec34f46e6f69717644e0b5aabf5d5bd015101f2d72e56e"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\version.dll",
+      "bytes": 83456,
+      "sha256": "8d2ca77cdf3a84e8bcc0e56f273cc13861c57371d0f6f18e78004b19a804d950"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\WarcraftXL.dll",
+      "bytes": 683008,
+      "sha256": "558db91db921a6e6872c7c40b17e777689fabbe7d794dc1a5835e79513e2813e"
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Wow.exe",
+      "bytes": 7718400,
+      "sha256": "2ba16bf7bf87396514b3f03181f2519898ff3e50d1334ffa57956cadc24eba35"
+    }
+  ],
+  "archives_sizes_only": [
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\common-2.MPQ",
+      "bytes": 1810430636
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\common-3.MPQ",
+      "bytes": 15991381357
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\common.MPQ",
+      "bytes": 2881154862
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\backup-enUS.MPQ",
+      "bytes": 167245856
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\base-enUS.MPQ",
+      "bytes": 29176975
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\expansion-locale-enUS.MPQ",
+      "bytes": 17389181
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\expansion-speech-enUS.MPQ",
+      "bytes": 241033297
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\lichking-locale-enUS.MPQ",
+      "bytes": 12354378
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\lichking-speech-enUS.MPQ",
+      "bytes": 354008839
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\locale-enUS.MPQ",
+      "bytes": 217621692
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\patch-enUS-2.MPQ",
+      "bytes": 232807882
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\patch-enUS-3.MPQ",
+      "bytes": 100373935
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\patch-enUS-5.MPQ",
+      "bytes": 380043
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\patch-enUS-6.mpq",
+      "bytes": 4594133
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\patch-enUS-Z.MPQ",
+      "bytes": 1562145660
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\patch-enUS.MPQ",
+      "bytes": 296616080
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\enUS\\speech-enUS.MPQ",
+      "bytes": 438430439
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\expansion.MPQ",
+      "bytes": 1921219911
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\lichking.MPQ",
+      "bytes": 2553948549
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-2.MPQ",
+      "bytes": 1401729059
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-3.MPQ",
+      "bytes": 605089137
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-4.mpq",
+      "bytes": 2592051
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-A.mpq",
+      "bytes": 2708937193
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-B.mpq",
+      "bytes": 2226488803
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-C.mpq",
+      "bytes": 2421742769
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-D.mpq",
+      "bytes": 3899139498
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-Dr.MPQ",
+      "bytes": 13384582
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-E.mpq",
+      "bytes": 2323851291
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-F.MPQ",
+      "bytes": 9124021
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-G.mpq",
+      "bytes": 3358489180
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-Housing.MPQ",
+      "bytes": 4096
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-I.mpq",
+      "bytes": 429407164
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-K.mpq",
+      "bytes": 0
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-M.mpq",
+      "bytes": 2892828825
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-N.mpq",
+      "bytes": 2152799810
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-O.mpq",
+      "bytes": 282177
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-P.mpq",
+      "bytes": 2817726724
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-R.MPQ",
+      "bytes": 1201876915
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-S.mpq",
+      "bytes": 415516288
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-U.mpq",
+      "bytes": 1198237359
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\PATCH-V.mpq",
+      "bytes": 106766471
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-W.MPQ",
+      "bytes": 441140214
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\PATCH-X.MPQ",
+      "bytes": 622136575
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\Patch-Y.MPQ",
+      "bytes": 1121239696
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch-Z.MPQ",
+      "bytes": 2034598009
+    },
+    {
+      "path": "G:\\3.3.5a - Dev\\Data\\patch.MPQ",
+      "bytes": 4004713057
+    }
+  ]
+}

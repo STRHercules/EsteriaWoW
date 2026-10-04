@@ -1,0 +1,5850 @@
+{
+  "male": {
+    "model_path": "custom\\vulpera\\native\\male\\vulperamale.m2",
+    "vertices": 22163,
+    "skin_vertices": 22163,
+    "sequences": 336,
+    "events": 24,
+    "atlas": {
+      "body_vertices_remapped": 18585,
+      "submeshes": 79,
+      "source_triangles": 30854,
+      "target_triangles": 30854
+    },
+    "materials": [
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940014,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 16
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940014,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 856201
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940014,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 1002020
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940015,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 1807920
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940015,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 2553789
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940015,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 2682205
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940016,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 3437555
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940016,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 4279529
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940016,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 4423119
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940017,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 5227370
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940017,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 5966173
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940017,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 6097760
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940018,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 6842208
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940018,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 7619287
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940018,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 7752032
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940019,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 8509606
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940019,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 9328508
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940019,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 9469106
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940020,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 10259193
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940020,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 11067927
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940020,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 11206501
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1940021,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 11980762
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1940021,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 12748618
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1940021,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 12881463
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939950,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 13641511
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939951,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 14109595
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939952,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 14554307
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939953,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 15028212
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939954,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 15465691
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939955,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 15912195
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939956,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 16373638
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939957,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 16827680
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939958,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 17272214
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939959,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 17741375
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939960,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 18187800
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939961,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 18662644
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939962,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 19073505
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939963,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 19520980
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939964,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 19985514
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939965,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 20443071
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939966,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 20886875
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939967,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 21354895
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939968,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 21803047
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939969,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 22277021
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939970,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 22712027
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939971,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 23159119
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939972,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 23621564
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939973,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 24078404
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939974,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 24520106
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939975,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 24989252
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939976,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 25435030
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939977,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 25908732
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939978,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 26347899
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939979,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 26797189
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939980,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 27259158
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939981,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 27716377
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939982,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 28164739
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939983,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 28633271
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939984,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 29079677
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939985,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 29553336
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939986,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 29989581
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939987,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 30437933
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939988,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 30898450
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939989,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 31354232
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939990,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 31795785
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939991,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 32266852
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939992,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 32715936
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939993,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 33190362
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939994,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 33629450
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939995,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 34078913
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939996,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 34540711
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1939997,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 35000308
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940022,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 35444156
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940022,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 35644809
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940022,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 35672296
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940023,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 35819556
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940023,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 36017864
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940023,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 36045118
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940024,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 36191606
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940024,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 36387515
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940024,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 36414322
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940025,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 36558789
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940025,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 36752462
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940025,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 36779355
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940026,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 36923366
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940026,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 37115429
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940026,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 37142023
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940027,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 37285076
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940027,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 37486358
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940027,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 37513966
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940028,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 37661695
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940028,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 37858161
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940028,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 37885316
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940029,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 38030524
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940029,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 38219975
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940029,
+        "selectors": [
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 38246508
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940030,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 38386929
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940030,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 38789266
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940030,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 38811421
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940031,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 38919618
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940031,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 39320257
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940031,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 39342199
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940032,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 39448719
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940032,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 39831810
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940032,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 39853651
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940033,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 39959309
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940033,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 40323661
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940033,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 40344955
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940034,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 40447592
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940034,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 40828118
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940034,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 40849781
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940035,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 40953740
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940035,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 41367173
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940035,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 41389336
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940036,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 41496910
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940036,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 41872541
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940036,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 41894066
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1940037,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 41997978
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1940037,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 42370635
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1940037,
+        "selectors": [
+          [
+            7,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 42392018
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1939998,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 42493286
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1939999,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 42509741
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1940000,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 42526156
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1940001,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 42542626
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1940002,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 42559069
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1940003,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 42575518
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1940004,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 42591829
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1940005,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 42608311
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261014,
+        "selectors": [
+          [
+            5,
+            15
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 42624687
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261028,
+        "selectors": [
+          [
+            5,
+            15
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 42665270
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261042,
+        "selectors": [
+          [
+            5,
+            15
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 42705975
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261013,
+        "selectors": [
+          [
+            5,
+            16
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 42738867
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261027,
+        "selectors": [
+          [
+            5,
+            16
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 42780927
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261041,
+        "selectors": [
+          [
+            5,
+            16
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 42823279
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261015,
+        "selectors": [
+          [
+            5,
+            17
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 42859243
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261029,
+        "selectors": [
+          [
+            5,
+            17
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 42896362
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261043,
+        "selectors": [
+          [
+            5,
+            17
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 42933614
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261016,
+        "selectors": [
+          [
+            5,
+            18
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 42970133
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261030,
+        "selectors": [
+          [
+            5,
+            18
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43010431
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261044,
+        "selectors": [
+          [
+            5,
+            18
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43052640
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261017,
+        "selectors": [
+          [
+            5,
+            19
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43082580
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261031,
+        "selectors": [
+          [
+            5,
+            19
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43125727
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261045,
+        "selectors": [
+          [
+            5,
+            19
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43169009
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261018,
+        "selectors": [
+          [
+            5,
+            20
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43206999
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261032,
+        "selectors": [
+          [
+            5,
+            20
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43249186
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261046,
+        "selectors": [
+          [
+            5,
+            20
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43291546
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261019,
+        "selectors": [
+          [
+            5,
+            21
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43326508
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261033,
+        "selectors": [
+          [
+            5,
+            21
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43366702
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261047,
+        "selectors": [
+          [
+            5,
+            21
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43406873
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261020,
+        "selectors": [
+          [
+            5,
+            22
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43440795
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261034,
+        "selectors": [
+          [
+            5,
+            22
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43480896
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261048,
+        "selectors": [
+          [
+            5,
+            22
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43521146
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261021,
+        "selectors": [
+          [
+            5,
+            23
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43558215
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261035,
+        "selectors": [
+          [
+            5,
+            23
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43602707
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261049,
+        "selectors": [
+          [
+            5,
+            23
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43647344
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261022,
+        "selectors": [
+          [
+            5,
+            24
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43685614
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261036,
+        "selectors": [
+          [
+            5,
+            24
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43730003
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261050,
+        "selectors": [
+          [
+            5,
+            24
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43774442
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261023,
+        "selectors": [
+          [
+            5,
+            25
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43814541
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261037,
+        "selectors": [
+          [
+            5,
+            25
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43853988
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261051,
+        "selectors": [
+          [
+            5,
+            25
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 43893798
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261024,
+        "selectors": [
+          [
+            5,
+            26
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 43931284
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261038,
+        "selectors": [
+          [
+            5,
+            26
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 43970856
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261052,
+        "selectors": [
+          [
+            5,
+            26
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 44010594
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261025,
+        "selectors": [
+          [
+            5,
+            27
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 44049135
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261039,
+        "selectors": [
+          [
+            5,
+            27
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 44087837
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261053,
+        "selectors": [
+          [
+            5,
+            27
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 44126607
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261026,
+        "selectors": [
+          [
+            5,
+            28
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 44162933
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261040,
+        "selectors": [
+          [
+            5,
+            28
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 44197886
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261054,
+        "selectors": [
+          [
+            5,
+            28
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 44233225
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635066,
+        "selectors": [
+          [
+            5,
+            0
+          ]
+        ],
+        "offset": 44264937
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635067,
+        "selectors": [
+          [
+            5,
+            1
+          ]
+        ],
+        "offset": 44305755
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635068,
+        "selectors": [
+          [
+            5,
+            2
+          ]
+        ],
+        "offset": 44346594
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635069,
+        "selectors": [
+          [
+            5,
+            3
+          ]
+        ],
+        "offset": 44387305
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635070,
+        "selectors": [
+          [
+            5,
+            4
+          ]
+        ],
+        "offset": 44428380
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635071,
+        "selectors": [
+          [
+            5,
+            5
+          ]
+        ],
+        "offset": 44469184
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635072,
+        "selectors": [
+          [
+            5,
+            6
+          ]
+        ],
+        "offset": 44510046
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635073,
+        "selectors": [
+          [
+            5,
+            7
+          ]
+        ],
+        "offset": 44550672
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635074,
+        "selectors": [
+          [
+            5,
+            8
+          ]
+        ],
+        "offset": 44591325
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635075,
+        "selectors": [
+          [
+            5,
+            9
+          ]
+        ],
+        "offset": 44632044
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635076,
+        "selectors": [
+          [
+            5,
+            10
+          ]
+        ],
+        "offset": 44672956
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635077,
+        "selectors": [
+          [
+            5,
+            11
+          ]
+        ],
+        "offset": 44713882
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635078,
+        "selectors": [
+          [
+            5,
+            12
+          ]
+        ],
+        "offset": 44754851
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635079,
+        "selectors": [
+          [
+            5,
+            13
+          ]
+        ],
+        "offset": 44795673
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4562672,
+        "selectors": [
+          [
+            5,
+            14
+          ]
+        ],
+        "offset": 44836597
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510263,
+        "selectors": [
+          [
+            5,
+            29
+          ]
+        ],
+        "offset": 44861890
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510264,
+        "selectors": [
+          [
+            5,
+            30
+          ]
+        ],
+        "offset": 44885522
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510265,
+        "selectors": [
+          [
+            5,
+            31
+          ]
+        ],
+        "offset": 44910145
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510266,
+        "selectors": [
+          [
+            5,
+            32
+          ]
+        ],
+        "offset": 44934689
+      },
+      {
+        "target": 44,
+        "group": 3,
+        "file_id": 4705409,
+        "selectors": [
+          [
+            8,
+            1
+          ]
+        ],
+        "offset": 44959874
+      },
+      {
+        "target": 44,
+        "group": 3,
+        "file_id": 4705408,
+        "selectors": [
+          [
+            8,
+            2
+          ]
+        ],
+        "offset": 44976848
+      },
+      {
+        "target": 44,
+        "group": 3,
+        "file_id": 4705407,
+        "selectors": [
+          [
+            8,
+            3
+          ]
+        ],
+        "offset": 44993799
+      }
+    ],
+    "source_attachment11": [
+      -0.11586541682481766,
+      0.0,
+      1.088762640953064
+    ]
+  },
+  "female": {
+    "model_path": "custom\\vulpera\\native\\female\\vulperafemale.m2",
+    "vertices": 22487,
+    "skin_vertices": 22487,
+    "sequences": 336,
+    "events": 25,
+    "atlas": {
+      "body_vertices_remapped": 18447,
+      "submeshes": 88,
+      "source_triangles": 31652,
+      "target_triangles": 31652
+    },
+    "materials": [
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894148,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 45013117
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894148,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 45852195
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894148,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 45993431
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894149,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 46765153
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894149,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 47479805
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894149,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 47613121
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894150,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 48309668
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894150,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 49118162
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894150,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 49258468
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894151,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 50027158
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894151,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 50747783
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894151,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 50863540
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894152,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 51571156
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894152,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 52337296
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894152,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 52475338
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894153,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 53211781
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894153,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 54037457
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894153,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 54185280
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894154,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 54957700
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894154,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 55747218
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894154,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 55885903
+      },
+      {
+        "target": 1,
+        "group": 0,
+        "file_id": 1894155,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 56634978
+      },
+      {
+        "target": 1,
+        "group": 1,
+        "file_id": 1894155,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 57356416
+      },
+      {
+        "target": 1,
+        "group": 4,
+        "file_id": 1894155,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 57491992
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894070,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 58205294
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894073,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 58661238
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894074,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 59084247
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894076,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 59543088
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894077,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 59964800
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894078,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 60408672
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894080,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 60869715
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894081,
+        "selectors": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 61317613
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894082,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 61741082
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894083,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 62204130
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894084,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 62630173
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894085,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 63096027
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894087,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 63524171
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894088,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 63977592
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894090,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 64442862
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894091,
+        "selectors": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 64900678
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894092,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 65333646
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894093,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 65791256
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894094,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 66207426
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894095,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 66665197
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894096,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 67086632
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894098,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 67528355
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894099,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 67990274
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894100,
+        "selectors": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 68434930
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894102,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 68850107
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894103,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 69316910
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894104,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 69750097
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894105,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 70211849
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894107,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 70641489
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894109,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 71084651
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894110,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 71544512
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894111,
+        "selectors": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 71988442
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894114,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 72420747
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894116,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 72877763
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894118,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 73303629
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894119,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 73762893
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894120,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 74189520
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894121,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 74635703
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894122,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 75102865
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894123,
+        "selectors": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 75545595
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894124,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 75978145
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894125,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 76432631
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894126,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 76849889
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894127,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 77305300
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894128,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 77729769
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894129,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 78170585
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894130,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 78635253
+      },
+      {
+        "target": 5,
+        "group": 4,
+        "file_id": 1894131,
+        "selectors": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 79076927
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938907,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 79493319
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938907,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 79680322
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938907,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 79700225
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938908,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 79797341
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938908,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 79982666
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938908,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 80002778
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938909,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 80099324
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938909,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 80282827
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938909,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 80302865
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938910,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 80398923
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938910,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 80580485
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938910,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 80600338
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938911,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 80695266
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938911,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 80875187
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938911,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 80894976
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938912,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 80989839
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938912,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 81177291
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938912,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 81197547
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938913,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 81294756
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938913,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 81478404
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938913,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 81498311
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938914,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 81594369
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938914,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 81771041
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938914,
+        "selectors": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 81790204
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938915,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 81883277
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938915,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 82279840
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938915,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 82320517
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938916,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 82401169
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938916,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 82793527
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938916,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 82834001
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938917,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 82914305
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938917,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 83295590
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938917,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 83335967
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938918,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 83415619
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938918,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 83775940
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938918,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 83815064
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938919,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 83893318
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938919,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 84265937
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938919,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 84305365
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938920,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 84384555
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938920,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 84788726
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938920,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 84829277
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938921,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 84909934
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938921,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 85279069
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938921,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 85317944
+      },
+      {
+        "target": 16,
+        "group": 0,
+        "file_id": 1938922,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 85396864
+      },
+      {
+        "target": 16,
+        "group": 1,
+        "file_id": 1938922,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 85759790
+      },
+      {
+        "target": 16,
+        "group": 4,
+        "file_id": 1938922,
+        "selectors": [
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 85797327
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894132,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 85874966
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894133,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 85896133
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894134,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 85917291
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894135,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 85938495
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894136,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 85959682
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894137,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 85980291
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894138,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 86001459
+      },
+      {
+        "target": 13,
+        "group": 0,
+        "file_id": 1894139,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 86022706
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894140,
+        "selectors": [
+          [
+            1,
+            0
+          ]
+        ],
+        "offset": 86043391
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894141,
+        "selectors": [
+          [
+            1,
+            1
+          ]
+        ],
+        "offset": 86077630
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894142,
+        "selectors": [
+          [
+            1,
+            2
+          ]
+        ],
+        "offset": 86111790
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894143,
+        "selectors": [
+          [
+            1,
+            3
+          ]
+        ],
+        "offset": 86146100
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894144,
+        "selectors": [
+          [
+            1,
+            4
+          ]
+        ],
+        "offset": 86180369
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894145,
+        "selectors": [
+          [
+            1,
+            5
+          ]
+        ],
+        "offset": 86213877
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894146,
+        "selectors": [
+          [
+            1,
+            6
+          ]
+        ],
+        "offset": 86247981
+      },
+      {
+        "target": 14,
+        "group": 0,
+        "file_id": 1894147,
+        "selectors": [
+          [
+            1,
+            7
+          ]
+        ],
+        "offset": 86282340
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261014,
+        "selectors": [
+          [
+            6,
+            15
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 86315766
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261028,
+        "selectors": [
+          [
+            6,
+            15
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 86356349
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261042,
+        "selectors": [
+          [
+            6,
+            15
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 86397054
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261013,
+        "selectors": [
+          [
+            6,
+            16
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 86429946
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261027,
+        "selectors": [
+          [
+            6,
+            16
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 86472006
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261041,
+        "selectors": [
+          [
+            6,
+            16
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 86514358
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261015,
+        "selectors": [
+          [
+            6,
+            17
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 86550322
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261029,
+        "selectors": [
+          [
+            6,
+            17
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 86587441
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261043,
+        "selectors": [
+          [
+            6,
+            17
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 86624693
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261016,
+        "selectors": [
+          [
+            6,
+            18
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 86661212
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261030,
+        "selectors": [
+          [
+            6,
+            18
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 86701510
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261044,
+        "selectors": [
+          [
+            6,
+            18
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 86743719
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261017,
+        "selectors": [
+          [
+            6,
+            19
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 86773659
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261031,
+        "selectors": [
+          [
+            6,
+            19
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 86816806
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261045,
+        "selectors": [
+          [
+            6,
+            19
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 86860088
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261018,
+        "selectors": [
+          [
+            6,
+            20
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 86898078
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261032,
+        "selectors": [
+          [
+            6,
+            20
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 86940265
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261046,
+        "selectors": [
+          [
+            6,
+            20
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 86982625
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261019,
+        "selectors": [
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87017587
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261033,
+        "selectors": [
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87057781
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261047,
+        "selectors": [
+          [
+            6,
+            21
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87097952
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261020,
+        "selectors": [
+          [
+            6,
+            22
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87131874
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261034,
+        "selectors": [
+          [
+            6,
+            22
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87171975
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261048,
+        "selectors": [
+          [
+            6,
+            22
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87212225
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261021,
+        "selectors": [
+          [
+            6,
+            23
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87249294
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261035,
+        "selectors": [
+          [
+            6,
+            23
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87293786
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261049,
+        "selectors": [
+          [
+            6,
+            23
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87338423
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261022,
+        "selectors": [
+          [
+            6,
+            24
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87376693
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261036,
+        "selectors": [
+          [
+            6,
+            24
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87421082
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261050,
+        "selectors": [
+          [
+            6,
+            24
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87465521
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261023,
+        "selectors": [
+          [
+            6,
+            25
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87505620
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261037,
+        "selectors": [
+          [
+            6,
+            25
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87545067
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261051,
+        "selectors": [
+          [
+            6,
+            25
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87584877
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261024,
+        "selectors": [
+          [
+            6,
+            26
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87622363
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261038,
+        "selectors": [
+          [
+            6,
+            26
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87661935
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261052,
+        "selectors": [
+          [
+            6,
+            26
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87701673
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261025,
+        "selectors": [
+          [
+            6,
+            27
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87740214
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261039,
+        "selectors": [
+          [
+            6,
+            27
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87778916
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261053,
+        "selectors": [
+          [
+            6,
+            27
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87817686
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261026,
+        "selectors": [
+          [
+            6,
+            28
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "offset": 87854012
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261040,
+        "selectors": [
+          [
+            6,
+            28
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        "offset": 87888965
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4261054,
+        "selectors": [
+          [
+            6,
+            28
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "offset": 87924304
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635066,
+        "selectors": [
+          [
+            6,
+            0
+          ]
+        ],
+        "offset": 87956016
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635067,
+        "selectors": [
+          [
+            6,
+            1
+          ]
+        ],
+        "offset": 87996834
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635068,
+        "selectors": [
+          [
+            6,
+            2
+          ]
+        ],
+        "offset": 88037673
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635069,
+        "selectors": [
+          [
+            6,
+            3
+          ]
+        ],
+        "offset": 88078384
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635070,
+        "selectors": [
+          [
+            6,
+            4
+          ]
+        ],
+        "offset": 88119459
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635071,
+        "selectors": [
+          [
+            6,
+            5
+          ]
+        ],
+        "offset": 88160263
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635072,
+        "selectors": [
+          [
+            6,
+            6
+          ]
+        ],
+        "offset": 88201125
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635073,
+        "selectors": [
+          [
+            6,
+            7
+          ]
+        ],
+        "offset": 88241751
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635074,
+        "selectors": [
+          [
+            6,
+            8
+          ]
+        ],
+        "offset": 88282404
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635075,
+        "selectors": [
+          [
+            6,
+            9
+          ]
+        ],
+        "offset": 88323123
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635076,
+        "selectors": [
+          [
+            6,
+            10
+          ]
+        ],
+        "offset": 88364035
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635077,
+        "selectors": [
+          [
+            6,
+            11
+          ]
+        ],
+        "offset": 88404961
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635078,
+        "selectors": [
+          [
+            6,
+            12
+          ]
+        ],
+        "offset": 88445930
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 3635079,
+        "selectors": [
+          [
+            6,
+            13
+          ]
+        ],
+        "offset": 88486752
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4562672,
+        "selectors": [
+          [
+            6,
+            14
+          ]
+        ],
+        "offset": 88527676
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510263,
+        "selectors": [
+          [
+            6,
+            29
+          ]
+        ],
+        "offset": 88552969
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510264,
+        "selectors": [
+          [
+            6,
+            30
+          ]
+        ],
+        "offset": 88576601
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510265,
+        "selectors": [
+          [
+            6,
+            31
+          ]
+        ],
+        "offset": 88601224
+      },
+      {
+        "target": 25,
+        "group": 3,
+        "file_id": 4510266,
+        "selectors": [
+          [
+            6,
+            32
+          ]
+        ],
+        "offset": 88625768
+      },
+      {
+        "target": 44,
+        "group": 3,
+        "file_id": 4705409,
+        "selectors": [
+          [
+            8,
+            1
+          ]
+        ],
+        "offset": 88650953
+      },
+      {
+        "target": 44,
+        "group": 3,
+        "file_id": 4705408,
+        "selectors": [
+          [
+            8,
+            2
+          ]
+        ],
+        "offset": 88667927
+      },
+      {
+        "target": 44,
+        "group": 3,
+        "file_id": 4705407,
+        "selectors": [
+          [
+            8,
+            3
+          ]
+        ],
+        "offset": 88684878
+      }
+    ],
+    "source_attachment11": [
+      -0.11586541682481766,
+      0.0,
+      1.088762640953064
+    ]
+  }
+}

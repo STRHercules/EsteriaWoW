@@ -1,0 +1,54 @@
+# Verified against WoW: Forever beta 1.60.1.70009 on 2026-09-28.
+slug = "skyborne"
+source_product = "wow_classic_beta"
+client_file_string = "Skyborne"
+race_ids = [95, 96]
+
+# Forever carries paired playable rows that share the same visual models.
+[race_95]
+name = "High Order Skyborne"
+faction_id = 3629
+related_race_id = 96
+
+[race_96]
+name = "Windshaper Skyborne"
+faction_id = 3628
+related_race_id = 95
+
+[male]
+chr_model_id = 218
+display_id = 139407
+model_file_data_id = 7478487
+model_path = "models\\creature\\unk_exp00_7478487\\7478487.m2"
+skeleton_file_data_id = 4690403
+
+[female]
+chr_model_id = 219
+display_id = 139408
+model_file_data_id = 7478494
+model_path = "models\\creature\\unk_exp00_7478494\\7478494.m2"
+skeleton_file_data_id = 4690402
+
+[collections]
+male_file_data_id = 7845093
+male_path = "models\\unknown\\unk_exp00_7845093\\7845093.m2"
+female_file_data_id = 7845092
+female_path = "models\\unknown\\unk_exp00_7845092\\7845092.m2"
+shared_bloodelf_male_file_data_id = 2763973
+shared_bloodelf_male_path = "item\\objectcomponents\\collections\\demonhuntergeosets_be_m.m2"
+shared_bloodelf_female_file_data_id = 2763972
+shared_bloodelf_female_path = "item\\objectcomponents\\collections\\demonhuntergeosets_be_f.m2"
+
+[conversion]
+canonical_patch_root = "G:\\RetroPorterWork\\skyborne\\output\\patch-root"
+written_files = 1219
+m2 = 6
+skin = 6
+anim = 106
+blp = 1101
+ok = 0
+lossy = 12
+passthrough = 1207
+skipped = 0
+failed = 0
+unsupported_bone_overrides = 40

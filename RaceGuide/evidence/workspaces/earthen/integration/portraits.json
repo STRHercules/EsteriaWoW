@@ -1,0 +1,14 @@
+{
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenMale.blp": "e59cd5447f3a5377d927c3f61be6048eef540bd2f4273a28638881cc64b0d125",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenMale.blp": "f9f466b374a0cc7d41827e0c541dcf9c88dafd1b32a2811d03d7eb77e3d71e5e",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Male-Earthen.blp": "f9f466b374a0cc7d41827e0c541dcf9c88dafd1b32a2811d03d7eb77e3d71e5e",
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenFemale.blp": "8ec0a038083145f40fae8d151d87e6b8079114644d4a72902b43edcc973930a8",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenFemale.blp": "4ac74a8d79da3e1adeab982f036cf04376b0d55cfefea17d646af4d615ada1a7",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Female-Earthen.blp": "4ac74a8d79da3e1adeab982f036cf04376b0d55cfefea17d646af4d615ada1a7",
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenHordeMale.blp": "c0ad61dcbbc22f65940b4848b1a00f48c987b93f6fa91833b9bb188e702d82bd",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenHordeMale.blp": "7e217f211e84a21679849271603a85bea581220535ab711ca4f6d699a3dc5601",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Male-EarthenHorde.blp": "7e217f211e84a21679849271603a85bea581220535ab711ca4f6d699a3dc5601",
+  "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-EarthenHordeFemale.blp": "3d82f8f834dfebb2e8ede98d959e2a489215f40934efc864b3ae599a0ff8b938",
+  "Interface\\Glues\\CharacterSelect\\ECS-Portrait-EarthenHordeFemale.blp": "d7db48b6028805a77acb93f5862e54028c4a9a36709e6125e1a7499339d8767f",
+  "Interface\\CharacterFrame\\TemporaryPortrait-Female-EarthenHorde.blp": "d7db48b6028805a77acb93f5862e54028c4a9a36709e6125e1a7499339d8767f"
+}

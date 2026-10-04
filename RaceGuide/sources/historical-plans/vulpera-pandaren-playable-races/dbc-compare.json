@@ -1,0 +1,336 @@
+{
+  "BarberShopStyle": [
+    {
+      "table": "BarberShopStyle",
+      "bytes": 128103,
+      "records": 758,
+      "fields": 40,
+      "record_size": 160,
+      "max_id": 1459,
+      "target_ids": [
+        20
+      ]
+    },
+    {
+      "table": "BarberShopStyle",
+      "bytes": 96015,
+      "records": 579,
+      "fields": 40,
+      "record_size": 160,
+      "max_id": 1443,
+      "target_ids": [
+        20
+      ]
+    }
+  ],
+  "CharBaseInfo": [
+    {
+      "table": "CharBaseInfo",
+      "bytes": 361,
+      "records": 170,
+      "fields": 2,
+      "record_size": 2,
+      "max_id": 2836,
+      "target_ids": []
+    },
+    {
+      "table": "CharBaseInfo",
+      "bytes": 321,
+      "records": 150,
+      "fields": 2,
+      "record_size": 2,
+      "max_id": 2831,
+      "target_ids": []
+    }
+  ],
+  "CharHairGeosets": [
+    {
+      "table": "CharHairGeosets",
+      "bytes": 11949,
+      "records": 497,
+      "fields": 6,
+      "record_size": 24,
+      "max_id": 1425,
+      "target_ids": []
+    },
+    {
+      "table": "CharHairGeosets",
+      "bytes": 11085,
+      "records": 461,
+      "fields": 6,
+      "record_size": 24,
+      "max_id": 681,
+      "target_ids": []
+    }
+  ],
+  "CharHairTextures": [
+    {
+      "table": "CharHairTextures",
+      "bytes": 3126,
+      "records": 97,
+      "fields": 8,
+      "record_size": 32,
+      "max_id": 201,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "CharHairTextures",
+      "bytes": 2933,
+      "records": 91,
+      "fields": 8,
+      "record_size": 32,
+      "max_id": 110,
+      "target_ids": [
+        18,
+        20
+      ]
+    }
+  ],
+  "CharSections": [
+    {
+      "table": "CharSections",
+      "bytes": 3785310,
+      "records": 14273,
+      "fields": 10,
+      "record_size": 40,
+      "max_id": 40586,
+      "target_ids": []
+    },
+    {
+      "table": "CharSections",
+      "bytes": 1154377,
+      "records": 12642,
+      "fields": 10,
+      "record_size": 40,
+      "max_id": 31447,
+      "target_ids": []
+    }
+  ],
+  "CharStartOutfit": [
+    {
+      "table": "CharStartOutfit",
+      "bytes": 133813,
+      "records": 452,
+      "fields": 77,
+      "record_size": 296,
+      "max_id": 9269,
+      "target_ids": []
+    },
+    {
+      "table": "CharStartOutfit",
+      "bytes": 130261,
+      "records": 440,
+      "fields": 77,
+      "record_size": 296,
+      "max_id": 9269,
+      "target_ids": []
+    }
+  ],
+  "CharacterFacialHairStyles": [
+    {
+      "table": "CharacterFacialHairStyles",
+      "bytes": 22901,
+      "records": 715,
+      "fields": 8,
+      "record_size": 32,
+      "max_id": 25,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "CharacterFacialHairStyles",
+      "bytes": 15285,
+      "records": 477,
+      "fields": 8,
+      "record_size": 32,
+      "max_id": 25,
+      "target_ids": [
+        18,
+        20
+      ]
+    }
+  ],
+  "ChrRaces": [
+    {
+      "table": "ChrRaces",
+      "bytes": 10800,
+      "records": 26,
+      "fields": 69,
+      "record_size": 276,
+      "max_id": 26,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "ChrRaces",
+      "bytes": 10121,
+      "records": 26,
+      "fields": 69,
+      "record_size": 276,
+      "max_id": 26,
+      "target_ids": [
+        18,
+        20
+      ]
+    }
+  ],
+  "CreatureDisplayInfo": [
+    {
+      "table": "CreatureDisplayInfo",
+      "bytes": 1963967,
+      "records": 25909,
+      "fields": 16,
+      "record_size": 64,
+      "max_id": 141688,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "CreatureDisplayInfo",
+      "bytes": 1717740,
+      "records": 25905,
+      "fields": 16,
+      "record_size": 64,
+      "max_id": 94234,
+      "target_ids": [
+        18,
+        20
+      ]
+    }
+  ],
+  "CreatureDisplayInfoExtra": [
+    {
+      "table": "CreatureDisplayInfoExtra",
+      "bytes": 2129415,
+      "records": 19095,
+      "fields": 21,
+      "record_size": 84,
+      "max_id": 45440,
+      "target_ids": []
+    }
+  ],
+  "CreatureModelData": [
+    {
+      "table": "CreatureModelData",
+      "bytes": 1773496,
+      "records": 1377,
+      "fields": 28,
+      "record_size": 112,
+      "max_id": 112930,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "CreatureModelData",
+      "bytes": 203775,
+      "records": 1373,
+      "fields": 28,
+      "record_size": 112,
+      "max_id": 4899,
+      "target_ids": [
+        18,
+        20
+      ]
+    }
+  ],
+  "ItemDisplayInfo": [
+    {
+      "table": "ItemDisplayInfo",
+      "bytes": 10345824,
+      "records": 58039,
+      "fields": 25,
+      "record_size": 100,
+      "max_id": 143935,
+      "target_ids": []
+    },
+    {
+      "table": "ItemDisplayInfo",
+      "bytes": 6732827,
+      "records": 57986,
+      "fields": 25,
+      "record_size": 100,
+      "max_id": 68742,
+      "target_ids": []
+    }
+  ],
+  "NameGen": [
+    {
+      "table": "NameGen",
+      "bytes": 309449,
+      "records": 13905,
+      "fields": 4,
+      "record_size": 16,
+      "max_id": 20089,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "NameGen",
+      "bytes": 305094,
+      "records": 13905,
+      "fields": 4,
+      "record_size": 16,
+      "max_id": 20089,
+      "target_ids": [
+        18,
+        20
+      ]
+    }
+  ],
+  "SkillLineAbility": [
+    {
+      "table": "SkillLineAbility",
+      "bytes": 574245,
+      "records": 10254,
+      "fields": 14,
+      "record_size": 56,
+      "max_id": 31474,
+      "target_ids": []
+    },
+    {
+      "table": "SkillLineAbility",
+      "bytes": 572509,
+      "records": 10223,
+      "fields": 14,
+      "record_size": 56,
+      "max_id": 31462,
+      "target_ids": []
+    }
+  ],
+  "SkillRaceClassInfo": [
+    {
+      "table": "SkillRaceClassInfo",
+      "bytes": 11669,
+      "records": 364,
+      "fields": 8,
+      "record_size": 32,
+      "max_id": 1146,
+      "target_ids": [
+        18,
+        20
+      ]
+    },
+    {
+      "table": "SkillRaceClassInfo",
+      "bytes": 7893,
+      "records": 246,
+      "fields": 8,
+      "record_size": 32,
+      "max_id": 1146,
+      "target_ids": []
+    }
+  ]
+}

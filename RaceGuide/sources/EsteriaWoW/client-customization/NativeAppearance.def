@@ -1,0 +1,19 @@
+LIBRARY EsteriaAppearance
+EXPORTS
+    EsteriaCycle
+    EsteriaDropdownWheelBlocked
+    EsteriaWideSource
+    EsteriaDrawStart
+    EsteriaGeometry
+    EsteriaSkin
+    EsteriaSkillRace
+    EsteriaCreateExtra
+    EsteriaEnumExtra
+    EsteriaSelectExtra
+    EsteriaUnitExtra
+    EsteriaRegisterExtra
+    EsteriaAppearanceContext
+    EsteriaSectionArguments
+    EsteriaDirectSection
+    EsteriaSectionCount
+    EsteriaForgetCharacter

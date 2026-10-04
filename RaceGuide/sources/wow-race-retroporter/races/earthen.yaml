@@ -1,0 +1,19 @@
+slug: earthen
+display_name: Earthen
+retail_race_id: 84
+retail_race_ids: [84, 85]
+target_race_id: 48
+target_race_ids: [48, 49]
+faction: neutral
+base_race: dwarf
+customization:
+  profile: ordinary_player_choices
+  include_face_bone_shapes: false
+  preserve_requirements: true
+starting_zone:
+  strategy: inherit
+  inherit_from: dwarf
+conversion:
+  preserve_external_animations: true
+  integration_tool: EsteriaWoW/tools/earthen_race_pack.py
+  # The integration tool provides separate Alliance and Horde startup/presentation.

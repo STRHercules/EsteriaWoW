@@ -1,0 +1,12 @@
+# Retail source profile. Online is the default and does not require a local WoW installation.
+mode: online
+product: wow
+region: us
+locale: enUS
+
+build:
+  version: auto
+  build_key: auto
+
+# Used only when mode: local. May point outside this repository.
+local_client_root:

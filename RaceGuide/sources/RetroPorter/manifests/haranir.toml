@@ -1,0 +1,41 @@
+# Verified against Retail 12.1.0.69933 on 2026-09-28.
+slug = "haranir"
+retail_name = "Haranir"
+retail_client_file_string = "Harronir"
+retail_race_ids = [86, 91]
+
+# Retail carries paired visual/faction rows that share the same ChrModels.
+# RaceID 86 and 91 both map to ChrModel 200/201.
+
+[male]
+chr_model_id = 200
+display_id = 116539
+model_file_data_id = 5422149
+model_path = "character\\harronir\\harronirmale.m2"
+skeleton_file_data_id = 4690415
+
+[female]
+chr_model_id = 201
+display_id = 116687
+model_file_data_id = 5422147
+model_path = "character\\harronir\\harronirfemale.m2"
+skeleton_file_data_id = 4993122
+
+[collections]
+male_file_data_id = 6255032
+male_path = "models\\item\\unk_exp11_6255032_hr_m\\6255032_hr_m.m2"
+female_file_data_id = 6255031
+female_path = "models\\item\\unk_exp11_6255031_hr_f\\6255031_hr_f.m2"
+
+[conversion]
+canonical_patch_root = "G:\\RetroPorterWork\\haranir\\output\\patch-root"
+written_files = 1028
+m2 = 4
+skin = 4
+anim = 108
+blp = 912
+ok = 108
+lossy = 189
+passthrough = 731
+skipped = 25
+failed = 0

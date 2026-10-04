@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "slug": "earthen",
+  "name": "Earthen",
+  "race_ids": [48, 49],
+  "client_file_strings": {"48": "Earthen", "49": "EarthenHorde"},
+  "source_race_id": 3,
+  "source_patch_root": "G:\\RetroPorterWork\\earthen\\output\\patch-root",
+  "runtime_patch_root": "G:\\RetroPorterWork\\earthen\\integration\\patch-root",
+  "asset_prefix": "custom\\earthen",
+  "classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+  "models": {
+    "male": {
+      "source_model_id": 53,
+      "source_display_id": 53,
+      "model_path": "custom\\earthen\\native\\male\\earthendwarfmale.m2"
+    },
+    "female": {
+      "source_model_id": 54,
+      "source_display_id": 54,
+      "model_path": "custom\\earthen\\native\\female\\earthendwarffemale.m2"
+    }
+  },
+  "appearance": {
+    "mode": "native-six-byte-codec-v1",
+    "source_retail_race_ids": [84, 85],
+    "source_chr_models": [195, 196],
+    "face_bone_morphs": false
+  }
+}

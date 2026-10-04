@@ -1,0 +1,2359 @@
+{
+  "race": "mechagnome",
+  "path_prefix": "custom\\mechagnome",
+  "selected_file_ids": [
+    916422,
+    916423,
+    916424,
+    916425,
+    916426,
+    916427,
+    916428,
+    916429,
+    916430,
+    916431,
+    916432,
+    916433,
+    916434,
+    916438,
+    916439,
+    916440,
+    916441,
+    916442,
+    916443,
+    916444,
+    916445,
+    916446,
+    916447,
+    916448,
+    916449,
+    916450,
+    916451,
+    916452,
+    916453,
+    916454,
+    916455,
+    916456,
+    916457,
+    916458,
+    916462,
+    916463,
+    916464,
+    916465,
+    916466,
+    916470,
+    916471,
+    916472,
+    916473,
+    916474,
+    916478,
+    916479,
+    916480,
+    916481,
+    916482,
+    916483,
+    916484,
+    916485,
+    916486,
+    916487,
+    916488,
+    916489,
+    916490,
+    916491,
+    916492,
+    916493,
+    937302,
+    937303,
+    937803,
+    937804,
+    937805,
+    937806,
+    937807,
+    937808,
+    937809,
+    937810,
+    937811,
+    937812,
+    937813,
+    937814,
+    937815,
+    937816,
+    937817,
+    937818,
+    937819,
+    937820,
+    937821,
+    937822,
+    937823,
+    937824,
+    937825,
+    937826,
+    937827,
+    937828,
+    937829,
+    937830,
+    937831,
+    937832,
+    937833,
+    937834,
+    937835,
+    937836,
+    937837,
+    948639,
+    948640,
+    948641,
+    948642,
+    948643,
+    948644,
+    948645,
+    948646,
+    948647,
+    948648,
+    948649,
+    948650,
+    948651,
+    948652,
+    948653,
+    948654,
+    948655,
+    948656,
+    948657,
+    948658,
+    948659,
+    948660,
+    948661,
+    948662,
+    948663,
+    948664,
+    948665,
+    948666,
+    948667,
+    948668,
+    948669,
+    948670,
+    948671,
+    948672,
+    948673,
+    948674,
+    948675,
+    948676,
+    948677,
+    948678,
+    948679,
+    948680,
+    948681,
+    948682,
+    948683,
+    948684,
+    948685,
+    948686,
+    948687,
+    948688,
+    948689,
+    948690,
+    948691,
+    948692,
+    948693,
+    948694,
+    948695,
+    948696,
+    948697,
+    948698,
+    948699,
+    948700,
+    948701,
+    948702,
+    948703,
+    948704,
+    948705,
+    948706,
+    948707,
+    948708,
+    948709,
+    948710,
+    948711,
+    948712,
+    948713,
+    948714,
+    948715,
+    948716,
+    948717,
+    948718,
+    948719,
+    948720,
+    948721,
+    948722,
+    948723,
+    948724,
+    948725,
+    948726,
+    948727,
+    948728,
+    948729,
+    948730,
+    948731,
+    948732,
+    948733,
+    948734,
+    948735,
+    948736,
+    948737,
+    948738,
+    948739,
+    948740,
+    948741,
+    1064006,
+    1064007,
+    1348767,
+    1348769,
+    1348771,
+    1348773,
+    1348776,
+    1348778,
+    1348782,
+    1386710,
+    2564806,
+    2564810,
+    2621438,
+    2622502,
+    2626724,
+    2626725,
+    2626726,
+    2626727,
+    2626728,
+    2626729,
+    2626730,
+    2628212,
+    2628213,
+    2628215,
+    2628216,
+    2628237,
+    2628239,
+    3060787,
+    3060788,
+    3448725,
+    3448726,
+    3448727,
+    3448728,
+    3448729,
+    3448730,
+    3448731,
+    3448732,
+    3448733,
+    3448734,
+    3448735,
+    3448736,
+    3448737,
+    3448738,
+    3448739,
+    3448740,
+    3448741,
+    3448742,
+    3448743,
+    3448744,
+    3448745,
+    3448746,
+    3448747,
+    3448748,
+    3448749,
+    3448750,
+    3448751,
+    3448752,
+    3448753,
+    3448754,
+    3452137,
+    3452138,
+    3452139,
+    3452140,
+    3452141,
+    3452142,
+    3452143,
+    3452144,
+    3452145,
+    3452146,
+    3452147,
+    3452148,
+    3452149,
+    3452150,
+    3452151,
+    3452152,
+    3452153,
+    3452154,
+    3452155,
+    3452156,
+    3452157,
+    3452158,
+    3452159,
+    3452160,
+    3452161,
+    3452162,
+    3484611,
+    3484612,
+    3484614,
+    3484615,
+    3484617,
+    3484619,
+    3484620,
+    3484622,
+    3484624,
+    3484625,
+    3484627,
+    3484628,
+    3484630,
+    3487138,
+    3597804,
+    3636867,
+    3636868,
+    3673792,
+    3673793,
+    3673794,
+    3673795,
+    3673796,
+    3673797,
+    3673798,
+    3675279,
+    3675295,
+    3675306,
+    3675320,
+    3675331,
+    3675347,
+    3675360,
+    4531019,
+    4531020,
+    5210063,
+    5210603
+  ],
+  "direct_model_texture_file_ids": [
+    2564810,
+    2621438,
+    2628215,
+    2628216,
+    3636867,
+    3636868,
+    4531019,
+    4531020,
+    5210063,
+    5210603
+  ],
+  "selected": [
+    {
+      "file_data_id": 916422,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916423,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916424,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916425,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916426,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916427,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916428,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916429,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916430,
+      "path": "character\\gnome\\male\\gnomemalefaceupper01_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916431,
+      "path": "character\\gnome\\male\\gnomemalefaceupper01_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916432,
+      "path": "character\\gnome\\male\\gnomemalefaceupper01_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916433,
+      "path": "character\\gnome\\male\\gnomemalefaceupper01_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916434,
+      "path": "character\\gnome\\male\\gnomemalefaceupper01_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916438,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916439,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916440,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916441,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916442,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916443,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916444,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916445,
+      "path": "character\\gnome\\male\\gnomemalefaceupper02_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916446,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916447,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916448,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916449,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916450,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916451,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916452,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916453,
+      "path": "character\\gnome\\male\\gnomemalefaceupper03_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916454,
+      "path": "character\\gnome\\male\\gnomemalefaceupper04_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916455,
+      "path": "character\\gnome\\male\\gnomemalefaceupper04_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916456,
+      "path": "character\\gnome\\male\\gnomemalefaceupper04_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916457,
+      "path": "character\\gnome\\male\\gnomemalefaceupper04_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916458,
+      "path": "character\\gnome\\male\\gnomemalefaceupper04_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916462,
+      "path": "character\\gnome\\male\\gnomemalefaceupper05_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916463,
+      "path": "character\\gnome\\male\\gnomemalefaceupper05_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916464,
+      "path": "character\\gnome\\male\\gnomemalefaceupper05_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916465,
+      "path": "character\\gnome\\male\\gnomemalefaceupper05_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916466,
+      "path": "character\\gnome\\male\\gnomemalefaceupper05_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916470,
+      "path": "character\\gnome\\male\\gnomemalefaceupper06_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916471,
+      "path": "character\\gnome\\male\\gnomemalefaceupper06_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916472,
+      "path": "character\\gnome\\male\\gnomemalefaceupper06_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916473,
+      "path": "character\\gnome\\male\\gnomemalefaceupper06_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916474,
+      "path": "character\\gnome\\male\\gnomemalefaceupper06_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916478,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916479,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916480,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916481,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916482,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916483,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916484,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916485,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916486,
+      "path": "character\\gnome\\male\\gnomemaleskin00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916487,
+      "path": "character\\gnome\\male\\gnomemaleskin00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916488,
+      "path": "character\\gnome\\male\\gnomemaleskin00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916489,
+      "path": "character\\gnome\\male\\gnomemaleskin00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916490,
+      "path": "character\\gnome\\male\\gnomemaleskin00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916491,
+      "path": "character\\gnome\\male\\gnomemaleskin00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916492,
+      "path": "character\\gnome\\male\\gnomemaleskin00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 916493,
+      "path": "character\\gnome\\male\\gnomemaleskin00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937302,
+      "path": "character\\gnome\\male\\gnomemaleskin00_100_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937303,
+      "path": "character\\gnome\\male\\gnomemaleskin00_101_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937803,
+      "path": "character\\gnome\\male\\gnomemalefaceupper07_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937804,
+      "path": "character\\gnome\\male\\gnomemalefaceupper07_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937805,
+      "path": "character\\gnome\\male\\gnomemalefaceupper07_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937806,
+      "path": "character\\gnome\\male\\gnomemalefaceupper07_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937807,
+      "path": "character\\gnome\\male\\gnomemalefaceupper07_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937808,
+      "path": "character\\gnome\\male\\gnomemalefaceupper08_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937809,
+      "path": "character\\gnome\\male\\gnomemalefaceupper08_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937810,
+      "path": "character\\gnome\\male\\gnomemalefaceupper08_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937811,
+      "path": "character\\gnome\\male\\gnomemalefaceupper08_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937812,
+      "path": "character\\gnome\\male\\gnomemalefaceupper08_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937813,
+      "path": "character\\gnome\\male\\gnomemalefaceupper09_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937814,
+      "path": "character\\gnome\\male\\gnomemalefaceupper09_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937815,
+      "path": "character\\gnome\\male\\gnomemalefaceupper09_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937816,
+      "path": "character\\gnome\\male\\gnomemalefaceupper09_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937817,
+      "path": "character\\gnome\\male\\gnomemalefaceupper09_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937818,
+      "path": "character\\gnome\\male\\gnomemalefaceupper10_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937819,
+      "path": "character\\gnome\\male\\gnomemalefaceupper10_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937820,
+      "path": "character\\gnome\\male\\gnomemalefaceupper10_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937821,
+      "path": "character\\gnome\\male\\gnomemalefaceupper10_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937822,
+      "path": "character\\gnome\\male\\gnomemalefaceupper10_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937823,
+      "path": "character\\gnome\\male\\gnomemalefaceupper11_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937824,
+      "path": "character\\gnome\\male\\gnomemalefaceupper11_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937825,
+      "path": "character\\gnome\\male\\gnomemalefaceupper11_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937826,
+      "path": "character\\gnome\\male\\gnomemalefaceupper11_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937827,
+      "path": "character\\gnome\\male\\gnomemalefaceupper11_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937828,
+      "path": "character\\gnome\\male\\gnomemalefaceupper12_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937829,
+      "path": "character\\gnome\\male\\gnomemalefaceupper12_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937830,
+      "path": "character\\gnome\\male\\gnomemalefaceupper12_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937831,
+      "path": "character\\gnome\\male\\gnomemalefaceupper12_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937832,
+      "path": "character\\gnome\\male\\gnomemalefaceupper12_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937833,
+      "path": "character\\gnome\\male\\gnomemalefaceupper13_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937834,
+      "path": "character\\gnome\\male\\gnomemalefaceupper13_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937835,
+      "path": "character\\gnome\\male\\gnomemalefaceupper13_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937836,
+      "path": "character\\gnome\\male\\gnomemalefaceupper13_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 937837,
+      "path": "character\\gnome\\male\\gnomemalefaceupper13_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948639,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948640,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948641,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948642,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948643,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948644,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948645,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948646,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948647,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper01_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948648,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper01_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948649,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper01_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948650,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper01_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948651,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper01_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948652,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper02_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948653,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper02_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948654,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper02_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948655,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper02_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948656,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper02_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948657,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948658,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948659,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948660,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948661,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948662,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948663,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948664,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper03_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948665,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper04_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948666,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper04_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948667,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper04_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948668,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper04_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948669,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper04_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948670,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948671,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948672,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948673,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948674,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948675,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948676,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948677,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper05_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948678,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper06_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948679,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper06_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948680,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper06_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948681,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper06_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948682,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper06_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948683,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper07_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948684,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper07_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948685,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper07_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948686,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper07_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948687,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper07_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948688,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper08_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948689,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper08_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948690,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper08_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948691,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper08_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948692,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper08_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948693,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper09_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948694,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper09_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948695,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper09_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948696,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper09_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948697,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper09_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948698,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper10_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948699,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper10_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948700,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper10_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948701,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper10_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948702,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper10_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948703,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper11_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948704,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper11_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948705,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper11_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948706,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper11_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948707,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper11_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948708,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper12_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948709,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper12_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948710,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper12_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948711,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper12_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948712,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper12_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948713,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper13_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948714,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper13_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948715,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper13_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948716,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper13_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948717,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper13_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948718,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948719,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948720,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948721,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948722,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948723,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948724,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948725,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948726,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948727,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948728,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948729,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948730,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948731,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948732,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948733,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948734,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_00_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948735,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_01_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948736,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_02_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948737,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_03_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948738,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_04_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948739,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_05_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948740,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_06_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 948741,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_07_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1064006,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_100_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1064007,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_101_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348767,
+      "path": "character\\gnome\\female\\gnomefemalefaceupper00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348769,
+      "path": "character\\gnome\\female\\gnomefemalenakedpelvisskin00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348771,
+      "path": "character\\gnome\\female\\gnomefemalenakedtorsoskin00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348773,
+      "path": "character\\gnome\\female\\gnomefemaleskin00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348776,
+      "path": "character\\gnome\\male\\gnomemalefaceupper00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348778,
+      "path": "character\\gnome\\male\\gnomemalenakedpelvisskin00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1348782,
+      "path": "character\\gnome\\male\\gnomemaleskin00_10_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 1386710,
+      "path": "character\\gnome\\female\\scalpupperhair00_12_hd.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2564806,
+      "path": "character\\mechagnome\\female\\mechagnomefemale.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 2622502,
+      "path": "character\\mechagnome\\male\\mechagnomemale.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 2626724,
+      "path": "character\\mechagnome\\hair00_00_2626724.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2626725,
+      "path": "character\\mechagnome\\hair00_01_2626725.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2626726,
+      "path": "character\\mechagnome\\hair00_02_2626726.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2626727,
+      "path": "character\\mechagnome\\hair00_03_2626727.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2626728,
+      "path": "character\\mechagnome\\hair00_04_2626728.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2626729,
+      "path": "character\\mechagnome\\hair00_05_2626729.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2626730,
+      "path": "character\\mechagnome\\hair00_06_2626730.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2628212,
+      "path": "item\\objectcomponents\\collections\\collections_mechagnome_mg_m.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 2628213,
+      "path": "item\\objectcomponents\\collections\\collections_mechagnome_mg_f.m2",
+      "reason": "core player/customization model"
+    },
+    {
+      "file_data_id": 2628237,
+      "path": "character\\mechagnome\\male\\mechagnomemale_paint_2628237.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2628239,
+      "path": "character\\mechagnome\\male\\mechagnomemale_paint_2628239.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3060787,
+      "path": "character\\mechagnome\\male\\mechagnomemale_paint_3060787.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3060788,
+      "path": "character\\mechagnome\\male\\mechagnomemale_hair_color_3060788.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448725,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448725.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448726,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448726.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448727,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448727.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448728,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448728.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448729,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448729.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448730,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448730.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448731,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448731.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448732,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448732.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448733,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448733.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448734,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448734.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448735,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448735.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448736,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448736.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448737,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448737.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448738,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448738.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448739,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448739.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448740,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448740.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448741,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448741.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448742,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448742.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448743,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448743.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448744,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448744.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448745,
+      "path": "character\\gnome\\female\\gnomefemale_hd_face_3448745.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448746,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448746.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448747,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448747.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448748,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448748.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448749,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448749.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448750,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448750.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448751,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448751.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448752,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448752.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448753,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448753.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3448754,
+      "path": "character\\gnome\\female\\gnomefemale_hd_skin_color_3448754.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452137,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452137.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452138,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452138.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452139,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452139.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452140,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452140.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452141,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452141.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452142,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452142.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452143,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452143.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452144,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452144.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452145,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452145.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452146,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452146.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452147,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452147.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452148,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452148.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452149,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452149.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452150,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452150.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452151,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452151.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452152,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452152.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452153,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452153.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452154,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452154.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452155,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452155.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452156,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452156.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452157,
+      "path": "character\\gnome\\male\\gnomemale_hd_face_3452157.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452158,
+      "path": "character\\gnome\\male\\gnomemale_hd_skin_color_3452158.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452159,
+      "path": "character\\gnome\\male\\gnomemale_hd_skin_color_3452159.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452160,
+      "path": "character\\gnome\\male\\gnomemale_hd_skin_color_3452160.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452161,
+      "path": "character\\gnome\\male\\gnomemale_hd_skin_color_3452161.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3452162,
+      "path": "character\\gnome\\male\\gnomemale_hd_skin_color_3452162.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484611,
+      "path": "character\\gnome\\eyes00_01_3484611.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484612,
+      "path": "character\\gnome\\eyes00_02_3484612.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484614,
+      "path": "character\\gnome\\eyes00_03_3484614.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484615,
+      "path": "character\\gnome\\eyes00_04_3484615.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484617,
+      "path": "character\\gnome\\eyes00_05_3484617.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484619,
+      "path": "character\\gnome\\eyes00_06_3484619.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484620,
+      "path": "character\\gnome\\eyes00_07_3484620.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484622,
+      "path": "character\\gnome\\eyes00_08_3484622.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484624,
+      "path": "character\\gnome\\eyes00_09_3484624.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484625,
+      "path": "character\\gnome\\eyes00_10_3484625.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484627,
+      "path": "character\\gnome\\eyes00_11_3484627.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484628,
+      "path": "character\\gnome\\eyes00_12_3484628.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3484630,
+      "path": "character\\gnome\\eyes00_13_3484630.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3487138,
+      "path": "character\\gnome\\male\\gnomemale_hd_skin_color_3487138.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3597804,
+      "path": "character\\gnome\\eyes00_00_3597804.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673792,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673792.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673793,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673793.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673794,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673794.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673795,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673795.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673796,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673796.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673797,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673797.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3673798,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_hair_style_3673798.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675279,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675279.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675295,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675295.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675306,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675306.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675320,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675320.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675331,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675331.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675347,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675347.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 3675360,
+      "path": "character\\mechagnome\\male\\mechagnomemale_facial_hair_3675360.blp",
+      "reason": "Mechagnome customization texture"
+    },
+    {
+      "file_data_id": 2564810,
+      "path": "character\\mechagnome\\female\\robospec.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 2621438,
+      "path": "item\\objectcomponents\\collections\\robospec.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 2628215,
+      "path": "item\\objectcomponents\\collections\\collections_mechagnome_2_2628215.blp",
+      "reason": "required race dependency"
+    },
+    {
+      "file_data_id": 2628216,
+      "path": "item\\objectcomponents\\collections\\collections_mechagnome_3_2628216.blp",
+      "reason": "required race dependency"
+    },
+    {
+      "file_data_id": 3636867,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_3636867.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 3636868,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3636868.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 4531019,
+      "path": "character\\mechagnome\\male\\mechagnomemale_4531019.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 4531020,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_4531020.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 5210063,
+      "path": "character\\mechagnome\\male\\mechagnomemale_eyereflect.blp",
+      "reason": "core M2 hard texture dependency"
+    },
+    {
+      "file_data_id": 5210603,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_eyereflect.blp",
+      "reason": "core M2 hard texture dependency"
+    }
+  ],
+  "unsupported": [
+    {
+      "file_data_id": 3195555,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195555.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195556,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195556.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195557,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195557.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195558,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195558.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195559,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195559.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195560,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195560.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195561,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195561.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195562,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195562.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195563,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195563.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195564,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195564.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195565,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195565.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195566,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195566.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195567,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195567.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195568,
+      "path": "character\\mechagnome\\male\\mechagnomemale_3195568.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195582,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_00.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195583,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_01.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195584,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_02.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195585,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_03.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195586,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_04.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195587,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_05.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195588,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_06.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195589,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_07.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195590,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_08.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195591,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_09.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195592,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_10.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195593,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_11.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195594,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_12.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    },
+    {
+      "file_data_id": 3195595,
+      "path": "character\\mechagnome\\female\\mechagnomefemale_13.bone",
+      "reason": "Retail .bone override has no Wrath equivalent"
+    }
+  ],
+  "ignored": [
+    {
+      "file_data_id": 623712,
+      "path": "interface\\glues\\models\\ui_alliance\\ui_alliance.m2",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 651555,
+      "path": "interface\\glues\\models\\ui_alliance_lowres\\ui_alliance_lowres.m2",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 2628238,
+      "path": "item\\objectcomponents\\collections\\gnomemaleskin00_01_extra_hd.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 3188839,
+      "path": "interface\\glues\\models\\ui_mechagnome\\ui_mechagnome.m2",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261013,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261013.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261014,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261014.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261015,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261015.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261016,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261016.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261017,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261017.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261018,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261018.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261019,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261019.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261020,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261020.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261021,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261021.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261022,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261022.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261023,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261023.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261024,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261024.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261025,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261025.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261026,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261026.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261027,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261027.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261028,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261028.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261029,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261029.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261030,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261030.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261031,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261031.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261032,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261032.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261033,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261033.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261034,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261034.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261035,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261035.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261036,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261036.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261037,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261037.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261038,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261038.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261039,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261039.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261040,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261040.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261041,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261041.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261042,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261042.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261043,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261043.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261044,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261044.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261045,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261045.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261046,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261046.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261047,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261047.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261048,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261048.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261049,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261049.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261050,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261050.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261051,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261051.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261052,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261052.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261053,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261053.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4261054,
+      "path": "character\\dracthyr\\dracthyrdragon_eye_color_4261054.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4510263,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510263.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4510264,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510264.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4510265,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510265.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4510266,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4510266.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4562672,
+      "path": "character\\human\\male\\humanmale_hd_eye_color_4562672.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4690408,
+      "path": "world\\expansion09\\doodads\\bones\\10xp_skeleton07.m2",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4705407,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705407.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4705408,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705408.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    },
+    {
+      "file_data_id": 4705409,
+      "path": "character\\human\\male\\humanmale_hd_eyesight_4705409.blp",
+      "reason": "not part of the initial Mechagnome-safe asset slice"
+    }
+  ]
+}
