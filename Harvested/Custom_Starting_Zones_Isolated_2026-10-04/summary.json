@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-10-04T06:57:49.259Z",
+  "source": "G:/Downloads/HDWoWModels/Project Reforged/Data",
+  "output": "G:/Downloads/HDWoWModels/Project Reforged/Custom_Starting_Zones_Isolated_2026-10-04",
+  "failureCount": 0,
+  "zones": {
+    "Tuskarr_Iskirr_Village": {
+      "key": "Tuskarr_Iskirr_Village",
+      "map": "custom_tuskarr",
+      "source": "patch-WB1.MPQ",
+      "race": "Tuskarr",
+      "status": "confirmed custom race zone",
+      "areaId": 11435,
+      "areaName": "Iskirr Village",
+      "mapFiles": 14,
+      "areaIds": {
+        "11435": 3072
+      },
+      "directDependencyCandidates": 69,
+      "uniqueExtractedPaths": 430,
+      "extractedCopies": 446,
+      "bytes": 54142869,
+      "doodadPlacements": 457,
+      "wmoPlacements": 38,
+      "minimapTiles": 12,
+      "unresolvedCandidates": []
+    },
+    "Troll_Custom_Start": {
+      "key": "Troll_Custom_Start",
+      "map": "custom_troll",
+      "source": "patch-WB1.MPQ",
+      "race": "Troll",
+      "status": "strong starting-zone candidate",
+      "areaId": 50506,
+      "areaName": "custom runtime area 50506",
+      "mapFiles": 21,
+      "areaIds": {
+        "50506": 5120
+      },
+      "directDependencyCandidates": 215,
+      "uniqueExtractedPaths": 698,
+      "extractedCopies": 747,
+      "bytes": 62924846,
+      "doodadPlacements": 15330,
+      "wmoPlacements": 15,
+      "minimapTiles": 0,
+      "unresolvedCandidates": [
+        "tileset\\expansiona01\\adaalosisland\\ai_dirt01.blp",
+        "WORLD\\EXPANSIONA01\\DOODADS\\ADAALOSISLAND\\TREE\\TREE_03.M2",
+        "WORLD\\EXPANSIONA01\\DOODADS\\ADAALOSISLAND\\TREE\\TREE_04.M2"
+      ]
+    },
+    "Worgen_Gilneas": {
+      "key": "Worgen_Gilneas",
+      "map": "Giln",
+      "source": "patch-ZZZ.MPQ",
+      "race": "Worgen",
+      "status": "confirmed custom Gilneas race zone",
+      "areaId": 5179,
+      "areaName": "Gilneas",
+      "mapFiles": 17,
+      "areaIds": {
+        "130": 24,
+        "204": 9,
+        "214": 485,
+        "230": 3,
+        "236": 29,
+        "306": 237,
+        "2397": 352,
+        "2398": 1305,
+        "5179": 716,
+        "5184": 20,
+        "5185": 16,
+        "5187": 8,
+        "5188": 53,
+        "5190": 12,
+        "5191": 12,
+        "5193": 4,
+        "5196": 27,
+        "5197": 4,
+        "5200": 67,
+        "5203": 10,
+        "5205": 283,
+        "5207": 15,
+        "5208": 328,
+        "5209": 77
+      },
+      "directDependencyCandidates": 349,
+      "uniqueExtractedPaths": 1710,
+      "extractedCopies": 1819,
+      "bytes": 72871558,
+      "doodadPlacements": 4936,
+      "wmoPlacements": 307,
+      "minimapTiles": 16,
+      "unresolvedCandidates": []
+    },
+    "Shared_Obelisk_of_the_Stars": {
+      "key": "Shared_Obelisk_of_the_Stars",
+      "map": "obeliskofthestarts",
+      "source": "patch-WB2.MPQ",
+      "race": "Shared",
+      "status": "shared starter/tutorial hub candidate",
+      "areaId": 8463,
+      "areaName": "Obelisk of the Stars",
+      "mapFiles": 20,
+      "areaIds": {
+        "0": 4449,
+        "8463": 159
+      },
+      "directDependencyCandidates": 562,
+      "uniqueExtractedPaths": 2076,
+      "extractedCopies": 2163,
+      "bytes": 172939345,
+      "doodadPlacements": 11923,
+      "wmoPlacements": 155,
+      "minimapTiles": 18,
+      "unresolvedCandidates": []
+    }
+  }
+}

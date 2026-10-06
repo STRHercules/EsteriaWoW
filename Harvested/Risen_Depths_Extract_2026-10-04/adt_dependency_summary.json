@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-10-04T05:39:00.477Z",
+  "candidatePaths": 386,
+  "extractedCopies": 394,
+  "uniqueExtractedPaths": 386,
+  "missingPaths": 0,
+  "failureCount": 0,
+  "byArchive": {
+    "common.mpq": 116,
+    "patch-4.MPQ": 23,
+    "patch-6.MPQ": 248,
+    "patch-7.mpq": 3,
+    "patch-8.mpq": 1,
+    "patch-e.mpq": 3
+  },
+  "byKinds": {
+    "terrain_texture": 25,
+    "doodad_model": 328,
+    "wmo": 41
+  }
+}

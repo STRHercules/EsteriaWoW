@@ -1,21 +1,38 @@
 # Ideas
 
+
 # New races
 - All new races need racials
 
-## ThinHuman
-- Rename from 'Human' to something else 
+
+## Ogre
+
+
+## Furbolg
+
+
+## Forgotten
+
 
 ## Tuskarr
+- Import Starting zone
 
 
 ## Vrykul
 
 
 ## Naga
-- Cannot use mounts, instead uses an ability to increase ground run speed (like worgen) and a flight form for flying
+- Import Starting zone
 
 
+
+
+### Sirus Ports
+- Cosmetics
+- Customization options for races
+- Mounts
+- World
+- Spells
 
 
 - Retroport Sethrak
@@ -51,8 +68,6 @@
 
 - Fix model issues
     - Earthen, Skyborn need corrected eyes
-
-- Integate Open Azeroth 
 
 - Dual Form Support
     * I want both forms to be visible in character creation, with both updated in real time depending on options chosen
@@ -103,17 +118,17 @@
 - Guild
 
 # New Heirlooms
+- Finish equipment set
 - Unlimited Ammo
 
 # Placeable guild vault - like ascension
 - Account-wide
 
-## Missing Races
-- Haranir
 
 ## Custom races
-- Third Tauren Gender - Taunka
+- Implement Taunka
 - Implement Ogre race
+- Implement Furbolg
 - Half-Elf Race?
     - Human Body/Skeleton with Blood-Elf ears?
 - Halfling

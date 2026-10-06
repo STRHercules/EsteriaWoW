@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-10-04T03:58:00.406Z",
+  "parsedModelCopies": 124,
+  "uniqueModelPaths": 112,
+  "candidateCount": 689,
+  "companionCopiesExtracted": 692,
+  "uniqueCompanionPathsExtracted": 642,
+  "externalAnimationCopies": 385,
+  "uniqueExternalAnimations": 384,
+  "skinCopies": 135,
+  "uniqueSkins": 127,
+  "embeddedDependencyCopies": 172,
+  "uniqueEmbeddedDependencies": 131,
+  "failureCount": 0
+}

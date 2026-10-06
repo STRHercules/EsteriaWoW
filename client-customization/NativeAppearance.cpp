@@ -257,6 +257,8 @@ namespace
     }
 }
 
+#include "CosmeticWings.inl"
+
 extern "C" __declspec(dllexport) void __cdecl EsteriaSkin(void* model)
 {
     if (!model)
@@ -285,6 +287,7 @@ extern "C" __declspec(dllexport) void __cdecl EsteriaGeometry(void* character)
 {
     if (!character)
         return;
+    UpdateCosmeticWing(character);
     if (HighmountainGeometry(character))
         return;
     for (auto const& profile : Profiles())
@@ -580,6 +583,8 @@ extern "C" __declspec(dllexport) unsigned __cdecl EsteriaSkillRace(unsigned race
         case 58: return 1;
         case 57:
         case 59: return 2;
+        case 60: return 2;
+        case 61: return 4;
         default: return race;
     }
 }
@@ -904,8 +909,20 @@ namespace
     bool HighmountainCycle(void* state, char const* command)
     {
         void* character = *reinterpret_cast<void**>(Address(0x00B6B1A0));
-        if (!character || !ExtendedRace(Field<unsigned>(character, 0x18))
-            || CreatureAppearance::Uses(Field<unsigned>(character, 0x18)))
+        if (!character || !ExtendedRace(Field<unsigned>(character, 0x18)))
+            return false;
+        if (Field<unsigned>(character, 0x18) == 54)
+        {
+            constexpr std::array<char const*, 5> maleLabels =
+                {"Skin Color", "Face", "Crest Style", "Eye Color", "Facial Features"};
+            constexpr std::array<char const*, 5> femaleLabels =
+                {"Skin Color", "Face", "Hair Style", "Hair Color", "Facial Features"};
+            constexpr std::array<VulperaAppearance::Requirement, 0> requirements{};
+            unsigned gender = Field<unsigned>(character, 0x1C);
+            return HighmountainControl(state, command, character, CreatureAppearance::Options(54, gender),
+                gender ? femaleLabels : maleLabels, requirements);
+        }
+        if (CreatureAppearance::Uses(Field<unsigned>(character, 0x18)))
             return false;
         if (Field<unsigned>(character, 0x18) == 20)
         {
@@ -965,7 +982,7 @@ namespace
                     if (std::fread(&record, sizeof(record), 1, file) != 1)
                         break;
                     bool valid = record.gender < 2 && record.kind <= 4
-                        && (record.kind == 4 ? record.target && record.value > 0 && record.value < 52
+                        && (record.kind == 4 ? record.target && record.value < 52
                             : record.kind == 3 ? record.target < 9 && record.value >= 16
                             && std::memchr(record.path, 0, sizeof(record.path))
                             : record.kind == 2 ? record.target < 5200 && record.value >= 10000
@@ -1077,7 +1094,7 @@ namespace
             return true;
         unsigned materials = 0;
         std::uint64_t helmetGroups = 0;
-        if (Field<unsigned>(character, 0x18) == 20)
+        if (Field<unsigned>(character, 0x18) == 20 || Field<unsigned>(character, 0x18) == 54)
             for (auto const& record : records)
                 if (record.kind == 4 && record.gender == gender && record.value < 52
                     && record.target == Field<unsigned>(character, 0x428))
@@ -1153,7 +1170,7 @@ namespace
             }
         }
         // Some source-hidden groups have no customization selector. Apply their hide after all selections.
-        for (unsigned group = 1; group < 52; ++group)
+        for (unsigned group = 0; group < 52; ++group)
             if (helmetGroups & (std::uint64_t{1} << group))
             {
                 if (group < 19)
@@ -1230,6 +1247,7 @@ extern "C" __declspec(dllexport) void __cdecl EsteriaCreateExtra(void* packet)
 extern "C" __declspec(dllexport) void __cdecl EsteriaEnumExtra(void* packet)
 {
     highmountainRoster.clear();
+    cosmeticWingRoster.clear();
     if (!packet)
         return;
     unsigned length = Field<unsigned>(packet, 0x10);
@@ -1238,10 +1256,12 @@ extern "C" __declspec(dllexport) void __cdecl EsteriaEnumExtra(void* packet)
         return;
     auto* bytes = Field<unsigned char*>(packet, 4);
     unsigned size = length - base;
-    for (unsigned tail = 0; tail < 2 && size >= 8; ++tail)
+    if (!bytes)
+        return;
+    for (unsigned tail = 0; tail < 3 && size >= 8; ++tail)
     {
         unsigned magic = Field<unsigned>(bytes, size - 4);
-        unsigned stride = magic == 0x31455848 ? 9 : magic == 0x32455848 ? 16 : 0;
+        unsigned stride = magic == 0x31455848 ? 9 : magic == 0x32455848 ? 16 : magic == 0x31475743 ? 12 : 0;
         if (!stride)
             break;
         unsigned count = Field<unsigned>(bytes, size - 8);
@@ -1249,8 +1269,14 @@ extern "C" __declspec(dllexport) void __cdecl EsteriaEnumExtra(void* packet)
             break;
         unsigned start = size - 8 - count * stride;
         for (unsigned i = 0; i < count; ++i)
-            highmountainRoster[Field<std::uint64_t>(bytes, start + i * stride)] = stride == 9
-                ? bytes[start + i * stride + 8] : Field<std::uint64_t>(bytes, start + i * stride + 8);
+        {
+            auto guid = Field<std::uint64_t>(bytes, start + i * stride);
+            if (stride == 12)
+                cosmeticWingRoster[guid] = Field<unsigned>(bytes, start + i * stride + 8);
+            else
+                highmountainRoster[guid] = stride == 9
+                    ? bytes[start + i * stride + 8] : Field<std::uint64_t>(bytes, start + i * stride + 8);
+        }
         size = start;
         Field<unsigned>(packet, 0x10) = base + size;
     }
@@ -1269,6 +1295,9 @@ extern "C" __declspec(dllexport) void __cdecl EsteriaSelectExtra(void* character
         auto* row = rows + i * 0x198;
         if (Field<void*>(row, 0x188) != character)
             continue;
+        auto wing = cosmeticWingRoster.find(Field<std::uint64_t>(row, 0));
+        cosmeticWingSelections[character] = wing == cosmeticWingRoster.end() ? 0 : wing->second;
+        UpdateCosmeticWing(character);
         unsigned race = row[0x178];
         if (!ExtendedRace(race))
             return;
@@ -1321,6 +1350,8 @@ extern "C" __declspec(dllexport) void __cdecl EsteriaRegisterExtra()
 
 extern "C" __declspec(dllexport) void __cdecl EsteriaForgetCharacter(void* character)
 {
+    ForgetCosmeticWing(character);
+    cosmeticWingSelections.erase(character);
     haranirImages.erase(character);
     earthenNetworkAppearance.erase(character);
     highmountainExtra.erase(character);

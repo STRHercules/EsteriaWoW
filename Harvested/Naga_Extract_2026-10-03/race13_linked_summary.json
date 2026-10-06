@@ -1,0 +1,21 @@
+{
+  "raceId": 13,
+  "raceMask": "0x1000",
+  "tableCopiesExtracted": 18,
+  "matchedRows": 3068,
+  "byTable": {
+    "BarberShopStyle": 346,
+    "CharBaseInfo": 10,
+    "CharHairGeosets": 12,
+    "CharHairTextures": 2,
+    "CharSections": 1349,
+    "CharStartOutfit": 20,
+    "CharacterFacialHairStyles": 338,
+    "ChrRaces": 2,
+    "CreatureDisplayInfoExtra": 91,
+    "NameGen": 587,
+    "SkillLineAbility": 4,
+    "SkillRaceClassInfo": 307
+  },
+  "failureCount": 0
+}

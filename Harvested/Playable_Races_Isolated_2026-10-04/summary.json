@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-10-04T06:21:08.641Z",
+  "source": "G:/Downloads/HDWoWModels/Project Reforged/Data",
+  "output": "G:/Downloads/HDWoWModels/Project Reforged/Playable_Races_Isolated_2026-10-04",
+  "extractedCopies": 1046,
+  "uniquePaths": 880,
+  "failureCount": 0,
+  "races": {
+    "Ogre": {
+      "copies": 573,
+      "uniquePaths": 563,
+      "bytes": 134044147,
+      "kinds": {
+        "UI": 137,
+        "Character": 436
+      }
+    },
+    "Shared": {
+      "copies": 70,
+      "uniquePaths": 13,
+      "bytes": 79082358,
+      "kinds": {
+        "DBC": 70
+      }
+    },
+    "Tuskarr": {
+      "copies": 347,
+      "uniquePaths": 248,
+      "bytes": 16389517,
+      "kinds": {
+        "UI": 113,
+        "Character": 216,
+        "RaceSpecificHeadItem": 18
+      }
+    },
+    "Furbolg": {
+      "copies": 56,
+      "uniquePaths": 56,
+      "bytes": 7210510,
+      "kinds": {
+        "UI": 11,
+        "Character": 45
+      }
+    }
+  },
+  "archives": [
+    {
+      "archive": "enUS/expansion-locale-enUS.MPQ",
+      "candidates": 4,
+      "extracted": 4
+    },
+    {
+      "archive": "enUS/locale-enUS.MPQ",
+      "candidates": 22,
+      "extracted": 22
+    },
+    {
+      "archive": "enUS/patch-enUS-2.MPQ",
+      "candidates": 7,
+      "extracted": 7
+    },
+    {
+      "archive": "enUS/patch-enUS-3.MPQ",
+      "candidates": 5,
+      "extracted": 5
+    },
+    {
+      "archive": "enUS/patch-enUS.MPQ",
+      "candidates": 19,
+      "extracted": 19
+    },
+    {
+      "archive": "lichking.MPQ",
+      "candidates": 75,
+      "extracted": 75
+    },
+    {
+      "archive": "patch-A.MPQ",
+      "candidates": 63,
+      "extracted": 63
+    },
+    {
+      "archive": "patch-B.MPQ",
+      "candidates": 3,
+      "extracted": 3
+    },
+    {
+      "archive": "patch-CHA.MPQ",
+      "candidates": 13,
+      "extracted": 13
+    },
+    {
+      "archive": "patch-I.MPQ",
+      "candidates": 151,
+      "extracted": 151
+    },
+    {
+      "archive": "patch-M.MPQ",
+      "candidates": 13,
+      "extracted": 13
+    },
+    {
+      "archive": "patch-U.MPQ",
+      "candidates": 6,
+      "extracted": 6
+    },
+    {
+      "archive": "patch-Z.MPQ",
+      "candidates": 638,
+      "extracted": 638
+    },
+    {
+      "archive": "patch-ZZ.MPQ",
+      "candidates": 11,
+      "extracted": 11
+    },
+    {
+      "archive": "patch-ZZZZZZZZZZZZZZZZZ.MPQ",
+      "candidates": 1,
+      "extracted": 1
+    },
+    {
+      "archive": "patch-ZZZZZZZZZZZZZZZZZZZZ.MPQ",
+      "candidates": 1,
+      "extracted": 1
+    },
+    {
+      "archive": "patch.MPQ",
+      "candidates": 14,
+      "extracted": 14
+    }
+  ]
+}

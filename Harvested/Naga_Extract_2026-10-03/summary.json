@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-10-04T03:48:10.535Z",
+  "dataDir": "D:/Sirus/_client/World of Warcraft Sirus/Data",
+  "listfile": "G:/ListFiles/community-listfile-withcapitals.csv",
+  "outputRoot": "D:/Sirus/_client/World of Warcraft Sirus/Naga_Extract_2026-10-03",
+  "candidateCount": 3144,
+  "archiveCount": 59,
+  "hitCount": 782,
+  "extractedCount": 782,
+  "failureCount": 0,
+  "byArchive": {
+    "common.mpq": 228,
+    "patch-5.MPQ": 26,
+    "patch-6.MPQ": 212,
+    "patch-7.mpq": 5,
+    "patch-e.mpq": 2,
+    "patch-i.mpq": 34,
+    "patch-k.mpq": 11,
+    "patch-m.mpq": 7,
+    "patch-q.mpq": 1,
+    "patch-t.mpq": 6,
+    "ruRU/locale-ruRU.mpq": 5,
+    "ruRU/patch-ruRU-5.mpq": 75,
+    "ruRU/patch-ruRU-7.mpq": 153,
+    "ruRU/patch-ruRU-8.mpq": 5,
+    "ruRU/patch-ruRU-a.mpq": 1,
+    "ruRU/patch-ruRU-c.mpq": 11
+  }
+}

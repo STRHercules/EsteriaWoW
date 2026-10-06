@@ -595,3 +595,32 @@ randomization, existing character select, new creation, login/relog, armor, and 
 expanded install exposed wrong object offsets and WXL load-time mesh parking. The user confirmed both
 genders' bodies, independent controls, hairstyle-specific feathers/colors, and rotation controls below the
 name fields on September 30, 2026. New-character login/relog, armor/helmet, and barber smoke remain untested.
+
+## Cosmetic wings on Character Select
+
+`CosmeticWings.inl` reuses the installed native roster, preview and component teardown hooks.
+Worldserver reads saved infinite self-applied auras and sends only members of wing group 9100 in a
+`CWG1` trailer (GUID plus spell ID). The native helper strips it before stock parsing, alongside
+`HXE1` and `HXE2`. Knowing a wing spell without its aura does not equip it.
+
+`tools/cosmetic_wings_character_select.py prepare` resolves Cosmetics skill line 779 through the
+installed Spell/SpellVisual state kit and back attachment 16 into `EsteriaCosmeticWings.bin`. It
+checks server visual agreement, model presence, scales and native attachment fingerprints.
+The helper retains an independent child reference across stock preview refreshes, detaches only
+its own wing, and releases that reference when the character component is destroyed.
+No schema migration, executable patch or MPQ replacement is required.
+
+After explicit build authorization, prepare the catalog, then use `client-customization/build-native.bat`
+with `C:\Users\Zach\.codex\tmp\wings-select` as its output directory.
+The build runs the existing native checks and the new `TestCosmeticWings.exe` when the catalog exists.
+Close WoW/Eclipse and run the preparation tool with `install` to install the DLL and catalog with
+hash-verified rollback copies. Install the client helper before recreating the rebuilt
+`ac-worldserver` with `docker compose up -d --no-deps --no-build --pull never --force-recreate ac-worldserver`.
+
+Verification: `python -m unittest discover -s tools -p test_cosmetic_wings_character_select.py`;
+`TestCosmeticWings.exe` checks mixed trailers, character isolation, repeat renders, parent refresh,
+removal, delayed loading and teardown. The live protocol case is
+`TestSession_CosmeticWingCharacterSelect` in `e2e/suites/protocol/session/`.
+Its oracle follows real casts and cancellation through logout and the returned roster trailer.
+Live visual acceptance still requires a fresh client: wing/no-wing characters, changing wings,
+removing an aura, repeated character switches, custom races of both genders, and logout/client exit.

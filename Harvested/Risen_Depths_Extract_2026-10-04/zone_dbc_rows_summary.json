@@ -1,0 +1,22 @@
+{
+  "Map": 1,
+  "AreaTable": 27,
+  "WorldMapArea": 2,
+  "WorldMapOverlay": 18,
+  "AreaPOI": 28,
+  "AreaGroup": 0,
+  "AreaTrigger": 1,
+  "WorldSafeLocs": 4,
+  "TaxiNodes": 0,
+  "TaxiPathNode": 0,
+  "TaxiPath": 0,
+  "Light": 20,
+  "LightParams": 10,
+  "LightSkybox": 4,
+  "WorldStateZoneSounds": 0,
+  "WorldStateUI": 0,
+  "WorldMapTransforms": 0,
+  "ZoneIntroMusicTable": 0,
+  "ZoneMusic": 0,
+  "SoundAmbience": 0
+}

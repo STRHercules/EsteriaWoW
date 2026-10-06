@@ -1,0 +1,324 @@
+{
+  "adtCopiesScanned": 181,
+  "liquidTypeIds": [
+    1,
+    2,
+    5
+  ],
+  "rows": [
+    {
+      "id": 1,
+      "instanceCount": 57,
+      "instanceFields": [
+        0
+      ],
+      "sourceAdtCopies": 2,
+      "soundBank": 0,
+      "spellId": 1111,
+      "strings": [
+        {
+          "field": 0,
+          "value": "Water"
+        },
+        {
+          "field": 1,
+          "value": "Water"
+        },
+        {
+          "field": 2,
+          "value": "s\\procWater\\neutralRefractionMap.blp"
+        },
+        {
+          "field": 14,
+          "value": "ter"
+        },
+        {
+          "field": 15,
+          "value": "XTextures\\procWater\\neutralRefractionMap.blp"
+        },
+        {
+          "field": 16,
+          "value": "XTextures\\procWater\\advancedReflectionMap.%d.blp"
+        },
+        {
+          "field": 17,
+          "value": "XTextures\\ocean\\newoceanbump.blp"
+        },
+        {
+          "field": 18,
+          "value": "XTextures\\ocean\\newoceanbump.blp"
+        },
+        {
+          "field": 19,
+          "value": "proceduralRiverDepthTex"
+        },
+        {
+          "field": 20,
+          "value": "XTextures\\ocean\\ocean_h.%d.blp"
+        },
+        {
+          "field": 41,
+          "value": "Water"
+        }
+      ],
+      "raw": [
+        1,
+        1,
+        15,
+        0,
+        1111,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1065353216,
+        0,
+        0,
+        3,
+        7,
+        52,
+        101,
+        101,
+        134,
+        158,
+        0,
+        0,
+        1036831949,
+        1056964608,
+        1069547520,
+        1073741824,
+        0,
+        0,
+        0,
+        0,
+        1065353216,
+        1065353216,
+        0,
+        1133903872,
+        1061158912,
+        1045220557,
+        1036831949,
+        1037637255,
+        1046361407,
+        1045220557,
+        1,
+        1250,
+        1250,
+        1250
+      ]
+    },
+    {
+      "id": 2,
+      "instanceCount": 44372,
+      "instanceFields": [
+        0,
+        2
+      ],
+      "sourceAdtCopies": 81,
+      "soundBank": 1,
+      "spellId": 1114,
+      "strings": [
+        {
+          "field": 0,
+          "value": "ater"
+        },
+        {
+          "field": 1,
+          "value": "Ocean"
+        },
+        {
+          "field": 2,
+          "value": "s\\procWater\\neutralRefractionMap.blp"
+        },
+        {
+          "field": 3,
+          "value": "Water"
+        },
+        {
+          "field": 14,
+          "value": "ter"
+        },
+        {
+          "field": 15,
+          "value": "XTextures\\procWater\\neutralRefractionMap.blp"
+        },
+        {
+          "field": 16,
+          "value": "XTextures\\procWater\\advancedReflectionMap.%d.blp"
+        },
+        {
+          "field": 17,
+          "value": "XTextures\\ocean\\newoceanbump.blp"
+        },
+        {
+          "field": 18,
+          "value": "XTextures\\ocean\\newoceanbump.blp"
+        },
+        {
+          "field": 19,
+          "value": "proceduralOceanDepthTex"
+        },
+        {
+          "field": 20,
+          "value": "XTextures\\ocean\\ocean_h.%d.blp"
+        },
+        {
+          "field": 41,
+          "value": "Water"
+        }
+      ],
+      "raw": [
+        2,
+        189,
+        15,
+        1,
+        1114,
+        0,
+        1106247680,
+        1056964608,
+        1056964608,
+        1048576000,
+        0,
+        1065353216,
+        0,
+        0,
+        3,
+        7,
+        52,
+        101,
+        101,
+        195,
+        158,
+        0,
+        0,
+        1036831949,
+        1056964608,
+        1069547520,
+        1073741824,
+        0,
+        0,
+        0,
+        0,
+        1065353216,
+        1065353216,
+        0,
+        1133903872,
+        1061158912,
+        1045220557,
+        1036831949,
+        1037637255,
+        1046361407,
+        1045220557,
+        1,
+        1250,
+        1250,
+        1250
+      ]
+    },
+    {
+      "id": 5,
+      "instanceCount": 143,
+      "instanceFields": [
+        0
+      ],
+      "sourceAdtCopies": 3,
+      "soundBank": 0,
+      "spellId": 1112,
+      "strings": [
+        {
+          "field": 0,
+          "value": "r"
+        },
+        {
+          "field": 1,
+          "value": "Slow Water"
+        },
+        {
+          "field": 2,
+          "value": "s\\procWater\\neutralRefractionMap.blp"
+        },
+        {
+          "field": 14,
+          "value": "ter"
+        },
+        {
+          "field": 15,
+          "value": "XTextures\\procWater\\neutralRefractionMap.blp"
+        },
+        {
+          "field": 16,
+          "value": "XTextures\\procWater\\advancedReflectionMap.%d.blp"
+        },
+        {
+          "field": 17,
+          "value": "XTextures\\ocean\\newoceanbump.blp"
+        },
+        {
+          "field": 18,
+          "value": "XTextures\\ocean\\newoceanbump.blp"
+        },
+        {
+          "field": 19,
+          "value": "proceduralRiverDepthTex"
+        },
+        {
+          "field": 20,
+          "value": "XTextures\\ocean\\ocean_h.%d.blp"
+        },
+        {
+          "field": 41,
+          "value": "Water"
+        }
+      ],
+      "raw": [
+        5,
+        287,
+        15,
+        0,
+        1112,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1065353216,
+        0,
+        0,
+        3,
+        7,
+        52,
+        101,
+        101,
+        134,
+        158,
+        0,
+        0,
+        1036831949,
+        1056964608,
+        1069547520,
+        1073741824,
+        0,
+        0,
+        0,
+        0,
+        1065353216,
+        1065353216,
+        0,
+        1133903872,
+        1061158912,
+        1045220557,
+        1036831949,
+        1037637255,
+        1046361407,
+        1045220557,
+        1,
+        1250,
+        1250,
+        1250
+      ]
+    }
+  ]
+}

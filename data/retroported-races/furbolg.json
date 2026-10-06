@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "slug": "furbolg",
+  "race_id": 61,
+  "enum": "RACE_FURBOLG_ALLIANCE",
+  "faction": "alliance",
+  "client_file_string": "Furbolg",
+  "glue_token": "FURBOLG",
+  "helmet_prefix": "Fu",
+  "name": "Furbolg",
+  "legacy_mask_race": 4,
+  "visual_base_race": 4,
+  "donor_race_id": 18,
+  "donor_source": "Harvested/Playable_Races_Isolated_2026-10-04/ReadyToPort (patch-ZZ preferred, patch-Z fallback)",
+  "donor_race_identity": {
+    "18": "Esteria Pandaren",
+    "23": "Dark Iron Dwarf",
+    "25": "Forsaken",
+    "note": "donor IDs are unusable directly; this pack remaps 25->60 and 18->61"
+  },
+  "start_profile": "teldrassil",
+  "donor_start_race": 4,
+  "donor_totem_race": 11,
+  "base_language": 7,
+  "alliance_flag": 0,
+  "creature_type": 7,
+  "expansion": 0,
+  "cinematic": 0,
+  "models": {
+    "male": {
+      "model_id": 120064,
+      "display_id": 60055,
+      "donor_model_id": 60003,
+      "donor_display_id": 60591,
+      "path": "Character\\Furbolg\\furbolgrace.m2"
+    },
+    "female": {
+      "model_id": 120065,
+      "display_id": 60056,
+      "donor_model_id": 60004,
+      "donor_display_id": 60592,
+      "path": "Character\\Furbolg\\furbolgrace.m2"
+    }
+  },
+  "appearance_mapping": {
+    "0": {
+      "skin": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "face": {
+        "styles": [
+          0
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "hair": {
+        "styles": [
+          0
+        ],
+        "colors": [
+          0
+        ]
+      },
+      "facial": {
+        "styles": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "colors": [
+          0
+        ]
+      },
+      "underwear": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    "1": {
+      "skin": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "face": {
+        "styles": [
+          0
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "hair": {
+        "styles": [
+          0
+        ],
+        "colors": [
+          0
+        ]
+      },
+      "facial": {
+        "styles": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "colors": [
+          0
+        ]
+      },
+      "underwear": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    }
+  },
+  "hair_geosets": {
+    "0": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "1": [
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "facial_geoset_donors": {},
+  "class_compatibility": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "portraits": {
+    "male": "R:\\Users\\Zach\\Pictures\\Portraits\\Alliance\\Charactercreate-races_furbolg-male_alliance.png",
+    "female": "R:\\Users\\Zach\\Pictures\\Portraits\\Alliance\\Charactercreate-races_furbolg-male_alliance.png"
+  },
+  "equipment_limits": {
+    "geosets": "three batches, all geoset 0 (texture types 1, 6, 8)",
+    "attachments": "no helmet point 11 and no left shoulder point 27",
+    "helmet": "no fitted _FuM/_FuF helmet library in the selected payload",
+    "body": "shared male/female body, no separate female mesh"
+  },
+  "dependencies": [
+    "Character\\Jinyu\\Male\\JinyuMaleLower_alpha.blp",
+    "Creature\\Furbolg\\FurbolgStuffRed.blp",
+    "Creature\\Furbolg\\FurbolgStuffTransparent.blp"
+  ],
+  "table_allocations": {
+    "CharSections": [
+      1100700,
+      1100999
+    ],
+    "CharHairGeosets": [
+      1100700,
+      1100999
+    ],
+    "BarberShopStyle": [
+      1100700,
+      1100999
+    ],
+    "CharStartOutfit": [
+      22020,
+      22039
+    ],
+    "NameGen": [
+      63000,
+      65999
+    ]
+  }
+}

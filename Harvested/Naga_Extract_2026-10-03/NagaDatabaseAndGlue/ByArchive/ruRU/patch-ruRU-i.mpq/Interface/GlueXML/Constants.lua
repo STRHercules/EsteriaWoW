@@ -1,0 +1,252 @@
+--Logos
+EXPANSION_LOGOS = {
+	[LE_EXPANSION_CLASSIC] = "Interface\\Glues\\Common\\Glues-WoW-Logo",
+	[LE_EXPANSION_BURNING_CRUSADE] = "Interface\\Glues\\Common\\Glues-WoW-BCLogo",
+	[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = "Interface\\Glues\\Common\\Glues-WoW-WotLKLogo",
+	--When adding entries to here, make sure to update the zhTW and zhCN localization files.
+};
+
+--Credits titles
+CREDITS_TITLES = {
+	[LE_EXPANSION_CLASSIC] = CREDITS_WOW_CLASSIC,
+	[LE_EXPANSION_BURNING_CRUSADE] = CREDITS_WOW_BC,
+	[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = CREDITS_WOW_LK,
+};
+
+--Movie
+MOVIE_CAPTION_FADE_TIME = 1.0;
+MOVIE_LIST = {
+	[LE_EXPANSION_CLASSIC] = {
+		{
+			{video = "Interface\\Cinematics\\Logo_800"},
+			{video = "Interface\\Cinematics\\Logo_1024"},
+		},
+		{
+			{video = "Interface\\Cinematics\\WOW_Intro_800"},
+			{video = "Interface\\Cinematics\\WOW_Intro_1024"},
+		},
+	},
+	[LE_EXPANSION_BURNING_CRUSADE] = {
+		{
+			{video = nil},
+			{video = nil},
+		},
+		{
+			{video = "Interface\\Cinematics\\WOW_Intro_BC_800"},
+			{video = "Interface\\Cinematics\\WOW_Intro_BC_1024"},
+		},
+	},
+	[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = {
+		{
+			{video = nil},
+			{video = nil},
+		},
+		{
+			{video = "Interface\\Cinematics\\WOW_Intro_LK_800"},
+			{video = "Interface\\Cinematics\\WOW_Intro_LK_1024"},
+		},
+	},
+};
+
+MOVIE_VOLUME_LIST = {
+	[LE_EXPANSION_CLASSIC] = 100,
+	[LE_EXPANSION_BURNING_CRUSADE] = 150,
+	[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 250,
+};
+
+--Credits
+CREDITS_SCROLL_RATE_REWIND = -160;
+CREDITS_SCROLL_RATE_PAUSE = 0;
+CREDITS_SCROLL_RATE_PLAY = 40;
+CREDITS_SCROLL_RATE_FASTFORWARD = 160;
+
+CREDITS_SCROLL_RATE = 40;
+CREDITS_FADE_RATE = 0.4;
+
+NUM_CREDITS_ART_TEXTURES_WIDE = 4;
+NUM_CREDITS_ART_TEXTURES_HIGH = 2;
+CACHE_WAIT_TIME = 0.5;
+
+CREDITS_ART_INFO = {
+	[LE_EXPANSION_CLASSIC] = {
+		{ file="Acrest", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="Tauren", w=640, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Centaur", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="HordeBanner", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="Naga", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.4 },
+		{ file="NightsHollow", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Ocean", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Orc", w=256, h=512, offsetx=192, offsety=0, maxAlpha=0.7 },
+		{ file="Strangle", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Troll", w=640, h=512, offsetx=0, offsety=0, maxAlpha=0.6 },
+		{ file="TrollBanner", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="Zepplin", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.5 },
+		{ file="drake", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.5 },
+		{ file="DwarfCrest", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="Dwarfhunter", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.6 },
+		{ file="gargoyle", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="NightelfCrest", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="Nightelves", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Orccamp", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DragonIsles", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="tauren_hunter", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.7 },
+		{ file="Darnasis", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ForsakenCrest", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="ShootingDwarf", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.6 },
+		{ file="Thunderbluff", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="tolbarad", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="TaurenCrest", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="razorfen", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="swampofsorrows", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Desolace", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="SouthernDesolace", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="undeadcrest", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+		{ file="TirisfallGlades", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ThousandNeedles", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Elemental", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Badlands", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BlastedLands", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Fellwood", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="OrcShield", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.5 },
+	},
+
+	[LE_EXPANSION_BURNING_CRUSADE] = {
+		{ file="BD", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Wrathguard", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="WOW_BloodElves", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ZulAman", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Arakkoa", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Hellfire_Concept", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Auchindoun", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Auchindoun_1H", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="1H_Axes", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BE_Building", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BE_Building_Two", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BladesEdge", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BladesEdgeMountains", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Blood_Elf_One", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BloodElf_Female", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BloodElf_Icon", w=512, h=512, offsetx=128, offsety=0, maxAlpha=0.7 },
+		{ file="BloodElf_Priestess_Master", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BloodElf_Two", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BloodElf_Webimage", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Clefthoof_3_horn", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="1000px-Coilfangpaintover", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Dark_Portal", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Ddraenei_Start", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Demon_Chamber", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_Character", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_CityInt", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_Crest", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_Female", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_Paladin", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_Three", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Draenei_Two", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Dranei_F_Hair", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Dranei_M_Hair", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Elekk", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Female_BloodElf", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="FungalGiant", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Arcane_Golem", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Human_Mage", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="HumanMale", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Hunter", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Illidan", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Illidan_Concept", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Outland", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="MilitaryOrcBoss", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Naaru_CrashSite", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Naaru_Ship", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Ogre_Lord", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Shivan", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="L60ETC", w=512, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="RazorfenDowns", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="RidingDrake", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Shattrath", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Tier4_Druid", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Silvermoon_Day", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Silvermoon_Tower", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Tempest_Keep", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Terrokkar", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="The_Broken", w=768, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Photos", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+	},
+
+	[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = {
+		{ file="Azol0", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BoreanTun", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Axe2Drak", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="BoreanTundra2", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="AxeDrak", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="CinSnow01TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ColdarraNexTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="CrystalSong1TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DalaranDomeTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DalaranTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DeathKnight20", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DeathKnight30", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DeathKnight40", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="DeathKnight50", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="EpicSwordTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Frostwyrm01TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="GateTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Geist_ConTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Grizzlemaw2TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="GrizzlemawTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="GrizzlyHills2TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="GrizzlyHills3TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="GrizzlyHillsTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="HallwayTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Hunter01TGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ID_TownTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="IronDwarfTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Knife1HTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="LeatherSunwellTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="LichKingTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Mace1HTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="MaginnisTGA", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Magnataur", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Magnataur2", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Mergul01", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="NerubianArch", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="NexusFire", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="NorthGiant", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="NorthrendComp", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="OrcTower", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Penguin", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Powersource", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Revanent", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Revanent2", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Rocket", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Sanctification", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="SeaVrykul", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Shol", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Shol02", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ShovelTusk", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Sword_1H", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Titan1", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="TrollFacade", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Turtle01", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Tuskar House", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="TuskarGuy", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="TuskarGuy2", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Uld_Hall", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ValgardeDragon", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ValgardeForge", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Vamp", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="VryFem", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="VrykDoor", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Vrykul_Undead", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="VrykulBuild", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="VrykulFace", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="Zombie", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+		{ file="ZulDrak", w=1024, h=512, offsetx=0, offsety=0, maxAlpha=0.7 },
+	},
+};
+
+GLUE_CREDITS_SOUND_KITS = {
+	[LE_EXPANSION_CLASSIC]					= SOUNDKIT.MENU_CREDITS01,
+	[LE_EXPANSION_BURNING_CRUSADE]			= SOUNDKIT.MENU_CREDITS02,
+	[LE_EXPANSION_WRATH_OF_THE_LICH_KING]	= SOUNDKIT.MENU_CREDITS03,
+};

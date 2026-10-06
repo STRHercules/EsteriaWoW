@@ -1,0 +1,66 @@
+{
+  "source": "Project Reforged",
+  "generatedAt": "2026-10-04T06:25:14.803Z",
+  "races": {
+    "Furbolg": {
+      "raceId": 18,
+      "faction": "Alliance",
+      "flags": 14,
+      "maleDisplayId": 60591,
+      "femaleDisplayId": 60592,
+      "maleModelDataId": 60003,
+      "femaleModelDataId": 60004,
+      "modelPath": "Character\\Furbolg\\FurbolgRace.m2",
+      "classes": {
+        "1": "Warrior",
+        "3": "Hunter",
+        "7": "Shaman",
+        "11": "Druid"
+      },
+      "charSections": 58,
+      "notes": "Male and female displays both use FurbolgRace.m2 with separate display/model-data records."
+    },
+    "Tuskarr": {
+      "raceId": 23,
+      "faction": "Alliance",
+      "flags": 14,
+      "maleDisplayId": 50009,
+      "femaleDisplayId": 50010,
+      "modelDataId": 10004,
+      "modelPathInDBC": "Character\\ReforgedTuskarr\\Male\\TuskarrMale.mdx",
+      "extractedModelPath": "Character\\ReforgedTuskarr\\Male\\TuskarrMale.m2",
+      "classes": {
+        "1": "Warrior",
+        "3": "Hunter",
+        "5": "Priest",
+        "7": "Shaman",
+        "8": "Mage"
+      },
+      "charSections": 142,
+      "notes": "Both genders use the same ReforgedTuskarr male mesh. Different display-extra/customization rows distinguish them. CharSections textures still reference Character\\Tuskarr."
+    },
+    "Ogre": {
+      "raceId": 25,
+      "faction": "Horde",
+      "flags": 14,
+      "maleDisplayId": 50013,
+      "femaleDisplayId": 50014,
+      "maleModelDataId": 10009,
+      "femaleModelDataId": 10010,
+      "maleModelPathInDBC": "Character\\Ogre\\Male\\OgreMale.mdx",
+      "femaleModelPathInDBC": "Character\\Ogre\\Female\\OgreFemale.mdx",
+      "extractedMaleModel": "Character\\Ogre\\Male\\OgreMale.m2",
+      "extractedFemaleModel": "Character\\Ogre\\Female\\OgreFemale.m2",
+      "classes": {
+        "1": "Warrior",
+        "3": "Hunter",
+        "5": "Priest",
+        "7": "Shaman",
+        "8": "Mage",
+        "9": "Warlock"
+      },
+      "charSections": 495,
+      "notes": "Distinct male and female player meshes with extensive custom face/hair/body sections."
+    }
+  }
+}

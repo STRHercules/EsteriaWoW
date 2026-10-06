@@ -1,4 +1,4 @@
-// Generated from the pinned Retail NPC customization graph by tools/creature_race_pack.py.
+// Generated from the selected race sources by tools/creature_race_pack.py.
 #ifndef ACORE_CREATURE_APPEARANCE_H
 #define ACORE_CREATURE_APPEARANCE_H
 
@@ -15,19 +15,19 @@ namespace CreatureAppearance
     };
 
     inline constexpr std::array<Option, 5> NagaMale = {{
-        {0, 6, 1},
+        {0, 25, 1},
         {1, 1, 1},
-        {2, 1, 1},
-        {3, 1, 1},
-        {4, 1, 1},
+        {2, 5, 1},
+        {3, 15, 1},
+        {4, 96, 1},
     }};
 
     inline constexpr std::array<Option, 5> NagaFemale = {{
-        {0, 6, 1},
+        {0, 255, 1},
         {1, 1, 1},
-        {2, 1, 1},
-        {3, 1, 1},
-        {4, 1, 1},
+        {2, 5, 1},
+        {3, 80, 1},
+        {4, 240, 1},
     }};
 
     inline constexpr std::array<Option, 5> TuskarrMale = {{

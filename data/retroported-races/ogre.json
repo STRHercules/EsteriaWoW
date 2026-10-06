@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "slug": "ogre",
+  "race_id": 60,
+  "enum": "RACE_OGRE_HORDE",
+  "faction": "horde",
+  "client_file_string": "OgreHorde",
+  "glue_token": "OGREHORDE",
+  "helmet_prefix": "Og",
+  "name": "Ogre",
+  "legacy_mask_race": 2,
+  "visual_base_race": 2,
+  "donor_race_id": 25,
+  "donor_source": "Harvested/Playable_Races_Isolated_2026-10-04/ReadyToPort (patch-ZZ preferred, patch-Z fallback)",
+  "donor_race_identity": {
+    "18": "Esteria Pandaren",
+    "23": "Dark Iron Dwarf",
+    "25": "Forsaken",
+    "note": "donor IDs are unusable directly; this pack remaps 25->60 and 18->61"
+  },
+  "start_profile": "durotar",
+  "donor_start_race": 2,
+  "donor_totem_race": 2,
+  "base_language": 1,
+  "alliance_flag": 1,
+  "creature_type": 7,
+  "expansion": 0,
+  "cinematic": 0,
+  "models": {
+    "male": {
+      "model_id": 120062,
+      "display_id": 60053,
+      "donor_model_id": 10009,
+      "donor_display_id": 50013,
+      "path": "Character\\Ogre\\Male\\ogremale.m2"
+    },
+    "female": {
+      "model_id": 120063,
+      "display_id": 60054,
+      "donor_model_id": 10010,
+      "donor_display_id": 50014,
+      "path": "Character\\Ogre\\Female\\ogreFemale.m2"
+    }
+  },
+  "appearance_mapping": {
+    "0": {
+      "skin": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "face": {
+        "styles": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "hair": {
+        "styles": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "facial": {
+        "styles": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "underwear": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    "1": {
+      "skin": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "face": {
+        "styles": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "hair": {
+        "styles": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "facial": {
+        "styles": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "underwear": {
+        "colors": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    }
+  },
+  "hair_geosets": {
+    "0": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        2,
+        0
+      ],
+      [
+        3,
+        3,
+        0
+      ],
+      [
+        4,
+        4,
+        0
+      ]
+    ],
+    "1": [
+      [
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        3,
+        5,
+        0
+      ],
+      [
+        4,
+        6,
+        0
+      ],
+      [
+        5,
+        7,
+        0
+      ]
+    ]
+  },
+  "facial_geoset_donors": {
+    "0": {
+      "0": [
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "1": [
+        1,
+        3,
+        3,
+        0,
+        0
+      ],
+      "2": [
+        1,
+        4,
+        4,
+        0,
+        0
+      ],
+      "4": [
+        2,
+        1,
+        1,
+        0,
+        0
+      ],
+      "5": [
+        3,
+        5,
+        5,
+        0,
+        0
+      ],
+      "6": [
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "7": [
+        4,
+        1,
+        1,
+        0,
+        0
+      ],
+      "8": [
+        5,
+        2,
+        2,
+        0,
+        0
+      ],
+      "9": [
+        5,
+        3,
+        3,
+        0,
+        0
+      ]
+    },
+    "1": {
+      "0": [
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "1": [
+        3,
+        3,
+        3,
+        0,
+        0
+      ],
+      "2": [
+        0,
+        4,
+        4,
+        0,
+        0
+      ],
+      "4": [
+        6,
+        6,
+        6,
+        0,
+        0
+      ],
+      "5": [
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "6": [
+        3,
+        3,
+        3,
+        0,
+        0
+      ],
+      "7": [
+        4,
+        4,
+        4,
+        0,
+        0
+      ],
+      "8": [
+        5,
+        5,
+        5,
+        0,
+        0
+      ],
+      "9": [
+        6,
+        6,
+        6,
+        0,
+        0
+      ],
+      "10": [
+        4,
+        4,
+        4,
+        0,
+        0
+      ]
+    }
+  },
+  "class_compatibility": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "portraits": {
+    "male": "R:\\Users\\Zach\\Pictures\\Portraits\\Horde\\Charactercreate-races_ogre-male_horde.png",
+    "female": "R:\\Users\\Zach\\Pictures\\Portraits\\Horde\\Charactercreate-races_ogre-female_horde.png"
+  },
+  "equipment_limits": {
+    "geosets": "player glove/sleeve/boot/robe groups present",
+    "attachments": "male inventory narrower than female; verify weapons separately",
+    "helmet": "no fitted _OgM/_OgF helmet library in the selected payload"
+  },
+  "dependencies": [
+    "Character\\Jinyu\\Male\\JinyuMaleLower_alpha.blp",
+    "Creature\\Furbolg\\FurbolgStuffRed.blp",
+    "Creature\\Furbolg\\FurbolgStuffTransparent.blp"
+  ],
+  "table_allocations": {
+    "CharSections": [
+      1100000,
+      1100699
+    ],
+    "CharHairGeosets": [
+      1100000,
+      1100699
+    ],
+    "BarberShopStyle": [
+      1100000,
+      1100699
+    ],
+    "CharStartOutfit": [
+      22000,
+      22019
+    ],
+    "NameGen": [
+      60000,
+      62999
+    ]
+  }
+}

@@ -152,11 +152,16 @@ If the scenario should stay as a regression, **move** it into `suites/` next to 
 | quests/escort | find spawned unit; follow-NPC despawns on logout | P2 | covered (`TestAC_24450_*`) | #24450 |
 | items/equip | visible-item slot after EquipEntry; additem; survives relog | P2 | covered | — |
 | items/custom-race-skills | custom-race language and starter-weapon skills after creation/save/relog | P1 | blocked-harness (pinned harness has no custom-race creation/change API) | — |
+| protocol/naga-appearance | race 54 maximum choices survive creation/relog | P2 | blocked-harness; see below | — |
 | protocol/session | pos; item/quest load; money save/relog | P1 | covered; GM vis persist `blocked-harness` (extra_flags after relog) | #25793 |
 | protocol/teleport | cross-map; named; GoCreatureID | P1 | covered | — |
 | guild/charter_bank | charter buy+turn-in | P2 | covered | — |
 | instances/bind_reset | party tele; ritual summon | P2 | covered; post-reset summon `blocked-harness` (AcceptSummon after reset) | #10708 |
 | instances/ulduar | named tele; Freya wave interval | P2 | covered (`TestAC_27095_*`); Kologarn Charge `blocked-harness` (bridge Z after Charge) | #26266 #27095 |
+
+Naga appearance creation/relog shares the custom-race creation/change API gap in the pinned harness. Native
+`TestCustomizationChoices` and `TestHighmountainMaterials` cover both genders, maximum choice bounds, preview
+restoration, and material bindings. Actual character creation/relog and rendered appearance remain manual gates.
 
 ---
 

@@ -1,0 +1,620 @@
+[
+  {
+    "id": 10004,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 0,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 11,
+        "value": "Shelter"
+      },
+      {
+        "field": 19,
+        "value": "Укрытие"
+      }
+    ],
+    "terrainTileCount": 0,
+    "terrainTiles": []
+  },
+  {
+    "id": 10050,
+    "mapId": 10001,
+    "zone": 0,
+    "exploreFlag": 2980,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Поднявшиеся глубины"
+      }
+    ],
+    "terrainTileCount": 10,
+    "terrainTiles": [
+      "30_31",
+      "30_32",
+      "30_33",
+      "31_31",
+      "31_32",
+      "31_33",
+      "32_32",
+      "32_33",
+      "33_32",
+      "33_33"
+    ]
+  },
+  {
+    "id": 10051,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2981,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Затопленные руины"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "31_33",
+      "32_33"
+    ]
+  },
+  {
+    "id": 10052,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2982,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Нерестилище"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "32_32",
+      "32_33"
+    ]
+  },
+  {
+    "id": 10053,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2983,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Логово Карибдис"
+      }
+    ],
+    "terrainTileCount": 1,
+    "terrainTiles": [
+      "33_33"
+    ]
+  },
+  {
+    "id": 10054,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2984,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Земли Жемчужного Плавника"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "31_32",
+      "31_33"
+    ]
+  },
+  {
+    "id": 10055,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2985,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Ржавое ущелье"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "31_32",
+      "31_33",
+      "32_32",
+      "32_33"
+    ]
+  },
+  {
+    "id": 10056,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2986,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Аммонитовый риф"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "32_33",
+      "33_33"
+    ]
+  },
+  {
+    "id": 10058,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2987,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Молниевая Лагуна"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "32_32",
+      "32_33",
+      "33_32",
+      "33_33"
+    ]
+  },
+  {
+    "id": 10059,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2988,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Туманная отмель"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "33_32",
+      "33_33"
+    ]
+  },
+  {
+    "id": 10060,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2989,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Остров Проклятых"
+      }
+    ],
+    "terrainTileCount": 3,
+    "terrainTiles": [
+      "33_33",
+      "33_34",
+      "34_33"
+    ]
+  },
+  {
+    "id": 10061,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2991,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Остров Кровавого Прилива"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "30_31",
+      "30_32",
+      "31_31",
+      "31_32"
+    ]
+  },
+  {
+    "id": 10062,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2990,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Сердце Мглы"
+      }
+    ],
+    "terrainTileCount": 3,
+    "terrainTiles": [
+      "33_34",
+      "34_33",
+      "34_34"
+    ]
+  },
+  {
+    "id": 10064,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2992,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Гряда Аквариона"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "31_31",
+      "31_32",
+      "32_31",
+      "32_32"
+    ]
+  },
+  {
+    "id": 10065,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2993,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Бездна"
+      }
+    ],
+    "terrainTileCount": 12,
+    "terrainTiles": [
+      "30_30",
+      "30_31",
+      "30_32",
+      "30_33",
+      "31_30",
+      "31_32",
+      "32_30",
+      "32_31",
+      "33_30",
+      "33_31",
+      "33_33",
+      "34_33"
+    ]
+  },
+  {
+    "id": 10066,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2994,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Остров Кораллового Когтя"
+      }
+    ],
+    "terrainTileCount": 3,
+    "terrainTiles": [
+      "32_31",
+      "33_30",
+      "33_31"
+    ]
+  },
+  {
+    "id": 10067,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2995,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Стоянка Элементалей"
+      }
+    ],
+    "terrainTileCount": 1,
+    "terrainTiles": [
+      "32_31"
+    ]
+  },
+  {
+    "id": 10068,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2996,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Ведьмин остров"
+      }
+    ],
+    "terrainTileCount": 1,
+    "terrainTiles": [
+      "31_31"
+    ]
+  },
+  {
+    "id": 10069,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2997,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Проклятый Корабль"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "31_30",
+      "31_31",
+      "32_30",
+      "32_31"
+    ]
+  },
+  {
+    "id": 10070,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2998,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Хищный Риф"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "31_31",
+      "31_32"
+    ]
+  },
+  {
+    "id": 10071,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 2999,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Мемориал Кало'теры"
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "33_31",
+      "33_32"
+    ]
+  },
+  {
+    "id": 10072,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 3000,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Храм Тел'серай "
+      }
+    ],
+    "terrainTileCount": 2,
+    "terrainTiles": [
+      "32_30",
+      "32_31"
+    ]
+  },
+  {
+    "id": 10073,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 3001,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Ставка Наместницы"
+      }
+    ],
+    "terrainTileCount": 1,
+    "terrainTiles": [
+      "32_32"
+    ]
+  },
+  {
+    "id": 10074,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 3002,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Усыпальница Кракена"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "30_30",
+      "30_31",
+      "31_30",
+      "31_31"
+    ]
+  },
+  {
+    "id": 10075,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 3003,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Руины Хажири"
+      }
+    ],
+    "terrainTileCount": 4,
+    "terrainTiles": [
+      "32_31",
+      "32_32",
+      "33_31",
+      "33_32"
+    ]
+  },
+  {
+    "id": 10433,
+    "mapId": 10001,
+    "zone": 0,
+    "exploreFlag": 2980,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Бескрайние глубины"
+      }
+    ],
+    "terrainTileCount": 78,
+    "terrainTiles": [
+      "28_28",
+      "28_29",
+      "28_30",
+      "28_31",
+      "28_32",
+      "28_33",
+      "28_34",
+      "28_35",
+      "28_36",
+      "29_28",
+      "29_29",
+      "29_30",
+      "29_31",
+      "29_32",
+      "29_33",
+      "29_34",
+      "29_35",
+      "29_36",
+      "30_28",
+      "30_29",
+      "30_30",
+      "30_31",
+      "30_32",
+      "30_33",
+      "30_34",
+      "30_35",
+      "30_36",
+      "31_28",
+      "31_29",
+      "31_30",
+      "31_33",
+      "31_34",
+      "31_35",
+      "31_36",
+      "32_28",
+      "32_29",
+      "32_30",
+      "32_31",
+      "32_33",
+      "32_34",
+      "32_35",
+      "32_36",
+      "33_28",
+      "33_29",
+      "33_30",
+      "33_31",
+      "33_32",
+      "33_33",
+      "33_34",
+      "33_35",
+      "33_36",
+      "34_28",
+      "34_29",
+      "34_30",
+      "34_31",
+      "34_32",
+      "34_33",
+      "34_34",
+      "34_35",
+      "34_36",
+      "35_28",
+      "35_29",
+      "35_30",
+      "35_31",
+      "35_32",
+      "35_33",
+      "35_34",
+      "35_35",
+      "35_36",
+      "36_28",
+      "36_29",
+      "36_30",
+      "36_31",
+      "36_32",
+      "36_33",
+      "36_34",
+      "36_35",
+      "36_36"
+    ]
+  },
+  {
+    "id": 10465,
+    "mapId": 10001,
+    "zone": 10050,
+    "exploreFlag": 0,
+    "flags": "0x40",
+    "areaLevel": 0,
+    "names": [
+      {
+        "field": 19,
+        "value": "Логово сектантов"
+      }
+    ],
+    "terrainTileCount": 0,
+    "terrainTiles": []
+  }
+]

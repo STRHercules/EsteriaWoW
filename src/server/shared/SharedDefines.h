@@ -113,7 +113,9 @@ enum Races
     RACE_VRYKUL_ALLIANCE       = 56,
     RACE_VRYKUL_HORDE          = 57,
     RACE_THIN_HUMAN_ALLIANCE   = 58,
-    RACE_THIN_HUMAN_HORDE      = 59
+    RACE_THIN_HUMAN_HORDE      = 59,
+    RACE_OGRE_HORDE            = 60,
+    RACE_FURBOLG_ALLIANCE      = 61
 };
 
 uint32 constexpr DARKFALLEN_RACE_MASK = 0x80000000u;
@@ -130,7 +132,7 @@ inline constexpr bool UsesHaranirAppearance(uint32 race)
 
 inline constexpr bool IsExtendedPlayableRace(uint32 race)
 {
-    return race >= RACE_MAGHAR_ORC && race <= RACE_THIN_HUMAN_HORDE;
+    return race >= RACE_MAGHAR_ORC && race <= RACE_FURBOLG_ALLIANCE;
 }
 
 inline constexpr uint8 GetLegacyMaskRaceForRace(uint32 race)
@@ -152,6 +154,8 @@ inline constexpr uint8 GetLegacyMaskRaceForRace(uint32 race)
         case RACE_THIN_HUMAN_ALLIANCE:  return RACE_HUMAN;
         case RACE_VRYKUL_HORDE:
         case RACE_THIN_HUMAN_HORDE:     return RACE_ORC;
+        case RACE_OGRE_HORDE:           return RACE_ORC;
+        case RACE_FURBOLG_ALLIANCE:     return RACE_NIGHTELF;
         default:                        return uint8(race);
     }
 }
@@ -175,6 +179,8 @@ inline constexpr uint8 GetVisualBaseRaceForRace(uint32 race)
         case RACE_VRYKUL_HORDE:
         case RACE_THIN_HUMAN_ALLIANCE:
         case RACE_THIN_HUMAN_HORDE:     return RACE_HUMAN;
+        case RACE_OGRE_HORDE:           return RACE_ORC;
+        case RACE_FURBOLG_ALLIANCE:     return RACE_NIGHTELF;
         default:                        return uint8(race);
     }
 }

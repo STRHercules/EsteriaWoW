@@ -136,7 +136,7 @@ int main(int argc, char** argv)
         assert(skillRace(race) == (race == 45 ? 2 : race == 46 ? 6 : race == 47 ? 7 : race == 48 ? 3
             : race == 49 ? 2 : race == 50 ? 4 : race == 51 ? 8 : race == 52 ? 13 : race == 53 ? 10
             : race == 54 ? 10 : race == 55 ? 3 : race == 56 || race == 58 ? 1
-            : race == 57 || race == 59 ? 2 : race));
+            : race == 57 || race == 59 ? 2 : race == 60 ? 2 : race == 61 ? 4 : race));
     for (unsigned race : {48u, 49u})
     {
         unsigned char earthen[0x200] = {};

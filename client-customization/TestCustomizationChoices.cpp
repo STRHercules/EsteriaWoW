@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "../src/server/shared/VulperaAppearance.h"
+#include "../src/server/shared/CreatureAppearance.h"
 
 namespace
 {
@@ -159,7 +160,7 @@ int main(int argc, char** argv)
         Lua choices{"EA_STOCK_CHOICES", static_cast<double>(i)};
         assert(cycle(&choices) == 1 && choices.choices == stock[i - 1]);
     }
-    for (unsigned race : {20u, 46u, 47u, 48u, 49u, 50u, 51u, 52u, 53u})
+    for (unsigned race : {20u, 46u, 47u, 48u, 49u, 50u, 51u, 52u, 53u, 54u})
         for (unsigned gender = 0; gender < 2; ++gender)
         {
             forget(character);
@@ -183,6 +184,8 @@ int main(int argc, char** argv)
                 else
                     assert(result == 3);
                 assert(get.numbers.size() == 2);
+                if (race == 54 && i <= 5)
+                    assert(get.numbers[1] == CreatureAppearance::Options(race, gender)[i - 1].count);
                 Lua choices{"EA_CHOICES", static_cast<double>(i)};
                 auto before = std::array<unsigned char, sizeof(character)>{};
                 std::memcpy(before.data(), character, sizeof(character));

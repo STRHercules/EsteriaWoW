@@ -24,6 +24,7 @@ namespace
     bool earthenHair, earthenBelt;
     unsigned vulperaEarrings = 3500;
     unsigned earthenFootMask = 255;
+    bool nagaBodyVisible = false;
     char path[] = "custom\\highmountain\\fixture.blp";
     char const haranirPrefix[] = "Interface\\AddOns\\EsteriaAppearanceCache\\Haranir\\";
     std::unordered_set<void*> generatedTextures;
@@ -134,6 +135,7 @@ namespace
     void* __cdecl Texture(char const* name, void*)
     {
         assert(!std::strcmp(name, path) || !std::strncmp(name, "custom\\earthen\\", 15)
+            || !std::strncmp(name, "custom\\naga\\sirus\\", 18)
             || HaranirPath(name));
         ++loads;
         return &texture;
@@ -189,6 +191,8 @@ namespace
 
     void __fastcall Visibility(void*, void*, unsigned first, unsigned last, int enabled)
     {
+        if (first <= 10000 && last >= 10000)
+            nagaBodyVisible = enabled != 0;
         if (first >= 3500 && last < 3600)
             vulperaEarrings = enabled ? first : 3500;
         for (unsigned i = 0; i < 8; ++i)
@@ -531,6 +535,7 @@ int main(int argc, char** argv)
             std::memcpy(playerData + 0x14, appearance.data(), appearance.size());
             fields[0x8D] = 255; // These profiles never interpret padding as an extra appearance byte.
             unsigned priorDecodes = decodedTextures;
+            unsigned priorLoads = loads;
             boundTextures.fill(nullptr);
             unitExtra(unit);
             for (unsigned i = 0; i < appearance.size(); ++i)
@@ -538,8 +543,28 @@ int main(int argc, char** argv)
             assert(direct(component, 2, haranirBody));
             assert(*reinterpret_cast<void**>(component + 0x194));
             geometry(component);
-            assert(decodedTextures > priorDecodes);
-            assert(generatedTextures.contains(boundTextures[race == 54 ? 8 : 6]));
+            if (race == 54)
+            {
+                assert(loads >= priorLoads + 2);
+                assert(boundTextures[8] == &texture);
+                assert(boundTextures[6] == &texture);
+                assert(*reinterpret_cast<unsigned*>(component + 0x18C) == 1800);
+                *reinterpret_cast<unsigned*>(component + 0x428) = 32028; // Giantstalker's Helmet.
+                geometry(component);
+                assert(*reinterpret_cast<unsigned*>(component + 0x144) == 0); // Hide crests, not the base body.
+                assert(*reinterpret_cast<unsigned*>(component + 0x150) == 300);
+                assert(nagaBodyVisible);
+                *reinterpret_cast<unsigned*>(component + 0x428) = 0;
+                geometry(component);
+                assert(*reinterpret_cast<unsigned*>(component + 0x144) == 5);
+                assert(*reinterpret_cast<unsigned*>(component + 0x150) != 300);
+                assert(nagaBodyVisible);
+            }
+            else
+            {
+                assert(decodedTextures > priorDecodes);
+                assert(generatedTextures.contains(boundTextures[6]));
+            }
             if (race == 56 || race == 57)
             {
                 assert(*reinterpret_cast<unsigned*>(component + 0x18C) == 1801); // Base waist is not a hole.

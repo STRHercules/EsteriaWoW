@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-10-04T05:33:55.205Z",
+  "mapId": 10001,
+  "areaId": 10050,
+  "internalName": "Sirus2",
+  "activeTileRange": {
+    "x": [
+      28,
+      36
+    ],
+    "y": [
+      28,
+      36
+    ],
+    "count": 81
+  },
+  "candidateCount": 1061,
+  "archiveCount": 59,
+  "extractedCopies": 186,
+  "uniquePaths": 83,
+  "failureCount": 0,
+  "byArchive": {
+    "patch-9.mpq": 83,
+    "patch-c.mpq": 83,
+    "patch-d.mpq": 3,
+    "patch-e.mpq": 16,
+    "patch-j.mpq": 1
+  },
+  "byExtension": {
+    ".wdt": 2,
+    ".wdl": 3,
+    ".adt": 181
+  }
+}

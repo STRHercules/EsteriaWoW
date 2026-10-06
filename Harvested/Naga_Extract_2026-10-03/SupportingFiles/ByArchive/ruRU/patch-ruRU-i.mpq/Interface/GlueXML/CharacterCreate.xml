@@ -1,0 +1,1467 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="CharacterCreate.lua"/>
+
+	<CheckButton name="CharacterCreateRaceButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
+		<Size x="50" y="50"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentAlliedBorder1" parentKey="AlliedBorder1" alpha="0.7" hidden="true">
+					<Size x="100" y="100"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+					<Animations>
+						<AnimationGroup parentKey="Anim" looping="REPEAT">
+							<Rotation parentKey="Rotation" duration="8" order="1" degrees="360"/>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
+				<Texture name="$parentAlliedBorder2" parentKey="AlliedBorder2" alpha="0" hidden="true">
+					<Size x="100" y="100"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+					<Animations>
+						<AnimationGroup parentKey="Pulse" looping="REPEAT">
+							<Alpha smoothing="OUT_IN" change="0.7" duration="1" order="1"/>
+							<Alpha smoothing="IN_OUT" change="-0.7" duration="1" order="2"/>
+						</AnimationGroup>
+						<AnimationGroup parentKey="Anim" looping="REPEAT">
+							<Rotation duration="30" order="1" degrees="360"/>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture name="$parentIcon" parentKey="Icon">
+					<Size x="50" y="50"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+					<Color r="1" g="0.5" b="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentBorder" parentKey="Border">
+					<Size x="144" y="144"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentFactionBorder" alpha="0.9" parentKey="FactionBorder">
+					<Size x="144" y="144"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentArtFrame" parentKey="ArtFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentBorder2" alpha="1" hidden="true" alphaMode="ADD" parentKey="Border2">
+							<Size x="144" y="144"/>
+							<Anchors>
+								<Anchor point="CENTER" x="0" y="0" />
+							</Anchors>
+							<Animations>
+								<AnimationGroup parentKey="ShowAnim">
+									<Alpha change="-1" duration="0" order="1"/>
+									<Alpha change="1" duration="0.3" order="1"/>
+								</AnimationGroup>
+								<AnimationGroup parentKey="HideAnim">
+									<Alpha smoothing="IN" change="-1" duration="0.2" order="1"/>
+									<Scripts>
+										<OnFinished>
+											self:GetParent().Anim:Stop()
+											self:GetParent():Hide()
+										</OnFinished>
+									</Scripts>
+								</AnimationGroup>
+								<AnimationGroup parentKey="Anim" looping="REPEAT">
+									<Rotation duration="4" order="1" degrees="360"/>
+								</AnimationGroup>
+							</Animations>
+						</Texture>
+					</Layer>
+					<Layer level="BORDER">
+						<Texture name="$parentBorder3" alpha="0.5" hidden="true" parentKey="Border3">
+							<Size x="144" y="144"/>
+							<Anchors>
+								<Anchor point="CENTER" x="0" y="0" />
+							</Anchors>
+							<Animations>
+								<AnimationGroup parentKey="ShowAnim">
+									<Alpha change="-1" duration="0" order="1"/>
+									<Alpha change="0.5" duration="0.3" order="1"/>
+								</AnimationGroup>
+								<AnimationGroup parentKey="HideAnim">
+									<Alpha smoothing="IN" change="-1" duration="0.2" order="1"/>
+									<Scripts>
+										<OnFinished>
+											self:GetParent().Anim:Stop()
+											self:GetParent():Hide()
+										</OnFinished>
+									</Scripts>
+								</AnimationGroup>
+								<AnimationGroup parentKey="Anim" looping="REPEAT">
+									<Rotation duration="6" order="1" degrees="-360"/>
+								</AnimationGroup>
+							</Animations>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<Texture name="$parentHighlightTexture" parentKey="HighlightTexture" alpha="0.5" alphaMode="ADD" hidden="true">
+							<Size x="144" y="144"/>
+							<Anchors>
+								<Anchor point="CENTER" x="0" y="0" />
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<FontString name="$parentRaceID" parentKey="RaceID" outline="THICK" inherits="GameFontNormal18" hidden="true">
+							<Anchors>
+								<Anchor point="CENTER" x="0" y="0" />
+							</Anchors>
+							<Color r="1" g="0" b="0"/>
+						</FontString>
+						<Texture name="$parentCheckedTexture" parentKey="CheckedTexture" hidden="true">
+							<Size x="78" y="78"/>
+							<Anchors>
+								<Anchor point="CENTER" x="0" y="0" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateInteractiveButtonAlphaAnimMixin, CharacterCreateRaceButtonMixin)
+
+				self:OnLoad()
+				self:InitAlpha()
+			</OnLoad>
+			<OnMouseDown>
+				self:OnMouseDown(button)
+			</OnMouseDown>
+			<OnMouseUp>
+				self:OnMouseUp(button)
+			</OnMouseUp>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+			<OnDisable>
+				self:OnDisable()
+			</OnDisable>
+			<OnEnable>
+				self:OnEnable()
+			</OnEnable>
+			<OnUpdate>
+				self:UpdateAlpha( elapsed )
+			</OnUpdate>
+		</Scripts>
+	</CheckButton>
+	<CheckButton name="CharacterCreateClassButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
+		<Size x="50" y="50"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIcon" parentKey="Icon">
+					<Size x="50" y="50"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+					<Color r="1" g="0.5" b="1"/>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture name="$parentBorder" parentKey="Border">
+					<Size x="92" y="92"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHighlightTexture" parentKey="HighlightTexture" hidden="true">
+					<Size x="92" y="92"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentCheckedTexture" parentKey="CheckedTexture" hidden="true">
+					<Size x="80" y="80"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateInteractiveButtonAlphaAnimMixin, CharacterCreateClassButtonMixin)
+
+				self:OnLoad()
+				self:InitAlpha()
+			</OnLoad>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+			<OnMouseDown>
+				self:OnMouseDown(button)
+			</OnMouseDown>
+			<OnMouseUp>
+				self:OnMouseUp(button)
+			</OnMouseUp>
+			<OnDisable>
+				self:OnDisable()
+			</OnDisable>
+			<OnEnable>
+				self:OnEnable()
+			</OnEnable>
+			<OnUpdate>
+				self:UpdateAlpha( elapsed )
+			</OnUpdate>
+		</Scripts>
+	</CheckButton>
+	<CheckButton name="CharacterCreateGenderButtonTemplate" virtual="true">
+		<Size x="50" y="50"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIcon" parentKey="Icon">
+					<Size x="40" y="40"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture name="$parentBorder" parentKey="Border">
+					<Size x="70" y="70"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHighlightTexture" parentKey="HighlightTexture" hidden="true">
+					<Size x="70" y="70"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentCheckedTexture" parentKey="CheckedTexture" hidden="true">
+					<Size x="60" y="60"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateGenderButtonMixin)
+
+				self:OnLoad()
+			</OnLoad>
+			<OnMouseDown>
+				self:OnMouseDown(button)
+			</OnMouseDown>
+			<OnMouseUp>
+				self:OnMouseUp(button)
+			</OnMouseUp>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+		</Scripts>
+	</CheckButton>
+	<Button name="CharacterCreateCircleShadowButtonTemplate" virtual="true">
+		<HitRectInsets left="0" right="0" top="0" bottom="0"/>
+		<Attributes>
+			<Attribute name="normalTextureSizeH" type="number" value="42"/>
+			<Attribute name="normalTextureSizeW" type="number" value="42"/>
+			<Attribute name="highlightTextureSizeH" type="number" value="42"/>
+			<Attribute name="highlightTextureSizeW" type="number" value="42"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, ShadowButtonMixin, CharacterCreateCircleShadowButtonTemplateMixin)
+
+				self:OnLoad()
+				self:OnLoadStyle()
+			</OnLoad>
+		</Scripts>
+		<HighlightTexture parentKey="HighlightTexture" alphaMode="ADD" alpha="0.1">
+			<Size x="1" y="1"/>
+			<Anchors>
+				<Anchor point="CENTER" x="0" y="0" />
+			</Anchors>
+		</HighlightTexture>
+		<NormalTexture parentKey="NormalTexture">
+			<Size x="1" y="1"/>
+			<Anchors>
+				<Anchor point="CENTER" x="0" y="0" />
+			</Anchors>
+		</NormalTexture>
+		<DisabledTexture parentKey="DisabledTexture">
+			<Size x="1" y="1"/>
+			<Anchors>
+				<Anchor point="CENTER" x="0" y="0" />
+			</Anchors>
+		</DisabledTexture>
+		<PushedTexture parentKey="PushedTexture">
+			<Size x="1" y="1"/>
+			<Anchors>
+				<Anchor point="CENTER" x="0" y="0" />
+			</Anchors>
+		</PushedTexture>
+	</Button>
+	<Frame name="CharacterCreateCustomizationButtonFrameTemplate" virtual="true">
+		<Size x="200" y="30"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentBackground" parentKey="Background">
+					<Size x="240" y="70"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="-8" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<FontString name="$parentCustomizationName" parentKey="CustomizationName" inherits="GameFontNormal11">
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentPrevButton" parentKey="PrevButton" inherits="CharacterCreateCircleShadowButtonTemplate">
+				<Size x="30" y="30"/>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT" x="0" y="0" />
+				</Anchors>
+				<Attributes>
+					<Attribute name="normalTextureAtlas" type="string" value="Glue-Left-Array-Shadow-Button-Normal"/>
+					<Attribute name="pushedTextureAtlas" type="string" value="Glue-Left-Array-Shadow-Button-Pushed"/>
+					<Attribute name="highlightTextureAtlas" type="string" value="Glue-Left-Array-Shadow-Button-Highlight"/>
+					<Attribute name="disableTextureAtlas" type="string" value="Glue-Left-Array-Shadow-Button-Disable"/>
+				</Attributes>
+				<Scripts>
+					<OnClick>
+						PlaySound("gsCharacterCreationLook")
+						C_CharacterCreation.SetCustomizationChoice(self:GetParent().CustomizationIndex, -1)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentNextButton" parentKey="NextButton" inherits="CharacterCreateCircleShadowButtonTemplate">
+				<Size x="30" y="30"/>
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="RIGHT" x="0" y="0" />
+				</Anchors>
+				<Attributes>
+					<Attribute name="normalTextureAtlas" type="string" value="Glue-Right-Array-Shadow-Button-Normal"/>
+					<Attribute name="pushedTextureAtlas" type="string" value="Glue-Right-Array-Shadow-Button-Pushed"/>
+					<Attribute name="highlightTextureAtlas" type="string" value="Glue-Right-Array-Shadow-Button-Highlight"/>
+					<Attribute name="disableTextureAtlas" type="string" value="Glue-Right-Array-Shadow-Button-Disable"/>
+				</Attributes>
+				<Scripts>
+					<OnClick>
+						PlaySound("gsCharacterCreationLook")
+						C_CharacterCreation.SetCustomizationChoice(self:GetParent().CustomizationIndex, 1)
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateCustomizationButtonFrameTemplateMixin)
+
+				self:OnLoad()
+			</OnLoad>
+		</Scripts>
+	</Frame>
+
+	<Frame name="CharacterCreateFactionTenacityTemplate" enableMouse="true" virtual="true">
+		<Size x="23" y="28"/>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon" parentKey="Icon" setAllPoints="true">
+					<Animations>
+						<AnimationGroup name="$parentAnim" parentKey="Anim" looping="BOUNCE">
+							<Translation offsetX="0" offsetY="6" duration="0.4" smoothing="OUT" order="1"/>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateFactionTenacityMixin)
+				self:OnLoad()
+			</OnLoad>
+			<OnShow>
+				self:OnShow()
+			</OnShow>
+			<OnHide>
+				self:OnHide()
+			</OnHide>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+		</Scripts>
+	</Frame>
+
+	<Button name="CharCustomizeBaseButtonTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharCustomizeBaseButtonMixin)
+			</OnLoad>
+			<OnClick>
+				self:OnBaseButtonClick(button)
+			</OnClick>
+		</Scripts>
+	</Button>
+	<Button name="CharCustomizeSmallButtonTemplate" inherits="CharCustomizeBaseButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
+		<Size x="32" y="32"/>
+		<Attributes>
+			<Attribute name="tooltipAnchor" value="ANCHOR_BOTTOMRIGHT" type="string"/>
+			<Attribute name="tooltipXOffset" value="-5" type="number"/>
+			<Attribute name="tooltipYOffset" value="-5" type="number"/>
+		</Attributes>
+		<HitRectInsets left="6" right="6" top="6" bottom="6"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture parentKey="Icon">
+					<Size x="16" y="15"/>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin)
+				self:OnLoad()
+			</OnLoad>
+			<OnMouseDown>
+				self:OnMouseDown(button)
+			</OnMouseDown>
+			<OnMouseUp>
+				self:OnMouseUp(button)
+			</OnMouseUp>
+			<OnClick>
+				self:OnClick(button)
+			</OnClick>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+		</Scripts>
+		<NormalTexture parentKey="NormalTexture"/>
+		<HighlightTexture parentKey="HighlightTexture" alphaMode="ADD" alpha="0.4"/>
+		<PushedTexture parentKey="PushedTexture">
+			<Anchors>
+				<Anchor point="TOPLEFT" x="1" y="-1"/>
+				<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+			</Anchors>
+		</PushedTexture>
+	</Button>
+	<Button name="CharCustomizeClickOrHoldButtonTemplate" inherits="CharCustomizeSmallButtonTemplate" virtual="true">
+		<Attributes>
+			<Attribute name="holdWaitTimeSeconds" value="0.25" type="number"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin, CharCustomizeClickOrHoldButtonMixin)
+				self:OnLoad()
+			</OnLoad>
+			<OnHide>
+				self:OnHide()
+			</OnHide>
+		</Scripts>
+	</Button>
+
+	<Button name="CharacterCreateZodiacSignButtonTemplate" virtual="true">
+		<Size x="42" y="42"/>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture name="$parentArtworkGlow" parentKey="ArtworkGlow" setAllPoints="true" alphaMode="ADD" hidden="true"/>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentArtwork" parentKey="Artwork" setAllPoints="true"/>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentLock" parentKey="Lock" hidden="true">
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateZodiacSignIconButtonMixin)
+				self:OnLoad()
+			</OnLoad>
+			<OnClick>
+				self:OnClick(button)
+			</OnClick>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+			<OnHide>
+				self:OnHide()
+			</OnHide>
+		</Scripts>
+	</Button>
+	<Frame name="CharacterCreateZodiacSignSpellTemplate" enableMouse="true" virtual="true">
+		<Size x="32" y="32"/>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture name="$parentIcon" parentKey="Icon">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="2" y="-2"/>
+						<Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+					</Anchors>
+					<TexCoords left="0.08" right="0.92" top="0.08" bottom="0.92"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentBorder" parentKey="Border" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateZodiacSignSpellMixin)
+				self:OnLoad()
+			</OnLoad>
+			<OnEnter>
+				self:OnEnter()
+			</OnEnter>
+			<OnLeave>
+				self:OnLeave()
+			</OnLeave>
+		</Scripts>
+	</Frame>
+	<Texture name="CharacterCreateZodiacStarsATemplate" file="Environments/Stars/NexusRaid_StarsA" vertTile="true" horizTile="true" virtual="true">
+		<Size x="512" y="512"/>
+		<Anchors>
+			<Anchor point="CENTER" x="0" y="0"/>
+		</Anchors>
+	</Texture>
+
+	<Frame name="CharacterCreate" toplevel="true" parent="GlueParent" setAllPoints="true" enableKeyboard="true" hidden="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentOverlay" parentKey="Overlay" alpha="0.6" file="Interface\Custom\Glue\Vignette-256">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-14" y="10" />
+						<Anchor point="BOTTOMRIGHT" x="14" y="-10" />
+					</Anchors>
+					<Animations>
+						<AnimationGroup parentKey="hideAnim">
+							<Alpha change="-1" duration="0.6" order="2"/>
+							<Scripts>
+								<OnPlay>
+									self:GetParent().showAnim:Stop()
+								</OnPlay>
+							</Scripts>
+						</AnimationGroup>
+						<AnimationGroup parentKey="showAnim">
+							<Alpha change="-1" duration="0" order="1"/>
+							<Alpha change="0.6" duration="0.4" order="2"/>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
+				<Texture name="$parentCustomizationVignette" parentKey="CustomizationVignette" alpha="0" file="Interface\Custom\Glue\Vignette-256">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-14" y="10" />
+						<Anchor point="BOTTOMRIGHT" x="14" y="-10" />
+					</Anchors>
+				</Texture>
+				<Texture name="$parentVignetteTop" parentKey="VignetteTop" alpha="0">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+						<Anchor point="TOPRIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentVignetteBottom" parentKey="VignetteBottom" alpha="0">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentVignetteLeft" parentKey="VignetteLeft" alpha="0">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+						<Anchor point="BOTTOMLEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentVignetteRight" parentKey="VignetteRight" alpha="0">
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentBlockingFrame" parentKey="BlockingFrame" setAllPoints="true" frameStrata="HIGH" hidden="true" enableMouse="true">
+				<Scripts>
+					<OnKeyDown function="nop"/>
+					<OnMouseWheel function="nop"/>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentAllianceRacesFrame" parentKey="AllianceRacesFrame">
+				<Size x="180" y="460"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="10" y="-70" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture name="$parentLogo" parentKey="Logo">
+							<Size x="70" y="76"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" x="0" y="60" />
+							</Anchors>
+						</Texture>
+						<FontString name="$parentText" parentKey="Text" inherits="GameFontNormal14" justifyH="RIGHT" text="ALLIANCE">
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentLogo" relativePoint="RIGHT" x="-10" y="0"/>
+							</Anchors>
+							<Color r="1.0" g="0.82" b="0"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Frame name="$parentTenacity" parentKey="Tenacity" inherits="CharacterCreateFactionTenacityTemplate" hidden="true">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentText" relativePoint="RIGHT" x="6" y="0"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateAllianceRacesFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentHordeRacesFrame" parentKey="HordeRacesFrame">
+				<Size x="180" y="460"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-10" y="-70" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture name="$parentLogo" parentKey="Logo">
+							<Size x="70" y="76"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT" x="0" y="60" />
+							</Anchors>
+						</Texture>
+						<FontString name="$parentText" parentKey="Text" inherits="GameFontNormal14" justifyH="RIGHT" text="HORDE">
+							<Anchors>
+								<Anchor point="RIGHT" relativeTo="$parentLogo" relativePoint="LEFT" x="10" y="0"/>
+							</Anchors>
+							<Color r="1.0" g="0.82" b="0"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Frame name="$parentTenacity" parentKey="Tenacity" inherits="CharacterCreateFactionTenacityTemplate" hidden="true">
+						<Anchors>
+							<Anchor point="RIGHT" relativeTo="$parentText" relativePoint="LEFT" x="-6" y="0"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateHordeRacesFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentNeutralRacesFrame" parentKey="NeutralRacesFrame">
+				<Size x="140" y="60"/>
+				<Anchors>
+					<Anchor point="TOP" x="0" y="-30" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentText" parentKey="Text" inherits="GameFontNormal14" justifyH="RIGHT" text="NEUTRALS">
+							<Anchors>
+								<Anchor point="TOP" x="0" y="24"/>
+							</Anchors>
+							<Color r="1.0" g="0.82" b="0"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateNeutralRacesFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentClassesFrame" parentKey="ClassesFrame">
+				<Size x="730" y="60"/>
+				<Anchors>
+					<Anchor point="BOTTOM" x="0" y="10" />
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateClassesFrameMixin)
+
+						self:OnLoad()
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentGenderFrame" parentKey="GenderFrame">
+				<Size x="440" y="50"/>
+				<Anchors>
+					<Anchor point="BOTTOM" x="0" y="70" />
+				</Anchors>
+				<Frames>
+					<Button name="$parentCustomizationButton" parentKey="CustomizationButton" inherits="GlueDark_ButtonTemplate" text="CHARACTER_CREATE_CUSTOMIZATION_LABEL">
+						<Size x="156" y="31"/>
+						<Anchors>
+							<Anchor point="CENTER" x="0" y="0" />
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								Mixin(self, GlueDark_ButtonMixin, CharacterCreateCustomizationButtonMixin)
+
+								self:OnLoad()
+								self:OnLoadStyle()
+							</OnLoad>
+							<OnClick>
+								self:OnClick()
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateGenderFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentNavigationFrame" parentKey="NavigationFrame">
+				<Size x="0" y="80"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="0" y="0"/>
+					<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+				</Anchors>
+				<Frames>
+					<Button name="$parentBackButton" parentKey="BackButton" inherits="GlueDark_ButtonBoldTemplate" text="BACK">
+						<Size x="160" y="32"/>
+						<Anchors>
+							<Anchor point="LEFT" x="46" y="0"/>
+						</Anchors>
+						<Attributes>
+							<Attribute name="normalTextureSizeH" type="number" value="140"/>
+							<Attribute name="normalTextureSizeW" type="number" value="60"/>
+							<Attribute name="highlightTextureSizeH" type="number" value="140"/>
+							<Attribute name="highlightTextureSizeW" type="number" value="60"/>
+						</Attributes>
+						<Scripts>
+							<OnClick>
+								self:GetParent():GetParent():OnKeyDown("ESCAPE")
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="$parentCreateButton" parentKey="CreateButton" inherits="GlueDark_ButtonBoldTemplate" motionScriptsWhileDisabled="true" text="CHARACTER_CREATE">
+						<Size x="160" y="32"/>
+						<Anchors>
+							<Anchor point="RIGHT" x="-46" y="0"/>
+						</Anchors>
+						<Attributes>
+							<Attribute name="normalTextureSizeH" type="number" value="140"/>
+							<Attribute name="normalTextureSizeW" type="number" value="60"/>
+							<Attribute name="highlightTextureSizeH" type="number" value="140"/>
+							<Attribute name="highlightTextureSizeW" type="number" value="60"/>
+						</Attributes>
+						<Scripts>
+							<OnLoad>
+								Mixin(self, GlueDark_ButtonMixin, CharacterCreateCreateButtonMixin)
+								self:OnLoadStyle()
+							</OnLoad>
+							<OnEnter>
+								self:OnEnter()
+							</OnEnter>
+							<OnLeave>
+								self:OnLeave()
+							</OnLeave>
+							<OnClick>
+								self:OnClick(button)
+							</OnClick>
+						</Scripts>
+					</Button>
+					<CheckButton name="$parentHardcoreButton" parentKey="HardcoreButton" hidden="true">
+						<Size x="50" y="50"/>
+						<Anchors>
+							<Anchor point="RIGHT" x="0" y="0"/>
+						</Anchors>
+						<HitRectInsets left="0" right="0" top="0" bottom="0"/>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="$parentLabel" parentKey="Label" inherits="GlueDark_Font_Outline_13" justifyH="CENTER" text="CHARACTER_CREATE_HARDCORE_LABEL">
+									<Anchors>
+										<Anchor point="LEFT" relativePoint="RIGHT" x="5" y="0"/>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Frame name="$parentAnimFrame" parentKey="AnimFrame">
+								<Anchors>
+									<Anchor point="TOPLEFT" x="-20" y="20"/>
+									<Anchor point="BOTTOMRIGHT" x="20" y="-20"/>
+								</Anchors>
+								<Layers>
+									<Layer level="BACKGROUND">
+										<Texture name="$parentSpinner1" parentKey="Spinner1" setAllPoints="true">
+											<Animations>
+												<AnimationGroup parentKey="AnimRotation" looping="REPEAT">
+													<Rotation duration="1.5" degrees="-360" order="1"/>
+												</AnimationGroup>
+											</Animations>
+										</Texture>
+									</Layer>
+									<Layer level="BORDER">
+										<Texture name="$parentSpinner2" parentKey="Spinner2" setAllPoints="true">
+											<Animations>
+												<AnimationGroup parentKey="AnimRotation" looping="REPEAT">
+													<Rotation duration="1.4" degrees="360" order="1"/>
+												</AnimationGroup>
+											</Animations>
+										</Texture>
+									</Layer>
+								</Layers>
+								<Animations>
+									<AnimationGroup parentKey="AnimFadeIn">
+										<Alpha duration="0" change="-1" order="1"/>
+										<Alpha duration="0.3" change="1" smoothing="OUT" order="2"/>
+									</AnimationGroup>
+									<AnimationGroup parentKey="AnimFadeOut">
+										<Alpha duration="0" change="1" order="1"/>
+										<Alpha duration="0.3" change="-1" smoothing="IN_OUT" order="2"/>
+										<Scripts>
+											<OnFinished>
+												self:GetParent():Hide()
+											</OnFinished>
+										</Scripts>
+									</AnimationGroup>
+								</Animations>
+								<Scripts>
+									<OnShow>
+										self.AnimFadeOut:Stop()
+										self.AnimFadeIn:Play()
+									</OnShow>
+								</Scripts>
+							</Frame>
+						</Frames>
+						<NormalTexture parentKey="NormalTexture"/>
+						<PushedTexture parentKey="PushedTexture"/>
+						<CheckedTexture parentKey="CheckedTexture"/>
+						<DisabledTexture parentKey="DisabledTexture"/>
+						<Scripts>
+							<OnLoad>
+								Mixin(self, CharacterCreateHardcoreCheckButtonMixin)
+								self:OnLoad()
+							</OnLoad>
+							<OnShow>
+								self:OnShow()
+							</OnShow>
+							<OnEnter>
+								self:OnEnter()
+							</OnEnter>
+							<OnLeave>
+								self:OnLeave()
+							</OnLeave>
+							<OnClick>
+								self:OnClick(button)
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<EditBox name="$parentCreateNameEditBox" parentKey="CreateNameEditBox" inherits="GlueDark_EditBoxTemplate" autoFocus="true" letters="12">
+						<Size x="169" y="32"/>
+						<Scripts>
+							<OnEscapePressed>
+								self:GetParent():GetParent():OnKeyDown("ESCAPE")
+							</OnEscapePressed>
+							<OnEnterPressed>
+								self:GetParent().CreateButton:Click()
+							</OnEnterPressed>
+						</Scripts>
+					</EditBox>
+					<Button name="$parentRandomNameButton" parentKey="RandomNameButton" motionScriptsWhileDisabled="true">
+						<Size x="30" y="30"/>
+						<Anchors>
+							<Anchor point="RIGHT" relativeTo="$parentCreateNameEditBox" relativePoint="LEFT" x="5" y="0"/>
+						</Anchors>
+						<HitRectInsets left="6" right="6" top="6" bottom="6"/>
+						<Layers>
+							<Layer level="OVERLAY">
+								<Texture name="$parentIcon" parentKey="Icon">
+									<Size x="16" y="16"/>
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="-1"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnLoad>
+								self.Icon:SetAtlas("charactercreate-icon-dice-old")
+								self.HighlightTexture:SetAtlas("charactercreate-icon-dice-old")
+								self.NormalTexture:SetAtlas("common-button-square-gray-up")
+								self.PushedTexture:SetAtlas("common-button-square-gray-down")
+							</OnLoad>
+							<OnMouseDown>
+								if self:IsEnabled() == 1 then
+									self.Icon:SetPoint("CENTER", self.PushedTexture, 0, -1);
+								end
+							</OnMouseDown>
+							<OnMouseUp>
+								self.Icon:SetPoint("CENTER", 0, -1);
+							</OnMouseUp>
+							<OnClick>
+								PlaySound("gsCharacterCreationLook")
+								self:GetParent().CreateNameEditBox:SetText(C_CharacterCreation.GenerateRandomName())
+							</OnClick>
+							<OnEnter>
+								GlueTooltip:SetOwner(self, "ANCHOR_LEFT", 9, -9)
+								GlueTooltip:SetText(RANDOMIZE, 1, 1, 1)
+								GlueTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GlueTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+
+						<NormalTexture parentKey="NormalTexture"/>
+						<HighlightTexture parentKey="HighlightTexture" alphaMode="ADD" alpha="0.4">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parentIcon" relativePoint="TOPLEFT"/>
+								<Anchor point="BOTTOMRIGHT" relativeTo="$parentIcon" relativePoint="BOTTOMRIGHT"/>
+							</Anchors>
+						</HighlightTexture>
+						<PushedTexture parentKey="PushedTexture">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="1" y="-1"/>
+								<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+							</Anchors>
+						</PushedTexture>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateNavigationFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+					<OnShow>
+						self:OnShow()
+					</OnShow>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentCustomizationFrame" parentKey="CustomizationFrame" hidden="true" alpha="0">
+				<Size x="200" y="0"/>
+				<Anchors>
+					<Anchor point="LEFT" x="-200" y="200"/>
+					<Anchor point="TOP"/>
+					<Anchor point="BOTTOM"/>
+				</Anchors>
+				<Frames>
+					<Button name="$parentRandomizeCustomizationButton" parentKey="RandomizeCustomizationButton" inherits="GlueDark_ButtonTemplate" text="RANDOMIZE">
+						<Size x="200" y="32"/>
+						<Scripts>
+							<OnClick>
+								PlaySound("gsCharacterCreationLook")
+								C_CharacterCreation.RandomizeCharCustomization()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Frame name="$parentSmallButtons" parentKey="SmallButtons" inherits="HorizontalLayoutFrame">
+						<Attributes>
+							<Attribute name="spacing" value="-5" type="number"/>
+						</Attributes>
+						<Anchors>
+							<Anchor point="TOP" x="0" y="-120"/>
+						</Anchors>
+						<Frames>
+							<Button name="$parentResetCameraButton" parentKey="ResetCameraButton" inherits="CharCustomizeSmallButtonTemplate">
+								<Attributes>
+									<Attribute name="layoutIndex" value="1" type="number"/>
+									<Attribute name="iconAtlas" value="common-icon-undo" type="string"/>
+								</Attributes>
+								<Scripts>
+									<OnLoad>
+										Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin, CharCustomizeResetCameraButtonMixin)
+										self:OnLoad()
+										self.simpleTooltipLine = RESET_CAMERA
+									</OnLoad>
+								</Scripts>
+							</Button>
+							<Button name="$parentZoomOutButton" parentKey="ZoomOutButton" inherits="CharCustomizeClickOrHoldButtonTemplate">
+								<Attributes>
+									<Attribute name="layoutIndex" value="2" type="number"/>
+									<Attribute name="iconAtlas" value="common-icon-zoomout" type="string"/>
+									<Attribute name="clickAmount" value="-20" type="number"/>
+									<Attribute name="holdAmountPerSecond" value="-200" type="number"/>
+								</Attributes>
+								<Scripts>
+									<OnLoad>
+										Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin, CharCustomizeClickOrHoldButtonMixin, CharCustomizeZoomButtonMixin)
+										self:OnLoad()
+										self.simpleTooltipLine = ZOOM_OUT
+									</OnLoad>
+								</Scripts>
+							</Button>
+							<Button name="$parentZoomInButton" parentKey="ZoomInButton" inherits="CharCustomizeClickOrHoldButtonTemplate">
+								<Attributes>
+									<Attribute name="layoutIndex" value="3" type="number"/>
+									<Attribute name="iconAtlas" value="common-icon-zoomin" type="string"/>
+									<Attribute name="clickAmount" value="20" type="number"/>
+									<Attribute name="holdAmountPerSecond" value="200" type="number"/>
+								</Attributes>
+								<Scripts>
+									<OnLoad>
+										Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin, CharCustomizeClickOrHoldButtonMixin, CharCustomizeZoomButtonMixin)
+										self:OnLoad()
+										self.simpleTooltipLine = ZOOM_IN
+									</OnLoad>
+								</Scripts>
+							</Button>
+							<Button name="$parentRotateLeftButton" parentKey="RotateLeftButton" inherits="CharCustomizeClickOrHoldButtonTemplate">
+								<Attributes>
+									<Attribute name="layoutIndex" value="4" type="number"/>
+									<Attribute name="iconAtlas" value="common-icon-rotateleft" type="string"/>
+									<Attribute name="leftPadding" value="30" type="number"/>
+									<Attribute name="clickAmount" value="-10" type="number"/>
+									<Attribute name="holdAmountPerSecond" value="-100" type="number"/>
+								</Attributes>
+								<Scripts>
+									<OnLoad>
+										Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin, CharCustomizeClickOrHoldButtonMixin, CharCustomizeRotateButtonMixin)
+										self:OnLoad()
+										self.simpleTooltipLine = ROTATE_LEFT
+									</OnLoad>
+								</Scripts>
+							</Button>
+							<Button name="$parentRotateRightButton" parentKey="RotateRightButton" inherits="CharCustomizeClickOrHoldButtonTemplate">
+								<Attributes>
+									<Attribute name="layoutIndex" value="5" type="number"/>
+									<Attribute name="iconAtlas" value="common-icon-rotateright" type="string"/>
+									<Attribute name="clickAmount" value="10" type="number"/>
+									<Attribute name="holdAmountPerSecond" value="100" type="number"/>
+								</Attributes>
+								<Scripts>
+									<OnLoad>
+										Mixin(self, CharCustomizeBaseButtonMixin, CharCustomizeSmallButtonMixin, CharCustomizeClickOrHoldButtonMixin, CharCustomizeRotateButtonMixin)
+										self:OnLoad()
+										self.simpleTooltipLine = ROTATE_RIGHT
+									</OnLoad>
+								</Scripts>
+							</Button>
+						</Frames>
+					</Frame>
+					<CheckButton name="$parentDressCheckButton" parentKey="DressCheckButton" inherits="GlueDark_CheckBoxTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentRandomizeCustomizationButton" relativePoint="BOTTOMLEFT" x="7" y="-25"/>
+						</Anchors>
+						<HitRectInsets left="0" right="-160" top="0" bottom="0"/>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="$parentLabel" parentKey="Label" inherits="GlueDark_Font_Outline_13" justifyH="CENTER" text="SHOW_EQUIPPED_ITEMS">
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnLoad>
+								Mixin(self, CharacterCreateDressStateCheckButtonMixin)
+							</OnLoad>
+							<OnClick>
+								self:OnClick(button)
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<Button name="$parentInspectCharacterButton" parentKey="InspectCharacterButton" inherits="GlueDark_ButtonTemplate" text="INSPECT_CHARACTER">
+						<Size x="200" y="32"/>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentRandomizeCustomizationButton" relativePoint="BOTTOMLEFT" x="0" y="-55"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								PlaySound("gsCharacterCreationLook")
+								C_CharacterCreation.ZoomCamera(C_CharacterCreation.GetCurrentCameraZoom() * -1, nil, true)
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateCustomizationFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+					<OnShow>
+						self:OnShow()
+					</OnShow>
+					<OnHide>
+						self:OnHide()
+					</OnHide>
+				</Scripts>
+			</Frame>
+			<Frame name="$parentZodiacSignFrame" parentKey="ZodiacSignFrame" hidden="true">
+				<Size x="480" y="0"/>
+				<Anchors>
+					<Anchor point="RIGHT" x="0" y="200"/>
+					<Anchor point="TOP"/>
+					<Anchor point="BOTTOM"/>
+				</Anchors>
+				<Frames>
+					<Frame name="$parentSign" parentKey="Sign">
+						<Size x="256" y="256"/>
+						<Anchors>
+							<Anchor point="TOP" x="0" y="-110"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="$parentCircle" parentKey="Circle" file="Interface/Custom/Zodiac/Circle" alpha="0.5">
+									<Size x="460" y="460"/>
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="0"/>
+									</Anchors>
+								</Texture>
+								<Texture name="$parentCircleAnim" parentKey="CircleAnim" file="Interface/Custom/Zodiac/Circle" alpha="0">
+									<Size x="460" y="460"/>
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="0"/>
+									</Anchors>
+									<Animations>
+										<AnimationGroup parentKey="AnimAlpha">
+											<Alpha change="-1" duration="0" order="1"/>
+											<Alpha smoothing="OUT_IN" change="0.4" duration="0.3" order="2"/>
+											<Alpha smoothing="IN_OUT" change="-0.4" duration="0.7" order="3"/>
+										</AnimationGroup>
+									</Animations>
+								</Texture>
+							</Layer>
+							<Layer level="OVERLAY">
+								<Texture name="$parentCircleSelection" parentKey="CircleSelection" file="Interface/Custom/Zodiac/Circle-Selection" alpha="1">
+									<Size x="460" y="460"/>
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="0"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="ARTWORK">
+								<Texture name="$parentArtworkGlow" parentKey="ArtworkGlow" setAllPoints="true" alpha="0">
+									<Animations>
+										<AnimationGroup parentKey="Pulse">
+											<Alpha change="-1" duration="0" order="1"/>
+											<Alpha smoothing="OUT_IN" change="1" duration="0.3" order="2"/>
+											<Alpha smoothing="IN_OUT" change="-1" duration="0.7" order="3"/>
+
+											<Scale scaleX="1" scaleY="1" duration="0" order="1"/>
+											<Scale smoothing="IN_OUT" scaleX="1.013" scaleY="1.013" duration="0.3" order="2"/>
+											<Scale smoothing="OUT_IN" scaleX="0.987" scaleY="0.987" duration="0.7" order="3"/>
+
+											<Scripts>
+												<OnFinished>
+													self:GetParent().repeatTime = C_Timer:After(math.random(3, 5), function()
+														self:GetParent().repeatTime = nil
+														if self:GetParent():IsVisible() then
+															self:GetParent().Pulse:Play()
+														end
+													end)
+												</OnFinished>
+											</Scripts>
+										</AnimationGroup>
+									</Animations>
+								</Texture>
+							</Layer>
+							<Layer level="OVERLAY">
+								<Texture name="$parentArtwork" parentKey="Artwork" setAllPoints="true"/>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnShow>
+								self.pulseTime = C_Timer:After(0.5, function()
+									self.pulseTime = nil
+									if self:IsVisible() then
+										self.ArtworkGlow.Pulse:Play()
+										self.CircleAnim.AnimAlpha:Play()
+									end
+								end)
+							</OnShow>
+							<OnHide>
+								if self.pulseTime then
+									self.pulseTime:Cancel()
+									self.pulseTime = nil
+								elseif self.ArtworkGlow.Pulse:IsPlaying() then
+									self.ArtworkGlow.Pulse:Stop()
+								end
+								if self.CircleAnim.AnimAlpha:IsPlaying() then
+									self.CircleAnim.AnimAlpha:Stop()
+								end
+							</OnHide>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentSignLock" parentKey="SignLock" hidden="true">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentSign" x="0" y="0"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$parentSign" x="0" y="0"/>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture name="$parentLock" parentKey="Lock">
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="0"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Frame>
+					<Frame name="$parentEffectFrame" parentKey="EffectFrame">
+						<Size x="512" y="512"/>
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="0" y="0"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BORDER">
+								<Texture name="$parentStarsB" parentKey="StarsB" file="Environments/Stars/NexusRaid_StarsB">
+									<Size x="768" y="768"/>
+									<Anchors>
+										<Anchor point="CENTER" x="25" y="10"/>
+									</Anchors>
+								</Texture>
+								<Texture name="$parentShadow" parentKey="Shadow">
+									<Anchors>
+										<Anchor point="CENTER" x="0" y="0"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="ARTWORK">
+								<Texture name="$parentGalaxy" parentKey="Galaxy" file="Environments/Stars/NexusRaid_GalaxiesA">
+									<Size x="310" y="512"/>
+									<Anchors>
+										<Anchor point="CENTER" x="25" y="10"/>
+									</Anchors>
+									<TexCoords left="0.1796875" right="0.78515625" top="0" bottom="1"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnLoad>
+								Mixin(self, CharacterCreateZodiacSignEffectMixin)
+								self:OnLoad()
+							</OnLoad>
+							<OnShow>
+								self:OnShow()
+							</OnShow>
+							<OnUpdate>
+								self:OnUpdate(elapsed)
+							</OnUpdate>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentSelectorFrame" parentKey="SelectorFrame">
+						<Size x="200" y="38"/>
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentSign" relativePoint="BOTTOM" x="0" y="-130"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="$parentBackground" parentKey="Background"/>
+							</Layer>
+							<Layer level="ARTWORK">
+								<FontString name="$parentLabel" parentKey="Label" inherits="GameFontHighlightMed2" justifyH="CENTER" text="CHARACTER_CREATE_ZODIAC_SIGN_LABEL">
+									<Anchors>
+										<Anchor point="BOTTOM" relativePoint="TOP" x="0" y="0"/>
+									</Anchors>
+								</FontString>
+								<FontString name="$parentText" parentKey="Text" inherits="GameFontHighlightMed2" justifyH="CENTER" setAllPoints="true"/>
+							</Layer>
+							<Layer level="HIGHLIGHT">
+								<Texture name="$parentHighlight" parentKey="Highlight" hidden="true"/>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Button parentKey="IncrementButton" motionScriptsWhileDisabled="true">
+								<Size x="32" y="32"/>
+								<NormalTexture parentKey="NormalTexture"/>
+								<PushedTexture parentKey="PushedTexture"/>
+								<DisabledTexture/>
+							</Button>
+							<Button parentKey="DecrementButton" motionScriptsWhileDisabled="true">
+								<Size x="32" y="32"/>
+								<NormalTexture parentKey="NormalTexture"/>
+								<PushedTexture parentKey="PushedTexture"/>
+								<DisabledTexture/>
+							</Button>
+						</Frames>
+						<Scripts>
+							<OnLoad>
+								Mixin(self, CharacterCreateZodiacSignSelectorMixin)
+								self:OnLoad()
+							</OnLoad>
+							<OnEnter>
+								self:OnEnter()
+							</OnEnter>
+							<OnLeave>
+								self:OnLeave()
+							</OnLeave>
+							<OnMouseWheel>
+								self:OnMouseWheel(delta)
+							</OnMouseWheel>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentDescription" parentKey="Description">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentSelectorFrame" relativePoint="BOTTOM" x="0" y="-10"/>
+							<Anchor point="LEFT" x="50" y="0"/>
+							<Anchor point="RIGHT" x="-50" y="0"/>
+							<Anchor point="BOTTOM" x="0" y="0"/>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="$parentText" parentKey="Text" inherits="GlueDark_Font_Outline_12" justifyH="LEFT" justifyV="TOP">
+									<Anchors>
+										<Anchor point="TOPLEFT" x="0" y="0"/>
+									</Anchors>
+									<Color r="1" g="1" b="1"/>
+								</FontString>
+							</Layer>
+						</Layers>
+					</Frame>
+					<Frame name="$parentSpellHolder" parentKey="SpellHolder">
+						<Size x="0" y="60"/>
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentSelectorFrame" relativePoint="BOTTOM" x="0" y="-55"/>
+							<Anchor point="LEFT" x="50" y="0"/>
+							<Anchor point="RIGHT" x="-50" y="0"/>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="$parentSpellsLabel" parentKey="SpellsLabel" inherits="GlueDark_Font_Outline_14" justifyV="TOP" text="ZODIAC_SIGN_SPELLS_LABEL">
+									<Anchors>
+										<Anchor point="TOP" x="0" y="0"/>
+									</Anchors>
+									<Color r="1" g="1" b="1"/>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Frame name="$parentActiveSpells" parentKey="ActiveSpells">
+								<Size x="0" y="52"/>
+								<Anchors>
+									<Anchor point="TOP" relativeTo="$parentSpellsLabel" relativePoint="BOTTOM" x="0" y="-10"/>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="$parentLabel" parentKey="Label" inherits="GlueDark_Font_Outline_12" justifyH="LEFT" text="SPELLS_ACTIVE">
+											<Anchors>
+												<Anchor point="LEFT" x="0" y="0"/>
+											</Anchors>
+											<Color r="1" g="1" b="1"/>
+										</FontString>
+									</Layer>
+								</Layers>
+							</Frame>
+							<Frame name="$parentPassiveSpells" parentKey="PassiveSpells">
+								<Size x="0" y="52"/>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="$parentActiveSpells" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="$parentLabel" parentKey="Label" inherits="GlueDark_Font_Outline_12" justifyH="LEFT" text="SPELLS_PASSIVE">
+											<Anchors>
+												<Anchor point="LEFT" x="0" y="0"/>
+											</Anchors>
+											<Color r="1" g="1" b="1"/>
+										</FontString>
+									</Layer>
+								</Layers>
+							</Frame>
+						</Frames>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Mixin(self, CharacterCreateZodiacSignFrameMixin)
+						self:OnLoad()
+					</OnLoad>
+					<OnEvent>
+						self:OnEvent(event, ...)
+					</OnEvent>
+					<OnShow>
+						self:OnShow()
+					</OnShow>
+					<OnHide>
+						self:OnHide()
+					</OnHide>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				Mixin(self, CharacterCreateMixin)
+				self:OnLoad()
+			</OnLoad>
+			<OnShow>
+				self:OnShow()
+			</OnShow>
+			<OnHide>
+				self:OnHide()
+			</OnHide>
+			<OnEvent>
+				self:OnEvent(event, ...)
+			</OnEvent>
+			<OnUpdate>
+				self:OnUpdate(elapsed)
+			</OnUpdate>
+			<OnKeyDown>
+				self:OnKeyDown(key)
+			</OnKeyDown>
+			<OnMouseUp>
+				self:OnMouseUp(button)
+			</OnMouseUp>
+			<OnMouseDown>
+				self:OnMouseDown(button)
+			</OnMouseDown>
+		</Scripts>
+	</Frame>
+</Ui>

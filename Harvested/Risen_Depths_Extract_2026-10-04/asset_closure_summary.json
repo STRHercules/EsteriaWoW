@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-10-04T05:56:18.233Z",
+  "parsedM2Copies": 628,
+  "uniqueM2PathsParsed": 587,
+  "parsedWmoRootCopies": 41,
+  "uniqueWmoRootsParsed": 41,
+  "totalDiscoveredCandidatePaths": 1797,
+  "closureExtractedCopies": 1947,
+  "uniqueClosurePathsExtracted": 1739,
+  "unresolvedCandidatePaths": 6,
+  "unresolved": [
+    {
+      "path": "UTENSILS\\KITCHENKNIFE01.m2",
+      "kinds": [
+        "wmo-embedded-path"
+      ],
+      "sources": [
+        "WORLD\\WMO\\CATACLYSM\\VASHJIR\\CAVES\\VASHJIR_SMALL_CAVE.WMO"
+      ]
+    },
+    {
+      "path": "Utensils\\cleaver_001.blp",
+      "kinds": [
+        "m2-embedded-path"
+      ],
+      "sources": [
+        "WORLD\\GENERIC\\HUMAN\\PASSIVE DOODADS\\FOOD&UTENSILS\\KITCHENKNIFE01.m2"
+      ]
+    },
+    {
+      "path": "world\\expansion06\\doodads\\legion\\smoke_puffy_mask_blendadd.blp",
+      "kinds": [
+        "m2-embedded-path"
+      ],
+      "sources": [
+        "WORLD\\EXPANSION06\\DOODADS\\LEGION\\7LG_LEGION_TORCH02_LIGHT.M2"
+      ]
+    },
+    {
+      "path": "world\\expansion06\\doodads\\legion\\ember_chunky_blankmorerotation_a.blp",
+      "kinds": [
+        "m2-embedded-path"
+      ],
+      "sources": [
+        "WORLD\\EXPANSION06\\DOODADS\\LEGION\\7LG_LEGION_TORCH02_LIGHT.M2"
+      ]
+    },
+    {
+      "path": "world\\expansion06\\doodads\\legion\\smoke_generic_paintymask01_blend.blp",
+      "kinds": [
+        "m2-embedded-path"
+      ],
+      "sources": [
+        "WORLD\\EXPANSION06\\DOODADS\\LEGION\\7LG_LEGION_TORCH02_LIGHT.M2"
+      ]
+    },
+    {
+      "path": "world\\expansion06\\doodads\\legion\\8fx_explosionsmoke_a.blp",
+      "kinds": [
+        "m2-embedded-path"
+      ],
+      "sources": [
+        "WORLD\\EXPANSION06\\DOODADS\\LEGION\\7LG_LEGION_TORCH02_LIGHT.M2"
+      ]
+    }
+  ],
+  "failureCount": 0,
+  "rounds": [
+    {
+      "round": 1,
+      "newlyParsed": 742,
+      "candidates": 1797,
+      "pending": 1745,
+      "extractedCopies": 1947,
+      "uniqueExtracted": 1739
+    },
+    {
+      "round": 2,
+      "newlyParsed": 2,
+      "candidates": 1797,
+      "pending": 6,
+      "extractedCopies": 0,
+      "uniqueExtracted": 0
+    }
+  ],
+  "extractedByKind": {
+    "m2-skin-profile": 632,
+    "m2-embedded-path": 774,
+    "wmo-embedded-path": 474,
+    "wmo-material-texture": 179,
+    "wmo-doodad-model": 296,
+    "wmo-group": 75
+  }
+}

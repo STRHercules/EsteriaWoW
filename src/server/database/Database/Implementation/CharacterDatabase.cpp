@@ -55,6 +55,10 @@ void CharacterDatabaseConnection::DoPrepareStatements()
                      "LEFT JOIN character_declinedname AS cd ON c.guid = cd.guid LEFT JOIN guild_member AS gm ON c.guid = gm.guid "
                      "LEFT JOIN character_banned AS cb ON c.guid = cb.guid AND cb.active = 1 WHERE c.account = ? AND c.deleteInfos_Name IS NULL ORDER BY COALESCE(c.order, c.guid)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_FREE_NAME, "SELECT guid, name, at_login FROM characters WHERE guid = ? AND account = ? AND NOT EXISTS (SELECT NULL FROM characters WHERE name = ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_ENUM_PERMANENT_AURAS, "SELECT a.guid, a.spell FROM character_aura AS a "
+                     "JOIN characters AS c ON c.guid = a.guid WHERE c.account = ? "
+                     "AND c.deleteInfos_Name IS NULL AND a.casterGuid = a.guid AND a.remainTime = -1 "
+                     "ORDER BY a.guid, a.spell", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_CHAR_ZONE, "SELECT zone FROM characters WHERE guid = ?", CONNECTION_SYNCH);
     PrepareStatement(CHAR_SEL_CHARACTER_NAME_DATA,
                      "SELECT race, class, gender, level, teamId FROM characters WHERE guid = ?", CONNECTION_SYNCH);

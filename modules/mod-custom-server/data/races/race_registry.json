@@ -512,6 +512,36 @@
         0
       ],
       "species_selection": true
+    },
+    {
+      "id": 60,
+      "species_key": "ogre",
+      "display_name": "Ogre",
+      "faction": "horde",
+      "asset_owner": "retroporter_ogre_furbolg",
+      "legacy_mask_race": 2,
+      "visual_base_race": 2,
+      "start_profile": "durotar",
+      "supported_genders": [
+        0,
+        1
+      ],
+      "species_selection": false
+    },
+    {
+      "id": 61,
+      "species_key": "furbolg",
+      "display_name": "Furbolg",
+      "faction": "alliance",
+      "asset_owner": "retroporter_ogre_furbolg",
+      "legacy_mask_race": 4,
+      "visual_base_race": 4,
+      "start_profile": "teldrassil",
+      "supported_genders": [
+        0,
+        1
+      ],
+      "species_selection": false
     }
   ],
   "npc_only": [

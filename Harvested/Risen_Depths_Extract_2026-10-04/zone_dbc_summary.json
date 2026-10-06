@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-10-04T05:45:46.019Z",
+  "requestedPaths": 28,
+  "extractedCopies": 52,
+  "uniquePaths": 26,
+  "failureCount": 0,
+  "byArchive": {
+    "ruRU/locale-ruRU.mpq": 26,
+    "ruRU/patch-ruRU-4.mpq": 26
+  }
+}

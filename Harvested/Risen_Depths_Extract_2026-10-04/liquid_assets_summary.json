@@ -1,0 +1,278 @@
+{
+  "candidatePaths": 100,
+  "extractedCopies": 34,
+  "uniquePaths": 34,
+  "missingCount": 66,
+  "missing": [
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_1.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_10.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_11.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_12.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_13.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_14.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_15.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_16.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_17.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_18.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_19.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_2.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_20.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_21.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_22.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_23.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_24.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_25.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_26.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_27.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_28.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_29.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_3.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_30.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_31.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_32.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_4.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_5.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_6.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_7.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_8.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\BASICWATERHEIGHTTEX_9.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_1.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_10.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_11.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_12.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_13.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_14.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_15.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_16.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_17.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_18.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_19.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_2.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_20.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_21.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_22.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_23.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_24.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_25.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_26.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_27.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_28.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_29.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_3.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_30.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_31.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_32.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_4.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_5.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_6.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_7.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_8.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\01BASICWATERHEIGHTTEX_9.BLP",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\basicReflectionMap.blp",
+      "kind": "liquid-ocean-render-texture"
+    },
+    {
+      "p": "XTEXTURES\\ocean\\MERCURYBUMP.BLP",
+      "kind": "liquid-ocean-render-texture"
+    }
+  ],
+  "failureCount": 0,
+  "byArchive": {
+    "common.mpq": 30,
+    "patch-6.MPQ": 1,
+    "patch-u.mpq": 3
+  }
+}

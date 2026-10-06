@@ -692,7 +692,7 @@ public:                                                 // opcodes handlers
     void HandleCharDeleteOpcode(WorldPacket& recvPacket);
     void HandleCharCreateOpcode(WorldPacket& recvPacket);
     void HandlePlayerLoginOpcode(WorldPacket& recvPacket);
-    void HandleCharEnum(PreparedQueryResult result);
+    void HandleCharEnum(PreparedQueryResult result, PreparedQueryResult permanentAuras);
     void HandlePlayerLoginFromDB(LoginQueryHolder const& holder);
     void HandlePlayerLoginToCharInWorld(Player* pCurrChar);
     void HandlePlayerLoginToCharOutOfWorld(Player* pCurrChar);

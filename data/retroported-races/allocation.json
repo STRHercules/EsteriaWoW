@@ -38,6 +38,12 @@
     "thinhuman": [
       58,
       59
+    ],
+    "ogre": [
+      60
+    ],
+    "furbolg": [
+      61
     ]
   },
   "dbc_ranges": {
@@ -47,7 +53,7 @@
     ],
     "CreatureDisplayInfo": [
       60030,
-      60052
+      60056
     ],
     "CreatureDisplayInfoExtra": [
       60000,
@@ -55,27 +61,27 @@
     ],
     "CharSections": [
       450000,
-      1002199
+      1100999
     ],
     "CharHairGeosets": [
       450000,
-      1002199
+      1100999
     ],
     "CharHairTextures": [
       450000,
-      451999
+      1100999
     ],
     "BarberShopStyle": [
       450000,
-      1002199
+      1100999
     ],
     "CharStartOutfit": [
       21000,
-      21999
+      22039
     ],
     "NameGen": [
       22000,
-      59999
+      65999
     ]
   },
   "race_allocations": {
@@ -417,6 +423,74 @@
       "NameGen": [
         54000,
         59999
+      ]
+    },
+    "ogre": {
+      "CreatureModelData": {
+        "male": 120062,
+        "female": 120063
+      },
+      "CreatureDisplayInfo": {
+        "male": 60053,
+        "female": 60054
+      },
+      "CharSections": [
+        1100000,
+        1100699
+      ],
+      "CharHairGeosets": [
+        1100000,
+        1100699
+      ],
+      "CharHairTextures": [
+        1100000,
+        1100699
+      ],
+      "BarberShopStyle": [
+        1100000,
+        1100699
+      ],
+      "CharStartOutfit": [
+        22000,
+        22019
+      ],
+      "NameGen": [
+        60000,
+        62999
+      ]
+    },
+    "furbolg": {
+      "CreatureModelData": {
+        "male": 120064,
+        "female": 120065
+      },
+      "CreatureDisplayInfo": {
+        "male": 60055,
+        "female": 60056
+      },
+      "CharSections": [
+        1100700,
+        1100999
+      ],
+      "CharHairGeosets": [
+        1100700,
+        1100999
+      ],
+      "CharHairTextures": [
+        1100700,
+        1100999
+      ],
+      "BarberShopStyle": [
+        1100700,
+        1100999
+      ],
+      "CharStartOutfit": [
+        22020,
+        22039
+      ],
+      "NameGen": [
+        63000,
+        65999
       ]
     }
   }

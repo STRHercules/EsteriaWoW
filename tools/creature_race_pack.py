@@ -336,6 +336,9 @@ def convert(slugs):
 
 
 def profiles(slug):
+    manifest = p.load_manifest(slug)
+    if manifest.get('appearance', {}).get('source') == 'sirus-naga':
+        return manifest['appearance']['profiles']
     discovery = p.load_json(WORK / slug / "reports/discovery.json")
     result = {}
     for model in discovery["models"]:
@@ -355,7 +358,7 @@ def profiles(slug):
 
 
 def header():
-    lines = ['// Generated from the pinned Retail NPC customization graph by tools/creature_race_pack.py.',
+    lines = ['// Generated from the selected race sources by tools/creature_race_pack.py.',
              '#ifndef ACORE_CREATURE_APPEARANCE_H', '#define ACORE_CREATURE_APPEARANCE_H', '',
              '#include <array>', '#include <cstdint>', '', 'namespace CreatureAppearance', '{',
              '    struct Option', '    {', '        unsigned field;', '        unsigned count;',
@@ -393,6 +396,8 @@ def prepare(slugs):
     from haranir_race_pack import lznt1
     from vulpera_models import split_atlas
     for slug in slugs:
+        if p.load_manifest(slug).get('appearance', {}).get('source') == 'sirus-naga':
+            raise ValueError('Prepare the Sirus Naga replacement with tools/sirus_naga_pack.py')
         root = WORK / slug
         discovery = p.load_json(root / 'reports/discovery.json')
         inventory = p.load_json(root / 'reports/source-inventory.json')

@@ -1,0 +1,274 @@
+{
+  "generatedAt": "2026-10-04T06:00:13.872Z",
+  "root": "D:/Sirus/_client/World of Warcraft Sirus/Risen_Depths_Extract_2026-10-04",
+  "map": {
+    "mapId": 10001,
+    "areaId": 10050,
+    "terrainInternalName": "Sirus2",
+    "worldMapInternalName": "RisingDepths"
+  },
+  "physical": {
+    "files": 2807,
+    "bytes": 556164269,
+    "mib": 530.4
+  },
+  "manifestCopies": 2772,
+  "uniqueInternalMpqPaths": 2427,
+  "directories": {
+    "MapFiles": {
+      "files": 186,
+      "bytes": 346869450
+    },
+    "ADTDependencies": {
+      "files": 394,
+      "bytes": 14651867
+    },
+    "AssetClosure": {
+      "files": 1947,
+      "bytes": 119388617
+    },
+    "ZoneDBCs": {
+      "files": 52,
+      "bytes": 13565816
+    },
+    "WorldMapArt": {
+      "files": 54,
+      "bytes": 4608464
+    },
+    "ZoneExtras": {
+      "files": 105,
+      "bytes": 48820170
+    },
+    "LiquidAssets": {
+      "files": 34,
+      "bytes": 4672016
+    },
+    "Minimap": {
+      "files": 1,
+      "bytes": 1805597
+    }
+  },
+  "terrain": {
+    "activeTiles": {
+      "x": [
+        28,
+        36
+      ],
+      "y": [
+        28,
+        36
+      ],
+      "count": 81
+    },
+    "mapCopies": 186,
+    "uniqueMapPaths": 83,
+    "adtCopiesParsed": 181,
+    "directDependencies": 386,
+    "directDependencyKinds": {
+      "terrain_texture": 25,
+      "doodad_model": 320,
+      "wmo": 41
+    },
+    "doodadPlacementsAcrossVersions": 26902,
+    "wmoPlacementsAcrossVersions": 502
+  },
+  "recursiveClosure": {
+    "uniquePaths": 1739,
+    "copies": 1947,
+    "parsedM2Copies": 628,
+    "parsedWmoCopies": 41,
+    "unresolvedRawStringCandidates": 6,
+    "extractionFailures": 0
+  },
+  "worldMapArt": {
+    "uniquePaths": 54,
+    "directory": "RisingDepths"
+  },
+  "zoneExtras": {
+    "uniquePaths": 105,
+    "missing": [
+      {
+        "path": "Environments\\Stars\\JadeForestSky01.m2",
+        "kinds": [
+          "light-skybox"
+        ],
+        "logical": []
+      }
+    ]
+  },
+  "liquidTypes": [
+    1,
+    2,
+    5
+  ],
+  "liquidAssets": {
+    "uniquePaths": 34,
+    "optionalListfileCandidatesAbsent": 66
+  },
+  "dbcs": {
+    "Map": 1,
+    "AreaTable": 27,
+    "WorldMapArea": 2,
+    "WorldMapOverlay": 18,
+    "AreaPOI": 28,
+    "AreaGroup": 0,
+    "AreaTrigger": 1,
+    "WorldSafeLocs": 4,
+    "TaxiNodes": 0,
+    "TaxiPathNode": 0,
+    "TaxiPath": 0,
+    "Light": 20,
+    "LightParams": 10,
+    "LightSkybox": 4,
+    "WorldStateZoneSounds": 0,
+    "WorldStateUI": 0,
+    "WorldMapTransforms": 0,
+    "ZoneIntroMusicTable": 0,
+    "ZoneMusic": 0,
+    "SoundAmbience": 0
+  },
+  "areas": [
+    {
+      "id": 10004,
+      "name": "Укрытие",
+      "terrainTiles": 0
+    },
+    {
+      "id": 10050,
+      "name": "Поднявшиеся глубины",
+      "terrainTiles": 10
+    },
+    {
+      "id": 10051,
+      "name": "Затопленные руины",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10052,
+      "name": "Нерестилище",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10053,
+      "name": "Логово Карибдис",
+      "terrainTiles": 1
+    },
+    {
+      "id": 10054,
+      "name": "Земли Жемчужного Плавника",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10055,
+      "name": "Ржавое ущелье",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10056,
+      "name": "Аммонитовый риф",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10058,
+      "name": "Молниевая Лагуна",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10059,
+      "name": "Туманная отмель",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10060,
+      "name": "Остров Проклятых",
+      "terrainTiles": 3
+    },
+    {
+      "id": 10061,
+      "name": "Остров Кровавого Прилива",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10062,
+      "name": "Сердце Мглы",
+      "terrainTiles": 3
+    },
+    {
+      "id": 10064,
+      "name": "Гряда Аквариона",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10065,
+      "name": "Бездна",
+      "terrainTiles": 12
+    },
+    {
+      "id": 10066,
+      "name": "Остров Кораллового Когтя",
+      "terrainTiles": 3
+    },
+    {
+      "id": 10067,
+      "name": "Стоянка Элементалей",
+      "terrainTiles": 1
+    },
+    {
+      "id": 10068,
+      "name": "Ведьмин остров",
+      "terrainTiles": 1
+    },
+    {
+      "id": 10069,
+      "name": "Проклятый Корабль",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10070,
+      "name": "Хищный Риф",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10071,
+      "name": "Мемориал Кало'теры",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10072,
+      "name": "Храм Тел'серай ",
+      "terrainTiles": 2
+    },
+    {
+      "id": 10073,
+      "name": "Ставка Наместницы",
+      "terrainTiles": 1
+    },
+    {
+      "id": 10074,
+      "name": "Усыпальница Кракена",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10075,
+      "name": "Руины Хажири",
+      "terrainTiles": 4
+    },
+    {
+      "id": 10433,
+      "name": "Бескрайние глубины",
+      "terrainTiles": 78
+    },
+    {
+      "id": 10465,
+      "name": "Логово сектантов",
+      "terrainTiles": 0
+    }
+  ],
+  "failureCsvRows": {
+    "map_files_failures.csv": 0,
+    "adt_dependency_failures.csv": 0,
+    "asset_closure_failures.csv": 0,
+    "zone_dbc_failures.csv": 0,
+    "zone_extras_failures.csv": 0
+  }
+}

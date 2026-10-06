@@ -56,6 +56,7 @@
 #include "SocialMgr.h"
 #include "SpellAuraEffects.h"
 #include "SpellAuras.h"
+#include "SpellMgr.h"
 #include "StringConvert.h"
 #include "TC9Sidecar.h"
 #include "Tokenize.h"
@@ -66,6 +67,8 @@
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include "WorldSessionMgr.h"
+
+#include <unordered_map>
 
 LoginQueryHolder::LoginQueryHolder(uint32 accountId, ObjectGuid guid) : m_accountId(accountId), m_guid(guid)
 {
@@ -221,8 +224,21 @@ bool LoginQueryHolder::Initialize()
     return res;
 }
 
-void WorldSession::HandleCharEnum(PreparedQueryResult result)
+void WorldSession::HandleCharEnum(PreparedQueryResult result, PreparedQueryResult permanentAuras)
 {
+    // Cosmetics' server skill mapping is intentionally absent for classless characters.
+    // The existing exclusive wing group identifies equipped wings without changing spell ownership.
+    std::unordered_map<uint32, uint32> wings;
+    if (permanentAuras)
+    {
+        do
+        {
+            uint32 spell = (*permanentAuras)[1].Get<uint32>();
+            if (sSpellMgr->IsSpellMemberOfSpellGroup(spell, SpellGroup(9100)))
+                wings[(*permanentAuras)[0].Get<uint32>()] = spell;
+        } while (permanentAuras->NextRow());
+    }
+
     WorldPacket data(SMSG_CHAR_ENUM, 100);                  // we guess size
 
     uint8 num = 0;
@@ -230,6 +246,8 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
     uint32 extraCount = 0;
     ByteBuffer haranirAppearances;
     uint32 haranirCount = 0;
+    ByteBuffer cosmeticWings;
+    uint32 wingCount = 0;
 
     data << num;
 
@@ -244,6 +262,11 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
             {
                 _legitCharacters.insert(guid);
                 ++num;
+                if (auto wing = wings.find((*result)[0].Get<uint32>()); wing != wings.end())
+                {
+                    cosmeticWings << guid.GetRawValue() << wing->second;
+                    ++wingCount;
+                }
                 if (UsesExtendedAppearance((*result)[2].Get<uint8>()))
                 {
                     extraAppearances << guid.GetRawValue()
@@ -272,6 +295,12 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
         data << haranirCount << uint32(0x32455848); // HXE2: GUID + uint64 extension.
     }
 
+    if (wingCount)
+    {
+        data.append(cosmeticWings);
+        data << wingCount << uint32(0x31475743); // CWG1: GUID + active wing spell, stripped before stock parsing.
+    }
+
     SendPacket(&data);
 }
 
@@ -289,7 +318,18 @@ void WorldSession::HandleCharEnumOpcode(WorldPacket& /*recvData*/)
     stmt->SetData(0, PET_SAVE_AS_CURRENT);
     stmt->SetData(1, GetAccountId());
 
-    _queryProcessor.AddCallback(CharacterDatabase.AsyncQuery(stmt).WithPreparedCallback(std::bind(&WorldSession::HandleCharEnum, this, std::placeholders::_1)));
+    _queryProcessor.AddCallback(CharacterDatabase.AsyncQuery(stmt).WithChainingPreparedCallback(
+        [this](QueryCallback& callback, PreparedQueryResult result)
+        {
+            auto* auraStmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_ENUM_PERMANENT_AURAS);
+            auraStmt->SetData(0, GetAccountId());
+            callback.WithPreparedCallback(
+                [this, result](PreparedQueryResult permanentAuras)
+                {
+                    HandleCharEnum(result, permanentAuras);
+                });
+            callback.SetNextQuery(CharacterDatabase.AsyncQuery(auraStmt));
+        }));
 }
 
 void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)

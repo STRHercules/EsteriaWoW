@@ -1,0 +1,29 @@
+{
+  "candidatePaths": 106,
+  "extractedCopies": 105,
+  "uniquePaths": 105,
+  "missingCount": 1,
+  "missing": [
+    {
+      "path": "Environments\\Stars\\JadeForestSky01.m2",
+      "kinds": [
+        "light-skybox"
+      ],
+      "logical": []
+    }
+  ],
+  "failureCount": 0,
+  "byKind": {
+    "light-skybox": 2,
+    "zone-music-family": 21,
+    "minimap-tile": 81,
+    "loading-screen": 1
+  },
+  "byArchive": {
+    "common.mpq": 1,
+    "patch-6.MPQ": 1,
+    "ruRU/patch-ruRU-5.mpq": 21,
+    "ruRU/patch-ruRU-6.mpq": 81,
+    "ruRU/patch-ruRU-b.mpq": 1
+  }
+}

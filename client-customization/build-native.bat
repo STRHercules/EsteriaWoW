@@ -17,4 +17,8 @@ if not "%errorlevel%"=="0" exit /b %errorlevel%
 cl.exe /nologo /std:c++20 /O2 /EHsc /MT "%~dp0TestCustomizationChoices.cpp" /Fo"%~1\TestCustomizationChoices.obj" /link /DYNAMICBASE:NO /BASE:0x04000000 /OUT:"%~1\TestCustomizationChoices.exe"
 if not "%errorlevel%"=="0" exit /b %errorlevel%
 "%~1\TestCustomizationChoices.exe" "%~1\EsteriaAppearance.dll"
+if not "%errorlevel%"=="0" exit /b %errorlevel%
+cl.exe /nologo /std:c++20 /O2 /EHsc /MT "%~dp0TestCosmeticWings.cpp" /Fo"%~1\TestCosmeticWings.obj" /link /DYNAMICBASE:NO /BASE:0x04000000 /OUT:"%~1\TestCosmeticWings.exe"
+if not "%errorlevel%"=="0" exit /b %errorlevel%
+if exist "%~1\EsteriaCosmeticWings.bin" "%~1\TestCosmeticWings.exe" "%~1\EsteriaAppearance.dll"
 exit /b %errorlevel%
