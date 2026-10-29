@@ -336,47 +336,70 @@ end
 -- Schlichte Doppel-Leiste: oben Traumpfad, darunter das echte Level. Keine Icons.
 local hud = CreateFrame("Frame", "SeasonPassHUDFrame", UIParent)
 hud:SetWidth(280)
-hud:SetHeight(40)
+hud:SetHeight(33)
 hud:SetMovable(true)
 hud:EnableMouse(true)
 hud:SetClampedToScreen(true)
 hud:RegisterForDrag("LeftButton")
 hud:SetFrameStrata("MEDIUM")
 
+local XP_TEX = "Interface\\AddOns\\DragonUI\\Textures\\XP\\"
+
+-- Vanilla-style bar from DragonUI's XP art. Same interface as a StatusBar (the fill is cropped
+-- by hand because a StatusBar would squash the texture); the holder's "border colour" tints the tick overlay.
 local function MakeBar(parent, w, h, r, g, b)
     local holder = CreateFrame("Frame", nil, parent)
     holder:SetWidth(w)
     holder:SetHeight(h)
-    holder:SetBackdrop({
-        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 8, edgeSize = 10,
-        insets = { left = 2, right = 2, top = 2, bottom = 2 },
-    })
-    holder:SetBackdropColor(0, 0, 0, 0.7)
-    local sb = CreateFrame("StatusBar", nil, holder)
-    sb:SetPoint("TOPLEFT", 3, -3)
-    sb:SetPoint("BOTTOMRIGHT", -3, 3)
-    sb:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-    sb:SetStatusBarColor(r, g, b)
-    sb:SetMinMaxValues(0, 100)
-    sb:SetValue(0)
-    local txt = sb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    local bg = holder:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetTexture(XP_TEX .. "Background.tga")
+    bg:SetTexCoord(0, 1130 / 2048, 3 / 32, 25 / 32)
+    local sb = CreateFrame("Frame", nil, holder)
+    sb:SetPoint("TOPLEFT", 2, -1)
+    sb:SetPoint("BOTTOMRIGHT", -2, 1)
+    local fill = sb:CreateTexture(nil, "ARTWORK")
+    fill:SetPoint("TOPLEFT")
+    fill:SetPoint("BOTTOMLEFT")
+    fill:SetTexture(XP_TEX .. "Main.tga")
+    fill:SetDesaturated(1)
+    fill:SetVertexColor(r, g, b)
+    local lo, hi, val = 0, 100, 0
+    local function Refresh()
+        local f = hi > lo and math.min(math.max((val - lo) / (hi - lo), 0), 1) or 0
+        if f <= 0 then fill:Hide() return end
+        fill:Show()
+        fill:SetWidth(math.max(f * sb:GetWidth(), 1))
+        fill:SetTexCoord(2 / 1024, (2 + f * 1018) / 1024, 4 / 32, 26 / 32)
+    end
+    function sb:SetMinMaxValues(a, c) lo, hi = a, c Refresh() end
+    function sb:SetValue(v) val = v Refresh() end
+    function sb:SetStatusBarColor(cr, cg, cb) fill:SetVertexColor(cr, cg, cb) end
+    sb:SetScript("OnSizeChanged", Refresh)
+    local ov = CreateFrame("Frame", nil, holder)
+    ov:SetAllPoints()
+    ov:SetFrameLevel(sb:GetFrameLevel() + 1)
+    local ovTex = ov:CreateTexture(nil, "OVERLAY")
+    ovTex:SetAllPoints()
+    ovTex:SetTexture(XP_TEX .. "Overlay.tga")
+    ovTex:SetTexCoord(0, 1139 / 2048, 0, 1)
+    function holder:SetBackdropBorderColor(cr, cg, cb, ca) ovTex:SetVertexColor(cr, cg, cb, ca) end
+    local txt = ov:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     txt:SetPoint("CENTER", 0, 0)
     return holder, sb, txt
 end
 
-local bpHolder, bpBar, bpText = MakeBar(hud, 280, 21, 1, 0.82, 0)
+local bpHolder, bpBar, bpText = MakeBar(hud, 280, 18, 1, 0.82, 0)
 bpHolder:SetPoint("TOPLEFT", 0, 0)
 local spark = bpBar:CreateTexture(nil, "OVERLAY")
 spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 spark:SetBlendMode("ADD")
 spark:SetWidth(14)
-spark:SetHeight(28)
+spark:SetHeight(24)
 spark:Hide()
 
-local xpHolder, xpBar, xpText = MakeBar(hud, 280, 17, 0.58, 0.0, 0.75)
-xpHolder:SetPoint("TOPLEFT", 0, -22)
+local xpHolder, xpBar, xpText = MakeBar(hud, 280, 14, 0.58, 0.0, 0.75)
+xpHolder:SetPoint("TOPLEFT", 0, -19)
 
 local function ApplySettings()
     local db = DB()
@@ -418,11 +441,11 @@ local function UpdateXP()
     -- Mit Prestige verschwindet die Charakter-Level-Zeile: nur noch der Traumpfad zählt
     if state and (state.prestige or 0) > 0 then
         xpHolder:Hide()
-        hud:SetHeight(21)
+        hud:SetHeight(18)
         return
     end
     xpHolder:Show()
-    hud:SetHeight(40)
+    hud:SetHeight(33)
     local level = UnitLevel("player") or 1
     local xp, xpMax = UnitXP("player") or 0, UnitXPMax("player") or 1
     if xpMax < 1 then xpMax = 1 end
@@ -510,7 +533,7 @@ function SeasonPassHUD_Update(BP)
 end
 
 hud:SetScript("OnDragStart", function(self)
-    if not DB().locked then
+    if IsShiftKeyDown() or not DB().locked then
         self.isMoving = true
         self:StartMoving()
     end
