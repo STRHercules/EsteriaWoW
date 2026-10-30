@@ -36,7 +36,7 @@
   },
   "random_playerbot_enabled": false,
   "appearance": {
-    "mode": "native-stock-five-byte-v1",
+    "mode": "kyrian-five-byte-compatible-v2",
     "supported_genders": [
       0,
       1
@@ -44,32 +44,32 @@
     "profiles": {
       "0": {
         "capacities": [
-          3,
+          19,
           15,
-          3,
-          12,
-          16
+          160,
+          110,
+          96
         ],
         "descriptors": [
           [
             0,
-            3,
+            19,
             1
           ],
           [
             2,
-            3,
+            10,
             1
           ],
           [
             3,
-            4,
+            17,
             1
           ],
           [
-            3,
-            3,
-            4
+            2,
+            16,
+            10
           ],
           [
             1,
@@ -121,32 +121,32 @@
       },
       "1": {
         "capacities": [
-          2,
+          23,
           20,
-          2,
-          8,
-          16
+          95,
+          55,
+          96
         ],
         "descriptors": [
           [
             0,
-            2,
+            23,
             1
           ],
           [
             2,
-            2,
-            1
-          ],
-          [
-            3,
-            4,
+            5,
             1
           ],
           [
             3,
+            25,
+            1
+          ],
+          [
             2,
-            4
+            19,
+            5
           ],
           [
             1,
@@ -196,6 +196,12 @@
           }
         ]
       }
-    }
+    },
+    "wire_codec": "KyrianAppearance.h"
+  },
+  "upstream": {
+    "package_version": "kyrian-venthyr-20261027-1",
+    "client_revision": "6c06cde13cbe2bc17fc787f3ddb4a8521191b220",
+    "server_revision": "ab30898aabce585a2f07686e902d0cb644fc71bf"
   }
 }

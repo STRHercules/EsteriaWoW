@@ -364,7 +364,8 @@ def profiles(slug):
 def header():
     lines = ['// Generated from the selected race sources by tools/creature_race_pack.py.',
              '#ifndef ACORE_CREATURE_APPEARANCE_H', '#define ACORE_CREATURE_APPEARANCE_H', '',
-             '#include <array>', '#include <cstdint>', '', 'namespace CreatureAppearance', '{',
+             '#include "KyrianAppearance.h"', '', '#include <array>', '#include <cstdint>', '',
+             'namespace CreatureAppearance', '{',
              '    struct Option', '    {', '        unsigned field;', '        unsigned count;',
              '        unsigned factor;', '    };', '']
     header_specs = dict(SPECS)

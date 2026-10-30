@@ -2,6 +2,8 @@
 #ifndef ACORE_CREATURE_APPEARANCE_H
 #define ACORE_CREATURE_APPEARANCE_H
 
+#include "KyrianAppearance.h"
+
 #include <array>
 #include <cstdint>
 
@@ -199,19 +201,19 @@ namespace CreatureAppearance
     }};
 
     inline constexpr std::array<Option, 5> KyrianMale = {{
-        {0, 3, 1},
+        {0, 19, 1},
         {1, 15, 1},
-        {2, 3, 1},
-        {3, 12, 1},
-        {4, 16, 1},
+        {2, 160, 1},
+        {3, 110, 1},
+        {4, 96, 1}, // Values 80..95 mark independently packed new palettes.
     }};
 
     inline constexpr std::array<Option, 5> KyrianFemale = {{
-        {0, 2, 1},
+        {0, 23, 1},
         {1, 20, 1},
-        {2, 2, 1},
-        {3, 8, 1},
-        {4, 16, 1},
+        {2, 95, 1},
+        {3, 55, 1},
+        {4, 96, 1},
     }};
 
     inline constexpr std::array<Option, 5> VenthyrMale = {{
@@ -299,14 +301,8 @@ namespace CreatureAppearance
     };
 
     inline constexpr std::array<Option, 8> KyrianMaleControls = {{
-        {0, 3, 1},
-        {2, 3, 1},
-        {3, 4, 1},
-        {3, 3, 4},
-        {1, 3, 1},
-        {1, 5, 3},
-        {4, 4, 1},
-        {4, 4, 4},
+        {0, 19, 1}, {2, 10, 1}, {3, 17, 1}, {2, 16, 10},
+        {1, 3, 1}, {1, 5, 3}, {4, 4, 1}, {4, 4, 4},
     }};
 
     inline constexpr std::array<char const*, 8> KyrianMaleLabels = {
@@ -321,14 +317,8 @@ namespace CreatureAppearance
     };
 
     inline constexpr std::array<Option, 8> KyrianFemaleControls = {{
-        {0, 2, 1},
-        {2, 2, 1},
-        {3, 4, 1},
-        {3, 2, 4},
-        {1, 4, 1},
-        {1, 5, 4},
-        {4, 4, 1},
-        {4, 4, 4},
+        {0, 23, 1}, {2, 5, 1}, {3, 25, 1}, {2, 19, 5},
+        {1, 4, 1}, {1, 5, 4}, {4, 4, 1}, {4, 4, 4},
     }};
 
     inline constexpr std::array<char const*, 8> KyrianFemaleLabels = {

@@ -16,6 +16,7 @@
  */
 
 #include "Player.h"
+#include "KyrianRacials.h"
 #include "EyeEffects.h"
 #include "AccountMgr.h"
 #include "AchievementMgr.h"
@@ -14500,6 +14501,9 @@ void Player::HandleFall(MovementInfo const& movementInfo)
                     && HasAura(SlimeCentaurRacials::Bouncy);
                 if (bouncy)
                     damage /= 2;
+
+                if (getRace(true) == KyrianRacials::Race && HasAura(KyrianRacials::AscendedWings))
+                    damage = CalculatePct(damage, 100 - KyrianRacials::FallReductionPercent);
 
                 final_damage = EnvironmentalDamage(DAMAGE_FALL, damage);
 
