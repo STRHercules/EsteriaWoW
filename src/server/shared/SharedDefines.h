@@ -950,6 +950,32 @@ constexpr bool IsValidPlayerTeamId(uint32 teamId)
 // `.agents/plans/freeborn-hostility/` for the contract and the deployment steps.
 constexpr uint32 FREEBORN_FACTION_TEMPLATE = 2237;
 
+// Races that are always Freeborn: their characters are created on, and kept on, TEAM_FREEBORN.
+// Every other race is always on its ChrRaces Alliance/Horde team. Both IDs of a twin race count,
+// though only the Alliance twin is offered on the creation screen.
+constexpr bool IsFreebornRace(uint8 race)
+{
+    switch (race)
+    {
+        case RACE_SETHRAK: case RACE_SETHRAK_ALLIANCE:
+        case RACE_VRYKUL_ALLIANCE: case RACE_VRYKUL_HORDE:
+        case RACE_THIN_HUMAN_ALLIANCE: case RACE_THIN_HUMAN_HORDE:
+        case RACE_OGRE_ALLIANCE: case RACE_OGRE_HORDE:
+        case RACE_SLIME_GIANT_ALLIANCE: case RACE_SLIME_GIANT_HORDE:
+        case RACE_CENTAUR_ALLIANCE: case RACE_CENTAUR_HORDE:
+        case RACE_DRAKONID_ALLIANCE: case RACE_DRAKONID_HORDE:
+        case RACE_ETHEREAL_ALLIANCE: case RACE_ETHEREAL_HORDE:
+        case RACE_NAGA_HORDE:
+        case RACE_EREDAR:
+        case RACE_GNOLL_HORDE:
+        case RACE_SABERON_HORDE:
+        case RACE_ARAKKOA_HORDE:
+            return true;
+        default:
+            return false;
+    }
+}
+
 constexpr bool IsFreebornHostilePlayerTeamPair(TeamId teamId, TeamId targetTeamId)
 {
     return IsValidPlayerTeamId(teamId) && IsValidPlayerTeamId(targetTeamId) &&

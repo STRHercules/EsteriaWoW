@@ -92,3 +92,18 @@ TEST(FreebornTeamTest, TeamConditionsAreSatisfiedByBothSidesForFreeborn)
     // A value that is not a team is not satisfied by the Freeborn both-sides rule.
     EXPECT_FALSE(SatisfiesTeamCondition(TEAM_FREEBORN, 0));
 }
+
+TEST(FreebornTeamTest, FreebornRacesAreExactlyTheFreebornSet)
+{
+    // Both twins of a moved race are Freeborn.
+    EXPECT_TRUE(IsFreebornRace(RACE_VRYKUL_ALLIANCE));
+    EXPECT_TRUE(IsFreebornRace(RACE_VRYKUL_HORDE));
+    EXPECT_TRUE(IsFreebornRace(RACE_SETHRAK));
+    EXPECT_TRUE(IsFreebornRace(RACE_ARAKKOA_HORDE));
+    EXPECT_TRUE(IsFreebornRace(RACE_EREDAR));
+
+    EXPECT_FALSE(IsFreebornRace(RACE_HUMAN));
+    EXPECT_FALSE(IsFreebornRace(RACE_ORC));
+    EXPECT_FALSE(IsFreebornRace(RACE_KYRIAN_ALLIANCE));
+    EXPECT_FALSE(IsFreebornRace(RACE_JINYU_ALLIANCE));
+}

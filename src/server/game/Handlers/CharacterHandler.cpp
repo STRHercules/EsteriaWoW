@@ -2496,7 +2496,6 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
         SendCharFactionChange(CHAR_CREATE_ERROR, factionChangeInfo.get());
         return;
     }
-    TeamId const oldPersistentTeamId = static_cast<TeamId>(oldPersistentTeamValue);
 
     uint32 usedLoginFlag = (factionChangeInfo->FactionChange ? AT_LOGIN_CHANGE_FACTION : AT_LOGIN_CHANGE_RACE);
     if (!(atLoginFlags & usedLoginFlag))
@@ -2558,7 +2557,7 @@ void WorldSession::HandleCharFactionOrRaceChangeCallback(std::shared_ptr<Charact
     }
 
     TeamId newTeam = Player::TeamIdForRace(factionChangeInfo->Race);
-    TeamId const newPersistentTeamId = oldPersistentTeamId == TEAM_FREEBORN ? TEAM_FREEBORN : newTeam;
+    TeamId const newPersistentTeamId = Player::PersistentTeamIdForRace(factionChangeInfo->Race);
     if (factionChangeInfo->FactionChange == (Player::TeamIdForRace(oldRace) == newTeam))
     {
         SendCharFactionChange(factionChangeInfo->FactionChange ? CHAR_CREATE_CHARACTER_SWAP_FACTION : CHAR_CREATE_CHARACTER_RACE_ONLY, factionChangeInfo.get());

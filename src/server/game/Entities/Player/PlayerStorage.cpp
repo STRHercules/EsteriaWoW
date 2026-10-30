@@ -5110,7 +5110,9 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     // TINYINT UNSIGNED: must be read as uint8, or Field::GetData's raw reinterpret_cast reads past
     // the column into neighbouring row bytes. See the note in Player::BuildEnumData.
     uint32 const persistentTeamId = fields[75].Get<uint8>();
-    if (!IsValidPlayerTeamId(persistentTeamId) || !InitializeTeamId(static_cast<TeamId>(persistentTeamId)))
+    // The team follows the race, so a stale stored team (an old Freeborn claim) is corrected here
+    // and written back on the next save.
+    if (!IsValidPlayerTeamId(persistentTeamId) || !InitializeTeamId(PersistentTeamIdForRace(m_realRace)))
     {
         LOG_ERROR("entities.player", "Player ({}) has invalid persistent team id {}; can't load.",
             playerGuid.ToString(), persistentTeamId);

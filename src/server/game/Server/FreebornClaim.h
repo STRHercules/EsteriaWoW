@@ -96,7 +96,8 @@ namespace FreebornClaim
         if (msg != ClaimEnvelope)
             return false;
 
-        if (player->GetTeamId() == TEAM_FREEBORN)
+        // Freeborn is decided by race now; a claim from an older client is accepted and ignored.
+        if (player->GetTeamId() == TEAM_FREEBORN || !IsFreebornRace(player->getRace(true)))
             return true;
 
         if (!player->SetPersistentTeamId(TEAM_FREEBORN))

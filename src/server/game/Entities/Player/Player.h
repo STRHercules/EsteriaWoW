@@ -2164,6 +2164,8 @@ public:
     void CheckAreaExploreAndOutdoor();
 
     static TeamId TeamIdForRace(uint8 race);
+    // The team a character of this race is always on: Freeborn races are Freeborn, the rest follow ChrRaces.
+    static TeamId PersistentTeamIdForRace(uint8 race) { return IsFreebornRace(race) ? TEAM_FREEBORN : TeamIdForRace(race); }
     [[nodiscard]] TeamId GetTeamId(bool original = false) const { return original ? GetOriginTeamId() : m_team; };
     [[nodiscard]] TeamId GetOriginTeamId() const { return TeamIdForRace(getRace(true)); }
     [[nodiscard]] bool IsFreeborn() const { return m_team == TEAM_FREEBORN; }

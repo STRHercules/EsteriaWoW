@@ -537,7 +537,7 @@ bool Player::Create(ObjectGuid::LowType guidlow, CharacterCreateInfo* createInfo
     m_realRace = createInfo->Race; // set real race flag
     m_race = createInfo->Race; // set real race flag
 
-    if (!InitializeTeamId(TeamIdForRace(createInfo->Race)))
+    if (!InitializeTeamId(PersistentTeamIdForRace(createInfo->Race)))
         return false;
 
     SetFactionForRace(createInfo->Race);
