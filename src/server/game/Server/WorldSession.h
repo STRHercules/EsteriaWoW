@@ -704,6 +704,11 @@ public:                                                 // opcodes handlers
     void HandleCharEnumOpcode(WorldPacket& recvPacket);
     void HandleEsteriaInventoryOpcode(WorldPacket& recvPacket);
     void HandleEsteriaFormLookOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaSwapRequestOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaSwapRosterRequestOpcode(WorldPacket& recvPacket);
+    uint32 GetSwapCooldownMs() const;
+    // The current character was logged in by a character swap; module login hooks can skip greetings on it.
+    bool IsSwapLogin() const { return _swapLogin; }
     bool IsAtBanker() const { return CanUseBank(); }
     void HandleCharDeleteOpcode(WorldPacket& recvPacket);
     void HandleCharCreateOpcode(WorldPacket& recvPacket);
@@ -1334,6 +1339,9 @@ private:
     bool m_playerLoading;                               // code processed in LoginPlayer
     bool m_playerLogout;                                // code processed in LogoutPlayer
     bool m_playerRecentlyLogout;
+    Milliseconds _swapTime = 0ms;                       // last accepted CMSG_ESTERIA_SWAP_REQUEST
+    ObjectGuid _swapTarget;                             // the login that the last swap is waiting for
+    bool _swapLogin = false;
     bool m_playerSave;
     LocaleConstant m_sessionDbcLocale;
     LocaleConstant m_sessionDbLocaleIndex;

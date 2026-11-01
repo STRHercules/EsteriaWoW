@@ -4937,3 +4937,25 @@ Cluster.IsCrossrealm=0
 # CLUSTER SETTINGS END                                                                            #
 #                                                                                                 #
 ###################################################################################################
+
+###################################################################################################
+# ESTERIA CHARACTER SWAP
+#
+#    Esteria.Swap.Enable
+#        Description: Lets a player in the world switch to another character on the account from the
+#                     character swap wheel, at safe moments only. Refused in cluster mode and when
+#                     CharacterDatabase.WorkerThreads is above 1.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+Esteria.Swap.Enable = 0
+
+#
+#    Esteria.Swap.CooldownSeconds
+#        Description: Time between two swaps of one session.
+#        Default:     30
+
+Esteria.Swap.CooldownSeconds = 30
+
+#
+###################################################################################################

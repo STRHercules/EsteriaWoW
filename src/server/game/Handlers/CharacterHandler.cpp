@@ -994,6 +994,9 @@ void WorldSession::HandlePlayerLoginOpcode(WorldPacket& recvData)
         return;
     }
 
+    _swapLogin = playerGuid == _swapTarget && GameTime::GetGameTimeMS() - _swapTime < 30s;
+    _swapTarget.Clear();
+
     // pussywizard:
     if (WorldSession* sess = sWorldSessionMgr->FindOfflineSessionForCharacterGUID(playerGuid.GetCounter()))
     {
@@ -1127,7 +1130,8 @@ void WorldSession::HandlePlayerLoginFromDB(LoginQueryHolder const& holder)
     data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
     SendPacket(&data);
 
-    // Send MOTD
+    // Send MOTD (a character swap is not a new visit to the realm)
+    if (!_swapLogin)
     {
         SendPacket(sMotdMgr->GetMotdPacket(pCurrChar->GetSession()->GetSessionDbLocaleIndex()));
 
@@ -1457,7 +1461,8 @@ void WorldSession::HandlePlayerLoginToCharInWorld(Player* pCurrChar)
     data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
     SendPacket(&data);
 
-    // Send MOTD
+    // Send MOTD (a character swap is not a new visit to the realm)
+    if (!_swapLogin)
     {
         SendPacket(sMotdMgr->GetMotdPacket(pCurrChar->GetSession()->GetSessionDbLocaleIndex()));
 
