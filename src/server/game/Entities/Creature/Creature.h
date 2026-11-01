@@ -70,6 +70,7 @@ public:
 
     void Update(uint32 time) override;  // overwrited Unit::Update
     void GetRespawnPosition(float& x, float& y, float& z, float* ori = nullptr, float* dist = nullptr) const;
+    [[nodiscard]] float GetSpawnFloorZ(CreatureData const* data) const;
 
     void SetCorpseDelay(uint32 delay) { m_corpseDelay = delay; }
     void SetCorpseRemoveTime(uint32 delay);

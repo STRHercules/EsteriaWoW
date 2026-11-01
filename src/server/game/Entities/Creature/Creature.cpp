@@ -1728,8 +1728,12 @@ bool Creature::LoadCreatureFromDB(ObjectGuid::LowType spawnId, Map* map, bool ad
     if (!Create(map->GenerateLowGuid<HighGuid::Unit>(), map, data->phaseMask, entry, 0, data->posX, data->posY, data->posZ, data->orientation, data))
         return false;
 
+    float const spawnZ = GetSpawnFloorZ(data);
+    if (spawnZ != data->posZ)
+        Relocate(data->posX, data->posY, spawnZ + GetHoverHeight());
+
     //We should set first home position, because then AI calls home movement
-    SetHomePosition(data->posX, data->posY, data->posZ, data->orientation);
+    SetHomePosition(data->posX, data->posY, spawnZ, data->orientation);
 
     m_wanderDistance = data->wander_distance;
 
@@ -3074,7 +3078,7 @@ void Creature::GetRespawnPosition(float& x, float& y, float& z, float* ori, floa
         {
             x = data->posX;
             y = data->posY;
-            z = data->posZ;
+            z = GetSpawnFloorZ(data);
             if (ori)
                 *ori = data->orientation;
             if (dist)
@@ -3104,6 +3108,16 @@ void Creature::GetRespawnPosition(float& x, float& y, float& z, float* ori, floa
     }
     if (dist)
         *dist = 0;
+}
+
+// Stored Z of idle ground spawns predates replaced terrain/WMOs; lift ones sunk up to 1 yd onto the floor.
+float Creature::GetSpawnFloorZ(CreatureData const* data) const
+{
+    if (data->movementType != IDLE_MOTION_TYPE || CanFly() || GetTransport())
+        return data->posZ;
+
+    float const floorZ = GetMapHeight(data->posX, data->posY, data->posZ);
+    return (floorZ > data->posZ && floorZ - data->posZ <= 1.0f) ? floorZ : data->posZ;
 }
 
 CreatureMovementData const& Creature::GetMovementTemplate() const
