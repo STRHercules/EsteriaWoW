@@ -41,6 +41,12 @@ target_compile_options(acore-compile-option-interface
       /Zc:preprocessor)
 message(STATUS "MSVC: Enabled standard conforming preprocessor")
 
+# Template-heavy modules can exceed the standard object section limit in any configuration.
+target_compile_options(acore-compile-option-interface
+  INTERFACE
+    /bigobj)
+message(STATUS "MSVC: Enabled extended object support for all configurations")
+
 if(PLATFORM EQUAL 64)
   # This definition is necessary to work around a bug with Intellisense described
   # here: http://tinyurl.com/2cb428.  Syntax highlighting is important for proper
@@ -49,10 +55,6 @@ if(PLATFORM EQUAL 64)
     INTERFACE
       -D_WIN64)
   message(STATUS "MSVC: 64-bit platform, enforced -D_WIN64 parameter")
-
-  # Enable extended object support for debug compiles on X64 (not required on X86)
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /bigobj")
-  message(STATUS "MSVC: Enabled extended object-support for debug-compiles")
 else()
   # mark 32 bit executables large address aware so they can use > 2GB address space
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /LARGEADDRESSAWARE")
