@@ -4959,3 +4959,26 @@ Esteria.Swap.CooldownSeconds = 30
 
 #
 ###################################################################################################
+
+###################################################################################################
+# ESTERIA PATHS OF FATE
+#
+#    Esteria.Perks.Enable
+#        Description: Perk points from level 10, perk purchases and respecs (Paths of Fate). Off, the client is
+#                     told the feature is disabled and owned perks have no effect; nothing is deleted.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+Esteria.Perks.Enable = 0
+
+#
+#    Esteria.Perks.SellPlanned
+#        Description: Lets players buy perks that have no effect yet and legendaries without their feat. For
+#                     testing the perk system on a development realm only.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+Esteria.Perks.SellPlanned = 0
+
+#
+###################################################################################################

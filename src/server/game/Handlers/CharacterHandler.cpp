@@ -244,6 +244,14 @@ bool LoginQueryHolder::Initialize()
     stmt->SetData(0, rawGUID);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK, stmt);
 
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_PERK_PROFILE);
+    stmt->SetData(0, rawGUID);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERK_PROFILE, stmt);
+
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_PERKS);
+    stmt->SetData(0, rawGUID);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS, stmt);
+
     return res;
 }
 
@@ -438,6 +446,20 @@ void WorldSession::HandleCharEnumOpcode(WorldPacket& /*recvData*/)
         }));
 }
 
+// The playercreateinfo row whose start the picked zone uses. Null keeps the race's own start: no pick or a Death Knight
+// (Acherus is the only start). Any race may pick any zone: the realm is faction free.
+static PlayerInfo const* ResolveStartZone(bool picked, uint8 zone, uint8 playerClass)
+{
+    if (!picked || zone == CharacterStartZone::RaceDefault || playerClass == CLASS_DEATH_KNIGHT)
+        return nullptr;
+
+    uint8 const race = CharacterStartZone::Race(zone);
+
+    // Every race has a Warrior row, whatever its other classes.
+    PlayerInfo const* start = sObjectMgr->GetPlayerInfo(race, playerClass);
+    return start ? start : sObjectMgr->GetPlayerInfo(race, CLASS_WARRIOR);
+}
+
 void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
 {
     std::shared_ptr<CharacterCreateInfo> createInfo = std::make_shared<CharacterCreateInfo>();
@@ -458,6 +480,21 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
         SendCharCreate(CHAR_CREATE_DISABLED);
         return;
     }
+
+    // Footers come off the end in reverse order of how the client appended them: the trait went on last.
+    if (!CharacterPerkTrait::ReadTail(recvData, createInfo->HasPerkTrait, createInfo->PerkTrait))
+    {
+        SendCharCreate(CHAR_CREATE_FAILED);
+        return;
+    }
+
+    if (!CharacterStartZone::ReadTail(recvData, createInfo->HasStartZone, createInfo->StartZone))
+    {
+        SendCharCreate(CHAR_CREATE_FAILED);
+        return;
+    }
+
+    createInfo->StartInfo = ResolveStartZone(createInfo->HasStartZone, createInfo->StartZone, createInfo->Class);
 
     if (!CharacterRetailLook::ReadTail(recvData, createInfo->HasRetailLook, createInfo->RetailLook)
         || (createInfo->HasRetailLook && (createInfo->RetailLook.race != createInfo->Race || createInfo->RetailLook.sex != createInfo->Gender)))
@@ -858,6 +895,27 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
                             lookStmt->SetData(0, newChar->GetGUID().GetCounter());
                             lookStmt->SetData(1, payload);
                             characterTransaction->Append(lookStmt);
+                        }
+
+                        if (PlayerInfo const* start = createInfo->StartInfo)
+                        {
+                            // Without a row the first login binds the hearthstone to the race's own start.
+                            CharacterDatabasePreparedStatement* bindStmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_PLAYER_HOMEBIND);
+                            bindStmt->SetData(0, newChar->GetGUID().GetCounter());
+                            bindStmt->SetData(1, start->mapId);
+                            bindStmt->SetData(2, start->areaId);
+                            bindStmt->SetData(3, start->positionX);
+                            bindStmt->SetData(4, start->positionY);
+                            bindStmt->SetData(5, start->positionZ);
+                            characterTransaction->Append(bindStmt);
+                        }
+
+                        if (createInfo->HasPerkTrait)
+                        {
+                            CharacterDatabasePreparedStatement* traitStmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_PERK_PROFILE);
+                            traitStmt->SetData(0, newChar->GetGUID().GetCounter());
+                            traitStmt->SetData(1, createInfo->PerkTrait);
+                            characterTransaction->Append(traitStmt);
                         }
 
                         LoginDatabasePreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_DEL_REALM_CHARACTERS_BY_REALM);

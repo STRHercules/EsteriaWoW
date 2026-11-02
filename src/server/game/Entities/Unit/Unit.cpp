@@ -16,6 +16,7 @@
  */
 
 #include "Unit.h"
+#include "PerkFx.h"
 #include "AbstractFollower.h"
 #include "AreaDefines.h"
 #include "ArenaSpectator.h"
@@ -11243,6 +11244,10 @@ void Unit::UpdateSpeed(UnitMoveType mtype, bool forced)
         if (AuraEffect const* plainsrunner = GetAuraEffect(SlimeCentaurRacials::PlainsrunnerSpeed, EFFECT_0))
             AddPct(speed, plainsrunner->GetAmount());
 
+    if (mtype == MOVE_RUN)
+        if (Player const* player = ToPlayer())
+            AddPct(speed, 100.0f * EsteriaPerkFx::MoveBonus(player));
+
     switch (mtype)
     {
         case MOVE_RUN:
@@ -14214,7 +14219,7 @@ void Unit::Kill(Unit* killer, Unit* victim, bool durabilityLoss, WeaponAttackTyp
         if ((durabilityLoss && !player && !plrVictim->InBattleground()) || (player && sWorld->getBoolConfig(CONFIG_DURABILITY_LOSS_IN_PVP)))
         {
             LOG_DEBUG("entities.unit", "We are dead, losing {} percent durability", sWorld->getRate(RATE_DURABILITY_LOSS_ON_DEATH) / 100.0f);
-            plrVictim->DurabilityLossAll(sWorld->getRate(RATE_DURABILITY_LOSS_ON_DEATH) / 100.0f, false);
+            plrVictim->DurabilityLossAll(sWorld->getRate(RATE_DURABILITY_LOSS_ON_DEATH) / 100.0f * (player ? 1.0f : EsteriaPerkFx::DeathDurabilityMod(plrVictim)), false);
             // durability lost message
             plrVictim->SendDurabilityLoss();
         }
@@ -15251,6 +15256,9 @@ void Unit::ApplyResilience(Unit const* victim, float* crit, int32* damage, bool 
     // player mounted on multi-passenger mount is also classified as vehicle
     if (victim->IsVehicle() && !victim->IsPlayer())
         return;
+
+    if (isCrit && damage)
+        EsteriaPerkFx::OnCritTaken(victim);
 
     Unit const* target = nullptr;
     if (victim->IsPlayer())

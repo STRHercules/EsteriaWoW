@@ -26,7 +26,9 @@
 #include "AddonMgr.h"
 #include "AuthDefines.h"
 #include "BodyShapeWire.h"
+#include "PerkTraitWire.h"
 #include "RetailLookWire.h"
+#include "StartZoneWire.h"
 #include "CircularBuffer.h"
 #include "Common.h"
 #include "DatabaseEnv.h"
@@ -40,6 +42,7 @@
 #include <memory>
 #include <utility>
 
+struct PlayerInfo;
 class Creature;
 class GameObject;
 class InstanceSave;
@@ -387,6 +390,11 @@ protected:
     CharacterBodyShape::Values BodyShape{};
     bool HasRetailLook = false;
     CharacterRetailLook::Look RetailLook;
+    bool HasPerkTrait = false;
+    uint8 PerkTrait = CharacterPerkTrait::Unmarked;
+    bool HasStartZone = false;
+    uint8 StartZone = CharacterStartZone::RaceDefault;
+    PlayerInfo const* StartInfo = nullptr; // set by the handler: the picked zone's start, null for the race's own
 
     /// Server side data
     uint8 CharCount = 0;
@@ -706,6 +714,9 @@ public:                                                 // opcodes handlers
     void HandleEsteriaFormLookOpcode(WorldPacket& recvPacket);
     void HandleEsteriaSwapRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaSwapRosterRequestOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaPerkSnapshotRequestOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaPerkPurchaseOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaPerkRespecOpcode(WorldPacket& recvPacket);
     uint32 GetSwapCooldownMs() const;
     // The current character was logged in by a character swap; module login hooks can skip greetings on it.
     bool IsSwapLogin() const { return _swapLogin; }

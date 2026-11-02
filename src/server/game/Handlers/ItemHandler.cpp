@@ -16,6 +16,7 @@
  */
 
 #include "Common.h"
+#include "PerkFx.h"
 #include "Item.h"
 #include "Log.h"
 #include "ObjectAccessor.h"
@@ -652,7 +653,7 @@ void WorldSession::HandleSellItemOpcode(WorldPackets::Item::SellItem& packet)
         {
             if (pProto->SellPrice > 0)
             {
-                uint32 money = pProto->SellPrice * packet.Count;
+                uint32 money = uint32(float(pProto->SellPrice * packet.Count) * EsteriaPerkFx::SellMod(_player));
                 if (_player->GetMoney() >= MAX_MONEY_AMOUNT - money)               // prevent exceeding gold limit
                 {
                     _player->SendEquipError(EQUIP_ERR_TOO_MUCH_GOLD, nullptr, nullptr);

@@ -19,6 +19,7 @@
 void AddSC_areatrigger_scripts();
 void AddSC_emerald_dragons();
 void AddSC_generic_creature();
+void AddSC_esteria_perk_effects();
 void AddSC_go_scripts();
 void AddSC_guards();
 void AddSC_item_scripts();
@@ -43,6 +44,7 @@ void AddWorldScripts()
     AddSC_areatrigger_scripts();
     AddSC_emerald_dragons();
     AddSC_generic_creature();
+    AddSC_esteria_perk_effects();
     AddSC_go_scripts();
     AddSC_guards();
     AddSC_item_scripts();

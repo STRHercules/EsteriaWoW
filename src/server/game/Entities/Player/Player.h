@@ -20,6 +20,7 @@
 
 #include "ArenaTeam.h"
 #include "BodyShapeWire.h"
+#include "PerkRules.h"
 #include "RetailLookWire.h"
 #include "Battleground.h"
 #include "CharmInfo.h"
@@ -897,6 +898,8 @@ enum PlayerLoginQueryIndex
     PLAYER_LOGIN_QUERY_LOAD_BODY_SHAPE,
     PLAYER_LOGIN_QUERY_LOAD_RETAIL_LOOK,
     PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK,
+    PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERK_PROFILE,
+    PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS,
     MAX_PLAYER_LOGIN_QUERY
 };
 
@@ -1161,6 +1164,16 @@ public:
     // ToggleRetailForm swaps it with the active one, saves both and tells everyone who sees this player; false when
     // there is no saved pair.
     void LoadFormLook(PreparedQueryResult result);
+    // Paths of Fate (PerkRules.h, Handlers/PerkHandler.cpp): background trait, purchased card ranks, respecs.
+    void LoadEsteriaPerks(PreparedQueryResult profile, PreparedQueryResult perks);
+    uint8 GetEsteriaPerkRank(uint8 perk) const; // 0 when not owned or Paths of Fate is off
+    EsteriaPerks::Ranks const& GetEsteriaPerkRanks() const { return _esteriaPerks; }
+    uint8 GetEsteriaTrait() const { return _esteriaTrait; }
+    uint8 GetEsteriaPerkRespecs() const { return _esteriaRespecs; }
+    void SetEsteriaPerkRank(size_t index, uint8 rank) { _esteriaPerks[index] = rank; } // caller checked and saves it
+    // Clears every rank and records why (an EsteriaPerkAudit action); respecs counts toward the next respec's cost.
+    void ResetEsteriaPerks(uint8 auditAction, bool countRespec, uint32 gold);
+    void SendEsteriaPerkSnapshot();
     bool ToggleRetailForm();
     uint8 GetActiveRetailForm() const; // the form (see RetailLookWire.h) of the look showing, 0 when none or the race's default
     void SendTransferAborted(uint32 mapid, TransferAbortReason reason, uint8 arg = 0);
@@ -2830,6 +2843,9 @@ protected:
     void _LoadBrewOfTheMonth(PreparedQueryResult result);
     void _LoadCharacterSettings(PreparedQueryResult result);
     CharacterBodyShape::Values _bodyShape{};
+    EsteriaPerks::Ranks _esteriaPerks{};
+    uint8 _esteriaTrait = 0;
+    uint8 _esteriaRespecs = 0;
     bool _hasRetailLook = false;
     std::array<uint8, CharacterRetailLook::PayloadSize> _retailLook{};
     bool _hasParkedLook = false;

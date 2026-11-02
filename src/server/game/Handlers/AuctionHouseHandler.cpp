@@ -16,6 +16,7 @@
  */
 
 #include "AuctionHouseMgr.h"
+#include "PerkFx.h"
 #include "AuctionHouseSearcher.h"
 #include "Chat.h"
 #include "GameTime.h"
@@ -262,7 +263,7 @@ void WorldSession::HandleAuctionSellItem(WorldPacket& recvData)
         uint32 auctionTime = uint32(etime * sWorld->getRate(RATE_AUCTION_TIME));
         AuctionHouseObject* auctionHouse = sAuctionMgr->GetAuctionsMap(creature->GetFaction());
 
-        uint32 deposit = sAuctionMgr->GetAuctionDeposit(auctionHouseEntry, etime, item, finalCount);
+        uint32 deposit = EsteriaPerkFx::AuctionDeposit(_player, sAuctionMgr->GetAuctionDeposit(auctionHouseEntry, etime, item, finalCount));
         if (!_player->HasEnoughMoney(deposit))
         {
             SendAuctionCommandResult(0, AUCTION_SELL_ITEM, ERR_AUCTION_NOT_ENOUGHT_MONEY);

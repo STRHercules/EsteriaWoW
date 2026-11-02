@@ -16,6 +16,7 @@
  */
 
 #include "Spell.h"
+#include "PerkFx.h"
 #include "ArenaSpectator.h"
 #include "BattlefieldMgr.h"
 #include "Battleground.h"
@@ -7862,6 +7863,7 @@ void Spell::Delayed() // only called in DealDamage()
     int32 delayReduce = 100;                                // must be initialized to 100 for percent modifiers
     m_caster->ToPlayer()->ApplySpellMod(m_spellInfo->Id, SPELLMOD_NOT_LOSE_CASTING_TIME, delayReduce, this);
     delayReduce += m_caster->GetTotalAuraModifier(SPELL_AURA_REDUCE_PUSHBACK) - 100;
+    delayReduce += int32(100.0f * EsteriaPerkFx::PushbackReduction(m_caster->ToPlayer()));
     if (delayReduce >= 100)
         return;
 

@@ -16,6 +16,7 @@
  */
 
 #include "Trainer.h"
+#include "PerkFx.h"
 #include "Creature.h"
 #include "NPCPackets.h"
 #include "Player.h"
@@ -36,7 +37,7 @@ namespace Trainer
 
     void Trainer::SendSpells(Creature* npc, Player* player, LocaleConstant locale) const
     {
-        float reputationDiscount = player->GetReputationPriceDiscount(npc);
+        float reputationDiscount = player->GetReputationPriceDiscount(npc) * EsteriaPerkFx::TrainMod(player);
 
         WorldPackets::NPC::TrainerList trainerList;
         trainerList.TrainerGUID = npc->GetGUID();
@@ -95,7 +96,7 @@ namespace Trainer
             return;
         }
 
-        float reputationDiscount = player->GetReputationPriceDiscount(npc);
+        float reputationDiscount = player->GetReputationPriceDiscount(npc) * EsteriaPerkFx::TrainMod(player);
         int32 moneyCost = int32(trainerSpell->MoneyCost * reputationDiscount);
         if (!player->HasEnoughMoney(moneyCost))
         {

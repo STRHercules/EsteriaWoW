@@ -16,6 +16,7 @@
  */
 
 #include "SpellInfo.h"
+#include "PerkFx.h"
 #include "Chat.h"
 #include "ConditionMgr.h"
 #include "Corpse.h"
@@ -2761,6 +2762,8 @@ uint32 SpellInfo::CalcCastTime(Unit* caster, Spell* spell) const
 
     if (caster)
         caster->ModSpellCastTime(this, castTime, spell);
+
+    castTime = int32(float(castTime) * EsteriaPerkFx::CastTimeMod(caster, this));
 
     return (castTime > 0) ? uint32(castTime) : 0;
 }

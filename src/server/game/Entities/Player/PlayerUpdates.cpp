@@ -16,6 +16,7 @@
  */
 
 #include "AchievementMgr.h"
+#include "PerkFx.h"
 #include "BattlefieldMgr.h"
 #include "CellImpl.h"
 #include "Channel.h"
@@ -258,7 +259,7 @@ void Player::Update(uint32 p_time)
                     bubble;
 
                 // speed collect rest bonus (section/in hour)
-                SetRestBonus(GetRestBonus() + timeDiff * extraPerSec);
+                SetRestBonus(GetRestBonus() + timeDiff * extraPerSec * EsteriaPerkFx::RestMod(this));
             }
         }
     }
@@ -927,6 +928,8 @@ bool Player::UpdateSkillPro(uint16 SkillId, int32 Chance, uint32 step)
               Chance / 10.0f);
     if (!SkillId || !sScriptMgr->OnPlayerCanUpdateSkill(this, SkillId))
         return false;
+
+    Chance = EsteriaPerkFx::SkillChance(this, Chance);
 
     if (Chance <= 0) // speedup in 0 chance case
     {

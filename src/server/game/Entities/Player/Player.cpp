@@ -16,6 +16,7 @@
  */
 
 #include "Player.h"
+#include "PerkFx.h"
 #include "KyrianRacials.h"
 #include "EyeEffects.h"
 #include "AccountMgr.h"
@@ -518,7 +519,9 @@ bool Player::Create(ObjectGuid::LowType guidlow, CharacterCreateInfo* createInfo
     for (uint8 i = 0; i < PLAYER_SLOTS_COUNT; i++)
         m_items[i] = nullptr;
 
-    Relocate(info->positionX, info->positionY, info->positionZ, info->orientation);
+    // A starting zone picked in the creator moves the character, not its class kit.
+    PlayerInfo const* start = createInfo->StartInfo ? createInfo->StartInfo : info;
+    Relocate(start->positionX, start->positionY, start->positionZ, start->orientation);
 
     ChrClassesEntry const* cEntry = sChrClassesStore.LookupEntry(createInfo->Class);
     if (!cEntry)
@@ -528,7 +531,7 @@ bool Player::Create(ObjectGuid::LowType guidlow, CharacterCreateInfo* createInfo
         return false;
     }
 
-    SetMap(sMapMgr->CreateMap(info->mapId, this));
+    SetMap(sMapMgr->CreateMap(start->mapId, this));
 
     uint8 powertype = cEntry->powerType;
 
@@ -847,6 +850,9 @@ uint32 Player::EnvironmentalDamage(EnviromentalDamage type, uint32 damage)
     // players from being stuck infinitely falling below the map
     if (type != DAMAGE_FALL_TO_VOID && IsImmuneToEnvironmentalDamage())
         return 0;
+
+    if (type != DAMAGE_FALL && type != DAMAGE_FALL_TO_VOID)
+        damage = uint32(float(damage) * EsteriaPerkFx::EnvironmentMod(this));
 
     // Absorb, resist some environmental damage type
     uint32 absorb = 0;
@@ -4477,6 +4483,14 @@ void Player::DeleteFromDB(ObjectGuid::LowType lowGuid, uint32 accountId, bool up
                 trans->Append(stmt);
 
                 stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_FORM_LOOK);
+                stmt->SetData(0, lowGuid);
+                trans->Append(stmt);
+
+                stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_PERK_PROFILE);
+                stmt->SetData(0, lowGuid);
+                trans->Append(stmt);
+
+                stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_PERKS);
                 stmt->SetData(0, lowGuid);
                 trans->Append(stmt);
 
@@ -10694,7 +10708,7 @@ bool Player::ActivateTaxiPathTo(std::vector<uint32> const& nodes, Creature* npc 
 
     if (npc)
     {
-        float discount = GetReputationPriceDiscount(npc);
+        float discount = GetReputationPriceDiscount(npc) * EsteriaPerkFx::TaxiMod(this);
         totalcost = uint32(ceil(totalcost * discount));
         firstcost = uint32(ceil(firstcost * discount));
         m_taxi.SetFlightMasterFactionTemplateId(npc->GetFaction());
@@ -11181,7 +11195,7 @@ bool Player::BuyItemFromVendorSlot(ObjectGuid vendorguid, uint32 vendorslot, uin
         price = pProto->BuyPrice * count; //it should not exceed MAX_MONEY_AMOUNT
 
         // reputation discount
-        price = uint32(std::floor(price * GetReputationPriceDiscount(creature)));
+        price = uint32(std::floor(price * GetReputationPriceDiscount(creature) * EsteriaPerkFx::BuyMod(this)));
 
         if (!HasEnoughMoney(price))
         {
@@ -14496,6 +14510,10 @@ void Player::HandleFall(MovementInfo const& movementInfo)
 
                 if (HasAura(SPELL_DIVINE_PROTECTION))
                     damage /= 2;
+
+                // Paths of Fate, Surefooted: -20% / -40% ordinary fall damage (falls into the void are not handled here).
+                if (uint8 surefooted = GetEsteriaPerkRank(EsteriaPerks::Surefooted))
+                    damage -= damage * surefooted * 20 / 100;
 
                 bool const bouncy = getRace(true) == RACE_SLIME_GIANT_HORDE
                     && HasAura(SlimeCentaurRacials::Bouncy);

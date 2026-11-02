@@ -16,6 +16,8 @@
  */
 
 #include "CreatureAI.h"
+#include "PerkFx.h"
+#include "DBCStores.h"
 #include "DisableMgr.h"
 #include "GameEventMgr.h"
 #include "GameObjectAI.h"
@@ -779,6 +781,8 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
         moneyRew += rewOrReqMoney;
     }
 
+    moneyRew = EsteriaPerkFx::QuestMoney(this, quest, moneyRew);
+
     // CAIS reduces quest money, mirroring looted money and XP. Applied here as well as at the
     // turn-in gate because LFG and auto-complete quests reach RewardQuest without CanRewardQuest.
     if (moneyRew > 0)
@@ -1140,9 +1144,23 @@ bool Player::SatisfyQuestClass(Quest const* qInfo, bool msg) const
     return true;
 }
 
+// Any race can pick any starting zone in the creator (StartZoneWire.h), so a starting zone's quests are never masked to
+// the races that normally begin there. QuestSortID is a zone or one of its areas.
+static bool IsStartingZoneQuest(Quest const* quest)
+{
+    static constexpr uint32 startZones[] = { 1, 12, 14, 85, 141, 215, 3430, 3524 }; // Dun Morogh, Elwynn, Durotar, Tirisfal, Teldrassil, Mulgore, Eversong, Azuremyst
+    int32 const sort = quest->GetZoneOrSort();
+    if (sort <= 0)
+        return false;
+
+    AreaTableEntry const* area = sAreaTableStore.LookupEntry(sort);
+    uint32 const zone = area && area->zone ? area->zone : uint32(sort);
+    return std::find(std::begin(startZones), std::end(startZones), zone) != std::end(startZones);
+}
+
 bool Player::SatisfyQuestRace(Quest const* qInfo, bool msg) const
 {
-    if (!SatisfiesQuestRaceMask(GetTeamId(), qInfo->GetAllowableRaces(), getRaceMask()))
+    if (!SatisfiesQuestRaceMask(GetTeamId(), qInfo->GetAllowableRaces(), getRaceMask()) && !IsStartingZoneQuest(qInfo))
     {
         if (msg)
             SendCanTakeQuestResponse(INVALIDREASON_QUEST_FAILED_WRONG_RACE);

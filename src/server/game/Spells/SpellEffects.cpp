@@ -16,6 +16,7 @@
  */
 
 #include "Battleground.h"
+#include "PerkFx.h"
 #include "BattlegroundIC.h"
 #include "BattlegroundMgr.h"
 #include "BattlegroundSA.h"
@@ -3787,6 +3788,7 @@ void Spell::EffectInterruptCast(SpellEffIndex effIndex)
                 }
                 ExecuteLogEffectInterruptCast(effIndex, unitTarget, curSpellInfo->Id);
                 unitTarget->InterruptSpell(CurrentSpellTypes(i), false);
+                EsteriaPerkFx::OnInterrupt(m_caster, unitTarget);
             }
         }
     }

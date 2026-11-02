@@ -51,6 +51,7 @@ void AddSC_mmaps_commandscript();
 void AddSC_modify_commandscript();
 void AddSC_npc_commandscript();
 void AddSC_pet_commandscript();
+void AddSC_perk_commandscript();
 void AddSC_player_commandscript();
 void AddSC_pool_commandscript();
 void AddSC_pooltools_commandscript();
@@ -110,6 +111,7 @@ void AddCommandsScripts()
     AddSC_modify_commandscript();
     AddSC_npc_commandscript();
     AddSC_pet_commandscript();
+    AddSC_perk_commandscript();
     AddSC_player_commandscript();
     AddSC_pool_commandscript();
     AddSC_pooltools_commandscript();
