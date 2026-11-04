@@ -103,10 +103,15 @@ enum SpellModOp
     SPELLMOD_VALUE_MULTIPLIER       = 27,
     SPELLMOD_RESIST_DISPEL_CHANCE   = 28,
     SPELLMOD_CRIT_DAMAGE_BONUS_2    = 29, //one not used spell
-    SPELLMOD_SPELL_COST_REFUND_ON_FAIL = 30
+    SPELLMOD_SPELL_COST_REFUND_ON_FAIL = 30,
+    SPELLMOD_MAX_AURA_STACKS        = 31  // Ascension: maximum stacks of an already stackable aura
 };
 
 #define MAX_SPELLMOD 32
+// The client spell modifier tables use a stride of 31 ops (0..30); op 31 is server-side only.
+#define MAX_CLIENT_SPELLMOD 31
+// The client spell modifier tables hold SpellFamilyName 0..39.
+#define MAX_CLIENT_SPELLMOD_FAMILY 40
 
 enum SpellValueMod
 {
@@ -121,6 +126,7 @@ enum SpellValueMod
     SPELLVALUE_MISCVALUE0,
     SPELLVALUE_MISCVALUE1,
     SPELLVALUE_MISCVALUE2,
+    SPELLVALUE_MELEE_ATTACK_TYPE,    // OFF_ATTACK: the strike is an off-hand swing
 };
 
 enum SpellFacingFlags

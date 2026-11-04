@@ -1,3 +1,3 @@
 services:
   ac-worldserver:
-    image: esteria-perks:20261102c
+    image: esteria-coa:20261104b

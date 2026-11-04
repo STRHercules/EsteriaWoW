@@ -37,11 +37,22 @@ enum AllSpellHook
     ALLSPELLHOOK_ON_CAST_CANCEL,
     ALLSPELLHOOK_ON_CAST,
     ALLSPELLHOOK_ON_PREPARE,
+    ALLSPELLHOOK_ON_BEFORE_EFFECTS,
+    ALLSPELLHOOK_ON_CRIT_CHANCE,
+    ALLSPELLHOOK_ON_CALCULATED_TARGET,
+    ALLSPELLHOOK_ON_HIT_RESULT,
+    ALLSPELLHOOK_ON_SUCCESSFUL_INTERRUPT,
+    ALLSPELLHOOK_ON_INTERRUPT_DURATION,
+    ALLSPELLHOOK_ON_SUCCESSFUL_DISPEL,
+    ALLSPELLHOOK_ON_SUCCESSFUL_STEAL,
+    ALLSPELLHOOK_ON_GUARDIAN_SUMMONED,
     ALLSPELLHOOK_END
 };
 
 enum SpellCastResult : uint8;
 enum SpellEffIndex : uint8;
+class TempSummon;
+struct TargetInfo;
 
 class AllSpellScript : public ScriptObject
 {
@@ -103,6 +114,33 @@ public:
     virtual void OnSpellCast(Spell* /*spell*/, Unit* /*caster*/, SpellInfo const* /*spellInfo*/, bool /*skipCheck*/) { }
 
     virtual void OnSpellPrepare(Spell* /*spell*/, Unit* /*caster*/, SpellInfo const* /*spellInfo*/) { }
+
+    // Hooks the imported class kits (mod-classless-wildcard src/coa) run on:
+    // after the cast is committed, before its effects launch
+    virtual void OnSpellBeforeEffects(Spell* /*spell*/, Unit* /*caster*/, SpellInfo const* /*spellInfo*/) { }
+
+    // the crit chance against one target, before the target's own modifiers
+    virtual void OnSpellCritChance(Spell* /*spell*/, Unit* /*target*/, float& /*critChance*/) { }
+
+    // a target's hit, miss and crit have been rolled; still changeable
+    virtual void OnSpellCalculatedTarget(Spell* /*spell*/, Unit* /*target*/, TargetInfo& /*targetInfo*/) { }
+
+    // what one target actually took, once the spell has landed on it
+    virtual void OnSpellHitResult(Spell* /*spell*/, Unit* /*target*/, uint8 /*missInfo*/, uint32 /*damage*/,
+                                  uint32 /*healing*/, bool /*critical*/) { }
+
+    // the spell's interrupt effect stopped at least one of the target's casts
+    virtual void OnSpellSuccessfulInterrupt(Spell* /*spell*/, Unit* /*target*/) { }
+
+    // how long the interrupted school stays locked out
+    virtual void OnSpellInterruptDuration(Spell* /*spell*/, Unit* /*target*/, int32& /*duration*/) { }
+
+    // the dispel or steal took `count` auras off the target
+    virtual void OnSpellSuccessfulDispel(Spell* /*spell*/, Unit* /*target*/, SpellEffIndex /*effect*/, uint32 /*count*/) { }
+    virtual void OnSpellSuccessfulSteal(Spell* /*spell*/, Unit* /*target*/, uint32 /*count*/) { }
+
+    // once per guardian Spell::SummonGuardian creates, after its level and stats are set
+    virtual void OnGuardianSummoned(Spell* /*spell*/, TempSummon* /*summon*/) { }
 };
 
 // Compatibility for old scripts

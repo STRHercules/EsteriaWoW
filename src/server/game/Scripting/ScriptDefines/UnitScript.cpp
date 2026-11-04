@@ -139,6 +139,86 @@ void ScriptMgr::OnUnitSetShapeshiftForm(Unit* unit, uint8 form)
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_UNIT_SET_SHAPESHIFT_FORM, script->OnUnitSetShapeshiftForm(unit, form));
 }
 
+bool ScriptMgr::CanUnitAttack(Unit const* attacker, Unit const* target, SpellInfo const* spell)
+{
+    CALL_ENABLED_BOOLEAN_HOOKS(UnitScript, UNITHOOK_CAN_UNIT_ATTACK, !script->CanUnitAttack(attacker, target, spell));
+}
+
+void ScriptMgr::OnBeforeHealAbsorb(HealInfo& healInfo)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_BEFORE_HEAL_ABSORB, script->OnBeforeHealAbsorb(healInfo));
+}
+
+void ScriptMgr::OnPeriodicDamageResult(Unit* target, Unit* attacker, uint32 damage, SpellInfo const* spellInfo)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_PERIODIC_DAMAGE_RESULT, script->OnPeriodicDamageResult(target, attacker, damage, spellInfo));
+}
+
+void ScriptMgr::OnAfterAuraEffectCalculateAmount(AuraEffect const* effect, Unit* caster, int32& amount)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_AFTER_AURA_EFFECT_CALCULATE_AMOUNT,
+        script->OnAfterAuraEffectCalculateAmount(effect, caster, amount));
+}
+
+void ScriptMgr::ModifySpellEffectBaseValue(Unit const* caster, SpellInfo const* spellInfo, uint8 effectIndex, float& value)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_SPELL_EFFECT_BASE_VALUE,
+        script->ModifySpellEffectBaseValue(caster, spellInfo, effectIndex, value));
+}
+
+Unit* ScriptMgr::SpellMagnetTarget(Unit* attacker, Unit* victim, SpellInfo const* spell)
+{
+    Unit* result = nullptr;
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_SPELL_MAGNET_TARGET,
+        if (!result) result = script->SpellMagnetTarget(attacker, victim, spell));
+    return result;
+}
+
+bool ScriptMgr::CanCastSpellWhileMoving(Unit const* unit, SpellInfo const* spell)
+{
+    CALL_ENABLED_BOOLEAN_HOOKS_WITH_DEFAULT_FALSE(UnitScript, UNITHOOK_CAN_CAST_SPELL_WHILE_MOVING,
+        script->CanCastSpellWhileMoving(unit, spell));
+}
+
+bool ScriptMgr::CanCastDuringChannel(Unit const* unit, SpellInfo const* spell)
+{
+    CALL_ENABLED_BOOLEAN_HOOKS_WITH_DEFAULT_FALSE(UnitScript, UNITHOOK_CAN_CAST_DURING_CHANNEL,
+        script->CanCastDuringChannel(unit, spell));
+}
+
+bool ScriptMgr::CanUseScriptedPetAI(Creature const* pet)
+{
+    CALL_ENABLED_BOOLEAN_HOOKS_WITH_DEFAULT_FALSE(UnitScript, UNITHOOK_CAN_USE_SCRIPTED_PET_AI,
+        script->CanUseScriptedPetAI(pet));
+}
+
+void ScriptMgr::OnBlock(Unit* victim, Unit* attacker)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_BLOCK, script->OnBlock(victim, attacker));
+}
+
+void ScriptMgr::OnSendAuraUpdate(Unit* target, Player* receiver, AuraApplication const* application, bool remove)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_SEND_AURA_UPDATE,
+        script->OnSendAuraUpdate(target, receiver, application, remove));
+}
+
+void ScriptMgr::ModifySpellPowerCost(Unit const* caster, SpellInfo const* info, int32& cost, float& multiplier)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_SPELL_POWER_COST,
+        script->ModifySpellPowerCost(caster, info, cost, multiplier));
+}
+
+void ScriptMgr::ModifyRunSpeed(Unit const* unit, int32& modifier)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_RUN_SPEED, script->ModifyRunSpeed(unit, modifier));
+}
+
+void ScriptMgr::ModifyRunSpeedRate(Unit const* unit, float& speed)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_RUN_SPEED_RATE, script->ModifyRunSpeedRate(unit, speed));
+}
+
 UnitScript::UnitScript(char const* name, bool addToScripts, std::vector<uint16> enabledHooks)
     : ScriptObject(name, UNITHOOK_END)
 {

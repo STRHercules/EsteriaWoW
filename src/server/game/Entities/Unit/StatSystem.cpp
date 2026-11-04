@@ -45,6 +45,44 @@ inline bool _ModifyUInt32(bool apply, uint32& baseValue, int32& amount)
     return apply;
 }
 
+namespace
+{
+// CoA auras 327 (stat from stat) and 328 (max mana or health from stat). Only CoA spells carry them, so with no
+// such aura every bonus below is zero and the stat formulas are unchanged.
+float GetAscensionStatFromStatBonus(Player const& player, Stats destinationStat)
+{
+    float bonus = 0.0f;
+    for (AuraEffect const* effect : player.GetAuraEffectsByType(SPELL_AURA_ASCENSION_MOD_STAT_FROM_STAT))
+    {
+        int32 const sourceStat = effect->GetMiscValueB();
+        if (effect->GetSpellInfo()->SpellFamilyName < 18 || effect->GetSpellInfo()->SpellFamilyName > 38 ||
+            effect->GetMiscValue() != destinationStat || sourceStat < STAT_STRENGTH || sourceStat >= MAX_STATS ||
+            sourceStat == destinationStat)
+            continue;
+
+        bonus += CalculatePct(float(player.GetStat(Stats(sourceStat))), effect->GetAmount());
+    }
+
+    return bonus;
+}
+
+float GetAscensionMaxPowerFromStatBonus(Player const& player, int32 power)
+{
+    float bonus = 0.0f;
+    for (AuraEffect const* effect : player.GetAuraEffectsByType(SPELL_AURA_ASCENSION_MOD_MAX_MANA_FROM_STAT))
+    {
+        int32 const sourceStat = effect->GetMiscValueB();
+        if (effect->GetSpellInfo()->SpellFamilyName < 18 || effect->GetSpellInfo()->SpellFamilyName > 38 ||
+            effect->GetMiscValue() != power || sourceStat < STAT_STRENGTH || sourceStat >= MAX_STATS)
+            continue;
+
+        bonus += CalculatePct(float(player.GetStat(Stats(sourceStat))), effect->GetAmount());
+    }
+
+    return bonus;
+}
+}
+
 /*#######################################
 ########                         ########
 ########    UNIT STAT SYSTEM     ########
@@ -100,7 +138,7 @@ bool Player::UpdateStats(Stats stat)
         return false;
 
     // value = ((base_value * base_pct) + total_value) * total_pct
-    float value  = GetTotalStatValue(stat);
+    float value  = GetTotalStatValue(stat, GetAscensionStatFromStatBonus(*this, stat));
 
     SetStat(stat, int32(value));
 
@@ -119,6 +157,8 @@ bool Player::UpdateStats(Stats stat)
             break;
         case STAT_INTELLECT:
             UpdateMaxPower(POWER_MANA);
+            if (HasAuraTypeWithMiscvalue(SPELL_AURA_ASCENSION_MOD_MAX_MANA_FROM_STAT, int32(POWER_HEALTH)))
+                UpdateMaxHealth();
             UpdateAllSpellCritChances();
             UpdateArmor();                                  //SPELL_AURA_MOD_RESISTANCE_OF_INTELLECT_PERCENT, only armor currently
             break;
@@ -160,6 +200,33 @@ bool Player::UpdateStats(Stats stat)
         for (uint8 rating = 0; rating < MAX_COMBAT_RATING; ++rating)
             if (mask & (1 << rating))
                 ApplyRatingMod(CombatRating(rating), 0, true);
+    }
+
+    // CoA aura 327: a source stat changed, so refresh the stats converted from it.
+    for (AuraEffect const* effect : GetAuraEffectsByType(SPELL_AURA_ASCENSION_MOD_STAT_FROM_STAT))
+    {
+        if (effect->GetSpellInfo()->SpellFamilyName >= 18 && effect->GetSpellInfo()->SpellFamilyName <= 38 &&
+            effect->GetMiscValueB() == stat && effect->GetMiscValue() >= STAT_STRENGTH &&
+            effect->GetMiscValue() < MAX_STATS && effect->GetMiscValue() != stat)
+        {
+            UpdateAllStats();
+            break;
+        }
+    }
+
+    // CoA aura 328: mana or health from a stat other than intellect (intellect is refreshed above).
+    if (stat != STAT_INTELLECT)
+    {
+        for (AuraEffect const* effect : GetAuraEffectsByType(SPELL_AURA_ASCENSION_MOD_MAX_MANA_FROM_STAT))
+        {
+            if (effect->GetSpellInfo()->SpellFamilyName < 18 || effect->GetSpellInfo()->SpellFamilyName > 38 ||
+                effect->GetMiscValueB() != stat)
+                continue;
+            if (effect->GetMiscValue() == POWER_MANA)
+                UpdateMaxPower(POWER_MANA);
+            else if (effect->GetMiscValue() == int32(POWER_HEALTH))
+                UpdateMaxHealth();
+        }
     }
     return true;
 }
@@ -208,6 +275,16 @@ bool Player::UpdateAllStats()
     {
         float value = GetTotalStatValue(Stats(i));
         SetStat(Stats(i), int32(value));
+    }
+
+    // CoA aura 327: source stats must be current first, so the conversion is a second pass.
+    if (!GetAuraEffectsByType(SPELL_AURA_ASCENSION_MOD_STAT_FROM_STAT).empty())
+    {
+        for (uint8 i = STAT_STRENGTH; i < MAX_STATS; ++i)
+        {
+            Stats const stat = Stats(i);
+            SetStat(stat, int32(GetTotalStatValue(stat, GetAscensionStatFromStatBonus(*this, stat))));
+        }
     }
 
     UpdateArmor();
@@ -316,7 +393,8 @@ void Player::UpdateMaxHealth()
 
     float value = GetFlatModifierValue(unitMod, BASE_VALUE) + GetCreateHealth();
     value *= GetPctModifierValue(unitMod, BASE_PCT);
-    value += GetFlatModifierValue(unitMod, TOTAL_VALUE) + GetHealthBonusFromStamina();
+    value += GetFlatModifierValue(unitMod, TOTAL_VALUE) + GetHealthBonusFromStamina() +
+        GetAscensionMaxPowerFromStatBonus(*this, int32(POWER_HEALTH));
     value *= GetPctModifierValue(unitMod, TOTAL_PCT);
 
     sScriptMgr->OnPlayerAfterUpdateMaxHealth(this, value);
@@ -328,6 +406,8 @@ void Player::UpdateMaxPower(Powers power)
     UnitMods unitMod = UnitMods(static_cast<uint16>(UNIT_MOD_POWER_START) + power);
 
     float bonusPower = (power == POWER_MANA && GetCreatePowers(power) > 0) ? GetManaBonusFromIntellect() : 0;
+    if (power == POWER_MANA)
+        bonusPower += GetAscensionMaxPowerFromStatBonus(*this, POWER_MANA);
 
     float value = GetFlatModifierValue(unitMod, BASE_VALUE) + GetCreatePowers(power);
     value *= GetPctModifierValue(unitMod, BASE_PCT);
@@ -685,6 +765,7 @@ void Player::UpdateCritPercentage(WeaponAttackType attType)
     float value = GetBaseModValue(modGroup, FLAT_MOD) + GetBaseModValue(modGroup, PCT_MOD) + GetRatingBonusValue(cr);
     // Modify crit from weapon skill and maximized defense skill of same level victim difference
     value += (int32(GetWeaponSkillValue(attType)) - int32(GetMaxSkillValueForLevel())) * 0.04f;
+    value += GetTotalAuraModifierByMiscMask(SPELL_AURA_ASCENSION_MOD_CRIT_CHANCE, SPELL_SCHOOL_MASK_NORMAL);
 
     if (sConfigMgr->GetOption<bool>("Stats.Limits.Enable", false))
     {
@@ -871,18 +952,21 @@ void Player::UpdateArmorPenetration(int32 amount)
 void Player::UpdateMeleeHitChances()
 {
     m_modMeleeHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
+    m_modMeleeHitChance += float(GetTotalAuraModifier(SPELL_AURA_ASCENSION_MOD_HIT_CHANCE_ALL_PCT));
     m_modMeleeHitChance += GetRatingBonusValue(CR_HIT_MELEE);
 }
 
 void Player::UpdateRangedHitChances()
 {
     m_modRangedHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
+    m_modRangedHitChance += float(GetTotalAuraModifier(SPELL_AURA_ASCENSION_MOD_HIT_CHANCE_ALL_PCT));
     m_modRangedHitChance += GetRatingBonusValue(CR_HIT_RANGED);
 }
 
 void Player::UpdateSpellHitChances()
 {
     m_modSpellHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_SPELL_HIT_CHANCE);
+    m_modSpellHitChance += float(GetTotalAuraModifier(SPELL_AURA_ASCENSION_MOD_HIT_CHANCE_ALL_PCT));
     m_modSpellHitChance += GetRatingBonusValue(CR_HIT_SPELL);
 }
 

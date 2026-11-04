@@ -377,7 +377,87 @@ enum AuraType
     SPELL_AURA_PREVENT_RESURRECTION                         = 314,
     SPELL_AURA_UNDERWATER_WALKING                           = 315,
     SPELL_AURA_PERIODIC_HASTE                               = 316,
-    TOTAL_AURAS                                             = 317
+    // Project Ascension extends the 3.3.5 aura range through 366. Unknown
+    // custom auras remain script-visible and have no immediate core effect
+    // until their individual mechanics are ported.
+    SPELL_AURA_ASCENSION_MOD_ABSORB_AMOUNT_PCT              = 317,
+    SPELL_AURA_ASCENSION_MOD_HEALING_RECEIVED_PCT           = 319,
+    SPELL_AURA_ASCENSION_MOD_PVP_DAMAGE_DONE_PCT            = 322,
+    SPELL_AURA_ASCENSION_MOD_STAT_FROM_STAT                 = 327,
+    SPELL_AURA_ASCENSION_MOD_MAX_MANA_FROM_STAT             = 328,
+    SPELL_AURA_ASCENSION_MOD_CRIT_CHANCE_AGAINST_TARGET     = 330,
+    SPELL_AURA_ASCENSION_MOD_HIT_CHANCE_ALL_PCT             = 333,
+    SPELL_AURA_ASCENSION_OVERRIDE_SPELL                     = 337,
+    SPELL_AURA_ASCENSION_MOD_IGNORE_ARMOR_PCT               = 338,
+    SPELL_AURA_ASCENSION_MOD_PVE_DAMAGE_DONE_PCT           = 341,
+    SPELL_AURA_ASCENSION_MOD_ATTACK_POWER_FLAT               = 344,
+    SPELL_AURA_ASCENSION_MOD_SPELL_POWER_FLAT                = 345,
+    SPELL_AURA_ASCENSION_MOD_CRIT_CHANCE                     = 350,
+    SPELL_AURA_ASCENSION_PROC_PERCENT_EVENT                  = 354,
+    SPELL_AURA_ASCENSION_MOD_OFFHAND_HIT_CHANCE              = 356,
+    SPELL_AURA_ASCENSION_MOD_INSTANT_MANA_COST_PCT           = 357,
+    SPELL_AURA_ASCENSION_MOD_HEALING_DONE_VERSUS_AURASTATE  = 360,
+    SPELL_AURA_ASCENSION_LAST                               = 366,
+    TOTAL_AURAS                                             = 367
+};
+
+// Local conversions of reviewed CoA coefficient modifiers, kept in a private selector range of
+// SPELL_AURA_OVERRIDE_CLASS_SCRIPTS (the native player's modifier arrays have no room for them).
+enum AscensionAttackPowerCoefficientScript
+{
+    ASCENSION_DIRECT_AP_COEFFICIENT_FLAT = 20032,
+    ASCENSION_DIRECT_AP_COEFFICIENT_PCT = 20042,
+    ASCENSION_PERIODIC_AP_COEFFICIENT_PCT = 20045
+};
+
+enum AscensionSpellPowerCoefficientScript
+{
+    ASCENSION_SPELL_POWER_COEFFICIENT_FLAT = 20041
+};
+
+// Selectors assigned only by reviewed CoA metadata conversions.
+enum AscensionConditionalCombatScript
+{
+    ASCENSION_STATE_MASKED_CRIT = 21000,
+    ASCENSION_STATE_GLOBAL_CRIT = 21001,
+    ASCENSION_CREATURE_MASKED_CRIT = 21002,
+    ASCENSION_CREATURE_GLOBAL_CRIT = 21003,
+    ASCENSION_STATE_MASKED_GUARANTEED_CRIT = 21004,
+    ASCENSION_CREATURE_MASKED_GUARANTEED_CRIT = 21005,
+    ASCENSION_STATE_GLOBAL_CRIT_DAMAGE = 21006,
+    ASCENSION_STATE_MASKED_CRIT_DAMAGE = 21007,
+    ASCENSION_STATE_GLOBAL_IGNORE_ARMOR = 21008,
+    ASCENSION_STATE_MASKED_IGNORE_ARMOR = 21009,
+    ASCENSION_STATE_MASKED_AND_AUTO_CRIT = 21010,
+    ASCENSION_STATE_MASKED_SHADOW_CRIT = 21011
+};
+
+enum AscensionConditionalCombatModifier
+{
+    ASCENSION_CONDITIONAL_CRIT_CHANCE,
+    ASCENSION_CONDITIONAL_GUARANTEED_CRIT,
+    ASCENSION_CONDITIONAL_CRIT_DAMAGE,
+    ASCENSION_CONDITIONAL_IGNORE_ARMOR
+};
+
+enum AscensionConditionalTargetState
+{
+    ASCENSION_TARGET_SLOWED = 26,
+    ASCENSION_TARGET_HEALTH_ABOVE_80_PERCENT = 28,
+    ASCENSION_TARGET_POISONED = 32
+};
+
+enum AscensionPositionScope
+{
+    ASCENSION_POSITION_SCOPE_ALL = 21020,
+    ASCENSION_POSITION_SCOPE_MONSTERS = 21021
+};
+
+enum AscensionAuraStateDamageScope
+{
+    ASCENSION_CLASSMASK_AURASTATE_DAMAGE = 20007,
+    ASCENSION_SCHOOLMASK_AURASTATE_DAMAGE = 20008,
+    ASCENSION_IGNORE_BEHIND_REQUIREMENT = 20009
 };
 
 enum AuraObjectType

@@ -24,6 +24,7 @@
 #include "SpellAuraDefines.h"
 #include <boost/container/flat_set.hpp>
 #include "Util.h"
+#include <algorithm>
 
 class Unit;
 class Player;
@@ -354,6 +355,21 @@ public:
     uint32 AttributesEx6;
     uint32 AttributesEx7;
     uint32 AttributesCu;
+    // Override only the stat source of native damage AP coefficients.
+    bool UseRangedAttackPowerForDamage = false;
+    // The amount was already resolved by a source hit; skips resilience and the taken-side bonuses.
+    bool AscensionInheritsResolvedAmount = false;
+    // The percentage mana cost is taken from maximum mana instead of base mana.
+    bool UsesMaxManaForCost = false;
+    // The hit ignores the target's absorbs and resistances entirely / only its absorbs.
+    bool AscensionIgnoreAbsorbAndResistance = false;
+    bool AscensionIgnoreAbsorb = false;
+    // Runtime-only opt-in for explicitly authored coefficients: no spell level penalty.
+    bool IgnoreSpellLevelPenalty = false;
+    uint32 MaxCharges = 0;
+    uint32 ChargeRecoveryTime = 0;
+    uint32 ChargeRecoveryKey = 0;
+    uint32 ChargeCategoryId = 0;
     uint32 Stances;
     uint32 StancesNot;
     uint32 Targets;
@@ -539,6 +555,8 @@ public:
     int32 GetMaxDuration() const;
 
     uint32 GetMaxTicks() const;
+    // The aura's stack cap as the caster has it; 0 means the aura does not stack.
+    uint8 CalcMaxAuraStacks(Unit* caster = nullptr) const;
 
     uint32 CalcCastTime(Unit* caster = nullptr, Spell* spell = nullptr) const;
     uint32 GetRecoveryTime() const;

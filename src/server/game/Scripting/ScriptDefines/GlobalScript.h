@@ -40,6 +40,7 @@ enum GlobalHook
     GLOBALHOOK_ON_AFTER_UPDATE_ENCOUNTER_STATE,
     GLOBALHOOK_ON_BEFORE_WORLDOBJECT_SET_PHASEMASK,
     GLOBALHOOK_ON_IS_AFFECTED_BY_SPELL_MOD_CHECK,
+    GLOBALHOOK_ON_SPELL_MOD_FAMILY_MASK,
     GLOBALHOOK_ON_SPELL_HEALING_BONUS_TAKEN_NEGATIVE_MODIFIERS,
     GLOBALHOOK_ON_LOAD_SPELL_CUSTOM_ATTR,
     GLOBALHOOK_ON_ALLOWED_FOR_PLAYER_LOOT_CHECK,
@@ -81,6 +82,9 @@ public:
 
     // Called when checking if an aura spell is affected by a mod
     virtual bool OnIsAffectedBySpellModCheck(SpellInfo const* /*affectSpell*/, SpellInfo const* /*checkSpell*/, SpellModifier const* /*mod*/) { return true; };
+
+    virtual void OnSpellModFamilyMask(SpellInfo const* /*affectSpell*/, SpellInfo const* /*checkSpell*/,
+        SpellModifier const* /*mod*/, bool& /*affected*/) { }
 
     // Called when checking for spell negative healing modifiers
     virtual bool OnSpellHealingBonusTakenNegativeModifiers(Unit const* /*target*/, Unit const* /*caster*/, SpellInfo const* /*spellInfo*/, float& /*val*/) { return false; };

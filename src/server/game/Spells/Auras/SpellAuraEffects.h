@@ -287,6 +287,11 @@ public:
     void HandleModRatingFromStat(AuraApplication const* aurApp, uint8 mode, bool apply) const;
     //   attack power
     void HandleAuraModAttackPower(AuraApplication const* aurApp, uint8 mode, bool apply) const;
+    void HandleAscensionModHitChanceAll(AuraApplication const* aurApp, uint8 mode, bool apply) const;
+    void HandleAscensionModCritChance(AuraApplication const* aurApp, uint8 mode, bool apply) const;
+    void HandleAscensionModStatFromStat(AuraApplication const* aurApp, uint8 mode, bool apply) const;
+    void HandleAscensionModMaxManaFromStat(AuraApplication const* aurApp, uint8 mode, bool apply) const;
+    void HandleAscensionModAttackPowerFlat(AuraApplication const* aurApp, uint8 mode, bool apply) const;
     void HandleAuraModRangedAttackPower(AuraApplication const* aurApp, uint8 mode, bool apply) const;
     void HandleAuraModAttackPowerPercent(AuraApplication const* aurApp, uint8 mode, bool apply) const;
     void HandleAuraModRangedAttackPowerPercent(AuraApplication const* aurApp, uint8 mode, bool apply) const;

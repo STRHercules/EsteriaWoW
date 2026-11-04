@@ -254,6 +254,67 @@ ClasslessWildcard.Elemental.Enable = 1
 #        [RESTART REQUIRED]
 ClasslessWildcard.Forged.Enable = 1
 
+#    ClasslessWildcard.CoA.Enable
+#        Conquest of Azeroth class kits (cw_coa_entries, from
+#        data/sql/generators/gen_coa_import.py): browsable and buyable under
+#        their own class buttons. They never roll in Wildcard unless the row
+#        says in_pool = 1. Off = not in the library; owned ones are dropped
+#        at the next login like any line that left the library.
+#        Default: 1
+#
+#        [RESTART REQUIRED]
+ClasslessWildcard.CoA.Enable = 1
+
+#    ClasslessWildcard.CoA.AutomaticEntries
+#        Conquest of Azeroth hands some entries out with a class and specialisation
+#        instead of selling them: the specialisation's signature ability and the
+#        milestone talents at levels 20, 30 and 40. With this on, a Hero holding
+#        anything of a specialisation gets those of that specialisation as they
+#        level, and keeps them only while it holds something of it. Entries that
+#        name a signature ability as a prerequisite need this on.
+#
+#        Default: 1
+#
+#        [RESTART REQUIRED]
+ClasslessWildcard.CoA.AutomaticEntries = 1
+
+#    ClasslessWildcard.CoA.ClassSpells
+#        Conquest of Azeroth's class baseline (ClassSpells): each class's core
+#        spells at set levels (Barbarian Smash, Ancestral Strike, ...), which CoA
+#        hands out with the class and does not sell. With this on, a Hero holding
+#        anything of a CoA class gets that class's baseline as they level, and
+#        loses it when they no longer hold anything of the class. Stock spells
+#        in the table (Dodge, Block, Dual Wield, ...) are left to Esteria. Needs
+#        AutomaticEntries on. Off = not granted, and taken back from Heroes who
+#        had them at their next login or level change.
+#        The Felsworn capital-city rifts do not depend on this: they follow
+#        AutomaticEntries and go by faction (Alliance: Stormwind 26, Ironforge 30,
+#        Darnassus 36, Theramore 40; Horde: Orgrimmar 26, Thunder Bluff 30,
+#        Undercity 36).
+#        Default: 0
+#
+#        [RESTART REQUIRED]
+ClasslessWildcard.CoA.ClassSpells = 0
+
+#    ClasslessWildcard.CoA.Resources
+#        CoA class resources kept as aura stacks (Pyromancer Heat and Ember,
+#        Stormbringer Static, Reaper souls, Bloodmage Thirst, Tinker Scrap...):
+#        gains, costs, decay and the "no power" cast check. Off = none of it
+#        runs; for ruling it out while hunting a bug.
+#        Default: 1
+#
+#        [RESTART REQUIRED]
+ClasslessWildcard.CoA.Resources = 1
+
+#    ClasslessWildcard.CoA.TalentReplacements
+#        CoA talents that replace a spell swap it for the replacing rank while
+#        owned. Off = no swapping, and spells already swapped stay as they are
+#        until it is turned back on; for ruling it out while hunting a bug.
+#        Default: 1
+#
+#        [RESTART REQUIRED]
+ClasslessWildcard.CoA.TalentReplacements = 1
+
 #    ClasslessWildcard.Elemental.RarityBump
 #        Tiers above the base line's rarity, capped at legendary.
 #        Default: 1

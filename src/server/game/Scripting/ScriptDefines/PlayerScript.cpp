@@ -979,6 +979,39 @@ void ScriptMgr::OnPlayerBeforeGetLevelForXPGain(Player const* player, uint8& lev
     level = std::clamp(level, uint8(1), uint8(sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL)));
 }
 
+void ScriptMgr::OnPlayerSpellChargeConsumed(Player* player, SpellInfo const* info, Spell* spell,
+    uint32 recovery, uint64 now)
+{
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_SPELL_CHARGE_CONSUMED,
+        script->OnPlayerSpellChargeConsumed(player, info, spell, recovery, now));
+}
+
+void ScriptMgr::OnPlayerNormalizeActionButtonSpell(Player* player, uint32& action, bool loading)
+{
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_NORMALIZE_ACTION_BUTTON_SPELL,
+        script->OnPlayerNormalizeActionButtonSpell(player, action, loading));
+}
+
+void ScriptMgr::OnPlayerSpellCooldownCalculated(Player* player, SpellInfo const* spellInfo, Spell* spell,
+    uint32 recoveryMs)
+{
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_SPELL_COOLDOWN_CALCULATED,
+        script->OnPlayerSpellCooldownCalculated(player, spellInfo, spell, recoveryMs));
+}
+
+void ScriptMgr::OnPlayerSendSpellChargeStates(Player const* player)
+{
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_SEND_SPELL_CHARGE_STATES,
+        script->OnPlayerSendSpellChargeStates(player));
+}
+
+void ScriptMgr::OnPlayerApplySpellMod(Player* player, SpellInfo const* info, uint8 op, Spell* spell,
+    bool temporaryPet, double& basevalue, int32& totalflat, float& totalmul, bool& handled)
+{
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_APPLY_SPELL_MOD,
+        script->OnPlayerApplySpellMod(player, info, op, spell, temporaryPet, basevalue, totalflat, totalmul, handled));
+}
+
 PlayerScript::PlayerScript(char const* name, std::vector<uint16> enabledHooks)
     : ScriptObject(name, PLAYERHOOK_END)
 {

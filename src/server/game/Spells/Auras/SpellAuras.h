@@ -78,7 +78,7 @@ public:
     void ClientUpdate(bool remove = false);
 
     // xinef: stacking
-    bool IsActive(uint8 effIdx) { return ((1 << effIdx) & _disableMask) == 0; }
+    bool IsActive(uint8 effIdx) const { return ((1 << effIdx) & _disableMask) == 0; }
     void SetDisableMask(uint8 effIdx) { _disableMask |= 1 << effIdx; }
     void RemoveDisableMask(uint8 effIdx) { _disableMask &= ~(1 << effIdx); }
 };
@@ -250,8 +250,24 @@ public:
     void SetTriggeredByAuraSpellInfo(SpellInfo const* triggeredByAuraSpellInfo);
     SpellInfo const* GetTriggeredByAuraSpellInfo() const;
 
+    // Values a script keeps with this aura instance (the imported class kits),
+    // keyed by spell id; 0 clears one.
+    void SetScriptValue(uint32 key, uint64 value)
+    {
+        if (value)
+            m_scriptValues[key] = value;
+        else
+            m_scriptValues.erase(key);
+    }
+    uint64 GetScriptValue(uint32 key) const
+    {
+        auto itr = m_scriptValues.find(key);
+        return itr != m_scriptValues.end() ? itr->second : 0;
+    }
+
 private:
     void _DeleteRemovedApplications();
+    std::map<uint32, uint64> m_scriptValues;
 
 protected:
     SpellInfo const* const m_spellInfo;

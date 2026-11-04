@@ -31,6 +31,7 @@
 #include "Tokenize.h"
 #include "WorldSession.h"
 #include <algorithm>
+#include <set>
 
 using namespace ClasslessWildcard;
 
@@ -230,6 +231,11 @@ void ClasslessMgr::LoadConfig(bool /*reload*/)
     cfg.formKitsEnable = sConfigMgr->GetOption<bool>("ClasslessWildcard.FormStarterKits", true);
     cfg.elementalEnable = sConfigMgr->GetOption<bool>("ClasslessWildcard.Elemental.Enable", true);
     cfg.forgedEnable = sConfigMgr->GetOption<bool>("ClasslessWildcard.Forged.Enable", true);
+    cfg.coaEnable = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.Enable", true);
+    cfg.coaAutomatic = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.AutomaticEntries", true);
+    cfg.coaClassSpells = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.ClassSpells", false);
+    cfg.coaResources =sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.Resources", true);
+    cfg.coaReplacements = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.TalentReplacements", true);
     cfg.elementalRarityBump = sConfigMgr->GetOption<uint32>("ClasslessWildcard.Elemental.RarityBump", 1);
     cfg.elementalRollWeightPct = sConfigMgr->GetOption<uint32>("ClasslessWildcard.Elemental.RollWeightPct", 8);
     cfg.elementalInPool = sConfigMgr->GetOption<bool>("ClasslessWildcard.Elemental.InPool", true);
@@ -1086,6 +1092,7 @@ void ClasslessMgr::BuildLibrary()
     // in cw_ability_override like any other ability.
     LoadVariants();
     LoadForgedSpells();
+    LoadCoAEntries();
     ResolveTalentAbilityLines();
     DropUnresolvablePrerequisites();
 
@@ -1514,6 +1521,379 @@ void ClasslessMgr::LoadForgedSpells()
     LOG_INFO("module.classless",
              "mod-classless-wildcard: {} forged spell line(s) registered ({} skipped), generation {}",
              added, skipped, generation);
+}
+
+void ClasslessMgr::LoadCoAEntries()
+{
+    _coaClasses.clear();
+    _coaTabs.clear();
+    _coaEntryOwner.clear();
+    _coaChoiceGroups.clear();
+    _coaScaling.clear();
+    _coaTaught.clear();
+
+    auto tableExists = [](char const* table)
+    {
+        return WorldDatabase.Query("SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() "
+                                   "AND TABLE_NAME = '{}'", table) != nullptr;
+    };
+    if (!tableExists("cw_coa_entries"))
+        return;
+
+    // The talent rows are ordinary talent_dbc rows, so the native pass above
+    // has already put every one of them in _talents. Anything in a CoA tree
+    // that is not switched on below comes back out at the end.
+    std::unordered_set<uint32> coaTabs;
+    if (QueryResult tabs = WorldDatabase.Query("SELECT tab_id, class, name FROM cw_coa_tabs"))
+        do
+        {
+            Field* f = tabs->Fetch();
+            coaTabs.insert(f[0].Get<uint32>());
+            if (cfg.coaEnable)
+                _coaTabs[f[0].Get<uint32>()] = { f[1].Get<uint8>(), f[2].Get<std::string>() };
+        } while (tabs->NextRow());
+
+    std::unordered_set<uint32> keptTalents;
+    uint32 abilities = 0, talents = 0, skipped = 0;
+    if (cfg.coaEnable)
+    {
+        if (tableExists("cw_coa_spell_scaling"))
+            if (QueryResult scaling = WorldDatabase.Query("SELECT spell, effect_mask FROM cw_coa_spell_scaling"))
+                do
+                    _coaScaling[scaling->Fetch()[0].Get<uint32>()] = scaling->Fetch()[1].Get<uint8>();
+                while (scaling->NextRow());
+
+        if (tableExists("cw_coa_taught"))
+            if (QueryResult taught = WorldDatabase.Query("SELECT parent, spell FROM cw_coa_taught"))
+                do
+                    _coaTaught[taught->Fetch()[0].Get<uint32>()].push_back(taught->Fetch()[1].Get<uint32>());
+                while (taught->NextRow());
+
+        if (QueryResult classes = WorldDatabase.Query("SELECT class, name, icon_spell FROM cw_coa_classes"))
+            do
+            {
+                Field* f = classes->Fetch();
+                _coaClasses[f[0].Get<uint8>()] = { f[1].Get<std::string>(), f[2].Get<uint32>() };
+            } while (classes->NextRow());
+
+        QueryResult result = WorldDatabase.Query(
+            "SELECT entry, class, kind, first_spell, talent_id, req_level, requires, in_pool, spec, choice_group, free "
+            "FROM cw_coa_entries WHERE enabled = 1");
+        if (result)
+            do
+            {
+                Field* f = result->Fetch();
+                uint32 const entry = f[0].Get<uint32>();
+                uint8 const coaClass = f[1].Get<uint8>();
+                uint8 const kind = f[2].Get<uint8>();
+                uint32 const firstSpell = f[3].Get<uint32>();
+                uint32 const talentId = f[4].Get<uint32>();
+                uint8 const reqLevel = f[5].Get<uint8>();
+                bool const inPool = f[7].Get<bool>();
+
+                // CoA entries can need up to three others, all owned. The pool's own prerequisite holds one, so
+                // these are kept on the entry and checked when it is learned or let go.
+                std::vector<uint32> requiredEntries;
+                std::string const requiresText = f[6].Get<std::string>();
+                for (std::string_view const token : Acore::Tokenize(requiresText, ' ', false))
+                    if (uint32 id = uint32(strtoul(std::string(token).c_str(), nullptr, 10)))
+                        requiredEntries.push_back(id);
+                uint16 const coaSpec = f[8].Get<uint16>();
+                uint32 const choiceGroup = f[9].Get<uint32>();
+                bool const freeEntry = f[10].Get<bool>();
+
+                if (kind == 1)
+                {
+                    auto itr = _talents.find(talentId);
+                    if (itr == _talents.end() || !coaTabs.count(itr->second.tabId))
+                    {
+                        LOG_WARN("module.classless", "mod-classless-wildcard: CoA entry {} names talent {}, "
+                                 "which is not in a CoA tree in talent_dbc; run cw_spells_coa.sql", entry, talentId);
+                        ++skipped;
+                        continue;
+                    }
+                    TalentPoolEntry& t = itr->second;
+                    t.coaClass = coaClass;
+                    t.reqLevel = reqLevel;
+                    t.pool = inPool;
+                    t.coaEntry = entry;
+                    t.coaSpec = coaSpec;
+                    t.requiresEntries = requiredEntries;
+                    t.choiceGroup = choiceGroup;
+                    t.freeEntry = freeEntry;
+                    _coaEntryOwner[entry] = { true, talentId };
+                    if (choiceGroup)
+                        _coaChoiceGroups[choiceGroup].push_back(entry);
+                    keptTalents.insert(talentId);
+                    ++talents;
+                    continue;
+                }
+
+                SpellInfo const* firstInfo = sSpellMgr->GetSpellInfo(firstSpell);
+                if (!firstInfo)
+                {
+                    LOG_WARN("module.classless", "mod-classless-wildcard: CoA spell {} (entry {}) is missing "
+                             "from spell_dbc; run cw_spells_coa.sql and restart", firstSpell, entry);
+                    ++skipped;
+                    continue;
+                }
+
+                AbilityEntry e;
+                e.firstSpellId = firstSpell;
+                e.passive = firstInfo->IsPassive();
+                e.name = firstInfo->SpellName[0] ? firstInfo->SpellName[0] : "";
+                e.type = ClassifyAbility(firstInfo, e.passive);
+                e.coaClass = coaClass;
+                e.pool = inPool;
+                e.coaEntry = entry;
+                e.coaSpec = coaSpec;
+                e.requiresEntries = requiredEntries;
+                e.choiceGroup = choiceGroup;
+                e.freeEntry = freeEntry;
+                _coaEntryOwner[entry] = { false, firstSpell };
+                if (choiceGroup)
+                    _coaChoiceGroups[choiceGroup].push_back(entry);
+                for (uint32 sp = firstSpell; sp; sp = sSpellMgr->GetNextSpellInChain(sp))
+                {
+                    SpellInfo const* info = sSpellMgr->GetSpellInfo(sp);
+                    if (!info)
+                        break;
+                    e.ranks.push_back(sp);
+                    e.rankLevels.push_back(uint8(std::max<uint32>(info->SpellLevel, reqLevel)));
+                }
+                for (size_t ri = 1; ri < e.rankLevels.size(); ++ri)
+                    e.rankLevels[ri] = std::max(e.rankLevels[ri], e.rankLevels[ri - 1]);
+                e.rarity = RarityFromPower(LineCooldown(e), 0, e.rankLevels[0]);
+                e.cost = cfg.abilityCostByRarity[uint8(e.rarity)];
+                e.weight = 0;
+
+                for (uint32 sp : e.ranks)
+                    _spellToFirst[sp] = firstSpell;
+                _abilities[firstSpell] = std::move(e);
+                ++abilities;
+            } while (result->NextRow());
+    }
+
+    _coaAutomatic.clear();
+    if (cfg.coaAutomatic)
+        if (QueryResult automatic = WorldDatabase.Query(
+            "SELECT entry, class, spec, spell, req_level, requires, baseline, team FROM cw_coa_automatic "
+            "ORDER BY entry, req_level"))
+            do
+            {
+                Field* f = automatic->Fetch();
+                uint32 const spellId = f[3].Get<uint32>();
+                if (!sSpellMgr->GetSpellInfo(spellId))
+                    continue;
+                if (_coaAutomatic.empty() || _coaAutomatic.back().entry != f[0].Get<uint32>())
+                {
+                    CoAAutomatic entry;
+                    entry.entry = f[0].Get<uint32>();
+                    entry.coaClass = f[1].Get<uint8>();
+                    entry.spec = f[2].Get<uint16>();
+                    entry.baseline = f[6].Get<uint8>() != 0;
+                    entry.team = f[7].Get<uint8>();
+                    std::string const requiresText = f[5].Get<std::string>();
+                    for (std::string_view const token : Acore::Tokenize(requiresText, ' ', false))
+                        if (uint32 id = uint32(strtoul(std::string(token).c_str(), nullptr, 10)))
+                            entry.required.push_back(id);
+                    _coaAutomatic.push_back(std::move(entry));
+                }
+                _coaAutomatic.back().ranks.push_back({ spellId, f[4].Get<uint8>() });
+            } while (automatic->NextRow());
+
+    uint32 dropped = 0;
+    for (auto itr = _talents.begin(); itr != _talents.end();)
+    {
+        if (coaTabs.count(itr->second.tabId) && !keptTalents.count(itr->first))
+        {
+            itr = _talents.erase(itr);
+            ++dropped;
+        }
+        else
+            ++itr;
+    }
+
+    LOG_INFO("module.classless", "mod-classless-wildcard: {} CoA ability line(s) and {} talent(s) registered "
+             "({} skipped, {} switched-off talent rows dropped)", abilities, talents, skipped, dropped);
+}
+
+bool ClasslessMgr::OwnsCoAEntry(Player* player, CharState& st, uint32 coaEntry) const
+{
+    auto owner = _coaEntryOwner.find(coaEntry);
+    if (owner != _coaEntryOwner.end())
+        return owner->second.first ? st.talents.count(owner->second.second) > 0
+                                   : st.abilities.count(owner->second.second) > 0;
+    // an automatic entry (a specialisation's signature ability) is owned when one of its spells is known
+    for (CoAAutomatic const& automatic : _coaAutomatic)
+        if (automatic.entry == coaEntry)
+            for (CoAAutomaticRank const& rank : automatic.ranks)
+                if (player->HasSpell(rank.spell))
+                    return true;
+    return false;
+}
+
+uint32 ClasslessMgr::FirstMissingCoAEntry(Player* player, CharState& st, std::vector<uint32> const& required) const
+{
+    for (uint32 coaEntry : required)
+        if (!OwnsCoAEntry(player, st, coaEntry))
+            return coaEntry;
+    return 0;
+}
+
+std::string ClasslessMgr::CoAEntryName(uint32 coaEntry) const
+{
+    auto owner = _coaEntryOwner.find(coaEntry);
+    if (owner != _coaEntryOwner.end())
+    {
+        if (!owner->second.first)
+            return SpellNameOf(owner->second.second);
+        auto talent = _talents.find(owner->second.second);
+        return talent != _talents.end() ? SpellNameOf(talent->second.rankSpells[0]) : std::string();
+    }
+    for (CoAAutomatic const& automatic : _coaAutomatic)
+        if (automatic.entry == coaEntry && !automatic.ranks.empty())
+            return SpellNameOf(automatic.ranks[0].spell);
+    return {};
+}
+
+std::string ClasslessMgr::CoARequiredBy(CharState& st, uint32 coaEntry) const
+{
+    if (!coaEntry)
+        return {};
+    for (auto const& [firstSpell, owned] : st.abilities)
+        if (auto itr = _abilities.find(firstSpell); itr != _abilities.end() && itr->second.coaEntry != coaEntry &&
+            std::find(itr->second.requiresEntries.begin(), itr->second.requiresEntries.end(), coaEntry) !=
+                itr->second.requiresEntries.end())
+            return itr->second.name;
+    for (auto const& [talentId, rank] : st.talents)
+        if (auto itr = _talents.find(talentId); itr != _talents.end() && itr->second.coaEntry != coaEntry &&
+            std::find(itr->second.requiresEntries.begin(), itr->second.requiresEntries.end(), coaEntry) !=
+                itr->second.requiresEntries.end())
+            return SpellNameOf(itr->second.rankSpells[0]);
+    return {};
+}
+
+void ClasslessMgr::RemoveCoAChoiceSiblings(Player* player, CharState& st, uint32 group, uint32 coaEntry)
+{
+    auto members = _coaChoiceGroups.find(group);
+    if (!group || members == _coaChoiceGroups.end())
+        return;
+    for (uint32 other : members->second)
+    {
+        if (other == coaEntry)
+            continue;
+        auto owner = _coaEntryOwner.find(other);
+        if (owner == _coaEntryOwner.end())
+            continue;
+        if (owner->second.first)
+        {
+            auto talent = _talents.find(owner->second.second);
+            if (talent != _talents.end() && st.talents.count(talent->first))
+                RemoveTalentInternal(player, talent->second);
+        }
+        else if (auto ability = _abilities.find(owner->second.second);
+                 ability != _abilities.end() && st.abilities.count(ability->first))
+            RemoveAbilityInternal(player, ability->second);
+    }
+}
+
+void ClasslessMgr::SynchronizeCoAAutomatic(Player* player)
+{
+    if (!cfg.coaEnable || !cfg.coaAutomatic || _coaAutomatic.empty() || !player)
+        return;
+    CharState* st = FindState(player);
+    if (!st)
+        return;
+
+    // the specialisations (and classes) the Hero owns something of
+    std::set<std::pair<uint8, uint16>> owned;
+    for (auto const& [firstSpell, ownedAbility] : st->abilities)
+        if (AbilityEntry const* e = GetAbility(firstSpell); e && e->coaClass)
+        {
+            owned.insert({ e->coaClass, e->coaSpec });
+            owned.insert({ e->coaClass, 0 });
+        }
+    for (auto const& [talentId, rank] : st->talents)
+        if (TalentPoolEntry const* t = GetTalent(talentId); t && t->coaClass)
+        {
+            owned.insert({ t->coaClass, t->coaSpec });
+            owned.insert({ t->coaClass, 0 });
+        }
+
+    // Which automatic entries are due: the specialisation is owned, the level reached, and everything they
+    // require held, a purchased entry or another automatic one that is due. Settled to a fixed point because
+    // an entry can require one that requires another.
+    uint8 const level = player->GetLevel();
+    std::set<uint32> due;
+    for (bool changed = true; changed;)
+    {
+        changed = false;
+        for (CoAAutomatic const& automatic : _coaAutomatic)
+        {
+            if (due.count(automatic.entry) || automatic.ranks.empty() || automatic.ranks.front().level > level ||
+                !owned.count({ automatic.coaClass, automatic.spec }) || (automatic.baseline && !cfg.coaClassSpells) ||
+                (automatic.team != TEAM_NEUTRAL && automatic.team != player->GetTeamId()))
+                continue;
+            bool met = true;
+            for (uint32 required : automatic.required)
+            {
+                auto purchased = _coaEntryOwner.find(required);
+                met = purchased != _coaEntryOwner.end() ? OwnsCoAEntry(player, *st, required) : due.count(required) > 0;
+                if (!met)
+                    break;
+            }
+            if (met)
+            {
+                due.insert(automatic.entry);
+                changed = true;
+            }
+        }
+    }
+
+    // wanted across all entries first: two classes' baselines can grant the same spell, and one not being due
+    // must not take away what the other grants
+    std::set<uint32> wanted;
+    for (CoAAutomatic const& automatic : _coaAutomatic)
+    {
+        if (!due.count(automatic.entry))
+            continue;
+        uint32 highest = 0;
+        for (CoAAutomaticRank const& rank : automatic.ranks)
+            if (rank.level <= level)
+                highest = rank.spell;     // ranks are in level order, so the last that fits is the highest
+        if (highest)
+            wanted.insert(highest);
+    }
+    for (CoAAutomatic const& automatic : _coaAutomatic)
+        for (CoAAutomaticRank const& rank : automatic.ranks)
+        {
+            bool const has = player->HasSpell(rank.spell);
+            if (wanted.count(rank.spell) && !has)
+                player->learnSpell(rank.spell, false);
+            else if (!wanted.count(rank.spell) && has)
+                player->removeSpell(rank.spell, SPEC_MASK_ALL, false);
+        }
+}
+
+uint32 ClasslessMgr::OwnedCoAClassMask(Player* player)
+{
+    CharState* st = FindState(player);
+    if (!st)
+        return 0;
+    if (st->coaMaskDirty)
+    {
+        uint32 mask = 0;
+        for (auto const& [firstSpell, owned] : st->abilities)
+            if (AbilityEntry const* e = GetAbility(firstSpell); e && e->coaClass)
+                mask |= 1u << e->coaClass;
+        for (auto const& [talentId, rank] : st->talents)
+            if (TalentPoolEntry const* t = GetTalent(talentId); t && t->coaClass)
+                mask |= 1u << t->coaClass;
+        st->coaMask = mask;
+        st->coaMaskDirty = false;
+    }
+    return st->coaMask;
 }
 
 void ClasslessMgr::LoadVariants()
@@ -2227,6 +2607,8 @@ uint32 ClasslessMgr::ForgedLine(std::string const& recipe) const
 
 uint32 ClasslessMgr::AbilityCost(AbilityEntry const& e) const
 {
+    if (e.freeEntry)
+        return 0;
     return e.cost ? e.cost : cfg.abilityCostByRarity[uint8(e.rarity)];
 }
 
@@ -2428,6 +2810,7 @@ void ClasslessMgr::LoadCharacter(Player* player, CharState& st)
             owned.source = GrantSource(f[1].Get<uint8>());
             owned.locked = f[2].Get<bool>();
             st.abilities[f[0].Get<uint32>()] = owned;
+            st.coaMaskDirty = true;
         } while (result->NextRow());
     }
 
@@ -2438,6 +2821,7 @@ void ClasslessMgr::LoadCharacter(Player* player, CharState& st)
         {
             Field* f = result->Fetch();
             st.talents[f[0].Get<uint32>()] = f[1].Get<uint8>();
+            st.coaMaskDirty = true;
         } while (result->NextRow());
     }
 
@@ -2461,6 +2845,7 @@ void ClasslessMgr::LoadCharacter(Player* player, CharState& st)
 void ClasslessMgr::SaveState(Player* player)
 {
     CharState& st = GetState(player);
+    SynchronizeCoAAutomatic(player);
     CharacterDatabase.Execute(
         "REPLACE INTO cw_char_state (guid, mode, ability_essence, talent_essence, pity, rerolls, last_level, "
         "stat_str, stat_agi, stat_sta, stat_int, stat_spi, display_power, archetype) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
@@ -2947,6 +3332,7 @@ void ClasslessMgr::HandleLogin(Player* player)
             if (st.mode == Mode::Classless)
                 st.talentEssence += cfg.talentCostPerRank;
             st.talents.erase(talentId);
+            st.coaMaskDirty = true;
             CharacterDatabase.Execute("DELETE FROM cw_char_talents WHERE guid = {} AND talent_id = {}",
                                       player->GetGUID().GetCounter(), talentId);
             if (!t.abilityLines.empty())
@@ -3258,6 +3644,7 @@ void ClasslessMgr::GrantAbilityInternal(Player* player, AbilityEntry const& e, G
     OwnedAbility owned;
     owned.source = source;
     st.abilities[e.firstSpellId] = owned;
+    st.coaMaskDirty = true;
 
     // learn rank 1 always, higher ranks as level allows
     uint8 level = player->GetLevel();
@@ -3620,6 +4007,7 @@ void ClasslessMgr::RemoveAbilityInternal(Player* player, AbilityEntry const& e, 
 {
     CharState& st = GetState(player);
     st.abilities.erase(e.firstSpellId);
+    st.coaMaskDirty = true;
 
     for (uint32 rankSpell : e.ranks)
         if (player->HasSpell(rankSpell))
@@ -3671,6 +4059,7 @@ void ClasslessMgr::GrantTalentRankInternal(Player* player, TalentPoolEntry const
     // already standing there, not wait for the next summon
     CW_SyncTalentPetSpell(player);
     st.talents[t.talentId] = newRank;
+    st.coaMaskDirty = true;
 
     // an ability talent hands over its whole ability line, so the spell keeps
     // ranking up with level instead of stalling at the talent's rank 1
@@ -3712,6 +4101,7 @@ void ClasslessMgr::RemoveTalentInternal(Player* player, TalentPoolEntry const& t
 {
     CharState& st = GetState(player);
     st.talents.erase(t.talentId);
+    st.coaMaskDirty = true;
 
     for (uint8 r = 0; r < t.maxRank; ++r)
     {
@@ -4070,6 +4460,11 @@ bool ClasslessMgr::BuyAbility(Player* player, uint32 firstSpellId, std::string* 
         if (err) *err = Acore::StringFormat("That ability requires level {}.", uint32(e->rankLevels[0]));
         return false;
     }
+    if (uint32 missing = FirstMissingCoAEntry(player, st, e->requiresEntries))
+    {
+        if (err) *err = Acore::StringFormat("That needs {} first.", CoAEntryName(missing));
+        return false;
+    }
     uint32 cost = AbilityCost(*e);
     if (st.abilityEssence < cost)
     {
@@ -4078,6 +4473,7 @@ bool ClasslessMgr::BuyAbility(Player* player, uint32 firstSpellId, std::string* 
     }
 
     st.abilityEssence -= cost;
+    RemoveCoAChoiceSiblings(player, st, e->choiceGroup, e->coaEntry);
     GrantAbilityInternal(player, *e, GrantSource::Picked);
     SaveState(player);
     return true;
@@ -4110,6 +4506,12 @@ bool ClasslessMgr::UnlearnAbility(Player* player, uint32 firstSpellId, std::stri
     if (st.abilities[e->firstSpellId].source == GrantSource::Companion)
     {
         if (err) *err = "That came free with another ability. Unlearn the one it came with instead.";
+        return false;
+    }
+
+    if (std::string const by = CoARequiredBy(st, e->coaEntry); !by.empty())
+    {
+        if (err) *err = Acore::StringFormat("{} requires this ability. Unlearn that one first.", by);
         return false;
     }
 
@@ -4148,11 +4550,17 @@ bool ClasslessMgr::UnlearnTalent(Player* player, uint32 talentId, std::string* e
                 return false;
             }
 
+    if (std::string const by = CoARequiredBy(st, t->coaEntry); !by.empty())
+    {
+        if (err) *err = Acore::StringFormat("{} requires this talent. Unlearn that one first.", by);
+        return false;
+    }
+
     uint8 const ranks = owned->second;
     std::string const name = SpellName(t->rankSpells[0]);
     RemoveTalentInternal(player, *t);
     // what was paid: the first rank only under the flat price, every rank otherwise
-    if (cfg.refundOnUnlearn)
+    if (cfg.refundOnUnlearn && !t->freeEntry)
         st.talentEssence += cfg.talentFlatCost ? cfg.talentCostPerRank : cfg.talentCostPerRank * ranks;
     // A talent can bring a companion in -- Bestial Wrath brings the pet it
     // needs -- so unlearning it has to let that companion go the same way
@@ -4191,7 +4599,12 @@ bool ClasslessMgr::BuyTalentRank(Player* player, uint32 talentId, std::string* e
     }
     // A talent costs one point, not one per rank: only the first rank is
     // charged, so ranking a talent all the way to 5 still costs a single point.
-    uint32 cost = (cfg.talentFlatCost && ownedRank > 0) ? 0 : cfg.talentCostPerRank;
+    uint32 cost = (cfg.talentFlatCost && ownedRank > 0) || t->freeEntry ? 0 : cfg.talentCostPerRank;
+    if (uint32 missing = FirstMissingCoAEntry(player, st, t->requiresEntries))
+    {
+        if (err) *err = Acore::StringFormat("That needs {} first.", CoAEntryName(missing));
+        return false;
+    }
     if (st.talentEssence < cost)
     {
         if (err) *err = Acore::StringFormat("Not enough Talent Essence ({} needed).", cost);
@@ -4224,13 +4637,15 @@ bool ClasslessMgr::BuyTalentRank(Player* player, uint32 talentId, std::string* e
     // Wildcard roll pool applies: tier R opens at level 10 + 5R. The essence
     // schedule already lands there on its own; this keeps it true whatever
     // the schedule is set to.
-    if (cfg.respectLevelReqs && player->GetLevel() < 10 + t->row * 5)
+    if (cfg.respectLevelReqs && player->GetLevel() < TalentReqLevel(*t))
     {
-        if (err) *err = Acore::StringFormat("That talent tier requires level {}.", 10 + t->row * 5);
+        if (err) *err = Acore::StringFormat("That talent tier requires level {}.", TalentReqLevel(*t));
         return false;
     }
 
     st.talentEssence -= cost;
+    if (!ownedRank)
+        RemoveCoAChoiceSiblings(player, st, t->choiceGroup, t->coaEntry);
     GrantTalentRankInternal(player, *t, ownedRank + 1);
     SaveState(player);
     return true;
@@ -4444,7 +4859,7 @@ uint32 ClasslessMgr::RollAbility(Player* player, GrantSource source)
         anyLevel.clear();
         for (auto const& [firstSpell, e] : _abilities)
         {
-            if (!e.enabled || st.abilities.count(firstSpell) || IsBanned(st, false, firstSpell))
+            if (!e.enabled || !e.pool || st.abilities.count(firstSpell) || IsBanned(st, false, firstSpell))
                 continue;
             if (e.variant && !cfg.elementalInPool)
                 continue;
@@ -4587,7 +5002,7 @@ uint32 ClasslessMgr::RollTalent(Player* player)
             anyLevel.clear();
             for (auto const& [talentId, t] : _talents)
             {
-                if (!t.enabled || IsBanned(st, true, talentId))
+                if (!t.enabled || !t.pool || IsBanned(st, true, talentId))
                     continue;
                 // A roll only ever hands over a talent the Hero does not
                 // have. Deepening one already held is what a reroll with
@@ -4596,7 +5011,7 @@ uint32 ClasslessMgr::RollTalent(Player* player)
                 if (st.talents.count(talentId))
                     continue;
                 anyLevel.push_back(&t);
-                if (!cfg.respectLevelReqs || player->GetLevel() >= 10 + t.row * 5)
+                if (!cfg.respectLevelReqs || player->GetLevel() >= TalentReqLevel(t))
                     candidates.push_back(&t);
             }
         };

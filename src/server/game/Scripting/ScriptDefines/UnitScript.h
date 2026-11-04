@@ -21,6 +21,9 @@
 #include "ScriptObject.h"
 #include <vector>
 
+class AuraEffect;
+class HealInfo;
+
 enum UnitHook
 {
     UNITHOOK_ON_HEAL,
@@ -44,6 +47,20 @@ enum UnitHook
     UNITHOOK_ON_UNIT_EXIT_COMBAT,
     UNITHOOK_ON_UNIT_DEATH,
     UNITHOOK_ON_UNIT_SET_SHAPESHIFT_FORM,
+    UNITHOOK_MODIFY_SPELL_EFFECT_BASE_VALUE,
+    UNITHOOK_ON_AFTER_AURA_EFFECT_CALCULATE_AMOUNT,
+    UNITHOOK_CAN_UNIT_ATTACK,
+    UNITHOOK_ON_BEFORE_HEAL_ABSORB,
+    UNITHOOK_ON_PERIODIC_DAMAGE_RESULT,
+    UNITHOOK_SPELL_MAGNET_TARGET,
+    UNITHOOK_CAN_CAST_SPELL_WHILE_MOVING,
+    UNITHOOK_CAN_CAST_DURING_CHANNEL,
+    UNITHOOK_CAN_USE_SCRIPTED_PET_AI,
+    UNITHOOK_ON_BLOCK,
+    UNITHOOK_MODIFY_SPELL_POWER_COST,
+    UNITHOOK_MODIFY_RUN_SPEED,
+    UNITHOOK_MODIFY_RUN_SPEED_RATE,
+    UNITHOOK_ON_SEND_AURA_UPDATE,
     UNITHOOK_END
 };
 
@@ -110,6 +127,49 @@ public:
     virtual void OnUnitExitCombat(Unit* /*unit*/) { }
     virtual void OnUnitDeath(Unit* /*unit*/, Unit* /*killer*/) { }
     virtual void OnUnitSetShapeshiftForm(Unit* /*unit*/, uint8 /*form*/) { }
+
+    // An effect's base value once its die is rolled, before combo points and
+    // bonuses: where a spell's own numbers can follow the caster's level.
+    virtual void ModifySpellEffectBaseValue(Unit const* /*caster*/, SpellInfo const* /*spellInfo*/,
+                                            uint8 /*effectIndex*/, float& /*value*/) { }
+
+    // an aura effect's amount once the spell's own script has set it
+    virtual void OnAfterAuraEffectCalculateAmount(AuraEffect const* /*effect*/, Unit* /*caster*/, int32& /*amount*/) { }
+
+    // false makes the target invalid for this attacker (and spell)
+    [[nodiscard]] virtual bool CanUnitAttack(Unit const* /*attacker*/, Unit const* /*target*/, SpellInfo const* /*spell*/) { return true; }
+
+    // a heal before the target's heal absorbs take their share
+    virtual void OnBeforeHealAbsorb(HealInfo& /*healInfo*/) { }
+
+    // what a periodic damage tick actually dealt
+    virtual void OnPeriodicDamageResult(Unit* /*target*/, Unit* /*attacker*/, uint32 /*damage*/, SpellInfo const* /*spellInfo*/) { }
+
+    // a unit that takes a hostile spell instead of its target (returns nullptr for none)
+    [[nodiscard]] virtual Unit* SpellMagnetTarget(Unit* /*attacker*/, Unit* /*victim*/, SpellInfo const* /*spell*/) { return nullptr; }
+
+    // true lets the unit cast this spell without being interrupted by movement
+    [[nodiscard]] virtual bool CanCastSpellWhileMoving(Unit const* /*unit*/, SpellInfo const* /*spell*/) { return false; }
+
+    // true lets the unit cast this spell while it channels another one
+    [[nodiscard]] virtual bool CanCastDuringChannel(Unit const* /*unit*/, SpellInfo const* /*spell*/) { return false; }
+
+    virtual void OnBlock(Unit* /*victim*/, Unit* /*attacker*/) { }
+
+    // before an aura update goes out: one application to the target's set (receiver null), or every visible aura
+    // of the target to one player (application null)
+    virtual void OnSendAuraUpdate(Unit* /*target*/, Player* /*receiver*/, AuraApplication const* /*application*/,
+        bool /*remove*/) { }
+
+    virtual void ModifySpellPowerCost(Unit const* /*caster*/, SpellInfo const* /*info*/,
+        int32& /*cost*/, float& /*multiplier*/) { }
+
+    virtual void ModifyRunSpeed(Unit const* /*unit*/, int32& /*modifier*/) { }
+
+    virtual void ModifyRunSpeedRate(Unit const* /*unit*/, float& /*speed*/) { }
+
+    // true gives this pet its scripted AI (its template's ScriptName) instead of the stock PetAI
+    [[nodiscard]] virtual bool CanUseScriptedPetAI(Creature const* /*pet*/) { return false; }
 };
 
 #endif

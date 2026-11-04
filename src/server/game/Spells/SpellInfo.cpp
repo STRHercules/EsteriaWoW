@@ -383,7 +383,8 @@ bool SpellEffectInfo::IsAreaAuraEffect() const
             Effect == SPELL_EFFECT_APPLY_AREA_AURA_FRIEND   ||
             Effect == SPELL_EFFECT_APPLY_AREA_AURA_ENEMY    ||
             Effect == SPELL_EFFECT_APPLY_AREA_AURA_PET      ||
-            Effect == SPELL_EFFECT_APPLY_AREA_AURA_OWNER)
+            Effect == SPELL_EFFECT_APPLY_AREA_AURA_OWNER    ||
+            Effect == SPELL_EFFECT_ASCENSION_APPLY_AURA_TO_SUMMONS)
         return true;
     return false;
 }
@@ -451,6 +452,8 @@ int32 SpellEffectInfo::CalcValue(Unit const* caster, int32 const* bp, Unit const
     // random damage
     if (caster)
     {
+        sScriptMgr->ModifySpellEffectBaseValue(caster, _spellInfo, EffectIndex, value);
+
         // bonus amount from combo points
         if (uint8 comboPoints = caster->GetComboPoints())
         {
@@ -782,6 +785,40 @@ std::array<SpellEffectInfo::StaticData, TOTAL_SPELL_EFFECTS> SpellEffectInfo::_d
     {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 162 SPELL_EFFECT_TALENT_SPEC_SELECT
     {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 163 SPELL_EFFECT_163
     {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 164 SPELL_EFFECT_REMOVE_AURA
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 165 SPELL_EFFECT_ASCENSION_MODIFY_COOLDOWN
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 166 SPELL_EFFECT_ASCENSION_RESTORE_BASE_MANA_PCT
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 167 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_CASTER,   TARGET_OBJECT_TYPE_UNIT}, // 168 SPELL_EFFECT_ASCENSION_PLAY_SPELL_VISUAL_KIT
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 169 SPELL_EFFECT_ASCENSION_SPREAD_AURA
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 170 SPELL_EFFECT_ASCENSION_SPREAD_AURA_2
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 171 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 172 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 173 SPELL_EFFECT_ASCENSION_REFRESH_AURA
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 174 Ascension health-percentage damage
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 175 SPELL_EFFECT_ASCENSION_MODIFY_AURA_STACKS
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 176 SPELL_EFFECT_ASCENSION_MODIFY_AURA_STACKS_2
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 177 SPELL_EFFECT_ASCENSION_MODIFY_AURA_DURATION
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 178 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 179 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 180 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 181 SPELL_EFFECT_ASCENSION_RESTORE_BASE_HEALTH_PCT
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 182 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 183 SPELL_EFFECT_ASCENSION_TRIGGER_SPELL_DELAYED
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 184 SPELL_EFFECT_ASCENSION_TRIGGER_RANDOM_SPELL
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 185 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 186 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 187 SPELL_EFFECT_ASCENSION_RESTORE_SPELL_CHARGES
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 188 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 189 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 190 SPELL_EFFECT_ASCENSION_APPLY_AURA_TO_SUMMONS
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 191 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 192 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 193 Ascension delayed trigger; DBC supplies targets
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 194 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 195 SPELL_EFFECT_ASCENSION_RESET_COOLDOWN
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 196 unknown Ascension effect
+    {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 197 SPELL_EFFECT_ASCENSION_MODIFY_FAMILY_COOLDOWN
+    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 198 unknown Ascension effect
 } };
 
 SpellInfo::SpellInfo(SpellEntry const* spellEntry)
@@ -1337,15 +1374,80 @@ bool SpellInfo::IsAffected(uint32 familyName, flag96 const& familyFlags) const
     return true;
 }
 
+uint8 SpellInfo::CalcMaxAuraStacks(Unit* caster) const
+{
+    // Zero denotes an aura which cannot stack. A modifier must not make an
+    // unrelated, nonstacking helper stackable just because it shares a mask.
+    if (!StackAmount)
+        return 0;
+
+    float maximum = float(StackAmount);
+    if (caster)
+        if (Player* modOwner = caster->GetSpellModOwner())
+            modOwner->ApplySpellMod(Id, SPELLMOD_MAX_AURA_STACKS, maximum);
+
+    // Aura's stored stack count and the client update field are both uint8.
+    return uint8(std::clamp(maximum, 1.0f, 255.0f));
+}
+
 bool SpellInfo::IsAffectedBySpellMods() const
 {
     return !(AttributesEx3 & SPELL_ATTR3_IGNORE_CASTER_MODIFIERS);
 }
 
+namespace
+{
+    // DmgClass is an ability-roll category (melee/ranged/magic/none), not "does this deal damage" --
+    // a pure heal like Greater Heal is still SPELL_DAMAGE_CLASS_MAGIC. Flame Throwing's tooltip names
+    // damaging spells specifically, so look for an actual damage-dealing effect instead.
+    bool DealsDamage(SpellInfo const* info)
+    {
+        for (SpellEffectInfo const& effect : info->GetEffects())
+        {
+            switch (effect.Effect)
+            {
+                case SPELL_EFFECT_SCHOOL_DAMAGE:
+                case SPELL_EFFECT_WEAPON_DAMAGE:
+                case SPELL_EFFECT_WEAPON_DAMAGE_NOSCHOOL:
+                case SPELL_EFFECT_NORMALIZED_WEAPON_DMG:
+                case SPELL_EFFECT_HEALTH_LEECH:
+                    return true;
+                default:
+                    break;
+            }
+            if (effect.ApplyAuraName == SPELL_AURA_PERIODIC_DAMAGE ||
+                effect.ApplyAuraName == SPELL_AURA_PERIODIC_DAMAGE_PERCENT ||
+                effect.ApplyAuraName == SPELL_AURA_PERIODIC_LEECH)
+                return true;
+        }
+        return false;
+    }
+}
+
 bool SpellInfo::IsAffectedBySpellMod(SpellModifier const* mod) const
 {
+    // Stim's copied healing ignores caster modifiers, but Bandage Gun explicitly
+    // increases its chain targets. Keep the exemption limited to that modifier;
+    // its ordinary family/mask and script checks still run below.
+    bool const bandageGunTargets = Id == 653241 && SpellFamilyName == 34 &&
+        mod->spellId == 705780 && mod->op == SPELLMOD_JUMP_TARGETS && mod->type == SPELLMOD_FLAT &&
+        mod->mask == flag96(128, 0, 0);
+
+    bool const windSurgeTargets = Id == 653226 && SpellFamilyName == 38 &&
+        mod->spellId == 805750 && mod->op == SPELLMOD_JUMP_TARGETS && mod->type == SPELLMOD_FLAT &&
+        mod->mask == flag96(0, 0x40000, 0);
+
+    bool const bloodFueledAbsorb = Id == 560361 && mod->spellId == 705416 && mod->op == SPELLMOD_EFFECT1 &&
+        mod->type == SPELLMOD_PCT;
+
+    // Spirit Eclipse's splash damage is snapshotted from its parent aura, so the splash ignores caster
+    // modifiers. Bwonsamdi's Edge names only the splash; the snapshot applies it explicitly.
+    bool const bwonsamdisEdgeSplash = Id == 802712 && mod->spellId == 712435 && mod->op == SPELLMOD_DAMAGE &&
+        mod->type == SPELLMOD_PCT;
+
     // xinef: dont check duration mod
-    if (mod->op != SPELLMOD_DURATION)
+    if (mod->op != SPELLMOD_DURATION && !bandageGunTargets && !windSurgeTargets &&
+        !bloodFueledAbsorb && !bwonsamdisEdgeSplash)
         if (!IsAffectedBySpellMods())
             return false;
 
@@ -1354,10 +1456,78 @@ bool SpellInfo::IsAffectedBySpellMod(SpellModifier const* mod) const
     if (!affectSpell)
         return false;
 
+    if (mod->targetSpellId && mod->targetSpellId != Id)
+        return false;
+
+    // Flame Throwing has a zero class mask, so the generic lookup below would match nothing for its range
+    // modifier; its tooltip names every damaging spell of its owner, not one spell family. Its other
+    // (undocumented) modifier effect is left alone.
+    if ((mod->spellId == 11100 || mod->spellId == 12353) && mod->op == SPELLMOD_RANGE)
+        return DealsDamage(this);
+
+    if (SpellFamilyName == 31 && affectSpell->SpellFamilyName == 31)
+    {
+        // The copied Dark Veil mask collides with Hammer. Route these modifiers
+        // by their named roots while preserving normal effect and cost calculation.
+        uint32 root = sSpellMgr->GetFirstSpellInChain(Id);
+        switch (mod->spellId)
+        {
+            case 520682: case 520810: return Id == 520345;
+            case 680600: return root == 805116 || root == 804152;
+            // Unlike 680600, this modifier's two effects are not interchangeable: effect 0
+            // (SPELLMOD_EFFECT1) carries only Hammer of Twilight's classmask, effect 1
+            // (SPELLMOD_EFFECT2) only Entropic Slam's. Route each op to its own root only,
+            // or the other op's SpellModifier instance also matches the wrong target spell.
+            case 802047: return mod->op == SPELLMOD_EFFECT1 ? root == 805116 : root == 804152;
+            case 805115: return root == 500720 || root == 806222 || root == 805116;
+            case 681102: case 681389: case 806768: return Id == 300277;
+            default: break;
+        }
+    }
+
+    if (SpellFamilyName == 33 && affectSpell->SpellFamilyName == 33)
+    {
+        uint32 root = sSpellMgr->GetFirstSpellInChain(Id);
+        switch (mod->spellId)
+        {
+            case 301242: return root == 800357 || root == 500143 || root == 500141 || root == 800231;
+            case 800722: case 680642: case 301293: return root == 500143;
+            case 300354: return root == 500141;
+            case 807299: return root == 500146;
+            case 800601: return root == 800357;
+            case 680639: return Id == 680700;
+            default: break;
+        }
+    }
+
+    if (SpellFamilyName == 34 && affectSpell->SpellFamilyName == 34)
+    {
+        uint32 root = sSpellMgr->GetFirstSpellInChain(Id);
+        bool mech = root == 801387 || root == 805372 || Id == 801388 || Id == 801390;
+        switch (mod->spellId)
+        {
+            case 680200: case 681482: return mech || root == 801009;
+            case 705788: return mech;
+            case 506818: case 506825: return Id == 524835;
+            case 802963: return root == 801005 || Id == 500601;
+            default: break;
+        }
+        if (Id == 504594 && mod->op == SPELLMOD_DURATION)
+            return false; // Four ticks are fixed; Makeshift modifiers must not add or remove ticks.
+    }
+
     if (!sScriptMgr->OnIsAffectedBySpellModCheck(affectSpell, this, mod))
         return true;
 
-    return IsAffected(affectSpell->SpellFamilyName, mod->mask);
+    // Widow's Kiss replaces Venom Fang and inherits its ordinary modifiers.
+    // Keep the replacement's own mask and all preceding eligibility checks.
+    if (Id == 504705 && SpellFamilyName == 35 && affectSpell->SpellFamilyName == 35 &&
+        (mod->mask & flag96(0, 16384, 0)))
+        return true;
+
+    bool affected = IsAffected(affectSpell->SpellFamilyName, mod->mask);
+    sScriptMgr->OnSpellModFamilyMask(affectSpell, this, mod, affected);
+    return affected;
 }
 
 bool SpellInfo::CanPierceImmuneAura(SpellInfo const* auraSpellInfo) const
@@ -2830,7 +3000,7 @@ int32 SpellInfo::CalcPowerCost(Unit const* caster, SpellSchoolMask schoolMask, S
                 powerCost += int32(CalculatePct(caster->GetCreateHealth(), ManaCostPercentage));
                 break;
             case POWER_MANA:
-                powerCost += int32(CalculatePct(caster->GetCreateMana(), ManaCostPercentage));
+                powerCost += int32(CalculatePct(UsesMaxManaForCost ? caster->GetMaxPower(POWER_MANA) : caster->GetCreateMana(), ManaCostPercentage));
                 break;
             case POWER_RAGE:
             case POWER_FOCUS:
@@ -2884,8 +3054,14 @@ int32 SpellInfo::CalcPowerCost(Unit const* caster, SpellSchoolMask schoolMask, S
         }
     }
 
-    // PCT mod from user auras by school
-    powerCost = int32(powerCost * (1.0f + caster->GetFloatValue(static_cast<uint16>(UNIT_FIELD_POWER_COST_MULTIPLIER) + school)));
+    // PCT mod from user auras by school. Ascension aura 357 applies only to
+    // intrinsically instant, non-channeled mana spells; ranged animation delay
+    // and temporary cast-time spellmods do not change that classification.
+    float powerCostMultiplier = caster->GetFloatValue(static_cast<uint16>(UNIT_FIELD_POWER_COST_MULTIPLIER) + school);
+    if (PowerType == POWER_MANA && !IsChanneled() && (!CastTimeEntry || CastTimeEntry->CastTime == 0))
+        powerCostMultiplier -= float(caster->GetTotalAuraModifier(SPELL_AURA_ASCENSION_MOD_INSTANT_MANA_COST_PCT)) / 100.0f;
+    sScriptMgr->ModifySpellPowerCost(caster, this, powerCost, powerCostMultiplier);
+    powerCost = int32(powerCost * (1.0f + powerCostMultiplier));
     if (powerCost < 0)
         powerCost = 0;
     return powerCost;

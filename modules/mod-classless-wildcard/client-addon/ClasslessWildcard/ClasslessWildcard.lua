@@ -39,6 +39,7 @@ local CLASS_NAMES = {
 -- content had no way to browse it.
 local CLASS_HERO = 12       -- not a class: the Hero line's own browser page
 local CLASS_ORDER = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, CLASS_HERO }
+-- imported CoA classes (pages 100+) are appended by the server's CC message
 
 -- ---------------------------------------------------------------------------
 -- state
@@ -57,6 +58,7 @@ local CW = {
               -- do not run Death Knight abilities at all.
               runes = nil, runic = 0, runicMax = 0 },
     classIndex = 1,
+    coaIcons = {},      -- CoA page -> the spell whose icon its rail row wears
     -- classless talent pricing; the server overrides these via the CFG message
     talentCost = 1, talentFlat = true,
     abilPage = 0, abilTotal = 1, abilRows = {},
@@ -128,12 +130,26 @@ end
 CW.RequestAbil, CW.RequestTal = RequestAbil, RequestTal
 
 -- ---------------------------------------------------------------------------
--- main frame: "Character Advancement" — Ascension-style single-screen layout
--- (class strip on top, Abilities + Talents panes, My Build sidebar, bottom bar)
+-- main frame: "Character Advancement", laid out like the Paths of Fate Codex:
+-- a header (portrait, path, essence), the class rail on the left, a board of
+-- cards in the middle (Abilities / Talents / My Build), the detail panel on
+-- the right and a footer. Drawn with the shared Esteria style kit
+-- (esteria_style.lua) and animated with its tweens.
 -- ---------------------------------------------------------------------------
+local ES = EsteriaStyle
+-- Layout in one table rather than a dozen locals: this chunk lives near
+-- Lua's 200-local ceiling.
+local UI = { W = 1000, H = 680, HEAD = 96, RAIL = 196, DETAIL = 284, FOOT = 38,
+             CARD_GAP = 12, ROW_GAP = 8, GRID_TOP = -84, CARD_H = 76, BUILD_H = 52, RAIL_ROW = 42 }
+UI.BOARD_X = UI.RAIL + 18
+UI.BOARD_W = UI.W - UI.RAIL - UI.DETAIL - 36
+UI.CARD_W = (UI.BOARD_W - UI.CARD_GAP) / 2
+UI.BODY_H = UI.H - UI.HEAD - UI.FOOT
+CW.UI = UI
+
 local frame = CreateFrame("Frame", "ClasslessWildcardFrame", UIParent)
-frame:SetWidth(950); frame:SetHeight(600)
-frame:SetPoint("CENTER")
+frame:SetWidth(UI.W); frame:SetHeight(UI.H)
+frame:SetPoint("CENTER", 0, 20)
 -- Above the rest of the interface while it is open. UIParent is MEDIUM and a
 -- plain child of it inherits that, which tied the panel with the resource bars
 -- and with minimap buttons -- and a tie is broken by creation order, so those
@@ -144,25 +160,118 @@ frame:SetPoint("CENTER")
 -- else that lands at HIGH.
 frame:SetFrameStrata("HIGH")
 frame:SetToplevel(true)
--- The whole look of the panel (pane outlines, header strips, textured
--- ground) is one baked image applied as the backdrop. RefreshPanelArt applies
--- it again on entering the world, after a cinematic and whenever the panel
--- opens: a brand-new character plays the intro movie right after addons
--- load, and the client drops textures loaded before it, which left the panel
--- flat until a reload.
-CW.PANEL_BACKDROP = {
-    bgFile = "Interface\\AddOns\\ClasslessWildcard\\panel_bg", -- baked layout art
-    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-    tile = false, edgeSize = 32,
-    insets = { left = 0, right = 0, top = 0, bottom = 0 },
-}
-frame:SetBackdrop(CW.PANEL_BACKDROP)
--- Opaque backing UNDER the baked art: panel_bg has transparent regions, so
--- without this the world shows through the gaps between the painted panes.
-local frameBg = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
-frameBg:SetPoint("TOPLEFT", 6, -6)
-frameBg:SetPoint("BOTTOMRIGHT", -6, 6)
-frameBg:SetTexture(0.04, 0.045, 0.06, 1)
+frame:SetClampedToScreen(true)
+
+do
+    local function Font(name, size, color)
+        local f = CreateFont(name)
+        f:SetFont(ES.FONT, size)
+        f:SetTextColor(color[1], color[2], color[3])
+        f:SetShadowOffset(1, -1)
+        f:SetShadowColor(0, 0, 0, 0.8)
+        return f
+    end
+    CW.FLAT_FONT = Font("ClasslessWildcardFlatFont", 11, ES.GOLD)
+    CW.FLAT_FONT_HOVER = Font("ClasslessWildcardFlatFontHover", 11, { 1, 0.93, 0.70 })
+    CW.FLAT_FONT_OFF = Font("ClasslessWildcardFlatFontOff", 11, ES.MUTED)
+    CW.BIG_FONT = Font("ClasslessWildcardBigFont", 13, ES.GOLD)
+    CW.BIG_FONT_HOVER = Font("ClasslessWildcardBigFontHover", 13, { 1, 0.93, 0.70 })
+    CW.BIG_FONT_OFF = Font("ClasslessWildcardBigFontOff", 13, ES.MUTED)
+end
+
+function CW.Label(parent, size, color, text, layer)
+    local fs = ES.Text(parent, size, color, layer)
+    if text then fs:SetText(text) end
+    return fs
+end
+
+function CW.SetColor(fs, color) fs:SetTextColor(color[1], color[2], color[3]) end
+
+-- A panel: ink fill, gold-dim edge, gold rule along the top. Returns the rule.
+function CW.Skin(f)
+    f:SetBackdrop(nil)
+    ES.Solid(f, "BACKGROUND", ES.INK, 0.97):SetAllPoints(f)
+    ES.Border(f, ES.GOLD_DIM, 0.9)
+    local rule = ES.Solid(f, "OVERLAY", ES.GOLD, 1)
+    rule:SetHeight(2)
+    rule:SetPoint("TOP", f, "TOP", 0, 0)
+    rule:SetWidth(f:GetWidth() > 0 and f:GetWidth() or 1)
+    f:HookScript("OnSizeChanged", function(self, w) rule:SetWidth(w) end)
+    return rule
+end
+
+-- A button redrawn as the kit's flat button: ink fill, gold-dim edge, gold
+-- wash and edge on hover. The hover lives in the HIGHLIGHT layer rather than
+-- an OnEnter script, because call sites set their own OnEnter freely.
+function CW.Flat(b, big)
+    if b.cwFlat then return b end
+    b.cwFlat = true
+    for _, get in ipairs({ "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture" }) do
+        local t = b[get](b)
+        if t then t:SetTexture(nil) end
+    end
+    ES.Solid(b, "BACKGROUND", ES.INK, 0.9):SetAllPoints(b)
+    b.edges = ES.Border(b, ES.GOLD_DIM, 0.9)
+    ES.Solid(b, "HIGHLIGHT", ES.GOLD, 0.12):SetAllPoints(b)
+    for _, line in ipairs(ES.Border(b, ES.GOLD, 1)) do line:SetDrawLayer("HIGHLIGHT") end
+    b:SetNormalFontObject(big and CW.BIG_FONT or CW.FLAT_FONT)
+    b:SetHighlightFontObject(big and CW.BIG_FONT_HOVER or CW.FLAT_FONT_HOVER)
+    b:SetDisabledFontObject(big and CW.BIG_FONT_OFF or CW.FLAT_FONT_OFF)
+    b:SetPushedTextOffset(0, -1)
+    return b
+end
+
+-- Step a label down through `sizes` until it fits `width`; past the last size
+-- the client truncates it with an ellipsis rather than letting it spill.
+function CW.FitText(fs, width, sizes)
+    for _, size in ipairs(sizes) do
+        fs:SetFont(ES.FONT, size)
+        if (fs:GetStringWidth() or 0) <= width then return end
+    end
+end
+
+-- A big flat button whose label is too wide drops to the regular button font.
+function CW.FitButton(b)
+    local big = true
+    b:SetNormalFontObject(CW.BIG_FONT)
+    local fs = b:GetFontString()
+    if fs and (fs:GetStringWidth() or 0) > b:GetWidth() - 20 then big = false end
+    b:SetNormalFontObject(big and CW.BIG_FONT or CW.FLAT_FONT)
+    b:SetHighlightFontObject(big and CW.BIG_FONT_HOVER or CW.FLAT_FONT_HOVER)
+    b:SetDisabledFontObject(big and CW.BIG_FONT_OFF or CW.FLAT_FONT_OFF)
+end
+
+function CW.FlatButton(parent, width, height, text, big)
+    local b = CW.Flat(CreateFrame("Button", nil, parent), big)
+    b:SetWidth(width); b:SetHeight(height)
+    if text then b:SetText(text) end
+    return b
+end
+
+-- Every stock UIPanelButtonTemplate under `parent`, flyouts included, made
+-- flat. Matched by its art, so scroll bars and check boxes are left alone.
+function CW.FlattenButtons(parent)
+    for _, child in ipairs({ parent:GetChildren() }) do
+        local normal = child.GetNormalTexture and child:GetNormalTexture()
+        local path = normal and normal:GetTexture()
+        if type(path) == "string" and path:lower():find("ui%-panel%-button") then CW.Flat(child) end
+        CW.FlattenButtons(child)
+    end
+end
+
+CW.topRule = CW.Skin(frame)
+-- Soft shadow past the side edges, like the creator's side panels.
+for _, side in ipairs({ "LEFT", "RIGHT" }) do
+    local fade = frame:CreateTexture(nil, "BACKGROUND")
+    fade:SetTexture(ES.WHITE)
+    fade:SetWidth(40)
+    local inner = side == "LEFT" and "RIGHT" or "LEFT"
+    fade:SetPoint("TOP" .. inner, frame, "TOP" .. side, 0, 0)
+    fade:SetPoint("BOTTOM" .. inner, frame, "BOTTOM" .. side, 0, 0)
+    local a1, a2 = 0, 0.5
+    if side == "RIGHT" then a1, a2 = 0.5, 0 end
+    fade:SetGradientAlpha("HORIZONTAL", ES.INK[1], ES.INK[2], ES.INK[3], a1, ES.INK[1], ES.INK[2], ES.INK[3], a2)
+end
 
 frame:SetMovable(true); frame:EnableMouse(true)
 frame:RegisterForDrag("LeftButton")
@@ -171,175 +280,319 @@ frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 frame:Hide()
 tinsert(UISpecialFrames, "ClasslessWildcardFrame")
 
--- clickable dice crest: opens the Wildcard roll/reroll experience
-local titleBtn = CreateFrame("Button", nil, frame)
-titleBtn:SetWidth(64); titleBtn:SetHeight(64)
-titleBtn:SetPoint("TOPLEFT", 20, -16)
+-- header ------------------------------------------------------------------------
+local statusText, subStatusText
+do
+    local header = CreateFrame("Frame", nil, frame)
+    header:SetPoint("TOPLEFT", 0, 0)
+    header:SetWidth(UI.W); header:SetHeight(UI.HEAD)
+    local rule = ES.Solid(header, "BORDER", ES.GOLD_DIM, 0.6)
+    rule:SetHeight(1)
+    rule:SetPoint("BOTTOMLEFT", 18, 0)
+    rule:SetPoint("BOTTOMRIGHT", -18, 0)
+    CW.header = header
 
-local titleIcon = titleBtn:CreateTexture(nil, "ARTWORK")
-titleIcon:SetAllPoints(titleBtn)
-titleIcon:SetTexture("Interface\\AddOns\\ClasslessWildcard\\icon")
+    local box = CreateFrame("Frame", nil, header)
+    box:SetWidth(72); box:SetHeight(72)
+    box:SetPoint("TOPLEFT", 18, -12)
+    ES.Solid(box, "BACKGROUND", { 0, 0, 0 }, 0.6):SetAllPoints(box)
+    ES.Border(box, ES.GOLD_DIM, 1)
+    local model = CreateFrame("PlayerModel", nil, box)
+    model:SetPoint("TOPLEFT", 1, -1)
+    model:SetPoint("BOTTOMRIGHT", -1, 1)
+    CW.portrait, CW.portraitBox = model, box
 
--- glow behind the die brightens on hover, so it reads as clickable
-local titleGlow = titleBtn:CreateTexture(nil, "BACKGROUND")
-titleGlow:SetWidth(100); titleGlow:SetHeight(100)
-titleGlow:SetPoint("CENTER")
-titleGlow:SetTexture("Interface\\AddOns\\ClasslessWildcard\\glow")
-titleGlow:SetBlendMode("ADD")
-titleGlow:SetVertexColor(0.45, 0.75, 1)
-titleGlow:SetAlpha(0)
+    CW.nameText = CW.Label(header, 20, ES.GOLD)
+    CW.nameText:SetPoint("TOPLEFT", box, "TOPRIGHT", 16, -6)
+    subStatusText = CW.Label(header, 12, ES.MUTED)
+    subStatusText:SetPoint("TOPLEFT", CW.nameText, "BOTTOMLEFT", 0, -5)
 
-function CW.RefreshPanelArt()
-    frame:SetBackdrop(CW.PANEL_BACKDROP)
-    titleIcon:SetTexture("Interface\\AddOns\\ClasslessWildcard\\icon")
-    titleGlow:SetTexture("Interface\\AddOns\\ClasslessWildcard\\glow")
-end
-
-titleBtn:SetScript("OnEnter", function(self)
-    titleGlow:SetAlpha(0.9)
-    titleIcon:SetVertexColor(1.3, 1.3, 1.3)
-    GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-    local s = CW.state
-    if s.mode ~= 1 then
-        GameTooltip:SetText("Wildcard rolls")
-        GameTooltip:AddLine("Only Wildcard Heroes roll the dice for abilities.", 0.8, 0.8, 0.8, true)
-    elseif (s.level or 1) < (s.freeReroll or 10) then
-        GameTooltip:SetText("|cffffd100Roll your Starting Hand|r")
-        GameTooltip:AddLine("Click to reroll your starter abilities.", 0.3, 1, 0.3, true)
-        GameTooltip:AddLine("Free before level " .. (s.freeReroll or 10)
-            .. " -- lock the ones you like.", 0.6, 0.9, 0.6, true)
-    else
-        GameTooltip:SetText("Starting Hand (closed)")
-        GameTooltip:AddLine("Free starter rolls end at level " .. (s.freeReroll or 10) .. ".",
-            0.8, 0.8, 0.8, true)
-        GameTooltip:AddLine("Reroll anything you own one at a time from |cffffd100My Build|r, using the circular arrow beside it.", 0.6, 0.9, 0.6, true)
-    end
-    GameTooltip:Show()
-end)
-titleBtn:SetScript("OnLeave", function()
-    titleGlow:SetAlpha(0)
-    titleIcon:SetVertexColor(1, 1, 1)
-    GameTooltip:Hide()
-end)
-titleBtn:SetScript("OnMouseDown", function() titleGlow:SetAlpha(1); titleIcon:SetVertexColor(0.85, 0.85, 0.85) end)
-titleBtn:SetScript("OnMouseUp", function() titleGlow:SetAlpha(0.9); titleIcon:SetVertexColor(1.3, 1.3, 1.3) end)
--- The starting hand is a BELOW-LEVEL-10 mechanic: free rolls, lock what you
--- like, reroll the rest. From level 10 it is over for good -- rerolls cost a
--- charge and are made one at a time from My Build -- so nothing may reopen it.
-function CW.CanShowHand()
-    local s = CW.state
-    return s.mode == 1 and (s.level or 1) < (s.freeReroll or 10)
-end
-
-titleBtn:SetScript("OnClick", function()
-    if not CW.CanShowHand() then return end
-    if PlaySound then pcall(PlaySound, "igMainMenuOptionCheckBoxOn") end
-    if CW.handFrame then CW.handFrame:Show() end
-end)
-
-local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-title:SetPoint("TOP", 0, -18)
-title:SetText("Character Advancement")
-
-local closeBtn = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
-closeBtn:SetPoint("TOPRIGHT", -8, -8)
-
-local statusText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-statusText:SetPoint("TOP", 0, -40)
-
-local subStatusText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-subStatusText:SetPoint("TOP", 0, -56)
-
--- Blizzard page-arrow styling
-local function StyleArrow(btn, prev)
-    btn:SetWidth(26); btn:SetHeight(26)
-    local base = prev and "Interface\\Buttons\\UI-SpellbookIcon-PrevPage-"
-                       or "Interface\\Buttons\\UI-SpellbookIcon-NextPage-"
-    btn:SetNormalTexture(base .. "Up")
-    btn:SetPushedTexture(base .. "Down")
-    btn:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
-end
-
--- class strip -------------------------------------------------------------------
-local CLASS_TOKENS = {
-    [1] = "WARRIOR", [2] = "PALADIN", [3] = "HUNTER", [4] = "ROGUE", [5] = "PRIEST",
-    [6] = "DEATHKNIGHT", [7] = "SHAMAN", [8] = "MAGE", [9] = "WARLOCK", [11] = "DRUID",
-}
-local CLASS_TCOORDS = { -- UI-CharacterCreate-Classes 4x4 atlas
-    WARRIOR     = { 0.00, 0.25, 0.00, 0.25 },
-    MAGE        = { 0.25, 0.50, 0.00, 0.25 },
-    ROGUE       = { 0.50, 0.75, 0.00, 0.25 },
-    DRUID       = { 0.75, 1.00, 0.00, 0.25 },
-    HUNTER      = { 0.00, 0.25, 0.25, 0.50 },
-    SHAMAN      = { 0.25, 0.50, 0.25, 0.50 },
-    PRIEST      = { 0.50, 0.75, 0.25, 0.50 },
-    WARLOCK     = { 0.75, 1.00, 0.25, 0.50 },
-    PALADIN     = { 0.00, 0.25, 0.50, 0.75 },
-    DEATHKNIGHT = { 0.25, 0.50, 0.50, 0.75 },
-}
-local classButtons = {}
-local CLASS_BTN = 38
-for i, classId in ipairs(CLASS_ORDER) do
-    local b = CreateFrame("Button", nil, frame)
-    b.classId = classId
-    b:SetWidth(CLASS_BTN); b:SetHeight(CLASS_BTN)
-    b.icon = b:CreateTexture(nil, "ARTWORK")
-    b.icon:SetAllPoints(b)
-    -- the addon ships its OWN class-icon atlas (embedded, decoupled from the
-    -- game files); fall back to the stock atlas if it was not installed
-    if not b.icon:SetTexture("Interface\\AddOns\\ClasslessWildcard\\classicons") then
-        b.icon:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes")
-    end
-    local tc = CLASS_TCOORDS[CLASS_TOKENS[classId]]
-    if tc then
-        b.icon:SetTexCoord(tc[1], tc[2], tc[3], tc[4])
-    else
-        -- the Hero page: the same icon its spellbook tab wears
-        b.icon:SetTexture("Interface\\Icons\\Ability_Hunter_FocusedAim")
-    end
-    b.slot = b:CreateTexture(nil, "OVERLAY")
-    b.slot:SetWidth(CLASS_BTN * 1.72); b.slot:SetHeight(CLASS_BTN * 1.72)
-    b.slot:SetPoint("CENTER", 0, -1)
-    b.slot:SetTexture("Interface\\Buttons\\UI-Quickslot2")
-    b.ring = b:CreateTexture(nil, "OVERLAY")
-    b.ring:SetWidth(CLASS_BTN * 1.7); b.ring:SetHeight(CLASS_BTN * 1.7)
-    b.ring:SetPoint("CENTER", 0, 0)
-    b.ring:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
-    b.ring:SetBlendMode("ADD")
-    b.ring:Hide()
-    b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
-    b:SetScript("OnClick", function()
-        CW.classIndex = i
-        RequestAbil(0)
-        -- follow the class across: jump the Talents pane to that class's first
-        -- tree, so both panes are showing the same class. The Hero page has one
-        -- of its own now -- the server reports the Hero talent tab as class 12
-        -- -- so it takes the same path as every other button.
-        if CW.SyncTalentTabToClass and CW.SyncTalentTabToClass() then
-            RequestTal(0)
+    -- the path badge: which path this Hero walks, and the way in when none
+    local badge = CreateFrame("Button", nil, header)
+    badge:SetWidth(180); badge:SetHeight(22)
+    badge:SetPoint("TOPLEFT", subStatusText, "BOTTOMLEFT", 0, -8)
+    ES.Solid(badge, "BACKGROUND", ES.INK, 0.9):SetAllPoints(badge)
+    badge.edges = ES.Border(badge, ES.GOLD_DIM, 0.8)
+    badge.label = CW.Label(badge, 11, ES.GOLD)
+    badge.label:SetPoint("LEFT", 8, 0)
+    badge:SetScript("OnEnter", function(self)
+        ES.Tint(self.edges, ES.GOLD, 1)
+        local mode = CW.state.mode
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
+        if mode == 0 then
+            GameTooltip:SetText("Classless")
+            GameTooltip:AddLine("Spend Ability Essence and Talent Essence on any class's abilities and talents.", 1, 1, 1, true)
+        elseif mode == 1 then
+            GameTooltip:SetText("Wildcard")
+            GameTooltip:AddLine("Abilities and talents come from dice rolls. Reroll what you own from My Build.", 1, 1, 1, true)
+        else
+            GameTooltip:SetText("Choose your path")
+            GameTooltip:AddLine("Click to choose between Classless and Wildcard.", 1, 1, 1, true)
         end
-    end)
-    b:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-        GameTooltip:AddLine(CLASS_NAMES[classId] or "?")
         GameTooltip:Show()
     end)
-    b:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    classButtons[i] = b
-end
-CW.classButtons = classButtons
+    badge:SetScript("OnLeave", function(self) ES.Tint(self.edges, ES.GOLD_DIM, 0.8); GameTooltip:Hide() end)
+    badge:SetScript("OnClick", function()
+        local mode = CW.state.mode
+        if mode ~= 0 and mode ~= 1 and CW.ShowPathChoice then CW.ShowPathChoice() end
+    end)
+    CW.pathBadge = badge
 
--- Point the Talents pane at the selected class's first tree.
+    -- Two counters, big gold numbers like the Codex's unspent points: the two
+    -- essences on Classless, rerolls and scrolls on Wildcard.
+    CW.counters = {}
+    for i = 1, 2 do
+        local c = CreateFrame("Frame", nil, header)
+        c:SetWidth(150); c:SetHeight(44)
+        c:SetPoint("TOPRIGHT", header, "TOPRIGHT", -60 - (2 - i) * 158, -12)
+        c.value = CW.Label(c, 30, ES.GOLD)
+        c.value:SetPoint("TOPLEFT", 0, -2)
+        c.label = CW.Label(c, 10, ES.MUTED)
+        c.label:SetPoint("LEFT", c.value, "RIGHT", 8, 0)
+        c.label:SetJustifyH("LEFT")
+        CW.counters[i] = c
+    end
+    statusText = CW.Label(header, 10, ES.MUTED)
+    statusText:SetPoint("TOPLEFT", CW.counters[1], "BOTTOMLEFT", 0, -2)
+
+    -- the ribbon that announces essence (or a reroll) coming in
+    local ribbon = CreateFrame("Frame", nil, header)
+    ribbon:SetWidth(240); ribbon:SetHeight(22)
+    ES.Solid(ribbon, "BACKGROUND", ES.GOLD, 0.92):SetAllPoints(ribbon)
+    ribbon.label = CW.Label(ribbon, 11, ES.INK)
+    ribbon.label:SetShadowOffset(0, 0)
+    ribbon.label:SetPoint("CENTER")
+    ribbon:Hide()
+    CW.ribbon = ribbon
+
+    local close = CW.FlatButton(header, 26, 22, "X")
+    close:SetPoint("TOPRIGHT", -12, -12)
+    close:SetScript("OnClick", function() frame:Hide() end)
+end
+
+-- the dice crest on the portrait: opens the Wildcard starting hand
+do
+    local titleBtn = CreateFrame("Button", nil, CW.header)
+    titleBtn:SetWidth(30); titleBtn:SetHeight(30)
+    titleBtn:SetPoint("CENTER", CW.portraitBox, "BOTTOMRIGHT", -2, 4)
+    titleBtn:SetFrameLevel(CW.portraitBox:GetFrameLevel() + 3)
+    local titleIcon = titleBtn:CreateTexture(nil, "ARTWORK")
+    titleIcon:SetAllPoints(titleBtn)
+    -- glow behind the die brightens on hover, so it reads as clickable
+    local titleGlow = titleBtn:CreateTexture(nil, "BACKGROUND")
+    titleGlow:SetWidth(54); titleGlow:SetHeight(54)
+    titleGlow:SetPoint("CENTER")
+    titleGlow:SetBlendMode("ADD")
+    titleGlow:SetVertexColor(1, 0.82, 0.45)
+    titleGlow:SetAlpha(0)
+    CW.titleBtn, CW.titleIcon, CW.titleGlow = titleBtn, titleIcon, titleGlow
+
+    titleBtn:SetScript("OnEnter", function(self)
+        titleGlow:SetAlpha(0.9)
+        titleIcon:SetVertexColor(1.3, 1.3, 1.3)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
+        local s = CW.state
+        if (s.level or 1) < (s.freeReroll or 10) then
+            GameTooltip:SetText("|cffffd100Roll your Starting Hand|r")
+            GameTooltip:AddLine("Click to reroll your starter abilities.", 0.3, 1, 0.3, true)
+            GameTooltip:AddLine("Free before level " .. (s.freeReroll or 10)
+                .. " -- lock the ones you like.", 0.6, 0.9, 0.6, true)
+        else
+            GameTooltip:SetText("Starting Hand (closed)")
+            GameTooltip:AddLine("Free starter rolls end at level " .. (s.freeReroll or 10) .. ".",
+                0.8, 0.8, 0.8, true)
+            GameTooltip:AddLine("Reroll anything you own one at a time from |cffffd100My Build|r.", 0.6, 0.9, 0.6, true)
+        end
+        GameTooltip:Show()
+    end)
+    titleBtn:SetScript("OnLeave", function()
+        titleGlow:SetAlpha(0)
+        titleIcon:SetVertexColor(1, 1, 1)
+        GameTooltip:Hide()
+    end)
+    -- The starting hand is a BELOW-LEVEL-10 mechanic: free rolls, lock what you
+    -- like, reroll the rest. From level 10 it is over for good -- rerolls cost a
+    -- charge and are made one at a time from My Build -- so nothing may reopen it.
+    function CW.CanShowHand()
+        local s = CW.state
+        return s.mode == 1 and (s.level or 1) < (s.freeReroll or 10)
+    end
+    titleBtn:SetScript("OnClick", function()
+        if not CW.CanShowHand() then return end
+        if PlaySound then pcall(PlaySound, "igMainMenuOptionCheckBoxOn") end
+        if CW.handFrame then CW.handFrame:Show() end
+    end)
+end
+
+-- Runs on entering the world, after a cinematic and whenever the panel opens:
+-- a brand-new character plays the intro movie right after addons load, and
+-- the client drops addon textures loaded before it.
+function CW.RefreshPanelArt()
+    CW.FlattenButtons(frame) -- idempotent; catches buttons built after load
+    CW.titleIcon:SetTexture("Interface\\AddOns\\ClasslessWildcard\\icon")
+    CW.titleGlow:SetTexture("Interface\\AddOns\\ClasslessWildcard\\glow")
+end
+
+-- Essence counters count up to their new value; a rise also slides the ribbon in.
+function CW.SetCounter(c, value, label, word)
+    value = value or 0
+    if c.label:GetText() ~= label then
+        c.label:SetText(label)
+        c.shown = nil
+    end
+    local from = c.shown
+    c.shown = value
+    if from and from ~= value and frame:IsShown() then
+        ES.Tween(c, 0.5, 0.1, function(p) c.value:SetText(math.floor(from + (value - from) * p + 0.5)) end)
+        if value > from and word then CW.Ribbon("+" .. (value - from) .. "  " .. word) end
+    else
+        c.value:SetText(value)
+    end
+end
+
+function CW.Ribbon(text)
+    local ribbon = CW.ribbon
+    ribbon.label:SetText(text)
+    ribbon:SetWidth(math.max(160, ribbon.label:GetStringWidth() + 40))
+    ribbon:Show()
+    ES.Tween("cw.ribbon", 0.45, 0.2, function(p)
+        ribbon:ClearAllPoints()
+        ribbon:SetPoint("TOPRIGHT", CW.header, "TOPRIGHT", -60 - 120 * (1 - p), -66)
+        ribbon:SetAlpha(p)
+    end)
+    CW.ribbonUntil = GetTime() + 3.5
+end
+
+-- class rail --------------------------------------------------------------------
+do
+    local rail = CreateFrame("Frame", nil, frame)
+    rail:SetPoint("TOPLEFT", 0, -UI.HEAD)
+    rail:SetWidth(UI.RAIL); rail:SetHeight(UI.BODY_H)
+    local edge = ES.Solid(rail, "BORDER", ES.GOLD_DIM, 0.5)
+    edge:SetWidth(1)
+    edge:SetPoint("TOPRIGHT", 0, -14)
+    edge:SetPoint("BOTTOMRIGHT", 0, 14)
+    CW.rail = rail
+    CW.railWash = ES.Solid(rail, "ARTWORK", ES.GOLD, 0.08)
+    CW.railWash:SetWidth(UI.RAIL - 1); CW.railWash:SetHeight(40)
+    CW.railAccent = ES.Solid(rail, "OVERLAY", ES.GOLD, 1)
+    CW.railAccent:SetWidth(3); CW.railAccent:SetHeight(34)
+
+    local TOKENS = {
+        [1] = "WARRIOR", [2] = "PALADIN", [3] = "HUNTER", [4] = "ROGUE", [5] = "PRIEST",
+        [6] = "DEATHKNIGHT", [7] = "SHAMAN", [8] = "MAGE", [9] = "WARLOCK", [11] = "DRUID",
+    }
+    local TCOORDS = { -- UI-CharacterCreate-Classes 4x4 atlas
+        WARRIOR     = { 0.00, 0.25, 0.00, 0.25 },
+        MAGE        = { 0.25, 0.50, 0.00, 0.25 },
+        ROGUE       = { 0.50, 0.75, 0.00, 0.25 },
+        DRUID       = { 0.75, 1.00, 0.00, 0.25 },
+        HUNTER      = { 0.00, 0.25, 0.25, 0.50 },
+        SHAMAN      = { 0.25, 0.50, 0.25, 0.50 },
+        PRIEST      = { 0.50, 0.75, 0.25, 0.50 },
+        WARLOCK     = { 0.75, 1.00, 0.25, 0.50 },
+        PALADIN     = { 0.00, 0.25, 0.50, 0.75 },
+        DEATHKNIGHT = { 0.25, 0.50, 0.50, 0.75 },
+    }
+    local buttons = {}
+    -- One rail row. Also called later for each imported CoA class the server
+    -- names, which is why it is a function and not just the loop below.
+    function CW.AddClassButton(i, classId)
+        local b = CreateFrame("Button", nil, rail)
+        b.classId = classId
+        b:SetWidth(UI.RAIL - 1); b:SetHeight(40)
+        ES.Solid(b, "HIGHLIGHT", ES.GOLD, 0.06):SetAllPoints(b)
+        local token = TOKENS[classId]
+        local color = token and RAID_CLASS_COLORS and RAID_CLASS_COLORS[token]
+        b.swatch = ES.Solid(b, "ARTWORK", type(color) == "table" and { color.r, color.g, color.b } or ES.GOLD, 1)
+        b.swatch:SetWidth(6); b.swatch:SetHeight(6)
+        b.swatch:SetPoint("LEFT", 16, 0)
+        b.box = CreateFrame("Frame", nil, b)
+        b.box:SetWidth(26); b.box:SetHeight(26)
+        b.box:SetPoint("LEFT", b.swatch, "RIGHT", 8, 0)
+        b.icon = b.box:CreateTexture(nil, "ARTWORK")
+        b.icon:SetPoint("TOPLEFT", 1, -1)
+        b.icon:SetPoint("BOTTOMRIGHT", -1, 1)
+        -- the addon ships its OWN class-icon atlas (embedded, decoupled from the
+        -- game files); fall back to the stock atlas if it was not installed
+        if not b.icon:SetTexture("Interface\\AddOns\\ClasslessWildcard\\classicons") then
+            b.icon:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes")
+        end
+        local tc = TCOORDS[token or ""]
+        local coaIcon = CW.coaIcons[classId] and select(3, GetSpellInfo(CW.coaIcons[classId]))
+        if tc then
+            b.icon:SetTexCoord(tc[1], tc[2], tc[3], tc[4])
+        elseif coaIcon then
+            b.icon:SetTexture(coaIcon)
+            b.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        else
+            -- the Hero page: the same icon its spellbook tab wears
+            b.icon:SetTexture("Interface\\Icons\\Ability_Hunter_FocusedAim")
+            b.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        end
+        b.edges = ES.Border(b.box, ES.GOLD_DIM, 0.9)
+        b.name = CW.Label(b, 13, ES.TEXT, CLASS_NAMES[classId] or "?")
+        b.name:SetPoint("TOPLEFT", b.box, "TOPRIGHT", 10, 1)
+        b.motto = CW.Label(b, 10, ES.MUTED)
+        b.motto:SetPoint("TOPLEFT", b.name, "BOTTOMLEFT", 0, -2)
+        b:SetScript("OnClick", function()
+            CW.classIndex = i
+            if CW.boardKey == "BUILD" then CW.SetBoard("ABIL") end
+            if PlaySound then pcall(PlaySound, "igMainMenuOptionCheckBoxOn") end
+            RequestAbil(0)
+            -- follow the class across: jump the Talents board to that class's
+            -- first tree, so both show the same class. The Hero page has one of
+            -- its own -- the server reports the Hero talent tab as class 12 --
+            -- so it takes the same path as every other row.
+            if CW.SyncTalentTabToClass and CW.SyncTalentTabToClass() then
+                RequestTal(0)
+            end
+        end)
+        buttons[i] = b
+    end
+    CW.classButtons = buttons
+    for i, classId in ipairs(CLASS_ORDER) do
+        CW.AddClassButton(i, classId)
+    end
+end
+
+-- The rail scrolls once the imported CoA classes are in it: 32 rows against
+-- room for 12. railOffset is how many rows are scrolled off the top.
+CW.railOffset = 0
+CW.RAIL_ROWS = math.floor((UI.BODY_H - 14) / UI.RAIL_ROW)
+function CW.RailY(slot) return -14 - (slot - 1 - CW.railOffset) * UI.RAIL_ROW end
+function CW.RailVisible(slot) return slot > CW.railOffset and slot <= CW.railOffset + CW.RAIL_ROWS end
+
+function CW.PlaceRailRow(b, p)
+    b:ClearAllPoints()
+    b:SetPoint("TOPLEFT", CW.rail, "TOPLEFT", -12 * (1 - p), CW.RailY(b.slot or 1))
+    b:SetAlpha(p)
+end
+
+function CW.MoveRailAccent(slot)
+    local to = CW.RailY(slot)
+    local from = CW.railAt or to
+    CW.railAt = to
+    ES.Tween("cw.railAccent", 0.24, 0, function(p)
+        local y = from + (to - from) * p
+        CW.railAccent:ClearAllPoints()
+        CW.railAccent:SetPoint("TOPLEFT", CW.rail, "TOPLEFT", 0, y - 3)
+        CW.railWash:ClearAllPoints()
+        CW.railWash:SetPoint("TOPLEFT", CW.rail, "TOPLEFT", 0, y)
+    end)
+end
+
+-- Point the Talents board at the selected class's first tree.
 --
 -- classIndex and tabIndex default to 1 independently, and tab 1 is whichever
 -- tree has the lowest TalentTab id -- a Mage tree -- so the panel opened
--- showing Warrior abilities beside Mage talents. Clicking a class button
--- always reconciled them; nothing did at load, because the tab list arrives
--- over the addon channel after the first render.
+-- showing Warrior abilities beside Mage talents. Clicking a class always
+-- reconciled them; nothing did at load, because the tab list arrives over the
+-- addon channel after the first render.
 --
--- Only moves the pane when the tree on screen belongs to a DIFFERENT class, so
--- paging to Warrior tree 2 and reopening the panel keeps tree 2.
--- Returns whether the pane is showing the selected class once this is done,
+-- Only moves the board when the tree on screen belongs to a DIFFERENT class,
+-- so paging to Warrior tree 2 and reopening the panel keeps tree 2.
+-- Returns whether the board is showing the selected class once this is done,
 -- so a caller can tell "nothing to refresh" from "that class has no trees".
 function CW.SyncTalentTabToClass()
     local want = CLASS_ORDER[CW.classIndex]
@@ -355,188 +608,450 @@ function CW.SyncTalentTabToClass()
     return false          -- that class has no trees (Death Knight switched off)
 end
 
--- Position the strip over the buttons that are actually visible, so hiding the
--- Death Knight one leaves the rest centred instead of gapped.
+-- Stack the rows that are actually visible, so hiding the Death Knight one
+-- closes the gap instead of leaving it.
 function CW.LayoutClassStrip()
-    local visible = {}
-    for _, b in ipairs(classButtons) do
-        if (b.classId == 6 and not CW.dkEnabled)
-            or (b.classId == CLASS_HERO and not CW.forgedEnabled) then
-            b:Hide()
-        else
-            b:Show()
-            table.insert(visible, b)
+    local n = 0
+    for _, b in ipairs(CW.classButtons) do
+        b.listed = not ((b.classId == 6 and not CW.dkEnabled)
+            or (b.classId == CLASS_HERO and not CW.forgedEnabled))
+        if b.listed then
+            n = n + 1
+            b.slot = n
         end
     end
-    local width = #visible * (CLASS_BTN + 8) - 8
-    for n, b in ipairs(visible) do
-        b:ClearAllPoints()
-        b:SetPoint("TOPLEFT", (950 - width) / 2 + (n - 1) * (CLASS_BTN + 8), -70)
+    CW.railOffset = math.max(0, math.min(CW.railOffset, n - CW.RAIL_ROWS))
+    for _, b in ipairs(CW.classButtons) do
+        if b.listed and CW.RailVisible(b.slot) then
+            b:Show()
+            CW.PlaceRailRow(b, 1)
+        else
+            b:Hide()
+        end
     end
 end
 CW.LayoutClassStrip()
 
-local function UpdateClassStrip()
-    for i, b in ipairs(classButtons) do
-        if i == CW.classIndex then
-            b.ring:Show()
-            b.icon:SetVertexColor(1, 1, 1)
+CW.rail:EnableMouseWheel(true)
+CW.rail:SetScript("OnMouseWheel", function(_, delta)
+    CW.railOffset = CW.railOffset - delta
+    CW.LayoutClassStrip()
+    CW.railAt = nil          -- the rows moved under the accent: snap it again
+    CW.UpdateClassStrip()
+end)
+
+function CW.UpdateClassStrip()
+    for i, b in ipairs(CW.classButtons) do
+        local on = i == CW.classIndex
+        CW.SetColor(b.name, on and ES.GOLD or ES.TEXT)
+        ES.Tint(b.edges, on and ES.GOLD or ES.GOLD_DIM, on and 1 or 0.9)
+        b.icon:SetVertexColor(on and 1 or 0.75, on and 1 or 0.75, on and 1 or 0.75)
+        local trees = 0
+        for _, t in ipairs(CW.tabs or {}) do if t.class == b.classId then trees = trees + 1 end end
+        if b.classId == CLASS_HERO then
+            b.motto:SetText("Forged spells")
         else
-            b.ring:Hide()
-            b.icon:SetVertexColor(0.75, 0.75, 0.75)
+            b.motto:SetText(trees > 0 and (trees .. " talent tree" .. (trees == 1 and "" or "s")) or "")
+        end
+        if on then
+            -- the selected class may be scrolled out of view: no accent then
+            CW.railAccent[b:IsShown() and "Show" or "Hide"](CW.railAccent)
+            CW.railWash[b:IsShown() and "Show" or "Hide"](CW.railWash)
+            if b:IsShown() and CW.railAt ~= CW.RailY(b.slot or 1) then CW.MoveRailAccent(b.slot or 1) end
         end
     end
 end
 
--- pane scaffolding ---------------------------------------------------------------
-local PANE_TOP = -122
-local ENTRY_H, ENTRIES = 34, 10
--- talents get one fewer row: the tree-selector strip eats a slot, and 10 rows
--- ran straight into the pager (server pages talents by 9 to match)
-local TAL_ENTRIES = 9
-local BUILD_H, BUILD_ROWS = 26, 13
+-- board -------------------------------------------------------------------------
+do
+    local board = CreateFrame("Frame", nil, frame)
+    board:SetPoint("TOPLEFT", UI.BOARD_X, -UI.HEAD)
+    board:SetWidth(UI.BOARD_W); board:SetHeight(UI.BODY_H)
+    CW.board = board
 
-local function MakePaneHeader(x, width, text)
-    -- the label sits ON the baked header strip inside each pane (y 130..154)
-    local h = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    h:SetPoint("TOPLEFT", x, PANE_TOP - 13)
-    h:SetWidth(width)
-    h:SetJustifyH("CENTER")
-    h:SetText("|cffffd100" .. text .. "|r")
-    return h
-end
+    local rule = ES.Solid(board, "BORDER", ES.GOLD_DIM, 0.35)
+    rule:SetHeight(1)
+    rule:SetPoint("TOPLEFT", 0, -40)
+    rule:SetPoint("TOPRIGHT", 0, -40)
+    CW.tabLine = ES.Solid(board, "OVERLAY", ES.GOLD, 1)
+    CW.tabLine:SetHeight(2)
 
--- one two-line list entry (striped row, framed icon, colored name + info line)
-local function MakeEntry(x, y, width, index)
-    local e = CreateFrame("Button", nil, frame)
-    e:SetWidth(width); e:SetHeight(ENTRY_H - 2)
-    e:SetPoint("TOPLEFT", x, y)
-    e:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
-
-    e.stripe = e:CreateTexture(nil, "BACKGROUND")
-    e.stripe:SetAllPoints(e)
-    e.stripe:SetTexture("Interface\\Buttons\\WHITE8X8")
-    if index % 2 == 0 then
-        e.stripe:SetVertexColor(1, 1, 1, 0.030)
-    else
-        e.stripe:SetVertexColor(0, 0, 0, 0.22)
+    CW.boardTabs = {}
+    local x = 0
+    for i, def in ipairs({ { "ABIL", "ABILITIES", 104 }, { "TAL", "TALENTS", 92 }, { "BUILD", "MY BUILD", 140 } }) do
+        local t = CreateFrame("Button", nil, board)
+        t.key, t.x, t.w = def[1], x, def[3]
+        t:SetWidth(def[3]); t:SetHeight(28)
+        t:SetPoint("TOPLEFT", x, -10)
+        t.label = CW.Label(t, 15, ES.MUTED, def[2])
+        t.label:SetPoint("LEFT", 0, 0)
+        t.count = CW.Label(t, 11, ES.GOLD_DIM)
+        t.count:SetPoint("LEFT", t.label, "RIGHT", 6, 0)
+        t:SetScript("OnClick", function(self) CW.SetBoard(self.key) end)
+        t:SetScript("OnEnter", function(self) if CW.boardKey ~= self.key then CW.SetColor(self.label, ES.TEXT) end end)
+        t:SetScript("OnLeave", function() CW.PaintTabs() end)
+        CW.boardTabs[i] = t
+        x = x + def[3] + 14
     end
 
-    e.sep = e:CreateTexture(nil, "BACKGROUND")
-    e.sep:SetHeight(1)
-    e.sep:SetPoint("BOTTOMLEFT", 2, 0)
-    e.sep:SetPoint("BOTTOMRIGHT", -2, 0)
-    e.sep:SetTexture("Interface\\Buttons\\WHITE8X8")
-    e.sep:SetVertexColor(0.82, 0.66, 0.20, 0.10)
+    CW.containers = {}
+    for _, key in ipairs({ "ABIL", "TAL", "BUILD" }) do
+        local c = CreateFrame("Frame", nil, board)
+        c:SetAllPoints(board)
+        c:Hide()
+        CW.containers[key] = c
+    end
+end
 
-    e.icon = e:CreateTexture(nil, "ARTWORK")
-    e.icon:SetWidth(28); e.icon:SetHeight(28)
-    e.icon:SetPoint("LEFT", 4, 0)
-    e.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+function CW.PaintTabs()
+    for _, t in ipairs(CW.boardTabs) do
+        CW.SetColor(t.label, CW.boardKey == t.key and ES.GOLD or ES.MUTED)
+    end
+end
 
-    e.slot = e:CreateTexture(nil, "OVERLAY") -- beveled Blizzard slot frame
-    e.slot:SetWidth(48); e.slot:SetHeight(48)
-    e.slot:SetPoint("CENTER", e.icon, "CENTER", 0, -1)
-    e.slot:SetTexture("Interface\\Buttons\\UI-Quickslot2")
+function CW.MoveTabLine(animate)
+    local target
+    for _, t in ipairs(CW.boardTabs) do if t.key == CW.boardKey then target = t end end
+    if not target then return end
+    local w = math.max(20, target.label:GetStringWidth())
+    local fromX, fromW = CW.tabLineX or target.x, CW.tabLineW or w
+    CW.tabLineX, CW.tabLineW = target.x, w
+    local function place(p)
+        CW.tabLine:ClearAllPoints()
+        CW.tabLine:SetPoint("TOPLEFT", CW.board, "TOPLEFT", fromX + (target.x - fromX) * p, -39)
+        CW.tabLine:SetWidth(fromW + (w - fromW) * p)
+    end
+    if animate then ES.Tween("cw.tabLine", 0.22, 0, place) else place(1) end
+end
 
-    e.check = e:CreateTexture(nil, "OVERLAY")
-    e.check:SetWidth(14); e.check:SetHeight(14)
-    e.check:SetPoint("BOTTOMRIGHT", e.icon, "BOTTOMRIGHT", 5, -4)
-    e.check:SetTexture("Interface\\RaidFrame\\ReadyCheck-Ready")
-    e.check:Hide()
+-- Which list the board shows: abilities, talents or the build.
+function CW.SetBoard(key, quiet)
+    if CW.boardKey == key and not quiet then return end
+    CW.boardKey = key
+    for k, c in pairs(CW.containers) do
+        if k == key then c:Show() else c:Hide() end
+    end
+    CW.PaintTabs()
+    CW.MoveTabLine(not quiet)
+    if not quiet then
+        if PlaySound then pcall(PlaySound, "igMainMenuOptionCheckBoxOn") end
+        CW.Cascade(CW.containers[key])
+    end
+end
 
-    e.name = e:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    e.name:SetPoint("TOPLEFT", e.icon, "TOPRIGHT", 9, -2)
-    e.name:SetJustifyH("LEFT")
-    e.name:SetWidth(width - 50)
-    e.name:SetHeight(11)
+-- cards -------------------------------------------------------------------------
+function CW.PlaceCard(card)
+    card:ClearAllPoints()
+    card:SetPoint("TOPLEFT", card:GetParent(), "TOPLEFT", card.baseX, card.baseY + card.enter + card.lift)
+end
 
-    e.sub = e:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    e.sub:SetPoint("BOTTOMLEFT", e.icon, "BOTTOMRIGHT", 9, 2)
-    e.sub:SetJustifyH("LEFT")
-    e.sub:SetWidth(width - 50)
-    e.sub:SetHeight(10)
-
-    e:SetScript("OnEnter", function(self)
-        if self.spellId then
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:SetHyperlink("spell:" .. self.spellId)
-            if self.tipLine then GameTooltip:AddLine(self.tipLine, 0.9, 0.8, 0.4) end
-            GameTooltip:Show()
+-- Rank bars along a card's bottom edge: one segment per rank, gold when owned.
+function CW.PaintPips(host, rank, max, width, x, y)
+    host.pips = host.pips or {}
+    max = math.min(max or 0, 5)
+    local each = max > 0 and (width - (max - 1) * 4) / max or 0
+    for i = 1, math.max(max, #host.pips) do
+        local pip = host.pips[i]
+        if not pip and i <= max then
+            pip = { edge = ES.Solid(host, "ARTWORK", ES.GOLD_DIM, 0.35), fill = ES.Solid(host, "OVERLAY", ES.GOLD, 1) }
+            host.pips[i] = pip
         end
+        if pip then
+            for _, part in ipairs({ pip.edge, pip.fill }) do
+                part:ClearAllPoints()
+                part:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", x + (i - 1) * (each + 4), y)
+                part:SetWidth(math.max(1, each)); part:SetHeight(2)
+            end
+            if i <= max then pip.edge:Show() else pip.edge:Hide() end
+            if i <= max and i <= (rank or 0) then pip.fill:Show() else pip.fill:Hide() end
+        end
+    end
+end
+
+-- One card on the board. Abilities and talents are tall, two lines and a state
+-- word; My Build's are short with their action buttons on the right.
+function CW.MakeCard(parent, index, height)
+    local card = CreateFrame("Button", nil, parent)
+    card:SetWidth(UI.CARD_W); card:SetHeight(height)
+    local col, row = (index - 1) % 2, math.floor((index - 1) / 2)
+    card.baseX = col * (UI.CARD_W + UI.CARD_GAP)
+    card.baseY = UI.GRID_TOP - row * (height + UI.ROW_GAP)
+    card.enter, card.lift = 0, 0
+    card.liftKey, card.enterKey, card.burstKey = {}, {}, {}
+    card.tall = height >= UI.CARD_H
+
+    card.glow = ES.Solid(card, "BACKGROUND", ES.GOLD, 0)
+    card.glow:SetPoint("TOPLEFT", -4, 4)
+    card.glow:SetPoint("BOTTOMRIGHT", 4, -4)
+    card.glow:SetBlendMode("ADD")
+    ES.Solid(card, "BACKGROUND", { 1, 1, 1 }, 0.035):SetAllPoints(card)
+    card.wash = card:CreateTexture(nil, "BORDER")
+    card.wash:SetTexture(ES.WHITE)
+    card.wash:SetPoint("TOPLEFT", 1, -1)
+    card.wash:SetPoint("TOPRIGHT", -1, -1)
+    card.wash:SetHeight(math.floor(height * 0.6))
+    card.edges = ES.Border(card, ES.GOLD_DIM, 0.8)
+    -- a gold spine down the left edge marks what this Hero already has
+    card.check = ES.Solid(card, "OVERLAY", ES.GOLD, 1)
+    card.check:SetWidth(2)
+    card.check:SetPoint("TOPLEFT", 0, 0)
+    card.check:SetPoint("BOTTOMLEFT", 0, 0)
+    card.check:Hide()
+
+    local size = card.tall and 36 or 30
+    card.slot = CreateFrame("Frame", nil, card)
+    card.slot:SetWidth(size); card.slot:SetHeight(size)
+    if card.tall then card.slot:SetPoint("TOPLEFT", 10, -10) else card.slot:SetPoint("LEFT", 10, 0) end
+    card.icon = card.slot:CreateTexture(nil, "ARTWORK")
+    card.icon:SetPoint("TOPLEFT", 1, -1)
+    card.icon:SetPoint("BOTTOMRIGHT", -1, 1)
+    card.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+    ES.Border(card.slot, ES.GOLD_DIM, 1)
+
+    local textW = UI.CARD_W - size - (card.tall and 30 or 84)
+    card.textW = textW
+    card.name = CW.Label(card, 12, ES.TEXT)
+    card.name:SetPoint("TOPLEFT", card.slot, "TOPRIGHT", 10, card.tall and -1 or 0)
+    card.name:SetWidth(textW); card.name:SetHeight(14)
+    card.name:SetJustifyH("LEFT")
+    card.sub = CW.Label(card, 10, ES.MUTED)
+    card.sub:SetPoint("TOPLEFT", card.name, "BOTTOMLEFT", 0, -3)
+    card.sub:SetWidth(textW); card.sub:SetHeight(12)
+    card.sub:SetJustifyH("LEFT")
+    if card.tall then
+        card.state = CW.Label(card, 9, ES.MUTED)
+        card.state:SetPoint("BOTTOMLEFT", 10, 9)
+    end
+
+    card.burst = ES.Solid(card, "OVERLAY", ES.GOLD, 0)
+    card.burst:SetBlendMode("ADD")
+    card.burst:SetPoint("CENTER")
+    card.sweep = card:CreateTexture(nil, "OVERLAY")
+    card.sweep:SetTexture(ES.WHITE)
+    card.sweep:SetBlendMode("ADD")
+    card.sweep:SetWidth(48); card.sweep:SetHeight(height - 2)
+    card.sweep:SetGradientAlpha("HORIZONTAL", ES.GOLD[1], ES.GOLD[2], ES.GOLD[3], 0, ES.GOLD[1], ES.GOLD[2], ES.GOLD[3], 0.45)
+    card.sweep:Hide()
+
+    card:SetScript("OnEnter", function(self)
+        if not self.data then return end
+        CW.hover = self
+        ES.Tint(self.edges, ES.GOLD, 1)
+        ES.Tween(self.liftKey, 0.14, 0, function(p)
+            self.lift = 2 * p; self.glow:SetAlpha(0.16 * p); CW.PlaceCard(self)
+        end)
+        CW.ShowDetail(self.data, false)
     end)
-    e:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    e:Hide()
-    return e
+    card:SetScript("OnLeave", function(self)
+        if CW.hover == self then CW.hover = nil end
+        CW.PaintCard(self)
+        local from = self.lift
+        ES.Tween(self.liftKey, 0.14, 0, function(p)
+            self.lift = from * (1 - p); self.glow:SetAlpha(0.16 * (1 - p)); CW.PlaceCard(self)
+        end)
+        CW.ShowDetail(CW.selected, false)
+    end)
+    card:SetScript("OnClick", function(self) if self.data then CW.Select(self.data, self) end end)
+    CW.PlaceCard(card)
+    card:Hide()
+    return card
 end
 
-local function MakePager(x, width, yBottom)
-    local prev = CreateFrame("Button", nil, frame)
-    prev:SetPoint("BOTTOMLEFT", x, yBottom)
-    StyleArrow(prev, true)
-    local label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    label:SetPoint("BOTTOMLEFT", x + width / 2 - 30, yBottom + 8)
-    label:SetWidth(60)
-    local nxt = CreateFrame("Button", nil, frame)
-    nxt:SetPoint("BOTTOMLEFT", x + width - 26, yBottom)
-    StyleArrow(nxt, false)
+function CW.PaintCard(card)
+    local d = card.data
+    if not d then return end
+    local selected = CW.selected and CW.selected.key == d.key
+    if CW.hover ~= card then
+        ES.Tint(card.edges, selected and ES.GOLD or ES.GOLD_DIM, selected and 1 or 0.8)
+    end
+    CW.FitText(card.name, card.textW, { 12, 11, 10 })
+    CW.FitText(card.sub, card.textW, { 10, 9 })
+    local rgb = RARITY_RGB[d.rarity or 0] or RARITY_RGB[0]
+    card.wash:SetGradientAlpha("VERTICAL", rgb[1], rgb[2], rgb[3], 0, rgb[1], rgb[2], rgb[3], selected and 0.16 or 0.08)
+    if card.state then
+        card.state:SetText(d.stateText or "")
+        CW.SetColor(card.state, d.stateColor or ES.MUTED)
+    end
+    if card.icon.SetDesaturated then card.icon:SetDesaturated(d.dim and true or false) end
+    card.icon:SetAlpha(d.dim and 0.6 or 1)
+    if d.max and d.max > 0 and (card.tall or d.kind == "T") then
+        CW.PaintPips(card, d.rank, d.max, card.tall and (UI.CARD_W - 120) or 60,
+            card.tall and 110 or (UI.CARD_W - 140), card.tall and 10 or 6)
+    else
+        CW.PaintPips(card, 0, 0, 0, 0, 0)
+    end
+end
+
+-- New data for a card. A rank that went up since the last time this card was
+-- drawn is a purchase landing: burst and sweep, the way the Codex celebrates.
+CW.seen = {}
+function CW.SetCardData(card, d)
+    local before = CW.seen[d.key]
+    CW.seen[d.key] = d.rank or 0
+    card.data = d
+    if CW.selected and CW.selected.key == d.key then
+        CW.selected = d
+        if not CW.hover then CW.ShowDetail(d, false) end
+    end
+    CW.PaintCard(card)
+    if before and (d.rank or 0) > before and card:GetParent():IsVisible() then CW.Celebrate(card) end
+end
+
+function CW.Celebrate(card)
+    if PlaySound then pcall(PlaySound, "igQuestListComplete") end
+    ES.Tween(card.burstKey, 0.6, 0, function(p)
+        card.burst:SetWidth(card:GetHeight() + 150 * p)
+        card.burst:SetHeight(card:GetHeight() + 75 * p)
+        card.burst:SetAlpha(0.45 * (1 - p))
+    end)
+    if ES.reduceMotion then return end
+    card.sweep:Show()
+    ES.Tween(card.sweep, 0.6, 0.1, function(p)
+        card.sweep:ClearAllPoints()
+        card.sweep:SetPoint("LEFT", card, "LEFT", -48 + (card:GetWidth() + 48) * p, 0)
+        card.sweep:SetAlpha(math.sin(math.pi * p))
+        if p >= 1 then card.sweep:Hide() end
+    end)
+end
+
+function CW.Select(d, card)
+    CW.selected = d
+    if PlaySound then pcall(PlaySound, "igMainMenuOptionCheckBoxOn") end
+    for _, c in pairs(CW.containers) do
+        for _, child in ipairs({ c:GetChildren() }) do
+            if child.data and child.edges then CW.PaintCard(child) end
+        end
+    end
+    if card then
+        ES.Tween(card.burstKey, 0.45, 0, function(p) card.glow:SetAlpha(0.4 * (1 - p)) end)
+    end
+    CW.ShowDetail(d, true)
+end
+
+-- Cards drop into place one after another: on opening, on switching the
+-- board, and whenever a different page arrives.
+function CW.Cascade(container)
+    if not container then return end
+    local index = 0
+    for _, card in ipairs({ container:GetChildren() }) do
+        if card.enterKey and card:IsShown() then
+            index = index + 1
+            card:SetAlpha(0)
+            ES.Tween(card.enterKey, 0.26, 0.03 * index, function(p)
+                card.enter = -8 * (1 - p)
+                card:SetAlpha(p)
+                CW.PlaceCard(card)
+            end)
+        end
+    end
+end
+
+-- Cascade when the page on a board is a different one from the last drawn.
+function CW.MaybeCascade(container, key)
+    if container.lastKey ~= key then
+        container.lastKey = key
+        if container:IsShown() then CW.Cascade(container) end
+    end
+end
+
+-- A small "< 1 / 9 >" pager along the bottom of a board.
+function CW.MakePager(parent)
+    local prev = CW.FlatButton(parent, 26, 22, "<")
+    prev:SetPoint("BOTTOMLEFT", UI.BOARD_W / 2 - 70, 10)
+    local label = CW.Label(parent, 11, ES.MUTED)
+    label:SetPoint("BOTTOM", 0, 15)
+    local nxt = CW.FlatButton(parent, 26, 22, ">")
+    nxt:SetPoint("BOTTOMLEFT", UI.BOARD_W / 2 + 44, 10)
     return prev, label, nxt
 end
 
--- Abilities pane -----------------------------------------------------------------
-local ABIL_X, ABIL_W = 24, 296
-MakePaneHeader(ABIL_X + 84, 80, "Abilities")
-
-local abilEntries = {}
-for i = 1, ENTRIES do
-    abilEntries[i] = MakeEntry(ABIL_X, PANE_TOP - 36 - (i - 1) * ENTRY_H, ABIL_W, i)
+-- Stands in for the cards when a filter leaves nothing, so an empty board
+-- reads as a filter result rather than a panel that failed to load.
+function CW.MakeEmptyNote(parent)
+    local t = CW.Label(parent, 12, ES.MUTED)
+    t:SetPoint("TOP", 0, UI.GRID_TOP - 110)
+    t:SetWidth(UI.BOARD_W - 60)
+    t:SetJustifyH("CENTER")
+    t:Hide()
+    return t
 end
-local abilPrev, abilPage, abilNext = MakePager(ABIL_X, ABIL_W, 66)
 
--- Talents pane -------------------------------------------------------------------
-local TAL_X, TAL_W = 336, 296
-MakePaneHeader(TAL_X + 84, 80, "Talents")
+local ENTRIES, TAL_ENTRIES, BUILD_ROWS = 10, 9, 14
 
--- Sort and filter buttons sit at the ends of the header strips, either side
--- of the pane titles. Clicking cycles the choice and reloads page 1. Block
--- scoped: the main chunk is close to Lua's 200-local limit.
+-- Abilities board
+local abilEntries = {}
+for i = 1, ENTRIES do abilEntries[i] = CW.MakeCard(CW.containers.ABIL, i, UI.CARD_H) end
+local abilPrev, abilPage, abilNext = CW.MakePager(CW.containers.ABIL)
+
+-- Talents board: a tree selector on the left of the filter row
+local treeLeft = CW.FlatButton(CW.containers.TAL, 22, 20, "<")
+treeLeft:SetPoint("TOPLEFT", 0, -50)
+local treeText = CW.Label(CW.containers.TAL, 12, ES.GOLD)
+treeText:SetPoint("TOPLEFT", 26, -54)
+treeText:SetWidth(200)
+local treeRight = CW.FlatButton(CW.containers.TAL, 22, 20, ">")
+treeRight:SetPoint("TOPLEFT", 230, -50)
+local talEntries = {}
+for i = 1, TAL_ENTRIES do talEntries[i] = CW.MakeCard(CW.containers.TAL, i, UI.CARD_H) end
+local talPrev, talPage, talNext = CW.MakePager(CW.containers.TAL)
+CW.abilEntries, CW.talEntries = abilEntries, talEntries
+
+-- My Build board: short cards, each with its padlock (Wildcard) and its
+-- action -- reroll on Wildcard, unlearn on Classless -- on the right
+local buildHeader = CW.Label(CW.containers.BUILD, 11, ES.MUTED)
+buildHeader:SetPoint("TOPLEFT", 0, -54)
+local buildRows = {}
+for i = 1, BUILD_ROWS do
+    local r = CW.MakeCard(CW.containers.BUILD, i, UI.BUILD_H)
+    -- action 1: lock (wildcard) -- padlock lights up when locked
+    r.lockBtn = CreateFrame("Button", nil, r)
+    r.lockBtn:SetWidth(22); r.lockBtn:SetHeight(22)
+    r.lockBtn:SetPoint("RIGHT", -36, 0)
+    r.lockBtn.tex = r.lockBtn:CreateTexture(nil, "ARTWORK")
+    r.lockBtn.tex:SetPoint("TOPLEFT", 2, -2)
+    r.lockBtn.tex:SetPoint("BOTTOMRIGHT", -2, 2)
+    r.lockBtn.tex:SetTexture("Interface\\AddOns\\ClasslessWildcard\\lock_open")
+    ES.Solid(r.lockBtn, "BACKGROUND", ES.INK, 0.9):SetAllPoints(r.lockBtn)
+    ES.Border(r.lockBtn, ES.GOLD_DIM, 0.8)
+    ES.Solid(r.lockBtn, "HIGHLIGHT", ES.GOLD, 0.15):SetAllPoints(r.lockBtn)
+    -- action 2: reroll (wildcard, spin arrows) / unlearn (classless, red X)
+    r.actBtn = CreateFrame("Button", nil, r)
+    r.actBtn:SetWidth(22); r.actBtn:SetHeight(22)
+    r.actBtn:SetPoint("RIGHT", -8, 0)
+    r.actBtn.tex = r.actBtn:CreateTexture(nil, "ARTWORK")
+    r.actBtn.tex:SetPoint("TOPLEFT", 3, -3)
+    r.actBtn.tex:SetPoint("BOTTOMRIGHT", -3, 3)
+    ES.Solid(r.actBtn, "BACKGROUND", ES.INK, 0.9):SetAllPoints(r.actBtn)
+    ES.Border(r.actBtn, ES.GOLD_DIM, 0.8)
+    ES.Solid(r.actBtn, "HIGHLIGHT", ES.GOLD, 0.15):SetAllPoints(r.actBtn)
+    buildRows[i] = r
+end
+local buildPrev, buildPage, buildNext = CW.MakePager(CW.containers.BUILD)
+CW.buildPageNo = 0
+
+-- Sort and filter chips sit on the row under the tabs. Clicking cycles the
+-- choice and reloads page 1. Block scoped: the main chunk is close to Lua's
+-- 200-local limit.
 do
     local B = CW.BROWSE
-    local HDR_BTN_H = 18
-    local function MakeHeaderButton(x, width, label)
-        local b = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-        b:SetWidth(width); b:SetHeight(HDR_BTN_H)
-        -- centred on the baked header strip (y 130..154, so its middle is
-        -- 142): any other offset leaves the button riding the strip's border
-        b:SetPoint("TOPLEFT", x, PANE_TOP - (20 - HDR_BTN_H / 2))
-        b:SetText(label)
+    local function Chip(parent, x, width, label)
+        local b = CW.FlatButton(parent, width, 20, label)
+        b:SetPoint("TOPLEFT", x, -50)
         return b
     end
     local function SaveBrowseChoice(key, value)
         ClasslessWildcardDB = ClasslessWildcardDB or {}
         ClasslessWildcardDB[key] = value
     end
-    -- Slots on the strip: sort on the left, then the pane title, then the
-    -- filters. Widths are the widest label each control has to hold plus the
-    -- button art's padding, measured in the game's own font.
-    local abilSortBtn = MakeHeaderButton(ABIL_X + 4, 80, B.ABIL_SORTS[1])
-    local abilTypeBtn = MakeHeaderButton(ABIL_X + 164, 58, B.ABIL_TYPES[1][1])
-    local abilScopeBtn = MakeHeaderButton(ABIL_X + 226, 66, B.SCOPES[1][1])
-    local talSortBtn = MakeHeaderButton(TAL_X + 4, 80, B.TAL_SORTS[1])
-    local talScopeBtn = MakeHeaderButton(TAL_X + 226, 66, B.SCOPES[1][1])
+    local W = UI.BOARD_W
+    local abilSortBtn = Chip(CW.containers.ABIL, 0, 92, B.ABIL_SORTS[1])
+    local abilTypeBtn = Chip(CW.containers.ABIL, 98, 72, B.ABIL_TYPES[1][1])
+    local abilScopeBtn = Chip(CW.containers.ABIL, W - 84, 84, B.SCOPES[1][1])
+    local talSortBtn = Chip(CW.containers.TAL, W - 84 - 6 - 92, 92, B.TAL_SORTS[1])
+    local talScopeBtn = Chip(CW.containers.TAL, W - 84, 84, B.SCOPES[1][1])
 
-    -- Stands in for the list when a filter leaves nothing, so an empty pane
-    -- reads as a filter result rather than a panel that failed to load.
-    local function MakeEmptyNote(x, width)
-        local t = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        t:SetPoint("TOPLEFT", x + 16, PANE_TOP - 36 - 2 * ENTRY_H)
-        t:SetWidth(width - 32)
-        t:SetJustifyH("CENTER")
-        t:Hide()
-        return t
-    end
-    CW.abilEmpty = MakeEmptyNote(ABIL_X, ABIL_W)
-    CW.talEmpty = MakeEmptyNote(TAL_X, TAL_W)
+    CW.abilEmpty = CW.MakeEmptyNote(CW.containers.ABIL)
+    CW.talEmpty = CW.MakeEmptyNote(CW.containers.TAL)
     abilSortBtn:SetScript("OnClick", function()
         CW.abilSort = CW.abilSort % #B.ABIL_SORTS + 1
         abilSortBtn:SetText(B.ABIL_SORTS[CW.abilSort])
@@ -583,117 +1098,240 @@ do
         talSortBtn:SetText(B.TAL_SORTS[CW.talSort])
         abilScopeBtn:SetText(B.SCOPES[CW.abilScope][1])
         talScopeBtn:SetText(B.SCOPES[CW.talScope][1])
+        if ClasslessWildcardDB.reduceMotion ~= nil and not (EsteriaPerksDB and EsteriaPerksDB.reduceMotion ~= nil) then
+            ES.reduceMotion = ClasslessWildcardDB.reduceMotion or nil
+        end
+        if CW.PaintMotion then CW.PaintMotion() end
     end
 end
-local treeLeft = CreateFrame("Button", nil, frame)
-treeLeft:SetPoint("TOPLEFT", TAL_X + 2, PANE_TOP - 36)
-StyleArrow(treeLeft, true)
-local treeText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-treeText:SetPoint("TOPLEFT", TAL_X + 30, PANE_TOP - 44)
-treeText:SetWidth(TAL_W - 60)
-local treeRight = CreateFrame("Button", nil, frame)
-treeRight:SetPoint("TOPLEFT", TAL_X + TAL_W - 28, PANE_TOP - 36)
-StyleArrow(treeRight, false)
 
-local talEntries = {}
-for i = 1, TAL_ENTRIES do
-    talEntries[i] = MakeEntry(TAL_X, PANE_TOP - 66 - (i - 1) * ENTRY_H, TAL_W, i)
-end
-local talPrev, talPage, talNext = MakePager(TAL_X, TAL_W, 66)
-CW.abilEntries, CW.talEntries = abilEntries, talEntries
+-- detail panel ------------------------------------------------------------------
+-- What the selected (or hovered) card is: the spell's own tooltip text, what it
+-- needs, and the one button that acts on it.
+do
+    local d = CreateFrame("Frame", nil, frame)
+    d:SetPoint("TOPRIGHT", 0, -UI.HEAD)
+    d:SetWidth(UI.DETAIL); d:SetHeight(UI.BODY_H)
+    local edge = ES.Solid(d, "BORDER", ES.GOLD_DIM, 0.5)
+    edge:SetWidth(1)
+    edge:SetPoint("TOPLEFT", 0, -14)
+    edge:SetPoint("BOTTOMLEFT", 0, 14)
+    CW.detail = d
+    local inner = UI.DETAIL - 40
 
--- My Build sidebar ---------------------------------------------------------------
-local BUILD_X, BUILD_W = 668, 258
-local buildHeader = MakePaneHeader(BUILD_X, BUILD_W, "My Build")
-local buildRows = {}
-for i = 1, BUILD_ROWS do
-    local r = CreateFrame("Button", nil, frame)
-    r:SetWidth(BUILD_W); r:SetHeight(BUILD_H - 2)
-    r:SetPoint("TOPLEFT", BUILD_X, PANE_TOP - 36 - (i - 1) * BUILD_H)
-    r:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+    local body = CreateFrame("Frame", nil, d)
+    body:SetAllPoints(d)
+    d.body = body
+    local box = CreateFrame("Frame", nil, body)
+    box:SetWidth(56); box:SetHeight(56)
+    box:SetPoint("TOPLEFT", 20, -20)
+    d.icon = box:CreateTexture(nil, "ARTWORK")
+    d.icon:SetPoint("TOPLEFT", 1, -1)
+    d.icon:SetPoint("BOTTOMRIGHT", -1, 1)
+    d.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+    ES.Border(box, ES.GOLD_DIM, 1)
+    d.box = box
+    d.name = CW.Label(body, 16, ES.GOLD)
+    d.name:SetPoint("TOPLEFT", box, "TOPRIGHT", 12, -2)
+    d.name:SetWidth(inner - 68)
+    d.name:SetJustifyH("LEFT")
+    d.kind = CW.Label(body, 9, ES.MUTED)
+    d.kind:SetPoint("TOPLEFT", d.name, "BOTTOMLEFT", 0, -5)
+    d.kind:SetWidth(inner - 68)
+    d.kind:SetJustifyH("LEFT")
+    d.state = CW.Label(body, 11, ES.TEXT)
+    d.state:SetPoint("TOPLEFT", box, "BOTTOMLEFT", 0, -14)
+    d.pipHost = CreateFrame("Frame", nil, body)
+    d.pipHost:SetWidth(inner); d.pipHost:SetHeight(4)
+    d.pipHost:SetPoint("TOPLEFT", box, "BOTTOMLEFT", 0, -32)
 
-    r.stripe = r:CreateTexture(nil, "BACKGROUND")
-    r.stripe:SetAllPoints(r)
-    r.stripe:SetTexture("Interface\\Buttons\\WHITE8X8")
-    if i % 2 == 0 then
-        r.stripe:SetVertexColor(1, 1, 1, 0.030)
-    else
-        r.stripe:SetVertexColor(0, 0, 0, 0.22)
+    d.lines = {}
+    for i = 1, 12 do
+        local fs = CW.Label(body, 11, ES.TEXT)
+        fs:SetWidth(inner)
+        fs:SetJustifyH("LEFT")
+        fs:Hide()
+        d.lines[i] = fs
     end
+    d.reqHead = CW.Label(body, 9, ES.GOLD_DIM, "REQUIRES")
+    d.reqs = {}
+    for i = 1, 3 do
+        local sq = ES.Solid(body, "ARTWORK", ES.GOOD, 1)
+        sq:SetWidth(7); sq:SetHeight(7)
+        local fs = CW.Label(body, 11, ES.TEXT)
+        fs:SetPoint("LEFT", sq, "RIGHT", 8, 0)
+        d.reqs[i] = { sq = sq, fs = fs }
+    end
+    d.reason = CW.Label(body, 11, ES.BAD)
+    d.reason:SetWidth(inner)
+    d.reason:SetJustifyH("LEFT")
+    d.reason:SetPoint("BOTTOMLEFT", 20, 62)
 
-    r.icon = r:CreateTexture(nil, "ARTWORK")
-    r.icon:SetWidth(20); r.icon:SetHeight(20)
-    r.icon:SetPoint("LEFT", 4, 0)
-    r.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
-
-    r.slot = r:CreateTexture(nil, "OVERLAY")
-    r.slot:SetWidth(34); r.slot:SetHeight(34)
-    r.slot:SetPoint("CENTER", r.icon, "CENTER", 0, -1)
-    r.slot:SetTexture("Interface\\Buttons\\UI-Quickslot2")
-
-    r.name = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    r.name:SetPoint("LEFT", r.icon, "RIGHT", 8, 0)
-    r.name:SetJustifyH("LEFT")
-    r.name:SetWidth(BUILD_W - 86)
-    r.name:SetHeight(11)
-
-    -- action 1: lock (wildcard) — padlock lights up when locked
-    r.lockBtn = CreateFrame("Button", nil, r)
-    r.lockBtn:SetWidth(20); r.lockBtn:SetHeight(20)
-    r.lockBtn:SetPoint("RIGHT", -28, 0)
-    r.lockBtn.tex = r.lockBtn:CreateTexture(nil, "ARTWORK")
-    r.lockBtn.tex:SetAllPoints(r.lockBtn)
-    r.lockBtn.tex:SetTexture("Interface\\AddOns\\ClasslessWildcard\\lock_open")
-    r.lockBtn:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
-
-    -- action 2: reroll (wildcard, spin arrows) / unlearn (classless, red X)
-    r.actBtn = CreateFrame("Button", nil, r)
-    r.actBtn:SetWidth(22); r.actBtn:SetHeight(22)
-    r.actBtn:SetPoint("RIGHT", -3, 0)
-    r.actBtn.tex = r.actBtn:CreateTexture(nil, "ARTWORK")
-    r.actBtn.tex:SetAllPoints(r.actBtn)
-    r.actBtn:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
-
-    r:SetScript("OnEnter", function(self)
-        if self.spellId then
-            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-            GameTooltip:SetHyperlink("spell:" .. self.spellId)
-            GameTooltip:Show()
+    d.action = CW.FlatButton(body, inner, 34, "", true)
+    d.action:SetPoint("BOTTOMLEFT", 20, 18)
+    d.action:SetScript("OnClick", function(self)
+        local data = CW.detailData
+        if data and data.action and data.actionOk then
+            if PlaySound then pcall(PlaySound, "igMainMenuOptionCheckBoxOn") end
+            ES.Tween("cw.press", 0.3, 0, function(p) self:SetAlpha(0.6 + 0.4 * p) end)
+            data.action()
         end
     end)
-    r:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    r:Hide()
-    buildRows[i] = r
+
+    -- nothing selected: what the panel is for, and the build in one line
+    local empty = CreateFrame("Frame", nil, d)
+    empty:SetAllPoints(d)
+    d.empty = empty
+    local title = CW.Label(empty, 16, ES.GOLD, "Choose a card")
+    title:SetPoint("TOPLEFT", 20, -24)
+    local hint = CW.Label(empty, 11, ES.MUTED)
+    hint:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -10)
+    hint:SetWidth(inner)
+    hint:SetJustifyH("LEFT")
+    hint:SetText("Pick a class on the left, then click an ability or talent to see what it does. "
+        .. "Learn it, unlearn it or reroll it from here.\n\nMy Build holds everything this Hero carries.")
+    d.summary = CW.Label(empty, 10, ES.GOLD_DIM)
+    d.summary:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 0, -18)
+    d.summary:SetWidth(inner)
+    d.summary:SetJustifyH("LEFT")
 end
-local buildPrev, buildPage, buildNext = MakePager(BUILD_X, BUILD_W, 66)
-CW.buildPageNo = 0
 
--- bottom bar ---------------------------------------------------------------------
-local bottomLine = frame:CreateTexture(nil, "ARTWORK")
-bottomLine:SetHeight(1); bottomLine:SetWidth(902)
-bottomLine:SetPoint("BOTTOMLEFT", 24, 58)
-bottomLine:SetTexture("Interface\\Buttons\\WHITE8X8")
-bottomLine:SetVertexColor(0.82, 0.66, 0.20, 0.5)
+local function DetailHeight(fs) return math.max(12, fs:GetStringHeight() or 0) end
 
-local bottomText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
--- sits in the empty gap between the left (Help, then Buy Scroll or Archetypes)
--- and right (Stats/Rebirth/Respec) button clusters so it never overlaps a button
-bottomText:SetPoint("BOTTOM", -22, 33)
-bottomText:SetJustifyH("CENTER")
+function CW.ShowDetail(data, animate)
+    local d = CW.detail
+    CW.detailData = data
+    if not data then
+        d.body:Hide()
+        d.empty:Show()
+        d.summary:SetText(string.upper("Your build  ·  " .. #CW.owned .. " abilit" .. (#CW.owned == 1 and "y" or "ies")
+            .. "  ·  " .. #CW.ownedT .. " talent" .. (#CW.ownedT == 1 and "" or "s")))
+        if animate then ES.Tween("cw.detail", 0.2, 0, function(p) d.empty:SetAlpha(p) end) else d.empty:SetAlpha(1) end
+        return
+    end
+    d.empty:Hide()
+    d.body:Show()
+    d.icon:SetTexture(SpellIcon(data.spell))
+    d.name:SetText(SpellLabel(data.spell, data.rarity))
+    d.kind:SetText(data.kindLine or "")
+    d.state:SetText(data.stateText or "")
+    CW.SetColor(d.state, data.stateColor or ES.TEXT)
+    CW.PaintPips(d.pipHost, data.rank, data.max, UI.DETAIL - 40, 0, 0)
+
+    -- the spell's own tooltip, read without showing it
+    local y = -126
+    local lines = CW.ScanSpell and CW.ScanSpell(data.spell) or {}
+    local floor = -(UI.BODY_H - 190)
+    for i, fs in ipairs(d.lines) do
+        local line = lines[i]
+        if line and y > floor then
+            local text = line.left or ""
+            if line.right then text = text .. (text ~= "" and "   " or "") .. line.right end
+            fs:SetText(text)
+            fs:SetTextColor(line.r or 1, line.g or 1, line.b or 1)
+            fs:ClearAllPoints()
+            fs:SetPoint("TOPLEFT", d.body, "TOPLEFT", 20, y)
+            fs:Show()
+            y = y - DetailHeight(fs) - 4
+        else
+            fs:Hide()
+        end
+    end
+
+    local reqs = data.reqs or {}
+    if #reqs > 0 then
+        y = y - 10
+        d.reqHead:ClearAllPoints()
+        d.reqHead:SetPoint("TOPLEFT", d.body, "TOPLEFT", 20, y)
+        d.reqHead:Show()
+        y = y - 18
+    else
+        d.reqHead:Hide()
+    end
+    for i, req in ipairs(d.reqs) do
+        local r = reqs[i]
+        if r then
+            req.sq:ClearAllPoints()
+            req.sq:SetPoint("TOPLEFT", d.body, "TOPLEFT", 20, y - 4)
+            req.sq:SetVertexColor((r[2] and ES.GOOD or ES.BAD)[1], (r[2] and ES.GOOD or ES.BAD)[2], (r[2] and ES.GOOD or ES.BAD)[3], 1)
+            req.fs:SetText(r[1])
+            CW.SetColor(req.fs, r[2] and ES.TEXT or ES.BAD)
+            req.sq:Show(); req.fs:Show()
+            y = y - 18
+        else
+            req.sq:Hide(); req.fs:Hide()
+        end
+    end
+
+    d.reason:SetText(data.reason or "")
+    if data.actionText then
+        d.action:SetText(data.actionText)
+        CW.FitButton(d.action)
+        d.action:Show()
+        if data.action and data.actionOk then d.action:Enable() else d.action:Disable() end
+        d.action:SetAlpha((data.action and data.actionOk) and 1 or 0.6)
+    else
+        d.action:Hide()
+    end
+
+    if animate then
+        ES.Tween("cw.detailHead", 0.2, 0, function(p) d.name:SetAlpha(p); d.box:SetAlpha(p); d.kind:SetAlpha(p) end)
+        local index = 0
+        for _, fs in ipairs(d.lines) do
+            if fs:IsShown() then
+                index = index + 1
+                ES.Tween(fs, 0.22, index * 0.03, function(p) fs:SetAlpha(p) end)
+            end
+        end
+    else
+        d.name:SetAlpha(1); d.box:SetAlpha(1); d.kind:SetAlpha(1)
+        for _, fs in ipairs(d.lines) do fs:SetAlpha(1) end
+    end
+end
+
+-- footer ------------------------------------------------------------------------
+do
+    local rule = ES.Solid(frame, "BORDER", ES.GOLD_DIM, 0.4)
+    rule:SetHeight(1)
+    rule:SetPoint("BOTTOMLEFT", 18, UI.FOOT)
+    rule:SetPoint("BOTTOMRIGHT", -18, UI.FOOT)
+
+    -- shared with Paths of Fate: one switch for all the Esteria panels
+    local motion = CreateFrame("Button", nil, frame)
+    motion:SetWidth(120); motion:SetHeight(20)
+    motion:SetPoint("BOTTOMLEFT", 18, 9)
+    motion.label = CW.Label(motion, 10, ES.GOLD_DIM)
+    motion.label:SetPoint("LEFT")
+    motion:SetScript("OnClick", function()
+        local on = not ES.reduceMotion
+        -- Paths of Fate saves the switch for itself; the kit's flag is set here either way
+        if EsteriaPerks_SetReduceMotion then EsteriaPerks_SetReduceMotion(on) end
+        ES.reduceMotion = on or nil
+        ClasslessWildcardDB = ClasslessWildcardDB or {}
+        ClasslessWildcardDB.reduceMotion = ES.reduceMotion or false
+        CW.PaintMotion()
+    end)
+    CW.motion = motion
+    function CW.PaintMotion()
+        motion.label:SetText("MOTION: " .. (ES.reduceMotion and "REDUCED" or "FULL"))
+    end
+    CW.PaintMotion()
+
+    local hint = CW.Label(frame, 10, ES.MUTED, "Click a card  ·  Esc closes")
+    -- in the gap between Settings (ends at 464) and Stats (starts at 708)
+    hint:SetPoint("BOTTOMLEFT", 484, 14)
+    CW.footerHint = hint
+end
 
 -- Bottom-right cluster, laid out right-to-left with fixed offsets so nothing
--- overlaps: Respec (-20), Rebirth (-116), Stats (-212).
--- Rebirth only shows sometimes; its slot stays reserved either way.
-local statsBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-statsBtn:SetWidth(90); statsBtn:SetHeight(22)
-statsBtn:SetPoint("BOTTOMRIGHT", -212, 26)
-statsBtn:SetText("Stats")
+-- overlaps: Respec, Rebirth, Stats. Rebirth only shows sometimes; its slot
+-- stays reserved either way.
+local statsBtn = CW.FlatButton(frame, 96, 22, "Stats")
+statsBtn:SetPoint("BOTTOMRIGHT", -196, 8)
 CW.statsBtn = statsBtn
 
-local respecBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-respecBtn:SetWidth(90); respecBtn:SetHeight(22)
-respecBtn:SetPoint("BOTTOMRIGHT", -20, 26)
-respecBtn:SetText("Respec")
+local respecBtn = CW.FlatButton(frame, 84, 22, "Respec")
+respecBtn:SetPoint("BOTTOMRIGHT", -18, 8)
 respecBtn:SetScript("OnClick", function() Send("RESPEC") end)
 
 -- Rebirth: full reset + switch path, for gold (server enforces the cost).
@@ -706,10 +1344,8 @@ StaticPopupDialogs["CW_CLASSLESS_REBIRTH"] = {
     OnAlt    = function() Send("REBIRTH 1") end,   -- Wildcard
     timeout = 0, whileDead = 1, hideOnEscape = 1, preferredIndex = 3,
 }
-local rebirthBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-rebirthBtn:SetWidth(90); rebirthBtn:SetHeight(22)
-rebirthBtn:SetPoint("BOTTOMRIGHT", -116, 26)
-rebirthBtn:SetText("Rebirth")
+local rebirthBtn = CW.FlatButton(frame, 84, 22, "Rebirth")
+rebirthBtn:SetPoint("BOTTOMRIGHT", -108, 8)
 rebirthBtn:Hide()
 rebirthBtn:SetScript("OnClick", function()
     StaticPopup_Show("CW_CLASSLESS_REBIRTH", CW.state.rebirthCost or 0)
@@ -717,10 +1353,8 @@ end)
 CW.rebirthBtn = rebirthBtn
 
 -- Help: opens the "how advancement works" panel (wired to helpFly below).
-local helpBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-helpBtn:SetWidth(70); helpBtn:SetHeight(22)
-helpBtn:SetPoint("BOTTOMLEFT", 20, 26)
-helpBtn:SetText("Help")
+local helpBtn = CW.FlatButton(frame, 64, 22, "Help")
+helpBtn:SetPoint("BOTTOMLEFT", 150, 8)
 CW.helpBtn = helpBtn
 
 -- Buy Scroll: purchase a Reroll Scroll for coin (price scales with level --
@@ -733,10 +1367,8 @@ StaticPopupDialogs["CW_CLASSLESS_BUYSCROLL"] = {
     OnAccept = function() Send("BUYSCROLL 0") end,
     timeout = 0, whileDead = 1, hideOnEscape = 1, preferredIndex = 3,
 }
-local buyScrollBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-buyScrollBtn:SetWidth(160); buyScrollBtn:SetHeight(22)
+local buyScrollBtn = CW.FlatButton(frame, 150, 22, "Buy Scroll")
 buyScrollBtn:SetPoint("BOTTOMLEFT", helpBtn, "BOTTOMRIGHT", 8, 0)
-buyScrollBtn:SetText("Buy Scroll")
 buyScrollBtn:Hide()
 buyScrollBtn:SetScript("OnClick", function()
     StaticPopup_Show("CW_CLASSLESS_BUYSCROLL", GetCoinTextureString(CW.state.scrollCost or 0))
@@ -752,33 +1384,53 @@ buyScrollBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 CW.buyScrollBtn = buyScrollBtn
 
 -- Settings: the addon's own options, wired to setFly further down (it needs
--- the bar frame, which is built after this).
-local setBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-setBtn:SetWidth(90); setBtn:SetHeight(22)
--- past the widest thing that can occupy the shared slot beside Help, so the
--- row does not reflow when Buy Scroll gives way to Archetypes
-setBtn:SetPoint("BOTTOMLEFT", 266, 26)
-setBtn:SetText("Settings")
+-- the bar frame, which is built after this). Past the widest thing that can
+-- occupy the shared slot beside Help, so the row does not reflow when Buy
+-- Scroll gives way to Archetypes.
+local setBtn = CW.FlatButton(frame, 84, 22, "Settings")
+setBtn:SetPoint("BOTTOMLEFT", 380, 8)
 CW.settingsBtn = setBtn
-
--- The essence line hangs between the two button clusters. Anchored to the
--- buttons themselves rather than the frame's centre, so it cannot land under
--- Settings whatever the frame's width, and Buy Scroll or Archetypes taking the
--- slot beside Help changes nothing: Settings already sits past the wider of them.
-bottomText:ClearAllPoints()
-bottomText:SetPoint("LEFT", setBtn, "RIGHT", 12, 0)
-bottomText:SetPoint("RIGHT", statsBtn, "LEFT", -12, 0)
 
 -- Archetypes: the starter builds the Hero Advancement NPC offers, for the
 -- Classless path. Shares the slot beside Help with Buy Scroll: that one shows
 -- only on Wildcard and this one only on Classless, so they never overlap.
 -- Wired to archFly below.
-local archBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-archBtn:SetWidth(100); archBtn:SetHeight(22)
+local archBtn = CW.FlatButton(frame, 110, 22, "Archetypes")
 archBtn:SetPoint("BOTTOMLEFT", helpBtn, "BOTTOMRIGHT", 8, 0)
-archBtn:SetText("Archetypes")
 archBtn:Hide()
 CW.archBtn = archBtn
+
+-- Open: the panel settles in, the top rule draws across, the rail rows slide
+-- in one by one and the cards cascade (the board keys are cleared so the next
+-- render counts as a new page).
+function CW.PlayOpen()
+    CW.portrait:SetUnit("player")
+    if CW.portrait.SetCamera then CW.portrait:SetCamera(0) end
+    for _, c in pairs(CW.containers) do c.lastKey = nil end
+    if CW.boardKey == nil then CW.SetBoard("ABIL", true) end
+    CW.MoveTabLine(false)
+    ES.Tween("cw.open", 0.28, 0, function(p) frame:SetScale(0.96 + 0.04 * p); frame:SetAlpha(p) end)
+    ES.Tween("cw.rule", 0.5, 0.08, function(p) CW.topRule:SetWidth(math.max(0.01, UI.W * p)) end)
+    for _, b in ipairs(CW.classButtons) do
+        if b:IsShown() then
+            ES.Tween(b, 0.26, 0.1 + (b.slot or 1) * 0.025, function(p) CW.PlaceRailRow(b, p) end)
+        end
+    end
+end
+
+-- the portrait turns gently; the ribbon leaves on its own
+frame:SetScript("OnUpdate", function()
+    local now = GetTime()
+    if CW.portrait:IsShown() and not ES.reduceMotion then CW.portrait:SetFacing(math.sin(now * 0.45) * 0.35) end
+    if CW.ribbonUntil and now > CW.ribbonUntil then
+        CW.ribbonUntil = nil
+        ES.Tween("cw.ribbon", 0.6, 0, function(p)
+            CW.ribbon:SetAlpha(1 - p)
+            if p >= 1 then CW.ribbon:Hide() end
+        end)
+    end
+end)
+CW.SetBoard("ABIL", true)
 
 -- stats flyout -------------------------------------------------------------------
 local statFly = CreateFrame("Frame", "ClasslessWildcardStats", frame)
@@ -788,15 +1440,9 @@ CW.statFly = statFly
 -- points were spent on it. "Intellect 30 pts = +30" said nothing about the 28
 -- Intellect the character actually had, nor about the mana and crit it gave.
 statFly:SetWidth(372); statFly:SetHeight(286)
-statFly:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -20, 56)
+statFly:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -12, UI.FOOT + 8)
 statFly:SetFrameStrata("DIALOG")
-statFly:SetBackdrop({
-    bgFile = "Interface\\Buttons\\WHITE8X8",
-    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-    tile = false, edgeSize = 14,
-    insets = { left = 4, right = 4, top = 4, bottom = 4 },
-})
-statFly:SetBackdropColor(0.03, 0.03, 0.05, 0.97) -- solid: the panes underneath must not show through
+CW.Skin(statFly)
 -- and solid to the MOUSE as well, which is a separate thing. A frame that does
 -- not take mouse input passes it to whatever is under it however opaque it is
 -- drawn, so the ability rows behind this panel were still lighting up and
@@ -861,15 +1507,9 @@ statReset:SetText("Reset edits")
 -- UpdateStatus hides the button and this panel outside that mode.
 local archFly = CreateFrame("Frame", "ClasslessWildcardArchetypes", frame)
 archFly:SetWidth(460); archFly:SetHeight(120)
-archFly:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 20, 56)
+archFly:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 12, UI.FOOT + 8)
 archFly:SetFrameStrata("DIALOG")
-archFly:SetBackdrop({
-    bgFile = "Interface\\Buttons\\WHITE8X8",
-    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-    tile = false, edgeSize = 14,
-    insets = { left = 4, right = 4, top = 4, bottom = 4 },
-})
-archFly:SetBackdropColor(0.03, 0.03, 0.05, 0.97) -- solid: the panes underneath must not show through
+CW.Skin(archFly)
 archFly:EnableMouse(true)
 archFly:Hide()
 CW.archFly = archFly
@@ -1019,26 +1659,24 @@ local helpFly = CreateFrame("Frame", "ClasslessWildcardHelp", frame)
 helpFly:SetWidth(600); helpFly:SetHeight(468)
 helpFly:SetPoint("CENTER", frame, "CENTER", 0, -8)
 helpFly:SetFrameStrata("DIALOG")
-helpFly:SetBackdrop({
-    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-    edgeSize = 16,
-    insets = { left = 4, right = 4, top = 4, bottom = 4 },
-})
+CW.Skin(helpFly)
 helpFly:EnableMouse(true)  -- swallow clicks so the panel behind can't be used through it
 helpFly:Hide()
 
 -- solid opaque fill so the busy ability lists behind never bleed through the text
 local helpBg = helpFly:CreateTexture(nil, "BACKGROUND")
-helpBg:SetPoint("TOPLEFT", 4, -4)
-helpBg:SetPoint("BOTTOMRIGHT", -4, 4)
-helpBg:SetTexture(0.035, 0.045, 0.07, 1)
+helpBg:SetPoint("TOPLEFT", 1, -1)
+helpBg:SetPoint("BOTTOMRIGHT", -1, 1)
+helpBg:SetTexture(ES.INK[1], ES.INK[2], ES.INK[3], 1)
 
-local helpTitle = helpFly:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+local helpTitle = ES.Text(helpFly, 18, ES.GOLD)
 helpTitle:SetPoint("TOP", 0, -14)
 helpTitle:SetText("How Advancement Works")
 
-local helpCloseBtn = CreateFrame("Button", nil, helpFly, "UIPanelCloseButton")
-helpCloseBtn:SetPoint("TOPRIGHT", -6, -6)
+local helpCloseBtn = CW.Flat(CreateFrame("Button", nil, helpFly))
+helpCloseBtn:SetWidth(26); helpCloseBtn:SetHeight(22)
+helpCloseBtn:SetText("X")
+helpCloseBtn:SetPoint("TOPRIGHT", -12, -12)
 helpCloseBtn:SetScript("OnClick", function() helpFly:Hide() end)
 
 local helpScroll = CreateFrame("ScrollFrame", "ClasslessWildcardHelpScroll", helpFly, "UIPanelScrollFrameTemplate")
@@ -1334,19 +1972,31 @@ CW.UpdateStatsButton = UpdateStatsButton
 local function UpdateStatus()
     UpdateStatsButton()
     local s = CW.state
-    local modeText = s.mode == 0 and "|cff00ccffClassless|r" or (s.mode == 1 and "|cffff8800Wildcard|r" or "|cffff0000Path not chosen|r")
+    local c1, c2 = CW.counters[1], CW.counters[2]
+    CW.nameText:SetText(UnitName("player") or "")
+    local pathName = s.mode == 0 and "Classless" or (s.mode == 1 and "Wildcard" or nil)
+    subStatusText:SetText("Level " .. (s.level or 1) .. " Hero" .. (pathName and ("  ·  " .. pathName) or ""))
+    local badge = CW.pathBadge
+    badge.label:SetText(pathName and ("PATH  ·  " .. string.upper(pathName)) or "CHOOSE YOUR PATH")
+    CW.SetColor(badge.label, pathName and ES.GOLD or ES.BAD)
+    badge:SetWidth(math.max(140, (badge.label:GetStringWidth() or 0) + 18))
+    if s.mode == 1 then CW.titleBtn:Show() else CW.titleBtn:Hide() end
     if s.mode == 0 then
-        statusText:SetText(modeText .. "   Ability Essence: |cff00ff00" .. s.ae .. "|r   Talent Essence: |cff00ff00" .. s.te .. "|r")
-        subStatusText:SetText("Level " .. s.level)
-        bottomText:SetText("Ability Essence: |cff00ff00" .. s.ae .. "|r    Talent Essence: |cff00ff00" .. s.te .. "|r")
+        c1:Show(); c2:Show()
+        CW.SetCounter(c1, s.ae, "ABILITY\nESSENCE", "ABILITY ESSENCE")
+        CW.SetCounter(c2, s.te, "TALENT\nESSENCE", "TALENT ESSENCE")
+        statusText:SetText("SPEND ESSENCE ON ANY CLASS'S ABILITIES AND TALENTS")
+        CW.SetColor(statusText, ES.MUTED)
         respecBtn:Enable()
         if s.rebirth == 1 then CW.rebirthBtn:Show() else CW.rebirthBtn:Hide() end
         CW.buyScrollBtn:Hide()
         CW.archBtn:Show()
     elseif s.mode == 1 then
-        statusText:SetText(modeText .. "   Rerolls: |cff00ff00" .. s.rerolls .. "|r")
-        subStatusText:SetText("Level " .. s.level .. "   Scrolls: " .. s.scrolls .. "   Synergy chance: " .. s.chance .. "%   Pity: " .. s.pity)
-        bottomText:SetText("Rerolls: |cff00ff00" .. s.rerolls .. "|r    Reroll Scrolls: |cff00ff00" .. s.scrolls .. "|r")
+        c1:Show(); c2:Show()
+        CW.SetCounter(c1, s.rerolls, "REROLLS", "REROLL")
+        CW.SetCounter(c2, s.scrolls, "REROLL\nSCROLLS", "REROLL SCROLL")
+        statusText:SetText("SYNERGY CHANCE " .. (s.chance or 0) .. "%  ·  PITY " .. (s.pity or 0))
+        CW.SetColor(statusText, ES.MUTED)
         respecBtn:Disable()
         if s.rebirth == 1 then CW.rebirthBtn:Show() else CW.rebirthBtn:Hide() end
         CW.archBtn:Hide(); CW.archFly:Hide()
@@ -1355,16 +2005,16 @@ local function UpdateStatus()
             CW.buyScrollBtn:Show()
         else CW.buyScrollBtn:Hide() end
     else
-        statusText:SetText(modeText)
-        subStatusText:SetText("Choose your path before level " .. s.deadline .. "!")
+        c1:Hide(); c2:Hide()
+        statusText:SetText("CHOOSE YOUR PATH BEFORE LEVEL " .. (s.deadline or 5))
+        CW.SetColor(statusText, ES.BAD)
         CW.rebirthBtn:Hide()
         CW.buyScrollBtn:Hide()
         CW.archBtn:Hide(); CW.archFly:Hide()
-        bottomText:SetText("")
     end
 end
 
--- What an empty pane says. A level filter emptying a list is the ordinary
+-- What an empty board says. A level filter emptying a list is the ordinary
 -- case for a low-level character, so it names the way out.
 function CW.ShowEmptyNote(note, firstRow, scope, what)
     if firstRow then
@@ -1372,46 +2022,79 @@ function CW.ShowEmptyNote(note, firstRow, scope, what)
         return
     end
     note:SetText(scope == 1
-        and ("|cffaaaaaaNo " .. what .. " at your level yet.\nSwitch to Any level to see the rest.|r")
-        or ("|cffaaaaaaNo " .. what .. " match this filter.|r"))
+        and ("No " .. what .. " at your level yet.\nSwitch to Any level to see the rest.")
+        or ("No " .. what .. " match this filter."))
     note:Show()
+end
+
+-- Why a card cannot be bought right now, if it cannot. Classless only.
+local function BuyBlock(s, lvl, cost, held, what)
+    if s.mode ~= 0 then return "Choose a path first." end
+    if (lvl or 1) > (s.level or 1) then return "Reach level " .. lvl .. " first." end
+    if (held or 0) < cost then return "Not enough " .. what .. "." end
+    return nil
 end
 
 local function RenderAbilPane()
     local s = CW.state
     abilPage:SetText((CW.abilPage + 1) .. " / " .. CW.abilTotal)
+    local className = string.upper(CLASS_NAMES[CLASS_ORDER[CW.classIndex]] or "")
+    local ids = { CW.classIndex, CW.abilPage }
     for i = 1, ENTRIES do
         local e = CW.abilRows[i]
         local w = abilEntries[i]
         if e then
+            ids[#ids + 1] = e.id
             w.spellId = e.id
             w.icon:SetTexture(SpellIcon(e.id))
             w.name:SetText(SpellLabel(e.id, e.rarity) .. (e.passive == 1 and " |cff888888(passive)|r" or ""))
-            if e.owned == 1 then w.check:Show() else w.check:Hide() end
+            local known = e.owned == 1
+            if known then w.check:Show() else w.check:Hide() end
             local lvlText = LevelTag(e.lvl, s.level)
+            local typeName = CW.BROWSE.TYPE_NAMES[e.type or 0]
             local typeTag = (CW.abilSort == 5 or CW.abilType ~= 1)
-                and ("|cffaaaaaa" .. (CW.BROWSE.TYPE_NAMES[e.type or 0] or "") .. "|r  ") or ""
+                and ("|cffaaaaaa" .. (typeName or "") .. "|r  ") or ""
+            local tooLow = (e.lvl or 1) > (s.level or 1)
+            local d = { key = "A:" .. e.id, kind = "A", spell = e.id, rarity = e.rarity,
+                        rank = known and 1 or 0, max = 1, dim = tooLow and not known, reqs = {} }
+            d.kindLine = "ABILITY  ·  " .. className .. (typeName and ("  ·  " .. string.upper(typeName)) or "")
+            if (e.lvl or 1) > 1 then d.reqs[1] = { "Level " .. e.lvl, not tooLow } end
             if s.mode == 1 then
                 w.sub:SetText(typeTag .. (RARITY_NAMES[e.rarity] or "") .. lvlText)
-                w.tipLine = "Dealt by Wildcard rolls"
-                w:SetScript("OnClick", nil)
+                d.stateText = known and "IN YOUR BUILD" or "DEALT BY THE DICE"
+                d.stateColor = known and ES.GOLD or ES.MUTED
+                d.actionText = "ROLLED, NOT BOUGHT"
+                d.reason = known and "" or "Wildcard Heroes are dealt abilities by the dice."
             else
                 w.sub:SetText(typeTag .. e.cost .. " Ability Essence" .. lvlText)
-                w.tipLine = e.owned == 1 and "Known" or "Click to learn"
-                local id = e.id
-                w:SetScript("OnClick", function()
-                    if s.mode == 0 and e.owned ~= 1 and (e.lvl or 1) <= (CW.state.level or 1) then
-                        Send("BUY " .. id)
+                d.reqs[#d.reqs + 1] = { e.cost .. " Ability Essence  (" .. (s.ae or 0) .. " held)", (s.ae or 0) >= e.cost }
+                local block = BuyBlock(s, e.lvl, e.cost, s.ae, "Ability Essence")
+                if known then
+                    d.stateText, d.stateColor, d.actionText = "KNOWN", ES.GOLD, "KNOWN"
+                    d.reason = "Unlearn it from My Build for a refund."
+                else
+                    if tooLow then
+                        d.stateText, d.stateColor = "LOCKED  ·  LEVEL " .. e.lvl, ES.MUTED
+                    elseif block then
+                        d.stateText, d.stateColor = "NEEDS " .. e.cost .. " ESSENCE", ES.BAD
+                    else
+                        d.stateText, d.stateColor = "AVAILABLE  ·  " .. e.cost .. " ESSENCE", ES.GOOD
                     end
-                end)
+                    d.actionText = "LEARN  ·  " .. e.cost .. " ABILITY ESSENCE"
+                    d.reason = block
+                    local id = e.id
+                    d.action, d.actionOk = function() Send("BUY " .. id) end, block == nil
+                end
             end
+            CW.SetCardData(w, d)
             w:Show()
         else
-            w.spellId = nil
+            w.spellId, w.data = nil, nil
             w:Hide()
         end
     end
     CW.ShowEmptyNote(CW.abilEmpty, CW.abilRows[1], CW.abilScope, "abilities")
+    CW.MaybeCascade(CW.containers.ABIL, table.concat(ids, ","))
 end
 
 -- Talent tree names, read out of the client's own TalentTab.dbc.
@@ -1440,6 +2123,7 @@ CW.treeText = treeText        -- exposed so the harness can read the header
 local function RenderTalPane()
     local s = CW.state
     local tabInfo = CW.tabs[CW.tabIndex]
+    local treeLabel = ""
     if tabInfo then
         -- count within this class, not across all 27 trees: "Mage tree 1 of 3"
         local within, count = 0, 0
@@ -1453,6 +2137,7 @@ local function RenderTalPane()
         local treeName = CW.TREE_NAMES[tabInfo.id]
         -- "Hero: Hero" would be silly, and the Hero page has one tree anyway
         if treeName == className then treeName = nil end
+        treeLabel = string.upper(treeName or className)
         if treeName then
             treeText:SetText("|cffffd100" .. className .. ": " .. treeName
                 .. "|r  |cffaaaaaa(" .. within .. " of " .. count .. ")|r")
@@ -1464,10 +2149,12 @@ local function RenderTalPane()
         treeText:SetText("No trees loaded")
     end
     talPage:SetText((CW.talPage + 1) .. " / " .. CW.talTotal)
+    local ids = { CW.tabIndex, CW.talPage }
     for i = 1, TAL_ENTRIES do
         local t = CW.talRows[i]
         local w = talEntries[i]
         if t then
+            ids[#ids + 1] = t.talentId
             w.spellId = t.spell
             w.icon:SetTexture(SpellIcon(t.spell))
             w.name:SetText(SpellLabel(t.spell, t.rarity) .. "  |cffaaaaaa" .. t.owned .. "/" .. t.max .. "|r")
@@ -1475,30 +2162,59 @@ local function RenderTalPane()
             local tlvl = 10 + (t.row or 0) * 5
             local typeTag = CW.talSort == 5
                 and ("|cffaaaaaa" .. (t.active == 1 and "Active" or "Passive") .. "|r  ") or ""
+            local tooLow = tlvl > (s.level or 1)
+            local d = { key = "T:" .. t.talentId, kind = "T", spell = t.spell, rarity = t.rarity,
+                        rank = t.owned, max = t.max, dim = tooLow and t.owned == 0, reqs = {} }
+            d.kindLine = "TALENT  ·  " .. treeLabel .. "  ·  ROW " .. ((t.row or 0) + 1)
+            d.reqs[1] = { "Level " .. tlvl, not tooLow }
             if s.mode == 1 then
                 w.sub:SetText(typeTag .. (RARITY_NAMES[t.rarity] or "") .. LevelTag(tlvl, s.level))
-                w.tipLine = "Rolled at level-up"
-                w:SetScript("OnClick", nil)
+                d.stateText = "RANK " .. t.owned .. " OF " .. t.max
+                d.stateColor = t.owned > 0 and ES.GOLD or ES.MUTED
+                d.actionText = "ROLLED AT LEVEL-UP"
+                d.reason = t.owned > 0 and "" or "Wildcard Heroes are dealt talents as they level."
             else
                 -- price comes from the server (CFG), not an assumption: a
                 -- talent costs one point for ALL its ranks by default
                 local cost = CW.talentCost or 1
+                if tonumber(t.free) == 1 then cost = 0 end   -- a free choice: owning it removes the others
                 local costText = cost .. " Talent Essence"
                     .. (CW.talentFlat and " (all ranks)" or "/rank")
-                w.sub:SetText(typeTag .. "Row " .. (t.row + 1) .. "  " .. costText .. LevelTag(tlvl, s.level))
-                w.tipLine = t.owned >= t.max and "Maxed" or "Click to learn a rank"
-                local id = t.talentId
-                w:SetScript("OnClick", function()
-                    if s.mode == 0 and t.owned < t.max then Send("TALBUY " .. id) end
-                end)
+                -- "Talent" is already the board's name; the card has no room to say it again
+                w.sub:SetText(typeTag .. "Row " .. (t.row + 1) .. "  " .. cost .. " Essence"
+                    .. (CW.talentFlat and "" or "/rank") .. LevelTag(tlvl, s.level))
+                -- with flat pricing only the first rank costs anything
+                local due = (CW.talentFlat and t.owned > 0) and 0 or cost
+                d.reqs[2] = { costText .. "  (" .. (s.te or 0) .. " held)", (s.te or 0) >= due }
+                if t.owned >= t.max then
+                    d.stateText, d.stateColor, d.actionText = "MAXED", ES.GOLD, "MAXED"
+                    d.reason = "Unlearn it from My Build for a refund."
+                else
+                    local block = BuyBlock(s, tlvl, due, s.te, "Talent Essence")
+                    if tooLow then
+                        d.stateText, d.stateColor = "LOCKED  ·  LEVEL " .. tlvl, ES.MUTED
+                    elseif block then
+                        d.stateText, d.stateColor = "NEEDS " .. due .. " ESSENCE", ES.BAD
+                    else
+                        d.stateText = t.owned > 0 and ("RANK " .. t.owned .. " OF " .. t.max) or "AVAILABLE"
+                        d.stateColor = ES.GOOD
+                    end
+                    d.actionText = "LEARN RANK " .. (t.owned + 1)
+                        .. (due > 0 and ("  ·  " .. due .. " TALENT ESSENCE") or "")
+                    d.reason = block
+                    local id = t.talentId
+                    d.action, d.actionOk = function() Send("TALBUY " .. id) end, block == nil
+                end
             end
+            CW.SetCardData(w, d)
             w:Show()
         else
-            w.spellId = nil
+            w.spellId, w.data = nil, nil
             w:Hide()
         end
     end
     CW.ShowEmptyNote(CW.talEmpty, CW.talRows[1], CW.talScope, "talents")
+    CW.MaybeCascade(CW.containers.TAL, table.concat(ids, ","))
 end
 
 -- A padlock holds a card back from the starting hand's roll-everything pass,
@@ -1541,30 +2257,43 @@ CW.buildRows = buildRows
 local function RenderBuild()
     local s = CW.state
     local list = BuildList()
-    buildHeader:SetText("|cffffd100My Build|r  |cffaaaaaa(" .. #CW.owned .. " abilities, " .. #CW.ownedT .. " talents)|r")
+    buildHeader:SetText(string.upper(#CW.owned .. " abilit" .. (#CW.owned == 1 and "y" or "ies") .. "  ·  "
+        .. #CW.ownedT .. " talent" .. (#CW.ownedT == 1 and "" or "s")))
+    CW.boardTabs[3].count:SetText(#list)
     local total = math.max(1, math.ceil(#list / BUILD_ROWS))
     if CW.buildPageNo >= total then CW.buildPageNo = total - 1 end
     buildPage:SetText((CW.buildPageNo + 1) .. " / " .. total)
+    local ids = { CW.buildPageNo }
     for i = 1, BUILD_ROWS do
         local it = list[CW.buildPageNo * BUILD_ROWS + i]
         local r = buildRows[i]
         if it then
+            ids[#ids + 1] = it.kind .. it.id
             r.spellId = it.spell
             r.icon:SetTexture(SpellIcon(it.spell))
+            r.check:Hide()
             local suffix = it.kind == "T" and ("  |cffaaaaaa" .. it.rank .. "/" .. it.max .. "|r") or ""
             -- source 2 came with a talent, source 3 came free with another
             -- ability. Neither was a roll and neither cost essence, so there is
             -- nothing to reroll, unlearn or lock: each leaves with whatever
             -- brought it in. No buttons, and a note saying where it came from.
             local freebie = it.kind == "A" and (it.source == 2 or it.source == 3)
-            if freebie then
-                suffix = suffix .. (it.source == 3 and "  |cffaaaaaacame free|r"
-                                                    or "  |cffaaaaaawith a talent|r")
-            end
+            local origin = freebie and (it.source == 3 and "came free" or "with a talent") or nil
+            if origin then suffix = suffix .. "  |cffaaaaaa" .. origin .. "|r" end
             r.name:SetText(SpellLabel(it.spell, it.rarity) .. suffix)
+            r.sub:SetText((it.kind == "T" and ("Talent  ·  rank " .. it.rank .. " of " .. it.max) or "Ability")
+                .. (origin and ("  ·  " .. origin) or "")
+                .. ((s.mode == 1 and it.kind == "A" and it.locked == 1) and "  ·  |cffe8c46blocked|r" or ""))
+            local d = { key = "B" .. it.kind .. ":" .. it.id, kind = it.kind, spell = it.spell, rarity = it.rarity,
+                        rank = it.kind == "T" and it.rank or 1, max = it.kind == "T" and it.max or 1 }
+            d.kindLine = (it.kind == "T" and "TALENT" or "ABILITY") .. "  ·  IN YOUR BUILD"
+            d.stateText = it.kind == "T" and ("RANK " .. it.rank .. " OF " .. it.max) or "KNOWN"
+            d.stateColor = ES.GOLD
             if freebie then
                 r.lockBtn:Hide()
                 r.actBtn:Hide()
+                d.actionText = string.upper(origin)
+                d.reason = "It leaves with whatever brought it in."
             elseif s.mode == 1 then
                 -- lock toggle (abilities only, and only while it does anything)
                 -- + die reroll
@@ -1596,19 +2325,22 @@ local function RenderBuild()
                 -- going to refuse, which reads as the lock being ignored.
                 if it.kind == "A" and it.locked == 1 and CW.LocksMatter() then
                     r.actBtn:Hide()
+                    d.actionText = "LOCKED"
+                    d.reason = "Unlock it to reroll it."
                 else
                     r.actBtn:Show()
                     r.actBtn.tex:SetTexture("Interface\\Buttons\\UI-RotationRight-Button-Up")
                     r.actBtn.tex:SetVertexColor(1, 0.85, 0.3)
                     local id, kind = it.id, it.kind
                     local tname, trank, tmax = SpellLabel(it.spell, it.rarity), it.rank, it.max
-                    r.actBtn:SetScript("OnClick", function()
+                    local function Reroll()
                         if kind == "T" then
                             CW.AskTalentReroll(id, tname, trank, tmax)
                         else
                             Send("RR " .. id)
                         end
-                    end)
+                    end
+                    r.actBtn:SetScript("OnClick", Reroll)
                     r.actBtn:SetScript("OnEnter", function(self)
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
                         GameTooltip:SetText("Reroll this " .. (kind == "T" and "talent" or "ability"))
@@ -1623,6 +2355,10 @@ local function RenderBuild()
                         GameTooltip:Show()
                     end)
                     r.actBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+                    local left = (s.rerolls or 0) + (s.scrolls or 0)
+                    d.actionText = "REROLL  ·  " .. left .. " LEFT"
+                    d.action, d.actionOk = Reroll, left > 0
+                    d.reason = left > 0 and nil or "No rerolls or Reroll Scrolls left."
                 end
             else
                 r.lockBtn:Hide()
@@ -1634,9 +2370,8 @@ local function RenderBuild()
                 r.actBtn.tex:SetVertexColor(1, 1, 1)
                 local id, isTal = it.id, it.kind == "T"
                 local ranks = it.rank or 0
-                r.actBtn:SetScript("OnClick", function()
-                    Send((isTal and "TALUNL " or "UNL ") .. id)
-                end)
+                local function Unlearn() Send((isTal and "TALUNL " or "UNL ") .. id) end
+                r.actBtn:SetScript("OnClick", Unlearn)
                 r.actBtn:SetScript("OnEnter", function(self)
                     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
                     GameTooltip:SetText(isTal and "Unlearn this talent" or "Unlearn this ability")
@@ -1650,13 +2385,18 @@ local function RenderBuild()
                     GameTooltip:Show()
                 end)
                 r.actBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+                d.actionText = "UNLEARN  ·  REFUND"
+                d.action, d.actionOk = Unlearn, true
+                d.reason = isTal and "Any ability it handed over goes with it." or nil
             end
+            CW.SetCardData(r, d)
             r:Show()
         else
-            r.spellId = nil
+            r.spellId, r.data = nil, nil
             r:Hide()
         end
     end
+    CW.MaybeCascade(CW.containers.BUILD, table.concat(ids, ","))
 end
 
 -- What each stat does for a Hero, and what it is doing for THIS character
@@ -1801,12 +2541,13 @@ local function RenderStats()
 end
 
 local function RenderList()
-    UpdateClassStrip()
+    CW.UpdateClassStrip()
     RenderAbilPane()
     RenderTalPane()
     RenderBuild()
     if statFly:IsShown() then RenderStats() end
     UpdateStatus()
+    if not CW.hover then CW.ShowDetail(CW.selected, false) end
 end
 CW.RenderStats = RenderStats
 
@@ -2734,13 +3475,7 @@ do
     fly:SetWidth(360); fly:SetHeight(200)
     fly:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     fly:SetFrameStrata("FULLSCREEN_DIALOG")
-    fly:SetBackdrop({
-        bgFile = "Interface\\Buttons\\WHITE8X8",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = false, edgeSize = 14,
-        insets = { left = 4, right = 4, top = 4, bottom = 4 },
-    })
-    fly:SetBackdropColor(0.03, 0.03, 0.05, 0.97)
+    CW.Skin(fly)
     fly:EnableMouse(true)
     fly:Hide()
     CW.talentRerollFly = fly
@@ -2772,6 +3507,7 @@ do
     fly.cancel:SetWidth(150); fly.cancel:SetHeight(26)
     fly.cancel:SetPoint("BOTTOMRIGHT", -16, 14)
     fly.cancel:SetText("Cancel")
+    CW.FlattenButtons(fly) -- on UIParent, so the panel's own pass never reaches it
     fly.cancel:SetScript("OnClick", function() fly:Hide() end)
 
     function CW.RenderTalentReroll()
@@ -2876,15 +3612,9 @@ do
 
     local fly = CreateFrame("Frame", "ClasslessWildcardSettings", frame)
     fly:SetWidth(240)
-    fly:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 20, 56)
+    fly:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 12, UI.FOOT + 8)
     fly:SetFrameStrata("DIALOG")
-    fly:SetBackdrop({
-        bgFile = "Interface\\Buttons\\WHITE8X8",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = false, edgeSize = 14,
-        insets = { left = 4, right = 4, top = 4, bottom = 4 },
-    })
-    fly:SetBackdropColor(0.03, 0.03, 0.05, 0.97) -- solid: the panes underneath must not show through
+    CW.Skin(fly)
     fly:EnableMouse(true)
     fly:Hide()
     CW.setFly = fly
@@ -3852,6 +4582,8 @@ rvFX.scan:SetOwner(UIParent, "ANCHOR_NONE")
 function rvFX.ScanSpell(spellId)
     local out, tip = {}, rvFX.scan
     if not tip or not spellId then return out end
+    -- a tooltip loses its owner whenever it hides, and an unowned one fills nothing
+    if not (tip.IsOwned and tip:IsOwned(UIParent)) then tip:SetOwner(UIParent, "ANCHOR_NONE") end
     if tip.ClearLines then tip:ClearLines() end
     if not pcall(tip.SetHyperlink, tip, "spell:" .. spellId) then return out end
     local n = tonumber(tip.NumLines and tip:NumLines()) or 0
@@ -3874,6 +4606,7 @@ function rvFX.ScanSpell(spellId)
     end
     return out
 end
+CW.ScanSpell = rvFX.ScanSpell -- the panel's detail column reads the same lines
 
 rvFX.cardFlash = 0.55   -- seconds a dealt card flashes before settling
 
@@ -4898,8 +5631,12 @@ local function HandleMessage(msg)
         RenderList()
 
     elseif kind == "TB" then
-        for _, f in ipairs(ParseEntries(p[2], 2)) do
-            tinsert(CW.tabs, { id = f[1], class = f[2] })
+        -- id:class, or id:class:name for an imported CoA tree, whose name the
+        -- client's TalentTab.dbc does not have
+        for id, class, name in string.gmatch(p[2] or "", "(%d+):(%d+):?([^;]*);") do
+            id = tonumber(id)
+            tinsert(CW.tabs, { id = id, class = tonumber(class) })
+            if name ~= "" then CW.TREE_NAMES[id] = name end
         end
     elseif kind == "TBE" then
         -- tabs just arrived: point the pane at the selected class before asking
@@ -4913,7 +5650,7 @@ local function HandleMessage(msg)
         CW.talTotal = tonumber(p[4]) or 1
         CW.talRows = {}
         for _, f in ipairs(ParseEntries(p[5], 6)) do
-            tinsert(CW.talRows, { talentId = f[1], spell = f[2], rarity = f[3], owned = f[4], max = f[5], row = f[6], active = f[7] or 0 })
+            tinsert(CW.talRows, { talentId = f[1], spell = f[2], rarity = f[3], owned = f[4], max = f[5], row = f[6], active = f[7] or 0, free = f[8] or 0 })
         end
         RenderList()
 
@@ -5021,6 +5758,26 @@ local function HandleMessage(msg)
         if CW.RefreshHelpText then CW.RefreshHelpText() end
         CW.statsPending = nil
         RenderList() -- refreshes the stats flyout when it is open
+
+    elseif kind == "CC" then
+        -- CC|page:name:iconspell;... the imported CoA classes, each its own
+        -- rail row. Sent with every state push, so a class already known is
+        -- left alone.
+        local added = false
+        for page, name, icon in string.gmatch(p[2] or "", "(%d+):([^:;]*):(%d+);") do
+            page = tonumber(page)
+            if not CLASS_NAMES[page] then
+                CLASS_NAMES[page] = name
+                CW.coaIcons[page] = tonumber(icon)
+                tinsert(CLASS_ORDER, page)
+                CW.AddClassButton(#CLASS_ORDER, page)
+                added = true
+            end
+        end
+        if added then
+            CW.LayoutClassStrip()
+            CW.UpdateClassStrip()
+        end
 
     elseif kind == "CFG" then
         -- classless pricing the browser needs to label costs honestly
@@ -5424,8 +6181,16 @@ events:SetScript("OnEvent", function(self, event, arg1, arg2, arg3, arg4)
     end
 end)
 
+-- the flyouts fade in rather than pop
+for _, fly in ipairs({ CW.statFly, CW.archFly, CW.helpFly, CW.setFly }) do
+    fly:HookScript("OnShow", function(self)
+        ES.Tween(self, 0.18, 0, function(p) self:SetAlpha(p) end)
+    end)
+end
+
 frame:SetScript("OnShow", function()
     CW.RefreshPanelArt()
+    CW.PlayOpen()
     Send("STATE")
     CW.SetTab(CW.tab)
     -- The first time this character opens the panel, greet them with the Help

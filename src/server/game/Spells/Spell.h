@@ -25,6 +25,7 @@
 #include "SharedDefines.h"
 #include "SpellInfo.h"
 #include "Unit.h"
+#include <map>
 
 class Unit;
 class Player;
@@ -425,6 +426,25 @@ public:
     void EffectActivateSpec(SpellEffIndex effIndex);
     void EffectPlaySound(SpellEffIndex effIndex);
     void EffectRemoveAura(SpellEffIndex effIndex);
+    void EffectAscensionModifyCooldown(SpellEffIndex effIndex);
+    void EffectAscensionRestoreBaseManaPct(SpellEffIndex effIndex);
+    void EffectAscensionHealthPctDamage(SpellEffIndex effIndex);
+    void EffectDelayedTriggerSpell(SpellEffIndex effIndex);
+    void EffectAscensionPlaySpellVisualKit(SpellEffIndex effIndex);
+    void EffectAscensionRefreshAura(SpellEffIndex effIndex);
+    void EffectAscensionSpreadAura(SpellEffIndex effIndex);
+    void EffectAscensionRestoreSpellCharges(SpellEffIndex effIndex);
+    void EffectAscensionModifyAuraStacks(SpellEffIndex effIndex);
+    void EffectAscensionModifyAuraStacksBySpell(SpellEffIndex effIndex);
+    void EffectAscensionModifyAuraDuration(SpellEffIndex effIndex);
+    void EffectAscensionModifyAuraCharges(SpellEffIndex effIndex);
+    void EffectAscensionTriggerSpellWithDuration(SpellEffIndex effIndex);
+    void EffectAscensionModifyCooldownPct(SpellEffIndex effIndex);
+    void EffectAscensionRestoreBaseHealthPct(SpellEffIndex effIndex);
+    void EffectAscensionPctDamage(SpellEffIndex effIndex);
+    void EffectAscensionTriggerSpellDelayed(SpellEffIndex effIndex);
+    void EffectAscensionResetCooldown(SpellEffIndex effIndex);
+    void EffectAscensionModifyFamilyCooldown(SpellEffIndex effIndex);
     void EffectCastButtons(SpellEffIndex effIndex);
     void EffectRechargeManaGem(SpellEffIndex effIndex);
 
@@ -598,11 +618,69 @@ public:
     void CleanupTargetList();
 
     void SetSpellValue(SpellValueMod mod, int32 value);
+    WeaponAttackType GetScriptMeleeAttackType() const { return m_scriptMeleeAttackType; }
+    // a target a script adds to the cast, as the target selection would
+    void AddUnitTargetForScript(Unit* target, uint32 effectMask, bool checkIfValid = true, bool implicit = true)
+    {
+        AddUnitTarget(target, effectMask, checkIfValid, implicit);
+    }
+    // the last target's heal before overheal, and its leeched damage
+    uint32 GetScriptHealthLeechDamage() const { return m_scriptHealthLeechDamage; }
+    uint32 GetScriptHealingIncludingOverheal() const { return m_scriptHealingIncludingOverheal; }
+    // CoA turns a player to face this way after a leap. MoveJump here has no
+    // landing orientation, so it is kept for scripts but not applied.
+    void SetJumpFinalOrientation(float orientation) { m_jumpFinalOrientation = orientation; }
+    // power a script took on top of the cost, for a later hook of the same cast
+    void SetScriptExtraPowerSpent(uint32 amount) { m_scriptExtraPowerSpent = amount; }
+    uint32 GetScriptExtraPowerSpent() const { return m_scriptExtraPowerSpent; }
+    // Only before prepare, and only for a melee strike: changing hands later
+    // would disagree with the hit and proc context already prepared.
+    void SetScriptMeleeAttackType(int32 attackType)
+    {
+        if (m_spellState != SPELL_STATE_NULL || m_spellInfo->DmgClass != SPELL_DAMAGE_CLASS_MELEE
+            || (attackType != BASE_ATTACK && attackType != OFF_ATTACK))
+            return;
+        m_scriptMeleeAttackType = WeaponAttackType(attackType);
+        m_attackType = m_scriptMeleeAttackType;
+    }
+    // The caster that started the spell chain; it survives the original caster leaving the world
+    ObjectGuid GetOriginalCasterGUID() const { return m_originalCasterGUID; }
+    // Scales the weapon percentage of a melee weapon-percent-damage spell. Only before the cast has begun, so the
+    // multiplier agrees with the damage calculated later; fractional percentages are kept until the weapon roll.
+    void SetScriptWeaponDamageMultiplier(float multiplier)
+    {
+        if ((m_spellState != SPELL_STATE_NULL && m_spellState != SPELL_STATE_PREPARING) ||
+            m_spellInfo->DmgClass != SPELL_DAMAGE_CLASS_MELEE || !m_spellInfo->HasEffect(SPELL_EFFECT_WEAPON_PERCENT_DAMAGE) ||
+            !(multiplier >= 0.0f && multiplier < 1000.0f))
+            return;
+        m_scriptWeaponDamageMultiplier = multiplier;
+    }
     SpellValue const* GetSpellValue() { return m_spellValue; }
 
     // xinef: moved to public
     void LoadScripts();
     std::list<TargetInfo>* GetUniqueTargetInfo() { return &m_UniqueTargetInfo; }
+    std::list<TargetInfo> const* GetUniqueTargetInfo() const { return &m_UniqueTargetInfo; }
+
+    // Per-cast bookkeeping for scripts that run on several hooks of one cast
+    // (the imported class kits): "has this event already fired for this
+    // cast", and values a script keeps with the cast, keyed by spell id.
+    bool TryMarkScriptEventHandled(uint8 eventIndex) const
+    {
+        if (eventIndex >= 32)
+            return false;
+        uint32 const eventMask = 1u << eventIndex;
+        if (m_scriptEventMask & eventMask)
+            return false;
+        m_scriptEventMask |= eventMask;
+        return true;
+    }
+    void SetScriptValue(uint32 key, uint64 value) { m_scriptValues[key] = value; }
+    uint64 GetScriptValue(uint32 key) const
+    {
+        auto itr = m_scriptValues.find(key);
+        return itr != m_scriptValues.end() ? itr->second : 0;
+    }
 
     [[nodiscard]] uint32 GetTriggeredByAuraTickNumber() const { return m_triggeredByAuraSpell.tickNumber; }
     [[nodiscard]] SpellInfo const* GetTriggeredByAuraSpellInfo() const { return m_triggeredByAuraSpell.spellInfo; }
@@ -640,6 +718,17 @@ public:
     int32 m_channeledDuration;                          // Calculated channeled spell duration in order to calculate correct pushback.
     bool m_canReflect;                                  // can reflect this spell?
 
+    mutable uint32 m_scriptEventMask = 0;
+    WeaponAttackType m_scriptMeleeAttackType = MAX_ATTACK;
+    float m_scriptWeaponDamageMultiplier = 1.0f;
+    uint32 m_scriptExtraPowerSpent = 0;
+    uint32 m_scriptHealthLeechDamage = 0;
+    uint32 m_scriptHealingIncludingOverheal = 0;
+    float m_jumpFinalOrientation = 0.0f;
+    std::map<uint32, uint64> m_scriptValues;
+    // CoA effect 169: recipients chosen once per cast and shared by identical spread effects of the spell.
+    std::array<std::vector<ObjectGuid>, MAX_SPELL_EFFECTS> m_ascensionSpreadTargets;
+    std::array<bool, MAX_SPELL_EFFECTS> m_ascensionSpreadSelectionReady{};
     uint8 m_spellFlags;                                 // for spells whose target was changed in cast i.e. due to reflect
 
     bool m_autoRepeat;

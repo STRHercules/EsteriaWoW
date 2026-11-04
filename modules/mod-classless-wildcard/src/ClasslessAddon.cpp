@@ -56,6 +56,10 @@ namespace
     constexpr size_t MAX_BODY = 200;      // payload budget per addon message
     constexpr uint32 LIST_PAGE = 10;      // entries per browse page (abilities)
     constexpr uint32 TAL_PAGE = 9;        // talents: the tree-selector row eats one slot
+    // Pages 100 and up are imported Conquest of Azeroth classes, page 100 + the
+    // CoA class id. An explicit offset rather than a mask bit: CoA numbers its
+    // classes from 12, which would land the first of them on the Hero page.
+    constexpr uint8 CLASS_PAGE_COA = 100;
 
     void SendAddon(Player* player, std::string const& body)
     {
@@ -127,6 +131,23 @@ namespace
         SendAddon(player, Acore::StringFormat("CFG|{}|{}|{}|{}",
             cfg.talentCostPerRank, cfg.talentFlatCost ? 1 : 0,
             cfg.includeDeathKnight ? 1 : 0, cfg.forgedEnable ? 1 : 0));
+
+        // CC|page:name:iconspell;... the imported CoA classes that have
+        // anything switched on, one browser button each. Empty when none.
+        // Chunked like the tab list; the addon adds what each one names.
+        std::string coa = "CC|";
+        for (auto const& [coaClass, info] : sClasslessMgr->CoAClasses())
+        {
+            std::string piece = Acore::StringFormat("{}:{}:{};", uint32(CLASS_PAGE_COA) + coaClass,
+                                                    Sanitize(info.name), info.iconSpell);
+            if (coa.size() + piece.size() > MAX_BODY)
+            {
+                SendAddon(player, coa);
+                coa = "CC|";
+            }
+            coa += piece;
+        }
+        SendAddon(player, coa);
     }
 
     void SendErr(Player* player, std::string const& text)
@@ -170,6 +191,7 @@ namespace
     {
         CharState& st = sClasslessMgr->GetState(player);
         bool const heroPage = classId == CLASS_PAGE_HERO;
+        uint8 const coaClass = classId > CLASS_PAGE_COA ? uint8(classId - CLASS_PAGE_COA) : 0;
         uint32 classMask = classId >= 1 && classId <= 11 ? (1u << (classId - 1)) : 0;
 
         // Exactly the rule BuyAbility enforces, so the filtered list is the
@@ -180,7 +202,8 @@ namespace
 
         std::vector<AbilityEntry const*> list;
         for (auto const& [firstSpell, e] : sClasslessMgr->Abilities())
-            if (e.enabled && (heroPage ? e.forged : (!e.forged && (e.classMask & classMask)))
+            if (e.enabled && (coaClass ? e.coaClass == coaClass
+                                       : heroPage ? e.forged : (!e.forged && (e.classMask & classMask)))
                 && (!e.variant || sClasslessMgr->cfg.elementalShowInBrowser)
                 && (!typeArg || uint32(e.type) + 1 == typeArg)
                 && (!levelOnly || e.rankLevels.empty() || uint32(e.rankLevels[0]) <= heroLevel))
@@ -232,6 +255,20 @@ namespace
         std::string body = "TB|";
         for (auto const& [tabId, mask] : tabs)
         {
+            // A CoA tree carries the Hero's mask so the core leaves it alone,
+            // and its name, which the client's TalentTab.dbc has never heard of.
+            if (auto coa = sClasslessMgr->CoATabs().find(tabId); coa != sClasslessMgr->CoATabs().end())
+            {
+                std::string piece = Acore::StringFormat("{}:{}:{};", tabId,
+                    uint32(CLASS_PAGE_COA) + coa->second.coaClass, Sanitize(coa->second.name));
+                if (body.size() + piece.size() > MAX_BODY)
+                {
+                    SendAddon(player, body);
+                    body = "TB|";
+                }
+                body += piece;
+                continue;
+            }
             // 12 is not a class: it is the addon's own Hero page, which has
             // had a button and an icon since the Hero skill line arrived and
             // only ever lacked a tree. The Hero talent tab carries ClassMask
@@ -284,7 +321,7 @@ namespace
         std::vector<Row> list;
         for (auto const& [talentId, t] : sClasslessMgr->Talents())
             if (t.enabled && t.tabId == tabId
-                && (!levelOnly || heroLevel >= 10u + uint32(t.row) * 5u))
+                && (!levelOnly || heroLevel >= TalentReqLevel(t)))
             {
                 SpellInfo const* info = sSpellMgr->GetSpellInfo(t.rankSpells[0]);
                 list.push_back({ &t, info && info->SpellName[0] ? info->SpellName[0] : "",
@@ -323,9 +360,10 @@ namespace
             uint8 owned = 0;
             if (auto itr = st.talents.find(t->talentId); itr != st.talents.end())
                 owned = itr->second;
-            body += Acore::StringFormat("{}:{}:{}:{}:{}:{}:{};", t->talentId,
+            // the last field marks a free choice (an imported entry that costs no essence)
+            body += Acore::StringFormat("{}:{}:{}:{}:{}:{}:{}:{};", t->talentId,
                 DescribedRank(*t, owned),
-                uint32(t->rarity), owned, t->maxRank, t->row, list[i].active ? 1 : 0);
+                uint32(t->rarity), owned, t->maxRank, t->row, list[i].active ? 1 : 0, t->freeEntry ? 1 : 0);
         }
         SendAddon(player, body);
     }
@@ -361,6 +399,10 @@ namespace
     // receives carry a class-mask bit and no family, and it only ever expected
     // its own class's talents. These come from the core's own arithmetic,
     // which matches on family and is right for all ten.
+    //
+    // Since SMSG_ESTERIA_SPELL_MOD the client applies family modifiers itself, so the absolute numbers (cost, cast,
+    // cooldown, range) only restate what it already shows; the effect/duration pairs are kept for spells it cannot
+    // be sent modifiers for (family 0, or past MAX_CLIENT_SPELLMOD_FAMILY).
     void SendSpellCorrections(Player* player)
     {
         std::string body = "SF|";
@@ -412,10 +454,14 @@ namespace
             // first exactly once, so an ambiguous sentence is left alone rather
             // than guessed at, and a value computed slightly differently simply
             // does not match and changes nothing.
+            // The client now applies every modifier of a family it is sent (SMSG_ESTERIA_SPELL_MOD, or the legacy
+            // packet for the chassis family), so for those spells it already prints the moved number. A pair would
+            // then look for the base elsewhere in the sentence and could swap the wrong number.
+            bool const clientPrintsMods = info->SpellFamilyName && info->SpellFamilyName < MAX_CLIENT_SPELLMOD_FAMILY;
             int32 effBase[MAX_SPELL_EFFECTS] = {};
             int32 effMod[MAX_SPELL_EFFECTS] = {};
             bool effMoved = false;
-            for (uint8 ei = 0; ei < MAX_SPELL_EFFECTS; ++ei)
+            for (uint8 ei = 0; ei < MAX_SPELL_EFFECTS && !clientPrintsMods; ++ei)
             {
                 SpellEffectInfo const& e = info->Effects[ei];
                 if (!e.Effect || !e.BasePoints)
@@ -478,33 +524,7 @@ namespace
                 || cdMs != baseCdMs || durMs != baseDurMs
                 || modRange != baseRange || effMoved;
 
-            // A spell with a FLAT cost always carries it, moved or not.
-            //
-            // The client cannot apply a cross-class talent to its own power
-            // check, so it refused to send the cast at all -- with Improved
-            // Thunder Clap the server wanted 16 rage and the client still said
-            // "Not enough rage" at 16. The client patch answers that by
-            // lowering Spell.dbc's ManaCost to the least any build could pay,
-            // so the true number has to be sent or a Hero WITHOUT the talent
-            // would read the lowered one.
-            //
-            // ManaCost, which is the column the patch lowers on everything
-            // stock. A caster spell prices itself from ManaCostPercentage
-            // instead and is left alone there, so its tooltip is already right:
-            // sending a correction for it just overwrote a correct number with
-            // this side's arithmetic, on every mana spell in the game. Those are
-            // corrected only when a talent actually moves them, which is what
-            // Convection does to Lightning Bolt.
-            //
-            // This module's own spells are the exception, and they are the
-            // reason the exception exists. A Hero talent lives in a world table
-            // the client's Talent.dbc has never seen, so the client cannot apply
-            // one to its own power check any more than it can to a cross-class
-            // talent: Thrift took 30% off Ward Off on the server while the
-            // client went on refusing at the full price. The patch lowers their
-            // percentage too, and that is only safe while every one of them is
-            // corrected from here -- so they are sent whether anything moved or
-            // not. 11 spells, none of them stock.
+            // CoA costs come from authoritative native snapshots; retain Esteria's existing tooltip fallback.
             constexpr uint32 HERO_SPELL_FAMILY = 14;
             if (!moved && !info->ManaCost && info->SpellFamilyName != HERO_SPELL_FAMILY)
                 continue;
@@ -520,15 +540,15 @@ namespace
 
             // The two pairs go out as their own values rather than by zeroing
             // the measurements, which are const and are still needed above.
-            int32 const durBaseOut = durMs == baseDurMs ? 0 : baseDurMs;
-            int32 const durModOut = durMs == baseDurMs ? 0 : durMs;
+            int32 const durBaseOut = durMs == baseDurMs || clientPrintsMods ? 0 : baseDurMs;
+            int32 const durModOut = durMs == baseDurMs || clientPrintsMods ? 0 : durMs;
             int32 const rangeBaseOut = modRange == baseRange ? 0 : baseRange;
             int32 const rangeModOut = modRange == baseRange ? 0 : modRange;
 
             // id, cost, then a base/moved pair per number the tooltip prints.
             std::string piece = Acore::StringFormat(
                 "{}:{}:{}:{}:{}:{}:{}:{}:{}:{}:{}:{}:{}:{};",
-                spellId, cost / div, castMs, cdMs,
+                spellId, info->SpellFamilyName >= 18 && info->SpellFamilyName <= 38 ? "native" : std::to_string(cost / div), castMs, cdMs,
                 durBaseOut, durModOut, rangeBaseOut, rangeModOut,
                 effBase[0], effMod[0], effBase[1], effMod[1], effBase[2], effMod[2]);
             if (body.size() + piece.size() > MAX_BODY)

@@ -33,6 +33,7 @@ except ImportError:
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ADDON = os.path.join(HERE, "ClasslessWildcard", "ClasslessWildcard.lua")
+STYLE = os.path.join(HERE, "ClasslessWildcard", "esteria_style.lua")
 PREFIX = "CWCL"
 PLAYER = "Tester"
 
@@ -68,6 +69,13 @@ StubMT.__index = function(self, k)
     if k == "Click" then return function(s, ...) local f = rawget(s, "__scripts").OnClick; if f then f(s, ...) end end end
     if k == "GetName" then return function(s) return rawget(s, "__name") end end
     if k == "GetParent" then return function(s) return rawget(s, "__parent") end end
+    if k == "GetChildren" then
+        return function(s)
+            local out = {}
+            for _, f in ipairs(FRAMES) do if rawget(f, "__parent") == s then out[#out + 1] = f end end
+            return unpack(out)
+        end
+    end
     if k == "GetObjectType" then return function(s) return rawget(s, "__kind") end end
     if k == "SetHeight" then return function(s, v) rawset(s, "__h", v) end end
     if k == "SetWidth" then return function(s, v) rawset(s, "__w", v) end end
@@ -365,6 +373,7 @@ class Harness:
     def __init__(self):
         self.rt = LuaRuntime(unpack_returned_tuples=True)
         self.rt.execute(STUBS)
+        self.rt.execute(io.open(STYLE, encoding="utf-8").read())  # loaded first, as the .toc does
         self.rt.execute(io.open(ADDON, encoding="utf-8").read())
         self.g = self.rt.globals()
         self.CW = self.g.ClasslessWildcard_API
@@ -2353,6 +2362,99 @@ def test_tree_header(h):
     h.recv("TBE|")
 
 
+def test_panel_redesign(h):
+    """The Codex-style panel: cards carry what the detail panel shows and does,
+    the detail button sends the right request, and every animation step runs.
+    ES.Tween drops a tween whose step errors, which in game only looks like a
+    missing animation, so here each step is run unprotected instead."""
+    print("--- redesigned panel: cards, detail panel, boards and animations")
+    CW, g = h.CW, h.g
+    h.rt.execute("EsteriaStyle.Tween = function(key, d, delay, apply) apply(0); apply(0.5); apply(1) end")
+    frame = g.ClasslessWildcardFrame
+    frame["__shown"] = True
+    frame["__scripts"]["OnShow"](frame)
+    h.recv(state(0, ae=5, te=5, level=10))
+    CW.SetBoard("ABIL")
+    h.recv("AB|1|0|1|100:0:1:0:0:4:1;72:0:2:0:0:12:1;")
+    a, b = CW.abilEntries[1].data, CW.abilEntries[2].data
+    h.check(a.actionOk and "LEARN" in str(a.actionText), "an affordable ability offers Learn (%s)" % a.actionText)
+    h.check(not b.actionOk and "level 12" in str(b.reason), "one above your level says why not (%s)" % b.reason)
+
+    h.check(CW.ScanSpell is not None, "the detail panel can read a spell's own tooltip text")
+    card = CW.abilEntries[1]
+    card["__scripts"]["OnEnter"](card)
+    h.check(CW.detailData is not None and str(CW.detailData.key) == "A:100", "hovering a card previews it")
+    card["__scripts"]["OnLeave"](card)
+    h.click(card)
+    h.check(str(CW.selected.key) == "A:100", "clicking a card selects it")
+    h.clear_sent()
+    h.click(CW.detail.action)
+    h.check(h.sent() == ["BUY 100"], "the detail button buys the selected ability (%s)" % h.sent())
+    h.recv("AB|1|0|1|100:0:1:1:0:4:1;72:0:2:0:0:12:1;")
+    h.check(str(CW.detail.state["__text"]) == "KNOWN", "once learned the detail panel says so")
+
+    h.recv(state(0, ae=8, te=5, level=10))
+    h.check(CW.ribbon["__shown"] is True and "3" in str(CW.ribbon.label["__text"]),
+            "essence coming in slides the ribbon in (%s)" % str(CW.ribbon.label["__text"]))
+
+    h.click(CW.boardTabs[2])
+    h.check(CW.containers.TAL["__shown"] is True and CW.containers.ABIL["__shown"] is False,
+            "the Talents tab shows the talent board")
+    h.click(CW.boardTabs[3])
+    h.check(CW.containers.BUILD["__shown"] is True, "the My Build tab shows the build")
+    h.recv("OA|100:0:0:1;")
+    h.recv("OAE|")
+    row = CW.buildRows[1]
+    h.click(row)
+    h.clear_sent()
+    h.click(CW.detail.action)
+    h.check(h.sent() == ["UNL 100"], "on Classless the build's detail button unlearns (%s)" % h.sent())
+    h.click(CW.classButtons[2])
+    h.check(CW.boardKey == "ABIL", "picking a class from My Build goes back to its abilities")
+
+    h.click(CW.motion)
+    h.check(g.EsteriaStyle.reduceMotion and "REDUCED" in str(CW.motion.label["__text"]), "the motion switch reduces motion")
+    h.click(CW.motion)
+    h.check(not g.EsteriaStyle.reduceMotion, "and turns it back on")
+
+    h.recv(state(1, level=20, rerolls=2))
+    h.recv("AB|1|0|1|100:0:1:0:0:4:1;")
+    h.check(not CW.abilEntries[1].data.actionOk, "a Wildcard cannot buy from the browser")
+    frame["__scripts"]["OnUpdate"](frame, 0.1)
+    h.check(True, "every tween step ran without error")
+
+
+def test_coa_classes(h):
+    """Imported CoA classes arrive as CC records and each gets a rail row; its
+    trees arrive with their own names because the client's TalentTab.dbc has
+    none of them."""
+    CW = h.CW
+    before = len(list(CW.classButtons.values()))
+    h.recv("CC|112:Barbarian:500913;")
+    h.recv("CC|112:Barbarian:500913;")
+    buttons = list(CW.classButtons.values())
+    h.check(len(buttons) == before + 1, "a CoA class adds one rail row, once (%d -> %d)" % (before, len(buttons)))
+    h.check(buttons[-1].classId == 112, "the row asks for page 112")
+    h.recv("TB|2120:112:Barbarian;398:6;")
+    h.recv("TBE|")
+    h.check(CW.TREE_NAMES[2120] == "Barbarian", "a CoA tree keeps the name the server sent")
+    h.clear_sent()
+    h.click(buttons[-1])
+    h.check(any(s.startswith("ABIL 112 ") for s in h.sent()), "clicking it browses page 112 (%s)" % h.sent())
+    h.check(any(s.startswith("TAL 2120 ") for s in h.sent()), "and follows to its tree (%s)" % h.sent())
+
+    h.recv("CC|" + "".join("%d:Class %d:500913;" % (100 + c, c) for c in range(13, 33)))
+    buttons = list(CW.classButtons.values())
+    last = buttons[-1]
+    h.check(len(buttons) > CW.RAIL_ROWS and last["__shown"] is False,
+            "with all 21 CoA classes the rail overflows and the last row starts out of view")
+    CW.rail["__scripts"]["OnMouseWheel"](CW.rail, -40)
+    h.check(last["__shown"] is True and buttons[0]["__shown"] is False,
+            "scrolling the rail brings the last class into view")
+    CW.rail["__scripts"]["OnMouseWheel"](CW.rail, 40)
+    h.check(buttons[0]["__shown"] is True and CW.railOffset == 0, "and scrolling back stops at the top")
+
+
 def main():
     try:
         h = Harness()
@@ -2384,6 +2486,8 @@ def main():
     test_spellbook(h)
     test_talent_unlearn(h)
     test_tree_header(h)
+    test_coa_classes(h)      # after the tree header: it adds a class and trees
+    test_panel_redesign(h)   # last: it swaps the tween driver for an unprotected one
     if h.failures:
         print("\n%d check(s) FAILED" % h.failures)
         return 1

@@ -553,6 +553,8 @@ public: /* GlobalScript */
     void OnAfterUpdateEncounterState(Map* map, EncounterCreditType type, uint32 creditEntry, Unit* source, Difficulty difficulty_fixed, DungeonEncounterList const* encounters, uint32 dungeonCompleted, bool updated);
     void OnBeforeWorldObjectSetPhaseMask(WorldObject const* worldObject, uint32& oldPhaseMask, uint32& newPhaseMask, bool& useCombinedPhases, bool& update);
     bool OnIsAffectedBySpellModCheck(SpellInfo const* affectSpell, SpellInfo const* checkSpell, SpellModifier const* mod);
+    void OnSpellModFamilyMask(SpellInfo const* affectSpell, SpellInfo const* checkSpell,
+        SpellModifier const* mod, bool& affected);
     bool OnSpellHealingBonusTakenNegativeModifiers(Unit const* target, Unit const* caster, SpellInfo const* spellInfo, float& val);
     void OnLoadSpellCustomAttr(SpellInfo* spell);
     bool OnAllowedForPlayerLootCheck(Player const* player, ObjectGuid source);
@@ -590,6 +592,27 @@ public: /* UnitScript */
     void OnUnitExitCombat(Unit* unit);
     void OnUnitDeath(Unit* unit, Unit* killer);
     void OnUnitSetShapeshiftForm(Unit* unit, uint8 form);
+    void ModifySpellEffectBaseValue(Unit const* caster, SpellInfo const* spellInfo, uint8 effectIndex, float& value);
+    void OnAfterAuraEffectCalculateAmount(AuraEffect const* effect, Unit* caster, int32& amount);
+    bool CanUnitAttack(Unit const* attacker, Unit const* target, SpellInfo const* spell);
+    void OnBeforeHealAbsorb(HealInfo& healInfo);
+    void OnPeriodicDamageResult(Unit* target, Unit* attacker, uint32 damage, SpellInfo const* spellInfo);
+    Unit* SpellMagnetTarget(Unit* attacker, Unit* victim, SpellInfo const* spell);
+    bool CanCastSpellWhileMoving(Unit const* unit, SpellInfo const* spell);
+    bool CanCastDuringChannel(Unit const* unit, SpellInfo const* spell);
+    bool CanUseScriptedPetAI(Creature const* pet);
+    void OnBlock(Unit* victim, Unit* attacker);
+    void OnSendAuraUpdate(Unit* target, Player* receiver, AuraApplication const* application, bool remove);
+    void ModifySpellPowerCost(Unit const* caster, SpellInfo const* info, int32& cost, float& multiplier);
+    void ModifyRunSpeed(Unit const* unit, int32& modifier);
+    void ModifyRunSpeedRate(Unit const* unit, float& speed);
+    void OnPlayerSpellChargeConsumed(Player* player, SpellInfo const* info, Spell* spell,
+        uint32 recovery, uint64 now);
+    void OnPlayerSendSpellChargeStates(Player const* player);
+    void OnPlayerNormalizeActionButtonSpell(Player* player, uint32& action, bool loading);
+    void OnPlayerSpellCooldownCalculated(Player* player, SpellInfo const* spellInfo, Spell* spell, uint32 recoveryMs);
+    void OnPlayerApplySpellMod(Player* player, SpellInfo const* info, uint8 op, Spell* spell, bool temporaryPet,
+        double& basevalue, int32& totalflat, float& totalmul, bool& handled);
 
 public: /* MovementHandlerScript */
     void OnPlayerMove(Player* player, MovementInfo movementInfo, uint32 opcode);
@@ -662,6 +685,15 @@ public: /* SpellSC */
     void OnSpellCastCancel(Spell* spell, Unit* caster, SpellInfo const* spellInfo, bool bySelf);
     void OnSpellCast(Spell* spell, Unit* caster, SpellInfo const* spellInfo, bool skipCheck);
     void OnSpellPrepare(Spell* spell, Unit* caster, SpellInfo const* spellInfo);
+    void OnSpellBeforeEffects(Spell* spell, Unit* caster, SpellInfo const* spellInfo);
+    void OnSpellCritChance(Spell* spell, Unit* target, float& critChance);
+    void OnGuardianSummoned(Spell* spell, TempSummon* summon);
+    void OnSpellCalculatedTarget(Spell* spell, Unit* target, TargetInfo& targetInfo);
+    void OnSpellHitResult(Spell* spell, Unit* target, uint8 missInfo, uint32 damage, uint32 healing, bool critical);
+    void OnSpellSuccessfulInterrupt(Spell* spell, Unit* target);
+    void OnSpellInterruptDuration(Spell* spell, Unit* target, int32& duration);
+    void OnSpellSuccessfulDispel(Spell* spell, Unit* target, SpellEffIndex effect, uint32 count);
+    void OnSpellSuccessfulSteal(Spell* spell, Unit* target, uint32 count);
 
 public: /* GameEventScript */
     void OnGameEventStart(uint16 EventID);

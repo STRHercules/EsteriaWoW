@@ -236,6 +236,40 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS] =
     &Spell::EffectActivateSpec,                             //162 SPELL_EFFECT_TALENT_SPEC_SELECT       activate primary/secondary spec
     &Spell::EffectNULL,                                     //163 unused
     &Spell::EffectRemoveAura,                               //164 SPELL_EFFECT_REMOVE_AURA
+    &Spell::EffectAscensionModifyCooldown,                  //165 SPELL_EFFECT_ASCENSION_MODIFY_COOLDOWN
+    &Spell::EffectAscensionRestoreBaseManaPct,              //166 SPELL_EFFECT_ASCENSION_RESTORE_BASE_MANA_PCT
+    &Spell::EffectNULL,                                     //167 unknown Ascension effect
+    &Spell::EffectAscensionPlaySpellVisualKit,              //168 SPELL_EFFECT_ASCENSION_PLAY_SPELL_VISUAL_KIT
+    &Spell::EffectAscensionSpreadAura,      //169 SPELL_EFFECT_ASCENSION_SPREAD_AURA
+    &Spell::EffectNULL,                     //170 SPELL_EFFECT_ASCENSION_SPREAD_AURA_2
+    &Spell::EffectAscensionModifyAuraCharges,               //171 SPELL_EFFECT_ASCENSION_MODIFY_AURA_CHARGES
+    &Spell::EffectNULL,                                     //172 unknown Ascension effect
+    &Spell::EffectAscensionRefreshAura,                     //173 SPELL_EFFECT_ASCENSION_REFRESH_AURA
+    &Spell::EffectAscensionPctDamage,                       //174 Ascension percent damage (target max health / caster melee)
+    &Spell::EffectAscensionModifyAuraStacks,                //175 SPELL_EFFECT_ASCENSION_MODIFY_AURA_STACKS
+    &Spell::EffectAscensionModifyAuraStacksBySpell,         //176 SPELL_EFFECT_ASCENSION_MODIFY_AURA_STACKS_2
+    &Spell::EffectAscensionModifyAuraDuration,              //177 SPELL_EFFECT_ASCENSION_MODIFY_AURA_DURATION
+    &Spell::EffectAscensionTriggerSpellWithDuration,        //178 SPELL_EFFECT_ASCENSION_TRIGGER_SPELL_DURATION
+    &Spell::EffectNULL,                                     //179 unknown Ascension effect
+    &Spell::EffectNULL,                                     //180 unknown Ascension effect
+    &Spell::EffectAscensionRestoreBaseHealthPct,            //181 SPELL_EFFECT_ASCENSION_RESTORE_BASE_HEALTH_PCT
+    &Spell::EffectNULL,                                     //182 unknown Ascension effect
+    &Spell::EffectAscensionTriggerSpellDelayed,             //183 SPELL_EFFECT_ASCENSION_TRIGGER_SPELL_DELAYED
+    &Spell::EffectNULL,                                     //184 SPELL_EFFECT_ASCENSION_TRIGGER_RANDOM_SPELL
+    &Spell::EffectNULL,                                     //185 unknown Ascension effect
+    &Spell::EffectNULL,                                     //186 unknown Ascension effect
+    &Spell::EffectAscensionRestoreSpellCharges,             //187 SPELL_EFFECT_ASCENSION_RESTORE_SPELL_CHARGES
+    &Spell::EffectNULL,                                     //188 unknown Ascension effect
+    &Spell::EffectNULL,                                     //189 unknown Ascension effect
+    &Spell::EffectApplyAreaAura,                            //190 SPELL_EFFECT_ASCENSION_APPLY_AURA_TO_SUMMONS
+    &Spell::EffectNULL,                                     //191 unknown Ascension effect
+    &Spell::EffectAscensionModifyCooldownPct,               //192 SPELL_EFFECT_ASCENSION_MODIFY_COOLDOWN_PCT
+    &Spell::EffectDelayedTriggerSpell,                      //193 Ascension delayed trigger (Amplitude)
+    &Spell::EffectNULL,                                     //194 unknown Ascension effect
+    &Spell::EffectAscensionResetCooldown,                   //195 SPELL_EFFECT_ASCENSION_RESET_COOLDOWN
+    &Spell::EffectNULL,                                     //196 unknown Ascension effect
+    &Spell::EffectAscensionModifyFamilyCooldown,            //197 SPELL_EFFECT_ASCENSION_MODIFY_FAMILY_COOLDOWN
+    &Spell::EffectNULL,                                     //198 unknown Ascension effect
 };
 
 void Spell::EffectNULL(SpellEffIndex /*effIndex*/)
@@ -246,6 +280,690 @@ void Spell::EffectNULL(SpellEffIndex /*effIndex*/)
 void Spell::EffectUnused(SpellEffIndex /*effIndex*/)
 {
     // NOT USED BY ANY SPELL OR USELESS OR IMPLEMENTED IN DIFFERENT WAY IN TRINITY
+}
+
+// Project Ascension effects 165-198 (from the CoA core)
+namespace
+{
+constexpr uint32 ASCENSION_EARTHSHAPING_AURA = 680441;
+constexpr uint32 ASCENSION_STATIC_AURA = 803102;
+constexpr uint32 ASCENSION_THUNDER_WARD_AURA = 800098;
+constexpr uint32 ASCENSION_CHARGED_CONDUIT_AURA = 803790;
+
+void ResetAscensionCooldown(Player* player, uint32 spellId, bool resetCategory)
+{
+    if (!player || !spellId)
+        return;
+
+    player->RemoveSpellCooldown(spellId, true);
+
+    if (resetCategory)
+        if (SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId))
+            if (uint32 category = spellInfo->GetCategory())
+                player->RemoveCategoryCooldown(category);
+}
+
+void ModifyAscensionRankCooldown(Player* player, uint32 spellId, int32 delta, bool resetCategory)
+{
+    // A zero delta is Ascension's reset sentinel. The extra flag requests
+    // clearing a shared category in addition to the named spell.
+    if (!delta)
+    {
+        ResetAscensionCooldown(player, spellId, resetCategory);
+        return;
+    }
+
+    if (delta < 0)
+    {
+        uint32 remaining = player->GetSpellCooldownDelay(spellId);
+        uint64 reduction = uint64(-int64(delta));
+        if (!remaining || reduction >= remaining)
+        {
+            ResetAscensionCooldown(player, spellId, resetCategory);
+            return;
+        }
+    }
+
+    player->ModifySpellCooldown(spellId, delta);
+}
+}
+
+// Ascension data usually names the first rank of a ranked ability, while the
+// cooldown the player sees and CheckCast enforces belongs to the rank they own.
+void ModifyAscensionCooldown(Player* player, uint32 spellId, int32 delta, bool resetCategory)
+{
+    if (!player || !spellId)
+        return;
+
+    for (uint32 rankId = sSpellMgr->GetFirstSpellInChain(spellId); rankId;
+        rankId = sSpellMgr->GetNextSpellInChain(rankId))
+        if (rankId == spellId || player->GetSpellCooldownDelay(rankId))
+            ModifyAscensionRankCooldown(player, rankId, delta, resetCategory);
+}
+
+namespace
+{
+void ModifyAscensionAuraStacks(Unit* caster, Unit* target, uint32 auraSpellId, int32 delta)
+{
+    if (!caster || !target || !auraSpellId || !delta)
+        return;
+
+    // Thunder Ward forbids Static generation, including native triggered
+    // helpers and Charge's mixed-effect record. Suppress only the positive
+    // resource mutation, not the rest of the spell or normal Static spending.
+    if (delta > 0 && auraSpellId == ASCENSION_STATIC_AURA)
+        if (Player* player = target->ToPlayer())
+            if (player->HasAura(ASCENSION_THUNDER_WARD_AURA))   // Esteria: the aura is the kit; no class test
+                return;
+
+    // Some Static consumers use native stack effects instead of a module cost.
+    if (delta < 0 && auraSpellId == ASCENSION_STATIC_AURA && caster == target)
+        if (Player* player = target->ToPlayer())
+            if (player->HasAura(ASCENSION_CHARGED_CONDUIT_AURA))
+                return;
+
+    if (Aura* aura = target->GetAura(auraSpellId))
+    {
+        // Earthshaping's authored contract explicitly forbids refreshing its
+        // lifetime when another stack is gained. Other auras keep native
+        // ModStackAmount behavior.
+        bool preserveDuration = delta > 0 &&
+            auraSpellId == ASCENSION_EARTHSHAPING_AURA;
+        int32 remaining = aura->GetDuration();
+        aura->ModStackAmount(delta);
+        if (preserveDuration)
+            aura->SetDuration(remaining);
+        return;
+    }
+
+    if (delta < 0)
+        return;
+
+    if (Aura* aura = caster->AddAura(auraSpellId, target))
+        if (delta > 1)
+            aura->ModStackAmount(delta - 1);
+}
+}
+
+void Spell::EffectAscensionModifyCooldown(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    Player* player = target ? target->ToPlayer() : nullptr;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    ModifyAscensionCooldown(player, effect.MiscValue, damage, effect.MiscValueB != 0);
+}
+
+void Spell::EffectAscensionPlaySpellVisualKit(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET || !unitTarget)
+        return;
+
+    if (uint32 kit = uint32(m_spellInfo->Effects[effIndex].MiscValue))
+        unitTarget->SendPlaySpellVisual(kit);
+}
+
+void Spell::EffectAscensionRestoreBaseManaPct(SpellEffIndex /*effIndex*/)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    if (!unitTarget || !unitTarget->IsAlive() || damage <= 0)
+        return;
+
+    if (unitTarget->HasUnitState(UNIT_STATE_ISOLATED))
+    {
+        m_caster->SendSpellDamageImmune(unitTarget, GetSpellInfo()->Id);
+        return;
+    }
+
+    if (unitTarget->IsPlayer() && !unitTarget->HasActivePowerType(POWER_MANA) &&
+        !m_spellInfo->HasAttribute(SPELL_ATTR7_ONLY_IN_SPELLBOOK_UNTIL_LEARNED))
+        return;
+
+    uint32 baseMana = unitTarget->GetCreateMana();
+    if (!baseMana)
+        return;
+
+    uint32 gain = CalculatePct(baseMana, damage);
+    m_caster->EnergizeBySpell(unitTarget, m_spellInfo->Id, gain, POWER_MANA);
+}
+
+// Ported from EunoiaCore-Underworld 816405a7827e5b1b5f5543a235b3316bb59048af.
+// Preserve its bounded mode policy; mode 1 is not a generic max-health rule.
+void Spell::EffectAscensionHealthPctDamage(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH_TARGET ||
+        !unitTarget || !unitTarget->IsAlive() || damage <= 0)
+        return;
+    int32 const mode = m_spellInfo->Effects[effIndex].MiscValue;
+    uint32 const id = m_spellInfo->Id;
+    bool const supported = mode == 0 || (mode == 2 && (id == 93008 || id == 93050)) ||
+        (mode == 1 && (id == 93358 || (id >= 115171 && id <= 115190)));
+    if (!supported)
+        return;
+    int64 const amount = int64(unitTarget->GetMaxHealth()) * int64(damage) / 100;
+    m_damage = int32(std::min<int64>(int64(m_damage) + amount, std::numeric_limits<int32>::max()));
+}
+
+// The old core's Effect 193 uses Amplitude, unlike this core's Effect 183.
+// Preserve destination, original caster, positive-delay and target-selection rules.
+void Spell::EffectDelayedTriggerSpell(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH_TARGET && effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH)
+        return;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    SpellInfo const* trigger = sSpellMgr->GetSpellInfo(effect.TriggerSpell);
+    if (!trigger || !effect.Amplitude || !m_caster->IsInWorld())
+        return;
+    ObjectGuid targetGuid;
+    bool hasDestination = false;
+    SpellDestination destination;
+    if (effectHandleMode == SPELL_EFFECT_HANDLE_LAUNCH_TARGET)
+    {
+        if (!unitTarget || !trigger->NeedsToBeTriggeredByCaster(m_spellInfo, effIndex))
+            return;
+        targetGuid = unitTarget->GetGUID();
+    }
+    else
+    {
+        if (trigger->NeedsToBeTriggeredByCaster(m_spellInfo, effIndex) &&
+            (effect.GetProvidedTargetMask() & TARGET_FLAG_UNIT_MASK))
+            return;
+        if ((trigger->GetExplicitTargetMask() & TARGET_FLAG_DEST_LOCATION) && m_targets.HasDst())
+        {
+            destination = *m_targets.GetDst();
+            hasDestination = true;
+        }
+        targetGuid = m_targets.GetUnitTarget() ? m_targets.GetUnitTarget()->GetGUID() : m_caster->GetGUID();
+    }
+    ObjectGuid const casterGuid = m_caster->GetGUID();
+    ObjectGuid const originalCasterGuid = m_originalCasterGUID;
+    uint32 const mapId = m_caster->GetMapId();
+    uint32 const instanceId = m_caster->GetInstanceId();
+    uint32 const triggerId = trigger->Id;
+    m_caster->m_Events.AddEventAtOffset(
+        [casterGuid, originalCasterGuid, mapId, instanceId, targetGuid, destination, hasDestination, triggerId]()
+        {
+            Map* map = sMapMgr->FindMap(mapId, instanceId);
+            if (!map)
+                return;
+            Unit* caster = nullptr;
+            if (casterGuid.IsPlayer())
+                caster = ObjectAccessor::FindConnectedPlayer(casterGuid);
+            else if (casterGuid.IsPet())
+                caster = map->GetPet(casterGuid);
+            else
+                caster = map->GetCreature(casterGuid);
+            if (!caster || !caster->IsInWorld() || caster->FindMap() != map)
+                return;
+            Unit* target = targetGuid == casterGuid ? caster : ObjectAccessor::GetUnit(*caster, targetGuid);
+            SpellInfo const* delayedSpell = sSpellMgr->GetSpellInfo(triggerId);
+            if (!target || !delayedSpell)
+                return;
+            SpellCastTargets targets;
+            targets.SetUnitTarget(target);
+            if (hasDestination)
+                targets.SetDst(destination);
+            caster->CastSpell(targets, delayedSpell, nullptr,
+                TriggerCastFlags(TRIGGERED_FULL_MASK & ~TRIGGERED_NO_PERIODIC_RESET),
+                nullptr, nullptr, originalCasterGuid);
+        }, Milliseconds(effect.Amplitude));
+}
+
+
+
+// CoA effect 169: copy the caster's aura (TriggerSpell) from the hit target to units around it. No stock or
+// Esteria spell uses effect 169, so only CoA spells reach this.
+void Spell::EffectAscensionSpreadAura(SpellEffIndex effIndex)
+{
+    if (m_spellInfo->SpellFamilyName < 18 || m_spellInfo->SpellFamilyName > 38 ||
+        effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET || !unitTarget)
+        return;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    bool const friendly = effect.TargetA.GetTarget() == TARGET_UNIT_TARGET_ALLY;
+    bool const preserveState = effect.MiscValue == 5;
+    bool const healingBounce = effect.MiscValue == 7 && friendly;
+    bool const snapshotApply = effect.MiscValue == 3 || preserveState;
+    if ((effect.MiscValue != 1 && !snapshotApply && !healingBounce) || effect.MiscValueB || !effect.TriggerSpell ||
+        (!friendly && effect.TargetA.GetTarget() != TARGET_UNIT_TARGET_ENEMY) || effect.TargetB.GetTarget() != 0 ||
+        (friendly && !preserveState && !healingBounce))
+        return;
+    SpellInfo const* payload = sSpellMgr->GetSpellInfo(effect.TriggerSpell);
+    if (!payload)
+        return;
+    bool hasAura = false;
+    for (SpellEffectInfo const& payloadEffect : payload->Effects)
+        hasAura = hasAura || payloadEffect.IsAura();
+    if (!hasAura)
+        return;
+    Unit* caster = GetOriginalCaster();
+    if (!caster || !caster->IsInWorld() || !unitTarget->IsAlive() ||
+        !(friendly ? caster->IsValidAssistTarget(unitTarget) : caster->IsValidAttackTarget(unitTarget)))
+        return;
+    Aura* source = unitTarget->GetAuraOfRankedSpell(effect.TriggerSpell, caster->GetGUID());
+    if (!source || source->IsRemoved() || source->GetDuration() == 0)
+        return;
+    if ((preserveState || healingBounce) && source->GetDuration() < 0)
+        return;
+    if ((preserveState || healingBounce) && source->GetCharges())
+        return;
+    if (friendly && (!caster->IsPlayer() || !source->HasEffectType(SPELL_AURA_PERIODIC_HEAL)))
+        return;
+    uint32 const auraId = source->GetId();
+    if (GetScriptValue(auraId))
+        return;
+    SpellInfo const* auraInfo = source->GetSpellInfo();
+    struct PeriodicSnapshot
+    {
+        bool present = false;
+        int32 amount = 0;
+        float pct = 1.0f;
+        float crit = 0.0f;
+        int32 timer = 0;
+        bool periodic = false;
+    };
+    std::array<PeriodicSnapshot, MAX_SPELL_EFFECTS> snapshot{};
+    uint8 mask = 0;
+    uint8 const stacks = source->GetStackAmount();
+    int32 const remaining = source->GetDuration();
+    int32 const maximum = source->GetMaxDuration();
+    for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
+        if (AuraEffect const* auraEffect = source->GetEffect(i))
+        {
+            mask |= 1u << i;
+            if (auraEffect->IsPeriodic() || preserveState)
+                snapshot[i] = {true, auraEffect->GetAmount(), auraEffect->GetPctMods(), auraEffect->GetCritChance(),
+                    int32(auraEffect->GetPeriodicTimer()), auraEffect->IsPeriodic()};
+        }
+    float const radius = effect.CalcRadius(caster, this) * m_spellValue->RadiusMod;
+    if (!mask || radius <= 0.0f)
+        return;
+    auto validRecipient = [this, caster, friendly, preserveState, healingBounce, remaining, &effect](Unit* target)
+    {
+        if (!target || target == unitTarget || !target->IsAlive() || !(friendly ? caster->IsValidAssistTarget(target) : caster->IsValidAttackTarget(target)) ||
+            !unitTarget->InSamePhase(target) || !unitTarget->IsWithinLOSInMap(target) ||
+            !caster->IsWithinLOSInMap(target) || !m_spellInfo->CheckTargetCreatureType(target))
+            return false;
+        if (preserveState && friendly && target != caster && !caster->ToPlayer()->IsInRaidWith(target))
+            return false;
+        if (preserveState || healingBounce)
+            if (Aura* existing = target->GetAuraOfRankedSpell(effect.TriggerSpell, caster->GetGUID()))
+                if (friendly || existing->GetDuration() >= remaining)
+                    return false;
+        return !(m_spellInfo->AttributesEx6 & SPELL_ATTR6_DO_NOT_CHAIN_TO_CROWD_CONTROLLED_TARGETS) ||
+            (!target->HasBreakableByDamageCrowdControlAura() &&
+                !target->HasUnitState(UNIT_STATE_CONTROLLED | UNIT_STATE_ROOT));
+    };
+    uint8 selection = uint8(effIndex);
+    for (uint8 i = 0; i < uint8(effIndex); ++i)
+    {
+        SpellEffectInfo const& previous = m_spellInfo->Effects[i];
+        if (m_ascensionSpreadSelectionReady[i] && previous.Effect == effect.Effect &&
+            previous.MiscValue == effect.MiscValue && previous.MiscValueB == effect.MiscValueB &&
+            previous.TargetA.GetTarget() == effect.TargetA.GetTarget() &&
+            previous.TargetB.GetTarget() == effect.TargetB.GetTarget() && previous.RadiusEntry == effect.RadiusEntry)
+        {
+            selection = i;
+            break;
+        }
+    }
+    if (!m_ascensionSpreadSelectionReady[selection])
+    {
+        std::list<Unit*> targets;
+        if (friendly)
+        {
+            Acore::AnyFriendlyUnitInObjectRangeCheck check(unitTarget, caster, radius);
+            Acore::UnitListSearcher<Acore::AnyFriendlyUnitInObjectRangeCheck> searcher(unitTarget, targets, check);
+            Cell::VisitObjects(unitTarget, searcher, radius);
+        }
+        else
+        {
+            Acore::AnyUnfriendlyUnitInObjectRangeCheck check(unitTarget, caster, radius);
+            Acore::UnitListSearcher<Acore::AnyUnfriendlyUnitInObjectRangeCheck> searcher(unitTarget, targets, check);
+            Cell::VisitObjects(unitTarget, searcher, radius);
+        }
+        targets.remove_if([&validRecipient](Unit* target) { return !validRecipient(target); });
+        uint32 const limit = m_spellValue->MaxAffectedTargets;
+        if (preserveState || healingBounce)
+        {
+            targets.sort([this, friendly, preserveState](Unit* first, Unit* second)
+            {
+                if (friendly && preserveState && first->GetHealthPct() != second->GetHealthPct())
+                    return first->GetHealthPct() < second->GetHealthPct();
+                if (friendly && !preserveState && unitTarget->GetDistance(first) != unitTarget->GetDistance(second))
+                    return unitTarget->GetDistance(first) < unitTarget->GetDistance(second);
+                return first->GetGUID() < second->GetGUID();
+            });
+            if (limit && targets.size() > limit)
+                targets.resize(limit);
+        }
+        else if (limit && targets.size() > limit)
+            Acore::Containers::RandomResize(targets, limit);
+        for (Unit* target : targets)
+            m_ascensionSpreadTargets[selection].push_back(target->GetGUID());
+        m_ascensionSpreadSelectionReady[selection] = true;
+    }
+    SetScriptValue(auraId, 1);
+    bool const cannotCrit = m_spellInfo->AttributesEx2 & SPELL_ATTR2_CANT_CRIT;
+    for (ObjectGuid targetGuid : m_ascensionSpreadTargets[selection])
+    {
+        Unit* target = ObjectAccessor::GetUnit(*caster, targetGuid);
+        if (!validRecipient(target) || target->IsImmunedToSpell(auraInfo, caster))
+            continue;
+        Aura* propagated = caster->AddAura(auraInfo, mask, target);
+        if (!propagated)
+            continue;
+        if (stacks > 1)
+            propagated->SetStackAmount(stacks);
+        if (preserveState)
+        {
+            propagated->SetMaxDuration(maximum);
+            propagated->SetDuration(remaining);
+        }
+        else if (healingBounce)
+            propagated->SetDuration(std::min(propagated->GetDuration(), remaining));
+        for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
+            if (AuraEffect* applied = propagated->GetEffect(i))
+            {
+                if (snapshotApply && snapshot[i].present)
+                {
+                    if (preserveState)
+                        applied->ChangeAmount(snapshot[i].amount);
+                    else
+                        applied->SetAmount(snapshot[i].amount);
+                    applied->SetPctMods(snapshot[i].pct);
+                    applied->SetCritChance(snapshot[i].crit);
+                    applied->SetCanBeRecalculated(false);
+                    if (preserveState && snapshot[i].periodic)
+                        applied->SetPeriodicTimer(snapshot[i].timer);
+                }
+                if (cannotCrit && applied->IsPeriodic())
+                    applied->SetCritChance(0.0f);
+            }
+    }
+}
+
+void Spell::EffectAscensionRefreshAura(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    if (!target || !effect.MiscValue)
+        return;
+
+    Aura* aura = target->GetAura(effect.MiscValue);
+    if (!aura)
+        return;
+
+    // A value of one is the DBC representation of a zero-base-point effect;
+    // it requests a normal refresh. MiscValueB selects additive extension.
+    if (damage <= 1 && !effect.MiscValueB)
+    {
+        aura->RefreshDuration();
+        return;
+    }
+
+    int32 duration = effect.MiscValueB ? aura->GetDuration() + damage : damage;
+    if (duration <= 0)
+    {
+        aura->Remove();
+        return;
+    }
+
+    if (duration > aura->GetMaxDuration())
+        aura->SetMaxDuration(duration);
+    aura->SetDuration(duration);
+}
+
+void Spell::EffectAscensionModifyAuraStacks(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    ModifyAscensionAuraStacks(m_caster, target, effect.TriggerSpell, effect.MiscValue);
+}
+
+void Spell::EffectAscensionModifyAuraStacksBySpell(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    ModifyAscensionAuraStacks(m_caster, target, effect.MiscValue, damage);
+}
+
+void Spell::EffectAscensionModifyAuraDuration(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    if (!target || !effect.MiscValue)
+        return;
+
+    Aura* aura = target->GetAuraOfRankedSpell(effect.MiscValue, m_caster->GetGUID());
+    if (!aura && m_spellInfo->Id != 270663)
+        aura = target->GetAuraOfRankedSpell(effect.MiscValue);
+    if (aura)
+    {
+        int32 duration = aura->GetDuration() + damage;
+        if (duration <= 0)
+            aura->Remove();
+        else
+            aura->SetDuration(duration);
+    }
+}
+
+// Ascension effect 171: change the charges of the MiscValue aura on the target by the base points, without the die
+// roll (Baleful Hammer's tooltip adds m1-1 charges; Backdraft and Fingers of Frost "consume charge" -1, Static Shock
+// adds Lightning Shield charges). An aura brought to no charges is removed, as a spent charge aura is.
+void Spell::EffectAscensionModifyAuraCharges(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    if (!target || !effect.MiscValue || !effect.BasePoints)
+        return;
+
+    Aura* aura = target->GetAuraOfRankedSpell(effect.MiscValue, m_caster->GetGUID());
+    if (!aura)
+        aura = target->GetAuraOfRankedSpell(effect.MiscValue);
+    if (!aura)
+        return;
+
+    int32 const charges = int32(aura->GetCharges()) + effect.BasePoints;
+    if (charges <= 0)
+        aura->Remove(AURA_REMOVE_BY_EXPIRE);
+    else
+        aura->SetCharges(uint8(std::min(charges, 255)));
+}
+
+// Ascension effect 178: cast TriggerSpell on the target with its duration set to the effect value in milliseconds
+// (Shield Block for 4 sec, Enrage for 6 sec, Nature's Grace for 6 sec).
+void Spell::EffectAscensionTriggerSpellWithDuration(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    uint32 const trigger = m_spellInfo->Effects[effIndex].TriggerSpell;
+    if (!target || !trigger || !sSpellMgr->GetSpellInfo(trigger))
+        return;
+
+    m_caster->CastSpell(target, trigger, true, nullptr, nullptr, m_originalCasterGUID);
+    if (damage <= 0)
+        return;
+    if (Aura* aura = target->GetAura(trigger, m_caster->GetGUID()))
+    {
+        aura->SetMaxDuration(damage);
+        aura->SetDuration(damage);
+    }
+}
+
+// Ascension effect 192: shorten the remaining cooldown of the MiscValue spell by the effect value as a percentage of
+// it ("the cooldown of Desperate Prayer is reduced by 50%" = 50; a negative value lengthens it).
+void Spell::EffectAscensionModifyCooldownPct(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    Player* player = target ? target->ToPlayer() : nullptr;
+    uint32 const spell = uint32(m_spellInfo->Effects[effIndex].MiscValue);
+    if (!player || !spell || !damage)
+        return;
+
+    uint32 const remaining = player->GetSpellCooldownDelay(spell);
+    if (!remaining)
+        return;
+    int32 const change = int32(CalculatePct(remaining, std::abs(damage)));
+    if (!change)
+        return; // ModifyAscensionCooldown reads 0 as "reset"
+    ModifyAscensionCooldown(player, spell, damage > 0 ? -change : change, false);
+}
+
+// Ascension effect 174: damage as a percentage. MiscValue 1 = of the caster's melee damage ("X% of melee damage"),
+// otherwise of the target's maximum health ("X% maximum health damage", e.g. Gizrul's Vicious Bite). Resistances and
+// damage taken modifiers apply, spell power does not.
+void Spell::EffectAscensionPctDamage(SpellEffIndex effIndex)
+{
+    uint32 const id = m_spellInfo->Id;
+    int32 const mode = m_spellInfo->Effects[effIndex].MiscValue;
+    if ((mode == 1 && (id == 93358 || (id >= 115171 && id <= 115190))) ||
+        (mode == 2 && (id == 93008 || id == 93050)))
+    {
+        EffectAscensionHealthPctDamage(effIndex);
+        return;
+    }
+
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH_TARGET)
+        return;
+
+    if (!unitTarget || !unitTarget->IsAlive() || damage <= 0)
+        return;
+
+    uint32 amount;
+    if (m_spellInfo->Effects[effIndex].MiscValue == 1)
+        amount = CalculatePct(m_caster->CalculateDamage(BASE_ATTACK, false, true), damage);
+    else
+        amount = unitTarget->CountPctFromMaxHealth(damage);
+
+    if (m_originalCaster)
+        amount = unitTarget->SpellDamageBonusTaken(m_originalCaster, m_spellInfo, amount, SPELL_DIRECT_DAMAGE);
+    m_damage += int32(amount);
+}
+
+void Spell::EffectAscensionRestoreBaseHealthPct(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH_TARGET)
+        return;
+
+    if (!unitTarget || !unitTarget->IsAlive() || damage <= 0 || !m_originalCaster)
+        return;
+
+    uint32 heal = CalculatePct(unitTarget->GetCreateHealth(), damage);
+    heal = m_originalCaster->SpellHealingBonusDone(unitTarget, m_spellInfo, heal, HEAL, effIndex);
+    m_damageBeforeTakenMods -= heal;
+    heal = unitTarget->SpellHealingBonusTaken(m_originalCaster, m_spellInfo, heal, HEAL);
+    m_damage -= heal;
+}
+
+void Spell::EffectAscensionTriggerSpellDelayed(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH_TARGET &&
+        effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH)
+        return;
+
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    SpellInfo const* triggeredSpell = sSpellMgr->GetSpellInfo(effect.TriggerSpell);
+    if (!triggeredSpell)
+        return;
+
+    Unit* target = nullptr;
+    if (effectHandleMode == SPELL_EFFECT_HANDLE_LAUNCH_TARGET)
+    {
+        if (!triggeredSpell->NeedsToBeTriggeredByCaster(m_spellInfo, effIndex))
+            return;
+        target = unitTarget;
+    }
+    else
+    {
+        if (triggeredSpell->NeedsToBeTriggeredByCaster(m_spellInfo, effIndex) &&
+            (effect.GetProvidedTargetMask() & TARGET_FLAG_UNIT_MASK))
+            return;
+        target = m_targets.GetUnitTarget();
+    }
+
+    if (!target)
+        target = m_caster;
+
+    ObjectGuid targetGuid = target->GetGUID();
+    uint32 triggeredSpellId = triggeredSpell->Id;
+    Milliseconds delay(std::max<int32>(1, damage));
+    Unit* caster = m_caster;
+    caster->m_Events.AddEventAtOffset(
+        [caster, targetGuid, triggeredSpellId]()
+        {
+            if (Unit* delayedTarget = ObjectAccessor::GetUnit(*caster, targetGuid))
+                caster->CastSpell(delayedTarget, triggeredSpellId, true);
+        },
+        delay);
+}
+
+void Spell::EffectAscensionResetCooldown(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    Player* player = target ? target->ToPlayer() : nullptr;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    ModifyAscensionCooldown(player, effect.MiscValue, 0, effect.MiscValueB != 0);
+}
+
+// Effect 197: the 165 cooldown change applied to every cooling spell of the caster's family that the effect's class
+// mask names ("Mongoose Bite CDR 1 Second": -1001 on Mongoose Bite's flag). MiscValueB resets them instead.
+void Spell::EffectAscensionModifyFamilyCooldown(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    Player* player = target ? target->ToPlayer() : nullptr;
+    SpellEffectInfo const& effect = m_spellInfo->Effects[effIndex];
+    if (!player || !effect.SpellClassMask)
+        return;
+
+    std::vector<uint32> affected;
+    for (auto const& [spellId, cooldown] : player->GetSpellCooldownMap())
+        if (SpellInfo const* info = sSpellMgr->GetSpellInfo(spellId))
+            if (info->SpellFamilyName == m_spellInfo->SpellFamilyName && (info->SpellFamilyFlags & effect.SpellClassMask))
+                affected.push_back(spellId);
+
+    for (uint32 spellId : affected)
+        ModifyAscensionRankCooldown(player, spellId, effect.MiscValueB ? 0 : damage, false);
+}
+
+void Spell::EffectAscensionRestoreSpellCharges(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET || damage <= 0)
+        return;
+
+    Unit* target = unitTarget ? unitTarget : m_caster;
+    if (Player* player = target ? target->ToPlayer() : nullptr)
+        if (m_spellInfo->Effects[effIndex].MiscValue > 0)
+            player->RestoreSpellChargeCategory(uint32(m_spellInfo->Effects[effIndex].MiscValue), uint32(damage));
 }
 
 void Spell::EffectResurrectNew(SpellEffIndex effIndex)
@@ -2693,6 +3411,7 @@ void Spell::EffectDispel(SpellEffIndex effIndex)
         unitTarget->RemoveAurasDueToSpellByDispel(itr->first->GetId(), m_spellInfo->Id, itr->first->GetCasterGUID(), m_caster, itr->second);
     }
     m_caster->SendMessageToSet(&dataSuccess, true);
+    sScriptMgr->OnSpellSuccessfulDispel(this, unitTarget, effIndex, uint32(success_list.size()));
 
     // On success dispel
     // Devour Magic
@@ -3674,6 +4393,8 @@ void Spell::EffectWeaponDmg(SpellEffIndex effIndex)
         weaponDamage = m_caster->CalculateDamage(m_attackType, normalized, isPhysical);
     }
 
+    weaponDamagePercentMod *= m_scriptWeaponDamageMultiplier;
+
     // Sequence is important
     for (int j = 0; j < MAX_SPELL_EFFECTS; ++j)
     {
@@ -3769,6 +4490,7 @@ void Spell::EffectInterruptCast(SpellEffIndex effIndex)
     /// @todo: not all spells that used this effect apply cooldown at school spells
     // also exist case: apply cooldown to interrupted cast only and to all spells
     // there is no CURRENT_AUTOREPEAT_SPELL spells that can be interrupted
+    bool interrupted = false;
     for (uint32 i = CURRENT_FIRST_NON_MELEE_SPELL; i < CURRENT_AUTOREPEAT_SPELL; ++i)
     {
         if (Spell* spell = unitTarget->GetCurrentSpell(CurrentSpellTypes(i)))
@@ -3784,14 +4506,18 @@ void Spell::EffectInterruptCast(SpellEffIndex effIndex)
                 if (m_originalCaster)
                 {
                     int32 duration = m_originalCaster->ModSpellDuration(m_spellInfo, unitTarget, m_originalCaster->CalcSpellDuration(m_spellInfo), false, 1 << effIndex);
-                    unitTarget->ProhibitSpellSchool(curSpellInfo->GetSchoolMask(), duration/*spellInfo->GetDuration()*/);
+                    sScriptMgr->OnSpellInterruptDuration(this, unitTarget, duration);
+                    unitTarget->ProhibitSpellSchool(curSpellInfo->GetSchoolMask(), uint32(std::max(0, duration)));
                 }
                 ExecuteLogEffectInterruptCast(effIndex, unitTarget, curSpellInfo->Id);
                 unitTarget->InterruptSpell(CurrentSpellTypes(i), false);
                 EsteriaPerkFx::OnInterrupt(m_caster, unitTarget);
+                interrupted = true;
             }
         }
     }
+    if (interrupted)
+        sScriptMgr->OnSpellSuccessfulInterrupt(this, unitTarget);
 }
 
 void Spell::EffectSummonObjectWild(SpellEffIndex effIndex)
@@ -5722,6 +6448,7 @@ void Spell::EffectStealBeneficialBuff(SpellEffIndex effIndex)
         unitTarget->RemoveAurasDueToSpellBySteal(itr->first, itr->second, m_caster);
     }
     m_caster->SendMessageToSet(&dataSuccess, true);
+    sScriptMgr->OnSpellSuccessfulSteal(this, unitTarget, uint32(success_list.size()));
 }
 
 void Spell::EffectKillCreditPersonal(SpellEffIndex effIndex)
@@ -6106,6 +6833,8 @@ void Spell::SummonGuardian(uint32 i, uint32 entry, SummonPropertiesEntry const* 
         {
             ((Guardian*)summon)->InitStatsForLevel(summonLevel);
         }
+
+        sScriptMgr->OnGuardianSummoned(this, summon);
 
         // xinef: if we have more than one guardian, change follow angle
         if (summon->HasUnitTypeMask(UNIT_MASK_MINION) && totalNumGuardians > 1)

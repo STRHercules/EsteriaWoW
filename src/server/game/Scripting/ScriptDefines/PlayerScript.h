@@ -222,6 +222,11 @@ enum PlayerHook
     PLAYERHOOK_ON_GET_REPUTATION_PRICE_DISCOUNT,
     PLAYERHOOK_ON_LEARN_TAXI_NODE,
     PLAYERHOOK_ON_BEFORE_GET_LEVEL_FOR_XP_GAIN,
+    PLAYERHOOK_ON_SPELL_CHARGE_CONSUMED,
+    PLAYERHOOK_ON_SEND_SPELL_CHARGE_STATES,
+    PLAYERHOOK_ON_APPLY_SPELL_MOD,
+    PLAYERHOOK_ON_NORMALIZE_ACTION_BUTTON_SPELL,
+    PLAYERHOOK_ON_SPELL_COOLDOWN_CALCULATED,
     PLAYERHOOK_END
 };
 
@@ -231,6 +236,23 @@ protected:
     PlayerScript(char const* name, std::vector<uint16> enabledHooks = std::vector<uint16>());
 
 public:
+    virtual void OnPlayerSpellChargeConsumed(Player* /*player*/, SpellInfo const* /*info*/, Spell* /*spell*/,
+        uint32 /*recovery*/, uint64 /*now*/) { }
+
+    virtual void OnPlayerSendSpellChargeStates(Player const* /*player*/) { }
+
+    // Called with the spell of an action button as it is loaded (loading true) and as it is saved (false), so a
+    // module can keep one spell of a family on the bar and save another
+    virtual void OnPlayerNormalizeActionButtonSpell(Player* /*player*/, uint32& /*action*/, bool /*loading*/) { }
+
+    // Called once a cast's own cooldown is known, after spell mods and before it is applied
+    virtual void OnPlayerSpellCooldownCalculated(Player* /*player*/, SpellInfo const* /*spellInfo*/, Spell* /*spell*/,
+        uint32 /*recoveryMs*/) { }
+
+    virtual void OnPlayerApplySpellMod(Player* /*player*/, SpellInfo const* /*info*/, uint8 /*op*/,
+        Spell* /*spell*/, bool /*temporaryPet*/, double& /*basevalue*/, int32& /*totalflat*/,
+        float& /*totalmul*/, bool& /*handled*/) { }
+
     // Called when a player dies
     virtual void OnPlayerJustDied(Player* /*player*/) { }
 

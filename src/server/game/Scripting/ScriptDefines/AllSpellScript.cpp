@@ -89,6 +89,52 @@ void ScriptMgr::OnSpellPrepare(Spell* spell, Unit* caster, SpellInfo const* spel
     CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_PREPARE, script->OnSpellPrepare(spell, caster, spellInfo));
 }
 
+void ScriptMgr::OnSpellBeforeEffects(Spell* spell, Unit* caster, SpellInfo const* spellInfo)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_BEFORE_EFFECTS, script->OnSpellBeforeEffects(spell, caster, spellInfo));
+}
+
+void ScriptMgr::OnSpellCritChance(Spell* spell, Unit* target, float& critChance)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_CRIT_CHANCE, script->OnSpellCritChance(spell, target, critChance));
+}
+
+void ScriptMgr::OnGuardianSummoned(Spell* spell, TempSummon* summon)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_GUARDIAN_SUMMONED, script->OnGuardianSummoned(spell, summon));
+}
+
+void ScriptMgr::OnSpellCalculatedTarget(Spell* spell, Unit* target, TargetInfo& targetInfo)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_CALCULATED_TARGET, script->OnSpellCalculatedTarget(spell, target, targetInfo));
+}
+
+void ScriptMgr::OnSpellHitResult(Spell* spell, Unit* target, uint8 missInfo, uint32 damage, uint32 healing, bool critical)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_HIT_RESULT,
+        script->OnSpellHitResult(spell, target, missInfo, damage, healing, critical));
+}
+
+void ScriptMgr::OnSpellInterruptDuration(Spell* spell, Unit* target, int32& duration)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_INTERRUPT_DURATION, script->OnSpellInterruptDuration(spell, target, duration));
+}
+
+void ScriptMgr::OnSpellSuccessfulDispel(Spell* spell, Unit* target, SpellEffIndex effect, uint32 count)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_SUCCESSFUL_DISPEL, script->OnSpellSuccessfulDispel(spell, target, effect, count));
+}
+
+void ScriptMgr::OnSpellSuccessfulSteal(Spell* spell, Unit* target, uint32 count)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_SUCCESSFUL_STEAL, script->OnSpellSuccessfulSteal(spell, target, count));
+}
+
+void ScriptMgr::OnSpellSuccessfulInterrupt(Spell* spell, Unit* target)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_SUCCESSFUL_INTERRUPT, script->OnSpellSuccessfulInterrupt(spell, target));
+}
+
 AllSpellScript::AllSpellScript(char const* name, std::vector<uint16> enabledHooks)
     : ScriptObject(name, ALLSPELLHOOK_END)
 {

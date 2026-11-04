@@ -1164,6 +1164,9 @@ public:
 
     [[nodiscard]] float GetUnitMissChance(WeaponAttackType attType) const;
     float GetUnitCriticalChance(WeaponAttackType attackType, Unit const* victim) const;
+    bool HasAscensionConditionalCombatState(int32 state) const;
+    int32 GetAscensionConditionalCombatModifier(Unit const* victim, SpellInfo const* spellInfo,
+        AscensionConditionalCombatModifier modifier) const;
     MeleeHitOutcome RollMeleeOutcomeAgainst (Unit const* victim, WeaponAttackType attType) const;
     MeleeHitOutcome RollMeleeOutcomeAgainst (Unit const* victim, WeaponAttackType attType, int32 crit_chance, int32 miss_chance, int32 dodge_chance, int32 parry_chance, int32 block_chance) const;
 
@@ -1250,6 +1253,9 @@ public:
     int32 SpellBaseDamageBonusDone(SpellSchoolMask schoolMask);
     int32 SpellBaseDamageBonusTaken(SpellSchoolMask schoolMask, bool isDoT = false);
     float SpellPctDamageModsDone(Unit* victim, SpellInfo const* spellProto, DamageEffectType damagetype);
+    // CoA's attack power coefficient multiplier for a spell (1 unless a CoA override aura names the spell)
+    float GetSpellAttackPowerCoefficientMultiplier(SpellInfo const* spellInfo, bool periodic) const;
+    float GetSpellPowerCoefficientFlatBonus(SpellInfo const* spellInfo) const;
     uint32 SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uint32 pdamage, DamageEffectType damagetype, uint8 effIndex, float TotalMod = 0.0f, uint32 stack = 1);
     uint32 SpellDamageBonusTaken(Unit* caster, SpellInfo const* spellProto, uint32 pdamage, DamageEffectType damagetype, uint32 stack = 1);
 
@@ -1406,7 +1412,7 @@ public:
     void RemoveAurasDueToItemSpell(uint32 spellId, ObjectGuid castItemGuid);
     void RemoveAurasByType(AuraType auraType, ObjectGuid casterGUID = ObjectGuid::Empty, Aura* except = nullptr, bool negative = true, bool positive = true);
     void RemoveNotOwnSingleTargetAuras();
-    void RemoveAurasWithInterruptFlags(uint32 flag, uint32 except = 0, bool isAutoshot = false);
+    void RemoveAurasWithInterruptFlags(uint32 flag, uint32 except = 0, bool isAutoshot = false, SpellInfo const* bySpell = nullptr);
     void RemoveAurasWithAttribute(uint32 flags);
     void RemoveAurasWithFamily(SpellFamilyNames family, uint32 familyFlag1, uint32 familyFlag2, uint32 familyFlag3, ObjectGuid casterGUID);
     void RemoveAurasWithMechanic(uint64 mechanic_mask, AuraRemoveMode removemode = AURA_REMOVE_BY_DEFAULT, uint32 except = 0);
@@ -1612,7 +1618,13 @@ public:
     Unit* GetMagicHitRedirectTarget(Unit* victim, SpellInfo const* spellInfo);
     Unit* GetMeleeHitRedirectTarget(Unit* victim, SpellInfo const* spellInfo = nullptr);
     [[nodiscard]] float MeleeSpellMissChance(Unit const* victim, WeaponAttackType attType, int32 skillDiff, uint32 spellId) const;
-    [[nodiscard]] SpellMissInfo MeleeSpellHitResult(Unit* victim, SpellInfo const* spell);
+    // A spell's energize lands only on a pool the unit has (CoA gated it by
+    // class; a Hero carries mana, rage and energy at once).
+    [[nodiscard]] bool CanReceivePowerFromSpell(Powers power) const { return GetMaxPower(power) > 0; }
+    // world and dungeon bosses, and creatures flagged immune to knockback
+    [[nodiscard]] bool IsImmuneToForcedMovement() const;
+    [[nodiscard]] SpellMissInfo MeleeSpellHitResult(Unit* victim, SpellInfo const* spell,
+                                                     WeaponAttackType scriptedAttackType = MAX_ATTACK);
     [[nodiscard]] SpellMissInfo MagicSpellHitResult(Unit* victim, SpellInfo const* spell);
     [[nodiscard]] SpellMissInfo SpellHitResult(Unit* victim, SpellInfo const* spell, bool canReflect = false);
     [[nodiscard]] SpellMissInfo SpellHitResult(Unit* victim, Spell const* spell, bool canReflect = false);
@@ -1722,6 +1734,10 @@ public:
 
     [[nodiscard]] virtual bool IsMovementPreventedByCasting() const;
     [[nodiscard]] bool IsActionPreventedByCasting() const;
+    [[nodiscard]] bool CanCastSpellWhileMoving(SpellInfo const* info) const;
+    [[nodiscard]] bool CanCastDuringChannel(SpellInfo const* info) const;
+    void GrantFormLandingGrace(Milliseconds duration);
+    [[nodiscard]] bool HasFormLandingGrace() const;
 
     [[nodiscard]] virtual bool CanEnterWater() const = 0;
     [[nodiscard]] virtual bool CanSwim() const;
@@ -2253,6 +2269,7 @@ private:
     bool _isCombatDisallowed;
 
     uint32 _lastExtraAttackSpell;
+    Milliseconds _formLandingGraceEnd{0};
     std::unordered_map<ObjectGuid /*guid*/, uint32 /*count*/> extraAttacksTargets;
     ObjectGuid _lastDamagedTargetGuid;
 

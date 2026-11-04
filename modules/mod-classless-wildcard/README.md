@@ -397,6 +397,39 @@ random instead of the chassis's. Reversible with `data/sql/manual/cw_class_loot_
 
 ---
 
+## Family-aware spell modifiers
+
+Spell modifier auras (`SPELL_AURA_ADD_FLAT_MODIFIER` 107 / `ADD_PCT_MODIFIER` 108) from classes with
+`SpellFamilyName` 18-38 collide on the class mask bits, so the stock `SMSG_SET_FLAT_SPELL_MODIFIER` /
+`SMSG_SET_PCT_SPELL_MODIFIER` packets (bit, op, value, no family) cannot be used for them. The server
+keeps one **total** per (modifier spell family, mask bit, op, flat/pct) and sends it as follows:
+
+- Modifier spells whose family equals the chassis family (the `ChrClasses` `spellfamily` of the player's
+  class, Paladin = 10) use the stock 6 byte `0x266` / `0x267` packets, unchanged.
+- Every other family (1..39) uses `SMSG_ESTERIA_SPELL_MOD` (`0x530`):
+
+  | Field    | Type | Notes                                                           |
+  | -------- | ---- | --------------------------------------------------------------- |
+  | `type`   | u8   | 0 flat, 1 pct, 2 reset all (the other fields are zero)          |
+  | `bit`    | u8   | 0..95, index into the 96 bit class mask (three words)           |
+  | `op`     | u8   | 0..30 (`MAX_CLIENT_SPELLMOD` is 31, op 31 stays server side)    |
+  | `value`  | i32  | the new total, not a delta                                      |
+  | `family` | u32  | the modifier spell's `SpellFamilyName`                          |
+
+- `Player::ResendSpellModifiers` sends a reset and then every non-zero total at login. The native client
+  clears its tables on reset and when it enters the world, and applies a total only to spells of the same
+  `SpellClassSet` whose class mask carries the bit.
+- Ops `>= MAX_SPELLMOD` (32) never create a server modifier (`AuraEffect::CalculateSpellMod` ignores them).
+- Collisions inside one family (a mask bit shared by unrelated spells) are routed server side by
+  `SpellInfo::IsAffectedBySpellMod` (family 31/33/34 root tables and single spell exemptions, keyed on spell
+  ids). The client cannot tell them apart and displays the plain family + mask result.
+- Not ported: CoA's `SpellAffect.dbc` lookup for zero-mask modifiers (needs a DBC loader and store, no
+  `sSpellAffectStore` exists here). A hook-free design would be a `cw_spell_affect` world table read once
+  into `std::unordered_map<uint32, std::vector<int32>>` in `SpellInfo::IsAffectedBySpellMod` for `!mod->mask`
+  (a negative target means every rank of that chain via `GetFirstSpellInChain`).
+
+---
+
 ## Playerbots
 
 `mod-playerbots` works alongside this module. Bots are exempt from the classless system and play
@@ -848,3 +881,20 @@ GNU General Public License v2 or later, matching AzerothCore. Full text in [`LIC
 Mechanics are modeled on the published Season 9/10 rules of
 [Project Ascension](https://ascension.gg/)'s classless and Wildcard realms. This project is
 unaffiliated with Project Ascension and with Blizzard Entertainment.
+
+### CoA batch 7 client agreement
+
+The native client and the CoA archive must be deployed together. Spell charge messages use opcodes
+`0x531` through `0x534` (clear, remove, list, set). List records are `u32 pool, u32 remainingMs, u8 missing, u32 recoveryMs`;
+set records are `u32 pool, u32 remainingMs, u32 missing, u32 recoveryMs`. Wire pools use the server recovery key, while
+server effect 187 continues to address the original CoA category. Generated `SpellCharges.dbc` and
+`SpellChargesCategory.dbc` supply matching client metadata. Charge state persists in the existing
+`character_settings` table under `core.spell_charge.*`, even when optional player settings are disabled.
+
+The existing 11-byte `0x530` modifier envelope also supports exact SpellAffect targets: types 3 and 4 carry
+flat/percent totals with the modifier spell ID in the family field; type 5 resets only these totals.
+`EsteriaSpellAffect.dbc` maps those IDs to exact target spells, expanding signed rank-root references.
+Family-mask modifiers retain types 0 and 1; type 2 resets all modifier tables. Totals synchronize on login
+and whenever the active modifier set changes. The installer no longer lowers spell costs in advance:
+`tools/coa_client_costs.py` records the mounted server DBC and live DB cost overlay, and the CoA builder
+restores only those two cost fields before appending imported spells.

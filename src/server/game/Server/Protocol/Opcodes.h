@@ -1355,7 +1355,14 @@ enum Opcodes : uint16
     CMSG_ESTERIA_PERK_PURCHASE                      = 0x52D,
     CMSG_ESTERIA_PERK_RESPEC                        = 0x52E,
     SMSG_ESTERIA_PERK_RESULT                        = 0x52F,
-    NUM_MSG_TYPES                                   = 0x530
+    SMSG_ESTERIA_SPELL_MOD                          = 0x530,
+    SMSG_ESTERIA_SPELL_CHARGES_CLEAR                = 0x531,
+    SMSG_ESTERIA_SPELL_CHARGES_REMOVE               = 0x532,
+    SMSG_ESTERIA_SPELL_CHARGES_LIST                 = 0x533,
+    SMSG_ESTERIA_SPELL_CHARGES_SET                  = 0x534,
+    SMSG_ESTERIA_AURA_AMOUNT                        = 0x535,
+    SMSG_ESTERIA_SPELL_VISUAL_OVERRIDE              = 0x536,
+    NUM_MSG_TYPES                                   = 0x537
 };
 
 enum OpcodeMisc : uint16

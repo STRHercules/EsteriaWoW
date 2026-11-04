@@ -107,7 +107,7 @@
 Transmogrification.Enable = 1
 Transmogrification.ShowSetDisclaimer = 0
 Transmogrification.Window.OpenOnNpc = 1
-Transmogrification.Window.RequireNpc = 1
+Transmogrification.Window.RequireNpc = 0
 Transmogrification.Window.FreeOutfitSlots = 2
 Transmogrification.Window.OutfitSlotCost = 2500000
 Transmogrification.UseCollectionSystem = 1

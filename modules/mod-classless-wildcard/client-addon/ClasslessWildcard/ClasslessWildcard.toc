@@ -6,5 +6,6 @@
 ## SavedVariables: ClasslessWildcardDB
 ## SavedVariablesPerCharacter: ClasslessWildcardCharDB
 
+esteria_style.lua
 ClasslessWildcard.lua
 Bindings.xml

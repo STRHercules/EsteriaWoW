@@ -121,7 +121,18 @@ namespace ClasslessWildcard
                                         // all eleven at once
         uint32 variantBase = 0;         // and the line it varies, so its rarity can be
                                         // re-derived once overrides have touched the base
+        // Conquest of Azeroth class it was imported from (12-32, cw_coa_entries),
+        // 0 for the game's own. Kept apart from classMask: CoA class 12 is not
+        // a bit any native mask has, and the browser's page 12 is the Hero.
+        uint8  coaClass = 0;
+        bool   pool = true;             // Wildcard may roll it
         AbilityType type = AbilityType::Utility;
+        // imported entries only (cw_coa_entries)
+        uint32 coaEntry = 0;            // CoA CharacterAdvancement id
+        uint16 coaSpec = 0;             // its CoA specialisation, 0 for the class-wide tree
+        std::vector<uint32> requiresEntries;    // CoA entries that must all be owned first
+        uint32 choiceGroup = 0;         // a free choice: owning it removes the rest of its group
+        bool   freeEntry = false;       // and it costs no essence
     };
 
     // One entry of the talent pool.
@@ -142,7 +153,23 @@ namespace ClasslessWildcard
         // ability lines (first spell ids) a rank spell heads or teaches; the
         // talent grants them outright so the spell ranks up with level
         std::vector<uint32> abilityLines;
+        uint8  coaClass = 0;            // as AbilityEntry::coaClass
+        bool   pool = true;
+        // The level the talent opens at. 0 is the tree rule, row R at 10 + 5R;
+        // an imported talent carries its own, which no row number expresses.
+        uint8  reqLevel = 0;
+        // imported entries only, as on AbilityEntry
+        uint32 coaEntry = 0;
+        uint16 coaSpec = 0;
+        std::vector<uint32> requiresEntries;
+        uint32 choiceGroup = 0;
+        bool   freeEntry = false;
     };
+
+    inline uint32 TalentReqLevel(TalentPoolEntry const& t)
+    {
+        return t.reqLevel ? t.reqLevel : 10 + t.row * 5;
+    }
 
     struct OwnedAbility
     {
@@ -237,6 +264,11 @@ namespace ClasslessWildcard
         // Map::Update. Per-player state belongs on the per-player state, where
         // only that player's map thread can reach it.
         uint32 tickAcc = 0;
+        // Which CoA classes (bit = CoA class id) the Hero owns anything of.
+        // The imported class code asks this on every spell hit, so it is
+        // cached and marked dirty wherever an ability or talent changes hands.
+        uint32 coaMask = 0;
+        bool coaMaskDirty = true;
         bool loaded = false;
     };
 
@@ -343,6 +375,11 @@ namespace ClasslessWildcard
         // variant is registered one rarity tier above its base
         bool   elementalEnable = true;
         bool   forgedEnable = true;           // the Hero line's own spells
+        bool   coaAutomatic = true;          // CoA's automatic entries come with their specialisation (cw_coa_automatic)
+        bool   coaClassSpells = false;       // CoA's ClassSpells baseline, granted with the class (cw_coa_automatic.baseline)
+        bool   coaResources = true;         // CoA resource auras (Heat, Static, souls...): CoAResourceService.cpp
+        bool   coaReplacements = true;       // CoA talent replacement sync: CoAGlueReplacements.cpp
+    bool   coaEnable = true;              // imported CoA class kits (cw_coa_entries)
         uint32 elementalRarityBump = 1;
         uint32 elementalRollWeightPct = 8;    // of the rarity weight, per variant
         bool   elementalInPool = true;        // rolled and buyable; off = owned ones keep working

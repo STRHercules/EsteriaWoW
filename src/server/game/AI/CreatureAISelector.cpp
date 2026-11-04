@@ -79,7 +79,14 @@ namespace FactorySelector
     {
         // special pet case, if a tamed creature uses AIName (example SmartAI) we need to override it
         if (creature->IsPet())
+        {
+            // a CoA kit's permanent companion extends PetAI; only a pet a script asks for gets its own
+            if (sScriptMgr->CanUseScriptedPetAI(creature))
+                if (CreatureAI* scriptedAI = sScriptMgr->GetCreatureAI(creature))
+                    return scriptedAI;
+
             return ASSERT_NOTNULL(sCreatureAIRegistry->GetRegistryItem("PetAI"))->Create(creature);
+        }
 
         // scriptname in db
         if (CreatureAI* scriptedAI = sScriptMgr->GetCreatureAI(creature))
