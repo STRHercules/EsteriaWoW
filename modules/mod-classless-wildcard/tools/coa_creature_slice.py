@@ -47,7 +47,18 @@ GAMEOBJECT_TABLES = {
 }
 DISPLAY_TABLES = ("creaturedisplayinfo_dbc", "creaturemodeldata_dbc", "creaturedisplayinfoextra_dbc",
                   "gameobjectdisplayinfo_dbc")
-REPLAYED = set(CREATURE_TABLES) | set(GAMEOBJECT_TABLES) | set(DISPLAY_TABLES) | {"smart_scripts"}
+REPLAYED = (set(CREATURE_TABLES) | set(GAMEOBJECT_TABLES) | set(DISPLAY_TABLES) |
+            {"smart_scripts", "creature_model_info"})
+# a display with no creature_model_info row cannot spawn here ("has no model ... can't load"); CoA's core spawns
+# it anyway. Rows CoA does not have get these values (stock defaults for a man-sized model).
+DEFAULT_MODEL_INFO = (0.5, 1.5, 2)
+# displays whose model neither client ships (CoA draws nothing for them either) -> a stock stand-in
+DISPLAY_SUBSTITUTES = {
+    416909: 24256,   # Oil Spill Pylon: Cataclysm oil tower -> oil drum
+    28830: 22720,    # MY GREATEST INVENTION: Cataclysm GnomeCopter -> gyrocopter
+    30616: 158,      # Gravebound Champion: Northrend skeleton -> skeletal warrior
+    30300: 158,      # Icebound Champion (its 0.5 scale kept): Northrend skeleton -> skeletal warrior
+}
 # creature entries CoA's data names but its SQL never defines: (entry, name, display)
 SEED_CREATURES = (
     (500153, "Rouge Dread Raven Hatchling", 945408),
@@ -128,7 +139,8 @@ def main():
     summoned_objects = set(manifest["summoned_objects"])
     numbers = source_numbers()
 
-    tables = list(CREATURE_TABLES) + list(GAMEOBJECT_TABLES) + list(DISPLAY_TABLES) + ["smart_scripts"]
+    tables = list(CREATURE_TABLES) + list(GAMEOBJECT_TABLES) + list(DISPLAY_TABLES) + ["smart_scripts",
+                                                                                   "creature_model_info"]
     setup = "DROP DATABASE IF EXISTS %s; CREATE DATABASE %s;\n" % (SCRATCH, SCRATCH)
     setup += "".join("CREATE TABLE %s.%s LIKE acore_world.%s;\n" % (SCRATCH, t, t) for t in tables)
     r = mysql(setup)
@@ -157,6 +169,9 @@ def main():
               "BaseAttackTime, RangeAttackTime) VALUES (%d, '%s', 1, 1, 35, 1, 12, 2000, 2000);\n"
               "INSERT INTO creature_template_model (CreatureID, Idx, CreatureDisplayID, DisplayScale, Probability) "
               "VALUES (%d, 0, %d, 1, 1);" % (entry, name, entry, display), SCRATCH)
+    mysql("UPDATE creature_template_model SET CreatureDisplayID = CASE CreatureDisplayID %s END "
+          "WHERE CreatureDisplayID IN (%s);" % (" ".join("WHEN %d THEN %d" % kv for kv in DISPLAY_SUBSTITUTES.items()),
+                                                ",".join(str(k) for k in DISPLAY_SUBSTITUTES)), SCRATCH)
     coa_creatures = {int(x[0]) for x in query("SELECT entry FROM creature_template", SCRATCH)}
     coa_objects = {int(x[0]) for x in query("SELECT entry FROM gameobject_template", SCRATCH)}
     # a number in the source is also a spell id, and CoA's spell and creature ids overlap: such a match
@@ -220,6 +235,18 @@ def main():
     kept_object_displays = sorted(object_displays & {int(x[0]) for x in query(
         "SELECT ID FROM gameobjectdisplayinfo_dbc", SCRATCH)})
     emit("gameobjectdisplayinfo_dbc", "ID", ",".join(str(i) for i in kept_object_displays) or "0")
+
+    # model info for every display used; INSERT IGNORE keeps any row Esteria already has
+    coa_info = {int(x[0]): x[1:4] for x in query(
+        "SELECT DisplayID, BoundingRadius, CombatReach, Gender FROM creature_model_info", SCRATCH)}
+    info_rows = ["(%d, %s, %s, %s, 0)" % ((d,) + tuple(coa_info.get(d, DEFAULT_MODEL_INFO)))
+                 for d in sorted(display_ids)]
+    counts["creature_model_info"] = len(info_rows)
+    if info_rows:
+        lines.append("INSERT IGNORE INTO `creature_model_info` (`DisplayID`, `BoundingRadius`, `CombatReach`, "
+                     "`Gender`, `DisplayID_Other_Gender`) VALUES")
+        lines.append(",\n".join(info_rows) + ";")
+        lines.append("")
 
     for table, n in counts.items():
         print("%-30s %d row(s)" % (table, n))

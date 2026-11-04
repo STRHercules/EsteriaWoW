@@ -535,7 +535,6 @@ public:
         sClasslessMgr->EnforceChassis(player);
 
         sClasslessMgr->HandleLogin(player);
-        sClasslessMgr->SynchronizeCoAAutomatic(player);
 
         // InitTalentForLevel hands out (ceiling - used) free points whenever the
         // core recalculates, and it recalculates on login. Spending them is
@@ -808,7 +807,6 @@ public:
         if (sClasslessMgr->cfg.enabled)
         {
             sClasslessMgr->HandleLevelUp(player, oldLevel);
-            sClasslessMgr->SynchronizeCoAAutomatic(player);   // a signature ability has its own level
         }
         // a level-up recalculates the points, so put them back to zero
         if (sClasslessMgr->cfg.enabled && !sClasslessMgr->IsExempt(player))

@@ -664,7 +664,9 @@ void Player::CalculateMinMaxDamage(WeaponAttackType attType, bool normalized, bo
     float weaponMinDamage = GetWeaponDamageRange(attType, MINDAMAGE);
     float weaponMaxDamage = GetWeaponDamageRange(attType, MAXDAMAGE);
 
-    if (IsAttackSpeedOverridenShapeShift()) // forms with no override on attack speed use normal weapon damage
+    // CoA: the Mechsuit's attack speed only paces its melee swings; its ranged spells shoot the equipped gun
+    bool const mechsuitRanged = attType == RANGED_ATTACK && GetShapeshiftForm() == FORM_TINKER_MECHSUIT;
+    if (IsAttackSpeedOverridenShapeShift() && !mechsuitRanged) // forms with no override on attack speed use normal weapon damage
     {
         uint8 lvl = GetLevel();
         if (lvl > 60)

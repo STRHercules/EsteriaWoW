@@ -205,6 +205,7 @@ namespace
             if (e.enabled && (coaClass ? e.coaClass == coaClass
                                        : heroPage ? e.forged : (!e.forged && (e.classMask & classMask)))
                 && (!e.variant || sClasslessMgr->cfg.elementalShowInBrowser)
+                && (e.team == TEAM_NEUTRAL || e.team == player->GetTeamId())   // a rift to the other side's city
                 && (!typeArg || uint32(e.type) + 1 == typeArg)
                 && (!levelOnly || e.rankLevels.empty() || uint32(e.rankLevels[0]) <= heroLevel))
                 list.push_back(&e);

@@ -266,12 +266,13 @@ ClasslessWildcard.Forged.Enable = 1
 ClasslessWildcard.CoA.Enable = 1
 
 #    ClasslessWildcard.CoA.AutomaticEntries
-#        Conquest of Azeroth hands some entries out with a class and specialisation
-#        instead of selling them: the specialisation's signature ability and the
-#        milestone talents at levels 20, 30 and 40. With this on, a Hero holding
-#        anything of a specialisation gets those of that specialisation as they
-#        level, and keeps them only while it holds something of it. Entries that
-#        name a signature ability as a prerequisite need this on.
+#        Conquest of Azeroth hands some entries out by itself instead of selling
+#        them: each specialisation's signature ability, the milestone talents at
+#        levels 20, 30 and 40, and the Felsworn capital-city rifts. Here they are
+#        ordinary ability lines in their class's list, learned like any other
+#        (level, essence by rarity, prerequisites); a rift only by Heroes of the
+#        faction whose city it opens. Entries that name a signature ability as a
+#        prerequisite need this on. Off = not in the library.
 #
 #        Default: 1
 #
@@ -280,21 +281,16 @@ ClasslessWildcard.CoA.AutomaticEntries = 1
 
 #    ClasslessWildcard.CoA.ClassSpells
 #        Conquest of Azeroth's class baseline (ClassSpells): each class's core
-#        spells at set levels (Barbarian Smash, Ancestral Strike, ...), which CoA
-#        hands out with the class and does not sell. With this on, a Hero holding
-#        anything of a CoA class gets that class's baseline as they level, and
-#        loses it when they no longer hold anything of the class. Stock spells
-#        in the table (Dodge, Block, Dual Wield, ...) are left to Esteria. Needs
-#        AutomaticEntries on. Off = not granted, and taken back from Heroes who
-#        had them at their next login or level change.
-#        The Felsworn capital-city rifts do not depend on this: they follow
-#        AutomaticEntries and go by faction (Alliance: Stormwind 26, Ironforge 30,
-#        Darnassus 36, Theramore 40; Horde: Orgrimmar 26, Thunder Bluff 30,
-#        Undercity 36).
-#        Default: 0
+#        spells (Barbarian Smash, Venomancer Spider Form, ...), which CoA hands
+#        out with the class at set levels. Here they are ordinary ability lines
+#        in their class's list, learned like any other. Stock spells in the
+#        table (Dodge, Block, Dual Wield, ...) are left to Esteria. Needs
+#        AutomaticEntries on. Off = not in the library; Heroes who learned them
+#        lose them at their next login.
+#        Default: 1
 #
 #        [RESTART REQUIRED]
-ClasslessWildcard.CoA.ClassSpells = 0
+ClasslessWildcard.CoA.ClassSpells = 1
 
 #    ClasslessWildcard.CoA.Resources
 #        CoA class resources kept as aura stacks (Pyromancer Heat and Ember,

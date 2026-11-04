@@ -3493,7 +3493,7 @@ bool Player::IsNeedCastPassiveSpellAtLearn(SpellInfo const* spellInfo) const
     // note: form passives activated with shapeshift spells be implemented by HandleShapeshiftBoosts instead of spell_learn_spell
     // talent dependent passives activated at form apply have proper stance data
     ShapeshiftForm form = GetShapeshiftForm();
-    return (!spellInfo->Stances || (form && (spellInfo->Stances & (1 << (form - 1)))) ||
+    return (!spellInfo->Stances || (form && (spellInfo->Stances & (uint64(1) << (form - 1)))) ||
             (!form && spellInfo->HasAttribute(SPELL_ATTR2_ALLOW_WHILE_NOT_SHAPESHIFTED)));
 }
 
@@ -11251,6 +11251,14 @@ void Player::InitDataForForm(bool reapplyMods)
             {
                 if (getPowerType() != POWER_RAGE)
                     setPowerType(POWER_RAGE);
+                break;
+            }
+        case FORM_VENOMANCER_SPIDER:                        // CoA
+        case FORM_VENOMANCER_BEETLE:
+            {
+                Powers const power = form == FORM_VENOMANCER_SPIDER ? POWER_ENERGY : POWER_RAGE;
+                if (getPowerType() != power)
+                    setPowerType(power);
                 break;
             }
         default:                                            // 0, for example

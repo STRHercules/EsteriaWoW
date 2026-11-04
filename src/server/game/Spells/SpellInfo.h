@@ -370,8 +370,8 @@ public:
     uint32 ChargeRecoveryTime = 0;
     uint32 ChargeRecoveryKey = 0;
     uint32 ChargeCategoryId = 0;
-    uint32 Stances;
-    uint32 StancesNot;
+    uint64 Stances;                 // CoA's forms reach 64 (DBC field 13 and 15 hold the high word)
+    uint64 StancesNot;
     uint32 Targets;
     uint32 TargetCreatureType;
     uint32 RequiresSpellFocus;

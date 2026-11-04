@@ -58,11 +58,6 @@ public:
     // what "is this player a Barbarian?" means for a Hero: the imported class
     // code still checks the specific talents and auras on top of it.
     uint32 OwnedCoAClassMask(Player* player);
-    // CoA's automatic entries (cw_coa_automatic): the specialisation's signature abilities and the milestone
-    // talents CoA hands out with a class at set levels. A Hero gets one once they own something of its
-    // specialisation, are high enough, and hold the entries it requires; it goes when the specialisation does.
-    // The highest rank the level allows is the one held.
-    void SynchronizeCoAAutomatic(Player* player);
     // CoA spells that learning `parent` also teaches (cw_coa_taught).
     std::vector<uint32> const* CoATaught(uint32 parent) const
     {
@@ -322,18 +317,6 @@ private:
     std::unordered_map<std::string, uint32> _forgedByRecipe;
     std::map<uint8, CoAClass> _coaClasses;
     std::map<uint32, CoATab> _coaTabs;
-    struct CoAAutomaticRank { uint32 spell = 0; uint8 level = 1; };
-    struct CoAAutomatic
-    {
-        uint32 entry = 0;
-        uint8 coaClass = 0;
-        uint16 spec = 0;
-        bool baseline = false;                    // a CoA ClassSpells row: ClasslessWildcard.CoA.ClassSpells
-        uint8 team = TEAM_NEUTRAL;                // only Heroes of this TeamId get it; TEAM_NEUTRAL = any
-        std::vector<uint32> required;
-        std::vector<CoAAutomaticRank> ranks;     // in level order
-    };
-    std::vector<CoAAutomatic> _coaAutomatic;
     std::map<uint32, std::pair<bool, uint32>> _coaEntryOwner;   // CoA entry -> {a talent, its talent id or first spell}
     std::map<uint32, std::vector<uint32>> _coaChoiceGroups;     // choice group -> its CoA entries
     bool OwnsCoAEntry(Player* player, ClasslessWildcard::CharState& st, uint32 coaEntry) const;

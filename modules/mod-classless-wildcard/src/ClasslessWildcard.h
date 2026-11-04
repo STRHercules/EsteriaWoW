@@ -133,6 +133,7 @@ namespace ClasslessWildcard
         std::vector<uint32> requiresEntries;    // CoA entries that must all be owned first
         uint32 choiceGroup = 0;         // a free choice: owning it removes the rest of its group
         bool   freeEntry = false;       // and it costs no essence
+        uint8  team = 2;                // TeamId that may have it (2, TEAM_NEUTRAL: anyone); the Felsworn rifts
     };
 
     // One entry of the talent pool.
@@ -375,8 +376,8 @@ namespace ClasslessWildcard
         // variant is registered one rarity tier above its base
         bool   elementalEnable = true;
         bool   forgedEnable = true;           // the Hero line's own spells
-        bool   coaAutomatic = true;          // CoA's automatic entries come with their specialisation (cw_coa_automatic)
-        bool   coaClassSpells = false;       // CoA's ClassSpells baseline, granted with the class (cw_coa_automatic.baseline)
+        bool   coaAutomatic = true;          // CoA's automatic entries, sold as lines (cw_coa_automatic)
+        bool   coaClassSpells = true;        // CoA's ClassSpells baseline, sold as lines (cw_coa_automatic.baseline)
         bool   coaResources = true;         // CoA resource auras (Heat, Static, souls...): CoAResourceService.cpp
         bool   coaReplacements = true;       // CoA talent replacement sync: CoAGlueReplacements.cpp
     bool   coaEnable = true;              // imported CoA class kits (cw_coa_entries)

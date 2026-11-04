@@ -392,7 +392,7 @@ def creature_closure(src_display: Table, dst_display: Table, src_model: Table, d
         new_models.append((model_id, new_id))
         return new_id
 
-    display_plan, new_displays = {}, []
+    display_plan, new_displays, reused = {}, [], []
     taken = set()
     for display_id in sorted(display_ids):
         if display_id not in src_display.ids:
@@ -402,6 +402,7 @@ def creature_closure(src_display: Table, dst_display: Table, src_model: Table, d
         cells[1] = plan_model(cells[1])
         if display_id in dst_display.ids and dst_display.resolved(display_id, CREATURE_DISPLAY[2]) == cells:
             display_plan[display_id] = display_id
+            reused.append(display_id)
             continue
         new_id = display_id
         if display_id in dst_display.ids or display_id in taken:
@@ -425,9 +426,7 @@ def creature_closure(src_display: Table, dst_display: Table, src_model: Table, d
     model_rows, display_rows, files = [], [], []
     for old, new in new_models:
         model_rows.append((new, copy(src_model, dst_model, old, new, CREATURE_MODEL[2], {}), dst_model))
-    for old, new in new_displays:
-        fix = {1: model_plan[src_display.cell(old, 1)]}
-        display_rows.append((new, copy(src_display, dst_display, old, new, CREATURE_DISPLAY[2], fix), dst_display))
+    def display_files(old):
         model = src_model.text(src_model.cell(src_display.cell(old, 1), 2)) if \
             src_display.cell(old, 1) in src_model.ids else ""
         if model:
@@ -435,6 +434,15 @@ def creature_closure(src_display: Table, dst_display: Table, src_model: Table, d
             names = [src_display.text(src_display.cell(old, col)) for col in (6, 7, 8) if src_display.cell(old, col)]
             textures = [directory + name + ".blp" for name in names if name]
             files.append((model_path(model), textures))
+
+    for old, new in new_displays:
+        fix = {1: model_plan[src_display.cell(old, 1)]}
+        display_rows.append((new, copy(src_display, dst_display, old, new, CREATURE_DISPLAY[2], fix), dst_display))
+        display_files(old)
+    # a display both clients share can still name a file only CoA ships (Power Sphere's snowflake): the caller
+    # copies a file the target lacks and leaves the rest alone
+    for old in reused:
+        display_files(old)
     return display_plan, display_rows, model_rows, files
 
 

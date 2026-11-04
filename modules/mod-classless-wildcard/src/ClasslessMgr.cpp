@@ -233,7 +233,7 @@ void ClasslessMgr::LoadConfig(bool /*reload*/)
     cfg.forgedEnable = sConfigMgr->GetOption<bool>("ClasslessWildcard.Forged.Enable", true);
     cfg.coaEnable = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.Enable", true);
     cfg.coaAutomatic = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.AutomaticEntries", true);
-    cfg.coaClassSpells = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.ClassSpells", false);
+    cfg.coaClassSpells = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.ClassSpells", true);
     cfg.coaResources =sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.Resources", true);
     cfg.coaReplacements = sConfigMgr->GetOption<bool>("ClasslessWildcard.CoA.TalentReplacements", true);
     cfg.elementalRarityBump = sConfigMgr->GetOption<uint32>("ClasslessWildcard.Elemental.RarityBump", 1);
@@ -1674,33 +1674,69 @@ void ClasslessMgr::LoadCoAEntries()
             } while (result->NextRow());
     }
 
-    _coaAutomatic.clear();
-    if (cfg.coaAutomatic)
+    // What CoA hands out by itself (cw_coa_automatic: specialisation signatures, the level 20/30/40 milestone
+    // talents, the ClassSpells baseline, the Felsworn rifts) is bought here like any other line: same level gate,
+    // cost by rarity, prerequisites. The rifts keep to their faction.
+    struct AutomaticRow { AbilityEntry e; std::vector<std::pair<uint32, uint8>> ranks; };
+    std::vector<AutomaticRow> automaticRows;
+    if (cfg.coaEnable && cfg.coaAutomatic)
         if (QueryResult automatic = WorldDatabase.Query(
             "SELECT entry, class, spec, spell, req_level, requires, baseline, team FROM cw_coa_automatic "
             "ORDER BY entry, req_level"))
             do
             {
                 Field* f = automatic->Fetch();
-                uint32 const spellId = f[3].Get<uint32>();
-                if (!sSpellMgr->GetSpellInfo(spellId))
+                if ((f[6].Get<uint8>() && !cfg.coaClassSpells) || !sSpellMgr->GetSpellInfo(f[3].Get<uint32>()))
                     continue;
-                if (_coaAutomatic.empty() || _coaAutomatic.back().entry != f[0].Get<uint32>())
+                if (automaticRows.empty() || automaticRows.back().e.coaEntry != f[0].Get<uint32>())
                 {
-                    CoAAutomatic entry;
-                    entry.entry = f[0].Get<uint32>();
-                    entry.coaClass = f[1].Get<uint8>();
-                    entry.spec = f[2].Get<uint16>();
-                    entry.baseline = f[6].Get<uint8>() != 0;
-                    entry.team = f[7].Get<uint8>();
+                    AutomaticRow row;
+                    row.e.coaEntry = f[0].Get<uint32>();
+                    row.e.coaClass = f[1].Get<uint8>();
+                    row.e.coaSpec = f[2].Get<uint16>();
+                    row.e.team = f[7].Get<uint8>();
+                    row.e.pool = false;
                     std::string const requiresText = f[5].Get<std::string>();
                     for (std::string_view const token : Acore::Tokenize(requiresText, ' ', false))
                         if (uint32 id = uint32(strtoul(std::string(token).c_str(), nullptr, 10)))
-                            entry.required.push_back(id);
-                    _coaAutomatic.push_back(std::move(entry));
+                            row.e.requiresEntries.push_back(id);
+                    automaticRows.push_back(std::move(row));
                 }
-                _coaAutomatic.back().ranks.push_back({ spellId, f[4].Get<uint8>() });
+                automaticRows.back().ranks.push_back({ f[3].Get<uint32>(), f[4].Get<uint8>() });
             } while (automatic->NextRow());
+
+    for (AutomaticRow& row : automaticRows)
+    {
+        AbilityEntry& e = row.e;
+        e.firstSpellId = row.ranks.front().first;
+        // a spell some other line already sells stays that line's
+        if (auto seller = _spellToFirst.find(e.firstSpellId); seller != _spellToFirst.end())
+        {
+            _coaEntryOwner.try_emplace(e.coaEntry, false, seller->second);
+            continue;
+        }
+        if (std::any_of(row.ranks.begin(), row.ranks.end(),
+                [this](auto const& rank) { return _spellToFirst.count(rank.first) > 0; }))
+            continue;
+        SpellInfo const* firstInfo = sSpellMgr->GetSpellInfo(e.firstSpellId);
+        e.passive = firstInfo->IsPassive();
+        e.name = firstInfo->SpellName[0] ? firstInfo->SpellName[0] : "";
+        e.type = ClassifyAbility(firstInfo, e.passive);
+        for (auto const& [spell, level] : row.ranks)
+        {
+            e.ranks.push_back(spell);
+            uint8 const spellLevel = uint8(std::max<uint32>(sSpellMgr->GetSpellInfo(spell)->SpellLevel, level));
+            e.rankLevels.push_back(e.rankLevels.empty() ? spellLevel : std::max(spellLevel, e.rankLevels.back()));
+        }
+        e.rarity = RarityFromPower(LineCooldown(e), 0, e.rankLevels[0]);
+        e.cost = cfg.abilityCostByRarity[uint8(e.rarity)];
+        e.weight = 0;
+        _coaEntryOwner[e.coaEntry] = { false, e.firstSpellId };
+        for (uint32 sp : e.ranks)
+            _spellToFirst[sp] = e.firstSpellId;
+        _abilities[e.firstSpellId] = std::move(e);
+        ++abilities;
+    }
 
     uint32 dropped = 0;
     for (auto itr = _talents.begin(); itr != _talents.end();)
@@ -1718,18 +1754,12 @@ void ClasslessMgr::LoadCoAEntries()
              "({} skipped, {} switched-off talent rows dropped)", abilities, talents, skipped, dropped);
 }
 
-bool ClasslessMgr::OwnsCoAEntry(Player* player, CharState& st, uint32 coaEntry) const
+bool ClasslessMgr::OwnsCoAEntry(Player* /*player*/, CharState& st, uint32 coaEntry) const
 {
     auto owner = _coaEntryOwner.find(coaEntry);
     if (owner != _coaEntryOwner.end())
         return owner->second.first ? st.talents.count(owner->second.second) > 0
                                    : st.abilities.count(owner->second.second) > 0;
-    // an automatic entry (a specialisation's signature ability) is owned when one of its spells is known
-    for (CoAAutomatic const& automatic : _coaAutomatic)
-        if (automatic.entry == coaEntry)
-            for (CoAAutomaticRank const& rank : automatic.ranks)
-                if (player->HasSpell(rank.spell))
-                    return true;
     return false;
 }
 
@@ -1751,9 +1781,6 @@ std::string ClasslessMgr::CoAEntryName(uint32 coaEntry) const
         auto talent = _talents.find(owner->second.second);
         return talent != _talents.end() ? SpellNameOf(talent->second.rankSpells[0]) : std::string();
     }
-    for (CoAAutomatic const& automatic : _coaAutomatic)
-        if (automatic.entry == coaEntry && !automatic.ranks.empty())
-            return SpellNameOf(automatic.ranks[0].spell);
     return {};
 }
 
@@ -1796,84 +1823,6 @@ void ClasslessMgr::RemoveCoAChoiceSiblings(Player* player, CharState& st, uint32
                  ability != _abilities.end() && st.abilities.count(ability->first))
             RemoveAbilityInternal(player, ability->second);
     }
-}
-
-void ClasslessMgr::SynchronizeCoAAutomatic(Player* player)
-{
-    if (!cfg.coaEnable || !cfg.coaAutomatic || _coaAutomatic.empty() || !player)
-        return;
-    CharState* st = FindState(player);
-    if (!st)
-        return;
-
-    // the specialisations (and classes) the Hero owns something of
-    std::set<std::pair<uint8, uint16>> owned;
-    for (auto const& [firstSpell, ownedAbility] : st->abilities)
-        if (AbilityEntry const* e = GetAbility(firstSpell); e && e->coaClass)
-        {
-            owned.insert({ e->coaClass, e->coaSpec });
-            owned.insert({ e->coaClass, 0 });
-        }
-    for (auto const& [talentId, rank] : st->talents)
-        if (TalentPoolEntry const* t = GetTalent(talentId); t && t->coaClass)
-        {
-            owned.insert({ t->coaClass, t->coaSpec });
-            owned.insert({ t->coaClass, 0 });
-        }
-
-    // Which automatic entries are due: the specialisation is owned, the level reached, and everything they
-    // require held, a purchased entry or another automatic one that is due. Settled to a fixed point because
-    // an entry can require one that requires another.
-    uint8 const level = player->GetLevel();
-    std::set<uint32> due;
-    for (bool changed = true; changed;)
-    {
-        changed = false;
-        for (CoAAutomatic const& automatic : _coaAutomatic)
-        {
-            if (due.count(automatic.entry) || automatic.ranks.empty() || automatic.ranks.front().level > level ||
-                !owned.count({ automatic.coaClass, automatic.spec }) || (automatic.baseline && !cfg.coaClassSpells) ||
-                (automatic.team != TEAM_NEUTRAL && automatic.team != player->GetTeamId()))
-                continue;
-            bool met = true;
-            for (uint32 required : automatic.required)
-            {
-                auto purchased = _coaEntryOwner.find(required);
-                met = purchased != _coaEntryOwner.end() ? OwnsCoAEntry(player, *st, required) : due.count(required) > 0;
-                if (!met)
-                    break;
-            }
-            if (met)
-            {
-                due.insert(automatic.entry);
-                changed = true;
-            }
-        }
-    }
-
-    // wanted across all entries first: two classes' baselines can grant the same spell, and one not being due
-    // must not take away what the other grants
-    std::set<uint32> wanted;
-    for (CoAAutomatic const& automatic : _coaAutomatic)
-    {
-        if (!due.count(automatic.entry))
-            continue;
-        uint32 highest = 0;
-        for (CoAAutomaticRank const& rank : automatic.ranks)
-            if (rank.level <= level)
-                highest = rank.spell;     // ranks are in level order, so the last that fits is the highest
-        if (highest)
-            wanted.insert(highest);
-    }
-    for (CoAAutomatic const& automatic : _coaAutomatic)
-        for (CoAAutomaticRank const& rank : automatic.ranks)
-        {
-            bool const has = player->HasSpell(rank.spell);
-            if (wanted.count(rank.spell) && !has)
-                player->learnSpell(rank.spell, false);
-            else if (!wanted.count(rank.spell) && has)
-                player->removeSpell(rank.spell, SPEC_MASK_ALL, false);
-        }
 }
 
 uint32 ClasslessMgr::OwnedCoAClassMask(Player* player)
@@ -2845,7 +2794,6 @@ void ClasslessMgr::LoadCharacter(Player* player, CharState& st)
 void ClasslessMgr::SaveState(Player* player)
 {
     CharState& st = GetState(player);
-    SynchronizeCoAAutomatic(player);
     CharacterDatabase.Execute(
         "REPLACE INTO cw_char_state (guid, mode, ability_essence, talent_essence, pity, rerolls, last_level, "
         "stat_str, stat_agi, stat_sta, stat_int, stat_spi, display_power, archetype) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
@@ -4463,6 +4411,11 @@ bool ClasslessMgr::BuyAbility(Player* player, uint32 firstSpellId, std::string* 
     if (uint32 missing = FirstMissingCoAEntry(player, st, e->requiresEntries))
     {
         if (err) *err = Acore::StringFormat("That needs {} first.", CoAEntryName(missing));
+        return false;
+    }
+    if (e->team != TEAM_NEUTRAL && e->team != player->GetTeamId())
+    {
+        if (err) *err = "That rift leads to the other faction's city.";
         return false;
     }
     uint32 cost = AbilityCost(*e);

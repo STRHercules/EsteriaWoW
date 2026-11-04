@@ -19,6 +19,12 @@ from lib import coa  # noqa: E402
 from lib.mpq import write_archive  # noqa: E402
 
 
+# SpellShapeshiftForm.dbc, 3.3.5a: 35 fields; 2-17 the locale names, 23-26 the creature displays per race group
+FORM_FIELDS = 35
+FORM_STRINGS = tuple(range(2, 18))
+FORM_DISPLAYS = (23, 24, 25, 26)
+
+
 def dbc_path(table):
     return "DBFilesClient" + coa.SEP + table + ".dbc"
 
@@ -40,6 +46,13 @@ def write_creature_displays(path, display_rows, model_rows, moved, creature_ids)
                      % " ".join("WHEN %d THEN %d" % kv for kv in sorted(moved.items())))
         lines.append("WHERE `CreatureID` IN (%s) AND `CreatureDisplayID` IN (%s);"
                      % (", ".join(str(c) for c in creature_ids), ", ".join(str(o) for o in sorted(moved))))
+        lines.append("")
+    if display_rows:
+        # a display with no creature_model_info row cannot spawn ("has no model ... can't load"); the rows for the
+        # CoA ids come from cw_coa_creatures.sql, these cover the ids added here. A row Esteria has wins.
+        lines.append("INSERT IGNORE INTO `creature_model_info` (`DisplayID`, `BoundingRadius`, `CombatReach`, "
+                     "`Gender`, `DisplayID_Other_Gender`) VALUES")
+        lines.append(",\n".join("(%d, 0.5, 1.5, 2, 0)" % row[0] for row in display_rows) + ";")
         lines.append("")
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
@@ -196,8 +209,15 @@ def main():
         dst_display, _w = table(target, coa.CREATURE_DISPLAY[0], coa.CREATURE_DISPLAY[1])
         src_model, _w = table(source, coa.CREATURE_MODEL[0], coa.CREATURE_MODEL[1])
         dst_model, _w = table(target, coa.CREATURE_MODEL[0], coa.CREATURE_MODEL[1])
+        # CoA's own shapeshift forms (Tinker Mechsuit 49, Venomancer Spider 52 and Beetle 53, ...): every row past
+        # the target's last form, and the displays they turn the player into
+        src_forms, _w = table(source, "SpellShapeshiftForm", FORM_FIELDS)
+        dst_forms, _w = table(target, "SpellShapeshiftForm", FORM_FIELDS)
+        form_ids = sorted(i for i in src_forms.ids if i > max(dst_forms.ids))
+        form_displays = {src_forms.cell(i, col) for i in form_ids for col in FORM_DISPLAYS} - {0}
         display_map, display_rows, model_rows, creature_files = coa.creature_closure(
-            src_display, dst_display, src_model, dst_model, creatures["creature_displays_used"])
+            src_display, dst_display, src_model, dst_model,
+            sorted(set(creatures["creature_displays_used"]) | form_displays))
         files[dbc_path(coa.CREATURE_DISPLAY[0])] = dst_display.data()
         files[dbc_path(coa.CREATURE_MODEL[0])] = dst_model.data()
         for model, textures in creature_files:
@@ -212,6 +232,28 @@ def main():
             len(creatures["creature_displays_used"]), len(display_rows), len(moved), len(model_rows)))
         write_creature_displays(os.path.join(here, "..", "data", "sql", "db-world", "cw_coa_creatures_displays.sql"),
                                 display_rows, model_rows, moved, creatures["creatures"])
+
+        # the forms, pointed at the displays as they landed; the server reads the same rows from its overlay table
+        form_sql = []
+        for form in form_ids:
+            row = src_forms.row(form)
+            for col in FORM_DISPLAYS:
+                display = struct.unpack_from("<I", row, col * 4)[0]
+                if display:
+                    struct.pack_into("<I", row, col * 4, display_map.get(display, display))
+            for col in FORM_STRINGS:
+                off = struct.unpack_from("<I", row, col * 4)[0]
+                text = src_forms.text(off) if off else ""
+                struct.pack_into("<I", row, col * 4, coa._add_string(dst_forms.strings, text) if text else 0)
+            dst_forms.append(row)
+            form_sql.append(coa.dbc_row_sql("SpellShapeshiftForm", bytes(row), dst_forms, FORM_STRINGS, ()))
+        files[dbc_path("SpellShapeshiftForm")] = dst_forms.data()
+        if form_sql:
+            with open(os.path.join(here, "..", "data", "sql", "db-world", "cw_coa_creatures_displays.sql"),
+                      "a", encoding="utf-8", newline="\n") as out_sql:
+                out_sql.write("DELETE FROM `spellshapeshiftform_dbc` WHERE `ID` IN (%s);\n"
+                              % ", ".join(str(i) for i in form_ids) + "\n".join(form_sql) + "\n\n")
+        print("forms          %d CoA shapeshift forms added: %s" % (len(form_ids), form_ids))
         object_ids = creatures.get("gameobject_displays_used", [])
         if object_ids:
             src_objects, _w = table(source, "GameObjectDisplayInfo", 19)

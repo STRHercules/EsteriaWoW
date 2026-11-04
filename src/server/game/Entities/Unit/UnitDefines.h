@@ -99,7 +99,11 @@ enum ShapeshiftForm
     FORM_FLIGHT                         = 0x1D,
     FORM_STEALTH                        = 0x1E,
     FORM_MOONKIN                        = 0x1F,
-    FORM_SPIRITOFREDEMPTION             = 0x20
+    FORM_SPIRITOFREDEMPTION             = 0x20,
+    // Conquest of Azeroth's class forms (their SpellShapeshiftForm rows come with mod-classless-wildcard)
+    FORM_TINKER_MECHSUIT                = 0x31,
+    FORM_VENOMANCER_SPIDER              = 0x34,
+    FORM_VENOMANCER_BEETLE              = 0x35
 };
 
 enum ShapeshiftFlags
