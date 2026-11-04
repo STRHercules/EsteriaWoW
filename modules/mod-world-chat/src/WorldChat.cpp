@@ -9,6 +9,7 @@
 #include <ranges>
 
 #include "WorldChat.h"
+#include "DiscordBridge.h"
 #include "Config.h"
 #include "StringFormat.h"
 #include "WorldSessionMgr.h"
@@ -49,6 +50,31 @@ void WC::WorldChat_Config::OnBeforeConfigLoad(const bool /*reload*/) {
         factionMessage);
 }
 
+void WC::WorldChat_Config::OnAfterConfigLoad(bool reload)
+{
+    if (reload)
+        DiscordBridge::Stop();
+
+    DiscordBridge::Configure(g_wcConfig.crossFaction);
+    if (reload)
+        DiscordBridge::Start();
+}
+
+void WC::WorldChat_Config::OnStartup()
+{
+    DiscordBridge::Start();
+}
+
+void WC::WorldChat_Config::OnUpdate(uint32)
+{
+    DiscordBridge::Tick();
+}
+
+void WC::WorldChat_Config::OnShutdown()
+{
+    DiscordBridge::Stop();
+}
+
 void WC::SendWorldMessage(Player const &sender, const std::string &msg, const int team) {
     if (msg.empty()) {
         return;
@@ -74,6 +100,8 @@ void WC::SendWorldMessage(Player const &sender, const std::string &msg, const in
         );
         return;
     }
+
+    DiscordBridge::Publish(sender, msg, team);
 
     const AccountTypes senderSecurity = sender.GetSession()->GetSecurity();
 
@@ -138,6 +166,29 @@ void WC::SendWorldMessage(Player const &sender, const std::string &msg, const in
                 msg);
         }
         ChatHandler(target->GetSession()).PSendSysMessage(outMessage);
+    }
+}
+
+void WC::SendDiscordWorldMessage(std::string const& author, std::string const& text)
+{
+    if (!g_wcConfig.enabled || !g_wcConfig.crossFaction || author.empty() || text.empty())
+        return;
+
+    std::string const output = Acore::StringFormat("[World][Discord] |cff79B8FF{}|r: {}", author, text);
+    WorldSessionMgr::SessionMap sessions = sWorldSessionMgr->GetAllSessions();
+    for (WorldSession* const& session : sessions | std::views::values)
+    {
+        if (!session)
+            continue;
+
+        Player const* target = session->GetPlayer();
+        if (!target || !target->IsInWorld())
+            continue;
+
+        if (!g_wcConfig.playerStates[target->GetGUID().GetCounter()].chatEnabled)
+            continue;
+
+        ChatHandler(target->GetSession()).SendSysMessage(output);
     }
 }
 

@@ -89,11 +89,19 @@ namespace WC {
     class WorldChat_Config : public WorldScript {
     public:
         WorldChat_Config() : WorldScript("WorldChat_Config", {
-                                             WORLDHOOK_ON_BEFORE_CONFIG_LOAD
+                                             WORLDHOOK_ON_BEFORE_CONFIG_LOAD,
+                                             WORLDHOOK_ON_AFTER_CONFIG_LOAD,
+                                             WORLDHOOK_ON_STARTUP,
+                                             WORLDHOOK_ON_UPDATE,
+                                             WORLDHOOK_ON_SHUTDOWN
                                          }) {
         };
 
         void OnBeforeConfigLoad(bool reload) override;
+        void OnAfterConfigLoad(bool reload) override;
+        void OnStartup() override;
+        void OnUpdate(uint32 diff) override;
+        void OnShutdown() override;
     };
 
     class WorldChat_Announce : public PlayerScript {
@@ -131,6 +139,7 @@ namespace WC {
 
 
     void SendWorldMessage(const Player &sender, const std::string &msg, const int team);
+    void SendDiscordWorldMessage(std::string const& author, std::string const& text);
 }
 
 #endif //AZEROTHCORE_MODULES_WORLDCHAT_H
