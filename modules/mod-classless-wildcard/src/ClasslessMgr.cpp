@@ -648,6 +648,10 @@ void ClasslessMgr::BuildLibrary()
         // still lands in the right tab if a Hero gets it some other way.
         _spellSkillLine[sla->Spell] = uint16(sla->SkillLine);
         _classSkillLines.insert(uint16(sla->SkillLine));
+        // a CoA class's spellbook line (gen_coa_import.py spellbook_tabs): it files the spells under their class tab,
+        // and the CoA catalog is what sells them
+        if (sla->SkillLine >= COA_BOOK_LINE_FIRST && sla->SkillLine <= COA_BOOK_LINE_LAST)
+            continue;
 
         // Spells the core hands out free with the line itself -- the ones a
         // Hero can end up with by owning nothing, and which StripUnearnedSpells

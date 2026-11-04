@@ -1534,21 +1534,20 @@ local ARCH_ROW_H = 46
 local function MakeArchRow(parent, width, buttonText)
     local r = CreateFrame("Frame", nil, parent)
     r:SetWidth(width); r:SetHeight(ARCH_ROW_H)
-    r.name = r:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    r.name = CW.Label(r, 13, ES.GOLD)
     r.name:SetPoint("TOPLEFT", 0, 0)
     r.name:SetWidth(width - 82)
     r.name:SetJustifyH("LEFT")
-    r.desc = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    r.desc = CW.Label(r, 11, ES.TEXT)
     r.desc:SetPoint("TOPLEFT", 0, -16)
     r.desc:SetWidth(width - 82)
     r.desc:SetJustifyH("LEFT")
     r.desc:SetJustifyV("TOP")
-    r.counts = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    r.counts = CW.Label(r, 10, ES.MUTED)
     r.counts:SetPoint("TOPLEFT", r.desc, "BOTTOMLEFT", 0, -2)
     r.counts:SetWidth(width - 82)
     r.counts:SetJustifyH("LEFT")
-    r.apply = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
-    r.apply:SetWidth(70); r.apply:SetHeight(22)
+    r.apply = CW.FlatButton(r, 70, 22)
     r.apply:SetPoint("RIGHT", 0, 0)
     r.apply:SetText(buttonText)
     r.apply.defaultText = buttonText
@@ -1601,9 +1600,9 @@ local function FillArchRows(L, list, onChoose, x, top)
         if arch then
             local count = (arch.count == 1) and "1 ability" or (arch.count .. " abilities")
             if (arch.ranks or 0) > 0 then count = count .. ", " .. arch.ranks .. " talent ranks" end
-            r.name:SetText("|cffffff00" .. arch.name .. "|r" .. (arch.following and "  |cff00ff00following|r" or ""))
+            r.name:SetText(arch.name .. (arch.following and "  |cff8cd980following|r" or ""))
             r.desc:SetText(arch.desc)
-            r.counts:SetText("|cffaaaaaa" .. count .. "|r")
+            r.counts:SetText(count)
             r.apply:SetText(arch.following and "Stop" or r.apply.defaultText)
             r.apply:SetScript("OnClick", function() onChoose(arch) end)
             local h = 16 + TextHeight(r.desc) + 2 + 12 + 8
@@ -2618,42 +2617,46 @@ end)
 local wizard = CreateFrame("Frame", "ClasslessWildcardWizard", UIParent)
 wizard:SetWidth(420); wizard:SetHeight(300)
 wizard:SetPoint("CENTER")
--- own clean dialog backdrop (NOT the main panel's baked pane art)
-wizard:SetBackdrop({
-    bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-    tile = true, tileSize = 32, edgeSize = 32,
-    insets = { left = 11, right = 12, top = 12, bottom = 11 },
-})
+-- the Character Advancement panel's own look: ink, gold edge and rule, the kit's fonts and flat buttons
+CW.Skin(wizard)
 wizard:SetFrameStrata("FULLSCREEN_DIALOG")
 wizard:EnableMouse(true)
 wizard:Hide()
 
 local wizCrest = wizard:CreateTexture(nil, "ARTWORK")
 wizCrest:SetWidth(30); wizCrest:SetHeight(30)
-wizCrest:SetPoint("TOPLEFT", 16, -14)
+wizCrest:SetPoint("TOPLEFT", 14, -12)
 wizCrest:SetTexture("Interface\\AddOns\\ClasslessWildcard\\icon")
 
-local wizTitle = wizard:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-wizTitle:SetPoint("TOP", 0, -20)
+local wizKicker = CW.Label(wizard, 10, ES.MUTED, "CHARACTER ADVANCEMENT")
+wizKicker:SetPoint("TOP", 0, -14)
+
+local wizTitle = CW.Label(wizard, 18, ES.GOLD)
+wizTitle:SetPoint("TOP", 0, -28)
 wizTitle:SetText("Choose Your Path, Hero")
 
-local wizText = wizard:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-wizText:SetPoint("TOP", 0, -46)
+local WIZ_TEXT_TOP = 60   -- below the kicker and the title
+local wizText = CW.Label(wizard, 12, ES.TEXT)
+wizText:SetPoint("TOP", 0, -WIZ_TEXT_TOP)
 wizText:SetWidth(370)
 local WIZ_PATH_TEXT = "Every spell and talent of every class awaits. You have no class of your own, only a shared chassis (resource bar and base stats). Will you choose each ability yourself, or let the Wildcard decide your fate?"
 wizText:SetText(WIZ_PATH_TEXT)
 
-local wizClassless = CreateFrame("Button", nil, wizard, "UIPanelButtonTemplate")
-wizClassless:SetWidth(340); wizClassless:SetHeight(30)
-wizClassless:SetPoint("TOP", 0, -108)
-wizClassless:SetText("|cff00ccffClassless|r: pick every ability yourself")
+-- A path as a flat card: its name in gold, what it means under it.
+local function WizardPathCard(top, name, line)
+    local b = CW.FlatButton(wizard, 360, 48)
+    b:SetPoint("TOP", 0, -top)
+    b.name = CW.Label(b, 15, ES.GOLD, name)
+    b.name:SetPoint("TOPLEFT", 14, -8)
+    b.line = CW.Label(b, 11, ES.MUTED, line)
+    b.line:SetPoint("TOPLEFT", b.name, "BOTTOMLEFT", 0, -4)
+    return b
+end
+
+local wizClassless = WizardPathCard(130, "Classless", "Pick every ability and talent yourself.")
 wizClassless:SetScript("OnClick", function() Send("MODE 0"); Send("ARCH") end)
 
-local wizWildcard = CreateFrame("Button", nil, wizard, "UIPanelButtonTemplate")
-wizWildcard:SetWidth(340); wizWildcard:SetHeight(30)
-wizWildcard:SetPoint("TOP", 0, -146)
-wizWildcard:SetText("|cffff8800Wildcard|r: random abilities, reroll the rest")
+local wizWildcard = WizardPathCard(186, "Wildcard", "Abilities are dealt at random; reroll the rest.")
 wizWildcard:SetScript("OnClick", function()
     Send("MODE 1")
     wizard:Hide()
@@ -2661,8 +2664,7 @@ wizWildcard:SetScript("OnClick", function()
     -- until the player keeps their hand
 end)
 
-local wizLater = CreateFrame("Button", nil, wizard, "UIPanelButtonTemplate")
-wizLater:SetWidth(120); wizLater:SetHeight(22)
+local wizLater = CW.FlatButton(wizard, 120, 22)
 wizLater:SetPoint("BOTTOM", 0, 14)
 wizLater:SetText("Decide later")
 wizLater:SetScript("OnClick", function() wizard:Hide() end)
@@ -2672,8 +2674,7 @@ wizLater:SetScript("OnClick", function() wizard:Hide() end)
 local WIZ_W, WIZ_H = 420, 300
 local WIZ_ARCH_W = 480
 local wizList = MakeArchList(wizard, "ClasslessWildcardWizardArchetypes", WIZ_ARCH_W - 40, "Choose")
-local archSkip = CreateFrame("Button", nil, wizard, "UIPanelButtonTemplate")
-archSkip:SetWidth(180); archSkip:SetHeight(22)
+local archSkip = CW.FlatButton(wizard, 180, 22)
 archSkip:SetPoint("BOTTOM", 0, 14)
 archSkip:SetText("Start with an empty slate")
 archSkip:Hide()
@@ -2706,7 +2707,7 @@ local function ShowArchetypeChoices()
         wizText:SetText("No archetypes are configured on this realm.")
     end
     wizard:SetWidth(WIZ_ARCH_W)
-    local top = 46 + TextHeight(wizText) + 14
+    local top = WIZ_TEXT_TOP + TextHeight(wizText) + 14
     local shown, used = FillArchRows(wizList, list, function(arch)
         Send("ARCHAPPLY " .. arch.id)
         wizard:Hide()

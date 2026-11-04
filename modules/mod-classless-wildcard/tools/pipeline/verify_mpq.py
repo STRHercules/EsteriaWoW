@@ -14,7 +14,7 @@ manifest = json.loads((module / 'client-patch/coa_manifest.json').read_text())
 costs = json.loads((module / 'client-patch/coa_costs.json').read_text())
 with MPQArchive('G:/coa-build/batch7.MPQ') as patch:
     delivered = coa.Table(patch.read_file(coa.SPELL), 234, 'batch7 Spell')
-    assert set(manifest['spells']) <= delivered.ids.keys()
+    assert set(manifest['spells']) | set(manifest.get('text_spells', [])) <= delivered.ids.keys()
     _where, raw = coa.winning_file(coa.target_archives('G:/3.3.5a - Dev'), coa.SPELL)
     original = coa.Table(raw, 234, 'existing Spell')
     for spell in original.ids:

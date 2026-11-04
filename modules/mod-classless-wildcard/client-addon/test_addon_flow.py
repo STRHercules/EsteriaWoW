@@ -519,7 +519,7 @@ def test_wizard(h):
     h.check(str(CW.wizTitle["__text"]) == "Pick a Starter Archetype", "page 2: archetype title")
     h.check(rows[1]["__shown"] is True and rows[2]["__shown"] is True and rows[3]["__shown"] is False, "two rows shown, the rest hidden")
     h.check(":" in str(rows[1].desc["__text"]), "description keeps its colon: %r" % str(rows[1].desc["__text"]))
-    h.check(wizard["__w"] == 480 and wizard["__h"] == 72 + 2 * 50 + 52, "wizard resized to fit (%sx%s)" % (wizard["__w"], wizard["__h"]))
+    h.check(wizard["__w"] == 480 and wizard["__h"] == 86 + 2 * 50 + 52, "wizard resized to fit (%sx%s)" % (wizard["__w"], wizard["__h"]))
     h.check(CW.wizClassless["__shown"] is False and CW.wizLater["__shown"] is False and CW.wizArchSkip["__shown"] is True,
             "path buttons hidden, empty-slate button shown")
     h.check(CW.archFly["__shown"] is False, "panel flyout stays closed")
@@ -541,7 +541,7 @@ def test_wizard(h):
         h.recv("AR|%d|Build %d|Description %d.|24|71|0" % (i, i, i))
     h.recv("ARE|")
     h.check(rows[13]["__shown"] is True and CW.wizArchList.scroll["__shown"] is True, "thirteen rows shown in the list")
-    h.check(CW.wizArchList.scroll["__h"] == 440 and wizard["__h"] == 72 + 440 + 52,
+    h.check(CW.wizArchList.scroll["__h"] == 440 and wizard["__h"] == 86 + 440 + 52,
             "wizard sized to the capped list (%s)" % wizard["__h"])
     h.clear_sent()
     h.click(rows[13].apply)
@@ -549,7 +549,7 @@ def test_wizard(h):
     CW.ShowPathChoice()
 
     h.recv("ARE|")  # a realm with no archetypes
-    h.check("No archetypes" in str(CW.wizText["__text"]) and wizard["__h"] == 72 + 46 + 52, "empty list says so and keeps one row of height (%s)" % wizard["__h"])
+    h.check("No archetypes" in str(CW.wizText["__text"]) and wizard["__h"] == 86 + 46 + 52, "empty list says so and keeps one row of height (%s)" % wizard["__h"])
     frame["__shown"] = False
     h.click(CW.wizArchSkip)
     h.check(wizard["__shown"] is False and frame["__shown"] is True and str(CW.tab) == "ABIL", "empty slate closes the wizard and opens the browser")

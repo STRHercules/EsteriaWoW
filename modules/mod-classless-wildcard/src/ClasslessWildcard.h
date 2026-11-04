@@ -51,6 +51,9 @@ namespace ClasslessWildcard
     // client files the spells under General without it. Must equal HERO_LINE in
     // data/sql/generators/gen_forged_spells.py; test_forged.py checks.
     constexpr uint32 HERO_SKILL_LINE = 990;
+    // The CoA classes' spellbook lines, 1000 + CoA class: BOOK_LINE_BASE in gen_coa_import.py
+    constexpr uint32 COA_BOOK_LINE_FIRST = 1000;
+    constexpr uint32 COA_BOOK_LINE_LAST = 1255;
 
     // Runeforging: the skill line, and the trade skill that opens the forge
     // window. SkillRaceClassInfo.dbc lists line 776 for class mask 0x20 alone,

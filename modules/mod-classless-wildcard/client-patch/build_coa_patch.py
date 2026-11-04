@@ -15,7 +15,7 @@ import struct
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib import coa  # noqa: E402
+from lib import coa, elemental, forged  # noqa: E402
 from lib.mpq import write_archive  # noqa: E402
 
 
@@ -122,7 +122,9 @@ def main():
                 struct.pack_into("<I", spell, 20 + index * coa.SPELL_FIELDS * 4 + column * 4, value)
         spell = bytes(spell)
         print("spell costs    %d baseline rows restored" % len(costs))
-    files[coa.SPELL], n_spells = coa.append_spells(spell, coa_spell, manifest["spells"],
+    # plus the spells a description only names for a number (no server row: never cast)
+    shipped = manifest["spells"] + manifest.get("text_spells", [])
+    files[coa.SPELL], n_spells = coa.append_spells(spell, coa_spell, shipped,
                                                    set(manifest["clear_equip_slot"]), visual_map, icon_map)
     # Guardian's 802629 contract changes the resource to energy on the server.
     if manifest.get("client_power_overrides"):
@@ -134,6 +136,26 @@ def main():
             struct.pack_into("<I", patched.records, patched.ids[sid] * patched.rec + 41 * 4, power)
         files[coa.SPELL] = patched.data()
     print("Spell.dbc      +%d rows on %s" % (n_spells, os.path.basename(where)))
+
+    # Spellbook tabs (gen_coa_import.py spellbook_tabs): a class line per CoA class, with the class icon as it
+    # landed in the patched Spell.dbc, its race/class row, and a SkillLineAbility row per spell it files
+    book = manifest.get("spellbook")
+    if book and book["lines"]:
+        patched = coa.Table(files[coa.SPELL], coa.SPELL_FIELDS, "spellbook icons")
+        skill_lines = coa.winning_file(target, dbc_path("SkillLine"))[1]
+        race_class = coa.winning_file(target, dbc_path("SkillRaceClassInfo"))[1]
+        for line in book["lines"]:
+            icon = patched.cell(line["icon_spell"], coa.SPELL_ICONS[0])
+            skill_lines, _added = forged.append_skill_line(skill_lines, dict(
+                id=line["id"], category=7, name=line["name"], icon=icon))
+            race_class, _added = forged.append_skill_race_class(race_class, dict(
+                id=line["rci"], skill=line["id"], race_mask=0, class_mask=0, flags=1040, min_level=0, tier=0,
+                cost_index=0))
+        files[dbc_path("SkillLine")] = skill_lines
+        files[dbc_path("SkillRaceClassInfo")] = race_class
+        files[dbc_path("SkillLineAbility")], added = elemental.append_skill_lines(
+            coa.winning_file(target, dbc_path("SkillLineAbility"))[1], [dict(sla=row) for row in book["sla"]])
+        print("spellbook      %d class tabs, %d spells filed" % (len(book["lines"]), added))
 
     # Wire pool keys match the server's per-rank-root recharge storage.
     charges = manifest.get("charges", [])

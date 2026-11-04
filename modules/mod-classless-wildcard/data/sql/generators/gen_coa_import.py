@@ -94,6 +94,15 @@ STOCK_POWERS = (0, 1, 3, 0xFFFFFFFE)
 # entry maps to a fixed offset of its own; tabs are per class and slot.
 TALENT_ID_BASE = 100000
 TAB_ID_BASE = 2000
+# Spellbook tabs: one class skill line per CoA class (1000 + class: 1012-1032; stock ends at 788, the Hero line is
+# 990), its SkillRaceClassInfo row, and a SkillLineAbility row per spell it files (60000-69999, clear of stock,
+# elemental 22000+, forged 35000+ and the 970000s)
+BOOK_LINE_BASE = 1000
+BOOK_RCI_BASE = 990600
+BOOK_SLA_BASE, BOOK_SLA_END = 60000, 69999
+ALL_CLASSES_MASK = 0x5FF       # what the Hero tab's rows carry (client-patch/lib/dbc.py)
+SKILL_CATEGORY_CLASS = 7
+SKILL_RCI_FLAGS = 1040
 SHARED_CLASS_TAB = 87
 HIDDEN_TAB_CLASS_MASK = 2048    # bit 11: no real class, exactly as the Hero tab
 
@@ -721,8 +730,12 @@ def main():
     for e in entries:
         if e["spec"]:
             class_specs.setdefault(e["cls"], set()).add(e["spec"])
+    # Spells a description names only for a number ($653216h, $500022s1, @s:...): the client needs their rows to
+    # print the tooltip; the server never casts them, so they go to the client patch alone
+    text_spells = text_references(spell, {sid for _e, ids in pilot for sid in ids} | extra, taken)
+    print("text-only spells (client patch only): %d" % len(text_spells))
     write_outputs(spell, icons, pilot, class_names, specs, {c: sorted(s) for c, s in class_specs.items()}, chains,
-                  stock_coefficient, scaled, extra, taught, source, affect, args.coa_core, signatures)
+                  stock_coefficient, scaled, extra, taught, source, affect, args.coa_core, signatures, text_spells)
 
 
 def kind_of(spell, e, chains):
@@ -734,8 +747,61 @@ def kind_of(spell, e, chains):
     return 1
 
 
+TEXT_REFERENCE = re.compile(r"\$(\d+)[a-zA-Z]|@[sa]:(\d+):")
+
+
+def text_references(spell, shipped, taken):
+    """Spells the shipped descriptions name ($653216h, $500022s1, @s:1257670:0@), and the ones those name in turn,
+    that neither the import nor this realm already has."""
+    found, todo = set(), list(shipped)
+    while todo:
+        row = spell.index[todo.pop()]
+        for m in TEXT_REFERENCE.finditer(spell.s(row, 170) + " " + spell.s(row, 187)):
+            ref = int(m.group(1) or m.group(2))
+            if ref in shipped or ref in found or ref in taken or ref not in spell.index or not well_formed(spell, ref):
+                continue
+            found.add(ref)
+            todo.append(ref)
+    return sorted(found)
+
+
+def spellbook_tabs(spell, pilot, chains, signatures, taught, imported, class_names):
+    """([line], [SkillLineAbility row]): a class skill line per CoA class and a row per spell it files, so the
+    spellbook shows a Venomancer tab rather than putting everything under General. Every rank of a line (the next
+    one supersedes it, so the book shows the highest), a talent's own castable spells, what CoA hands out with the
+    class, and what learning one of those also teaches. Hidden spells get none, like the stock tables."""
+    owner, chain_of = {}, []
+    for e, _ids in pilot:
+        if kind_of(spell, e, chains) == 0:
+            chain_of.append((e["cls"], [e["ranks"][0]] + [s for s, _lvl in chains.get(e["ranks"][0], [])]))
+        else:
+            chain_of += [(e["cls"], [s]) for s in e["ranks"] if s and not is_passive(spell, s)]
+    automatic = {}
+    for entry, cls, _spec, sid, level, *_rest in sorted(signatures, key=lambda r: (r[0], r[4])):
+        automatic.setdefault((entry, cls), []).append(sid)
+    chain_of += [(cls, ranks) for (_entry, cls), ranks in automatic.items()]
+    superseded = {}
+    for cls, ranks in chain_of:
+        ranks = [s for s in ranks if s in imported]
+        for n, sid in enumerate(ranks):
+            owner.setdefault(sid, cls)
+            if n + 1 < len(ranks):
+                superseded.setdefault(sid, ranks[n + 1])
+    for parent, child in taught:
+        if parent in owner and child in imported:
+            owner.setdefault(child, owner[parent])
+    visible = sorted(s for s in owner if not spell.u(spell.index[s], F_ATTR) & 0x80)     # SPELL_ATTR0_DO_NOT_DISPLAY
+    assert BOOK_SLA_BASE + len(visible) <= BOOK_SLA_END, "the spellbook rows outgrew their id block"
+    classes = sorted({owner[s] for s in visible})
+    lines = [dict(id=BOOK_LINE_BASE + c, rci=BOOK_RCI_BASE + c, cls=c, name=class_names[c],
+                  icon_spell=next(e["ranks"][0] for e, _ids in pilot if e["cls"] == c)) for c in classes]
+    rows = [[BOOK_SLA_BASE + n, BOOK_LINE_BASE + owner[s], s, 0, ALL_CLASSES_MASK, 0, 0, 1, superseded.get(s, 0),
+             0, 0, 0, 0, 0] for n, s in enumerate(visible)]
+    return lines, rows
+
+
 def write_outputs(spell, icons, pilot, class_names, specs, class_specs, chains, stock_coefficient, scaled,
-                  extra, taught, source, affect, core, signatures=()):
+                  extra, taught, source, affect, core, signatures=(), text_spells=()):
     columns = spell_columns()
     tabs = {}           # synthetic tab id -> (class, spec)
     rows, ranks, talents, catalog, icon_ids, emitted = [], [], [], [], set(), set()
@@ -780,6 +846,9 @@ def write_outputs(spell, icons, pilot, class_names, specs, class_specs, chains, 
             icon_ids.update(i for i in (spell.u(row, F_ICON), spell.u(row, F_ACTIVE_ICON)) if i)
 
     spell_ids = sorted({sid for _e, ids in pilot for sid in ids} | extra)
+    for sid in text_spells:     # their icons show beside the spell the text embeds
+        row = spell.index[sid]
+        icon_ids.update(i for i in (spell.u(row, F_ICON), spell.u(row, F_ACTIVE_ICON)) if i)
     out = os.path.join(MODULE, "data", "sql", "db-world", "cw_spells_coa.sql")
     with open(out, "w", encoding="utf-8", newline="\n") as f:
         f.write(SQL_HEAD)
@@ -857,6 +926,29 @@ def write_outputs(spell, icons, pilot, class_names, specs, class_specs, chains, 
         h.write("".join("    %d,\n" % sid for sid in amount_spells) + "}};\n\n#endif\n")
     print("aura amount spells:", len(amount_spells))
 
+    book_lines, book_rows = spellbook_tabs(spell, pilot, chains, signatures, taught, set(spell_ids), class_names)
+    with open(out, "a", encoding="utf-8", newline="\n") as f:
+        f.write("\n-- Spellbook tabs: a class skill line per CoA class (spells filed under Venomancer, ...)\n")
+        f.write("DELETE FROM `skillline_dbc` WHERE `ID` BETWEEN %d AND %d;\n" % (BOOK_LINE_BASE, BOOK_LINE_BASE + 255))
+        f.write("INSERT INTO `skillline_dbc` (`ID`, `CategoryID`, `SkillCostsID`, `DisplayName_Lang_enUS`, "
+                "`Description_Lang_enUS`, `SpellIconID`, `AlternateVerb_Lang_enUS`, `CanLink`) VALUES\n")
+        f.write(",\n".join("(%d, %d, 0, %s, '', %d, '', 0)" % (l["id"], SKILL_CATEGORY_CLASS, esc(l["name"]),
+                                                                spell.u(spell.index[l["icon_spell"]], F_ICON))
+                           for l in book_lines) + ";\n")
+        f.write("DELETE FROM `skillraceclassinfo_dbc` WHERE `ID` BETWEEN %d AND %d;\n"
+                % (BOOK_RCI_BASE, BOOK_RCI_BASE + 99))
+        f.write("INSERT INTO `skillraceclassinfo_dbc` (`ID`, `SkillID`, `RaceMask`, `ClassMask`, `Flags`, "
+                "`MinLevel`, `SkillTierID`, `SkillCostIndex`) VALUES\n")
+        f.write(",\n".join("(%d, %d, 0, 0, %d, 0, 0, 0)" % (l["rci"], l["id"], SKILL_RCI_FLAGS)
+                           for l in book_lines) + ";\n")
+        f.write("DELETE FROM `skilllineability_dbc` WHERE `ID` BETWEEN %d AND %d;\n" % (BOOK_SLA_BASE, BOOK_SLA_END))
+        f.write("INSERT INTO `skilllineability_dbc` (`ID`, `SkillLine`, `Spell`, `RaceMask`, `ClassMask`, "
+                "`ExcludeRace`, `ExcludeClass`, `MinSkillLineRank`, `SupercededBySpell`, `AcquireMethod`, "
+                "`TrivialSkillLineRankHigh`, `TrivialSkillLineRankLow`, `CharacterPoints_1`, `CharacterPoints_2`) "
+                "VALUES\n")
+        f.write(",\n".join("(%s)" % ", ".join(str(v) for v in row) for row in book_rows) + ";\n")
+    print("spellbook tabs: %d class lines, %d spells filed" % (len(book_lines), len(book_rows)))
+
     creatures = {spell.u(spell.index[sid], 110 + i) for sid in spell_ids for i in range(3)
                  if spell.u(spell.index[sid], 71 + i) in (28, 56)} - {0}
     objects = {spell.u(spell.index[sid], 110 + i) for sid in spell_ids for i in range(3)
@@ -864,7 +956,8 @@ def write_outputs(spell, icons, pilot, class_names, specs, class_specs, chains, 
     manifest = dict(version=1, client_power_overrides={802629: 3}, spell_affect=client_targets(affect_rows, chains), charges=charges, summoned_creatures=sorted(creatures),
                     summoned_objects=sorted(objects), spells=spell_ids, clear_equip_slot=sorted(set(spell_ids) & CLEAR_EQUIP_SLOT),
                     icons=sorted(icon_ids), icon_paths={i: icons.s(icons.index[i], 1) for i in sorted(icon_ids)
-                                                        if i in icons.index})
+                                                        if i in icons.index},
+                    spellbook=dict(lines=book_lines, sla=book_rows), text_spells=list(text_spells))
     with open(os.path.join(MODULE, "client-patch", "coa_manifest.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(manifest, f, indent=1)
         f.write("\n")

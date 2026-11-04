@@ -115,14 +115,84 @@ end
 -- ---------------------------------------------------------------------------
 --  Hauptfenster
 -- ---------------------------------------------------------------------------
+-- Esteria look (esteria_style.lua): the Character Advancement and Paths of Fate kit. SK holds the helpers so the
+-- main chunk does not spend locals on them.
+local ES = EsteriaStyle
+local SK = { RAIL = 168, HEAD = 112 }
+function SK.Label(parent, size, color, text)
+    local fs = ES.Text(parent, size, color)
+    if text then fs:SetText(text) end
+    return fs
+end
+-- the kit's button fonts, one per size and state: a button re-applies its font object on hover and disable
+SK.fonts = {}
+function SK.Font(size, color)
+    local key = size .. ":" .. color[1] .. color[2] .. color[3]
+    if not SK.fonts[key] then
+        local f = CreateFont("SeasonPassSkinFont" .. (#SK.fonts + 1) .. "_" .. size)
+        f:SetFont(ES.FONT, size)
+        f:SetTextColor(color[1], color[2], color[3])
+        f:SetShadowOffset(1, -1)
+        f:SetShadowColor(0, 0, 0, 0.8)
+        SK.fonts[key] = f
+        SK.fonts[#SK.fonts + 1] = f
+    end
+    return SK.fonts[key]
+end
+-- a flat button: ink, gold-dim edge, gold wash and edge on hover (the CA panel's CW.Flat)
+function SK.Flat(b, size)
+    if b.skFlat then return b end
+    b.skFlat = true
+    for _, get in ipairs({ "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture" }) do
+        local t = b[get](b)
+        if t then t:SetTexture(nil) end
+    end
+    ES.Solid(b, "BACKGROUND", ES.INK, 0.9):SetAllPoints(b)
+    b.skEdges = ES.Border(b, ES.GOLD_DIM, 0.9)
+    ES.Solid(b, "HIGHLIGHT", ES.GOLD, 0.12):SetAllPoints(b)
+    for _, line in ipairs(ES.Border(b, ES.GOLD, 1)) do line:SetDrawLayer("HIGHLIGHT") end
+    b:SetNormalFontObject(SK.Font(size or 11, ES.GOLD))
+    b:SetHighlightFontObject(SK.Font(size or 11, { 1, 0.93, 0.70 }))
+    b:SetDisabledFontObject(SK.Font(size or 11, ES.MUTED))
+    b:SetPushedTextOffset(0, -1)
+    return b
+end
+function SK.Button(parent, w, h, text, size)
+    local b = CreateFrame("Button", nil, parent)
+    b:SetWidth(w); b:SetHeight(h)
+    SK.Flat(b, size)
+    b:SetText(text or " ")
+    return b
+end
+-- a reward slot: ItemButtonTemplate's quickslot art swapped for an ink square with a gold-dim edge
+function SK.Slot(b)
+    local normal = b:GetNormalTexture()
+    if normal then normal:SetTexture(nil) end
+    local back = ES.Solid(b, "BACKGROUND", ES.INK, 0.9)
+    back:SetPoint("TOPLEFT", -2, 2); back:SetPoint("BOTTOMRIGHT", 2, -2)
+    b.skEdges = ES.Border(b, ES.GOLD_DIM, 1)
+    return b
+end
+
 local frame = CreateFrame("Frame", "SeasonPassFrame", UIParent)
-frame:SetWidth(760)
+frame:SetWidth(760 + SK.RAIL)
 frame:SetHeight(560)
 frame:SetPoint("CENTER", 0, 10)
-frame:SetBackdrop({
-    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-    tile = true, tileSize = 32, edgeSize = 32,
-})
+ES.Solid(frame, "BACKGROUND", ES.INK, 0.97):SetAllPoints(frame)
+ES.Border(frame, ES.GOLD_DIM, 0.9)
+do
+    local rule = ES.Solid(frame, "OVERLAY", ES.GOLD, 1)
+    rule:SetHeight(2)
+    rule:SetPoint("TOPLEFT", 0, 0); rule:SetPoint("TOPRIGHT", 0, 0)
+    -- the rail: a darker strip with a gold-dim rule on its edge
+    local rail = ES.Solid(frame, "BACKGROUND", { 0, 0, 0 }, 0.35)
+    rail:SetPoint("TOPLEFT", 0, -SK.HEAD); rail:SetPoint("BOTTOMLEFT", 0, 0); rail:SetWidth(SK.RAIL)
+    local edge = ES.Solid(frame, "BORDER", ES.GOLD_DIM, 0.6)
+    edge:SetPoint("TOPLEFT", SK.RAIL, -SK.HEAD); edge:SetPoint("BOTTOMLEFT", SK.RAIL, 0); edge:SetWidth(1)
+    local head = ES.Solid(frame, "BORDER", ES.GOLD_DIM, 0.6)
+    head:SetHeight(1)
+    head:SetPoint("TOPLEFT", 18, -SK.HEAD); head:SetPoint("TOPRIGHT", -18, -SK.HEAD)
+end
 frame:SetMovable(true)
 frame:EnableMouse(true)
 frame:RegisterForDrag("LeftButton")
@@ -131,32 +201,28 @@ frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 frame:Hide()
 tinsert(UISpecialFrames, "SeasonPassFrame")
 
-local bg = frame:CreateTexture(nil, "BACKGROUND")
-bg:SetTexture("Interface\\AchievementFrame\\UI-Achievement-Parchment-Horizontal")
-bg:SetPoint("TOPLEFT", 11, -11)
-bg:SetPoint("BOTTOMRIGHT", -11, 11)
-bg:SetTexCoord(0, 1, 0, 1)
+-- header: a kicker, the season in gold, its name under it; the tier as a big counter on the right
+SK.kicker = SK.Label(frame, 10, ES.MUTED, "DREAM PATH")
+SK.kicker:SetPoint("TOPLEFT", 24, -16)
 
-local header = frame:CreateTexture(nil, "ARTWORK")
-header:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Header")
-header:SetWidth(400)
-header:SetHeight(68)
-header:SetPoint("TOP", 0, 14)
+local title = SK.Label(frame, 20, ES.GOLD)
+title:SetPoint("TOPLEFT", SK.kicker, "BOTTOMLEFT", 0, -4)
 
-local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-title:SetPoint("TOP", header, "TOP", 0, -15)
+local subtitle = SK.Label(frame, 12, ES.MUTED)
+subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 
-local subtitle = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-subtitle:SetPoint("TOP", header, "BOTTOM", 0, 16)
+SK.tier = SK.Label(frame, 30, ES.GOLD)
+SK.tier:SetPoint("TOPRIGHT", -150, -14)
+SK.tierLabel = SK.Label(frame, 10, ES.MUTED, "TIER")
+SK.tierLabel:SetPoint("BOTTOMRIGHT", SK.tier, "BOTTOMLEFT", -6, 6)
 
-local closeBtn = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
-closeBtn:SetPoint("TOPRIGHT", -4, -4)
+local closeBtn = SK.Button(frame, 26, 22, "X")
+closeBtn:SetPoint("TOPRIGHT", -12, -12)
+closeBtn:SetScript("OnClick", function() frame:Hide() end)
 
 -- Sprachknopf DE/EN (persistent, meldet die Wahl auch dem Server)
-local langBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-langBtn:SetWidth(52)
-langBtn:SetHeight(20)
-langBtn:SetPoint("TOPLEFT", 14, -14)
+local langBtn = SK.Button(frame, 44, 22)
+langBtn:SetPoint("RIGHT", closeBtn, "LEFT", -6, 0)
 langBtn:SetScript("OnClick", function()
     local newLang = BP_Lang() == "de" and "en" or "de"
     if not SeasonPassDB then SeasonPassDB = {} end
@@ -166,43 +232,35 @@ langBtn:SetScript("OnClick", function()
     ReloadUI()
 end)
 
+-- progress: a flat bar across the header's foot, its numbers above its right end, the season's facts under it
 local bar = CreateFrame("StatusBar", nil, frame)
-bar:SetWidth(360)
-bar:SetHeight(18)
-bar:SetPoint("TOP", 0, -66)
-bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-bar:SetStatusBarColor(1, 0.82, 0)
+bar:SetHeight(8)
+bar:SetPoint("TOPLEFT", 24, -86)
+bar:SetPoint("TOPRIGHT", -24, -86)
+bar:SetStatusBarTexture(ES.WHITE)
+bar:SetStatusBarColor(ES.GOLD[1], ES.GOLD[2], ES.GOLD[3])
 bar:SetMinMaxValues(0, BP.perTier)
 bar:SetValue(0)
 
-local barBG = bar:CreateTexture(nil, "BACKGROUND")
+local barBG = ES.Solid(bar, "BACKGROUND", { 0, 0, 0 }, 0.6)
 barBG:SetAllPoints()
-barBG:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
-barBG:SetVertexColor(0.15, 0.1, 0, 0.8)
+ES.Border(bar, ES.GOLD_DIM, 0.9)
 
-local barBorder = bar:CreateTexture(nil, "OVERLAY")
-barBorder:SetTexture("Interface\\CastingBar\\UI-CastingBar-Border")
-barBorder:SetWidth(460)
-barBorder:SetHeight(60)
-barBorder:SetPoint("CENTER", bar, "CENTER", 0, 1)
+local spark = ES.Solid(bar, "OVERLAY", { 1, 0.93, 0.70 }, 0.9)
+spark:SetWidth(2)
+spark:SetHeight(8)
 
-local spark = bar:CreateTexture(nil, "OVERLAY")
-spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
-spark:SetBlendMode("ADD")
-spark:SetWidth(24)
-spark:SetHeight(40)
+local barText = SK.Label(frame, 11, ES.TEXT)
+barText:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", 0, 6)
 
-local barText = bar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-barText:SetPoint("CENTER", 0, 0)
-
-local infoText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-infoText:SetPoint("TOP", bar, "BOTTOM", 0, -12)
+local infoText = SK.Label(frame, 11, ES.MUTED)
+infoText:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 0, 6)
 
 local contents = {}
 for i = 1, 11 do
     local c = CreateFrame("Frame", nil, frame)
-    c:SetPoint("TOPLEFT", 0, 0)
-    c:SetPoint("BOTTOMRIGHT", 0, 0)
+    c:SetPoint("TOPLEFT", SK.RAIL, 0)
+    c:SetWidth(760); c:SetHeight(560)
     if i > 1 then c:Hide() end
     contents[i] = c
 end
@@ -259,7 +317,7 @@ for i = 1, CELLS_PER_PAGE do
     local baseY = -128 - row * 168
 
     local name = "BPCellF" .. i
-    local cell = CreateFrame("Button", name, cRewards, "ItemButtonTemplate")
+    local cell = SK.Slot(CreateFrame("Button", name, cRewards, "ItemButtonTemplate"))
     cell:SetScale(1.3)
     cell:SetPoint("TOPLEFT", baseX / 1.3, baseY / 1.3)
     cell.iconTex = _G[name .. "IconTexture"]
@@ -300,7 +358,7 @@ for i = 1, CELLS_PER_PAGE do
     cell:SetScript("OnClick", CellClaimClick)
 
     local ename = "BPCellE" .. i
-    local ecell = CreateFrame("Button", ename, cRewards, "ItemButtonTemplate")
+    local ecell = SK.Slot(CreateFrame("Button", ename, cRewards, "ItemButtonTemplate"))
     ecell:SetScale(0.95)
     ecell:SetPoint("TOPLEFT", (baseX + 58) / 0.95, (baseY - 8) / 0.95)
     ecell.iconTex = _G[ename .. "IconTexture"]
@@ -329,8 +387,8 @@ for i = 1, CELLS_PER_PAGE do
 end
 
 -- Stufe 0: Willkommenspaket als klickbarer Geschenk-Slot
-local welcomeBtn = CreateFrame("Button", "BPWelcomeBtn", cRewards, "ItemButtonTemplate")
-welcomeBtn:SetPoint("TOPLEFT", 30, -64)
+local welcomeBtn = SK.Slot(CreateFrame("Button", "BPWelcomeBtn", cRewards, "ItemButtonTemplate"))
+welcomeBtn:SetPoint("TOPLEFT", 12, -150)   -- the grid's first row, left of tier 1
 welcomeBtn.iconTex = _G["BPWelcomeBtnIconTexture"]
 welcomeBtn.iconTex:SetTexture("Interface\\Icons\\INV_Misc_Gift_01")
 
@@ -373,9 +431,7 @@ welcomeBtn:SetScript("OnEnter", function(self)
 end)
 welcomeBtn:SetScript("OnLeave", CellOnLeave)
 
-local claimBtn = CreateFrame("Button", nil, cRewards, "UIPanelButtonTemplate")
-claimBtn:SetWidth(220)
-claimBtn:SetHeight(26)
+local claimBtn = SK.Button(cRewards, 220, 28, nil, 13)
 claimBtn:SetPoint("BOTTOM", 0, 62)
 claimBtn:SetScript("OnClick", function()
     PlaySound("LOOTWINDOWCOINSOUND")
@@ -385,23 +441,11 @@ end)
 local pageText = cRewards:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 pageText:SetPoint("BOTTOM", 0, 40)
 
-local prevBtn = CreateFrame("Button", nil, cRewards)
-prevBtn:SetWidth(32)
-prevBtn:SetHeight(32)
-prevBtn:SetPoint("BOTTOM", -140, 34)
-prevBtn:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up")
-prevBtn:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Down")
-prevBtn:SetDisabledTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Disabled")
-prevBtn:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+local prevBtn = SK.Button(cRewards, 30, 24, "<", 13)
+prevBtn:SetPoint("BOTTOM", -140, 36)
 
-local nextBtn = CreateFrame("Button", nil, cRewards)
-nextBtn:SetWidth(32)
-nextBtn:SetHeight(32)
-nextBtn:SetPoint("BOTTOM", 140, 34)
-nextBtn:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up")
-nextBtn:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Down")
-nextBtn:SetDisabledTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Disabled")
-nextBtn:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+local nextBtn = SK.Button(cRewards, 30, 24, ">", 13)
+nextBtn:SetPoint("BOTTOM", 140, 36)
 
 local function GetRewardIcon(r)
     if not r then return ICON_UNKNOWN end
@@ -483,6 +527,8 @@ local function RefreshRewards()
             end
 
             local s = SetCellState(cell, tierNum, BP.claimed)
+            -- the slot's edge says the same: gold when it can be taken, dim otherwise
+            ES.Tint(cell.skEdges, s == "claimable" and ES.GOLD or ES.GOLD_DIM, s == "locked" and 0.5 or 1)
             if s == "claimed" then
                 cell.nameText:SetTextColor(0.2, 0.9, 0.2)
             elseif s == "claimable" then
@@ -955,7 +1001,7 @@ end
 --  TAB 5: Events
 -- ===========================================================================
 local evHead = cEvents:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-evHead:SetPoint("TOP", 0, -110)
+evHead:SetPoint("TOP", 0, -124)
 
 local evRows = {}
 local EV_DEFS = {
@@ -1144,9 +1190,7 @@ StaticPopupDialogs["BP_PRESTIGE_CONFIRM"] = {
 }
 
 -- Prestige gehört ans Ende des Belohnungspfads (erscheint im Belohnungen-Tab)
-local prestigeBtn = CreateFrame("Button", nil, cRewards, "UIPanelButtonTemplate")
-prestigeBtn:SetWidth(170)
-prestigeBtn:SetHeight(24)
+local prestigeBtn = SK.Button(cRewards, 170, 28, nil, 12)
 prestigeBtn:SetPoint("BOTTOM", 255, 61)
 prestigeBtn:SetScript("OnClick", function()
     StaticPopupDialogs["BP_PRESTIGE_CONFIRM"].text = BPL("prestige_confirm")
@@ -1728,16 +1772,26 @@ end
 -- ===========================================================================
 local tabs = {}
 for i = 1, 11 do
-    local tab = CreateFrame("Button", "SeasonPassFrameTab" .. i, frame, "CharacterFrameTabButtonTemplate")
+    local tab = CreateFrame("Button", "SeasonPassFrameTab" .. i, frame)
     tab:SetID(i)
-    if i == 1 then
-        tab:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 14, 4)
-    elseif i == 6 then
-        tab:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 14, -23) -- zweite Tab-Reihe
-    else
-        tab:SetPoint("LEFT", tabs[i - 1], "RIGHT", -14, 0)
-    end
+    tab:SetWidth(SK.RAIL - 24); tab:SetHeight(32)
+    tab:SetPoint("TOPLEFT", 12, -SK.HEAD - 14 - (i - 1) * 36)
+    tab.wash = ES.Solid(tab, "BACKGROUND", ES.GOLD, 0.10)
+    tab.wash:SetAllPoints(tab)
+    tab.mark = ES.Solid(tab, "ARTWORK", ES.GOLD, 1)
+    tab.mark:SetWidth(3)
+    tab.mark:SetPoint("TOPLEFT", 0, 0); tab.mark:SetPoint("BOTTOMLEFT", 0, 0)
+    ES.Solid(tab, "HIGHLIGHT", ES.GOLD, 0.08):SetAllPoints(tab)
+    tab.label = SK.Label(tab, 12, ES.MUTED)
+    tab.label:SetPoint("LEFT", 14, 0)
+    tab.SetText = function(self, text) self.label:SetText(text) end
     tabs[i] = tab
+end
+-- the open tab: gold label, marker and wash; the rest muted
+function SK.SelectTab(tab, on)
+    local c = on and ES.GOLD or ES.MUTED
+    tab.label:SetTextColor(c[1], c[2], c[3])
+    if on then tab.mark:Show(); tab.wash:Show() else tab.mark:Hide(); tab.wash:Hide() end
 end
 
 local RefreshAll
@@ -1748,9 +1802,8 @@ function SeasonPass_ApplyTexts()
     langBtn:SetText(BP_Lang() == "de" and "EN?" or "DE?")
     for i = 1, 11 do
         tabs[i]:SetText(BPL("tab" .. i))
-        PanelTemplates_TabResize(tabs[i], 0)
     end
-    prestigeBtn:SetText("|cffFF8800" .. BPL("prestige_btn") .. "|r")
+    prestigeBtn:SetText(BPL("prestige_btn"))
     shopLabel:SetText(BPL("shop_head"))
     weeklyHead:SetText(BPL("weekly_head"))
     weeklySub:SetText(BPL("weekly_sub"))
@@ -1770,10 +1823,10 @@ end
 local function SelectTab(idx)
     for i, tab in ipairs(tabs) do
         if i == idx then
-            PanelTemplates_SelectTab(tab)
+            SK.SelectTab(tab, true)
             contents[i]:Show()
         else
-            PanelTemplates_DeselectTab(tab)
+            SK.SelectTab(tab, false)
             contents[i]:Hide()
         end
     end
@@ -1787,8 +1840,8 @@ end
 for i, tab in ipairs(tabs) do
     tab:SetScript("OnClick", function() SelectTab(i) end)
 end
-PanelTemplates_SelectTab(tabs[1])
-for i = 2, 11 do PanelTemplates_DeselectTab(tabs[i]) end
+SK.SelectTab(tabs[1], true)
+for i = 2, 11 do SK.SelectTab(tabs[i], false) end
 
 -- ===========================================================================
 --  Gesamt-Refresh
@@ -1798,17 +1851,23 @@ RefreshAll = function()
     if (BP.prestige or 0) > 0 then
         -- Prestige-Modus: jede volle Leiste = +1 Prestige
         into = math.min(BP.points, BP.perTier)
-        bar:SetStatusBarColor(1, 0.53, 0)
+        bar:SetStatusBarColor(1, 0.60, 0.20)
+        SK.tierLabel:SetText("PRESTIGE")
+        SK.tier:SetText(BP.prestige)
         barText:SetText(string.format(BPL("bar_prestige"),
             BP.prestige, (BP.pg and BP.pg.max) or 300, into, BP.perTier))
     elseif BP.tier >= BP.maxTier then
         into = BP.perTier
-        bar:SetStatusBarColor(1, 0.82, 0)
+        bar:SetStatusBarColor(ES.GOLD[1], ES.GOLD[2], ES.GOLD[3])
+        SK.tierLabel:SetText("TIER")
+        SK.tier:SetText(BP.tier)
         local capKey = BP.prestigeEnabled == 1 and "bar_max" or "bar_max_no_prestige"
         barText:SetText(string.format(BPL(capKey), BP.maxTier))
     else
         into = BP.points - BP.tier * BP.perTier
-        bar:SetStatusBarColor(1, 0.82, 0)
+        bar:SetStatusBarColor(ES.GOLD[1], ES.GOLD[2], ES.GOLD[3])
+        SK.tierLabel:SetText("TIER")
+        SK.tier:SetText(BP.tier)
         barText:SetText(string.format(BPL("bar_prog"), BP.tier, into, BP.perTier))
     end
     bar:SetMinMaxValues(0, BP.perTier)
@@ -1865,6 +1924,35 @@ nextBtn:SetScript("OnClick", function()
     if BP.page < NUM_PAGES then BP.page = BP.page + 1 end
     RefreshAll()
 end)
+
+-- Every stock button, item slot and font string the tabs built, in the kit: buttons flat, slots framed, text in the
+-- kit's font at its own size, the stock yellow turned to the kit's gold and white to its text colour.
+function SK.SkinTree(parent)
+    for _, region in ipairs({ parent:GetRegions() }) do
+        if region:GetObjectType() == "FontString" and not region.skDone then
+            region.skDone = true
+            local _, size = region:GetFont()
+            region:SetFont(ES.FONT, size or 12)
+            local r, g, b = region:GetTextColor()
+            if r and r > 0.95 and g > 0.75 and g < 0.88 and b < 0.1 then
+                region:SetTextColor(ES.GOLD[1], ES.GOLD[2], ES.GOLD[3])
+            elseif r and r > 0.95 and g > 0.95 and b > 0.95 then
+                region:SetTextColor(ES.TEXT[1], ES.TEXT[2], ES.TEXT[3])
+            end
+        end
+    end
+    for _, child in ipairs({ parent:GetChildren() }) do
+        local normal = child.GetNormalTexture and child:GetNormalTexture()
+        local art = normal and normal:GetTexture()
+        if type(art) == "string" then
+            art = art:lower()
+            if art:find("ui%-panel%-button") then SK.Flat(child, 11)
+            elseif art:find("quickslot") then SK.Slot(child) end
+        end
+        SK.SkinTree(child)
+    end
+end
+SK.SkinTree(frame)
 
 frame:SetScript("OnShow", function()
     PlaySound("igCharacterInfoOpen")

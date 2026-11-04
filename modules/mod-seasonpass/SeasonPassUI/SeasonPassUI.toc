@@ -4,6 +4,7 @@
 ## Version: 4.0
 ## SavedVariables: SeasonPassDB
 
+esteria_style.lua
 SeasonPassData.lua
 SeasonPassHUD.lua
 SeasonPass.lua
