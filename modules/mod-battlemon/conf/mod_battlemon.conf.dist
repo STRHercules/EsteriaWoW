@@ -80,3 +80,10 @@ Battlemon.Sidecar.PairTtlSeconds = 300
 Battlemon.Sidecar.SessionTtlSeconds = 86400
 Battlemon.Sidecar.MaxCommandsPerSecond = 20
 Battlemon.Sidecar.RequireToken = 1
+
+# A chosen Pokemon walks behind its trainer (.battlemon follow). It hides while mounted, flying, in a
+# battleground or in a Battlemon battle.
+Battlemon.Follower.Enable = 1
+
+# Yards behind the trainer the follower keeps (0.5 - 10).
+Battlemon.Follower.Distance = 2.0

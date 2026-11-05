@@ -1,3 +1,4 @@
+#include "BattlemonFollower.h"
 #include "BattlemonMgr.h"
 #include "BattlemonSidecarServer.h"
 
@@ -8,6 +9,8 @@
 #include "PlayerScript.h"
 #include "ScriptMgr.h"
 #include "StringFormat.h"
+
+#include <cstdlib>
 #include "WorldSession.h"
 
 using namespace Acore::ChatCommands;
@@ -31,6 +34,7 @@ public:
     void OnBeforeConfigLoad(bool /*reload*/) override
     {
         sBattlemonMgr->LoadConfig();
+        sBattlemonFollower->LoadConfig();
     }
 
     void OnStartup() override
@@ -45,6 +49,8 @@ public:
     BattlemonPlayerScript() : PlayerScript("BattlemonPlayerScript", {
         PLAYERHOOK_ON_LOGIN,
         PLAYERHOOK_ON_LOGOUT,
+        PLAYERHOOK_ON_UPDATE,
+        PLAYERHOOK_ON_BEFORE_TELEPORT,
         PLAYERHOOK_ON_BEFORE_SEND_CHAT_MESSAGE,
         PLAYERHOOK_CAN_PLAYER_USE_PRIVATE_CHAT,
         PLAYERHOOK_CAN_PLAYER_USE_GROUP_CHAT
@@ -54,6 +60,8 @@ public:
     {
         if (!sBattlemonMgr->ShouldHandle(player))
             return;
+
+        sBattlemonFollower->OnLogin(player);
 
         BattlemonAccount const acc = sBattlemonMgr->EnsureAccount(player);
         if (!sBattlemonMgr->Announce())
@@ -72,7 +80,23 @@ public:
     void OnPlayerLogout(Player* player) override
     {
         if (player)
+        {
+            sBattlemonFollower->OnLogout(player);
             sBattlemonMgr->ClearEncounter(player->GetGUID());
+        }
+    }
+
+    void OnPlayerUpdate(Player* player, uint32 diff) override
+    {
+        sBattlemonFollower->Tick(player, diff);
+    }
+
+    // The follower belongs to the map the player is leaving; Tick summons a new one on arrival.
+    bool OnPlayerBeforeTeleport(Player* player, uint32 /*mapid*/, float /*x*/, float /*y*/, float /*z*/,
+        float /*orientation*/, uint32 /*options*/, Unit* /*target*/) override
+    {
+        sBattlemonFollower->Despawn(player);
+        return true;
     }
 
     void OnPlayerBeforeSendChatMessage(Player* player, uint32& /*type*/, uint32& lang, std::string& msg) override
@@ -107,6 +131,7 @@ public:
             { "wild",   HandleWild,   SEC_PLAYER, Console::No },
             { "link",   HandleLink,   SEC_PLAYER, Console::No },
             { "revoke", HandleRevoke, SEC_PLAYER, Console::No },
+            { "follow", HandleFollow, SEC_PLAYER, Console::No },
             { "reload", HandleReload, SEC_ADMINISTRATOR, Console::Yes },
         };
         static ChatCommandTable root = { { "battlemon", battlemonTable } };
@@ -213,6 +238,41 @@ public:
         sBattlemonSidecar->RevokeTokensForGuid(player->GetGUID().GetCounter());
         sBattlemonSidecar->RevokeLease(player->GetGUID().GetCounter());
         handler->SendSysMessage("Battlemon Pocketmon tokens revoked for this character.");
+        return true;
+    }
+
+    // .battlemon follow            the lead Pokemon walks behind you
+    // .battlemon follow <1-6>      that party slot instead
+    // .battlemon follow off        stop
+    static bool HandleFollow(ChatHandler* handler, Optional<std::string> arg)
+    {
+        Player* player = handler->GetSession() ? handler->GetSession()->GetPlayer() : nullptr;
+        if (!player || !sBattlemonMgr->IsEnabled() || !sBattlemonMgr->ShouldHandle(player))
+        {
+            handler->SendSysMessage("Battlemon is not available.");
+            return true;
+        }
+        std::string const what = arg ? *arg : "1";
+        if (what == "off")
+        {
+            sBattlemonFollower->Choose(player, 0);
+            handler->SendSysMessage("Your Pokemon stops following you.");
+            return true;
+        }
+        uint32 const slot = static_cast<uint32>(std::strtoul(what.c_str(), nullptr, 10));
+        if (slot < 1 || slot > 6)
+        {
+            handler->SendSysMessage("Usage: .battlemon follow [1-6 | off]");
+            return true;
+        }
+        uint32 const ownedId = sBattlemonMgr->PartyOwnedId(player->GetGUID().GetCounter(), static_cast<uint8>(slot));
+        if (!ownedId)
+        {
+            handler->SendSysMessage("There is no Pokemon in that party slot.");
+            return true;
+        }
+        if (sBattlemonFollower->Choose(player, ownedId))
+            handler->SendSysMessage("Your Pokemon follows you. It hides while you ride, fly or battle.");
         return true;
     }
 

@@ -1,4 +1,5 @@
 #include "BattlemonBall.h"
+#include "BattlemonFollower.h"
 #include "BattlemonMgr.h"
 
 #include "Chat.h"
@@ -81,6 +82,8 @@ bool BattlemonMgr::SealPokemon(Player* player, uint32 ownedId)
     Item* item = player->StoreNewItem(dest, entry, true);
     if (!item)
         return false;
+    if (sBattlemonFollower->Chosen(player) == ownedId)
+        sBattlemonFollower->Choose(player, 0);
 
     // The item and the Pokemon move in one transaction: a crash can never leave a Pokemon
     // that belongs to nobody, or a ball with nothing in it.

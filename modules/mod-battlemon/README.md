@@ -73,6 +73,14 @@ The server also supports X items (+2 stage in battle), but they are not sold yet
 lists `OnPokemon` items, so `addon/Battlemon/UI/BattleFrame.lua` and `BagFrame.lua` need to accept `OnBattler`
 for them first. Check shop data with `python tests/test_shop_sql.py`.
 
+## Following Pokemon
+
+`.battlemon follow` makes your lead Pokemon walk behind you (`.battlemon follow 3` picks party slot 3, `... off`
+stops it). It is a cosmetic creature using the Pokemon's overworld template, so it needs the overworld SQL; the
+choice persists in `battlemon_follower`. It hides while you ride, fly, are in a battleground or in a Battlemon
+battle and returns on its own, including after zoning. Config: `Battlemon.Follower.Enable` / `.Distance`.
+It is separate from the Pokemon Trainer profession's Ditto companion, so both can be out at once.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and
