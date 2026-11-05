@@ -3,6 +3,7 @@
 #include "BattlemonMgr.h"
 #include "BattlemonCenter.h"
 #include "BattlemonFollower.h"
+#include "BattlemonMoveSlots.h"
 #include "BattlemonSpawns.h"
 #include "BattlemonModelCatalog.h"
 #include "BattlemonBattle.h"
@@ -1261,6 +1262,8 @@ void BattlemonMgr::ResetPlayer(Player* player)
         return;
     uint32 guid = SessionLowGuid(player);
     CharacterDatabase.DirectExecute("DELETE FROM battlemon_party WHERE guid = {}", guid);
+    CharacterDatabase.DirectExecute(
+        "DELETE o FROM battlemon_learn_offer o JOIN battlemon_owned w ON w.id = o.owned_id WHERE w.guid = {}", guid);
     CharacterDatabase.DirectExecute("DELETE FROM battlemon_owned WHERE guid = {}", guid);
     CharacterDatabase.DirectExecute("DELETE FROM battlemon_account WHERE guid = {}", guid);
     {
@@ -1401,10 +1404,16 @@ void BattlemonMgr::SendCombatFx(Player* player, BattlemonEncounter& enc)
 
 void BattlemonMgr::TryLearnMoves(BattlemonBattler& b, uint32 newLevel, Player* player)
 {
-    auto it = _learnsets.find(b.speciesId);
-    if (it == _learnsets.end())
+    // A form that defines its own level-up list replaces the species one (Alolan Raichu is not Kantonian Raichu),
+    // the same rule LegalMoves uses.
+    std::vector<BattlemonLearn> const* learnset = nullptr;
+    if (auto fm = _formMoves.find(b.formId); fm != _formMoves.end() && !fm->second.levelUp.empty())
+        learnset = &fm->second.levelUp;
+    else if (auto it = _learnsets.find(b.speciesId); it != _learnsets.end())
+        learnset = &it->second;
+    if (!learnset)
         return;
-    for (BattlemonLearn const& entry : it->second)
+    for (BattlemonLearn const& entry : *learnset)
     {
         if (entry.level != newLevel)
             continue;
@@ -1424,8 +1433,14 @@ void BattlemonMgr::TryLearnMoves(BattlemonBattler& b, uint32 newLevel, Player* p
             continue;
         if (b.moves.size() >= 4)
         {
-            SendAddon(player, std::string("BM\tMSG\t") + b.name + " can learn " + def->name
-                                  + ", but knows four moves. Swap it in from the move manager.");
+            // Mainline asks which move to forget. The answer cannot be taken mid-battle, so the offer waits in
+            // the database (surviving a logout) and the addon is asked for it when the battle screen closes.
+            if (b.ownedId)
+                CharacterDatabase.Execute(
+                    "INSERT IGNORE INTO battlemon_learn_offer (owned_id, move_internal_name, level) VALUES ({}, {}, {})",
+                    b.ownedId, SqlQuote(entry.moveInternal), newLevel);
+            SendAddon(player, std::string("BM\tMSG\t") + b.name + " wants to learn " + def->name
+                                  + "! You will be asked once the battle is over.");
             continue;
         }
         BattlemonSlot slot;
@@ -1623,6 +1638,107 @@ void BattlemonMgr::Buy(Player* player, std::string const& item, uint32 qty)
     BattlemonAccount const acc = EnsureAccount(player);
     SendAddon(player, "BM\tPOINTS\t" + std::to_string(acc.points));
     SendBag(player, acc.guid);
+}
+
+void BattlemonMgr::SendLearnOffer(Player* player)
+{
+    if (!player || HasActiveEncounter(player) || IsExternallyReserved(player->GetGUID()))
+        return;
+    uint32 const guid = SessionLowGuid(player);
+    // Every pass either returns or deletes an offer, so this always ends.
+    for (;;)
+    {
+        QueryResult result = CharacterDatabase.Query(
+            "SELECT o.id, o.owned_id, o.move_internal_name FROM battlemon_learn_offer o "
+            "JOIN battlemon_owned w ON w.id = o.owned_id WHERE w.guid = {} ORDER BY o.id LIMIT 1", guid);
+        if (!result)
+            return;
+        Field* f = result->Fetch();
+        uint32 const offerId = f[0].Get<uint32>();
+        uint32 const ownedId = f[1].Get<uint32>();
+        std::string const move = f[2].Get<std::string>();
+
+        BattlemonOwned row = LoadOwnedById(ownedId);
+        BattlemonMoveDef const* def = GetMove(move);
+        // Stale: the Pokemon is gone, the move is unknown, or it already has it by another route.
+        if (!row.id || !def || BattlemonMoveSlots::Knows(row.move, move))
+        {
+            CharacterDatabase.Execute("DELETE FROM battlemon_learn_offer WHERE id = {}", offerId);
+            continue;
+        }
+        BattlemonForm const* form = GetBattlemonForm(row.formId);
+        std::string const name = form ? form->name : "Your Pokémon";
+        if (BattlemonMoveSlots::Count(row.move) < 4)
+        {
+            // A slot opened up since the offer was made (a move was swapped out): just learn it.
+            std::string unused;
+            BattlemonMoveSlots::Place(row.move, move, 0, unused);
+            CharacterDatabase.DirectExecute(
+                "UPDATE battlemon_owned SET move1 = {}, move2 = {}, move3 = {}, move4 = {} WHERE id = {}",
+                SqlQuote(row.move[0]), SqlQuote(row.move[1]), SqlQuote(row.move[2]), SqlQuote(row.move[3]), ownedId);
+            CharacterDatabase.Execute("DELETE FROM battlemon_learn_offer WHERE id = {}", offerId);
+            SendAddon(player, "BM\tMSG\t" + name + " learned " + def->name + "!");
+            SendOwnedList(player, guid);
+            continue;
+        }
+        SendAddon(player, "BM\tLEARNOFFER\t" + std::to_string(ownedId) + "\t" + move + "\t" + row.move[0] + "\t"
+                              + row.move[1] + "\t" + row.move[2] + "\t" + row.move[3] + "\t" + name);
+        return;
+    }
+}
+
+void BattlemonMgr::AnswerLearnOffer(Player* player, uint32 ownedId, std::string const& move, uint32 slot)
+{
+    if (HasActiveEncounter(player) || IsExternallyReserved(player->GetGUID()))
+    {
+        SendAddon(player, "BM\tMSG\tFinish the battle first.");
+        return;
+    }
+    uint32 const guid = SessionLowGuid(player);
+    BattlemonOwned row = LoadOwnedById(ownedId);
+    // Ownership from the database, and only moves the server itself queued can be learned this way.
+    QueryResult offer = CharacterDatabase.Query(
+        "SELECT id FROM battlemon_learn_offer WHERE owned_id = {} AND move_internal_name = {}", ownedId, SqlQuote(move));
+    if (!row.id || row.guid != guid || !offer)
+    {
+        SendAddon(player, "BM\tMSG\tThat move can no longer be learned.");
+        SendLearnOffer(player);
+        return;
+    }
+    BattlemonMoveDef const* def = GetMove(move);
+    BattlemonForm const* form = GetBattlemonForm(row.formId);
+    std::string const name = form ? form->name : "Your Pokémon";
+    if (slot > 4 || !def)
+    {
+        SendAddon(player, "BM\tMSG\tChoose one of the four moves, or decline.");
+        return;
+    }
+
+    CharacterDatabase.DirectExecute("DELETE FROM battlemon_learn_offer WHERE owned_id = {} AND move_internal_name = {}",
+                                    ownedId, SqlQuote(move));
+    if (slot == 0)
+    {
+        SendAddon(player, "BM\tMSG\t" + name + " did not learn " + def->name + ".");
+    }
+    else
+    {
+        std::string forgot;
+        if (!BattlemonMoveSlots::Place(row.move, move, slot, forgot))
+        {
+            SendAddon(player, "BM\tMSG\t" + name + " already knows " + def->name + ".");
+        }
+        else
+        {
+            CharacterDatabase.DirectExecute(
+                "UPDATE battlemon_owned SET move1 = {}, move2 = {}, move3 = {}, move4 = {} WHERE id = {}",
+                SqlQuote(row.move[0]), SqlQuote(row.move[1]), SqlQuote(row.move[2]), SqlQuote(row.move[3]), ownedId);
+            BattlemonMoveDef const* old = GetMove(forgot);
+            SendAddon(player, "BM\tMSG\t" + name + (forgot.empty()
+                ? " learned " : " forgot " + (old ? old->name : forgot) + " and learned ") + def->name + "!");
+            SendOwnedList(player, guid);
+        }
+    }
+    SendLearnOffer(player); // the next one, if any
 }
 
 void BattlemonMgr::SendLearnset(Player* player, uint32 ownedId)
@@ -2857,6 +2973,20 @@ void BattlemonMgr::HandleCommand(BattlemonSession& session, std::string const& m
         EnsureAccount(player);
         SendOwnedList(player, SessionLowGuid(player));
         SendDexOwned(player, SessionLowGuid(player));
+        return;
+    }
+    if (cmd == "LEARNQ")
+    {
+        SendLearnOffer(player);
+        return;
+    }
+    if (cmd == "LEARNREPLY")
+    {
+        // ownedId <tab> move <tab> slot (1-4 replaces that move, 0 declines)
+        auto parts = Split(arg, '\t');
+        if (player && parts.size() >= 3)
+            AnswerLearnOffer(player, static_cast<uint32>(std::strtoul(parts[0].c_str(), nullptr, 10)), parts[1],
+                             static_cast<uint32>(std::strtoul(parts[2].c_str(), nullptr, 10)));
         return;
     }
     if (cmd == "ADMIN")

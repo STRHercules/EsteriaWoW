@@ -95,6 +95,10 @@ public:
     // False (and tells the player) while they are in a battle, a duel or in combat.
     bool CanBoxAction(Player* player);
     void HandleAdmin(Player* player, std::string const& arg);
+    // Move learning with a full set of four: the level-up queues an offer, and once the battle is over the
+    // player is asked which move to forget (or to skip it). LEARNQ asks for the next offer, LEARNREPLY answers it.
+    void SendLearnOffer(Player* player);
+    void AnswerLearnOffer(Player* player, uint32 ownedId, std::string const& move, uint32 slot);
     // BM\tFOLLOW\t<battlemon_owned.id>, 0 for none: lets the addon mark and toggle the follower.
     void NotifyFollower(Player* player, uint32 ownedId);
     // Pokemon not in the party, i.e. what sits in storage.

@@ -104,6 +104,16 @@ the resulting level. The server answers only accounts at administrator level. Ch
 `python tests/test_spawns.py` and the seed with `python tests/test_spawn_sql.py`; the panel with
 `python tests/test_admin_addon.py "<Battlemon addon dir>"`.
 
+## Move learning
+
+Level-ups follow mainline. With fewer than four moves a Pokemon simply learns the new move; with four it queues an
+offer (`battlemon_learn_offer`) and, once the battle screen closes (or at login, or when the Party screen opens),
+the addon asks "Bulbasaur wants to learn Vine Whip! Forget which move?" with the four moves, their stats, and a
+"Don't learn" button. The server answers only for offers it queued, only outside a battle, and only for your own
+Pokemon. Closing the window leaves the offer waiting; a declined move can still be relearned for free from the move
+manager, as before. Regional forms use their own level-up list. Slot logic: `python tests/test_moveslots.py`; the
+prompt: `python tests/test_learn_addon.py "<Battlemon addon dir>"`.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and
