@@ -44,6 +44,16 @@ single `mod-battlemon` module disables the entire server integration.
 - [Battle presentation and duel guide](docs/BATTLES.md).
 - [Overworld guide](docs/OVERWORLD.md).
 
+## Individual Pokemon
+
+Each `battlemon_owned` row carries IVs, EVs, nature, ability slot and original trainer
+(`2026_11_05_00_battlemon_individual.sql`; existing rows keep their exact stats). Stat maths is in
+`src/BattlemonStats.h`; check it with `tests/test_stats.cpp`. Wins add the foe species' EV yield (`battlemon_species_ev`, covering all 1025 dex species; custom species such as
+MissingNo fall back to 1 EV in their best base stat). Reference data comes from pokeemerald-expansion, Pokemon
+Showdown and PKHeX via the importers in `tools/`: `import_ev_yields.py`, `import_learnsets.py` (egg moves; level-up
+differences are reported, not applied) and `import_showdown.py` (Gen 9 moves the engine can already express).
+Wild, caught and starter Pokemon roll random IVs and nature; trainer/duel teams keep IV 31.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and

@@ -90,8 +90,6 @@ public:
     void SendMoveAnimation(Player* player, bool playerSide, std::string const& move);
     float TypeChartMul(std::string const& atk, std::string const& def) const { return TypeMult(atk, def); }
 
-    static uint32 CalcHP(uint32 base, uint32 level);
-    static uint32 CalcStat(uint32 base, uint32 level);
     static uint32 ExpAtLevel(std::string const& growth, uint32 level);
 
 private:
@@ -103,11 +101,13 @@ private:
     uint32 ExpYield(BattlemonBattler const& enemy) const;
     std::vector<uint32> AddExp(BattlemonOwned& row, uint32 amount, uint32 levelCap = 100) const;
     char RollGender(std::string const& ratio) const;
+    BattlemonStats::Individual RollIndividual(BattlemonSpecies const* species) const;
     std::vector<std::string> PickMoves(uint32 speciesId, uint32 level, uint32 formId = 0) const;
     void FillMoves(BattlemonBattler& b, std::vector<std::string> const& internals) const;
     void ApplyStats(BattlemonBattler& b) const;
     BattlemonBattler MakeBattler(BattlemonOwned const& row) const;
-    BattlemonBattler MakeWild(BattlemonForm const& form, uint32 level, bool shiny = false) const;
+    BattlemonBattler MakeWild(BattlemonForm const& form, uint32 level, bool shiny = false,
+                              bool rollIndividual = false) const;
     void PersistBattler(BattlemonBattler const& b);
     uint32 InsertOwned(BattlemonOwned const& row);
     void SaveAccount(BattlemonAccount const& acc);

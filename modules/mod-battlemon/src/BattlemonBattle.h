@@ -24,7 +24,7 @@ bool BmMoveHasFlag(BattlemonMoveDef const& m, char const* flag);
 bool BmHasType(BattlemonBattler const& b, char const* type);
 std::string BmType1(BattlemonBattler const& b);
 std::string BmType2(BattlemonBattler const& b);
-std::string BmPickAbility(BattlemonSpecies const* s);
+std::string BmPickAbility(BattlemonSpecies const* s, uint8 slot);
 void BmInitBattler(BattlemonBattler& b);
 void BmResetStages(BattlemonBattler& b);
 

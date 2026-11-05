@@ -29,6 +29,29 @@
 #include <sstream>
 #include <unordered_set>
 
+// Column list shared by INSERT and the owned-row SELECTs; ReadIndividual reads them in this order.
+#define BM_IND_COLS \
+    "iv_hp, iv_atk, iv_def, iv_spa, iv_spd, iv_spe, " \
+    "ev_hp, ev_atk, ev_def, ev_spa, ev_spd, ev_spe, nature, ability_slot, ot_guid"
+
+namespace
+{
+// BM_IND_COLS is always the last thing selected, so find it from the end of the row.
+void ReadIndividual(ResultSet const& result, BattlemonStats::Individual& ind)
+{
+    constexpr uint32 colCount = 2 * BattlemonStats::Stat::COUNT + 3;
+    Field const* f = result.Fetch() + (result.GetFieldCount() - colCount);
+    for (uint32 i = 0; i < BattlemonStats::Stat::COUNT; ++i)
+    {
+        ind.iv[i] = f[i].Get<uint8>();
+        ind.ev[i] = f[BattlemonStats::Stat::COUNT + i].Get<uint16>();
+    }
+    ind.nature = f[2 * BattlemonStats::Stat::COUNT].Get<uint8>();
+    ind.abilitySlot = f[2 * BattlemonStats::Stat::COUNT + 1].Get<uint8>();
+    ind.otGuid = f[2 * BattlemonStats::Stat::COUNT + 2].Get<uint32>();
+}
+} // namespace
+
 namespace
 {
     // National Dex ids: legendaries + mythicals. Ultra Beasts stay in the normal pool.
@@ -244,6 +267,20 @@ void BattlemonMgr::LoadCatalog()
             s.catchRate = f[18].IsNull() ? 0 : f[18].Get<uint32>();
             s.evolutions = f[19].IsNull() ? "" : f[19].Get<std::string>();
             _species[s.id] = s;
+        } while (result->NextRow());
+    }
+
+    if (QueryResult result = WorldDatabase.Query(
+            "SELECT species_id, ev_hp, ev_atk, ev_def, ev_spa, ev_spd, ev_spe FROM battlemon_species_ev"))
+    {
+        do
+        {
+            Field* f = result->Fetch();
+            auto it = _species.find(f[0].Get<uint32>());
+            if (it == _species.end())
+                continue;
+            for (uint32 i = 0; i < BattlemonStats::Stat::COUNT; ++i)
+                it->second.evYield[i] = f[1 + i].Get<uint8>();
         } while (result->NextRow());
     }
 
@@ -470,14 +507,17 @@ bool BattlemonMgr::RollSpawnShiny() const
     return urand(1, _shinyEvery) == 1;
 }
 
-uint32 BattlemonMgr::CalcHP(uint32 base, uint32 level)
+BattlemonStats::Individual BattlemonMgr::RollIndividual(BattlemonSpecies const* species) const
 {
-    return static_cast<uint32>(((2 * base + 31) * level / 100) + level + 10);
-}
-
-uint32 BattlemonMgr::CalcStat(uint32 base, uint32 level)
-{
-    return static_cast<uint32>(((2 * base + 31) * level / 100) + 5);
+    BattlemonStats::Individual ind;
+    for (uint8 i = 0; i < BattlemonStats::Stat::COUNT; ++i)
+        ind.iv[i] = static_cast<uint8>(urand(0, BattlemonStats::MAX_IV));
+    ind.nature = static_cast<uint8>(urand(0, BattlemonStats::NATURE_COUNT - 1));
+    if (species && !species->hiddenAbility.empty() && urand(1, 20) == 1)
+        ind.abilitySlot = 2;
+    else if (species && !species->ability2.empty())
+        ind.abilitySlot = static_cast<uint8>(urand(0, 1));
+    return ind;
 }
 
 uint32 BattlemonMgr::ExpAtLevel(std::string const& growth, uint32 level)
@@ -632,12 +672,14 @@ void BattlemonMgr::ApplyStats(BattlemonBattler& b) const
 {
     if (!b.species)
         return;
-    b.maxHp = static_cast<int32>(CalcHP(b.species->hp, b.level));
-    b.atk = CalcStat(b.species->atk, b.level);
-    b.def = CalcStat(b.species->def, b.level);
-    b.spa = CalcStat(b.species->spa, b.level);
-    b.spd = CalcStat(b.species->spd, b.level);
-    b.spe = CalcStat(b.species->spe, b.level);
+    namespace St = BattlemonStats::Stat;
+    using BattlemonStats::Calc;
+    b.maxHp = static_cast<int32>(Calc(b.species->hp, b.level, b.ind, St::HP));
+    b.atk = Calc(b.species->atk, b.level, b.ind, St::ATK);
+    b.def = Calc(b.species->def, b.level, b.ind, St::DEF);
+    b.spa = Calc(b.species->spa, b.level, b.ind, St::SPA);
+    b.spd = Calc(b.species->spd, b.level, b.ind, St::SPD);
+    b.spe = Calc(b.species->spe, b.level, b.ind, St::SPE);
     if (b.hp > b.maxHp)
         b.hp = b.maxHp;
     if (b.hp < 0)
@@ -659,6 +701,7 @@ BattlemonBattler BattlemonMgr::MakeBattler(BattlemonOwned const& row) const
     b.exp = row.exp;
     b.gender = row.gender;
     b.shiny = row.shiny;
+    b.ind = row.ind;
     ApplyStats(b);
     b.hp = b.maxHp;
     std::vector<std::string> moves;
@@ -672,7 +715,8 @@ BattlemonBattler BattlemonMgr::MakeBattler(BattlemonOwned const& row) const
     return b;
 }
 
-BattlemonBattler BattlemonMgr::MakeWild(BattlemonForm const& form, uint32 level, bool shiny) const
+BattlemonBattler BattlemonMgr::MakeWild(
+    BattlemonForm const& form, uint32 level, bool shiny, bool rollIndividual) const
 {
     BattlemonOwned fake;
     fake.formId = form.id;
@@ -683,6 +727,8 @@ BattlemonBattler BattlemonMgr::MakeWild(BattlemonForm const& form, uint32 level,
     fake.shiny = BattlemonModels::PreferredShiny(form.id, shiny);
     BattlemonSpecies const* s = GetSpecies(form.speciesId);
     fake.gender = RollGender(s ? s->genderRatio : "Female50Percent");
+    if (rollIndividual)
+        fake.ind = RollIndividual(s);
     BattlemonBattler b = MakeBattler(fake);
     b.ownedId = 0;
     FillMoves(b, PickMoves(form.speciesId, level, form.id));
@@ -694,7 +740,7 @@ uint32 BattlemonMgr::MaxHpFor(BattlemonOwned const& row) const
     BattlemonSpecies const* sp = GetSpecies(row.speciesId);
     if (!sp)
         return 1;
-    uint32 hp = CalcHP(sp->hp, row.level);
+    uint32 hp = BattlemonStats::Calc(sp->hp, row.level, row.ind, BattlemonStats::Stat::HP);
     return hp ? hp : 1;
 }
 
@@ -733,11 +779,13 @@ void BattlemonMgr::PersistBattler(BattlemonBattler const& b)
     CharacterDatabase.Execute(
         "UPDATE battlemon_owned SET level = {}, exp = {}, gender = {}, hp = {}, "
         "fainted_at = IF({} = 0, IF(fainted_at = 0, {}, fainted_at), 0), "
-        "move1 = {}, move2 = {}, move3 = {}, move4 = {} WHERE id = {}",
+        "move1 = {}, move2 = {}, move3 = {}, move4 = {}, "
+        "ev_hp = {}, ev_atk = {}, ev_def = {}, ev_spa = {}, ev_spd = {}, ev_spe = {} WHERE id = {}",
         b.level, b.exp, SqlQuote(std::string(1, b.gender)), hp,
         hp, NowSeconds(),
         SqlQuote(MoveName(b, 0)), SqlQuote(MoveName(b, 1)), SqlQuote(MoveName(b, 2)),
-        SqlQuote(MoveName(b, 3)), b.ownedId);
+        SqlQuote(MoveName(b, 3)),
+        b.ind.ev[0], b.ind.ev[1], b.ind.ev[2], b.ind.ev[3], b.ind.ev[4], b.ind.ev[5], b.ownedId);
 }
 
 // Battle end. Only fainting carries over, so a survivor is banked at full
@@ -761,11 +809,16 @@ uint32 BattlemonMgr::InsertOwned(BattlemonOwned const& row)
 
     CharacterDatabase.DirectExecute(
         "INSERT INTO battlemon_owned "
-        "(guid, form_id, species_id, sprite, level, exp, gender, hp, shiny, move1, move2, move3, move4) "
-        "VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
+        "(guid, form_id, species_id, sprite, level, exp, gender, hp, shiny, move1, move2, move3, move4, "
+        BM_IND_COLS ") "
+        "VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
+        "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
         row.guid, row.formId, row.speciesId, SqlQuote(row.sprite), row.level, row.exp,
         SqlQuote(std::string(1, row.gender)), row.hp, row.shiny ? 1 : 0,
-        SqlQuote(row.move[0]), SqlQuote(row.move[1]), SqlQuote(row.move[2]), SqlQuote(row.move[3]));
+        SqlQuote(row.move[0]), SqlQuote(row.move[1]), SqlQuote(row.move[2]), SqlQuote(row.move[3]),
+        row.ind.iv[0], row.ind.iv[1], row.ind.iv[2], row.ind.iv[3], row.ind.iv[4], row.ind.iv[5],
+        row.ind.ev[0], row.ind.ev[1], row.ind.ev[2], row.ind.ev[3], row.ind.ev[4], row.ind.ev[5],
+        row.ind.nature, row.ind.abilitySlot, row.ind.otGuid);
     // Duplicates of the same form are allowed, so (guid, form_id) no longer
     // identifies a single row; take the newest, which is the one just inserted.
     // LAST_INSERT_ID() is not usable here: the pool may hand out a different
@@ -909,7 +962,9 @@ void BattlemonMgr::GrantStarter(uint32 guid)
     std::vector<std::string> moves = PickMoves(row.speciesId, row.level, row.formId);
     for (size_t i = 0; i < 4 && i < moves.size(); ++i)
         row.move[i] = moves[i];
-    row.hp = CalcHP(s ? s->hp : 35, row.level);
+    row.ind = RollIndividual(s);
+    row.ind.otGuid = guid;
+    row.hp = BattlemonStats::Calc(s ? s->hp : 35, row.level, row.ind, BattlemonStats::Stat::HP);
     uint32 ownedId = InsertOwned(row);
     if (ownedId)
         CharacterDatabase.DirectExecute(
@@ -959,7 +1014,7 @@ std::vector<BattlemonOwned> BattlemonMgr::LoadOwned(uint32 guid) const
     std::vector<BattlemonOwned> out;
     QueryResult result = CharacterDatabase.Query(
         "SELECT id, form_id, species_id, sprite, level, exp, gender, hp, shiny, "
-        "move1, move2, move3, move4, fainted_at "
+        "move1, move2, move3, move4, fainted_at, " BM_IND_COLS " "
         "FROM battlemon_owned WHERE guid = {} ORDER BY id", guid);
     if (!result)
         return out;
@@ -983,6 +1038,7 @@ std::vector<BattlemonOwned> BattlemonMgr::LoadOwned(uint32 guid) const
         row.move[2] = f[11].IsNull() ? "" : f[11].Get<std::string>();
         row.move[3] = f[12].IsNull() ? "" : f[12].Get<std::string>();
         row.faintedAt = f[13].Get<uint32>();
+        ReadIndividual(*result, row.ind);
         if (!GetBattlemonForm(row.formId) || !BattlemonModels::Find(row.formId, row.shiny))
             continue;
         ReviveIfDue(row);
@@ -998,7 +1054,7 @@ BattlemonOwned BattlemonMgr::LoadOwnedById(uint32 ownedId) const
         return row;
     QueryResult result = CharacterDatabase.Query(
         "SELECT id, guid, form_id, species_id, sprite, level, exp, gender, hp, shiny, "
-        "move1, move2, move3, move4, fainted_at "
+        "move1, move2, move3, move4, fainted_at, " BM_IND_COLS " "
         "FROM battlemon_owned WHERE id = {}", ownedId);
     if (!result)
         return row;
@@ -1019,6 +1075,7 @@ BattlemonOwned BattlemonMgr::LoadOwnedById(uint32 ownedId) const
     row.move[2] = f[12].IsNull() ? "" : f[12].Get<std::string>();
     row.move[3] = f[13].IsNull() ? "" : f[13].Get<std::string>();
     row.faintedAt = f[14].Get<uint32>();
+    ReadIndividual(*result, row.ind);
     if (!GetBattlemonForm(row.formId) || !BattlemonModels::Find(row.formId, row.shiny))
         return {};
     ReviveIfDue(row);
@@ -1692,6 +1749,22 @@ void BattlemonMgr::AwardAndPersist(Player* player, BattlemonEncounter& enc)
     if (row.level >= cap)
         gained = 0;
     auto levels = AddExp(row, gained, cap);
+    if (enc.enemy.species)
+    {
+        BattlemonSpecies const& e = *enc.enemy.species;
+        uint32 const base[BattlemonStats::Stat::COUNT] = {e.hp, e.atk, e.def, e.spa, e.spd, e.spe};
+        bool any = false;
+        for (uint8 i = 0; i < BattlemonStats::Stat::COUNT; ++i)
+        {
+            any = any || e.evYield[i];
+            BattlemonStats::AddEv(cur->ind, i, e.evYield[i]);
+        }
+        // shortcut: species with no battlemon_species_ev row (macro-defined ones the importer misses)
+        // give 1 EV in their best base stat; add their real yields to the table to retire this.
+        if (!any)
+            BattlemonStats::AddEv(cur->ind,
+                static_cast<uint8>(std::max_element(base, base + BattlemonStats::Stat::COUNT) - base), 1);
+    }
     cur->exp = row.exp;
     cur->level = row.level;
     ApplyStats(*cur);
@@ -1888,7 +1961,7 @@ void BattlemonMgr::StartWild(Player* player, uint32 formId, bool shiny, bool ski
         SaveAccount(acc);
     }
 
-    enc.enemy = MakeWild(*form, ScaledEnemyLevel(lead->level), shiny);
+    enc.enemy = MakeWild(*form, ScaledEnemyLevel(lead->level), shiny, true);
     enc.active = true;
     enc.catchPending = false;
     enc.skipCooldown = skipCooldown;
@@ -2394,6 +2467,8 @@ void BattlemonMgr::ThrowBall(Player* player, std::string const& ballArg)
         row.gender = enc.enemy.gender;
         row.hp = static_cast<uint32>(enc.enemy.maxHp);
         row.shiny = enc.enemy.shiny;
+        row.ind = enc.enemy.ind;
+        row.ind.otGuid = row.guid;
         for (int i = 0; i < 4; ++i)
             row.move[i] = MoveName(enc.enemy, i);
         uint32 ownedId = InsertOwned(row);

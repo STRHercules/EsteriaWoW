@@ -59,12 +59,15 @@ std::string BmType2(BattlemonBattler const& b)
     return b.species ? b.species->type2 : "";
 }
 
-std::string BmPickAbility(BattlemonSpecies const* s)
+// Slot 0/1/2 = ability1/ability2/hidden; a slot the species lacks falls back to ability1.
+std::string BmPickAbility(BattlemonSpecies const* s, uint8 slot)
 {
     if (!s)
         return "";
-    if (!s->ability2.empty() && urand(0, 1))
+    if (slot == 1 && !s->ability2.empty())
         return s->ability2;
+    if (slot == 2 && !s->hiddenAbility.empty())
+        return s->hiddenAbility;
     return s->ability1;
 }
 
@@ -76,7 +79,7 @@ void BmResetStages(BattlemonBattler& b)
 
 void BmInitBattler(BattlemonBattler& b)
 {
-    b.ability = BmPickAbility(b.species);
+    b.ability = BmPickAbility(b.species, b.ind.abilitySlot);
     b.status = BmStatus::None;
     b.statusTurns = 0;
     b.confuseTurns = 0;

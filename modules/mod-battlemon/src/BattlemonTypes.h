@@ -3,6 +3,7 @@
 
 #include "Define.h"
 #include "ObjectGuid.h"
+#include "BattlemonStats.h"
 
 #include <string>
 #include <vector>
@@ -59,6 +60,8 @@ struct BattlemonSpecies
     std::string ability1;
     std::string ability2;
     std::string hiddenAbility;
+    // EVs a foe of this species gives, in BattlemonStats::Stat order; all zero if the table has no row.
+    uint8 evYield[BattlemonStats::Stat::COUNT] = {};
 };
 
 struct BattlemonForm
@@ -149,6 +152,7 @@ struct BattlemonOwned
     uint32 hp = 0;
     uint32 faintedAt = 0;
     bool shiny = false;
+    BattlemonStats::Individual ind;
     std::string move[4];
 };
 
@@ -176,6 +180,7 @@ struct BattlemonBattler
     uint32 exp = 0;
     char gender = 'M';
     bool shiny = false;
+    BattlemonStats::Individual ind;
     int32 hp = 1;
     int32 maxHp = 1;
     uint32 atk = 1;
