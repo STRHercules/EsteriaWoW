@@ -125,6 +125,21 @@ Completed trades are logged in `battlemon_trade_log`. Options: `Battlemon.Trade.
 anywhere, 0 = within `.Distance` yards). Sealed Poke Balls remain the way to use WoW's own trade, mail and auction
 house. Rules: `python tests/test_traderules.py`; the window: `python tests/test_trade_addon.py "<Battlemon addon dir>"`.
 
+## Breeding and the Day Care
+
+Talk to a Center attendant and choose "Visit the Pokemon Day Care". Leave up to two Pokemon from your box (they sit
+out of your collection while there) and come back later: pick "Check on my Pokemon and eggs". Compatibility follows
+the mainline games: a shared egg group and opposite genders, or a Ditto with anything that can breed; babies and
+legendaries ("Undiscovered") never breed, and a genderless Pokemon needs a Ditto. Once per
+`Battlemon.Breeding.EggIntervalSeconds` of waiting, a compatible pair rolls for an egg (70% same species from
+different trainers, 50% for either different species or same-trainer same species, 20% different species from the same trainer),
+and you can hold `MaxEggs`. The baby is the first stage of the mother's line (the non-Ditto parent's with a Ditto),
+rolled when the egg is made: 3 IVs from the parents, a random nature, the mother's ability slot usually, its own
+level-1 moves plus egg moves a parent knows and level-up/TM moves both parents know, shiny at the normal spawn
+chance. An egg hatches after its species' hatch cycles (`HatchSecondsPer256Steps` seconds each) and hatching is on
+demand from the same menu, so eggs also hatch while you are logged out. Menu only: no addon changes. Rules:
+`python tests/test_breedingrules.py`; the data they rely on: `python tests/test_breeding_data.py`.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and

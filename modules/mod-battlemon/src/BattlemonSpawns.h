@@ -56,6 +56,9 @@ public:
     // Species and their chance (0-1), most likely first; for the admin preview.
     std::vector<std::pair<BattlemonSpecies const*, float>> Odds(uint32 zoneId, uint32 level) const;
 
+    // The first stage of a species' evolution line (a Pikachu's is Pichu); itself when it has no earlier stage.
+    uint32 BaseSpecies(uint32 speciesId) const;
+
     // Administrator edits. They validate, persist and apply immediately; `error` says what was wrong.
     bool SetSetting(std::string const& name, std::string const& value, std::string& error);
     bool SetZone(uint32 zoneId, uint32 minLevel, uint32 maxLevel, std::string const& types, std::string& error);

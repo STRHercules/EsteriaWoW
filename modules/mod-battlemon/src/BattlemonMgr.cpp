@@ -221,6 +221,12 @@ void BattlemonMgr::LoadConfig()
     _winPoints = sConfigMgr->GetOption<uint32>("Battlemon.WinPoints", 10);
     _shinyEvery = sConfigMgr->GetOption<uint32>("Battlemon.ShinyEvery", 10);
     _tutorMoveCost = sConfigMgr->GetOption<uint32>("Battlemon.TutorMoveCost", 25);
+    _breedEnable = sConfigMgr->GetOption<bool>("Battlemon.Breeding.Enable", true);
+    _breedInterval = std::max<uint32>(1, sConfigMgr->GetOption<uint32>("Battlemon.Breeding.EggIntervalSeconds", 900));
+    _breedMaxEggs = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("Battlemon.Breeding.MaxEggs", 3), 1, 10);
+    _hatchSecondsPer256 = sConfigMgr->GetOption<uint32>("Battlemon.Breeding.HatchSecondsPer256Steps", 60);
+    _hatchTimePercent = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("Battlemon.Breeding.HatchTimePercent", 100), 1, 1000);
+    _hatchLevel = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("Battlemon.Breeding.HatchLevel", 1), 1, 100);
     _faintReviveHours = sConfigMgr->GetOption<uint32>("Battlemon.FaintReviveHours", 1);
     _greatBallMult = sConfigMgr->GetOption<float>("Battlemon.GreatBallMult", 1.5f);
     _ultraBallMult = sConfigMgr->GetOption<float>("Battlemon.UltraBallMult", 2.0f);
@@ -251,6 +257,7 @@ void BattlemonMgr::LoadCatalog()
     _moves.clear();
     _learnsets.clear();
     _tutorMoves.clear();
+    _eggMoves.clear();
     _formMoves.clear();
     _items.clear();
     _shop.clear();
@@ -264,7 +271,7 @@ void BattlemonMgr::LoadCatalog()
     if (QueryResult result = WorldDatabase.Query(
             "SELECT id, internal_name, name, type1, type2, hp, atk, def, spa, spd, spe, "
             "gender_ratio, growth_rate, base_exp, sprite, ability1, ability2, hidden_ability, "
-            "catch_rate, evolutions FROM battlemon_species"))
+            "catch_rate, evolutions, egg_groups, hatch_steps FROM battlemon_species"))
     {
         do
         {
@@ -290,6 +297,8 @@ void BattlemonMgr::LoadCatalog()
             s.hiddenAbility = f[17].IsNull() ? "" : f[17].Get<std::string>();
             s.catchRate = f[18].IsNull() ? 0 : f[18].Get<uint32>();
             s.evolutions = f[19].IsNull() ? "" : f[19].Get<std::string>();
+            s.eggGroups = f[20].IsNull() ? "" : f[20].Get<std::string>();
+            s.hatchSteps = f[21].IsNull() ? 5120 : f[21].Get<uint32>();
             _species[s.id] = s;
         } while (result->NextRow());
     }
@@ -369,6 +378,16 @@ void BattlemonMgr::LoadCatalog()
             l.level = f[1].Get<uint32>();
             l.moveInternal = f[2].Get<std::string>();
             _learnsets[sid].push_back(l);
+        } while (result->NextRow());
+    }
+
+    if (QueryResult result = WorldDatabase.Query(
+            "SELECT species_id, move_internal_name FROM battlemon_species_egg_moves ORDER BY species_id, move_internal_name"))
+    {
+        do
+        {
+            Field* f = result->Fetch();
+            _eggMoves[f[0].Get<uint32>()].push_back(f[1].Get<std::string>());
         } while (result->NextRow());
     }
 
@@ -1265,6 +1284,11 @@ void BattlemonMgr::ResetPlayer(Player* player)
     CharacterDatabase.DirectExecute("DELETE FROM battlemon_party WHERE guid = {}", guid);
     CharacterDatabase.DirectExecute(
         "DELETE o FROM battlemon_learn_offer o JOIN battlemon_owned w ON w.id = o.owned_id WHERE w.guid = {}", guid);
+    // Pokemon left at the Day Care sit at guid 0, so they have to be found through the Day Care's own table.
+    CharacterDatabase.DirectExecute(
+        "DELETE o FROM battlemon_owned o JOIN battlemon_daycare d ON d.owned_id = o.id WHERE d.guid = {}", guid);
+    CharacterDatabase.DirectExecute("DELETE FROM battlemon_daycare WHERE guid = {}", guid);
+    CharacterDatabase.DirectExecute("DELETE FROM battlemon_egg WHERE guid = {}", guid);
     CharacterDatabase.DirectExecute("DELETE FROM battlemon_owned WHERE guid = {}", guid);
     CharacterDatabase.DirectExecute("DELETE FROM battlemon_account WHERE guid = {}", guid);
     {

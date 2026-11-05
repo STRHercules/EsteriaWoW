@@ -60,6 +60,8 @@ struct BattlemonSpecies
     std::string ability1;
     std::string ability2;
     std::string hiddenAbility;
+    std::string eggGroups; // "Monster,Grass"; "Undiscovered" cannot breed, "Ditto" breeds with anything
+    uint32 hatchSteps = 5120;
     // EVs a foe of this species gives, in BattlemonStats::Stat order; all zero if the table has no row.
     uint8 evYield[BattlemonStats::Stat::COUNT] = {};
 };

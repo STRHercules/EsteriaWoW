@@ -222,6 +222,20 @@ uint32 BattlemonSpawns::EnemyLevel(uint32 zoneId, uint32 scaledLevel) const
                              urand(zone.minLevel, zone.maxLevel));
 }
 
+uint32 BattlemonSpawns::BaseSpecies(uint32 speciesId) const
+{
+    std::lock_guard<std::mutex> guard(_lock);
+    uint32 current = speciesId;
+    for (int depth = 0; depth < 8; ++depth)
+    {
+        auto it = _links.find(current);
+        if (it == _links.end() || !it->second.prevo)
+            break;
+        current = it->second.prevo;
+    }
+    return current;
+}
+
 uint32 BattlemonSpawns::LevelHint(uint32 zoneId) const
 {
     std::lock_guard<std::mutex> guard(_lock);

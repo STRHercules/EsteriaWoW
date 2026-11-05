@@ -95,3 +95,14 @@ Battlemon.Trade.Enable = 1
 # 1 lets trainers trade from anywhere; 0 requires them to stand within Battlemon.Trade.Distance yards.
 Battlemon.Trade.Remote = 1
 Battlemon.Trade.Distance = 40.0
+
+# Day Care and eggs (talk to a Center attendant). Two compatible Pokemon left at the Day Care are rolled for an
+# egg once per interval, up to MaxEggs held at a time. An egg hatches after its species' hatch cycles, one cycle
+# (256 steps) being HatchSecondsPer256Steps real seconds scaled by HatchTimePercent.
+Battlemon.Breeding.Enable = 1
+Battlemon.Breeding.EggIntervalSeconds = 900
+Battlemon.Breeding.MaxEggs = 3
+Battlemon.Breeding.HatchSecondsPer256Steps = 60
+Battlemon.Breeding.HatchTimePercent = 100
+# Level a hatched Pokemon starts at.
+Battlemon.Breeding.HatchLevel = 1

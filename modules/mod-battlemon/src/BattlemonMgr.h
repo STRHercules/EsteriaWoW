@@ -97,9 +97,17 @@ public:
     // A message for `player` only. SendAddon also copies into the current sender's sidecar outbox, which is
     // wrong when the message is for somebody else (the other side of a trade).
     void SendAddonDirect(Player* player, std::string const& payload);
+    // Day Care: two compatible Pokemon left here may produce eggs, which hatch after a while. Replies go to chat.
+    bool BreedingEnabled() const { return _breedEnable; }
+    std::vector<BattlemonOwned> DaycareParents(Player* player);
+    bool DaycareDeposit(Player* player, uint32 ownedId);
+    bool DaycareTake(Player* player, uint32 ownedId);
+    void DaycareCheck(Player* player);  // how the pair gets along; adds the eggs found since the last visit
+    void DaycareHatch(Player* player);  // hatches the eggs that are ready
     // Re-sends the collection and party after something outside the addon changed them (a trade).
     void SyncCollection(Player* player);
     void HandleAdmin(Player* player, std::string const& arg);
+    void MakeEgg(uint32 guid, BattlemonOwned const (&parents)[2]);
     // Move learning with a full set of four: the level-up queues an offer, and once the battle is over the
     // player is asked which move to forget (or to skip it). LEARNQ asks for the next offer, LEARNREPLY answers it.
     void SendLearnOffer(Player* player);
@@ -199,6 +207,12 @@ private:
     uint32 _winPoints = 10;
     uint32 _shinyEvery = 10;
     uint32 _tutorMoveCost = 25;
+    bool _breedEnable = true;
+    uint32 _breedInterval = 900;        // seconds between egg rolls for a pair
+    uint32 _breedMaxEggs = 3;
+    uint32 _hatchSecondsPer256 = 60;    // one 256-step cycle
+    uint32 _hatchTimePercent = 100;
+    uint32 _hatchLevel = 1;
     uint32 _faintReviveHours = 1;
     float _greatBallMult = 1.5f;
     float _ultraBallMult = 2.0f;
@@ -208,6 +222,7 @@ private:
     std::unordered_map<std::string, BattlemonMoveDef> _moves;
     std::unordered_map<uint32, std::vector<BattlemonLearn>> _learnsets;
     std::unordered_map<uint32, std::vector<std::string>> _tutorMoves;
+    std::unordered_map<uint32, std::vector<std::string>> _eggMoves;
     std::unordered_map<uint32, BattlemonFormMoves> _formMoves;
     std::unordered_map<std::string, BattlemonItemDef> _items;
     std::vector<BattlemonShopEntry> _shop;

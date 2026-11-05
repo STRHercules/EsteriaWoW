@@ -34,6 +34,9 @@ public:
             BattlemonCenter::Storage);
         AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "Buy supplies with Battlemon Points (menu).",
             GOSSIP_SENDER_MAIN, BattlemonCenter::Supplies);
+        if (sBattlemonMgr->BreedingEnabled())
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Visit the Pokemon Day Care.", GOSSIP_SENDER_MAIN,
+                BattlemonCenter::DayCare);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
         return true;
     }
@@ -62,6 +65,44 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Next page", BattlemonBall::SENDER_PAGE, page + 1);
         if (page > 0)
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Previous page", BattlemonBall::SENDER_PAGE, page - 1);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+    }
+
+    static std::string PokemonLabel(BattlemonOwned const& row)
+    {
+        BattlemonForm const* form = sBattlemonMgr->GetBattlemonForm(row.formId);
+        return Acore::StringFormat("Lv.{} {}{}", row.level, row.shiny ? "Shiny " : "", form ? form->name : "Pokemon");
+    }
+
+    // The Day Care: take back what is staying, leave something, or check on the pair and the eggs.
+    void ShowDaycare(Player* player, Creature* creature)
+    {
+        ClearGossipMenuFor(player);
+        std::vector<BattlemonOwned> const parents = sBattlemonMgr->DaycareParents(player);
+        for (BattlemonOwned const& row : parents)
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Take back " + PokemonLabel(row),
+                BattlemonCenter::SENDER_DAYCARE_TAKE, row.id);
+        if (parents.size() < 2)
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Leave a Pokemon here.", BattlemonCenter::SENDER_DAYCARE_PUTLIST, 0);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Check on my Pokemon and eggs.", BattlemonCenter::SENDER_DAYCARE_CHECK, 0);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+    }
+
+    void ShowDaycarePutList(Player* player, Creature* creature, uint32 page)
+    {
+        ClearGossipMenuFor(player);
+        std::vector<BattlemonOwned> const boxed = sBattlemonMgr->LoadBoxed(player->GetGUID().GetCounter());
+        uint32 const first = page * BattlemonBall::PAGE_SIZE;
+        if (boxed.empty() || first >= boxed.size())
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "You have no stored Pokemon to leave.", GOSSIP_SENDER_MAIN,
+                BattlemonCenter::DayCare);
+        for (uint32 i = first; i < boxed.size() && i < first + BattlemonBall::PAGE_SIZE; ++i)
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, PokemonLabel(boxed[i]), BattlemonCenter::SENDER_DAYCARE_PUT,
+                boxed[i].id, "Leave " + PokemonLabel(boxed[i]) + " at the Day Care?", 0, false);
+        if (first + BattlemonBall::PAGE_SIZE < boxed.size())
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Next page", BattlemonCenter::SENDER_DAYCARE_PUTLIST, page + 1);
+        if (page > 0)
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Previous page", BattlemonCenter::SENDER_DAYCARE_PUTLIST, page - 1);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
     }
 
@@ -150,6 +191,34 @@ public:
 
     bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
     {
+        bool const dayCare = sender == BattlemonCenter::SENDER_DAYCARE_PUTLIST || sender == BattlemonCenter::SENDER_DAYCARE_PUT
+            || sender == BattlemonCenter::SENDER_DAYCARE_TAKE || sender == BattlemonCenter::SENDER_DAYCARE_CHECK
+            || (sender == GOSSIP_SENDER_MAIN && action == BattlemonCenter::DayCare);
+        if (dayCare)
+        {
+            if (!sBattlemonMgr->ShouldHandle(player) || !creature->IsWithinDistInMap(player, INTERACTION_DISTANCE))
+            {
+                CloseGossipMenuFor(player);
+                return false;
+            }
+            if (sender == BattlemonCenter::SENDER_DAYCARE_PUTLIST)
+            {
+                ShowDaycarePutList(player, creature, action);
+                return true;
+            }
+            if (sender == BattlemonCenter::SENDER_DAYCARE_PUT)
+                sBattlemonMgr->DaycareDeposit(player, action);
+            else if (sender == BattlemonCenter::SENDER_DAYCARE_TAKE)
+                sBattlemonMgr->DaycareTake(player, action);
+            else if (sender == BattlemonCenter::SENDER_DAYCARE_CHECK)
+            {
+                sBattlemonMgr->DaycareCheck(player);
+                sBattlemonMgr->DaycareHatch(player);
+            }
+            ShowDaycare(player, creature);
+            return true;
+        }
+
         bool const shopMenu = sender == BattlemonCenter::SENDER_SHOP_CATEGORY
             || sender == BattlemonCenter::SENDER_SHOP_PAGE
             || (sender == GOSSIP_SENDER_MAIN && action == BattlemonCenter::Supplies);
