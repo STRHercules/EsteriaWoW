@@ -114,6 +114,17 @@ Pokemon. Closing the window leaves the offer waiting; a declined move can still 
 manager, as before. Regional forms use their own level-up list. Slot logic: `python tests/test_moveslots.py`; the
 prompt: `python tests/test_learn_addon.py "<Battlemon addon dir>"`.
 
+## Trading Pokemon
+
+Two online trainers swap Pokemon one for one: `/bm trade <player>` (or target a player and press TRADE on the Party
+screen). The other side gets an invite, both put a Pokemon up (any they own, party or box), and both must confirm.
+Changing an offer cancels both confirmations. The server re-checks everything at the last click and then changes both
+owners in one all-or-nothing statement; the newcomer takes the traded Pokemon's party slot, a trainer can never give
+away their last Pokemon, a gift is allowed when one side offers nothing, and the original trainer (`ot_guid`) is kept.
+Completed trades are logged in `battlemon_trade_log`. Options: `Battlemon.Trade.Enable`, `.Remote` (1 = from
+anywhere, 0 = within `.Distance` yards). Sealed Poke Balls remain the way to use WoW's own trade, mail and auction
+house. Rules: `python tests/test_traderules.py`; the window: `python tests/test_trade_addon.py "<Battlemon addon dir>"`.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and

@@ -5,6 +5,7 @@
 #include "BattlemonFollower.h"
 #include "BattlemonMoveSlots.h"
 #include "BattlemonSpawns.h"
+#include "BattlemonTrade.h"
 #include "BattlemonModelCatalog.h"
 #include "BattlemonBattle.h"
 #include "BattlemonSidecarServer.h"
@@ -1382,6 +1383,20 @@ void BattlemonMgr::SendAddon(Player* player, std::string const& payload)
     ChatHandler::BuildChatPacket(data, CHAT_MSG_WHISPER, payload.c_str(), LANG_ADDON,
                                  CHAT_TAG_NONE, SessionObjectGuid(player), player->GetName());
     player->SendDirectMessage(&data);
+}
+
+void BattlemonMgr::SendAddonDirect(Player* player, std::string const& payload)
+{
+    BattlemonSession* current = _currentSession;
+    _currentSession = nullptr;
+    SendAddon(player, payload);
+    _currentSession = current;
+}
+
+void BattlemonMgr::SyncCollection(Player* player)
+{
+    if (player)
+        SendOwnedList(player, SessionLowGuid(player));
 }
 
 void BattlemonMgr::Msg(Player* player, std::string const& text)
@@ -2973,6 +2988,11 @@ void BattlemonMgr::HandleCommand(BattlemonSession& session, std::string const& m
         EnsureAccount(player);
         SendOwnedList(player, SessionLowGuid(player));
         SendDexOwned(player, SessionLowGuid(player));
+        return;
+    }
+    if (cmd == "TRADE")
+    {
+        sBattlemonTrade->Handle(player, arg);
         return;
     }
     if (cmd == "LEARNQ")

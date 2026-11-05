@@ -94,6 +94,11 @@ public:
     void UseCenterService(Player* player, uint32 action);
     // False (and tells the player) while they are in a battle, a duel or in combat.
     bool CanBoxAction(Player* player);
+    // A message for `player` only. SendAddon also copies into the current sender's sidecar outbox, which is
+    // wrong when the message is for somebody else (the other side of a trade).
+    void SendAddonDirect(Player* player, std::string const& payload);
+    // Re-sends the collection and party after something outside the addon changed them (a trade).
+    void SyncCollection(Player* player);
     void HandleAdmin(Player* player, std::string const& arg);
     // Move learning with a full set of four: the level-up queues an offer, and once the battle is over the
     // player is asked which move to forget (or to skip it). LEARNQ asks for the next offer, LEARNREPLY answers it.

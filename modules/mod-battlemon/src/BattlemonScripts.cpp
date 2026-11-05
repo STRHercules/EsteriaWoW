@@ -1,6 +1,7 @@
 #include "BattlemonFollower.h"
 #include "BattlemonMgr.h"
 #include "BattlemonSidecarServer.h"
+#include "BattlemonTrade.h"
 
 #include "Chat.h"
 #include "ChatCommand.h"
@@ -28,19 +29,33 @@ class BattlemonWorldScript : public WorldScript
 public:
     BattlemonWorldScript() : WorldScript("BattlemonWorldScript", {
         WORLDHOOK_ON_BEFORE_CONFIG_LOAD,
-        WORLDHOOK_ON_STARTUP
+        WORLDHOOK_ON_STARTUP,
+        WORLDHOOK_ON_UPDATE
     }) { }
 
     void OnBeforeConfigLoad(bool /*reload*/) override
     {
         sBattlemonMgr->LoadConfig();
         sBattlemonFollower->LoadConfig();
+        sBattlemonTrade->LoadConfig();
+    }
+
+    void OnUpdate(uint32 diff) override
+    {
+        _expireMs += diff;
+        if (_expireMs < 15000)
+            return;
+        _expireMs = 0;
+        sBattlemonTrade->Expire();
     }
 
     void OnStartup() override
     {
         sBattlemonMgr->LoadCatalog();
     }
+
+private:
+    uint32 _expireMs = 0;
 };
 
 class BattlemonPlayerScript : public PlayerScript
@@ -82,6 +97,7 @@ public:
         if (player)
         {
             sBattlemonFollower->OnLogout(player);
+            sBattlemonTrade->OnLogout(player);
             sBattlemonMgr->ClearEncounter(player->GetGUID());
         }
     }

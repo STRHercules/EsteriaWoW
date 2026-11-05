@@ -87,3 +87,11 @@ Battlemon.Follower.Enable = 1
 
 # Yards behind the trainer the follower keeps (0.5 - 10).
 Battlemon.Follower.Distance = 2.0
+
+# Trade Pokemon one for one with another online trainer (addon: /bm trade). Both sides confirm, and the
+# swap is a single all-or-nothing database update.
+Battlemon.Trade.Enable = 1
+
+# 1 lets trainers trade from anywhere; 0 requires them to stand within Battlemon.Trade.Distance yards.
+Battlemon.Trade.Remote = 1
+Battlemon.Trade.Distance = 40.0
