@@ -69,9 +69,9 @@ The icon (Hearthstone's display id) and the "Use:" tooltip (a placeholder spell)
 The Center attendant also has a gossip shop ("Buy supplies with Battlemon Points (menu)"), so buying works
 without the addon: pick a category, pick an item, type a quantity. It sells whatever `battlemon_shop` lists
 (balls, medicine, drinks, berries). Oran (10 HP) and Sitrus (a quarter of max HP) berries are now usable.
-The server also supports X items (+2 stage in battle), but they are not sold yet: the addon's battle bag only
-lists `OnPokemon` items, so `addon/Battlemon/UI/BattleFrame.lua` and `BagFrame.lua` need to accept `OnBattler`
-for them first. Check shop data with `python tests/test_shop_sql.py`.
+X items (+2 stage for the Pokemon that is out, one battle) are sold in the Battle items category; the addon's battle
+bag lists them (`UI/BattleFrame.lua` `X_ITEMS`, kept in step with the server by `tests/test_xitems_addon.py`) and now
+scrolls with the mouse wheel when it holds more than six kinds of item. Check shop data with `python tests/test_shop_sql.py`.
 
 ## Following Pokemon
 

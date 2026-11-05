@@ -18,6 +18,12 @@ from lupa import LuaRuntime
 
 PRELUDE = r"""
 UISpecialFrames = {}
+-- Music/sound API used by Core/BattleMusic.lua
+function GetCVar() return "1" end
+function SetCVar() end
+function PlayMusic() end
+function StopMusic() end
+function PlaySoundFile() end
 local frames = {}
 local nextId = 0
 
@@ -498,7 +504,7 @@ assertEq("battle tab enabled during the encounter", Battlemon.InBattle(), true)
 return table.concat(log, "\n")
 """
 
-CORE = ["Core/Util.lua", "Core/UI.lua"]
+CORE = ["Core/Util.lua", "Core/UI.lua", "Core/Profile.lua", "Core/BattleMusic.lua"]
 PANELS = [
     "UI/MainFrame.lua",
     "UI/HubFrame.lua",
