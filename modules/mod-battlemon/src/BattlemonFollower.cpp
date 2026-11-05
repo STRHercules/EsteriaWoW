@@ -91,6 +91,7 @@ bool BattlemonFollower::Choose(Player* player, uint32 ownedId)
         CharacterDatabase.Execute("REPLACE INTO battlemon_follower (guid, owned_id) VALUES ({}, {})", guid, ownedId);
     else
         CharacterDatabase.Execute("DELETE FROM battlemon_follower WHERE guid = {}", guid);
+    sBattlemonMgr->NotifyFollower(player, ownedId);
     return true;
 }
 

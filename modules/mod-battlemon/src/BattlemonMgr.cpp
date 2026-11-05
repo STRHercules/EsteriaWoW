@@ -2,6 +2,7 @@
 #include "BattlemonTrainerProgression.h"
 #include "BattlemonMgr.h"
 #include "BattlemonCenter.h"
+#include "BattlemonFollower.h"
 #include "BattlemonModelCatalog.h"
 #include "BattlemonBattle.h"
 #include "BattlemonSidecarServer.h"
@@ -1500,6 +1501,13 @@ void BattlemonMgr::SendOwnedList(Player* player, uint32 guid)
         SendAddon(player, ss.str());
     }
     SendAddon(player, "BM\tOWNEDEND");
+    if (player)
+        NotifyFollower(player, sBattlemonFollower->Chosen(player));
+}
+
+void BattlemonMgr::NotifyFollower(Player* player, uint32 ownedId)
+{
+    SendAddon(player, "BM\tFOLLOW\t" + std::to_string(ownedId));
 }
 
 void BattlemonMgr::SendDexOwned(Player* player, uint32 guid)
@@ -2832,6 +2840,14 @@ void BattlemonMgr::HandleCommand(BattlemonSession& session, std::string const& m
         EnsureAccount(player);
         SendOwnedList(player, SessionLowGuid(player));
         SendDexOwned(player, SessionLowGuid(player));
+        return;
+    }
+    if (cmd == "FOLLOW")
+    {
+        // Needs the real character (a sidecar session has no world presence to follow). The id is checked
+        // against the database inside Choose; 0 stops following.
+        if (player && ShouldHandle(player))
+            sBattlemonFollower->Choose(player, static_cast<uint32>(std::strtoul(arg.c_str(), nullptr, 10)));
         return;
     }
     if (cmd == "SETPARTY")

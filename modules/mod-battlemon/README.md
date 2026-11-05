@@ -80,6 +80,9 @@ stops it). It is a cosmetic creature using the Pokemon's overworld template, so 
 choice persists in `battlemon_follower`. It hides while you ride, fly, are in a battleground or in a Battlemon
 battle and returns on its own, including after zoning. Config: `Battlemon.Follower.Enable` / `.Distance`.
 It is separate from the Pokemon Trainer profession's Ditto companion, so both can be out at once.
+In the addon, open the Party screen, select any Pokemon you own (it does not need a party slot) and press FOLLOW
+(STOP FOLLOW when it is already the follower); the server confirms with `BM	FOLLOW	<id>`. The addon source is not in
+this repository: verify the button with `python tests/test_follow_addon.py "<Battlemon addon dir>"`.
 
 ## Verification
 

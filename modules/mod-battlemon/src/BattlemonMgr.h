@@ -87,6 +87,8 @@ public:
     void UseCenterService(Player* player, uint32 action);
     // False (and tells the player) while they are in a battle, a duel or in combat.
     bool CanBoxAction(Player* player);
+    // BM\tFOLLOW\t<battlemon_owned.id>, 0 for none: lets the addon mark and toggle the follower.
+    void NotifyFollower(Player* player, uint32 ownedId);
     // Pokemon not in the party, i.e. what sits in storage.
     std::vector<BattlemonOwned> LoadBoxed(uint32 guid) const;
     // Sealing turns a stored Pokemon into a Poke Ball item; using the ball releases it to the user.
