@@ -161,6 +161,26 @@ namespace
             || item == "BIGMALASADA" || item == "PEWTERCRUNCHIES" || item == "RAGECANDYBAR";
     }
 
+    // X items raise one stat of the Pokemon that is out by two stages (Gen 7+).
+    bool XItemStat(std::string const& item, BmStat& stat)
+    {
+        if (item == "XATTACK")
+            stat = BmStat::Atk;
+        else if (item == "XDEFENSE")
+            stat = BmStat::Def;
+        else if (item == "XSPATK")
+            stat = BmStat::Spa;
+        else if (item == "XSPDEF")
+            stat = BmStat::Spd;
+        else if (item == "XSPEED")
+            stat = BmStat::Spe;
+        else if (item == "XACCURACY")
+            stat = BmStat::Acc;
+        else
+            return false;
+        return true;
+    }
+
     bool IsReviveItem(std::string const& item)
     {
         return item == "REVIVE" || item == "MAXREVIVE" || item == "REVIVALHERB";
@@ -378,7 +398,7 @@ void BattlemonMgr::LoadCatalog()
     }
 
     if (QueryResult result = WorldDatabase.Query(
-            "SELECT internal_name, name, battle_use, heal_amount FROM battlemon_items"))
+            "SELECT internal_name, name, battle_use, heal_amount, pocket FROM battlemon_items"))
     {
         do
         {
@@ -388,6 +408,7 @@ void BattlemonMgr::LoadCatalog()
             item.name = f[1].Get<std::string>();
             item.battleUse = f[2].IsNull() ? "" : f[2].Get<std::string>();
             item.healAmount = f[3].IsNull() ? "" : f[3].Get<std::string>();
+            item.pocket = f[4].IsNull() ? 0 : f[4].Get<uint32>();
             _items[item.internalName] = item;
         } while (result->NextRow());
     }
@@ -1533,41 +1554,50 @@ void BattlemonMgr::SendShop(Player* player)
     SendAddon(player, chunk);
 }
 
-void BattlemonMgr::Buy(Player* player, std::string const& item, uint32 qty)
+bool BattlemonMgr::TryBuy(Player* player, std::string const& item, uint32 qty, std::string& message)
 {
     if (qty < 1)
-        return;
+        return false;
     if (qty > 99)
         qty = 99;
 
     BattlemonShopEntry const* entry = GetShopEntry(item);
     if (!entry)
     {
-        SendAddon(player, "BM\tMSG\tThat isn't for sale.");
-        return;
+        message = "That isn't for sale.";
+        return false;
     }
     BattlemonItemDef const* def = GetItem(item);
     BattlemonAccount acc = EnsureAccount(player);
     uint32 const cost = entry->cost * qty;
     if (cost > acc.points)
     {
-        SendAddon(player, "BM\tMSG\tThat costs " + std::to_string(cost) + " points, you have "
-                              + std::to_string(acc.points) + ".");
-        return;
+        message = "That costs " + std::to_string(cost) + " points, you have " + std::to_string(acc.points) + ".";
+        return false;
     }
     if (BagCount(acc.guid, item) + qty > _bagMaxStack)
     {
-        SendAddon(player, "BM\tMSG\tYou can't carry more than "
-                              + std::to_string(_bagMaxStack) + " of those.");
-        return;
+        message = "You can't carry more than " + std::to_string(_bagMaxStack) + " of those.";
+        return false;
     }
 
     acc.points -= cost;
     SaveAccount(acc);
     BagAdd(acc.guid, item, qty);
+    message = "Bought " + std::to_string(qty) + "x " + (def ? def->name : item) + " for "
+        + std::to_string(cost) + " points.";
+    return true;
+}
 
-    SendAddon(player, "BM\tMSG\tBought " + std::to_string(qty) + "x "
-                          + (def ? def->name : item) + " for " + std::to_string(cost) + " points.");
+void BattlemonMgr::Buy(Player* player, std::string const& item, uint32 qty)
+{
+    std::string message;
+    bool const ok = TryBuy(player, item, qty, message);
+    if (!message.empty())
+        SendAddon(player, "BM\tMSG\t" + message);
+    if (!ok)
+        return;
+    BattlemonAccount const acc = EnsureAccount(player);
     SendAddon(player, "BM\tPOINTS\t" + std::to_string(acc.points));
     SendBag(player, acc.guid);
 }
@@ -2227,10 +2257,43 @@ void BattlemonMgr::UseItem(Player* player, std::string const& item, uint8 target
         return;
     }
 
+    BmStat xStat = BmStat::Atk;
+    bool const xItem = XItemStat(item, xStat);
     BattlemonItemDef const* def = GetItem(item);
-    if (!def || def->battleUse != "OnPokemon")
+    if (!def || (def->battleUse != "OnPokemon" && !xItem))
     {
         SendAddon(player, "BM\tMSG\tYou can't use that here.");
+        return;
+    }
+
+    // Using an item is your action for the turn, so the foe still attacks.
+    auto foeTurn = [&](BmCtx& ctx)
+    {
+        if (BattlemonSlot* eSlot = PickEnemyMove(enc))
+            BmRunSingleAction(ctx, enc.enemy, *cur, eSlot, false);
+        if (!enc.enemy.fainted && !cur->fainted)
+            BmEndOfRound(ctx, *cur, enc.enemy);
+        FinishTurn(player, enc, *cur, ctx.uturn);
+    };
+
+    if (xItem)
+    {
+        if (cur->stages[static_cast<int>(xStat)] >= 6)
+        {
+            SendAddon(player, std::string("BM\tMSG\t") + cur->name + " can't go any higher.");
+            return;
+        }
+        uint32 const owner = SessionLowGuid(player);
+        if (!BagTake(owner, item, 1))
+        {
+            SendAddon(player, "BM\tMSG\tYou have no " + def->name + "s left!");
+            return;
+        }
+        SendBag(player, owner);
+        SendAddon(player, "BM\tMSG\tYou used a " + def->name + ".");
+        BmCtx ctx{ _currentSession, this, &enc, false };
+        BmChangeStage(ctx, *cur, cur, xStat, 2, true);
+        foeTurn(ctx);
         return;
     }
 
@@ -2268,6 +2331,8 @@ void BattlemonMgr::UseItem(Player* player, std::string const& item, uint8 target
             heal = target->maxHp;
         else if (def->healAmount == "half")
             heal = target->maxHp / 2;
+        else if (def->healAmount == "quarter")
+            heal = target->maxHp / 4;
         else
             heal = atoi(def->healAmount.c_str());
     }
@@ -2328,14 +2393,8 @@ void BattlemonMgr::UseItem(Player* player, std::string const& item, uint8 target
         }
     }
 
-    // Using an item is your action for the turn, so the foe still attacks.
     BmCtx ctx{ _currentSession, this, &enc, false };
-    if (BattlemonSlot* eSlot = PickEnemyMove(enc))
-        BmRunSingleAction(ctx, enc.enemy, *cur, eSlot, false);
-    if (!enc.enemy.fainted && !cur->fainted)
-        BmEndOfRound(ctx, *cur, enc.enemy);
-
-    FinishTurn(player, enc, *cur, ctx.uturn);
+    foeTurn(ctx);
 }
 
 // Out of battle a Pokemon is either healthy or fainted, so the only item that

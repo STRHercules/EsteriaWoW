@@ -3,11 +3,16 @@
 #include "BattlemonBall.h"
 #include "BattlemonCenter.h"
 #include "BattlemonMgr.h"
+#include "Chat.h"
 #include "Creature.h"
 #include "CreatureScript.h"
 #include "Player.h"
 #include "ScriptedGossip.h"
 #include "StringFormat.h"
+
+#include <algorithm>
+#include <cstdlib>
+#include <vector>
 
 class npc_battlemon_center : public CreatureScript
 {
@@ -27,6 +32,8 @@ public:
             BattlemonCenter::Party);
         AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Seal a stored Pokemon in a Poke Ball.", GOSSIP_SENDER_MAIN,
             BattlemonCenter::Storage);
+        AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "Buy supplies with Battlemon Points (menu).",
+            GOSSIP_SENDER_MAIN, BattlemonCenter::Supplies);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
         return true;
     }
@@ -58,8 +65,110 @@ public:
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
     }
 
+    static char const* PocketName(uint32 pocket)
+    {
+        switch (pocket)
+        {
+            case 3: return "Poke Balls";
+            case 2: return "Medicine";
+            case 5: return "Berries";
+            case 7: return "Battle items";
+            default: return nullptr;
+        }
+    }
+
+    // The pockets that actually have something for sale, in shop order.
+    void ShowShopCategories(Player* player, Creature* creature)
+    {
+        ClearGossipMenuFor(player);
+        std::vector<uint32> seen;
+        for (BattlemonShopEntry const& e : sBattlemonMgr->ShopEntries())
+        {
+            BattlemonItemDef const* def = sBattlemonMgr->GetItem(e.itemInternal);
+            if (!def || !PocketName(def->pocket) || std::find(seen.begin(), seen.end(), def->pocket) != seen.end())
+                continue;
+            seen.push_back(def->pocket);
+            AddGossipItemFor(player, GOSSIP_ICON_VENDOR, PocketName(def->pocket), BattlemonCenter::SENDER_SHOP_CATEGORY,
+                def->pocket);
+        }
+        if (seen.empty())
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Nothing is for sale right now.", GOSSIP_SENDER_MAIN,
+                BattlemonCenter::Supplies);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+    }
+
+    void ShowShopPage(Player* player, Creature* creature, uint32 pocket, uint32 page)
+    {
+        constexpr uint32 perPage = 8;
+        ClearGossipMenuFor(player);
+        std::vector<BattlemonShopEntry> const& shop = sBattlemonMgr->ShopEntries();
+        std::vector<uint32> indexes; // positions in the shop list, which is what the buy action carries
+        for (uint32 i = 0; i < shop.size(); ++i)
+        {
+            BattlemonItemDef const* def = sBattlemonMgr->GetItem(shop[i].itemInternal);
+            if (def && def->pocket == pocket)
+                indexes.push_back(i);
+        }
+        uint32 const first = page * perPage;
+        for (uint32 n = first; n < indexes.size() && n < first + perPage; ++n)
+        {
+            BattlemonShopEntry const& e = shop[indexes[n]];
+            std::string const label = Acore::StringFormat("{} - {} points",
+                sBattlemonMgr->GetItem(e.itemInternal)->name, e.cost);
+            AddGossipItemFor(player, GOSSIP_ICON_VENDOR, label, BattlemonCenter::SENDER_SHOP_ITEM, indexes[n],
+                "How many?", 0, true);
+        }
+        if (first + perPage < indexes.size())
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Next page", BattlemonCenter::SENDER_SHOP_PAGE,
+                pocket * 1000 + page + 1);
+        if (page > 0)
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Previous page", BattlemonCenter::SENDER_SHOP_PAGE,
+                pocket * 1000 + page - 1);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Back", BattlemonCenter::SENDER_SHOP_CATEGORY, 0);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+    }
+
+    bool OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, char const* code) override
+    {
+        CloseGossipMenuFor(player);
+        if (sender != BattlemonCenter::SENDER_SHOP_ITEM || !code || !sBattlemonMgr->ShouldHandle(player)
+            || !creature->IsWithinDistInMap(player, INTERACTION_DISTANCE) || !sBattlemonMgr->CanBoxAction(player))
+            return false;
+        std::vector<BattlemonShopEntry> const& shop = sBattlemonMgr->ShopEntries();
+        if (action >= shop.size())
+            return false;
+        // The player typed this: anything that is not a plain number buys one.
+        char* end = nullptr;
+        unsigned long const qty = std::strtoul(code, &end, 10);
+        std::string message;
+        sBattlemonMgr->TryBuy(player, shop[action].itemInternal, end == code ? 1 : static_cast<uint32>(
+            std::min<unsigned long>(qty, 99)), message);
+        if (!message.empty())
+            ChatHandler(player->GetSession()).SendSysMessage(message);
+        return true;
+    }
+
     bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
     {
+        bool const shopMenu = sender == BattlemonCenter::SENDER_SHOP_CATEGORY
+            || sender == BattlemonCenter::SENDER_SHOP_PAGE
+            || (sender == GOSSIP_SENDER_MAIN && action == BattlemonCenter::Supplies);
+        if (shopMenu)
+        {
+            if (!sBattlemonMgr->ShouldHandle(player) || !creature->IsWithinDistInMap(player, INTERACTION_DISTANCE))
+            {
+                CloseGossipMenuFor(player);
+                return false;
+            }
+            if (sender == BattlemonCenter::SENDER_SHOP_PAGE)
+                ShowShopPage(player, creature, action / 1000, action % 1000);
+            else if (sender == BattlemonCenter::SENDER_SHOP_CATEGORY && action)
+                ShowShopPage(player, creature, action, 0);
+            else
+                ShowShopCategories(player, creature);
+            return true;
+        }
+
         bool const storage = sender == BattlemonBall::SENDER_SEAL || sender == BattlemonBall::SENDER_PAGE
             || (sender == GOSSIP_SENDER_MAIN && action == BattlemonCenter::Storage);
         if (storage)

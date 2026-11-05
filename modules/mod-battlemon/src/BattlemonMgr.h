@@ -55,6 +55,9 @@ public:
     bool OwnsForm(uint32 guid, uint32 formId, bool shiny) const;
     BattlemonItemDef const* GetItem(std::string const& internal) const;
     BattlemonShopEntry const* GetShopEntry(std::string const& internal) const;
+    std::vector<BattlemonShopEntry> const& ShopEntries() const { return _shop; }
+    // Shared by the addon's BUY and the Center's menu shop; message is what the player should be told.
+    bool TryBuy(Player* player, std::string const& item, uint32 qty, std::string& message);
     uint32 BagCount(uint32 guid, std::string const& item) const;
     void BagAdd(uint32 guid, std::string const& item, uint32 count);
     bool BagTake(uint32 guid, std::string const& item, uint32 count);
@@ -82,6 +85,8 @@ public:
     void ClearEncounter(ObjectGuid guid);
     void SendStatus(Player* player);
     void UseCenterService(Player* player, uint32 action);
+    // False (and tells the player) while they are in a battle, a duel or in combat.
+    bool CanBoxAction(Player* player);
     // Pokemon not in the party, i.e. what sits in storage.
     std::vector<BattlemonOwned> LoadBoxed(uint32 guid) const;
     // Sealing turns a stored Pokemon into a Poke Ball item; using the ball releases it to the user.
@@ -137,7 +142,6 @@ private:
     void SendAddon(Player* player, std::string const& payload);
     ObjectGuid SessionObjectGuid(Player* player) const;
     uint32 SessionLowGuid(Player* player) const;
-    bool CanBoxAction(Player* player);
     void SendReady(Player* player, BattlemonAccount const& acc);
     void SendOwnedList(Player* player, uint32 guid);
     void SendDexOwned(Player* player, uint32 guid);

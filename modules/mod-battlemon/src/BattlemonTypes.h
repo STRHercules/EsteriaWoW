@@ -95,7 +95,8 @@ struct BattlemonItemDef
     std::string internalName;
     std::string name;
     std::string battleUse;  // "OnPokemon", "OnFoe", or empty
-    std::string healAmount; // a number, "full", "half", or empty
+    std::string healAmount; // a number, "full", "half", "quarter", or empty
+    uint32 pocket = 0;      // Essentials pocket: 2 medicine, 3 balls, 5 berries, 7 battle items
 };
 
 // One line in the shop. Priced in Battlemon Points rather than the catalog's

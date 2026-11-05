@@ -64,6 +64,15 @@ releases the Pokemon into the user's collection. Item templates are generated pe
 `data/sql/db-characters/base/2026_11_05_01_battlemon_ball_item.sql`. Custom species (id above 1025) have no ball yet.
 The icon (Hearthstone's display id) and the "Use:" tooltip (a placeholder spell) are set at the top of the tool.
 
+## Items, berries and the menu shop
+
+The Center attendant also has a gossip shop ("Buy supplies with Battlemon Points (menu)"), so buying works
+without the addon: pick a category, pick an item, type a quantity. It sells whatever `battlemon_shop` lists
+(balls, medicine, drinks, berries). Oran (10 HP) and Sitrus (a quarter of max HP) berries are now usable.
+The server also supports X items (+2 stage in battle), but they are not sold yet: the addon's battle bag only
+lists `OnPokemon` items, so `addon/Battlemon/UI/BattleFrame.lua` and `BagFrame.lua` need to accept `OnBattler`
+for them first. Check shop data with `python tests/test_shop_sql.py`.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and
