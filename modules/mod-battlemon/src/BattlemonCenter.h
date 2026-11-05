@@ -14,7 +14,8 @@ enum Service : uint32_t
 {
     Heal = 1,
     Shop = 2,
-    Party = 3
+    Party = 3,
+    Storage = 4
 };
 }
 

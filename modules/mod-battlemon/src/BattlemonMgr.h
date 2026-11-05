@@ -13,6 +13,7 @@
 #include <vector>
 
 class Creature;
+class Item;
 class Player;
 
 class BattlemonMgr
@@ -81,6 +82,11 @@ public:
     void ClearEncounter(ObjectGuid guid);
     void SendStatus(Player* player);
     void UseCenterService(Player* player, uint32 action);
+    // Pokemon not in the party, i.e. what sits in storage.
+    std::vector<BattlemonOwned> LoadBoxed(uint32 guid) const;
+    // Sealing turns a stored Pokemon into a Poke Ball item; using the ball releases it to the user.
+    bool SealPokemon(Player* player, uint32 ownedId);
+    bool UnsealPokemon(Player* player, Item* item);
     void HandleAddon(Player* player, std::string const& msg);
     void HandleCommand(BattlemonSession& session, std::string const& msg);
 
@@ -131,6 +137,7 @@ private:
     void SendAddon(Player* player, std::string const& payload);
     ObjectGuid SessionObjectGuid(Player* player) const;
     uint32 SessionLowGuid(Player* player) const;
+    bool CanBoxAction(Player* player);
     void SendReady(Player* player, BattlemonAccount const& acc);
     void SendOwnedList(Player* player, uint32 guid);
     void SendDexOwned(Player* player, uint32 guid);

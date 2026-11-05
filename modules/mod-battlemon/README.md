@@ -54,6 +54,16 @@ Showdown and PKHeX via the importers in `tools/`: `import_ev_yields.py`, `import
 differences are reported, not applied) and `import_showdown.py` (Gen 9 moves the engine can already express).
 Wild, caught and starter Pokemon roll random IVs and nature; trainer/duel teams keep IV 31.
 
+## Poke Ball items
+
+Talk to a Center attendant and pick "Seal a stored Pokemon in a Poke Ball" to turn a Pokemon that is not in your
+party into a real item. Balls can be traded, mailed and auctioned (search the species name); right-clicking one
+releases the Pokemon into the user's collection. Item templates are generated per species and shiny state by
+`tools/export_ball_items.py` (entries 960000+). The Pokemon stays in `battlemon_owned` with `guid = 0`, linked by
+`battlemon_ball_item`; the item and the Pokemon change in one transaction. Orphan-recovery SQL is in
+`data/sql/db-characters/base/2026_11_05_01_battlemon_ball_item.sql`. Custom species (id above 1025) have no ball yet.
+The icon (Hearthstone's display id) and the "Use:" tooltip (a placeholder spell) are set at the top of the tool.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and
