@@ -91,7 +91,7 @@ private:
     void MorphCreature(Creature* creature, uint32 avoidFormId);
     void ParseNudges(std::string const& raw);
     void EnsurePool();
-    uint32 PickFormIdAvoiding(uint32 avoidFormId);
+    uint32 PickFormIdAvoiding(uint32 avoidFormId, uint32 zoneId);
     uint32 RandomRefreshMs() const;
     uint32 LastFormForSpawn(ObjectGuid::LowType spawnId) const;
 

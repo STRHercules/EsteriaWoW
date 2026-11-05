@@ -1,6 +1,7 @@
 #include "BattlemonOverworld.h"
 
 #include "BattlemonMgr.h"
+#include "BattlemonSpawns.h"
 #include "BattlemonModelCatalog.h"
 #include "Config.h"
 #include "Creature.h"
@@ -297,7 +298,7 @@ void BattlemonOverworld::ApplyNudge(Creature* creature, uint32 formId)
     }
 }
 
-uint32 BattlemonOverworld::PickFormIdAvoiding(uint32 avoidFormId)
+uint32 BattlemonOverworld::PickFormIdAvoiding(uint32 avoidFormId, uint32 zoneId)
 {
     EnsurePool();
     std::vector<uint32> pool;
@@ -326,7 +327,7 @@ uint32 BattlemonOverworld::PickFormIdAvoiding(uint32 avoidFormId)
 
     for (uint32 i = 0; i < 12; ++i)
     {
-        BattlemonForm const* form = sBattlemonMgr->PickWildForm();
+        BattlemonForm const* form = sBattlemonMgr->PickWildForm(zoneId, sBattlemonSpawns->LevelHint(zoneId));
         if (!usable(form))
             continue;
         formId = form->id;
@@ -386,7 +387,7 @@ uint32 BattlemonOverworld::LastFormForSpawn(ObjectGuid::LowType spawnId) const
 
 void BattlemonOverworld::MorphCreature(Creature* creature, uint32 avoidFormId)
 {
-    uint32 formId = PickFormIdAvoiding(avoidFormId);
+    uint32 formId = PickFormIdAvoiding(avoidFormId, creature->GetZoneId());
     bool shiny = sBattlemonMgr->RollSpawnShiny();
     ApplyLook(creature, formId, shiny);
     creature->SetNpcFlag(UNIT_NPC_FLAG_GOSSIP);

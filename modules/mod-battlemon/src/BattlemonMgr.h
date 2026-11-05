@@ -44,6 +44,13 @@ public:
     BattlemonMoveDef const* GetMove(std::string const& internal) const;
     // Same legendary/starter/normal weights as the addon Fight button.
     BattlemonForm const* PickWildForm() const;
+    // Zone-aware pick (falls back to the old global one when spawning is switched off).
+    BattlemonForm const* PickWildForm(uint32 zoneId, uint32 level) const;
+    std::vector<uint32> const& FormIds() const { return _formIds; }
+    std::unordered_map<uint32, BattlemonSpecies> const& SpeciesMap() const { return _species; }
+    // 0 normal, 1 starter, 2 legendary: the encounter-weight class a species belongs to.
+    uint32 SpawnClass(uint32 speciesId) const;
+    uint32 ScaledEnemyLevel(uint32 playerLevel) const;
     // ShinyEvery as 1-in-N for world spawns (not the per-player encounter counter).
     bool RollSpawnShiny() const;
 
@@ -87,6 +94,7 @@ public:
     void UseCenterService(Player* player, uint32 action);
     // False (and tells the player) while they are in a battle, a duel or in combat.
     bool CanBoxAction(Player* player);
+    void HandleAdmin(Player* player, std::string const& arg);
     // BM\tFOLLOW\t<battlemon_owned.id>, 0 for none: lets the addon mark and toggle the follower.
     void NotifyFollower(Player* player, uint32 ownedId);
     // Pokemon not in the party, i.e. what sits in storage.
@@ -110,7 +118,6 @@ private:
 
     uint32 NowSeconds() const;
     BattlemonForm const* RandomForm() const;
-    uint32 ScaledEnemyLevel(uint32 playerLevel) const;
     uint32 ExpYield(BattlemonBattler const& enemy) const;
     std::vector<uint32> AddExp(BattlemonOwned& row, uint32 amount, uint32 levelCap = 100) const;
     char RollGender(std::string const& ratio) const;

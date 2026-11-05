@@ -3,6 +3,7 @@
 #include "BattlemonMgr.h"
 #include "BattlemonCenter.h"
 #include "BattlemonFollower.h"
+#include "BattlemonSpawns.h"
 #include "BattlemonModelCatalog.h"
 #include "BattlemonBattle.h"
 #include "BattlemonSidecarServer.h"
@@ -442,6 +443,8 @@ void BattlemonMgr::LoadCatalog()
     BattlemonForm const* starter = GetStarterForm();
     _starterFormId = starter ? starter->id : 0;
 
+    sBattlemonSpawns->Load(_weightLegendary, _weightStarter, _weightNormal);
+
     LOG_INFO("module", "Battlemon: catalog {} species, {} forms ({} legendary, {} starter, {} normal), {} moves",
              _species.size(), _forms.size(), _legendaryFormIds.size(), _starterFormIds.size(),
              _normalFormIds.size(), _moves.size());
@@ -520,6 +523,18 @@ BattlemonForm const* BattlemonMgr::RandomForm() const
 BattlemonForm const* BattlemonMgr::PickWildForm() const
 {
     return RandomForm();
+}
+
+BattlemonForm const* BattlemonMgr::PickWildForm(uint32 zoneId, uint32 level) const
+{
+    if (BattlemonForm const* form = sBattlemonSpawns->PickForm(zoneId, level))
+        return form;
+    return RandomForm();
+}
+
+uint32 BattlemonMgr::SpawnClass(uint32 speciesId) const
+{
+    return IsLegendarySpecies(speciesId) ? 2u : IsStarterSpecies(speciesId) ? 1u : 0u;
 }
 
 bool BattlemonMgr::RollSpawnShiny() const
@@ -1986,8 +2001,10 @@ void BattlemonMgr::StartWild(Player* player, uint32 formId, bool shiny, bool ski
         return;
     }
     BattlemonBattler* lead = ActiveBattler(enc);
+    uint32 const zoneId = player->GetZoneId();
+    uint32 const enemyLevel = lead ? sBattlemonSpawns->EnemyLevel(zoneId, ScaledEnemyLevel(lead->level)) : 1;
     if (!form)
-        form = RandomForm();
+        form = PickWildForm(zoneId, enemyLevel);
     if (!form || !lead)
         return;
 
@@ -1999,7 +2016,7 @@ void BattlemonMgr::StartWild(Player* player, uint32 formId, bool shiny, bool ski
         SaveAccount(acc);
     }
 
-    enc.enemy = MakeWild(*form, ScaledEnemyLevel(lead->level), shiny, true);
+    enc.enemy = MakeWild(*form, enemyLevel, shiny, true);
     enc.active = true;
     enc.catchPending = false;
     enc.skipCooldown = skipCooldown;
@@ -2840,6 +2857,11 @@ void BattlemonMgr::HandleCommand(BattlemonSession& session, std::string const& m
         EnsureAccount(player);
         SendOwnedList(player, SessionLowGuid(player));
         SendDexOwned(player, SessionLowGuid(player));
+        return;
+    }
+    if (cmd == "ADMIN")
+    {
+        HandleAdmin(player, arg);
         return;
     }
     if (cmd == "FOLLOW")

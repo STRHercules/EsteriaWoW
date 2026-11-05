@@ -84,6 +84,26 @@ In the addon, open the Party screen, select any Pokemon you own (it does not nee
 (STOP FOLLOW when it is already the follower); the server confirms with `BM	FOLLOW	<id>`. The addon source is not in
 this repository: verify the button with `python tests/test_follow_addon.py "<Battlemon addon dir>"`.
 
+## Zone-aware spawns and the admin panel
+
+Wild Pokemon now depend on where you are. Each WoW zone can list the Pokemon types that live there and a level
+range (`battlemon_spawn_zone`, seeded for the standard Azeroth, Outland and Northrend zones; add your custom
+zones). On top of the zone, every species is weighted by rarity (catch rate) and held back until its natural
+level: the real evolution levels, plus a few levels for evolutions by stone, trade or friendship. A species is
+picked before a form, so a species with many forms is no more common than one with a single form. Overworld
+critters pick by their own zone when they morph. A zone with no row still gets the rarity and level rules.
+
+The knobs live in `battlemon_spawn_setting` and apply immediately: `enable`, `level_mode` (0 follow your lead as
+before, 1 roll inside the zone's range, 2 keep your level inside it), `rarity_exponent`, `stage_step`, `leak`
+(how likely a type the zone does not list is) and the legendary/starter/normal class weights. Per-species
+multipliers (0 bans) go in `battlemon_spawn_species`. Defaults leave levels exactly as they were.
+
+Administrators edit all of it in the addon with `/bm admin`: change a knob and press Enter or APPLY ALL, edit the
+levels and types of the zone you are standing in and SAVE ZONE, and PREVIEW to see the likeliest spawns there at
+the resulting level. The server answers only accounts at administrator level. Check the maths with
+`python tests/test_spawns.py` and the seed with `python tests/test_spawn_sql.py`; the panel with
+`python tests/test_admin_addon.py "<Battlemon addon dir>"`.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and

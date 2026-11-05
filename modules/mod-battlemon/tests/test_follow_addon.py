@@ -4,63 +4,14 @@
 
 The addon UI source is not in this repository; point it at the package copy (client/Interface/AddOns/Battlemon).
 """
-import importlib.util
-from pathlib import Path
 import sys
+from pathlib import Path
 
-from lupa.lua51 import LuaRuntime
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from addon_harness import load
 
-M = Path(__file__).resolve().parents[1]
-addon = Path(sys.argv[1])
-spec = importlib.util.spec_from_file_location('smoke', M / 'tools/smoke_ui.py')
-smoke = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(smoke)
-
-lua = LuaRuntime(unpack_returned_tuples=True)
-lua.execute(smoke.PRELUDE)
+lua = load(Path(sys.argv[1]))
 lua.execute(r"""
-SlashCmdList={}; StaticPopupDialogs={}; sent={}; printed={}; BattlemonDB={}
-function GetTime() return 100 end
-function UnitName() return 'Tester' end
-function SendAddonMessage(prefix,payload) sent[#sent+1]=payload end
-function hooksecurefunc(object, method, hook)
- local original=object[method]
- object[method]=function(...) original(...); hook(...) end
-end
-local mt=getmetatable(CreateFrame('Frame'))
-function mt:GetAlpha() return self.alpha or 1 end
-function mt:SetAlpha(a) self.alpha=a end
-function mt:SetModel(path) self.path=path end
-function mt:SetFacing(value) self.facing=value end
-function receive(payload)
- for _,f in ipairs(BM_FRAMES) do
-  if f.bmScripts.OnEvent then f.bmScripts.OnEvent(f,'CHAT_MSG_ADDON','BM',payload,'WHISPER','Tester') end
- end
-end
-function button(text)
- for _,f in ipairs(BM_FRAMES) do
-  if f.bmKind=='Button' and f.text and f.text:GetText()==text then return f end
- end
- error('Missing button '..text)
-end
-function click(b)
- assert(b.bmEnabled~=false,'Disabled button '..tostring(b.text and b.text:GetText()))
- b.bmScripts.OnClick(b,'LeftButton')
-end
-function row(ownedId)
- for _,f in ipairs(BM_FRAMES) do
-  if f.bmKind=='Button' and f.ownedId==ownedId and f.bmScripts.OnClick then return f end
- end
- error('Missing row '..ownedId)
-end
-""")
-for line in (addon / 'Battlemon.toc').read_text(encoding='utf-8').splitlines():
-    if line.endswith('.lua'):
-        lua.execute((addon / line.replace('\\', '/')).read_text(encoding='utf-8-sig'))
-lua.execute(r"""
-Battlemon.Print=function(text) printed[#printed+1]=text end
-Battlemon.LoadData()
-Battlemon.EnsureProfileDB()
 receive('OWNEDBEGIN')
 receive('OWNED\t9001\t2065\t20\t0\tM\t40\tTHUNDERSHOCK\tGROWL\t\t\tRaichu\tBM3D_2065\t0\t0')
 receive('OWNED\t9002\t2971\t20\t0\tN\t40\tTACKLE\t\t\t\tPecharunt\tBM3D_2971\t1\t0')
