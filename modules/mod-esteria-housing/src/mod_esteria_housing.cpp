@@ -593,7 +593,8 @@ namespace
                 if (type == 4) // the staircase: its variant by what is above and below, its theme the walls'
                 {
                     bool const above = StairwellNext(layouts, layouts[r], 1) != nullptr;
-                    uint8 const variant = above ? (below ? 4 : 1) : (below ? 3 : 2);
+                    // 2/3 leave the floor over the bottom flight open for the stairs above to continue; 1/4 close it
+                    uint8 const variant = above ? (below ? 3 : 2) : (below ? 4 : 1);
                     for (uint32 theme : { house.rooms[r].theme[0], GenericTheme })
                         if (auto s = s_stairs.find({ layouts[r].kind, piece.id, theme, variant }); s != s_stairs.end())
                         {

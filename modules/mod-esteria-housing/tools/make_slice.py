@@ -41,7 +41,8 @@ NEIGHBORHOOD_ENTRY = (3807.76, -160.427, 194.111, 2.852)
 # docs/housing/tools/phase3/make_kit.py). Each distinct WMO becomes a GameObjectDisplayInfo row retail\<fdid>.wmo and a
 # type-14 gameobject_template; the module lays rooms out from the template origin (HousingRooms.h).
 # NeighborhoodMap 7 puts Home Interior's entry at (-1000, -1000, 0.1): rooms stand on z 0, 2 yd above its flat terrain.
-ROOM_ORIGIN = (-1000.0, -1000.0, 0.0)
+# Raised 100 yd above Home Interior's flat terrain (z about -2) so basements have room below the ground floor.
+ROOM_ORIGIN = (-1000.0, -1000.0, 100.0)
 ROOM_DISPLAY_BASE, ROOM_GO_BASE, ROOM_SLOTS = DISPLAY_BASE + 200, GO_BASE + 200, 600
 KIT = list(csv.DictReader((MODULE / "data/room_kit.tsv").open(encoding="utf-8"), delimiter="\t"))
 # The same pieces in retail's other mesh themes (make_kit.py's second output); rooms pick one per walls/floor/ceiling.

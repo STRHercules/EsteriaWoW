@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `housing_room_stairs` (
   `kind`     INT UNSIGNED NOT NULL,
   `piece_id` INT UNSIGNED NOT NULL,
   `theme`    INT UNSIGNED NOT NULL,
-  `variant`  TINYINT UNSIGNED NOT NULL COMMENT '1 stairwell above, 2 neither, 3 stairwell below, 4 both',
+  `variant`  TINYINT UNSIGNED NOT NULL COMMENT '1 nothing above or below, 2 stairwell above, 3 both, 4 stairwell below',
   `go`       INT UNSIGNED NOT NULL,
   PRIMARY KEY (`kind`, `piece_id`, `theme`, `variant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -3653,7 +3653,7 @@ INSERT INTO `housing_room_kit` VALUES (48, 214, 1, 12.0, 0.0001, 0.0, -180.0, 95
 INSERT INTO `housing_room_kit` VALUES (48, 215, 1, -0.0001, -11.9999, 0.0, -90.0, 9500380, 9500379, 9500381, 23.27, 9500359, 9500385);
 
 DELETE FROM `housing_room_template` WHERE `room_template_id` = 1;
-INSERT INTO `housing_room_template` VALUES (1, 2783, -1000.0, -1000.0, 0.5, 0.0, -1011.0, -1011.0, 0.0, -989.0, -989.0, 11.5, 200, 'Home Interior');
+INSERT INTO `housing_room_template` VALUES (1, 2783, -1000.0, -1000.0, 100.5, 0.0, -1011.0, -1011.0, 100.0, -989.0, -989.0, 111.5, 200, 'Home Interior');
 
 DELETE FROM `creature_template` WHERE `entry` = 9500100;
 DELETE FROM `creature_template_model` WHERE `CreatureID` = 9500100;

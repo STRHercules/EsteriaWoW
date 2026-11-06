@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `housing_room_stairs` (
   `kind`     INT UNSIGNED NOT NULL,
   `piece_id` INT UNSIGNED NOT NULL,
   `theme`    INT UNSIGNED NOT NULL,
-  `variant`  TINYINT UNSIGNED NOT NULL COMMENT '1 stairwell above, 2 neither, 3 stairwell below, 4 both',
+  `variant`  TINYINT UNSIGNED NOT NULL COMMENT '1 nothing above or below, 2 stairwell above, 3 both, 4 stairwell below',
   `go`       INT UNSIGNED NOT NULL,
   PRIMARY KEY (`kind`, `piece_id`, `theme`, `variant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
