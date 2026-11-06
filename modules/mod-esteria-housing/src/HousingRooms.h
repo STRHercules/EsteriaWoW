@@ -120,6 +120,7 @@ namespace EsteriaHousing::Rooms
     {
         Pose pose;
         uint32_t frame = 0;
+        size_t room = 0, piece = 0; // the first room's socket the frame belongs to
     };
 
     // variants[room][piece]: joined sockets open up, a door between full walls, a wide opening where one side is a
@@ -150,7 +151,7 @@ namespace EsteriaHousing::Rooms
                         out[b][j] = v;
                         uint32_t const frame = v == Wide ? pa.wideFrame : pa.doorFrame;
                         if (joints && frame)
-                            joints->push_back({ poseA, frame });
+                            joints->push_back({ poseA, frame, a, i });
                     }
             }
         return out;

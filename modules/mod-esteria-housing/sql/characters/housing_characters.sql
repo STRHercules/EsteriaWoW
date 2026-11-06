@@ -35,6 +35,17 @@ CREATE TABLE IF NOT EXISTS `housing_room_layout` (
   CONSTRAINT `fk_layout_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- A room's look: wall, floor and ceiling theme (HouseTheme.ID, 3 Generic) and whether its ceiling is shown.
+CREATE TABLE IF NOT EXISTS `housing_room_style` (
+  `room_id`        INT UNSIGNED NOT NULL,
+  `wall_theme`     INT UNSIGNED NOT NULL DEFAULT 3,
+  `floor_theme`    INT UNSIGNED NOT NULL DEFAULT 3,
+  `ceiling_theme`  INT UNSIGNED NOT NULL DEFAULT 3,
+  `ceiling_hidden` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`room_id`),
+  CONSTRAINT `fk_style_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
 CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
   `map_id`     SMALLINT UNSIGNED NOT NULL,

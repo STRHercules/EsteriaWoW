@@ -42,9 +42,13 @@ NEIGHBORHOOD_ENTRY = (3807.76, -160.427, 194.111, 2.852)
 # type-14 gameobject_template; the module lays rooms out from the template origin (HousingRooms.h).
 # NeighborhoodMap 7 puts Home Interior's entry at (-1000, -1000, 0.1): rooms stand on z 0, 2 yd above its flat terrain.
 ROOM_ORIGIN = (-1000.0, -1000.0, 0.0)
-ROOM_DISPLAY_BASE, ROOM_GO_BASE, ROOM_SLOTS = DISPLAY_BASE + 200, GO_BASE + 200, 200
+ROOM_DISPLAY_BASE, ROOM_GO_BASE, ROOM_SLOTS = DISPLAY_BASE + 200, GO_BASE + 200, 600
 KIT = list(csv.DictReader((MODULE / "data/room_kit.tsv").open(encoding="utf-8"), delimiter="\t"))
-ROOM_MODELS = sorted({int(r[k]) for r in KIT for k in ("solid", "door", "wide", "door_frame", "wide_frame") if r[k] != "0"})
+# The same pieces in retail's other mesh themes (make_kit.py's second output); rooms pick one per walls/floor/ceiling.
+KIT_THEMES = list(csv.DictReader((MODULE / "data/room_kit_themes.tsv").open(encoding="utf-8"), delimiter="\t"))
+THEME_NAMES = {1: "Folk", 2: "Rugged", 3: "Generic", 4: "Bel'ameth", 5: "Silvermoon"}  # HouseTheme.Name_lang
+MODEL_COLUMNS = ("solid", "door", "wide", "door_frame", "wide_frame")
+ROOM_MODELS = sorted({int(r[k]) for r in KIT + KIT_THEMES for k in MODEL_COLUMNS if r[k] != "0"})
 assert len(ROOM_MODELS) <= ROOM_SLOTS, f"{len(ROOM_MODELS)} room models, {ROOM_SLOTS} display slots"
 ENTRY = (ROOM_ORIGIN[0], ROOM_ORIGIN[1], ROOM_ORIGIN[2] + 0.5, 0.0)
 
@@ -227,6 +231,11 @@ def world_sql(map_dbc):
     for kind in sorted({(int(r["kind"]), r["name"], *(r[k] for k in ("min_x", "min_y", "min_z", "max_x", "max_y", "max_z")))
                         for r in KIT}):
         lines.append(f"INSERT INTO `housing_room_kind` VALUES ({kind[0]}, {q(kind[1])}, {', '.join(kind[2:])});")
+    for theme, name in THEME_NAMES.items():
+        lines.append(f"INSERT INTO `housing_room_theme` VALUES ({theme}, {q(name)});")
+    for r in KIT_THEMES:
+        lines.append(f"INSERT INTO `housing_room_kit_theme` VALUES ({r['kind']}, {r['piece']}, {r['theme']}, "
+                     f"{', '.join(str(go(r[k])) for k in MODEL_COLUMNS)});")
     for r in KIT:
         lines.append(f"INSERT INTO `housing_room_kit` VALUES ({r['kind']}, {r['piece']}, {r['type']}, {r['x']}, {r['y']}, "
                      f"{r['z']}, {r['rot_deg']}, {go(r['solid'])}, {go(r['door'])}, {go(r['wide'])}, {r['width']}, "

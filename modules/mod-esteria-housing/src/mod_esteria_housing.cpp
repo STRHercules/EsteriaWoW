@@ -27,6 +27,7 @@
 #include "WorldSession.h"
 #include <cmath>
 #include <sstream>
+#include <tuple>
 #include <deque>
 #include <map>
 #include <mutex>
@@ -56,10 +57,15 @@ namespace
         float Origin(int axis) const { return axis == 2 ? min[2] : entry[axis]; }
     };
 
+    // Retail HouseTheme: the room kit's mesh themes (Generic is the kit itself).
+    constexpr uint32 GenericTheme = 3;
+
     struct HouseRoom
     {
         uint32 id = 0; // housing_room.room_id
         Rooms::Room layout;
+        uint32 theme[3] = { GenericTheme, GenericTheme, GenericTheme }; // walls, floor, ceiling (KitPiece::type - 1)
+        bool ceilingHidden = false;
     };
 
     struct Placed
@@ -98,6 +104,7 @@ namespace
         uint32 editsPerSecond = 8;
         uint32 firstRoomKind = 1; // HouseRoom 1, Square Room (Small)
         uint32 maxRooms = 16;
+        uint32 roomPrice = 250000; // copper for a 23 x 23 yd room; others scale by floor area
     };
 
     std::recursive_mutex s_lock;
@@ -106,6 +113,9 @@ namespace
     std::map<uint32, CatalogEntry> s_catalog;
     std::unordered_map<uint32, RoomTemplate> s_rooms;
     Rooms::Kinds s_kinds; // retail room kinds and their kit pieces
+    struct ThemedModels { uint32 solid = 0, door = 0, wide = 0, doorFrame = 0, wideFrame = 0; };
+    std::map<std::tuple<uint32, uint32, uint32>, ThemedModels> s_themed; // (kind, piece id, theme) -> models
+    std::map<uint32, std::string> s_themes;                             // theme -> name, Generic included
 
     // Neighborhood plots (housing_plot) and the exterior a claimed plot is built from (housing_exterior_piece).
     struct Plot
@@ -266,6 +276,23 @@ namespace
                 if (!mapObject(p.wideFrame)) p.wideFrame = 0;
                 kind->second.pieces.push_back(p);
             } while (result->NextRow());
+        s_themed.clear();
+        s_themes.clear();
+        s_themes[GenericTheme] = "Generic";
+        if (QueryResult result = WorldDatabase.Query("SELECT theme, name FROM housing_room_theme"))
+            do
+                s_themes[result->Fetch()[0].Get<uint32>()] = result->Fetch()[1].Get<std::string>();
+            while (result->NextRow());
+        if (QueryResult result = WorldDatabase.Query("SELECT kind, piece_id, theme, go_solid, go_door, go_wide, go_door_frame, "
+            "go_wide_frame FROM housing_room_kit_theme"))
+            do
+            {
+                Field* f = result->Fetch();
+                ThemedModels m{ f[3].Get<uint32>(), f[4].Get<uint32>(), f[5].Get<uint32>(), f[6].Get<uint32>(), f[7].Get<uint32>() };
+                for (uint32* e : { &m.solid, &m.door, &m.wide, &m.doorFrame, &m.wideFrame })
+                    if (!mapObject(*e)) *e = 0;
+                s_themed[{ f[0].Get<uint32>(), f[1].Get<uint32>(), f[2].Get<uint32>() }] = m;
+            } while (result->NextRow());
         if (!s_kinds.count(s_config.firstRoomKind))
             LOG_ERROR("module", "housing: room kind {} (EsteriaHousing.FirstRoomKind) is missing", s_config.firstRoomKind);
 
@@ -332,6 +359,21 @@ namespace
                 r.id = f[0].Get<uint32>();
                 r.layout = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(), uint8(f[5].Get<uint8>() % 4) };
                 house->second.rooms.push_back(r);
+            } while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT s.room_id, r.house_id, s.wall_theme, s.floor_theme, "
+            "s.ceiling_theme, s.ceiling_hidden FROM housing_room_style s JOIN housing_room r ON r.room_id = s.room_id"))
+            do
+            {
+                Field* f = result->Fetch();
+                auto house = s_houses.find(f[1].Get<uint32>());
+                if (house == s_houses.end())
+                    continue;
+                for (HouseRoom& r : house->second.rooms)
+                    if (r.id == f[0].Get<uint32>())
+                    {
+                        for (int i = 0; i < 3; ++i) r.theme[i] = f[2 + i].Get<uint32>();
+                        r.ceilingHidden = f[5].Get<uint8>() != 0;
+                    }
             } while (result->NextRow());
 
         if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, house_id, spawns FROM housing_plot_claim"))
@@ -443,6 +485,30 @@ namespace
         return -1;
     }
 
+    // A kit piece in a room's chosen theme for its part (walls, floor, ceiling); Generic, or a theme the piece lacks,
+    // keeps the kit's own models.
+    Rooms::KitPiece Themed(HouseRoom const& room, Rooms::KitPiece piece)
+    {
+        uint32 const theme = piece.type >= 1 && piece.type <= 3 ? room.theme[piece.type - 1] : GenericTheme;
+        auto it = s_themed.find({ room.layout.kind, piece.id, theme });
+        if (theme == GenericTheme || it == s_themed.end() || !it->second.solid)
+            return piece;
+        ThemedModels const& m = it->second;
+        piece.solid = m.solid;
+        if (m.door) piece.door = m.door;
+        if (m.wide) piece.wide = m.wide;
+        if (m.doorFrame) piece.doorFrame = m.doorFrame;
+        if (m.wideFrame) piece.wideFrame = m.wideFrame;
+        return piece;
+    }
+
+    uint32 RoomPrice(Rooms::Kind const& kind)
+    {
+        float const area = (kind.max[0] - kind.min[0]) * (kind.max[1] - kind.min[1]);
+        uint32 const price = uint32(double(s_config.roomPrice) * area / (23.0 * 23.0));
+        return std::max<uint32>(10000, price / 10000 * 10000); // whole gold, at least 1
+    }
+
     // The room shell is rebuilt whole whenever the layout changes: a new neighbour turns walls into doorways.
     void SpawnRooms(Map* map, House const& house)
     {
@@ -460,10 +526,20 @@ namespace
         std::vector<Rooms::Room> const layouts = Layouts(house);
         std::vector<Rooms::Joint> joints;
         auto const variants = Rooms::Variants(s_kinds, layouts, &joints);
-        for (Rooms::Joint const& j : joints)
+        for (Rooms::Joint j : joints)
+        {
+            // the frame takes the first room's wall theme
+            auto kind = s_kinds.find(layouts[j.room].kind);
+            if (kind != s_kinds.end() && j.piece < kind->second.pieces.size())
+            {
+                Rooms::KitPiece const& base = kind->second.pieces[j.piece];
+                Rooms::KitPiece const themed = Themed(house.rooms[j.room], base);
+                j.frame = j.frame == base.wideFrame ? themed.wideFrame : themed.doorFrame;
+            }
             if (GameObject* go = map->SummonGameObject(j.frame, t->Origin(0) + j.pose.x, t->Origin(1) + j.pose.y,
                 t->Origin(2) + j.pose.z, j.pose.yaw, 0, 0, std::sin(j.pose.yaw / 2), std::cos(j.pose.yaw / 2), 0, false))
                 spawned.push_back(go->GetGUID());
+        }
         for (size_t r = 0; r < layouts.size(); ++r)
         {
             auto kind = s_kinds.find(layouts[r].kind);
@@ -471,7 +547,9 @@ namespace
                 continue;
             for (size_t i = 0; i < kind->second.pieces.size(); ++i)
             {
-                Rooms::KitPiece const& piece = kind->second.pieces[i];
+                if (kind->second.pieces[i].type == 3 && house.rooms[r].ceilingHidden)
+                    continue;
+                Rooms::KitPiece const piece = Themed(house.rooms[r], kind->second.pieces[i]);
                 Rooms::Pose const p = Rooms::PieceWorld(layouts[r], piece);
                 uint32 const entry = Rooms::Model(piece, variants[r][i]);
                 if (GameObject* go = map->SummonGameObject(entry, t->Origin(0) + p.x, t->Origin(1) + p.y, t->Origin(2) + p.z,
@@ -517,11 +595,12 @@ namespace
         for (auto const& [id, kind] : s_kinds)
         {
             if (written++ == kinds) break;
-            data << id << (kind.max[0] - kind.min[0]) << (kind.max[1] - kind.min[1]) << kind.name;
+            data << id << (kind.max[0] - kind.min[0]) << (kind.max[1] - kind.min[1]) << RoomPrice(kind) << kind.name;
         }
-        data << uint8(layouts.size());
-        for (Rooms::Room const& r : layouts)
-            data << r.kind << r.x << r.y << r.quarter;
+        data << uint8(house.rooms.size());
+        for (HouseRoom const& r : house.rooms)
+            data << r.layout.kind << r.layout.x << r.layout.y << r.layout.quarter << r.theme[0] << r.theme[1] << r.theme[2]
+                 << uint8(r.ceilingHidden);
         bool const full = layouts.size() >= s_config.maxRooms;
         uint16 sockets = 0;
         WorldPacket list(SMSG_ESTERIA_HOUSING_LAYOUT, 512);
@@ -550,6 +629,9 @@ namespace
         data << sockets;
         if (list.size())
             data.append(list.contents(), list.size());
+        data << uint8(std::min<size_t>(s_themes.size(), 255));
+        for (auto const& [id, name] : s_themes)
+            data << id << name;
         player->SendDirectMessage(&data);
     }
 
@@ -941,6 +1023,10 @@ namespace
         auto placed = Rooms::Attach(s_kinds, Layouts(house), room, piece, kind);
         if (!placed)
             return "That room no longer fits there.";
+        uint32 const price = RoomPrice(s_kinds.at(kind));
+        if (!player->HasEnoughMoney(price))
+            return "You cannot afford that room.";
+        player->ModifyMoney(-int32(price));
         HouseRoom r{ s_nextRoomId++, *placed };
         uint8 const slot = uint8(house.rooms.size());
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
@@ -952,6 +1038,30 @@ namespace
         house.rooms.push_back(r);
         LOG_INFO("module", "housing: house {} added room {} (kind {}) at {:.2f}, {:.2f} turn {}", house.id, r.id, kind,
             r.layout.x, r.layout.y, r.layout.quarter);
+        RoomsChanged(player->GetMap(), house);
+        return "";
+    }
+
+    std::string StyleRoom(Player* player, House& house, uint8 room, uint8 part, uint32 theme)
+    {
+        if (room >= house.rooms.size() || part < 1 || part > 3 || !s_themes.count(theme))
+            return "That style is not available.";
+        HouseRoom& r = house.rooms[room];
+        r.theme[part - 1] = theme;
+        CharacterDatabase.Execute("REPLACE INTO housing_room_style (room_id, wall_theme, floor_theme, ceiling_theme, ceiling_hidden) "
+            "VALUES ({}, {}, {}, {}, {})", r.id, r.theme[0], r.theme[1], r.theme[2], uint8(r.ceilingHidden));
+        RoomsChanged(player->GetMap(), house);
+        return "";
+    }
+
+    std::string ShowCeiling(Player* player, House& house, uint8 room, bool hidden)
+    {
+        if (room >= house.rooms.size())
+            return "That room is gone.";
+        HouseRoom& r = house.rooms[room];
+        r.ceilingHidden = hidden;
+        CharacterDatabase.Execute("REPLACE INTO housing_room_style (room_id, wall_theme, floor_theme, ceiling_theme, ceiling_hidden) "
+            "VALUES ({}, {}, {}, {}, {})", r.id, r.theme[0], r.theme[1], r.theme[2], uint8(r.ceilingHidden));
         RoomsChanged(player->GetMap(), house);
         return "";
     }
@@ -1029,7 +1139,7 @@ namespace
             Rooms::Pose const p = Rooms::OnPlot(plot.house[0], plot.house[1], plot.house[2], plot.house[3], doors[i]);
             out.push_back({ doorEntries[i], p.x, p.y, p.z, p.yaw });
             if (frontDoor)
-                out.push_back({ frontDoor, p.x + p.nx * 1.5f, p.y + p.ny * 1.5f, p.z + 0.6f, p.yaw });
+                out.push_back({ frontDoor, p.x - p.nx * 1.5f, p.y - p.ny * 1.5f, p.z + 2.02f, p.yaw });
             if (door)
             {
                 *door = p;
@@ -1088,7 +1198,16 @@ namespace
         auto const key = std::make_pair(plot.map, plot.index);
         std::vector<Placement> const want = Exterior(plot);
         std::vector<uint32>& have = s_plotSpawns[key];
-        if (have.size() == want.size() || map->GetId() != plot.map)
+        if (map->GetId() != plot.map)
+            return;
+        bool same = have.size() == want.size();
+        for (size_t i = 0; same && i < have.size(); ++i)
+        {
+            GameObjectData const* d = sObjectMgr->GetGameObjectData(have[i]);
+            same = d && d->id == want[i].entry && std::fabs(d->posX - want[i].x) < 0.05f && std::fabs(d->posY - want[i].y) < 0.05f
+                && std::fabs(d->posZ - want[i].z) < 0.05f;
+        }
+        if (same)
             return;
         for (uint32 id : have)
             DeleteSpawn(map, id);
@@ -1239,6 +1358,19 @@ namespace
         }
         else if (action == ActionRemoveRoom)
             error = RemoveLastRoom(player, *own);
+        else if (action == ActionRoomStyle)
+        {
+            uint8 room, part;
+            uint32 theme;
+            packet >> room >> part >> theme;
+            error = StyleRoom(player, *own, room, part, theme);
+        }
+        else if (action == ActionRoomCeiling)
+        {
+            uint8 room, hidden;
+            packet >> room >> hidden;
+            error = ShowCeiling(player, *own, room, hidden != 0);
+        }
         if (!error.empty())
             ChatHandler(session).SendNotification(error);
     }
@@ -1421,7 +1553,7 @@ namespace
                     continue;
                 Rooms::Pose door;
                 Exterior(*plot, &door);
-                if (go->GetExactDist2d(door.x, door.y) > 3.0f)
+                if (go->GetExactDist2d(door.x, door.y) > 4.0f) // the mat lies 3 yd behind the door point, on the porch
                     continue;
                 if (MayEnter(player, house->second))
                     EnterFromPlot(player, house->second, *plot);
@@ -1463,6 +1595,7 @@ namespace
             s_config.editsPerSecond = std::max<uint32>(1, sConfigMgr->GetOption<uint32>("EsteriaHousing.EditsPerSecond", 8));
             s_config.firstRoomKind = sConfigMgr->GetOption<uint32>("EsteriaHousing.FirstRoomKind", 1);
             s_config.maxRooms = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxRooms", 16), 1, 32);
+            s_config.roomPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.RoomPrice", 250000);
             if (s_config.enabled && !s_loaded && sObjectMgr->GetGameObjectTemplates()->size())
                 Load(); // a .reload config that turns housing on after startup
             ApplyHooks();

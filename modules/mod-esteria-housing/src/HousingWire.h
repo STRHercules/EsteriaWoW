@@ -22,19 +22,22 @@
 //                 boundsMin(f32 x3) boundsMax(f32 x3) n(u16), then n x
 //                 placedId(u64) decorId(u32) pos(f32 x3) yaw(f32, radians)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
-//   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32); nothing for the others.
+//   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
+//                 theme(u32), ActionRoomCeiling room(u8) hidden(u8); nothing for the others. Rooms cost gold.
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
 //   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
 //                 neighborhood(string) owner(string) message(string)
 //                 sent when a cornerstone is clicked (the client opens the plot window) and after a plot action
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
-//                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) name(string)
-//                 rooms n(u8), then n x kind(u32) x(f32) y(f32) quarter(u8)
+//                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
+//                 rooms n(u8), then n x kind(u32) x(f32) y(f32) quarter(u8) wallTheme floorTheme ceilingTheme(u32)
+//                 ceilingHidden(u8)
 //                 sockets n(u16), then n x room(u8) piece(u8) x(f32) y(f32) nx(f32) ny(f32) fits n(u8) x kind(u32)
+//                 themes n(u8), then n x theme(u32) name(string)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 2;
+    inline constexpr uint16_t Proto = 3;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -70,6 +73,8 @@ namespace EsteriaHousingWire
         ActionEnterPlot = 2,
         ActionAddRoom = 3,
         ActionRemoveRoom = 4, // the newest room
+        ActionRoomStyle = 5,  // room(u8) part(u8: 1 walls 2 floor 3 ceiling) theme(u32)
+        ActionRoomCeiling = 6, // room(u8) hidden(u8)
     };
 
     enum PlotStatus : uint8_t

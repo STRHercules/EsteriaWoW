@@ -56,6 +56,26 @@ CREATE TABLE IF NOT EXISTS `housing_room_kit` (
   PRIMARY KEY (`kind`, `piece_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Room styles: retail HouseTheme mesh themes and each kit piece's models in them (Generic is housing_room_kit itself).
+DROP TABLE IF EXISTS `housing_room_kit_theme`; -- generated data
+CREATE TABLE IF NOT EXISTS `housing_room_kit_theme` (
+  `kind`     INT UNSIGNED NOT NULL,
+  `piece_id` INT UNSIGNED NOT NULL,
+  `theme`    INT UNSIGNED NOT NULL COMMENT 'HouseTheme.ID',
+  `go_solid` INT UNSIGNED NOT NULL,
+  `go_door`  INT UNSIGNED NOT NULL DEFAULT 0,
+  `go_wide`  INT UNSIGNED NOT NULL DEFAULT 0,
+  `go_door_frame` INT UNSIGNED NOT NULL DEFAULT 0,
+  `go_wide_frame` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`kind`, `piece_id`, `theme`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `housing_room_theme`;
+CREATE TABLE IF NOT EXISTS `housing_room_theme` (
+  `theme` INT UNSIGNED NOT NULL,
+  `name`  VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`theme`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Neighborhood plots (NeighborhoodPlot, retail world coordinates) and the exterior a claimed plot is built from
 -- (ExteriorComponent + ExteriorComponentHook, default small Human House), from wowdecomp docs/housing/tools/phase3/make_plots.py.
 CREATE TABLE IF NOT EXISTS `housing_plot` (

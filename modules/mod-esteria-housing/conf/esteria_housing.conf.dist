@@ -31,6 +31,10 @@
 #    EsteriaHousing.MaxRooms
 #        Description: Rooms a house can hold, 1-32.
 #        Default:     16
+#
+#    EsteriaHousing.RoomPrice
+#        Description: Copper a 23 x 23 yd room costs to build; other kinds scale by floor area (at least 1 gold).
+#        Default:     250000 (25 gold)
 
 EsteriaHousing.Enable = 0
 EsteriaHousing.RoomTemplate = 1
@@ -39,3 +43,4 @@ EsteriaHousing.StarterQuantity = 5
 EsteriaHousing.EditsPerSecond = 8
 EsteriaHousing.FirstRoomKind = 1
 EsteriaHousing.MaxRooms = 16
+EsteriaHousing.RoomPrice = 250000
