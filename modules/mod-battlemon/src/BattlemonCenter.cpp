@@ -211,7 +211,7 @@ public:
                 sBattlemonMgr->DaycareDeposit(player, action);
             else if (sender == BattlemonCenter::SENDER_DAYCARE_TAKE)
                 sBattlemonMgr->DaycareTake(player, action);
-            else if (sender == BattlemonCenter::SENDER_DAYCARE_CHECK)
+            else if (sender == BattlemonCenter::SENDER_DAYCARE_CHECK && sBattlemonMgr->CanBoxAction(player))
             {
                 sBattlemonMgr->DaycareCheck(player);
                 sBattlemonMgr->DaycareHatch(player);

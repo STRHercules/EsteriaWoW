@@ -48,16 +48,23 @@ bool ParseSetting(BattlemonSpawns::Settings& s, std::string const& name, std::st
 {
     uint32 u = 0;
     float f = 0.0f;
+    bool isFloat = false;
     if (name == "enable" && ToUint(value, 0, 1, u))
         s.enable = u != 0;
     else if (name == "level_mode" && ToUint(value, 0, 2, u))
         s.levelMode = u;
     else if (name == "rarity_exponent" && ToFloat(value, 0.0f, 3.0f, f))
+    {
         s.rarityExponent = f;
+        isFloat = true;
+    }
     else if (name == "stage_step" && ToUint(value, 0, 50, u))
         s.stageStep = u;
     else if (name == "leak" && ToFloat(value, 0.0f, 1.0f, f))
+    {
         s.leak = f;
+        isFloat = true;
+    }
     else if (name == "weight_legendary" && ToUint(value, 0, 1000, u))
         s.weightLegendary = u;
     else if (name == "weight_starter" && ToUint(value, 0, 1000, u))
@@ -69,7 +76,7 @@ bool ParseSetting(BattlemonSpawns::Settings& s, std::string const& name, std::st
         error = "Bad value for " + name + ".";
         return false;
     }
-    canonical = u || value == "0" ? std::to_string(u) : Acore::StringFormat("{}", f);
+    canonical = isFloat ? Acore::StringFormat("{}", f) : std::to_string(u);
     return true;
 }
 
@@ -156,7 +163,11 @@ void BattlemonSpawns::Load(uint32 confLegendary, uint32 confStarter, uint32 conf
         if (!species || form->sprite.empty())
             continue;
         Entry& entry = bySpecies[species->id];
-        entry.species = species;
+        entry.speciesId = species->id;
+        entry.name = species->name;
+        entry.type1 = species->type1;
+        entry.type2 = species->type2;
+        entry.catchRate = species->catchRate;
         entry.spawnClass = sBattlemonMgr->SpawnClass(species->id);
         entry.formIds.push_back(formId);
     }
@@ -253,14 +264,13 @@ void BattlemonSpawns::Candidates(uint32 zoneId, uint32 level, std::vector<Candid
     float sum[3] = {};
     for (Entry const& entry : _entries)
     {
-        BattlemonSpecies const& sp = *entry.species;
-        if (level < Rules::MinLevel(sp.id, _links, _settings.stageStep))
+        if (level < Rules::MinLevel(entry.speciesId, _links, _settings.stageStep))
             continue;
-        float weight = Rules::RarityWeight(sp.catchRate, _settings.rarityExponent);
-        if (auto m = _speciesMultiplier.find(sp.id); m != _speciesMultiplier.end())
+        float weight = Rules::RarityWeight(entry.catchRate, _settings.rarityExponent);
+        if (auto m = _speciesMultiplier.find(entry.speciesId); m != _speciesMultiplier.end())
             weight *= m->second;
         if (zone)
-            weight *= Rules::TypeWeight(zone->types, sp.type1, sp.type2, _settings.leak);
+            weight *= Rules::TypeWeight(zone->types, entry.type1, entry.type2, _settings.leak);
         if (weight <= 0.0f)
             continue;
         out.push_back({ &entry, weight });
@@ -309,15 +319,15 @@ BattlemonForm const* BattlemonSpawns::PickForm(uint32 zoneId, uint32 level) cons
     return sBattlemonMgr->GetBattlemonForm(picked->formIds[urand(0, static_cast<uint32>(picked->formIds.size() - 1))]);
 }
 
-std::vector<std::pair<BattlemonSpecies const*, float>> BattlemonSpawns::Odds(uint32 zoneId, uint32 level) const
+std::vector<std::pair<std::string, float>> BattlemonSpawns::Odds(uint32 zoneId, uint32 level) const
 {
     std::lock_guard<std::mutex> guard(_lock);
-    std::vector<std::pair<BattlemonSpecies const*, float>> out;
+    std::vector<std::pair<std::string, float>> out;
     std::vector<Candidate> candidates;
     float share[3];
     Candidates(zoneId, level, candidates, share);
     for (Candidate const& c : candidates)
-        out.emplace_back(c.entry->species, c.weight * share[c.entry->spawnClass]);
+        out.emplace_back(c.entry->name, c.weight * share[c.entry->spawnClass]);
     std::sort(out.begin(), out.end(), [](auto const& a, auto const& b) { return a.second > b.second; });
     return out;
 }
@@ -447,7 +457,7 @@ void BattlemonMgr::HandleAdmin(Player* player, std::string const& arg)
         std::string line = Acore::StringFormat("BM\tADMIN\tODDS\t{}", level);
         auto const odds = sBattlemonSpawns->Odds(zoneId, level);
         for (size_t i = 0; i < odds.size() && i < 12; ++i)
-            line += Acore::StringFormat("\t{}~{:.1f}", odds[i].first->name, odds[i].second * 100.0f);
+            line += Acore::StringFormat("\t{}~{:.1f}", odds[i].first, odds[i].second * 100.0f);
         SendAddon(player, line);
     }
     SendAddon(player, "BM\tADMIN\tEND");

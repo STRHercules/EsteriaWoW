@@ -53,8 +53,8 @@ public:
     uint32 LevelHint(uint32 zoneId) const;
     // Nullptr when spawning is switched off or nothing qualifies; the caller falls back to its old pick.
     BattlemonForm const* PickForm(uint32 zoneId, uint32 level) const;
-    // Species and their chance (0-1), most likely first; for the admin preview.
-    std::vector<std::pair<BattlemonSpecies const*, float>> Odds(uint32 zoneId, uint32 level) const;
+    // Species names and their chance (0-1), most likely first; for the admin preview.
+    std::vector<std::pair<std::string, float>> Odds(uint32 zoneId, uint32 level) const;
 
     // The first stage of a species' evolution line (a Pikachu's is Pichu); itself when it has no earlier stage.
     uint32 BaseSpecies(uint32 speciesId) const;
@@ -67,9 +67,15 @@ public:
 private:
     BattlemonSpawns() = default;
 
+    // Copies, not pointers into the manager's species map: a catalog reload rebuilds that map while this table is
+    // still in use.
     struct Entry
     {
-        BattlemonSpecies const* species = nullptr;
+        uint32 speciesId = 0;
+        std::string name;
+        std::string type1;
+        std::string type2;
+        uint32 catchRate = 0;
         uint32 spawnClass = 0; // 0 normal, 1 starter, 2 legendary
         std::vector<uint32> formIds;
     };

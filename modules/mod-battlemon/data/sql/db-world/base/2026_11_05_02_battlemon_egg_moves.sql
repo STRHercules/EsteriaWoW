@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `battlemon_species_egg_moves` (
   PRIMARY KEY (`species_id`, `move_internal_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+START TRANSACTION;
 DELETE FROM `battlemon_species_egg_moves`;
 INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) VALUES
 (1, 'AMNESIA'),
@@ -1008,7 +1009,8 @@ INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) V
 (194, 'CURSE'),
 (194, 'DOUBLEKICK'),
 (194, 'EERIEIMPULSE'),
-(194, 'ENCORE'),
+(194, 'ENCORE');
+INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) VALUES
 (194, 'GUARDSWAP'),
 (194, 'MUDSPORT'),
 (194, 'POWERUPPUNCH'),
@@ -2008,7 +2010,8 @@ INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) V
 (361, 'WEATHERBALL'),
 (363, 'AQUARING'),
 (363, 'BELLYDRUM'),
-(363, 'CURSE'),
+(363, 'CURSE');
+INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) VALUES
 (363, 'FISSURE'),
 (363, 'ROLLOUT'),
 (363, 'SIGNALBEAM'),
@@ -3008,7 +3011,8 @@ INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) V
 (619, 'BATONPASS'),
 (619, 'ENDURE'),
 (619, 'FEINT'),
-(619, 'KNOCKOFF'),
+(619, 'KNOCKOFF');
+INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) VALUES
 (619, 'LOWKICK'),
 (619, 'MEFIRST'),
 (619, 'SMELLINGSALTS'),
@@ -3683,3 +3687,4 @@ INSERT INTO `battlemon_species_egg_moves` (`species_id`, `move_internal_name`) V
 (996, 'DRAGONRUSH'),
 (996, 'FREEZEDRY'),
 (996, 'ICICLESPEAR');
+COMMIT;

@@ -1396,6 +1396,13 @@ void BattlemonMgr::SendAddon(Player* player, std::string const& payload)
         _currentSession->outbox.push_back(payload);
     if (!player && _currentSession)
         player = _currentSession->player;
+    DeliverAddon(player, payload);
+}
+
+// The packet only, with no reference to the session currently being handled: safe to call for another player,
+// and from any thread that may use that player.
+void BattlemonMgr::DeliverAddon(Player* player, std::string const& payload)
+{
     if (!player || !player->GetSession())
         return;
     if (_extension && _extension->OnPacket(player, payload))
@@ -1408,10 +1415,7 @@ void BattlemonMgr::SendAddon(Player* player, std::string const& payload)
 
 void BattlemonMgr::SendAddonDirect(Player* player, std::string const& payload)
 {
-    BattlemonSession* current = _currentSession;
-    _currentSession = nullptr;
-    SendAddon(player, payload);
-    _currentSession = current;
+    DeliverAddon(player, payload);
 }
 
 void BattlemonMgr::SyncCollection(Player* player)

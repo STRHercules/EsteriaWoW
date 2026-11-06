@@ -206,6 +206,8 @@ void BattlemonTrade::Handle(Player* player, std::string const& arg)
     }
     int const me = s->side[0] == player->GetGUID() ? 0 : 1;
     Player* other = ObjectAccessor::FindPlayer(s->side[1 - me]);
+    // The other trainer's thread changes these fields, so they are only read under the lock.
+    auto accepted = [&]() { std::lock_guard<std::mutex> guard(_lock); return s->accepted; };
 
     if (verb == "DECLINE" || verb == "CANCEL")
     {
@@ -219,13 +221,13 @@ void BattlemonTrade::Handle(Player* player, std::string const& arg)
     }
     if (verb == "STATE")
     {
-        if (s->accepted)
+        if (accepted())
             Send(*s);
         return;
     }
     if (verb == "ACCEPT")
     {
-        if (me != 1 || s->accepted || !sBattlemonMgr->CanBoxAction(player))
+        if (me != 1 || accepted() || !sBattlemonMgr->CanBoxAction(player))
             return;
         if (!InRange(player, other))
         {
@@ -240,7 +242,7 @@ void BattlemonTrade::Handle(Player* player, std::string const& arg)
         Send(*s);
         return;
     }
-    if (!s->accepted)
+    if (!accepted())
         return;
 
     if (verb == "OFFER")
@@ -322,7 +324,12 @@ void BattlemonTrade::Commit(std::shared_ptr<Session> const& s, Player* a, Player
 
     Player* const who[2] = { a, b };
     uint32 guid[2] = { a->GetGUID().GetCounter(), b->GetGUID().GetCounter() };
-    uint32 id[2] = { s->offer[0], s->offer[1] };
+    uint32 id[2];
+    {
+        std::lock_guard<std::mutex> guard(_lock);
+        id[0] = s->offer[0];
+        id[1] = s->offer[1];
+    }
     BattlemonOwned row[2];
     for (int i = 0; i < 2; ++i)
     {

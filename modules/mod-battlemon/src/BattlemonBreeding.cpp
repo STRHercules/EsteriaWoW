@@ -202,6 +202,8 @@ void BattlemonMgr::DaycareCheck(Player* player)
         Tell(player, "The Day Care is closed.");
         return;
     }
+    if (!CanBoxAction(player))
+        return;
     uint32 const guid = player->GetGUID().GetCounter();
     std::vector<BattlemonOwned> const parents = DaycareParents(player);
     if (parents.size() < 2)
@@ -276,6 +278,9 @@ void BattlemonMgr::DaycareCheck(Player* player)
 
 void BattlemonMgr::DaycareHatch(Player* player)
 {
+    // A hatch puts a Pokemon in the party, which nothing else may do during a battle.
+    if (!CanBoxAction(player))
+        return;
     uint32 const guid = player->GetGUID().GetCounter();
     QueryResult result = CharacterDatabase.Query(
         "SELECT id, species_id, form_id, shiny, gender, iv_hp, iv_atk, iv_def, iv_spa, iv_spd, iv_spe, nature, "

@@ -95,7 +95,7 @@ public:
     // False (and tells the player) while they are in a battle, a duel or in combat.
     bool CanBoxAction(Player* player);
     // A message for `player` only. SendAddon also copies into the current sender's sidecar outbox, which is
-    // wrong when the message is for somebody else (the other side of a trade).
+    // wrong when the message is for somebody else (the other side of a trade); this touches no shared state.
     void SendAddonDirect(Player* player, std::string const& payload);
     // Held items: one per Pokemon, taken from and returned to the bag. Replies go to the addon.
     bool GiveHeldItem(Player* player, uint32 ownedId, std::string const& item);
@@ -171,6 +171,7 @@ private:
     void SendAddon(Player* player, std::string const& payload);
     ObjectGuid SessionObjectGuid(Player* player) const;
     uint32 SessionLowGuid(Player* player) const;
+    void DeliverAddon(Player* player, std::string const& payload);
     void SendReady(Player* player, BattlemonAccount const& acc);
     void SendOwnedList(Player* player, uint32 guid);
     void SendDexOwned(Player* player, uint32 guid);

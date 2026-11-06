@@ -155,6 +155,19 @@ Center menu's "Held items" category. Not implemented: Assault Vest, Eviolite, Ro
 that need more battle rules. Rules: `python tests/test_helditems.py`; the catalog and shop:
 `python tests/test_helditems_data.py ["<Battlemon addon dir>"]`; the picker: `python tests/test_item_addon.py "<addon dir>"`.
 
+## Addon source and checks
+
+The Battlemon addon's Lua source (`addon/Battlemon/Core`, `UI`, `Battlemon.lua`, `Battlemon.toc`) is kept in this
+repository; the generated `Data/*.lua` tables, models and music stay in the 3d-version package. Edit here, then push to
+the package with `python tools/sync_addon.py <package root> --to-package` (it copies into both package copies and
+refreshes their manifest hashes), or pull a package edit back with `--from-package`.
+`python tests/test_addon_copies.py <package root>` fails if the three copies drift apart.
+
+Everything that can be checked without a build is: the pure rules are compiled and run on their own (`test_*.py` that
+wrap `test_*.cpp`), the addon is run in Lua 5.1 against the UI mocks, and `python tests/test_sql_in_mysql.py` starts a
+throwaway container from the local `mysql:8.4` image, applies every module SQL file twice to fresh schemas and runs
+each SQL statement found in `src/*.cpp` against them, which catches wrong table and column names in the C++.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and

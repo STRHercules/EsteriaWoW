@@ -8,6 +8,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 cmake = (ROOT / 'CMakeLists.txt').read_text(encoding='utf-8')
 configs = json.loads((ROOT / 'tests/legacy_config_options.json').read_text(encoding='utf-8'))
+NEW_OPTION_PREFIXES = ('Battlemon.Follower.', 'Battlemon.Trade.', 'Battlemon.Breeding.')
 registered = re.findall(r'AC_ADD_CONFIG_FILE\("\$\{CMAKE_CURRENT_LIST_DIR\}/conf/([^"\n]+)"\)', cmake)
 assert len(registered) == len(set(registered)) == 3
 assert set(registered) == set(configs)
@@ -17,7 +18,12 @@ for filename, expected in configs.items():
     pairs = re.findall(r'^([A-Za-z][\w.]*)\s*=\s*(.+)$', text, re.M)
     actual = {key: value.strip() for key, value in pairs}
     assert len(pairs) == len(actual), 'Duplicate config option: ' + filename
-    assert actual == expected, 'Config keys or defaults changed: ' + filename
+    # The original options must keep their names and defaults. New features may add options, but only under the
+    # prefixes below (each is documented in the .conf.dist and checked by test_conf_options.py).
+    changed = {key: (value, actual.get(key)) for key, value in expected.items() if actual.get(key) != value}
+    assert not changed, 'Original config options removed or changed in %s: %s' % (filename, changed)
+    added = [key for key in actual if key not in expected and not key.startswith(NEW_OPTION_PREFIXES)]
+    assert not added, 'Unexpected new config options in %s: %s' % (filename, added)
 assert sum(map(len, configs.values())) == 56
 sources = list((ROOT / 'src').glob('*.cpp')) + list((ROOT / 'src').glob('*.h'))
 combined = '\n'.join(p.read_text(encoding='utf-8') for p in sources)
