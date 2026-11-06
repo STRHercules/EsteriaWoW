@@ -24,6 +24,7 @@ namespace EsteriaHousing::Rooms
         float x = 0, y = 0, z = 0;
         float rotDeg = 0;    // RoomComponent.OffsetRot z
         uint32_t solid = 0, door = 0, wide = 0; // gameobject entries; door != 0 makes the piece a socket
+        uint32_t doorFrame = 0, wideFrame = 0;  // frames centred on a joint: they cover the floor strip between rooms
         float width = 0;     // wall length, sockets only
         bool Socket() const { return door != 0; }
     };
@@ -114,9 +115,17 @@ namespace EsteriaHousing::Rooms
         return p.solid;
     }
 
+    // One per pair of joined sockets: where the doorway is and which frame covers it (the first room's piece's).
+    struct Joint
+    {
+        Pose pose;
+        uint32_t frame = 0;
+    };
+
     // variants[room][piece]: joined sockets open up, a door between full walls, a wide opening where one side is a
     // hallway-width wall (retail's 11 yd opening, RoomComponentOption Type 1 SubType 2).
-    inline std::vector<std::vector<uint8_t>> Variants(Kinds const& kinds, std::vector<Room> const& rooms)
+    inline std::vector<std::vector<uint8_t>> Variants(Kinds const& kinds, std::vector<Room> const& rooms,
+        std::vector<Joint>* joints = nullptr)
     {
         std::vector<std::vector<uint8_t>> out(rooms.size());
         for (size_t r = 0; r < rooms.size(); ++r)
@@ -133,11 +142,15 @@ namespace EsteriaHousing::Rooms
                     {
                         KitPiece const& pa = ka->second.pieces[i];
                         KitPiece const& pb = kb->second.pieces[j];
-                        if (!pa.Socket() || !pb.Socket() || !Joined(PieceWorld(rooms[a], pa), PieceWorld(rooms[b], pb)))
+                        Pose const poseA = PieceWorld(rooms[a], pa);
+                        if (!pa.Socket() || !pb.Socket() || !Joined(poseA, PieceWorld(rooms[b], pb)))
                             continue;
                         uint8_t const v = std::min(pa.width, pb.width) < 12.0f && pa.wide && pb.wide ? Wide : Door;
                         out[a][i] = v;
                         out[b][j] = v;
+                        uint32_t const frame = v == Wide ? pa.wideFrame : pa.doorFrame;
+                        if (joints && frame)
+                            joints->push_back({ poseA, frame });
                     }
             }
         return out;

@@ -42,7 +42,7 @@ NEIGHBORHOOD_ENTRY = (3807.76, -160.427, 194.111, 2.852)
 ROOM_ORIGIN = (-1000.0, -1000.0, 0.0)
 ROOM_DISPLAY_BASE, ROOM_GO_BASE, ROOM_SLOTS = DISPLAY_BASE + 200, GO_BASE + 200, 200
 KIT = list(csv.DictReader((MODULE / "data/room_kit.tsv").open(encoding="utf-8"), delimiter="\t"))
-ROOM_MODELS = sorted({int(r[k]) for r in KIT for k in ("solid", "door", "wide") if r[k] != "0"})
+ROOM_MODELS = sorted({int(r[k]) for r in KIT for k in ("solid", "door", "wide", "door_frame", "wide_frame") if r[k] != "0"})
 assert len(ROOM_MODELS) <= ROOM_SLOTS, f"{len(ROOM_MODELS)} room models, {ROOM_SLOTS} display slots"
 ENTRY = (ROOM_ORIGIN[0], ROOM_ORIGIN[1], ROOM_ORIGIN[2] + 0.5, 0.0)
 # The template's min_z is the floor the module builds rooms on (RoomTemplate::Origin); x/y bounds are per room now.
@@ -160,7 +160,8 @@ def world_sql(map_dbc):
         lines.append(f"INSERT INTO `housing_room_kind` VALUES ({kind[0]}, {q(kind[1])}, {', '.join(kind[2:])});")
     for r in KIT:
         lines.append(f"INSERT INTO `housing_room_kit` VALUES ({r['kind']}, {r['piece']}, {r['type']}, {r['x']}, {r['y']}, "
-                     f"{r['z']}, {r['rot_deg']}, {go(r['solid'])}, {go(r['door'])}, {go(r['wide'])}, {r['width']});")
+                     f"{r['z']}, {r['rot_deg']}, {go(r['solid'])}, {go(r['door'])}, {go(r['wide'])}, {r['width']}, "
+                     f"{go(r['door_frame'])}, {go(r['wide_frame'])});")
     lines += [
         "",
         f"DELETE FROM `housing_room_template` WHERE `room_template_id` = 1;",

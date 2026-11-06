@@ -16,17 +16,17 @@ int main()
     Kind small{ 1, "Square Room (Small)", { -11.5f, -11.5f, 0 }, { 11.5f, 11.5f, 11 }, {} };
     small.pieces = {
         { 25, 2, 0, 0, 0, 0, 10, 0, 0, 0 },
-        { 26, 1, -12, 0, 0, 0, 11, 12, 13, 23 },
-        { 27, 1, 0, 12, 0, 90, 11, 12, 13, 23 },
-        { 28, 1, 0, -12, 0, -90, 11, 12, 13, 23 },
-        { 29, 1, 12, 0, 0, -180, 11, 12, 13, 23 },
+        { 26, 1, -12, 0, 0, 0, 11, 12, 13, 15, 16, 23 },
+        { 27, 1, 0, 12, 0, 90, 11, 12, 13, 15, 16, 23 },
+        { 28, 1, 0, -12, 0, -90, 11, 12, 13, 15, 16, 23 },
+        { 29, 1, 12, 0, 0, -180, 11, 12, 13, 15, 16, 23 },
         { 30, 1, -11.5f, 11.5f, 0, -90, 14, 0, 0, 0 }, // corner: connectable in retail, but no door option
     };
     Kind hall{ 2, "Hallway", { -11.5f, -5.5f, 0 }, { 11.5f, 5.5f, 7 }, {} };
     hall.pieces = {
         { 45, 2, 0, 0, 0, 0, 20, 0, 0, 0 },
-        { 46, 1, -12, 0, 0, 0, 21, 22, 23, 11 },
-        { 47, 1, 12, 0, 0, -180, 21, 22, 23, 11 },
+        { 46, 1, -12, 0, 0, 0, 21, 22, 23, 25, 26, 11 },
+        { 47, 1, 12, 0, 0, -180, 21, 22, 23, 25, 26, 11 },
         { 48, 1, 0, 6, 0, 90, 24, 0, 0, 0 },
     };
     Kinds kinds{ { 1, small }, { 2, hall } };
@@ -57,6 +57,10 @@ int main()
     for (uint8_t x : v[1]) joined += x == Door;
     CHECK(joined == 1);
     CHECK(Model(small.pieces[4], v[0][4]) == 12 && Model(small.pieces[1], v[0][1]) == 11);
+    // One frame per doorway, centred on the joint (the first room's north wall at x 12) and turned with it.
+    std::vector<Joint> joints;
+    Variants(kinds, rooms, &joints);
+    CHECK(joints.size() == 1 && joints[0].frame == 15 && Near(joints[0].pose.x, 12) && Near(joints[0].pose.y, 0));
 
     // A hallway through the west wall: hallway-width wall, so both sides get the wide opening.
     auto h = Attach(kinds, rooms, 0, 2, 2);
@@ -64,6 +68,9 @@ int main()
     rooms.push_back(*h);
     v = Variants(kinds, rooms);
     CHECK(v[0][2] == Wide && Model(small.pieces[2], v[0][2]) == 13);
+    joints.clear();
+    Variants(kinds, rooms, &joints);
+    CHECK(joints.size() == 2 && joints[1].frame == 16); // the hallway joint gets the wide frame
 
     // Footprints: the hallway runs north-south after its turn and does not overlap the first room.
     Box hb = Footprint(hall, rooms[2]);
@@ -74,7 +81,7 @@ int main()
     // Only placements that fit are offered. Off the north room's west wall a 47 yd room would be centred at (24, 36)
     // and run into the hallway (x -5.5..5.5, y 12.5..35.5); off its east wall it clears everything.
     Kind large{ 12, "Square Room (Large)", { -23.5f, -23.5f, 0 }, { 23.5f, 23.5f, 11 }, {} };
-    large.pieces = { { 41, 1, -24, 0, 0, 0, 31, 32, 33, 47 } };
+    large.pieces = { { 41, 1, -24, 0, 0, 0, 31, 32, 33, 35, 36, 47 } };
     kinds[12] = large;
     CHECK(!Attach(kinds, rooms, 1, 2, 12));
     auto east = Attach(kinds, rooms, 1, 3, 12);

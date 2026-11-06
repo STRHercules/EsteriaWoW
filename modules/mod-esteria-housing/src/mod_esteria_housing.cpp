@@ -218,7 +218,7 @@ namespace
             return go && go->type == GAMEOBJECT_TYPE_MAP_OBJECT;
         };
         if (QueryResult result = WorldDatabase.Query("SELECT kind, piece_id, type, pos_x, pos_y, pos_z, rot_deg, go_solid, "
-            "go_door, go_wide, width FROM housing_room_kit ORDER BY kind, piece_id"))
+            "go_door, go_wide, width, go_door_frame, go_wide_frame FROM housing_room_kit ORDER BY kind, piece_id"))
             do
             {
                 Field* f = result->Fetch();
@@ -233,8 +233,11 @@ namespace
                         "gameobject_template {}; skipped", p.id, f[0].Get<uint32>(), p.solid);
                     continue;
                 }
+                p.doorFrame = f[11].Get<uint32>(); p.wideFrame = f[12].Get<uint32>();
                 if (!mapObject(p.door)) p.door = 0;
                 if (!mapObject(p.wide)) p.wide = 0;
+                if (!mapObject(p.doorFrame)) p.doorFrame = 0;
+                if (!mapObject(p.wideFrame)) p.wideFrame = 0;
                 kind->second.pieces.push_back(p);
             } while (result->NextRow());
         if (!s_kinds.count(s_config.firstRoomKind))
@@ -384,7 +387,12 @@ namespace
             }
         spawned.clear();
         std::vector<Rooms::Room> const layouts = Layouts(house);
-        auto const variants = Rooms::Variants(s_kinds, layouts);
+        std::vector<Rooms::Joint> joints;
+        auto const variants = Rooms::Variants(s_kinds, layouts, &joints);
+        for (Rooms::Joint const& j : joints)
+            if (GameObject* go = map->SummonGameObject(j.frame, t->Origin(0) + j.pose.x, t->Origin(1) + j.pose.y,
+                t->Origin(2) + j.pose.z, j.pose.yaw, 0, 0, std::sin(j.pose.yaw / 2), std::cos(j.pose.yaw / 2), 0, false))
+                spawned.push_back(go->GetGUID());
         for (size_t r = 0; r < layouts.size(); ++r)
         {
             auto kind = s_kinds.find(layouts[r].kind);

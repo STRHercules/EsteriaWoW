@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `housing_room_kind` (
   PRIMARY KEY (`kind`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `housing_room_kit`; -- generated data; dropped so new columns arrive
 CREATE TABLE IF NOT EXISTS `housing_room_kit` (
   `kind`     INT UNSIGNED NOT NULL,
   `piece_id` INT UNSIGNED NOT NULL COMMENT 'RoomComponent.ID (retail)',
@@ -50,5 +51,7 @@ CREATE TABLE IF NOT EXISTS `housing_room_kit` (
   `go_door`  INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'wall with a 3 yd door; non-zero makes the piece a socket',
   `go_wide`  INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'wall with an 11 yd opening, for hallway-width neighbours',
   `width`    FLOAT NOT NULL DEFAULT 0 COMMENT 'wall length, sockets only',
+  `go_door_frame` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'frame centred on a door joint (covers the floor strip)',
+  `go_wide_frame` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'frame centred on a wide joint',
   PRIMARY KEY (`kind`, `piece_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
