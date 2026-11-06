@@ -1,4 +1,5 @@
 #include "BattlemonBattle.h"
+#include "BattlemonHeldItems.h"
 #include "BattlemonMgr.h"
 
 #include "Player.h"
@@ -195,6 +196,7 @@ void BmOnSwitchOut(BattlemonBattler& leaving)
     leaving.protectThisTurn = false;
     leaving.charging = false;
     leaving.chargeMove.clear();
+    leaving.choiceMove.clear();
     leaving.semiInvuln = false;
     leaving.mustRecharge = false;
     leaving.yawn = 0;
@@ -415,6 +417,7 @@ float BmUserAtkMul(BattlemonBattler const& user, BattlemonMoveDef const& move)
         m *= 1.3f;
     if (user.flashFire && move.type == "FIRE")
         m *= 1.5f;
+    m *= BattlemonHeldItems::AttackMul(user.heldItem, move.category, move.type);
     return m;
 }
 
@@ -445,5 +448,6 @@ float BmAfterEffMul(BattlemonBattler const& user, BattlemonBattler const& target
         m *= 2.f;
     if (target.hp == target.maxHp && BmHasAbility(target, "MULTISCALE"))
         m *= 0.5f;
+    m *= BattlemonHeldItems::AfterEffMul(user.heldItem, eff);
     return m;
 }

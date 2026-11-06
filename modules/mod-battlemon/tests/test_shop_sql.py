@@ -1,5 +1,5 @@
 """Every battlemon_shop entry must name an item in battlemon_items, and a shop row's pocket must be one the
-Center menu can list (src/BattlemonCenter.cpp PocketName: 2 medicine, 3 balls, 5 berries, 7 battle items)."""
+Center menu can list (src/BattlemonCenter.cpp PocketName: 1 held items, 2 medicine, 3 balls, 5 berries, 7 battle items)."""
 import glob
 import os
 import re
@@ -20,6 +20,6 @@ for path in sorted(glob.glob(os.path.join(SQL, '*shop*.sql'))):
 assert len(shop) > 20, len(shop)
 for name, cost in shop.items():
     assert name in items, name
-    assert items[name] in ('2', '3', '5', '7'), (name, items[name])
+    assert items[name] in ('1', '2', '3', '5', '7'), (name, items[name])
     assert cost > 0, name
 print('ok', len(shop))

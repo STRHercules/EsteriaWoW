@@ -62,6 +62,20 @@ int main()
     CHECK(out[1] == 30 && out[3] == 4 && out[5] == 6);
     CHECK(out[0] == 7 && out[2] == 8 && out[4] == 9);
 
+    // A Destiny Knot makes it five inherited stats: only stat 2 is left to chance.
+    uint32_t script5[] = {0, 1, 1, 1, 3, 0, 4, 1, 5, 1, 17}; // (stat,parent) x5 from A/B, then one random value
+    at = 0;
+    auto rng5 = [&](uint32_t, uint32_t) { return script5[at++]; };
+    InheritIvs(ivA, ivB, rng5, out, 5);
+    CHECK(out[0] == 1 && out[1] == 2 && out[3] == 28 && out[4] == 5 && out[5] == 6 && out[2] == 17);
+
+    // Everstone: the holder's nature wins; two holders flip a coin; none means random.
+    bool none[2] = {false, false}, first[2] = {true, false}, second[2] = {false, true}, both[2] = {true, true};
+    auto zero = [](uint32_t, uint32_t) { return 0u; };
+    auto one = [](uint32_t, uint32_t) { return 1u; };
+    CHECK(NatureParent(none, zero) == -1 && NatureParent(first, zero) == 0 && NatureParent(second, zero) == 1);
+    CHECK(NatureParent(both, zero) == 0 && NatureParent(both, one) == 1);
+
     CHECK(HatchSeconds(5120, 60, 100) == 20 * 60);                    // 5120 steps = 20 cycles
     CHECK(HatchSeconds(30720, 60, 100) == 120 * 60);
     CHECK(HatchSeconds(5120, 60, 50) == 10 * 60);

@@ -27,6 +27,10 @@ std::string BmType2(BattlemonBattler const& b);
 std::string BmPickAbility(BattlemonSpecies const* s, uint8 slot);
 void BmInitBattler(BattlemonBattler& b);
 void BmResetStages(BattlemonBattler& b);
+// False when a Choice item has locked `b` into a different move (a locked move with no PP left frees it).
+bool BmMoveAllowed(BattlemonBattler const& b, BattlemonSlot const& slot);
+// Eats a berry whose condition is now met.
+void BmHeldItemCheck(BmCtx& ctx, BattlemonBattler& b);
 
 float BmStageMul(int8 stage);
 float BmAccStageMul(int8 stage);

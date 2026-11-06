@@ -156,6 +156,7 @@ struct BattlemonOwned
     uint32 faintedAt = 0;
     bool shiny = false;
     BattlemonStats::Individual ind;
+    std::string heldItem; // battlemon_items.internal_name, empty = none
     std::string move[4];
 };
 
@@ -184,6 +185,8 @@ struct BattlemonBattler
     char gender = 'M';
     bool shiny = false;
     BattlemonStats::Individual ind;
+    std::string heldItem;   // consumed (cleared) in battle by berries and the Focus Sash
+    std::string choiceMove; // the move a Choice item has locked this battler into
     int32 hp = 1;
     int32 maxHp = 1;
     uint32 atk = 1;

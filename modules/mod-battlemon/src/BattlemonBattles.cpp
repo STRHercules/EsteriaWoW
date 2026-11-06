@@ -695,6 +695,11 @@ void BattlemonBattles::SubmitSide(Duel& duel, uint8 side, uint32 revision, Actio
             Send(player, "ERROR\tThat move has no PP or is unavailable.");
             return;
         }
+        if (!BmMoveAllowed(active, active.moves[action.index]))
+        {
+            Send(player, "ERROR\tLocked into " + active.choiceMove + " by its Choice item.");
+            return;
+        }
     }
     else if (action.kind == ActionKind::Struggle)
     {

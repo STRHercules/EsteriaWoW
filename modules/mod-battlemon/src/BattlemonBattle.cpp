@@ -1,4 +1,5 @@
 #include "BattlemonBattle.h"
+#include "BattlemonHeldItems.h"
 #include "BattlemonMgr.h"
 
 #include "Player.h"
@@ -64,10 +65,57 @@ float BmAccStageMul(int8 stage)
     return 3.f / (3.f - stage);
 }
 
+// The held-item rules number statuses like BmStatus.
+static_assert(static_cast<int>(BmStatus::BRN) == 1 && static_cast<int>(BmStatus::PAR) == 2 &&
+              static_cast<int>(BmStatus::SLP) == 3 && static_cast<int>(BmStatus::PSN) == 4 &&
+              static_cast<int>(BmStatus::TOX) == 5 && static_cast<int>(BmStatus::FRZ) == 6,
+              "BattlemonHeldItems.h status numbers must match BmStatus");
+
+static std::string BmItemName(BmCtx& ctx, std::string const& item)
+{
+    BattlemonItemDef const* def = ctx.mgr ? ctx.mgr->GetItem(item) : nullptr;
+    return def ? def->name : item;
+}
+
+bool BmMoveAllowed(BattlemonBattler const& b, BattlemonSlot const& slot)
+{
+    if (b.choiceMove.empty() || !BattlemonHeldItems::IsChoice(b.heldItem) || !slot.def
+        || slot.def->internalName == b.choiceMove)
+        return true;
+    for (BattlemonSlot const& m : b.moves)
+        if (m.def && m.def->internalName == b.choiceMove)
+            return m.pp <= 0;
+    return true;
+}
+
+void BmHeldItemCheck(BmCtx& ctx, BattlemonBattler& b)
+{
+    if (b.heldItem.empty() || b.fainted || b.hp <= 0)
+        return;
+    BattlemonHeldItems::BerryUse const use =
+        BattlemonHeldItems::Berry(b.heldItem, b.hp, b.maxHp, static_cast<uint8>(b.status));
+    if (!use.eat)
+        return;
+    BmMsg(ctx, b.name + " ate its " + BmItemName(ctx, b.heldItem) + "!");
+    b.heldItem.clear();
+    if (use.heal)
+    {
+        b.hp = std::min(b.maxHp, b.hp + use.heal);
+        BmMsg(ctx, b.name + " restored its HP!");
+    }
+    if (use.cure)
+    {
+        b.status = BmStatus::None;
+        b.statusTurns = 0;
+        BmMsg(ctx, b.name + " shook off its condition!");
+    }
+}
+
 uint32 BmEffectiveSpeed(BattlemonBattler const& b, BattlemonEncounter const& enc)
 {
     float s = static_cast<float>(b.spe) * BmStageMul(b.stages[static_cast<int>(BmStat::Spe)]);
     s *= BmSpeedWeatherMul(b, enc);
+    s *= BattlemonHeldItems::SpeedMul(b.heldItem);
     if (b.status == BmStatus::PAR && !BmHasAbility(b, "QUICKFEET"))
         s *= 0.5f;
     if (s < 1.f)
@@ -83,6 +131,12 @@ void BmApplyDamage(BmCtx& ctx, BattlemonBattler& target, int32 dmg, BattlemonBat
     {
         dmg = target.hp - 1;
         BmMsg(ctx, target.name + " held on with Sturdy!");
+    }
+    else if (move && BattlemonHeldItems::SashSaves(target.heldItem, target.hp, target.maxHp, dmg))
+    {
+        dmg = target.hp - 1;
+        target.heldItem.clear();
+        BmMsg(ctx, target.name + " hung on using its Focus Sash!");
     }
     target.hp -= dmg;
     if (target.hp < 0)
@@ -411,10 +465,30 @@ void BmEndOfRound(BmCtx& ctx, BattlemonBattler& a, BattlemonBattler& b)
         }
     }
 
+    auto heldTick = [&](BattlemonBattler& x) {
+        if (x.fainted || x.hp <= 0)
+            return;
+        int32 const change = BattlemonHeldItems::EndOfRoundHp(x.heldItem, x.maxHp, BmHasType(x, "POISON"));
+        if (change > 0 && x.hp < x.maxHp)
+        {
+            x.hp = std::min(x.maxHp, x.hp + change);
+            BmMsg(ctx, x.name + " restored a little HP using its " + BmItemName(ctx, x.heldItem) + "!");
+        }
+        else if (change < 0 && !BmHasAbility(x, "MAGICGUARD"))
+        {
+            BmApplyDamage(ctx, x, -change, nullptr, nullptr);
+            BmMsg(ctx, x.name + " was hurt by its " + BmItemName(ctx, x.heldItem) + "!");
+        }
+    };
+
     weatherChip(a);
     weatherChip(b);
     residual(a);
     residual(b);
+    heldTick(a);
+    heldTick(b);
+    BmHeldItemCheck(ctx, a);
+    BmHeldItemCheck(ctx, b);
     BmEndOfRoundAbility(ctx, a, *ctx.enc, b);
     BmEndOfRoundAbility(ctx, b, *ctx.enc, a);
 
@@ -614,6 +688,16 @@ void BmExecuteMove(BmCtx& ctx, BattlemonBattler& user, BattlemonBattler& target,
         BmMsg(ctx, user.name + " is damaged by recoil!");
     }
 
+    if (total > 0 && !user.fainted && !BmHasAbility(user, "MAGICGUARD"))
+    {
+        int32 const orb = BattlemonHeldItems::LifeOrbRecoil(user.heldItem, user.maxHp);
+        if (orb > 0)
+        {
+            BmApplyDamage(ctx, user, orb, nullptr, nullptr);
+            BmMsg(ctx, user.name + " lost some of its HP!");
+        }
+    }
+
     if (mv->type == "FIRE" && target.status == BmStatus::FRZ)
     {
         target.status = BmStatus::None;
@@ -621,6 +705,8 @@ void BmExecuteMove(BmCtx& ctx, BattlemonBattler& user, BattlemonBattler& target,
     }
 
     BmOnBeingHit(ctx, user, target, *mv);
+    BmHeldItemCheck(ctx, target);
+    BmHeldItemCheck(ctx, user);
 
     if (BmIsRechargeMove(*mv))
         user.mustRecharge = true;
@@ -644,5 +730,8 @@ void BmRunSingleAction(BmCtx& ctx, BattlemonBattler& user, BattlemonBattler& tar
         return;
     if (slot->pp > 0)
         --slot->pp;
+    // A Choice item locks the holder into the first move it uses, until it leaves the field.
+    if (BattlemonHeldItems::IsChoice(user.heldItem) && user.choiceMove.empty())
+        user.choiceMove = slot->def->internalName;
     BmExecuteMove(ctx, user, target, *slot, isPlayer);
 }

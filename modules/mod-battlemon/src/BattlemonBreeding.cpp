@@ -1,8 +1,10 @@
 #include "BattlemonBreedingRules.h"
 #include "BattlemonFollower.h"
+#include "BattlemonHeldItems.h"
 #include "BattlemonMgr.h"
 #include "BattlemonModelCatalog.h"
 #include "BattlemonSpawns.h"
+#include "BattlemonSql.h"
 
 #include "Chat.h"
 #include "DatabaseEnv.h"
@@ -150,8 +152,15 @@ void BattlemonMgr::MakeEgg(uint32 guid, BattlemonOwned const (&parents)[2])
 
     BattlemonStats::Individual ind;
     auto rng = [](uint32 lo, uint32 hi) { return urand(lo, hi); };
-    Rules::InheritIvs(parents[0].ind.iv, parents[1].ind.iv, rng, ind.iv);
-    ind.nature = static_cast<uint8>(urand(0, BattlemonStats::NATURE_COUNT - 1));
+    using BattlemonHeldItems::Kind;
+    bool const knot = BattlemonHeldItems::Is(parents[0].heldItem, Kind::DestinyKnot)
+        || BattlemonHeldItems::Is(parents[1].heldItem, Kind::DestinyKnot);
+    Rules::InheritIvs(parents[0].ind.iv, parents[1].ind.iv, rng, ind.iv, knot ? 5 : 3);
+    bool const stone[2] = { BattlemonHeldItems::Is(parents[0].heldItem, Kind::Everstone),
+                            BattlemonHeldItems::Is(parents[1].heldItem, Kind::Everstone) };
+    int const natureFrom = Rules::NatureParent(stone, rng);
+    ind.nature = natureFrom >= 0 ? parents[natureFrom].ind.nature
+                                 : static_cast<uint8>(urand(0, BattlemonStats::NATURE_COUNT - 1));
     // The mother's ability usually carries over (the hidden one less often); otherwise it is rolled.
     uint8 const slot = mother.ind.abilitySlot;
     bool const keep = slot == 2 ? urand(1, 100) <= 60 : urand(1, 100) <= 80;

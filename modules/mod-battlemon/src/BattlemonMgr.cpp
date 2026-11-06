@@ -3,8 +3,10 @@
 #include "BattlemonMgr.h"
 #include "BattlemonCenter.h"
 #include "BattlemonFollower.h"
+#include "BattlemonHeldItems.h"
 #include "BattlemonMoveSlots.h"
 #include "BattlemonSpawns.h"
+#include "BattlemonSql.h"
 #include "BattlemonTrade.h"
 #include "BattlemonModelCatalog.h"
 #include "BattlemonBattle.h"
@@ -93,15 +95,6 @@ namespace
     bool IsStarterSpecies(uint32 id)
     {
         return kStarterSet.count(id) != 0;
-    }
-
-    // AzerothCore fmt SQL does not quote strings, so a bare {} turns 0025_Pikachu or
-    // POKEBALL into a column name (MySQL 1054). Returns the surrounding quotes as well
-    // as the escaping: pass this straight into a bare {}, never into '{}'.
-    std::string SqlQuote(std::string s)
-    {
-        CharacterDatabase.EscapeString(s);
-        return "'" + s + "'";
     }
 
     BattlemonForm const* PickForm(std::vector<uint32> const& ids,
@@ -760,6 +753,7 @@ BattlemonBattler BattlemonMgr::MakeBattler(BattlemonOwned const& row) const
     b.gender = row.gender;
     b.shiny = row.shiny;
     b.ind = row.ind;
+    b.heldItem = row.heldItem;
     ApplyStats(b);
     b.hp = b.maxHp;
     std::vector<std::string> moves;
@@ -837,12 +831,12 @@ void BattlemonMgr::PersistBattler(BattlemonBattler const& b)
     CharacterDatabase.Execute(
         "UPDATE battlemon_owned SET level = {}, exp = {}, gender = {}, hp = {}, "
         "fainted_at = IF({} = 0, IF(fainted_at = 0, {}, fainted_at), 0), "
-        "move1 = {}, move2 = {}, move3 = {}, move4 = {}, "
+        "move1 = {}, move2 = {}, move3 = {}, move4 = {}, held_item = {}, "
         "ev_hp = {}, ev_atk = {}, ev_def = {}, ev_spa = {}, ev_spd = {}, ev_spe = {} WHERE id = {}",
         b.level, b.exp, SqlQuote(std::string(1, b.gender)), hp,
         hp, NowSeconds(),
         SqlQuote(MoveName(b, 0)), SqlQuote(MoveName(b, 1)), SqlQuote(MoveName(b, 2)),
-        SqlQuote(MoveName(b, 3)),
+        SqlQuote(MoveName(b, 3)), SqlQuote(b.heldItem),
         b.ind.ev[0], b.ind.ev[1], b.ind.ev[2], b.ind.ev[3], b.ind.ev[4], b.ind.ev[5], b.ownedId);
 }
 
@@ -867,13 +861,14 @@ uint32 BattlemonMgr::InsertOwned(BattlemonOwned const& row)
 
     CharacterDatabase.DirectExecute(
         "INSERT INTO battlemon_owned "
-        "(guid, form_id, species_id, sprite, level, exp, gender, hp, shiny, move1, move2, move3, move4, "
+        "(guid, form_id, species_id, sprite, level, exp, gender, hp, shiny, move1, move2, move3, move4, held_item, "
         BM_IND_COLS ") "
-        "VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
+        "VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
         "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
         row.guid, row.formId, row.speciesId, SqlQuote(row.sprite), row.level, row.exp,
         SqlQuote(std::string(1, row.gender)), row.hp, row.shiny ? 1 : 0,
         SqlQuote(row.move[0]), SqlQuote(row.move[1]), SqlQuote(row.move[2]), SqlQuote(row.move[3]),
+        SqlQuote(row.heldItem),
         row.ind.iv[0], row.ind.iv[1], row.ind.iv[2], row.ind.iv[3], row.ind.iv[4], row.ind.iv[5],
         row.ind.ev[0], row.ind.ev[1], row.ind.ev[2], row.ind.ev[3], row.ind.ev[4], row.ind.ev[5],
         row.ind.nature, row.ind.abilitySlot, row.ind.otGuid);
@@ -1072,7 +1067,7 @@ std::vector<BattlemonOwned> BattlemonMgr::LoadOwned(uint32 guid) const
     std::vector<BattlemonOwned> out;
     QueryResult result = CharacterDatabase.Query(
         "SELECT id, form_id, species_id, sprite, level, exp, gender, hp, shiny, "
-        "move1, move2, move3, move4, fainted_at, " BM_IND_COLS " "
+        "move1, move2, move3, move4, fainted_at, held_item, " BM_IND_COLS " "
         "FROM battlemon_owned WHERE guid = {} ORDER BY id", guid);
     if (!result)
         return out;
@@ -1096,6 +1091,7 @@ std::vector<BattlemonOwned> BattlemonMgr::LoadOwned(uint32 guid) const
         row.move[2] = f[11].IsNull() ? "" : f[11].Get<std::string>();
         row.move[3] = f[12].IsNull() ? "" : f[12].Get<std::string>();
         row.faintedAt = f[13].Get<uint32>();
+        row.heldItem = f[14].IsNull() ? "" : f[14].Get<std::string>();
         ReadIndividual(*result, row.ind);
         if (!GetBattlemonForm(row.formId) || !BattlemonModels::Find(row.formId, row.shiny))
             continue;
@@ -1112,7 +1108,7 @@ BattlemonOwned BattlemonMgr::LoadOwnedById(uint32 ownedId) const
         return row;
     QueryResult result = CharacterDatabase.Query(
         "SELECT id, guid, form_id, species_id, sprite, level, exp, gender, hp, shiny, "
-        "move1, move2, move3, move4, fainted_at, " BM_IND_COLS " "
+        "move1, move2, move3, move4, fainted_at, held_item, " BM_IND_COLS " "
         "FROM battlemon_owned WHERE id = {}", ownedId);
     if (!result)
         return row;
@@ -1133,6 +1129,7 @@ BattlemonOwned BattlemonMgr::LoadOwnedById(uint32 ownedId) const
     row.move[2] = f[12].IsNull() ? "" : f[12].Get<std::string>();
     row.move[3] = f[13].IsNull() ? "" : f[13].Get<std::string>();
     row.faintedAt = f[14].Get<uint32>();
+    row.heldItem = f[15].IsNull() ? "" : f[15].Get<std::string>();
     ReadIndividual(*result, row.ind);
     if (!GetBattlemonForm(row.formId) || !BattlemonModels::Find(row.formId, row.shiny))
         return {};
@@ -1566,7 +1563,7 @@ void BattlemonMgr::SendOwnedList(Player* player, uint32 guid)
         // Seconds until it comes round on its own, 0 when it is not fainted.
         // Trails everything else so older parsers keep working.
         ss << '\t' << name << '\t' << sprite << '\t' << (row.shiny ? 1 : 0)
-           << '\t' << ReviveSecondsLeft(row);
+           << '\t' << ReviveSecondsLeft(row) << '\t' << row.heldItem;
         SendAddon(player, ss.str());
     }
     SendAddon(player, "BM\tOWNEDEND");
@@ -1952,6 +1949,7 @@ void BattlemonMgr::AwardAndPersist(Player* player, BattlemonEncounter& enc)
     if (!row.id)
         return;
     uint32 gained = ExpYield(enc.enemy);
+    gained = static_cast<uint32>(gained * BattlemonHeldItems::ExpMul(cur->heldItem));
     BattlemonTrainerProgression::AwardPractice(player);
     uint32 const cap = BattlemonTrainerProgression::LevelCap(player);
     if (row.level >= cap)
@@ -2275,6 +2273,13 @@ void BattlemonMgr::UseMove(Player* player, uint8 slotIndex)
         if (slotIndex >= cur->moves.size() || !cur->moves[slotIndex].def)
             return;
         pSlot = &cur->moves[slotIndex];
+        if (!BmMoveAllowed(*cur, *pSlot))
+        {
+            BattlemonMoveDef const* locked = GetMove(cur->choiceMove);
+            SendAddon(player, "BM\tMSG\t" + cur->name + " can only use " + (locked ? locked->name : cur->choiceMove)
+                                  + " while holding its Choice item!");
+            return;
+        }
         if (pSlot->pp <= 0)
         {
             bool const usable = std::any_of(cur->moves.begin(), cur->moves.end(), [](BattlemonSlot const& move)
@@ -3012,6 +3017,26 @@ void BattlemonMgr::HandleCommand(BattlemonSession& session, std::string const& m
         EnsureAccount(player);
         SendOwnedList(player, SessionLowGuid(player));
         SendDexOwned(player, SessionLowGuid(player));
+        return;
+    }
+    if (cmd == "BAG")
+    {
+        if (player)
+            SendBag(player, SessionLowGuid(player));
+        return;
+    }
+    if (cmd == "GIVE")
+    {
+        // ownedId <tab> item
+        auto parts = Split(arg, '\t');
+        if (player && parts.size() >= 2)
+            GiveHeldItem(player, static_cast<uint32>(std::strtoul(parts[0].c_str(), nullptr, 10)), parts[1]);
+        return;
+    }
+    if (cmd == "TAKE")
+    {
+        if (player)
+            TakeHeldItem(player, static_cast<uint32>(std::strtoul(arg.c_str(), nullptr, 10)));
         return;
     }
     if (cmd == "TRADE")

@@ -97,6 +97,9 @@ public:
     // A message for `player` only. SendAddon also copies into the current sender's sidecar outbox, which is
     // wrong when the message is for somebody else (the other side of a trade).
     void SendAddonDirect(Player* player, std::string const& payload);
+    // Held items: one per Pokemon, taken from and returned to the bag. Replies go to the addon.
+    bool GiveHeldItem(Player* player, uint32 ownedId, std::string const& item);
+    bool TakeHeldItem(Player* player, uint32 ownedId);
     // Day Care: two compatible Pokemon left here may produce eggs, which hatch after a while. Replies go to chat.
     bool BreedingEnabled() const { return _breedEnable; }
     std::vector<BattlemonOwned> DaycareParents(Player* player);

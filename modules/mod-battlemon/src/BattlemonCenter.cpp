@@ -114,6 +114,7 @@ public:
             case 2: return "Medicine";
             case 5: return "Berries";
             case 7: return "Battle items";
+            case 1: return "Held items";
             default: return nullptr;
         }
     }

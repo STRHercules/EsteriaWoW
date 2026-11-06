@@ -140,6 +140,21 @@ chance. An egg hatches after its species' hatch cycles (`HatchSecondsPer256Steps
 demand from the same menu, so eggs also hatch while you are logged out. Menu only: no addon changes. Rules:
 `python tests/test_breedingrules.py`; the data they rely on: `python tests/test_breeding_data.py`.
 
+## Held items
+
+Each Pokemon can hold one item (Party screen -> ITEM). The picker lists the holdable items in your bag; giving one takes
+it from the bag and returns whatever was held, and TAKE ITEM BACK returns it. Nothing changes during a battle. Effects,
+all from `src/BattlemonHeldItems.h`: type-boosting items (Charcoal, Mystic Water, ... Silk Scarf) +20% for their type;
+Choice Band/Specs/Scarf (+50% physical / special / speed) lock the holder into the first move it uses until it leaves
+the field (wild fights and duels both enforce it); Life Orb +30% damage at 10% max HP per attack; Muscle Band and Wise
+Glasses +10%; Expert Belt +20% on super effective hits; Focus Sash survives one knockout from full HP and is used up;
+Leftovers (+1/16 HP a round) and Black Sludge (the same for Poison types, otherwise -1/8); Oran and Sitrus Berries eaten at
+half HP, the status berries and Lum Berry eaten when the status lands (a berry or sash that is used is gone for good);
+Lucky Egg +50% experience; Everstone passes its holder's nature to an egg and Destiny Knot makes it inherit five IVs. All are sold in the
+Center menu's "Held items" category. Not implemented: Assault Vest, Eviolite, Rocky Helmet, Shell Bell and other items
+that need more battle rules. Rules: `python tests/test_helditems.py`; the catalog and shop:
+`python tests/test_helditems_data.py ["<Battlemon addon dir>"]`; the picker: `python tests/test_item_addon.py "<addon dir>"`.
+
 ## Verification
 
 Run `python tests/test_module_layout.py`, `python tools/test_3d_catalog.py` and

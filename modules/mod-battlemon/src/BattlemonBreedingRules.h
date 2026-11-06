@@ -91,12 +91,13 @@ inline int MotherIndex(Parent const& a, Parent const& b)
     return a.gender == 'F' ? 0 : 1;
 }
 
-// Three stats come from a random parent each, the other three are random. `rng(lo, hi)` is inclusive.
+// `count` stats (3 normally, 5 with a Destiny Knot) come from a random parent each, the rest are random.
+// `rng(lo, hi)` is inclusive.
 template <class Rng>
-inline void InheritIvs(uint8_t const (&a)[6], uint8_t const (&b)[6], Rng&& rng, uint8_t (&out)[6])
+inline void InheritIvs(uint8_t const (&a)[6], uint8_t const (&b)[6], Rng&& rng, uint8_t (&out)[6], int count = 3)
 {
     bool taken[6] = {};
-    for (int n = 0; n < 3;)
+    for (int n = 0; n < count;)
     {
         uint32_t const stat = rng(0, 5);
         if (taken[stat])
@@ -108,6 +109,16 @@ inline void InheritIvs(uint8_t const (&a)[6], uint8_t const (&b)[6], Rng&& rng, 
     for (int i = 0; i < 6; ++i)
         if (!taken[i])
             out[i] = static_cast<uint8_t>(rng(0, 31));
+}
+
+// The nature an egg gets: a parent holding an Everstone passes its own on (a coin flip if both do), otherwise
+// the egg's nature is random. `holder[i]` says parent i holds one; returns the parent index, or -1 for random.
+template <class Rng>
+inline int NatureParent(bool const (&holder)[2], Rng&& rng)
+{
+    if (holder[0] && holder[1])
+        return static_cast<int>(rng(0, 1));
+    return holder[0] ? 0 : holder[1] ? 1 : -1;
 }
 
 // Seconds until an egg hatches: one 256-step cycle takes `secondsPer256`, scaled by `percent`.
