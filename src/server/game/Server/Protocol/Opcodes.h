@@ -1370,7 +1370,10 @@ enum Opcodes : uint16
     SMSG_ESTERIA_HOUSING_EDIT_ACK                   = 0x53C,
     CMSG_ESTERIA_HOUSING_ENTER                      = 0x53D,
     SMSG_ESTERIA_HOUSING_STATE                      = 0x53E,
-    NUM_MSG_TYPES                                   = 0x53F
+    CMSG_ESTERIA_HOUSING_ACTION                     = 0x53F,
+    SMSG_ESTERIA_HOUSING_PLOT                       = 0x540,
+    SMSG_ESTERIA_HOUSING_LAYOUT                     = 0x541,
+    NUM_MSG_TYPES                                   = 0x542
 };
 
 enum OpcodeMisc : uint16

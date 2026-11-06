@@ -22,9 +22,19 @@
 //                 boundsMin(f32 x3) boundsMax(f32 x3) n(u16), then n x
 //                 placedId(u64) decorId(u32) pos(f32 x3) yaw(f32, radians)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
+//   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32); nothing for the others.
+//                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
+//   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
+//                 neighborhood(string) owner(string) message(string)
+//                 sent when a cornerstone is clicked (the client opens the plot window) and after a plot action
+//   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
+//                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) name(string)
+//                 rooms n(u8), then n x kind(u32) x(f32) y(f32) quarter(u8)
+//                 sockets n(u16), then n x room(u8) piece(u8) x(f32) y(f32) nx(f32) ny(f32) fits n(u8) x kind(u32)
+//                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 1;
+    inline constexpr uint16_t Proto = 2;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -34,6 +44,9 @@ namespace EsteriaHousingWire
     inline constexpr uint32_t SMSG_EDIT_ACK = 0x53C;
     inline constexpr uint32_t CMSG_ENTER = 0x53D;
     inline constexpr uint32_t SMSG_STATE = 0x53E;
+    inline constexpr uint32_t CMSG_ACTION = 0x53F;
+    inline constexpr uint32_t SMSG_PLOT = 0x540;
+    inline constexpr uint32_t SMSG_LAYOUT = 0x541;
 
     inline constexpr uint16_t CatalogPageSize = 50;
     inline constexpr uint16_t MaxStateEntries = 1000;
@@ -49,6 +62,22 @@ namespace EsteriaHousingWire
     {
         EnterSync = 0,
         EnterLeave = 1,
+    };
+
+    enum Action : uint8_t
+    {
+        ActionBuyPlot = 1,
+        ActionEnterPlot = 2,
+        ActionAddRoom = 3,
+        ActionRemoveRoom = 4, // the newest room
+    };
+
+    enum PlotStatus : uint8_t
+    {
+        PlotForSale = 0,
+        PlotYours = 1,
+        PlotVisitable = 2, // someone's, and you may go in (grouped with the owner)
+        PlotPrivate = 3,
     };
 
     enum Result : uint8_t

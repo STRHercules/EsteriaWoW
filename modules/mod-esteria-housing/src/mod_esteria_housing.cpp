@@ -92,7 +92,7 @@ namespace
     {
         bool enabled = false;
         uint32 roomTemplate = 1;
-        uint32 stewardEntry = 9500100;
+        uint32 plotPrice = 1000000; // copper
         uint16 starterQuantity = 5;
         uint32 editsPerSecond = 8;
         uint32 firstRoomKind = 1; // HouseRoom 1, Square Room (Small)
@@ -150,6 +150,8 @@ namespace
     constexpr uint32 NeighborhoodMap = 2735;
     constexpr float NeighborhoodEntry[4] = { 3807.76f, -160.427f, 194.111f, 2.852f };
     std::unordered_map<uint32, EditSession> s_editSessions; // account -> seq/rate state
+    std::unordered_set<uint32> s_hasUi;                     // accounts whose client said HELLO with this Proto
+    std::unordered_map<ObjectGuid, std::pair<uint16, uint8>> s_plotView; // player -> plot whose cornerstone they clicked
 
     RoomTemplate const* Room(House const& house)
     {
@@ -482,9 +484,6 @@ namespace
         if (!s_populated.insert(map->GetInstanceId()).second)
             return;
         SpawnRooms(map, house);
-        if (RoomTemplate const* room = Room(house))
-            map->SummonCreature(s_config.stewardEntry, Position(room->entry[0] + 2, room->entry[1], room->entry[2],
-                room->entry[3] + float(M_PI)));
         for (auto const& [id, p] : house.placed)
             Spawn(map, p);
         LOG_INFO("module", "housing: house {} populated instance {} with {} decor and {} rooms", house.id,
@@ -500,6 +499,54 @@ namespace
         data << uint16(Proto) << uint8(s_config.enabled && s_loaded && room) << uint32(0) << uint32(s_catalog.size())
              << uint16(room ? room->maxDecor : 0) << float(1) << float(1) << float(15);
         session->SendPacket(&data);
+    }
+
+    // The owner's blueprint: room kinds, the rooms placed, and every free wall with the kinds that fit through it.
+    void SendLayout(Player* player, House const& house, RoomTemplate const& room)
+    {
+        std::vector<Rooms::Room> const layouts = Layouts(house);
+        WorldPacket data(SMSG_ESTERIA_HOUSING_LAYOUT, 512);
+        data << uint8(s_config.maxRooms) << room.Origin(0) << room.Origin(1);
+        uint8 const kinds = uint8(std::min<size_t>(s_kinds.size(), 255));
+        data << kinds;
+        uint8 written = 0;
+        for (auto const& [id, kind] : s_kinds)
+        {
+            if (written++ == kinds) break;
+            data << id << (kind.max[0] - kind.min[0]) << (kind.max[1] - kind.min[1]) << kind.name;
+        }
+        data << uint8(layouts.size());
+        for (Rooms::Room const& r : layouts)
+            data << r.kind << r.x << r.y << r.quarter;
+        bool const full = layouts.size() >= s_config.maxRooms;
+        uint16 sockets = 0;
+        WorldPacket list(SMSG_ESTERIA_HOUSING_LAYOUT, 512);
+        for (size_t r = 0; r < layouts.size() && r < 256 && !full; ++r)
+        {
+            auto kind = s_kinds.find(layouts[r].kind);
+            if (kind == s_kinds.end())
+                continue;
+            for (size_t i = 0; i < kind->second.pieces.size() && i < 256; ++i)
+            {
+                if (!Rooms::FreeSocket(s_kinds, layouts, r, i))
+                    continue;
+                std::vector<uint32> fits;
+                for (auto const& [id, k] : s_kinds)
+                    if (Rooms::Attach(s_kinds, layouts, r, i, id))
+                        fits.push_back(id);
+                if (fits.empty())
+                    continue;
+                Rooms::Pose const p = Rooms::PieceWorld(layouts[r], kind->second.pieces[i]);
+                list << uint8(r) << uint8(i) << p.x << p.y << p.nx << p.ny << uint8(std::min<size_t>(fits.size(), 255));
+                for (size_t f = 0; f < fits.size() && f < 255; ++f)
+                    list << fits[f];
+                ++sockets;
+            }
+        }
+        data << sockets;
+        if (list.size())
+            data.append(list.contents(), list.size());
+        player->SendDirectMessage(&data);
     }
 
     void SendState(Player* player)
@@ -538,6 +585,8 @@ namespace
             }
         }
         player->SendDirectMessage(&data);
+        if (house && room && house->account == player->GetSession()->GetAccountId())
+            SendLayout(player, *house, *room);
     }
 
     void BroadcastState(Map* map)
@@ -719,6 +768,8 @@ namespace
                 player->GetOrientation());
     }
 
+    void HandleAction(WorldSession* session, WorldPacket& packet);
+
     void OnPacket(WorldSession* session, WorldPacket& packet)
     {
         std::lock_guard<std::recursive_mutex> guard(s_lock);
@@ -730,6 +781,10 @@ namespace
                 uint32 features;
                 packet >> proto >> features;
                 s_editSessions[session->GetAccountId()] = EditSession{}; // a new client session restarts seq at 1
+                if (proto == Proto)
+                    s_hasUi.insert(session->GetAccountId());
+                else
+                    s_hasUi.erase(session->GetAccountId());
                 SendHello(session);
                 if (s_config.enabled && proto == Proto && session->GetPlayer())
                     SendState(session->GetPlayer());
@@ -745,6 +800,9 @@ namespace
             }
             case CMSG_ESTERIA_HOUSING_EDIT:
                 HandleEdit(session, packet);
+                break;
+            case CMSG_ESTERIA_HOUSING_ACTION:
+                HandleAction(session, packet);
                 break;
             case CMSG_ESTERIA_HOUSING_ENTER:
             {
@@ -1034,22 +1092,109 @@ namespace
         return false;
     }
 
+    char const* const NeighborhoodName = "Founder's Point";
+    constexpr float PlotReach = 15.0f; // how far from the cornerstone the plot window keeps working
+
+    void SendPlot(Player* player, Plot const& plot, std::string const& message = "")
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        House const* own = HouseOfAccount(account);
+        uint8 status = PlotForSale;
+        if (auto owner = s_plotHouse.find({ plot.map, plot.index }); owner != s_plotHouse.end())
+        {
+            auto house = s_houses.find(owner->second);
+            status = house == s_houses.end() ? PlotPrivate : house->second.account == account ? PlotYours
+                : MayEnter(player, house->second) ? PlotVisitable : PlotPrivate;
+        }
+        // shortcut: no owner name; housing_house only knows the account. Add a character name column when visitors need it.
+        WorldPacket data(SMSG_ESTERIA_HOUSING_PLOT, 64);
+        data << uint16(plot.index + 1) << status << s_config.plotPrice
+             << uint8(own && s_housePlot.count(own->id) && status != PlotYours) << NeighborhoodName << "" << message;
+        player->SendDirectMessage(&data);
+    }
+
+    // The plot the player's open window is about, while they are still beside its cornerstone.
+    Plot const* ViewedPlot(Player* player)
+    {
+        auto it = s_plotView.find(player->GetGUID());
+        if (it == s_plotView.end() || player->GetMapId() != it->second.first)
+            return nullptr;
+        for (Plot const& p : s_plots)
+            if (p.map == it->second.first && p.index == it->second.second)
+                return player->GetExactDist2d(p.corner[0], p.corner[1]) <= PlotReach ? &p : nullptr;
+        return nullptr;
+    }
+
+    std::string BuyPlot(Player* player, Plot const& plot)
+    {
+        if (s_plotHouse.count({ plot.map, plot.index }))
+            return "Someone has already bought this plot.";
+        if (House const* own = HouseOfAccount(player->GetSession()->GetAccountId()); own && s_housePlot.count(own->id))
+            return "Your house already stands on another plot.";
+        if (!player->HasEnoughMoney(s_config.plotPrice))
+            return "You cannot afford this plot.";
+        std::string const error = ClaimPlot(player, plot);
+        if (error.empty())
+            player->ModifyMoney(-int32(s_config.plotPrice));
+        return error;
+    }
+
+    void HandleAction(WorldSession* session, WorldPacket& packet)
+    {
+        uint8 action;
+        packet >> action;
+        Player* player = session->GetPlayer();
+        if (!player || !s_config.enabled || !s_loaded)
+        {
+            packet.rfinish();
+            return;
+        }
+        if (action == ActionBuyPlot || action == ActionEnterPlot)
+        {
+            Plot const* plot = ViewedPlot(player);
+            if (!plot)
+                return;
+            if (action == ActionBuyPlot)
+            {
+                std::string const error = BuyPlot(player, *plot);
+                SendPlot(player, *plot, error.empty() ? "Welcome home! Walk in through your front door." : error);
+            }
+            else if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner != s_plotHouse.end()
+                && s_houses.count(owner->second) && MayEnter(player, s_houses[owner->second]))
+                EnterFromPlot(player, s_houses[owner->second], *plot);
+            return;
+        }
+        // Room editing: the owner, inside their own house.
+        House* own = HouseOfInstance(player->GetMap());
+        if (!own || own->account != session->GetAccountId())
+        {
+            packet.rfinish();
+            return;
+        }
+        std::string error;
+        if (action == ActionAddRoom)
+        {
+            uint8 room, piece;
+            uint32 kind;
+            packet >> room >> piece >> kind;
+            error = AddRoom(player, *own, room, piece, kind);
+        }
+        else if (action == ActionRemoveRoom)
+            error = RemoveLastRoom(player, *own);
+        if (!error.empty())
+            ChatHandler(session).SendNotification(error);
+    }
+
     enum GossipAction : uint32
     {
         ActionLeave = 1,
         ActionEnter = 2,
-        ActionClaim = 3,
         ActionVisit = 4,      // sender = owner account
-        ActionAddRoom = 5,    // lists room kinds
-        ActionPickKind = 6,   // sender = kind; lists walls it fits through
-        ActionRemoveRoom = 7,
         ActionVisitNeighborhood = 8,
         ActionLeaveNeighborhood = 9,
-        ActionPlaceRoom = 1000, // + room * 256 + piece; sender = kind
     };
 
-    constexpr size_t MaxGossipItems = 30; // the client shows 32
-
+    // The steward at Founder's Point: travel only. Houses are bought at plot cornerstones and edited in the client UI.
     class npc_esteria_housing_steward : public CreatureScript
     {
     public:
@@ -1059,30 +1204,19 @@ namespace
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             ClearGossipMenuFor(player);
+            uint32 const account = player->GetSession()->GetAccountId();
             if (!s_config.enabled || !s_loaded || !DefaultRoom())
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Housing is not available on this realm.", 0, 0);
-            else if (House* house = HouseOfInstance(player->GetMap()))
-            {
-                if (house->account == player->GetSession()->GetAccountId())
-                {
-                    if (house->rooms.size() < s_config.maxRooms)
-                        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Add a room...", 0, ActionAddRoom);
-                    if (house->rooms.size() > 1)
-                        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Remove the newest room.", 0, ActionRemoveRoom);
-                }
+            else if (HouseOfInstance(player->GetMap()))
                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave the house.", 0, ActionLeave);
-            }
             else
             {
-                uint32 const account = player->GetSession()->GetAccountId();
                 if (player->GetMapId() == NeighborhoodMap)
                     AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave Founder's Point.", 0, ActionLeaveNeighborhood);
                 else
                     AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Visit Founder's Point.", 0, ActionVisitNeighborhood);
                 if (HouseOfAccount(account))
                     AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Take me to my house.", 0, ActionEnter);
-                else
-                    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Claim a house.", 0, ActionClaim);
                 if (Group* group = player->GetGroup())
                     for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next())
                         if (Player* member = ref->GetSource())
@@ -1097,63 +1231,13 @@ namespace
             return true;
         }
 
-        bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
+        bool OnGossipSelect(Player* player, Creature* /*creature*/, uint32 sender, uint32 action) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             CloseGossipMenuFor(player);
             if (!s_config.enabled || !s_loaded)
                 return true;
             uint32 const account = player->GetSession()->GetAccountId();
-
-            // Room editing: owner only, re-checked on every step since the menu could be stale.
-            House* own = HouseOfInstance(player->GetMap());
-            if (own && own->account != account)
-                own = nullptr;
-            if (action == ActionAddRoom || action == ActionPickKind || action == ActionRemoveRoom || action >= ActionPlaceRoom)
-            {
-                if (!own)
-                    return true;
-                std::vector<Rooms::Room> const layouts = Layouts(*own);
-                if (action == ActionAddRoom)
-                {
-                    ClearGossipMenuFor(player);
-                    for (auto const& [id, kind] : s_kinds)
-                        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, kind.name, id, ActionPickKind);
-                    SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
-                }
-                else if (action == ActionPickKind)
-                {
-                    ClearGossipMenuFor(player);
-                    size_t offered = 0;
-                    for (size_t r = 0; r < layouts.size() && offered < MaxGossipItems; ++r)
-                    {
-                        auto found = s_kinds.find(layouts[r].kind);
-                        if (found == s_kinds.end())
-                            continue;
-                        Rooms::Kind const& kind = found->second;
-                        for (size_t i = 0; i < kind.pieces.size() && i < 256 && offered < MaxGossipItems; ++i)
-                            if (Rooms::Attach(s_kinds, layouts, r, i, sender))
-                            {
-                                char const* facing = Rooms::Facing(Rooms::PieceWorld(layouts[r], kind.pieces[i]));
-                                AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Room " + std::to_string(r + 1) + " (" + kind.name
-                                    + "), " + facing + " wall", sender, ActionPlaceRoom + uint32(r) * 256 + uint32(i));
-                                ++offered;
-                            }
-                    }
-                    if (!offered)
-                        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "That room does not fit against any free wall.", 0, 0);
-                    SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
-                }
-                else
-                {
-                    std::string const error = action == ActionRemoveRoom ? RemoveLastRoom(player, *own)
-                        : AddRoom(player, *own, (action - ActionPlaceRoom) / 256, (action - ActionPlaceRoom) % 256, sender);
-                    if (!error.empty())
-                        ChatHandler(player->GetSession()).SendSysMessage(error);
-                }
-                return true;
-            }
-
             switch (action)
             {
                 case ActionLeave:
@@ -1189,10 +1273,6 @@ namespace
                     if (House* house = HouseOfAccount(account))
                         EnterHouse(player, *house);
                     break;
-                case ActionClaim:
-                    if (House* house = Claim(player))
-                        EnterHouse(player, *house);
-                    break;
                 case ActionVisit:
                 {
                     // Re-check: the owner must still be in the visitor's group and own a house.
@@ -1212,7 +1292,6 @@ namespace
 
     enum CornerstoneAction : uint32
     {
-        ActionClaimPlot = 20,
         ActionEnterPlot = 21,
     };
 
@@ -1227,11 +1306,16 @@ namespace
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             ClearGossipMenuFor(player);
             Plot const* plot = s_config.enabled && s_loaded ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
+            if (plot && s_hasUi.count(player->GetSession()->GetAccountId()))
+            {
+                s_plotView[player->GetGUID()] = { plot->map, plot->index };
+                SendPlot(player, *plot);
+                return true; // the client opens its plot window instead of a gossip menu
+            }
             if (!plot)
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is not available.", 0, 0);
             else if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner == s_plotHouse.end())
-                AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Claim this plot (" + std::to_string(plot->index + 1) + ").", 0,
-                    ActionClaimPlot);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is for sale. Buying it needs the Esteria housing client.", 0, 0);
             else if (House* house = s_houses.count(owner->second) ? &s_houses[owner->second] : nullptr; house && MayEnter(player, *house))
                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, house->account == player->GetSession()->GetAccountId()
                     ? "Enter your house." : "Visit this house.", 0, ActionEnterPlot);
@@ -1248,12 +1332,7 @@ namespace
             Plot const* plot = s_config.enabled && s_loaded ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
             if (!plot)
                 return true;
-            if (action == ActionClaimPlot)
-            {
-                std::string const error = ClaimPlot(player, *plot);
-                ChatHandler(player->GetSession()).SendSysMessage(error.empty() ? "The plot is yours. Walk in through your front door." : error);
-            }
-            else if (action == ActionEnterPlot)
+            if (action == ActionEnterPlot)
                 if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner != s_plotHouse.end() && s_houses.count(owner->second)
                     && MayEnter(player, s_houses[owner->second]))
                     EnterFromPlot(player, s_houses[owner->second], *plot);
@@ -1308,7 +1387,7 @@ namespace
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             s_config.enabled = sConfigMgr->GetOption<bool>("EsteriaHousing.Enable", false);
             s_config.roomTemplate = sConfigMgr->GetOption<uint32>("EsteriaHousing.RoomTemplate", 1);
-            s_config.stewardEntry = sConfigMgr->GetOption<uint32>("EsteriaHousing.StewardEntry", 9500100);
+            s_config.plotPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.PlotPrice", 1000000);
             s_config.starterQuantity = uint16(std::min<uint32>(1000, sConfigMgr->GetOption<uint32>("EsteriaHousing.StarterQuantity", 5)));
             s_config.editsPerSecond = std::max<uint32>(1, sConfigMgr->GetOption<uint32>("EsteriaHousing.EditsPerSecond", 8));
             s_config.firstRoomKind = sConfigMgr->GetOption<uint32>("EsteriaHousing.FirstRoomKind", 1);
