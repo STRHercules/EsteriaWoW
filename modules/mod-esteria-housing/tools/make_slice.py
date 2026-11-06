@@ -11,6 +11,7 @@ installed. Every decor model is retail-origin: dev only (docs/housing/README.md)
 import argparse
 import csv
 import math
+import re
 import struct
 import sys
 from pathlib import Path
@@ -56,14 +57,18 @@ EXTERIOR_MODELS = sorted({int(r["fdid"]) for r in EXTERIOR})
 CORNERSTONE_FDID = 6935310  # GameObjects 527268 "Cornerstone - Plot 0" -> GameObjectDisplayInfo 110660
 EXTERIOR_DISPLAY_BASE, EXTERIOR_GO_BASE = DISPLAY_BASE + 100, GO_BASE + 150
 CORNERSTONE_DISPLAY, CORNERSTONE_GO = EXTERIOR_DISPLAY_BASE + 99, EXTERIOR_GO_BASE + 49
+FRONT_DOOR_DISPLAY, FRONT_DOOR_GO = EXTERIOR_DISPLAY_BASE + 98, EXTERIOR_GO_BASE + 48
 CORNERSTONE_GUID_BASE = 9500000  # gameobject guids 9500000 + plot; checked free in acore_world (max 5.7M)
 # The template's min_z is the floor the module builds rooms on (RoomTemplate::Origin); x/y bounds are per room now.
 BOUNDS_HALF = (11.0, 11.0)
 BOUNDS_Z = (-0.5, 11.0)
-MAX_DECOR = 50
+MAX_DECOR = 200
 
 CATEGORY = {"Misc": 0, "Furniture": 1, "Accents": 2, "Lighting": 3, "Nature": 4, "Structural": 5}
 SURFACE = {"floor": 0, "wall": 1, "ceiling": 2, "on-decor": 3}
+# The clickable front door on a bought plot: an M2 on the porch, since 3.3.5 cannot click a WMO GameObject (only types
+# 11/14/15/33/35 draw WMOs, and none of them can be used). Retail 12ph_general_doormat01.
+FRONT_DOOR_FDID = 7506135
 
 # decor_id, model FileDataID, name, category, surface. Each FDID passed RetailAssetProbe on 2026-11-05
 # (docs/housing/README.md lists the three swaps).
@@ -89,6 +94,52 @@ SLICE = [
     (520, 6383338, "Folk Rose Pot", "Nature", "on-decor"),
     (1701, 6390442, "Folk Pillow", "Misc", "floor"),
 ]
+
+# The rest of the retail player-housing catalog: every 12ph M2 the Phase 0 inventory checked loads ("ok"), named from
+# its file (12ph_folk_tallshelf01.m2 -> "Folk Tallshelf"). Retail doors (..._door01, ..._frontdoor01) become exits.
+INVENTORY = Path(r"R:\Users\Zach\Documents\GitHub\wowdecomp\docs\housing\existing-assets.tsv")
+DECOR_DISPLAY_BASE, DECOR_GO_BASE, DECOR_SLOTS = 61000, 9501000, 1000
+EXIT_DOOR = re.compile(r"_(front)?door\d+\.m2$")
+
+
+def decor_name(path):
+    stem = re.sub(r"\d+$", "", path.rsplit("\\", 1)[-1][:-3]).removeprefix("12ph_")
+    return " ".join(w.capitalize() for w in stem.split("_") if w)
+
+
+def surface_of(name):
+    lower = name.lower()
+    if "wall" in lower or "painting" in lower or "banner" in lower:
+        return "wall"
+    if "chandelier" in lower or "ceiling" in lower or "hanging" in lower:
+        return "ceiling"
+    return "floor"
+
+
+def catalog():
+    out, seen_decor, seen_fdid, names = list(SLICE), {r[0] for r in SLICE}, {r[1] for r in SLICE}, {r[2] for r in SLICE}
+    for r in csv.DictReader(INVENTORY.open(encoding="utf-8"), delimiter="\t"):
+        decor, fdid = int(r["decor_id"]), int(r["model_fdid"])
+        if r["status"] != "ok" or r["ext"] != "m2" or "playerhousing" not in r["model_path"]:
+            continue
+        if decor in seen_decor or fdid in seen_fdid:
+            continue
+        name = decor_name(r["model_path"])
+        base, n = name, 2
+        while name in names:
+            name, n = f"{base} {n}", n + 1
+        out.append((decor, fdid, name, r["category"] if r["category"] in CATEGORY else "Misc", surface_of(name)))
+        seen_decor.add(decor); seen_fdid.add(fdid); names.add(name)
+    return out
+
+
+def is_exit(fdid):
+    return any(EXIT_DOOR.search(r["model_path"]) for r in INVENTORY_ROWS if int(r["model_fdid"]) == fdid)
+
+
+INVENTORY_ROWS = list(csv.DictReader(INVENTORY.open(encoding="utf-8"), delimiter="\t"))
+CATALOG = catalog()
+assert len(CATALOG) <= DECOR_SLOTS, f"{len(CATALOG)} decor, {DECOR_SLOTS} slots"
 
 
 def q(text):
@@ -149,12 +200,18 @@ def world_sql(map_dbc):
         f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {GO_BASE} AND {ROOM_GO_BASE + ROOM_SLOTS - 1};",
         f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DISPLAY_BASE} AND {ROOM_DISPLAY_BASE + ROOM_SLOTS - 1};",
     ]
-    for i, (decor, fdid, name, category, surface) in enumerate(SLICE):
-        display, entry = DISPLAY_BASE + i, GO_BASE + i
+    lines += [f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {DECOR_GO_BASE} AND {DECOR_GO_BASE + DECOR_SLOTS - 1};",
+              f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DECOR_DISPLAY_BASE} AND {DECOR_DISPLAY_BASE + DECOR_SLOTS - 1};"]
+    for i, (decor, fdid, name, category, surface) in enumerate(CATALOG):
+        display, entry = DECOR_DISPLAY_BASE + i, DECOR_GO_BASE + i
         lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
                      f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.m2')}, -1, -1, 0, 1, 1, 2);")
-        lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
-                     f"VALUES ({entry}, 5, {display}, {q(name)}, 1);")
+        if is_exit(fdid):  # type 10 (goober): clicking it runs the script's gossip hello, which leaves the house
+            lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) "
+                         f"VALUES ({entry}, 10, {display}, {q(name + ' (exit)')}, 1, 'go_esteria_housing_exit');")
+        else:
+            lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
+                         f"VALUES ({entry}, 5, {display}, {q(name)}, 1);")
         lines.append(f"INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, "
                      f"`category`, `surface`, `origin`, `enabled`) VALUES ({decor}, {fdid}, {display}, {entry}, {q(name)}, "
                      f"{CATEGORY[category]}, {SURFACE[surface]}, 'retail', 1);")
@@ -209,7 +266,8 @@ def world_sql(map_dbc):
         "-- Plots: a cornerstone on each, and the exterior recipe the module builds a claimed plot's house from.",
         "DELETE FROM `housing_plot`;",
         "DELETE FROM `housing_exterior_piece`;",
-        f"DELETE FROM `gameobject` WHERE `guid` BETWEEN {CORNERSTONE_GUID_BASE} AND {CORNERSTONE_GUID_BASE + 999};",
+        # Only the cornerstones: saved house exteriors get guids from the same counter, right after them.
+        f"DELETE FROM `gameobject` WHERE `id` = {CORNERSTONE_GO};",
         f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, `GeoBoxMaxX`, "
         f"`GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({CORNERSTONE_DISPLAY}, {q(f'retail\\{CORNERSTONE_FDID}.m2')}, -1, -1, 0, 1, 1, 3);",
         # Type 2 (questgiver) with no quests: using it opens the script's gossip, as stock signposts and books do.
@@ -222,6 +280,13 @@ def world_sql(map_dbc):
                      f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.wmo')}, -12, -12, 0, 12, 12, 15);")
         lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
                      f"VALUES ({entry}, 14, {display}, {q(f'House piece {fdid}')}, 1);")
+    lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
+                 f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({FRONT_DOOR_DISPLAY}, {q(f'retail\\{FRONT_DOOR_FDID}.m2')}, "
+                 f"-1, -1, 0, 1, 1, 1);")
+    lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES "
+                 f"({FRONT_DOOR_GO}, 10, {FRONT_DOOR_DISPLAY}, 'Front Door', 1, 'go_esteria_housing_front_door');")
+    lines.append(f"INSERT INTO `housing_exterior_piece` (`role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, `rot_deg`) "
+                 f"VALUES ('front_door', {FRONT_DOOR_GO}, 0, 0, 0, 0);")
     for r in EXTERIOR:
         lines.append(f"INSERT INTO `housing_exterior_piece` (`role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, `rot_deg`) "
                      f"VALUES ({q(r['role'])}, {EXTERIOR_GO_BASE + EXTERIOR_MODELS.index(int(r['fdid']))}, {r['x']}, {r['y']}, "
@@ -289,10 +354,11 @@ def patch_dbc(storm, client):
     taken = {struct.unpack_from("<I", r)[0] for r in rows}
     strings = bytearray(strings)
     added = []
-    models = [(DISPLAY_BASE + i, f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(SLICE)]
+    models = [(DECOR_DISPLAY_BASE + i, f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(CATALOG)]
     models += [(ROOM_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 11)) for i, fdid in enumerate(ROOM_MODELS)]
     models += [(EXTERIOR_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(EXTERIOR_MODELS)]
     models.append((CORNERSTONE_DISPLAY, f"retail\\{CORNERSTONE_FDID}.m2", (-1, -1, 0, 1, 1, 3)))
+    models.append((FRONT_DOOR_DISPLAY, f"retail\\{FRONT_DOOR_FDID}.m2", (-1, -1, 0, 1, 1, 1)))
     for display, name, box in models:
         assert display not in taken, f"display {display} already used in {archive.name}"
         offset = len(strings)
@@ -332,7 +398,7 @@ def main():
             assert storm.read(handle, name) == data, f"read-back mismatch: {name}"
     finally:
         storm.dll.SFileCloseArchive(handle)
-    print(f"wrote {target} ({len(SLICE) + len(ROOM_MODELS) + len(EXTERIOR_MODELS) + 1} display rows on top of {source.name}; "
+    print(f"wrote {target} ({len(CATALOG) + len(ROOM_MODELS) + len(EXTERIOR_MODELS) + 2} display rows on top of {source.name}; "
           f"maps {', '.join(map(str, MAPS))} on top of {map_source.name}'s Map.dbc)")
     # The client finds each map's WDT through these aliases (Data/Retail/RetailCasc.ini aliases=).
     for map_id, fdid in MAP_FDIDS.items():
