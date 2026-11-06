@@ -13,7 +13,7 @@
 //   CMSG_CATALOG  page(u32)
 //   SMSG_CATALOG  page(u32) pageCount(u32) n(u16), then n x
 //                 decorId(u32) gameobjectEntry(u32) modelFileDataId(u32) available(u16) placed(u16)
-//                 category(u8) surface(u8) name(string)
+//                 category(u8) surface(u8) price(u32 copper) name(string)
 //   CMSG_EDIT     seq(u32) baseRevision(u32) op(u8) placedId(u64) decorId(u32) pos(f32 x3) rot(f32 x4 xyzw) scale(f32)
 //   SMSG_EDIT_ACK seq(u32) result(u8) revision(u32) placedId(u64) pos(f32 x3) rot(f32 x4) scale(f32)
 //                 the transform is the server-final one; it is zero when result != Ok
@@ -23,7 +23,8 @@
 //                 placedId(u64) decorId(u32) pos(f32 x3) yaw(f32, radians)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
 //   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
-//                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8); nothing for the others.
+//                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8), ActionBuyDecor decorId(u32)
+//                 count(u16); nothing for the others.
 //                 Rooms cost gold. A kind of StairsDownBase + stairwell builds that stairwell down from the socket.
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
 //   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
@@ -39,7 +40,7 @@
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 5;
+    inline constexpr uint16_t Proto = 6;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -78,6 +79,7 @@ namespace EsteriaHousingWire
         ActionRoomStyle = 5,  // room(u8) part(u8: 1 walls 2 floor 3 ceiling) theme(u32)
         ActionRoomCeiling = 6, // room(u8) hidden(u8)
         ActionStairsUp = 7,   // room(u8): a stairwell's top becomes another stairwell, with a new top above
+        ActionBuyDecor = 8,   // decorId(u32) count(u16): the catalog's price each, into storage
     };
 
     inline constexpr uint32_t StairsDownBase = 1000;
