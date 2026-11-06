@@ -304,7 +304,8 @@ def world_sql(map_dbc):
         lines.append(f"INSERT INTO `housing_plot` VALUES ({NEIGHBORHOOD_MAP}, {p['plot']}, {p['house_x']}, {p['house_y']}, "
                      f"{p['house_z']}, {p['house_yaw']}, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {p['corner_o']}, "
                      f"{p['exit_x']}, {p['exit_y']}, {p['exit_z']});")
-        o = float(p["corner_o"])
+        # The retail sign model faces its -x: facing the street takes CornerstoneRotation turned half way round.
+        o = (float(p["corner_o"]) + math.pi) % (2 * math.pi)
         lines.append(f"INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, "
                      f"`position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, "
                      f"`animprogress`, `state`) VALUES ({CORNERSTONE_GUID_BASE + int(p['plot'])}, {CORNERSTONE_GO}, "
