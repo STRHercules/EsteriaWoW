@@ -1362,7 +1362,15 @@ enum Opcodes : uint16
     SMSG_ESTERIA_SPELL_CHARGES_SET                  = 0x534,
     SMSG_ESTERIA_AURA_AMOUNT                        = 0x535,
     SMSG_ESTERIA_SPELL_VISUAL_OVERRIDE              = 0x536,
-    NUM_MSG_TYPES                                   = 0x537
+    CMSG_ESTERIA_HOUSING_HELLO                      = 0x537,
+    SMSG_ESTERIA_HOUSING_HELLO                      = 0x538,
+    CMSG_ESTERIA_HOUSING_CATALOG                    = 0x539,
+    SMSG_ESTERIA_HOUSING_CATALOG                    = 0x53A,
+    CMSG_ESTERIA_HOUSING_EDIT                       = 0x53B,
+    SMSG_ESTERIA_HOUSING_EDIT_ACK                   = 0x53C,
+    CMSG_ESTERIA_HOUSING_ENTER                      = 0x53D,
+    SMSG_ESTERIA_HOUSING_STATE                      = 0x53E,
+    NUM_MSG_TYPES                                   = 0x53F
 };
 
 enum OpcodeMisc : uint16

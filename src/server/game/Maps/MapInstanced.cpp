@@ -17,6 +17,7 @@
 
 #include "MapInstanced.h"
 #include "Battleground.h"
+#include "EsteriaHousingHooks.h"
 #include "Group.h"
 #include "InstanceSaveMgr.h"
 #include "MapMgr.h"
@@ -134,6 +135,14 @@ Map* MapInstanced::CreateInstanceForPlayer(const uint32 mapId, Player* player)
                 return nullptr;
             }
         }
+    }
+    else if (EsteriaHousingHooks::InstancePicker pick = EsteriaHousingHooks::Instance.load();
+             uint32 houseInstanceId = pick ? pick(player, mapId) : 0)
+    {
+        // mod-esteria-housing: owners and visitors share the owner's instance regardless of binds or groups.
+        map = FindInstanceMap(houseInstanceId);
+        if (!map)
+            map = CreateInstance(houseInstanceId, nullptr, DUNGEON_DIFFICULTY_NORMAL, player);
     }
     else
     {

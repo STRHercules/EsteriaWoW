@@ -1,0 +1,31 @@
+[worldserver]
+
+###################################################################################################
+# mod-esteria-housing (Phase 1 slice). Dev realms only until retail-asset distribution is decided.
+#
+#    EsteriaHousing.Enable
+#        Description: Player housing: the steward NPC, the per-house instance hook and the edit opcodes.
+#                     Needs the world/characters SQL from modules/mod-esteria-housing/sql applied first.
+#        Default:     0 - (Disabled; the core hooks stay null)
+#
+#    EsteriaHousing.RoomTemplate
+#        Description: housing_room_template row every new house uses.
+#        Default:     1
+#
+#    EsteriaHousing.StewardEntry
+#        Description: creature_template entry spawned inside each house as the exit.
+#        Default:     9500100
+#
+#    EsteriaHousing.StarterQuantity
+#        Description: How many of each enabled catalog decor an account gets when it claims a house.
+#        Default:     5
+#
+#    EsteriaHousing.EditsPerSecond
+#        Description: Edit requests per account per second before RATE_LIMITED.
+#        Default:     8
+
+EsteriaHousing.Enable = 0
+EsteriaHousing.RoomTemplate = 1
+EsteriaHousing.StewardEntry = 9500100
+EsteriaHousing.StarterQuantity = 5
+EsteriaHousing.EditsPerSecond = 8
