@@ -105,6 +105,29 @@ namespace
     std::map<uint32, CatalogEntry> s_catalog;
     std::unordered_map<uint32, RoomTemplate> s_rooms;
     Rooms::Kinds s_kinds; // retail room kinds and their kit pieces
+
+    // Neighborhood plots (housing_plot) and the exterior a claimed plot is built from (housing_exterior_piece).
+    struct Plot
+    {
+        uint16 map = 0;
+        uint8 index = 0;
+        float house[4] = { 0, 0, 0, 0 };   // x y z yaw
+        float corner[4] = { 0, 0, 0, 0 };  // x y z orientation
+        float exit[3] = { 0, 0, 0 };       // where leaving the house puts you
+    };
+    struct ExteriorPiece
+    {
+        std::string role; // base roof window chimney door_hook
+        uint32 entry = 0;
+        float pos[3] = { 0, 0, 0 };
+        float rotDeg = 0;
+    };
+    struct Placement { uint32 entry; float x, y, z, yaw; };
+    std::vector<Plot> s_plots;
+    std::vector<ExteriorPiece> s_exterior;
+    std::map<std::pair<uint16, uint8>, uint32> s_plotHouse;           // plot -> house
+    std::unordered_map<uint32, std::pair<uint16, uint8>> s_housePlot; // house -> plot
+    std::unordered_map<ObjectGuid, uint32> s_doorCooldown;            // player -> ms left before a door fires again
     std::unordered_map<uint32, House> s_houses;
     std::unordered_map<uint32, uint32> s_houseByAccount;
     std::unordered_map<uint32, std::unordered_map<uint32, Owned>> s_owned; // account -> decor -> counts
@@ -259,6 +282,39 @@ namespace
                 s_houses[h.id] = std::move(h);
             } while (result->NextRow());
 
+        s_plots.clear();
+        s_exterior.clear();
+        s_plotHouse.clear();
+        s_housePlot.clear();
+        if (QueryResult result = WorldDatabase.Query("SELECT map_id, plot, house_x, house_y, house_z, house_yaw, corner_x, "
+            "corner_y, corner_z, corner_o, exit_x, exit_y, exit_z FROM housing_plot ORDER BY map_id, plot"))
+            do
+            {
+                Field* f = result->Fetch();
+                Plot p;
+                p.map = f[0].Get<uint16>(); p.index = f[1].Get<uint8>();
+                for (int i = 0; i < 4; ++i) { p.house[i] = f[2 + i].Get<float>(); p.corner[i] = f[6 + i].Get<float>(); }
+                for (int i = 0; i < 3; ++i) p.exit[i] = f[10 + i].Get<float>();
+                s_plots.push_back(p);
+            } while (result->NextRow());
+        if (QueryResult result = WorldDatabase.Query("SELECT role, gameobject_entry, pos_x, pos_y, pos_z, rot_deg "
+            "FROM housing_exterior_piece ORDER BY id"))
+            do
+            {
+                Field* f = result->Fetch();
+                ExteriorPiece e;
+                e.role = f[0].Get<std::string>(); e.entry = f[1].Get<uint32>();
+                for (int i = 0; i < 3; ++i) e.pos[i] = f[2 + i].Get<float>();
+                e.rotDeg = f[5].Get<float>();
+                GameObjectTemplate const* go = sObjectMgr->GetGameObjectTemplate(e.entry);
+                if (!go || go->type != GAMEOBJECT_TYPE_MAP_OBJECT)
+                {
+                    LOG_ERROR("module", "housing: exterior piece names a non map-object gameobject_template {}; skipped", e.entry);
+                    continue;
+                }
+                s_exterior.push_back(e);
+            } while (result->NextRow());
+
         // Rooms claimed before layouts existed have no housing_room_layout row: they are the first kind at the origin.
         if (QueryResult result = CharacterDatabase.Query("SELECT r.room_id, r.house_id, COALESCE(l.kind, {}), "
             "COALESCE(l.offset_x, 0), COALESCE(l.offset_y, 0), COALESCE(l.yaw_quarter, 0) FROM housing_room r "
@@ -273,6 +329,15 @@ namespace
                 r.id = f[0].Get<uint32>();
                 r.layout = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(), uint8(f[5].Get<uint8>() % 4) };
                 house->second.rooms.push_back(r);
+            } while (result->NextRow());
+
+        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, house_id FROM housing_plot_claim"))
+            do
+            {
+                Field* f = result->Fetch();
+                auto const key = std::make_pair(f[0].Get<uint16>(), f[1].Get<uint8>());
+                s_plotHouse[key] = f[2].Get<uint32>();
+                s_housePlot[f[2].Get<uint32>()] = key;
             } while (result->NextRow());
 
         if (QueryResult result = CharacterDatabase.Query("SELECT MAX(room_id) FROM housing_room"))
@@ -840,6 +905,135 @@ namespace
         return "";
     }
 
+    // ---------------------------------------------------------------- neighborhood plots
+
+    Plot const* PlotAt(uint16 map, float x, float y, float maxDistance)
+    {
+        Plot const* best = nullptr;
+        float bestDistance = maxDistance * maxDistance;
+        for (Plot const& p : s_plots)
+        {
+            float const dx = p.corner[0] - x, dy = p.corner[1] - y, d = dx * dx + dy * dy;
+            if (p.map == map && d <= bestDistance) { best = &p; bestDistance = d; }
+        }
+        return best;
+    }
+
+    Plot const* PlotOf(uint32 houseId)
+    {
+        auto it = s_housePlot.find(houseId);
+        if (it == s_housePlot.end())
+            return nullptr;
+        for (Plot const& p : s_plots)
+            if (p.map == it->second.first && p.index == it->second.second)
+                return &p;
+        return nullptr;
+    }
+
+    // The default exterior on a plot: every piece but the door hooks, plus the door on the hook facing the cornerstone.
+    // door receives the spot just outside that door, where walking in enters the house.
+    std::vector<Placement> Exterior(Plot const& plot, Rooms::Pose* door = nullptr)
+    {
+        std::vector<Placement> out;
+        std::vector<Rooms::Hook> doors;
+        std::vector<uint32> doorEntries;
+        for (ExteriorPiece const& e : s_exterior)
+        {
+            Rooms::Hook const h{ e.pos[0], e.pos[1], e.pos[2], e.rotDeg };
+            if (e.role == "door_hook")
+            {
+                doors.push_back(h);
+                doorEntries.push_back(e.entry);
+                continue;
+            }
+            Rooms::Pose const p = Rooms::OnPlot(plot.house[0], plot.house[1], plot.house[2], plot.house[3], h);
+            out.push_back({ e.entry, p.x, p.y, p.z, p.yaw });
+        }
+        if (!doors.empty())
+        {
+            size_t const i = Rooms::FrontDoor(plot.house[0], plot.house[1], plot.house[2], plot.house[3], doors, plot.corner[0],
+                plot.corner[1]);
+            Rooms::Pose const p = Rooms::OnPlot(plot.house[0], plot.house[1], plot.house[2], plot.house[3], doors[i]);
+            out.push_back({ doorEntries[i], p.x, p.y, p.z, p.yaw });
+            if (door)
+            {
+                *door = p;
+                door->x += p.nx * 1.5f;
+                door->y += p.ny * 1.5f;
+            }
+        }
+        return out;
+    }
+
+    // Saves a permanent world spawn the way .gobject add does, so the grid owns it across unloads and restarts.
+    uint32 SaveSpawn(Map* map, Placement const& p)
+    {
+        GameObjectTemplate const* info = sObjectMgr->GetGameObjectTemplate(p.entry);
+        if (!info)
+            return 0;
+        GameObject* object = new GameObject();
+        G3D::Quat const rotation = G3D::Quat::fromAxisAngleRotation(G3D::Vector3::unitZ(), p.yaw);
+        if (!object->Create(map->GenerateLowGuid<HighGuid::GameObject>(), info->entry, map, PHASEMASK_NORMAL, p.x, p.y, p.z,
+            p.yaw, rotation, 0, GO_STATE_READY))
+        {
+            delete object;
+            return 0;
+        }
+        object->SaveToDB(map->GetId(), 1 << map->GetSpawnMode(), PHASEMASK_NORMAL);
+        uint32 const spawnId = object->GetSpawnId();
+        delete object;
+        object = new GameObject();
+        if (!object->LoadGameObjectFromDB(spawnId, map, true))
+        {
+            delete object;
+            return 0;
+        }
+        sObjectMgr->AddGameobjectToGrid(spawnId, sObjectMgr->GetGameObjectData(spawnId));
+        return spawnId;
+    }
+
+    std::string ClaimPlot(Player* player, Plot const& plot)
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        if (s_plotHouse.count({ plot.map, plot.index }))
+            return "Someone has already claimed this plot.";
+        House* house = HouseOfAccount(account);
+        if (house && s_housePlot.count(house->id))
+            return "Your house already stands on another plot.";
+        if (!house && !(house = Claim(player)))
+            return "Housing could not create your house.";
+        std::string spawns;
+        for (Placement const& p : Exterior(plot))
+            if (uint32 const spawnId = SaveSpawn(player->GetMap(), p))
+                spawns += (spawns.empty() ? "" : " ") + std::to_string(spawnId);
+        CharacterDatabase.Execute("INSERT INTO housing_plot_claim (map_id, plot, house_id, spawns, claimed_at) VALUES ({}, {}, {}, '{}', {})",
+            plot.map, plot.index, house->id, spawns, uint32(GameTime::GetGameTime().count()));
+        s_plotHouse[{ plot.map, plot.index }] = house->id;
+        s_housePlot[house->id] = { plot.map, plot.index };
+        LOG_INFO("module", "housing: {} claimed plot {} on map {} for house {} (spawns {})", player->GetName(), plot.index,
+            plot.map, house->id, spawns);
+        return "";
+    }
+
+    // Entering from a plot: leaving the house puts you at the plot's arrival point, not back on the door.
+    void EnterFromPlot(Player* player, House const& house, Plot const& plot)
+    {
+        EnterHouse(player, house);
+        s_returnTo[player->GetGUID()] = WorldLocation(plot.map, plot.exit[0], plot.exit[1], plot.exit[2], plot.corner[3]);
+    }
+
+    // Owner, or anyone grouped with the owner, may go in.
+    bool MayEnter(Player* player, House const& house)
+    {
+        if (house.account == player->GetSession()->GetAccountId())
+            return true;
+        if (Group* group = player->GetGroup())
+            for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next())
+                if (ref->GetSource() && ref->GetSource()->GetSession()->GetAccountId() == house.account)
+                    return true;
+        return false;
+    }
+
     enum GossipAction : uint32
     {
         ActionLeave = 1,
@@ -1016,6 +1210,94 @@ namespace
         }
     };
 
+    enum CornerstoneAction : uint32
+    {
+        ActionClaimPlot = 20,
+        ActionEnterPlot = 21,
+    };
+
+    // The sign on every plot (make_slice.py spawns one per housing_plot row). Free: claim it. Claimed: go in, if allowed.
+    class go_esteria_housing_cornerstone : public GameObjectScript
+    {
+    public:
+        go_esteria_housing_cornerstone() : GameObjectScript("go_esteria_housing_cornerstone") { }
+
+        bool OnGossipHello(Player* player, GameObject* go) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            ClearGossipMenuFor(player);
+            Plot const* plot = s_config.enabled && s_loaded ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
+            if (!plot)
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is not available.", 0, 0);
+            else if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner == s_plotHouse.end())
+                AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Claim this plot (" + std::to_string(plot->index + 1) + ").", 0,
+                    ActionClaimPlot);
+            else if (House* house = s_houses.count(owner->second) ? &s_houses[owner->second] : nullptr; house && MayEnter(player, *house))
+                AddGossipItemFor(player, GOSSIP_ICON_TAXI, house->account == player->GetSession()->GetAccountId()
+                    ? "Enter your house." : "Visit this house.", 0, ActionEnterPlot);
+            else
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is someone's home. Group with them to visit.", 0, 0);
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, go->GetGUID());
+            return true;
+        }
+
+        bool OnGossipSelect(Player* player, GameObject* go, uint32 /*sender*/, uint32 action) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            CloseGossipMenuFor(player);
+            Plot const* plot = s_config.enabled && s_loaded ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
+            if (!plot)
+                return true;
+            if (action == ActionClaimPlot)
+            {
+                std::string const error = ClaimPlot(player, *plot);
+                ChatHandler(player->GetSession()).SendSysMessage(error.empty() ? "The plot is yours. Walk in through your front door." : error);
+            }
+            else if (action == ActionEnterPlot)
+                if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner != s_plotHouse.end() && s_houses.count(owner->second)
+                    && MayEnter(player, s_houses[owner->second]))
+                    EnterFromPlot(player, s_houses[owner->second], *plot);
+            return true;
+        }
+    };
+
+    // Walking into a house's front door enters it, for whoever may (MayEnter).
+    class EsteriaHousingDoors : public PlayerScript
+    {
+    public:
+        EsteriaHousingDoors() : PlayerScript("EsteriaHousingDoors", { PLAYERHOOK_ON_UPDATE }) { }
+
+        void OnPlayerUpdate(Player* player, uint32 diff) override
+        {
+            if (player->GetMapId() != NeighborhoodMap || player->IsBeingTeleported())
+                return;
+            std::lock_guard<std::recursive_mutex> guard(s_lock); // map threads call this
+            if (!s_config.enabled || !s_loaded || s_plotHouse.empty())
+                return;
+            uint32& wait = s_doorCooldown[player->GetGUID()];
+            if (wait > diff) { wait -= diff; return; }
+            wait = 500; // checked twice a second
+            for (auto const& [key, houseId] : s_plotHouse)
+            {
+                Plot const* plot = PlotOf(houseId);
+                auto house = s_houses.find(houseId);
+                if (!plot || plot->map != player->GetMapId() || house == s_houses.end())
+                    continue;
+                Rooms::Pose door;
+                Exterior(*plot, &door);
+                float const dx = player->GetPositionX() - door.x, dy = player->GetPositionY() - door.y;
+                if (dx * dx + dy * dy > 2.0f * 2.0f || std::fabs(player->GetPositionZ() - door.z) > 4.0f)
+                    continue;
+                if (MayEnter(player, house->second))
+                {
+                    wait = 5000; // no second trigger while the teleport starts
+                    EnterFromPlot(player, house->second, *plot);
+                }
+                return;
+            }
+        }
+    };
+
     class EsteriaHousingWorld : public WorldScript
     {
     public:
@@ -1091,6 +1373,8 @@ namespace
 void AddSC_mod_esteria_housing()
 {
     new npc_esteria_housing_steward();
+    new go_esteria_housing_cornerstone();
+    new EsteriaHousingDoors();
     new EsteriaHousingWorld();
     new EsteriaHousingMaps();
 }

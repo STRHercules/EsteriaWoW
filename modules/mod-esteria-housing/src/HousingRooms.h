@@ -207,6 +207,40 @@ namespace EsteriaHousing::Rooms
         return std::nullopt;
     }
 
+    // A house exterior on a neighborhood plot. The plot's yaw turns the whole house counter-clockwise (a world facing);
+    // each hook's own OffsetRot turns clockwise, as RoomComponent's does. Door pieces face out along their local +x.
+    struct Hook { float x = 0, y = 0, z = 0, rotDeg = 0; };
+
+    inline Pose OnPlot(float hx, float hy, float hz, float yaw, Hook const& h)
+    {
+        Pose p;
+        Rotate(yaw, h.x, h.y, p.x, p.y);
+        p.x += hx;
+        p.y += hy;
+        p.z = hz + h.z;
+        p.yaw = yaw - h.rotDeg * Pi / 180;
+        Rotate(p.yaw, 1, 0, p.nx, p.ny);
+        return p;
+    }
+
+    // The door hook whose outside faces the plot's cornerstone most squarely: the front of the plot.
+    inline size_t FrontDoor(float hx, float hy, float hz, float yaw, std::vector<Hook> const& doors, float cx, float cy)
+    {
+        size_t best = 0;
+        float bestDot = -2;
+        for (size_t i = 0; i < doors.size(); ++i)
+        {
+            Pose const p = OnPlot(hx, hy, hz, yaw, doors[i]);
+            float dx = cx - p.x, dy = cy - p.y;
+            float const len = std::sqrt(dx * dx + dy * dy);
+            if (len < 1e-3f)
+                continue;
+            float const dot = (p.nx * dx + p.ny * dy) / len;
+            if (dot > bestDot) { bestDot = dot; best = i; }
+        }
+        return best;
+    }
+
     // "north wall" etc. for a socket's outward normal (+x is north, +y west on WoW maps).
     inline char const* Facing(Pose const& p)
     {

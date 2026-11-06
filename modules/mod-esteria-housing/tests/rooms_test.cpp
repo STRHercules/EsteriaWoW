@@ -87,6 +87,18 @@ int main()
     auto east = Attach(kinds, rooms, 1, 3, 12);
     CHECK(east && Near(east->x, 24) && Near(east->y, -36));
 
+    // Founder's Point plot 0: house at (2973.1, -245.3), cornerstone at (2942.7, -214.3), to the south-west (-x, +y).
+    // The default base's door hooks (12ph_exterior_human_base01): the front door is one of the two on the -x face.
+    std::vector<Hook> doors = { { 9.281f, 3.469f, -0.561f, 0 }, { -9.456f, -3.508f, -0.561f, 180 }, { 9.281f, -3.455f, -0.561f, 0 },
+        { 0.078f, 10.889f, -0.561f, -90 }, { 0.078f, -10.995f, -0.561f, 90 }, { -9.456f, 3.469f, -0.561f, 180 } };
+    size_t const front = FrontDoor(2973.08f, -245.32f, 113.17f, 0, doors, 2942.74f, -214.27f);
+    CHECK(front == 5); // the -x face, +y side: nearest the cornerstone
+    Pose const door = OnPlot(2973.08f, -245.32f, 113.17f, 0, doors[front]);
+    CHECK(Near(door.x, 2963.62f) && Near(door.y, -241.85f) && Near(door.nx, -1) && Near(door.z, 112.61f));
+    // A quarter-turned plot turns the hooks with it: the +x door now faces +y.
+    Pose const turned = OnPlot(0, 0, 0, Pi / 2, doors[0]);
+    CHECK(Near(turned.x, -3.469f) && Near(turned.y, 9.281f) && Near(turned.ny, 1));
+
     if (failures)
         return 1;
     std::printf("rooms_test passed\n");

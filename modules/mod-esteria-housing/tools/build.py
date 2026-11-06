@@ -17,7 +17,8 @@ out = Path("G:/housing-build")
 out.mkdir(exist_ok=True)
 container = "housing-build"
 for source, target in [("src/.", "/azerothcore/src/"),
-                       ("modules/mod-esteria-housing/.", "/azerothcore/modules/mod-esteria-housing/")]:
+                       ("modules/mod-esteria-housing/.", "/azerothcore/modules/mod-esteria-housing/"),
+                       ("modules/mod-esteria-toolchest/.", "/azerothcore/modules/mod-esteria-toolchest/")]:
     subprocess.run(["docker", "exec", container, "mkdir", "-p", target], check=True)
     # str + "/." on purpose: Path would drop the trailing "." and docker cp would nest the folder inside the target
     subprocess.run(["docker", "cp", str(root) + "/" + source, container + ":" + target], check=True)

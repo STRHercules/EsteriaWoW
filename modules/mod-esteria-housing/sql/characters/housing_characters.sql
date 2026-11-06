@@ -35,6 +35,18 @@ CREATE TABLE IF NOT EXISTS `housing_room_layout` (
   CONSTRAINT `fk_layout_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
+CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
+  `map_id`     SMALLINT UNSIGNED NOT NULL,
+  `plot`       TINYINT UNSIGNED NOT NULL,
+  `house_id`   INT UNSIGNED NOT NULL,
+  `spawns`     VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'space-separated acore_world gameobject guids',
+  `claimed_at` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`map_id`, `plot`),
+  UNIQUE KEY `uk_claim_house` (`house_id`),
+  CONSTRAINT `fk_claim_house` FOREIGN KEY (`house_id`) REFERENCES `housing_house` (`house_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `housing_placed_decor` (
   `placed_id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `house_id`          INT UNSIGNED NOT NULL,

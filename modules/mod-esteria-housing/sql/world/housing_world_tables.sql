@@ -55,3 +55,23 @@ CREATE TABLE IF NOT EXISTS `housing_room_kit` (
   `go_wide_frame` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'frame centred on a wide joint',
   PRIMARY KEY (`kind`, `piece_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Neighborhood plots (NeighborhoodPlot, retail world coordinates) and the exterior a claimed plot is built from
+-- (ExteriorComponent + ExteriorComponentHook, default small Human House), from wowdecomp docs/housing/tools/phase3/make_plots.py.
+CREATE TABLE IF NOT EXISTS `housing_plot` (
+  `map_id`  SMALLINT UNSIGNED NOT NULL,
+  `plot`    TINYINT UNSIGNED NOT NULL COMMENT 'NeighborhoodPlot.PlotIndex',
+  `house_x` FLOAT NOT NULL, `house_y` FLOAT NOT NULL, `house_z` FLOAT NOT NULL, `house_yaw` FLOAT NOT NULL COMMENT 'radians',
+  `corner_x` FLOAT NOT NULL, `corner_y` FLOAT NOT NULL, `corner_z` FLOAT NOT NULL, `corner_o` FLOAT NOT NULL,
+  `exit_x` FLOAT NOT NULL, `exit_y` FLOAT NOT NULL, `exit_z` FLOAT NOT NULL COMMENT 'TeleportPosition: where leaving the house puts you',
+  PRIMARY KEY (`map_id`, `plot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `housing_exterior_piece` (
+  `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `role`             VARCHAR(16) NOT NULL COMMENT 'base roof window chimney, or door_hook: a candidate door position',
+  `gameobject_entry` INT UNSIGNED NOT NULL COMMENT 'type 14, display retail\<fdid>.wmo',
+  `pos_x` FLOAT NOT NULL, `pos_y` FLOAT NOT NULL, `pos_z` FLOAT NOT NULL,
+  `rot_deg` FLOAT NOT NULL COMMENT 'hook OffsetRot z, applied clockwise',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -10,6 +10,7 @@ installed. Every decor model is retail-origin: dev only (docs/housing/README.md)
 """
 import argparse
 import csv
+import math
 import struct
 import sys
 from pathlib import Path
@@ -45,6 +46,17 @@ KIT = list(csv.DictReader((MODULE / "data/room_kit.tsv").open(encoding="utf-8"),
 ROOM_MODELS = sorted({int(r[k]) for r in KIT for k in ("solid", "door", "wide", "door_frame", "wide_frame") if r[k] != "0"})
 assert len(ROOM_MODELS) <= ROOM_SLOTS, f"{len(ROOM_MODELS)} room models, {ROOM_SLOTS} display slots"
 ENTRY = (ROOM_ORIGIN[0], ROOM_ORIGIN[1], ROOM_ORIGIN[2] + 0.5, 0.0)
+
+# Founder's Point plots and the default small Human House (data/plots.tsv, data/exterior.tsv from wowdecomp
+# docs/housing/tools/phase3/make_plots.py). Each plot gets a permanent cornerstone (retail 12ph_plotsalesign01, a
+# clickable GameObject the module scripts); a claimed plot's exterior pieces are type-14 GameObjects the module saves.
+PLOTS = list(csv.DictReader((MODULE / "data/plots.tsv").open(encoding="utf-8"), delimiter="\t"))
+EXTERIOR = list(csv.DictReader((MODULE / "data/exterior.tsv").open(encoding="utf-8"), delimiter="\t"))
+EXTERIOR_MODELS = sorted({int(r["fdid"]) for r in EXTERIOR})
+CORNERSTONE_FDID = 6935310  # GameObjects 527268 "Cornerstone - Plot 0" -> GameObjectDisplayInfo 110660
+EXTERIOR_DISPLAY_BASE, EXTERIOR_GO_BASE = DISPLAY_BASE + 100, GO_BASE + 150
+CORNERSTONE_DISPLAY, CORNERSTONE_GO = EXTERIOR_DISPLAY_BASE + 99, EXTERIOR_GO_BASE + 49
+CORNERSTONE_GUID_BASE = 9500000  # gameobject guids 9500000 + plot; checked free in acore_world (max 5.7M)
 # The template's min_z is the floor the module builds rooms on (RoomTemplate::Origin); x/y bounds are per room now.
 BOUNDS_HALF = (11.0, 11.0)
 BOUNDS_Z = (-0.5, 11.0)
@@ -194,6 +206,38 @@ def world_sql(map_dbc):
         f"INSERT INTO `mapdifficulty_dbc` (`ID`, `MapID`, `Difficulty`, `Message_Lang_Mask`, `RaidDuration`, `MaxPlayers`) "
         f"VALUES ({HOUSE_MAP}, {HOUSE_MAP}, 0, 16712188, 0, {MAPS[HOUSE_MAP][3]});",
         "",
+        "-- Plots: a cornerstone on each, and the exterior recipe the module builds a claimed plot's house from.",
+        "DELETE FROM `housing_plot`;",
+        "DELETE FROM `housing_exterior_piece`;",
+        f"DELETE FROM `gameobject` WHERE `guid` BETWEEN {CORNERSTONE_GUID_BASE} AND {CORNERSTONE_GUID_BASE + 999};",
+        f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, `GeoBoxMaxX`, "
+        f"`GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({CORNERSTONE_DISPLAY}, {q(f'retail\\{CORNERSTONE_FDID}.m2')}, -1, -1, 0, 1, 1, 3);",
+        # Type 2 (questgiver) with no quests: using it opens the script's gossip, as stock signposts and books do.
+        f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES "
+        f"({CORNERSTONE_GO}, 2, {CORNERSTONE_DISPLAY}, 'Cornerstone', 1, 'go_esteria_housing_cornerstone');",
+    ]
+    for i, fdid in enumerate(EXTERIOR_MODELS):
+        display, entry = EXTERIOR_DISPLAY_BASE + i, EXTERIOR_GO_BASE + i
+        lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
+                     f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.wmo')}, -12, -12, 0, 12, 12, 15);")
+        lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
+                     f"VALUES ({entry}, 14, {display}, {q(f'House piece {fdid}')}, 1);")
+    for r in EXTERIOR:
+        lines.append(f"INSERT INTO `housing_exterior_piece` (`role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, `rot_deg`) "
+                     f"VALUES ({q(r['role'])}, {EXTERIOR_GO_BASE + EXTERIOR_MODELS.index(int(r['fdid']))}, {r['x']}, {r['y']}, "
+                     f"{r['z']}, {r['rot_deg']});")
+    for p in PLOTS:
+        lines.append(f"INSERT INTO `housing_plot` VALUES ({NEIGHBORHOOD_MAP}, {p['plot']}, {p['house_x']}, {p['house_y']}, "
+                     f"{p['house_z']}, {p['house_yaw']}, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {p['corner_o']}, "
+                     f"{p['exit_x']}, {p['exit_y']}, {p['exit_z']});")
+        o = float(p["corner_o"])
+        lines.append(f"INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, "
+                     f"`position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, "
+                     f"`animprogress`, `state`) VALUES ({CORNERSTONE_GUID_BASE + int(p['plot'])}, {CORNERSTONE_GO}, "
+                     f"{NEIGHBORHOOD_MAP}, 1, 1, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {o}, 0, 0, "
+                     f"{round(math.sin(o / 2), 6)}, {round(math.cos(o / 2), 6)}, 0, 100, 1);")
+    lines += [
+        "",
         f"-- A steward at Founder's Point's entry takes players home.",
         f"DELETE FROM `creature` WHERE `guid` = {STEWARD};",
         f"INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, "
@@ -247,6 +291,8 @@ def patch_dbc(storm, client):
     added = []
     models = [(DISPLAY_BASE + i, f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(SLICE)]
     models += [(ROOM_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 11)) for i, fdid in enumerate(ROOM_MODELS)]
+    models += [(EXTERIOR_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(EXTERIOR_MODELS)]
+    models.append((CORNERSTONE_DISPLAY, f"retail\\{CORNERSTONE_FDID}.m2", (-1, -1, 0, 1, 1, 3)))
     for display, name, box in models:
         assert display not in taken, f"display {display} already used in {archive.name}"
         offset = len(strings)
@@ -286,7 +332,7 @@ def main():
             assert storm.read(handle, name) == data, f"read-back mismatch: {name}"
     finally:
         storm.dll.SFileCloseArchive(handle)
-    print(f"wrote {target} ({len(SLICE) + len(ROOM_MODELS)} display rows on top of {source.name}; "
+    print(f"wrote {target} ({len(SLICE) + len(ROOM_MODELS) + len(EXTERIOR_MODELS) + 1} display rows on top of {source.name}; "
           f"maps {', '.join(map(str, MAPS))} on top of {map_source.name}'s Map.dbc)")
     # The client finds each map's WDT through these aliases (Data/Retail/RetailCasc.ini aliases=).
     for map_id, fdid in MAP_FDIDS.items():
