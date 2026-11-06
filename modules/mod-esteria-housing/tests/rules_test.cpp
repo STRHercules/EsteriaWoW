@@ -89,8 +89,8 @@ int main()
     { Facts f = Good(); f.placed = 49; EXPECT(Run(Place(), f) == Ok); }
     { Edit e = Place(); e.op = OpMove; e.placedId = 12; Facts f = Good(); f.placed = 50; EXPECT(Run(e, f) == Ok); }
 
-    // Rotation: 20 degrees about Z snaps to 15, -10 snaps to 345, and a tilted, unnormalised quaternion keeps
-    // only its yaw.
+    // Rotation: a turn about Z alone snaps (20 degrees to 15, -10 to 345); a tilted, unnormalised quaternion is kept
+    // whole (Expert mode turns decor about every axis), only normalised.
     {
         double const pi = 3.14159265358979323846;
         auto yawOf = [&](double degrees, float tilt, float length) {
@@ -99,15 +99,16 @@ int main()
             e.rot[0] = tilt; e.rot[1] = 0; e.rot[2] = float(std::sin(half) * length); e.rot[3] = float(std::cos(half) * length);
             Final o;
             EXPECT(Check(e, Good(), o) == Ok);
-            EXPECT(o.rot[0] == 0 && o.rot[1] == 0);
-            EXPECT(std::fabs(o.rot[2] * o.rot[2] + o.rot[3] * o.rot[3] - 1) < 1e-5);
+            EXPECT(tilt != 0 || (o.rot[0] == 0 && o.rot[1] == 0));
+            EXPECT(std::fabs(o.rot[0] * o.rot[0] + o.rot[1] * o.rot[1] + o.rot[2] * o.rot[2] + o.rot[3] * o.rot[3] - 1) < 1e-5);
             return o.yaw * 180.0 / pi;
         };
         EXPECT(std::fabs(yawOf(20, 0, 1) - 15) < 1e-3);
         EXPECT(std::fabs(yawOf(-10, 0, 1) - 345) < 1e-3);
         EXPECT(std::fabs(yawOf(359, 0, 1) - 0) < 1e-3);
         EXPECT(std::fabs(yawOf(90, 0, 1.5f) - 90) < 1e-3);
-        EXPECT(std::fabs(yawOf(44, 0.05f, 1) - 45) < 1e-3);
+        EXPECT(std::fabs(yawOf(44, 0, 1) - 45) < 1e-3);
+        EXPECT(std::fabs(yawOf(44, 0.3f, 1) - 45) > 0.5); // tilted: not snapped
     }
 
     std::printf(failures ? "%d failure(s)\n" : "all housing rule tests passed\n", failures);

@@ -46,8 +46,8 @@ namespace EsteriaHousing
     struct Final
     {
         float pos[3] = { 0, 0, 0 };
-        float yaw = 0;                 // radians, [0, 2pi), a multiple of the snap
-        float rot[4] = { 0, 0, 0, 1 }; // yaw-only quaternion, xyzw
+        float yaw = 0;                 // radians, [0, 2pi): the heading of rot, for logs and legacy callers
+        float rot[4] = { 0, 0, 0, 1 }; // unit quaternion, xyzw
         float scale = 1;
     };
 
@@ -93,11 +93,20 @@ namespace EsteriaHousing
             float(e.rot[2] / magnitude), float(e.rot[3] / magnitude) };
         for (int i = 0; i < 3; ++i)
             out.pos[i] = e.pos[i];
-        out.yaw = SnapYaw(unit, f.snapDegrees);
-        out.rot[0] = 0;
-        out.rot[1] = 0;
-        out.rot[2] = std::sin(out.yaw / 2);
-        out.rot[3] = std::cos(out.yaw / 2);
+        // Any orientation (Expert mode turns decor about every axis); the client snaps, the server only normalizes.
+        // A yaw-only rotation still snaps to snapDegrees, so the basic tools keep their steps.
+        bool const yawOnly = std::fabs(unit[0]) < 1e-4f && std::fabs(unit[1]) < 1e-4f;
+        out.yaw = SnapYaw(unit, yawOnly ? f.snapDegrees : 0);
+        if (yawOnly)
+        {
+            out.rot[0] = 0;
+            out.rot[1] = 0;
+            out.rot[2] = std::sin(out.yaw / 2);
+            out.rot[3] = std::cos(out.yaw / 2);
+        }
+        else
+            for (int i = 0; i < 4; ++i)
+                out.rot[i] = unit[i];
         out.scale = e.scale;
         return Ok;
     }

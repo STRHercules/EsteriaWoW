@@ -76,7 +76,9 @@ namespace
         uint64 id = 0;
         uint32 decorId = 0;
         float pos[3] = { 0, 0, 0 };
-        float yaw = 0;
+        float yaw = 0;                    // the heading of rot
+        float rot[4] = { 0, 0, 0, 1 };    // xyzw
+        float scale = 1;
     };
 
     struct House
@@ -417,8 +419,8 @@ namespace
         if (QueryResult result = CharacterDatabase.Query("SELECT MAX(placed_id) FROM housing_placed_decor"))
             s_nextPlacedId = std::max<uint64>(1, result->Fetch()[0].Get<uint64>() + 1);
 
-        if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, house_id, decor_id, pos_x, pos_y, pos_z, rot_z, rot_w "
-            "FROM housing_placed_decor"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, house_id, decor_id, pos_x, pos_y, pos_z, rot_x, "
+            "rot_y, rot_z, rot_w, scale FROM housing_placed_decor"))
             do
             {
                 Field* f = result->Fetch();
@@ -428,8 +430,9 @@ namespace
                 Placed p;
                 p.id = f[0].Get<uint64>(); p.decorId = f[2].Get<uint32>();
                 for (int i = 0; i < 3; ++i) p.pos[i] = f[3 + i].Get<float>();
-                p.yaw = 2 * std::atan2(f[6].Get<float>(), f[7].Get<float>());
-                if (p.yaw < 0) p.yaw += 2 * float(M_PI);
+                for (int i = 0; i < 4; ++i) p.rot[i] = f[6 + i].Get<float>();
+                p.scale = f[10].Get<float>();
+                p.yaw = EsteriaHousing::SnapYaw(p.rot, 0);
                 house->second.placed[p.id] = p;
             } while (result->NextRow());
 
@@ -455,9 +458,13 @@ namespace
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
             return;
-        if (GameObject* go = map->SummonGameObject(entry->second.goEntry, p.pos[0], p.pos[1], p.pos[2], p.yaw, 0, 0,
-            std::sin(p.yaw / 2), std::cos(p.yaw / 2), 0, false))
+        if (GameObject* go = map->SummonGameObject(entry->second.goEntry, p.pos[0], p.pos[1], p.pos[2], p.yaw, p.rot[0], p.rot[1],
+            p.rot[2], p.rot[3], 0, false))
+        {
+            if (std::fabs(p.scale - 1) > 1e-4f)
+                go->SetObjectScale(p.scale);
             s_spawned[map->GetInstanceId()][p.id] = go->GetGUID();
+        }
         else
             LOG_ERROR("module", "housing: could not spawn decor {} (placed {}) in instance {}", p.decorId, p.id,
                 map->GetInstanceId());
@@ -626,12 +633,14 @@ namespace
 
     // ---------------------------------------------------------------- packets
 
+    constexpr float DecorMinScale = 0.5f, DecorMaxScale = 2.0f; // the catalog's range (make_slice.py writes it per decor)
+
     void SendHello(WorldSession* session)
     {
         WorldPacket data(SMSG_ESTERIA_HOUSING_HELLO, 32);
         RoomTemplate const* room = DefaultRoom();
         data << uint16(Proto) << uint8(s_config.enabled && s_loaded && room) << uint32(0) << uint32(s_catalog.size())
-             << uint16(room ? room->maxDecor : 0) << float(1) << float(1) << float(15);
+             << uint16(room ? room->maxDecor : 0) << DecorMinScale << DecorMaxScale << float(15);
         session->SendPacket(&data);
     }
 
@@ -752,7 +761,8 @@ namespace
             for (auto const& [id, p] : house->placed)
             {
                 if (written++ == n) break;
-                data << uint64(id) << uint32(p.decorId) << p.pos[0] << p.pos[1] << p.pos[2] << p.yaw;
+                data << uint64(id) << uint32(p.decorId) << p.pos[0] << p.pos[1] << p.pos[2] << p.rot[0] << p.rot[1]
+                     << p.rot[2] << p.rot[3] << p.scale;
             }
         }
         player->SendDirectMessage(&data);
@@ -810,8 +820,8 @@ namespace
 
     std::string Json(Placed const& p)
     {
-        return Acore::StringFormat("{{\"decor\":{},\"x\":{},\"y\":{},\"z\":{},\"yaw\":{}}}", p.decorId, p.pos[0], p.pos[1],
-            p.pos[2], p.yaw);
+        return Acore::StringFormat("{{\"decor\":{},\"x\":{},\"y\":{},\"z\":{},\"rot\":[{},{},{},{}],\"scale\":{}}}",
+            p.decorId, p.pos[0], p.pos[1], p.pos[2], p.rot[0], p.rot[1], p.rot[2], p.rot[3], p.scale);
     }
 
     void HandleEdit(WorldSession* session, WorldPacket& packet)
@@ -851,7 +861,10 @@ namespace
             if (at < 0 || !RoomBox(*house, *room, size_t(at), f.boundsMin, f.boundsMax))
                 for (int i = 0; i < 3; ++i) { f.boundsMin[i] = 1; f.boundsMax[i] = 0; }
         }
-        if (auto c = s_catalog.find(e.decorId); c != s_catalog.end())
+        // a move carries no decorId; its scale range is that of the decor already placed
+        uint32 const decorId = e.op == OpPlace || !house || !house->placed.count(e.placedId) ? e.decorId
+            : house->placed.at(e.placedId).decorId;
+        if (auto c = s_catalog.find(decorId); c != s_catalog.end())
         {
             f.minScale = c->second.minScale;
             f.maxScale = c->second.maxScale;
@@ -882,13 +895,14 @@ namespace
         if (e.op == OpPlace)
         {
             placedId = s_nextPlacedId++;
-            Placed p{ placedId, e.decorId, { out.pos[0], out.pos[1], out.pos[2] }, out.yaw };
+            Placed p{ placedId, e.decorId, { out.pos[0], out.pos[1], out.pos[2] }, out.yaw,
+                { out.rot[0], out.rot[1], out.rot[2], out.rot[3] }, out.scale };
             house->placed[placedId] = p;
             ++owned[e.decorId].placed;
             trans->Append("INSERT INTO housing_placed_decor (placed_id, house_id, room_id, decor_id, pos_x, pos_y, pos_z, "
-                "rot_x, rot_y, rot_z, rot_w, scale, placed_by, placed_at) VALUES ({}, {}, {}, {}, {}, {}, {}, 0, 0, {}, {}, 1, {}, {})",
-                placedId, house->id, house->roomId, e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[2], out.rot[3],
-                character, now32);
+                "rot_x, rot_y, rot_z, rot_w, scale, placed_by, placed_at) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
+                placedId, house->id, house->roomId, e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[0], out.rot[1],
+                out.rot[2], out.rot[3], out.scale, character, now32);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed + 1 WHERE account_id = {} AND decor_id = {}",
                 account, e.decorId);
             after = "'" + Json(p) + "'";
@@ -900,9 +914,11 @@ namespace
             before = "'" + Json(p) + "'";
             for (int i = 0; i < 3; ++i) p.pos[i] = out.pos[i];
             p.yaw = out.yaw;
-            trans->Append("UPDATE housing_placed_decor SET pos_x = {}, pos_y = {}, pos_z = {}, rot_x = 0, rot_y = 0, rot_z = {}, "
-                "rot_w = {} WHERE placed_id = {} AND house_id = {}", out.pos[0], out.pos[1], out.pos[2], out.rot[2], out.rot[3],
-                placedId, house->id);
+            for (int i = 0; i < 4; ++i) p.rot[i] = out.rot[i];
+            p.scale = out.scale;
+            trans->Append("UPDATE housing_placed_decor SET pos_x = {}, pos_y = {}, pos_z = {}, rot_x = {}, rot_y = {}, rot_z = {}, "
+                "rot_w = {}, scale = {} WHERE placed_id = {} AND house_id = {}", out.pos[0], out.pos[1], out.pos[2], out.rot[0],
+                out.rot[1], out.rot[2], out.rot[3], out.scale, placedId, house->id);
             after = "'" + Json(p) + "'";
             Despawn(map, placedId);
             Spawn(map, p);

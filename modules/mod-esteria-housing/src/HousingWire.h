@@ -20,7 +20,7 @@
 //   CMSG_ENTER    action(u8): 0 send me SMSG_STATE, 1 leave the house
 //   SMSG_STATE    inHouse(u8) isOwner(u8) houseId(u32) revision(u32) placed(u16) maxDecor(u16)
 //                 boundsMin(f32 x3) boundsMax(f32 x3) n(u16), then n x
-//                 placedId(u64) decorId(u32) pos(f32 x3) yaw(f32, radians)
+//                 placedId(u64) decorId(u32) pos(f32 x3) rot(f32 x4, xyzw) scale(f32)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
 //   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
 //                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8), ActionBuyDecor decorId(u32)
@@ -40,7 +40,7 @@
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 6;
+    inline constexpr uint16_t Proto = 7;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;

@@ -235,8 +235,8 @@ def world_sql(map_dbc):
             lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
                          f"VALUES ({entry}, 5, {display}, {q(name)}, 1);")
         lines.append(f"INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, "
-                     f"`category`, `surface`, `origin`, `enabled`) VALUES ({decor}, {fdid}, {display}, {entry}, {q(name)}, "
-                     f"{CATEGORY[category]}, {SURFACE[surface]}, 'retail', 1);")
+                     f"`category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES ({decor}, {fdid}, {display}, "
+                     f"{entry}, {q(name)}, {CATEGORY[category]}, {SURFACE[surface]}, 0.5, 2, 'retail', 1);")
     lines += ["", "DELETE FROM `housing_room_kit`;", "DELETE FROM `housing_room_kind`;"]
     for i, fdid in enumerate(ROOM_MODELS):
         display, entry = ROOM_DISPLAY_BASE + i, ROOM_GO_BASE + i
