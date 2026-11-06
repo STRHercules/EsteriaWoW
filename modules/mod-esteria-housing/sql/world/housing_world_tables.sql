@@ -69,6 +69,15 @@ CREATE TABLE IF NOT EXISTS `housing_room_kit_theme` (
   `go_wide_frame` INT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`kind`, `piece_id`, `theme`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `housing_room_stairs`; -- generated: each staircase variant (1-4) of a stairwell piece per theme
+CREATE TABLE IF NOT EXISTS `housing_room_stairs` (
+  `kind`     INT UNSIGNED NOT NULL,
+  `piece_id` INT UNSIGNED NOT NULL,
+  `theme`    INT UNSIGNED NOT NULL,
+  `variant`  TINYINT UNSIGNED NOT NULL COMMENT '1 stairwell above, 2 neither, 3 stairwell below, 4 both',
+  `go`       INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`kind`, `piece_id`, `theme`, `variant`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 DROP TABLE IF EXISTS `housing_room_theme`;
 CREATE TABLE IF NOT EXISTS `housing_room_theme` (
   `theme` INT UNSIGNED NOT NULL,

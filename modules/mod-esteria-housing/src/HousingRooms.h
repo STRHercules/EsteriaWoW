@@ -44,7 +44,7 @@ namespace EsteriaHousing::Rooms
         uint32_t kind = 0;
         float x = 0, y = 0;  // offset from the template origin
         uint8_t quarter = 0; // yaw = quarter * 90 degrees
-        uint8_t level = 0;   // floor: 0 ground, its z is level * LevelHeight
+        int8_t level = 0;    // floor: 0 ground, -1 basement; its z is level * LevelHeight
     };
 
     struct Pose { float x = 0, y = 0, z = 0, yaw = 0, nx = 0, ny = 0; };

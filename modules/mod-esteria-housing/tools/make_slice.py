@@ -48,7 +48,21 @@ KIT = list(csv.DictReader((MODULE / "data/room_kit.tsv").open(encoding="utf-8"),
 KIT_THEMES = list(csv.DictReader((MODULE / "data/room_kit_themes.tsv").open(encoding="utf-8"), delimiter="\t"))
 THEME_NAMES = {1: "Folk", 2: "Rugged", 3: "Generic", 4: "Bel'ameth", 5: "Silvermoon"}  # HouseTheme.Name_lang
 MODEL_COLUMNS = ("solid", "door", "wide", "door_frame", "wide_frame")
-ROOM_MODELS = sorted({int(r[k]) for r in KIT + KIT_THEMES for k in MODEL_COLUMNS if r[k] != "0"})
+# Every staircase variant in every theme (make_kit.py's third output); the module picks one by what is above and below.
+KIT_STAIRS = list(csv.DictReader((MODULE / "data/room_kit_stairs.tsv").open(encoding="utf-8"), delimiter="\t"))
+# An early Human-style stairwell wall no RoomComponent uses (12ph_room_w_staircase_s / _door_s / _threshold_s, 23 x 12 yd
+# like the stairwell walls): offered as a wall style that only stairwells have.
+HUMAN_STAIRWELL_THEME, HUMAN_STAIRWELL = 100, {"solid": 5562205, "door": 5562206, "door_frame": 5562207}
+THEME_NAMES[HUMAN_STAIRWELL_THEME] = "Human (stairwells)"
+STAIRWELL_KINDS = {"10", "50", "48"}
+for r in KIT:
+    if r["kind"] in STAIRWELL_KINDS and r["type"] == "1":
+        socket = r["door"] != "0"
+        KIT_THEMES.append({"kind": r["kind"], "piece": r["piece"], "theme": str(HUMAN_STAIRWELL_THEME),
+                           "solid": str(HUMAN_STAIRWELL["solid"]), "door": str(HUMAN_STAIRWELL["door"]) if socket else "0",
+                           "wide": "0", "door_frame": str(HUMAN_STAIRWELL["door_frame"]) if socket else "0", "wide_frame": "0"})
+ROOM_MODELS = sorted({int(r[k]) for r in KIT + KIT_THEMES for k in MODEL_COLUMNS if r[k] != "0"}
+                     | {int(r["fdid"]) for r in KIT_STAIRS})
 assert len(ROOM_MODELS) <= ROOM_SLOTS, f"{len(ROOM_MODELS)} room models, {ROOM_SLOTS} display slots"
 ENTRY = (ROOM_ORIGIN[0], ROOM_ORIGIN[1], ROOM_ORIGIN[2] + 0.5, 0.0)
 
@@ -97,6 +111,9 @@ SLICE = [
     (388, 6008944, "Folk Wall Decor", "Structural", "wall"),
     (520, 6383338, "Folk Rose Pot", "Nature", "on-decor"),
     (1701, 6390442, "Folk Pillow", "Misc", "floor"),
+    # Newer than the Phase 0 inventory; both load from the CDN (RetailAssetProbe, 2026-11-06).
+    (23709, 7834756, "Modular Stair Segment", "Structural", "floor"),
+    (23710, 7834757, "Modular Spiral Stair Segment", "Structural", "floor"),
 ]
 
 # The rest of the retail player-housing catalog: every 12ph M2 the Phase 0 inventory checked loads ("ok"), named from
@@ -233,6 +250,9 @@ def world_sql(map_dbc):
         lines.append(f"INSERT INTO `housing_room_kind` VALUES ({kind[0]}, {q(kind[1])}, {', '.join(kind[2:])});")
     for theme, name in THEME_NAMES.items():
         lines.append(f"INSERT INTO `housing_room_theme` VALUES ({theme}, {q(name)});")
+    for r in KIT_STAIRS:
+        lines.append(f"INSERT INTO `housing_room_stairs` VALUES ({r['kind']}, {r['piece']}, {r['theme']}, {r['variant']}, "
+                     f"{go(r['fdid'])});")
     for r in KIT_THEMES:
         lines.append(f"INSERT INTO `housing_room_kit_theme` VALUES ({r['kind']}, {r['piece']}, {r['theme']}, "
                      f"{', '.join(str(go(r[k])) for k in MODEL_COLUMNS)});")

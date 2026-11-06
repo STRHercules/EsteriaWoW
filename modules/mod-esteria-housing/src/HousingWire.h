@@ -23,7 +23,8 @@
 //                 placedId(u64) decorId(u32) pos(f32 x3) yaw(f32, radians)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
 //   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
-//                 theme(u32), ActionRoomCeiling room(u8) hidden(u8); nothing for the others. Rooms cost gold.
+//                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8); nothing for the others.
+//                 Rooms cost gold. A kind of StairsDownBase + stairwell builds that stairwell down from the socket.
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
 //   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
 //                 neighborhood(string) owner(string) message(string)
@@ -31,14 +32,14 @@
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
 //                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
 //                 rooms n(u8), then n x kind(u32) x(f32) y(f32) quarter(u8) wallTheme floorTheme ceilingTheme(u32)
-//                 ceilingHidden(u8) level(u8: floor, 0 ground)
-//                 sockets n(u16), then n x room(u8) piece(u8) level(u8) x(f32) y(f32) nx(f32) ny(f32)
+//                 ceilingHidden(u8) level(i8: floor, 0 ground, -1 basement)
+//                 sockets n(u16), then n x room(u8) piece(u8) level(i8) x(f32) y(f32) nx(f32) ny(f32)
 //                 fits n(u8) x kind(u32)
 //                 themes n(u8), then n x theme(u32) name(string)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 4;
+    inline constexpr uint16_t Proto = 5;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -76,7 +77,10 @@ namespace EsteriaHousingWire
         ActionRemoveRoom = 4, // the newest room
         ActionRoomStyle = 5,  // room(u8) part(u8: 1 walls 2 floor 3 ceiling) theme(u32)
         ActionRoomCeiling = 6, // room(u8) hidden(u8)
+        ActionStairsUp = 7,   // room(u8): a stairwell's top becomes another stairwell, with a new top above
     };
+
+    inline constexpr uint32_t StairsDownBase = 1000;
 
     enum PlotStatus : uint8_t
     {

@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS `housing_room_piece`;
 DROP TABLE IF EXISTS `housing_room_kit`;
 DROP TABLE IF EXISTS `housing_room_kit_theme`;
 DROP TABLE IF EXISTS `housing_room_theme`;
+DROP TABLE IF EXISTS `housing_room_stairs`;
 DROP TABLE IF EXISTS `housing_room_kind`;
 DROP TABLE IF EXISTS `housing_room_template`;
 DROP TABLE IF EXISTS `housing_decor_catalog`;

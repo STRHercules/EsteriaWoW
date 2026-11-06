@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `housing_room_level` (
   PRIMARY KEY (`room_id`),
   CONSTRAINT `fk_level_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `housing_room_level` MODIFY `level` TINYINT NOT NULL DEFAULT 0 COMMENT '-1 basement, 0 ground';
 
 -- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
 CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
