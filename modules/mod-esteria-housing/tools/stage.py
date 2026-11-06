@@ -119,8 +119,8 @@ def counts():
     w, c = CLONE["acore_world"], CLONE["acore_characters"]
     sql = (f"SELECT (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '{w}' AND table_name LIKE 'housing%'),"
            f" (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '{c}' AND table_name LIKE 'housing%'),"
-           f" (SELECT COUNT(*) FROM `{w}`.gameobject_template WHERE entry BETWEEN 9500000 AND 9500099),"
-           f" (SELECT COUNT(*) FROM `{w}`.gameobjectdisplayinfo_dbc WHERE ID BETWEEN 60000 AND 60099),"
+           f" (SELECT COUNT(*) FROM `{w}`.gameobject_template WHERE entry BETWEEN 9500000 AND 9500399),"
+           f" (SELECT COUNT(*) FROM `{w}`.gameobjectdisplayinfo_dbc WHERE ID BETWEEN 60000 AND 60399),"
            f" (SELECT COUNT(*) FROM `{w}`.creature_template WHERE entry = 9500100),"
            f" (SELECT COUNT(*) FROM `{w}`.map_dbc WHERE ID = 35), (SELECT COUNT(*) FROM `{w}`.instance_template WHERE map = 35);")
     return tuple(int(v) for v in mysql(sql=sql).split())
@@ -130,7 +130,8 @@ def test_migration():
     names = "world tables, char tables, GO templates, display rows, steward, map_dbc 35, instance_template 35"
     print("columns:", names)
     apply(); after = counts(); print("after apply   ", after)
-    assert after[:2] == (3, 6) and after[2:5] == (24, 24, 1) and after[5:] == (1, 1), after  # 20 decor + 4 room pieces
+    rooms = len(__import__("make_slice").ROOM_MODELS)
+    assert after[:2] == (4, 7) and after[2:5] == (20 + rooms, 20 + rooms, 1) and after[5:] == (1, 1), after  # decor + room kit
     if mysql(CLONE["acore_world"], "SELECT COUNT(*) FROM housing_decor_catalog WHERE enabled = 1;").strip() != "20":
         raise SystemExit("catalog does not hold 20 enabled rows")
     rollback(); gone = counts(); print("after rollback", gone)

@@ -9,7 +9,7 @@ GameObjectDisplayInfo.dbc is read from the highest patch MPQ that holds it and w
 installed. Every decor model is retail-origin: dev only (docs/housing/README.md).
 """
 import argparse
-import math
+import csv
 import struct
 import sys
 from pathlib import Path
@@ -26,28 +26,18 @@ MAP_ID, MAP_MAX_PLAYERS = 35, 40
 # Areatrigger 107 "Stormwind Vault Entrance" (acore_world.areatrigger_teleport) lands here.
 VAULT_ENTRY = (-0.91, 40.57, -24.23, 0.0)
 
-# Phase 2a: retail HouseRoom 1 "Square Room (Small)" (RoomWmoData 5, box +-11.5 x +-11.5 x 0..11), built from its
-# RoomComponent rows (wowdecomp docs/housing/room-components.tsv) as type-14 GameObjects showing retail\<fdid>.wmo.
+# Retail room kit: 12 generic HouseRoom kinds and their RoomComponent pieces (data/room_kit.tsv, written by wowdecomp
+# docs/housing/tools/phase3/make_kit.py). Each distinct WMO becomes a GameObjectDisplayInfo row retail\<fdid>.wmo and a
+# type-14 gameobject_template; the module lays rooms out from the template origin (HousingRooms.h).
 # shortcut: 30 yd above the vault entry so the retail floor is the only floor and a missing floor is a short fall;
 # move to map 2783 (docs/housing/maps-recon.md) once terrain loads.
 ROOM_ORIGIN = (VAULT_ENTRY[0], VAULT_ENTRY[1], VAULT_ENTRY[2] + 30.0)
-ROOM_DISPLAY_BASE, ROOM_GO_BASE = DISPLAY_BASE + 50, GO_BASE + 50
-ROOM_MODELS = [6431804, 6431855, 6431794, 6431786]  # floor, wall, corner, ceiling
-# RoomComponent.ID, model FileDataID, OffsetPos, OffsetRot z (degrees)
-ROOM_PIECES = [
-    (25, 6431804, (0.0, 0.0, 0.0), 0.0),
-    (26, 6431855, (-12.0, 0.0, 0.0), 0.0),
-    (27, 6431855, (0.0, 12.0, 0.0), 90.0),
-    (28, 6431855, (0.0, -12.0, 0.0), -90.0),
-    (29, 6431855, (12.0, 0.0, 0.0), -180.0),
-    (30, 6431794, (-11.495, 11.5, 0.0), -90.0),
-    (31, 6431794, (11.5, 11.5, 0.0), 0.0),
-    (32, 6431794, (11.495, -11.5, 0.0), 90.0),
-    (33, 6431794, (-11.5, -11.495, 0.0), -180.0),
-    (64, 6431786, (0.0, 0.0, 7.0), 0.0),
-]
+ROOM_DISPLAY_BASE, ROOM_GO_BASE, ROOM_SLOTS = DISPLAY_BASE + 200, GO_BASE + 200, 200
+KIT = list(csv.DictReader((MODULE / "data/room_kit.tsv").open(encoding="utf-8"), delimiter="\t"))
+ROOM_MODELS = sorted({int(r[k]) for r in KIT for k in ("solid", "door", "wide") if r[k] != "0"})
+assert len(ROOM_MODELS) <= ROOM_SLOTS, f"{len(ROOM_MODELS)} room models, {ROOM_SLOTS} display slots"
 ENTRY = (ROOM_ORIGIN[0], ROOM_ORIGIN[1], ROOM_ORIGIN[2] + 0.5, 0.0)
-# Decor stays inside the room box (RoomWmoData 5), measured from the floor at the origin.
+# The template's min_z is the floor the module builds rooms on (RoomTemplate::Origin); x/y bounds are per room now.
 BOUNDS_HALF = (11.0, 11.0)
 BOUNDS_Z = (-0.5, 11.0)
 MAX_DECOR = 50
@@ -126,8 +116,8 @@ def world_sql(map_values):
         (MODULE / "sql/world/housing_world_tables.sql").read_text(encoding="utf-8").strip(),
         "",
         f"DELETE FROM `housing_decor_catalog`;",
-        f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {GO_BASE} AND {GO_BASE + 99};",
-        f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DISPLAY_BASE} AND {DISPLAY_BASE + 99};",
+        f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {GO_BASE} AND {ROOM_GO_BASE + ROOM_SLOTS - 1};",
+        f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DISPLAY_BASE} AND {ROOM_DISPLAY_BASE + ROOM_SLOTS - 1};",
     ]
     for i, (decor, fdid, name, category, surface) in enumerate(SLICE):
         display, entry = DISPLAY_BASE + i, GO_BASE + i
@@ -138,23 +128,26 @@ def world_sql(map_values):
         lines.append(f"INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, "
                      f"`category`, `surface`, `origin`, `enabled`) VALUES ({decor}, {fdid}, {display}, {entry}, {q(name)}, "
                      f"{CATEGORY[category]}, {SURFACE[surface]}, 'retail', 1);")
-    lines += ["", "DELETE FROM `housing_room_piece` WHERE `room_template_id` = 1;"]
+    lines += ["", "DELETE FROM `housing_room_kit`;", "DELETE FROM `housing_room_kind`;"]
     for i, fdid in enumerate(ROOM_MODELS):
         display, entry = ROOM_DISPLAY_BASE + i, ROOM_GO_BASE + i
         lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
                      f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.wmo')}, -12, -12, 0, 12, 12, 11);")
         lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
                      f"VALUES ({entry}, 14, {display}, {q(f'Room piece {fdid}')}, 1);")
-    for piece, fdid, offset, degrees in ROOM_PIECES:
-        pos = [round(ROOM_ORIGIN[a] + offset[a], 3) for a in range(3)]
-        yaw = round(math.radians(degrees) % (2 * math.pi), 6)
-        lines.append(f"INSERT INTO `housing_room_piece` VALUES (1, {piece}, {ROOM_GO_BASE + ROOM_MODELS.index(fdid)}, "
-                     f"{pos[0]}, {pos[1]}, {pos[2]}, {yaw});")
+    entry_of = {fdid: ROOM_GO_BASE + i for i, fdid in enumerate(ROOM_MODELS)}
+    go = lambda fdid: entry_of.get(int(fdid), 0)  # noqa: E731 (0 = no such variant)
+    for kind in sorted({(int(r["kind"]), r["name"], *(r[k] for k in ("min_x", "min_y", "min_z", "max_x", "max_y", "max_z")))
+                        for r in KIT}):
+        lines.append(f"INSERT INTO `housing_room_kind` VALUES ({kind[0]}, {q(kind[1])}, {', '.join(kind[2:])});")
+    for r in KIT:
+        lines.append(f"INSERT INTO `housing_room_kit` VALUES ({r['kind']}, {r['piece']}, {r['type']}, {r['x']}, {r['y']}, "
+                     f"{r['z']}, {r['rot_deg']}, {go(r['solid'])}, {go(r['door'])}, {go(r['wide'])}, {r['width']});")
     lines += [
         "",
         f"DELETE FROM `housing_room_template` WHERE `room_template_id` = 1;",
         f"INSERT INTO `housing_room_template` VALUES (1, {MAP_ID}, {ENTRY[0]}, {ENTRY[1]}, {ENTRY[2]}, {ENTRY[3]}, "
-        f"{lo[0]}, {lo[1]}, {lo[2]}, {hi[0]}, {hi[1]}, {hi[2]}, {MAX_DECOR}, 'Stormwind Vault (slice)');",
+        f"{lo[0]}, {lo[1]}, {lo[2]}, {hi[0]}, {hi[1]}, {hi[2]}, {MAX_DECOR}, 'Retail rooms above Stormwind Vault');",
         "",
         f"DELETE FROM `creature_template` WHERE `entry` = {STEWARD};",
         f"DELETE FROM `creature_template_model` WHERE `CreatureID` = {STEWARD};",

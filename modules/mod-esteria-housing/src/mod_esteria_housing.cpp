@@ -12,6 +12,7 @@
 #include "GameObject.h"
 #include "GameTime.h"
 #include "Group.h"
+#include "HousingRooms.h"
 #include "HousingRules.h"
 #include "InstanceSaveMgr.h"
 #include "Log.h"
@@ -34,6 +35,7 @@
 namespace
 {
     using namespace EsteriaHousingWire;
+    namespace Rooms = EsteriaHousing::Rooms;
 
     struct CatalogEntry
     {
@@ -43,20 +45,20 @@ namespace
         float minScale = 1, maxScale = 1;
     };
 
-    struct RoomPiece
-    {
-        uint32 goEntry = 0;
-        float pos[3] = { 0, 0, 0 };
-        float yaw = 0;
-    };
-
     struct RoomTemplate
     {
         uint32 id = 0, mapId = 0;
         float entry[4] = { 0, 0, 0, 0 };
         float min[3] = { 0, 0, 0 }, max[3] = { 0, 0, 0 };
         uint16 maxDecor = 0;
-        std::vector<RoomPiece> pieces; // retail room-kit WMOs (housing_room_piece)
+        // Rooms are laid out from here: the entry's x/y on the floor at min_z (make_slice.py writes both from it).
+        float Origin(int axis) const { return axis == 2 ? min[2] : entry[axis]; }
+    };
+
+    struct HouseRoom
+    {
+        uint32 id = 0; // housing_room.room_id
+        Rooms::Room layout;
     };
 
     struct Placed
@@ -72,6 +74,7 @@ namespace
         uint32 id = 0, account = 0, roomTemplate = 0, roomId = 0, revision = 0;
         uint16 maxDecor = 0;
         std::map<uint64, Placed> placed;
+        std::vector<HouseRoom> rooms; // slot order; rooms[0] is the room decor rows reference (roomId)
     };
 
     struct Owned
@@ -92,6 +95,8 @@ namespace
         uint32 stewardEntry = 9500100;
         uint16 starterQuantity = 5;
         uint32 editsPerSecond = 8;
+        uint32 firstRoomKind = 1; // HouseRoom 1, Square Room (Small)
+        uint32 maxRooms = 8;
     };
 
     std::recursive_mutex s_lock;
@@ -99,6 +104,7 @@ namespace
     bool s_loaded = false;
     std::map<uint32, CatalogEntry> s_catalog;
     std::unordered_map<uint32, RoomTemplate> s_rooms;
+    Rooms::Kinds s_kinds; // retail room kinds and their kit pieces
     std::unordered_map<uint32, House> s_houses;
     std::unordered_map<uint32, uint32> s_houseByAccount;
     std::unordered_map<uint32, std::unordered_map<uint32, Owned>> s_owned; // account -> decor -> counts
@@ -110,6 +116,7 @@ namespace
     std::unordered_map<uint32, uint32> s_instanceHouse;    // instance -> house
     std::unordered_map<uint32, std::unordered_map<uint64, ObjectGuid>> s_spawned; // instance -> placed -> GO
     std::unordered_set<uint32> s_populated;
+    std::unordered_map<uint32, std::vector<ObjectGuid>> s_roomSpawned; // instance -> room-kit GOs
 
     std::unordered_map<ObjectGuid, uint32> s_pending;      // player -> house they are teleporting into
     std::unordered_map<ObjectGuid, uint32> s_lastHouse;    // player -> last house entered (relog inside)
@@ -189,25 +196,44 @@ namespace
                 s_rooms[r.id] = r;
             } while (result->NextRow());
 
-        if (QueryResult result = WorldDatabase.Query("SELECT room_template_id, gameobject_entry, pos_x, pos_y, pos_z, yaw "
-            "FROM housing_room_piece ORDER BY room_template_id, piece_id"))
+        s_kinds.clear();
+        if (QueryResult result = WorldDatabase.Query("SELECT kind, name, min_x, min_y, min_z, max_x, max_y, max_z "
+            "FROM housing_room_kind"))
             do
             {
                 Field* f = result->Fetch();
-                auto room = s_rooms.find(f[0].Get<uint32>());
-                RoomPiece piece;
-                piece.goEntry = f[1].Get<uint32>();
-                for (int i = 0; i < 3; ++i) piece.pos[i] = f[2 + i].Get<float>();
-                piece.yaw = f[5].Get<float>();
-                GameObjectTemplate const* go = sObjectMgr->GetGameObjectTemplate(piece.goEntry);
-                if (room == s_rooms.end() || !go || go->type != GAMEOBJECT_TYPE_MAP_OBJECT)
+                Rooms::Kind k;
+                k.id = f[0].Get<uint32>(); k.name = f[1].Get<std::string>();
+                for (int i = 0; i < 3; ++i) { k.min[i] = f[2 + i].Get<float>(); k.max[i] = f[5 + i].Get<float>(); }
+                s_kinds[k.id] = k;
+            } while (result->NextRow());
+
+        auto const mapObject = [](uint32 entry) {
+            GameObjectTemplate const* go = entry ? sObjectMgr->GetGameObjectTemplate(entry) : nullptr;
+            return go && go->type == GAMEOBJECT_TYPE_MAP_OBJECT;
+        };
+        if (QueryResult result = WorldDatabase.Query("SELECT kind, piece_id, type, pos_x, pos_y, pos_z, rot_deg, go_solid, "
+            "go_door, go_wide, width FROM housing_room_kit ORDER BY kind, piece_id"))
+            do
+            {
+                Field* f = result->Fetch();
+                auto kind = s_kinds.find(f[0].Get<uint32>());
+                Rooms::KitPiece p;
+                p.id = f[1].Get<uint32>(); p.type = f[2].Get<uint8>();
+                p.x = f[3].Get<float>(); p.y = f[4].Get<float>(); p.z = f[5].Get<float>(); p.rotDeg = f[6].Get<float>();
+                p.solid = f[7].Get<uint32>(); p.door = f[8].Get<uint32>(); p.wide = f[9].Get<uint32>(); p.width = f[10].Get<float>();
+                if (kind == s_kinds.end() || !mapObject(p.solid))
                 {
-                    LOG_ERROR("module", "housing: room piece for template {} names a missing room or a non map-object "
-                        "gameobject_template {}; skipped", f[0].Get<uint32>(), piece.goEntry);
+                    LOG_ERROR("module", "housing: room kit piece {} of kind {} names a missing kind or a non map-object "
+                        "gameobject_template {}; skipped", p.id, f[0].Get<uint32>(), p.solid);
                     continue;
                 }
-                room->second.pieces.push_back(piece);
+                if (!mapObject(p.door)) p.door = 0;
+                if (!mapObject(p.wide)) p.wide = 0;
+                kind->second.pieces.push_back(p);
             } while (result->NextRow());
+        if (!s_kinds.count(s_config.firstRoomKind))
+            LOG_ERROR("module", "housing: room kind {} (EsteriaHousing.FirstRoomKind) is missing", s_config.firstRoomKind);
 
         // shortcut: every house and placement is held in memory from startup; load per account on login when the
         // house count outgrows a dev realm.
@@ -223,6 +249,22 @@ namespace
                 s_houseByAccount[h.account] = h.id;
                 s_nextHouseId = std::max(s_nextHouseId, h.id + 1);
                 s_houses[h.id] = std::move(h);
+            } while (result->NextRow());
+
+        // Rooms claimed before layouts existed have no housing_room_layout row: they are the first kind at the origin.
+        if (QueryResult result = CharacterDatabase.Query("SELECT r.room_id, r.house_id, COALESCE(l.kind, {}), "
+            "COALESCE(l.offset_x, 0), COALESCE(l.offset_y, 0), COALESCE(l.yaw_quarter, 0) FROM housing_room r "
+            "LEFT JOIN housing_room_layout l ON l.room_id = r.room_id ORDER BY r.house_id, r.slot", s_config.firstRoomKind))
+            do
+            {
+                Field* f = result->Fetch();
+                auto house = s_houses.find(f[1].Get<uint32>());
+                if (house == s_houses.end())
+                    continue;
+                HouseRoom r;
+                r.id = f[0].Get<uint32>();
+                r.layout = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(), uint8(f[5].Get<uint8>() % 4) };
+                house->second.rooms.push_back(r);
             } while (result->NextRow());
 
         if (QueryResult result = CharacterDatabase.Query("SELECT MAX(room_id) FROM housing_room"))
@@ -255,8 +297,8 @@ namespace
             } while (result->NextRow());
 
         s_loaded = true;
-        LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} houses", s_catalog.size(),
-            s_rooms.size(), s_houses.size());
+        LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses", s_catalog.size(),
+            s_rooms.size(), s_kinds.size(), s_houses.size());
         if (!DefaultRoom())
             LOG_ERROR("module", "housing: room template {} (EsteriaHousing.RoomTemplate) is missing", s_config.roomTemplate);
     }
@@ -290,25 +332,85 @@ namespace
         spawned.erase(it);
     }
 
+    std::vector<Rooms::Room> Layouts(House const& house)
+    {
+        std::vector<Rooms::Room> out;
+        for (HouseRoom const& r : house.rooms)
+            out.push_back(r.layout);
+        return out;
+    }
+
+    // Decor and players are bounded by the room they stand in; z spans that room's height from the floor.
+    bool RoomBox(House const& house, RoomTemplate const& t, size_t index, float min[3], float max[3])
+    {
+        auto kind = s_kinds.find(house.rooms[index].layout.kind);
+        if (kind == s_kinds.end())
+            return false;
+        Rooms::Box const b = Rooms::Footprint(kind->second, house.rooms[index].layout);
+        for (int i = 0; i < 2; ++i) { min[i] = t.Origin(i) + b.min[i]; max[i] = t.Origin(i) + b.max[i]; }
+        min[2] = t.Origin(2) + kind->second.min[2] - 0.5f;
+        max[2] = t.Origin(2) + kind->second.max[2] + 0.5f;
+        return true;
+    }
+
+    int RoomAt(House const& house, RoomTemplate const& t, float x, float y)
+    {
+        for (size_t i = 0; i < house.rooms.size(); ++i)
+        {
+            float min[3], max[3];
+            if (RoomBox(house, t, i, min, max) && x >= min[0] && x <= max[0] && y >= min[1] && y <= max[1])
+                return int(i);
+        }
+        return -1;
+    }
+
+    // The room shell is rebuilt whole whenever the layout changes: a new neighbour turns walls into doorways.
+    void SpawnRooms(Map* map, House const& house)
+    {
+        RoomTemplate const* t = Room(house);
+        if (!t)
+            return;
+        auto& spawned = s_roomSpawned[map->GetInstanceId()];
+        for (ObjectGuid const& guid : spawned)
+            if (GameObject* go = map->GetGameObject(guid))
+            {
+                go->SetRespawnTime(0);
+                go->Delete();
+            }
+        spawned.clear();
+        std::vector<Rooms::Room> const layouts = Layouts(house);
+        auto const variants = Rooms::Variants(s_kinds, layouts);
+        for (size_t r = 0; r < layouts.size(); ++r)
+        {
+            auto kind = s_kinds.find(layouts[r].kind);
+            if (kind == s_kinds.end())
+                continue;
+            for (size_t i = 0; i < kind->second.pieces.size(); ++i)
+            {
+                Rooms::KitPiece const& piece = kind->second.pieces[i];
+                Rooms::Pose const p = Rooms::PieceWorld(layouts[r], piece);
+                uint32 const entry = Rooms::Model(piece, variants[r][i]);
+                if (GameObject* go = map->SummonGameObject(entry, t->Origin(0) + p.x, t->Origin(1) + p.y, t->Origin(2) + p.z,
+                    p.yaw, 0, 0, std::sin(p.yaw / 2), std::cos(p.yaw / 2), 0, false))
+                    spawned.push_back(go->GetGUID());
+                else
+                    LOG_ERROR("module", "housing: could not spawn room piece {} in instance {}", entry, map->GetInstanceId());
+            }
+        }
+    }
+
     void Populate(Map* map, House const& house)
     {
         if (!s_populated.insert(map->GetInstanceId()).second)
             return;
+        SpawnRooms(map, house);
         if (RoomTemplate const* room = Room(house))
-        {
-            // The room shell lives as long as the instance, like the steward; it is never edited or saved.
-            for (RoomPiece const& piece : room->pieces)
-                if (!map->SummonGameObject(piece.goEntry, piece.pos[0], piece.pos[1], piece.pos[2], piece.yaw, 0, 0,
-                    std::sin(piece.yaw / 2), std::cos(piece.yaw / 2), 0, false))
-                    LOG_ERROR("module", "housing: could not spawn room piece {} in instance {}", piece.goEntry,
-                        map->GetInstanceId());
             map->SummonCreature(s_config.stewardEntry, Position(room->entry[0] + 2, room->entry[1], room->entry[2],
                 room->entry[3] + float(M_PI)));
-        }
         for (auto const& [id, p] : house.placed)
             Spawn(map, p);
-        LOG_INFO("module", "housing: house {} populated instance {} with {} decor and {} room pieces", house.id,
-            map->GetInstanceId(), house.placed.size(), Room(house) ? Room(house)->pieces.size() : 0);
+        LOG_INFO("module", "housing: house {} populated instance {} with {} decor and {} rooms", house.id,
+            map->GetInstanceId(), house.placed.size(), house.rooms.size());
     }
 
     // ---------------------------------------------------------------- packets
@@ -330,8 +432,22 @@ namespace
         data << uint8(house && room) << uint8(house && house->account == player->GetSession()->GetAccountId())
              << uint32(house ? house->id : 0) << uint32(house ? house->revision : 0)
              << uint16(house ? house->placed.size() : 0) << uint16(house ? house->maxDecor : 0);
-        for (int i = 0; i < 3; ++i) data << float(room ? room->min[i] : 0);
-        for (int i = 0; i < 3; ++i) data << float(room ? room->max[i] : 0);
+        // The client only gets one box: the union of the rooms (the server still checks per room).
+        float lo[3] = { 0, 0, 0 }, hi[3] = { 0, 0, 0 };
+        if (house && room)
+            for (size_t r = 0; r < house->rooms.size(); ++r)
+            {
+                float min[3], max[3];
+                if (!RoomBox(*house, *room, r, min, max))
+                    continue;
+                for (int i = 0; i < 3; ++i)
+                {
+                    lo[i] = r ? std::min(lo[i], min[i]) : min[i];
+                    hi[i] = r ? std::max(hi[i], max[i]) : max[i];
+                }
+            }
+        for (int i = 0; i < 3; ++i) data << lo[i];
+        for (int i = 0; i < 3; ++i) data << hi[i];
         uint16 const n = house && room ? uint16(std::min<size_t>(house->placed.size(), MaxStateEntries)) : 0;
         data << n;
         if (n)
@@ -423,8 +539,13 @@ namespace
         f.placementKnown = house && house->placed.count(e.placedId);
         f.placed = house ? uint32(house->placed.size()) : 0;
         f.maxDecor = house ? house->maxDecor : 0;
-        if (room)
-            for (int i = 0; i < 3; ++i) { f.boundsMin[i] = room->min[i]; f.boundsMax[i] = room->max[i]; }
+        // Bounds are those of the room the decor lands in; outside every room, an empty box refuses it.
+        if (room && house)
+        {
+            int const at = RoomAt(*house, *room, e.pos[0], e.pos[1]);
+            if (at < 0 || !RoomBox(*house, *room, size_t(at), f.boundsMin, f.boundsMax))
+                for (int i = 0; i < 3; ++i) { f.boundsMin[i] = 1; f.boundsMax[i] = 0; }
+        }
         if (auto c = s_catalog.find(e.decorId); c != s_catalog.end())
         {
             f.minScale = c->second.minScale;
@@ -635,6 +756,9 @@ namespace
             "VALUES ({}, {}, {}, 0, {}, {})", h.id, account, room->id, h.maxDecor, now);
         trans->Append("INSERT INTO housing_room (room_id, house_id, room_template_id, slot) VALUES ({}, {}, {}, 0)", h.roomId,
             h.id, room->id);
+        trans->Append("INSERT INTO housing_room_layout (room_id, kind, offset_x, offset_y, yaw_quarter) VALUES ({}, {}, 0, 0, 0)",
+            h.roomId, s_config.firstRoomKind);
+        h.rooms.push_back({ h.roomId, { s_config.firstRoomKind, 0, 0, 0 } });
         // The slice grants starter decor on claim; acquisition comes in Phase 3.
         auto& owned = s_owned[account];
         for (auto const& [decorId, entry] : s_catalog)
@@ -653,13 +777,69 @@ namespace
         return &(s_houses[h.id] = std::move(h));
     }
 
+    // Everyone in the house sees the new shell; anyone left standing where a room was removed goes back to the entry.
+    void RoomsChanged(Map* map, House const& house)
+    {
+        SpawnRooms(map, house);
+        RoomTemplate const* t = Room(house);
+        map->DoForAllPlayers([&](Player* p) {
+            if (t && RoomAt(house, *t, p->GetPositionX(), p->GetPositionY()) < 0)
+                p->NearTeleportTo(t->entry[0], t->entry[1], t->entry[2], t->entry[3]);
+            SendState(p);
+        });
+    }
+
+    std::string AddRoom(Player* player, House& house, size_t room, size_t piece, uint32 kind)
+    {
+        if (house.rooms.size() >= s_config.maxRooms)
+            return "Your house already has the most rooms it can hold.";
+        auto placed = Rooms::Attach(s_kinds, Layouts(house), room, piece, kind);
+        if (!placed)
+            return "That room no longer fits there.";
+        HouseRoom r{ s_nextRoomId++, *placed };
+        uint8 const slot = uint8(house.rooms.size());
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        trans->Append("INSERT INTO housing_room (room_id, house_id, room_template_id, slot) VALUES ({}, {}, {}, {})", r.id,
+            house.id, house.roomTemplate, slot);
+        trans->Append("INSERT INTO housing_room_layout (room_id, kind, offset_x, offset_y, yaw_quarter) VALUES ({}, {}, {}, {}, {})",
+            r.id, kind, r.layout.x, r.layout.y, r.layout.quarter);
+        CharacterDatabase.CommitTransaction(trans);
+        house.rooms.push_back(r);
+        LOG_INFO("module", "housing: house {} added room {} (kind {}) at {:.2f}, {:.2f} turn {}", house.id, r.id, kind,
+            r.layout.x, r.layout.y, r.layout.quarter);
+        RoomsChanged(player->GetMap(), house);
+        return "";
+    }
+
+    std::string RemoveLastRoom(Player* player, House& house)
+    {
+        RoomTemplate const* t = Room(house);
+        if (!t || house.rooms.size() < 2)
+            return "The first room cannot be removed.";
+        size_t const last = house.rooms.size() - 1;
+        for (auto const& [id, p] : house.placed)
+            if (RoomAt(house, *t, p.pos[0], p.pos[1]) == int(last))
+                return "Remove the decor in that room first.";
+        CharacterDatabase.Execute("DELETE FROM housing_room WHERE room_id = {}", house.rooms[last].id); // layout cascades
+        LOG_INFO("module", "housing: house {} removed room {}", house.id, house.rooms[last].id);
+        house.rooms.pop_back();
+        RoomsChanged(player->GetMap(), house);
+        return "";
+    }
+
     enum GossipAction : uint32
     {
         ActionLeave = 1,
         ActionEnter = 2,
         ActionClaim = 3,
-        ActionVisit = 4, // sender = owner account
+        ActionVisit = 4,      // sender = owner account
+        ActionAddRoom = 5,    // lists room kinds
+        ActionPickKind = 6,   // sender = kind; lists walls it fits through
+        ActionRemoveRoom = 7,
+        ActionPlaceRoom = 1000, // + room * 256 + piece; sender = kind
     };
+
+    constexpr size_t MaxGossipItems = 30; // the client shows 32
 
     class npc_esteria_housing_steward : public CreatureScript
     {
@@ -672,8 +852,17 @@ namespace
             ClearGossipMenuFor(player);
             if (!s_config.enabled || !s_loaded || !DefaultRoom())
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Housing is not available on this realm.", 0, 0);
-            else if (HouseOfInstance(player->GetMap()))
+            else if (House* house = HouseOfInstance(player->GetMap()))
+            {
+                if (house->account == player->GetSession()->GetAccountId())
+                {
+                    if (house->rooms.size() < s_config.maxRooms)
+                        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Add a room...", 0, ActionAddRoom);
+                    if (house->rooms.size() > 1)
+                        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Remove the newest room.", 0, ActionRemoveRoom);
+                }
                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave the house.", 0, ActionLeave);
+            }
             else
             {
                 uint32 const account = player->GetSession()->GetAccountId();
@@ -695,13 +884,63 @@ namespace
             return true;
         }
 
-        bool OnGossipSelect(Player* player, Creature* /*creature*/, uint32 sender, uint32 action) override
+        bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             CloseGossipMenuFor(player);
             if (!s_config.enabled || !s_loaded)
                 return true;
             uint32 const account = player->GetSession()->GetAccountId();
+
+            // Room editing: owner only, re-checked on every step since the menu could be stale.
+            House* own = HouseOfInstance(player->GetMap());
+            if (own && own->account != account)
+                own = nullptr;
+            if (action == ActionAddRoom || action == ActionPickKind || action == ActionRemoveRoom || action >= ActionPlaceRoom)
+            {
+                if (!own)
+                    return true;
+                std::vector<Rooms::Room> const layouts = Layouts(*own);
+                if (action == ActionAddRoom)
+                {
+                    ClearGossipMenuFor(player);
+                    for (auto const& [id, kind] : s_kinds)
+                        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, kind.name, id, ActionPickKind);
+                    SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
+                }
+                else if (action == ActionPickKind)
+                {
+                    ClearGossipMenuFor(player);
+                    size_t offered = 0;
+                    for (size_t r = 0; r < layouts.size() && offered < MaxGossipItems; ++r)
+                    {
+                        auto found = s_kinds.find(layouts[r].kind);
+                        if (found == s_kinds.end())
+                            continue;
+                        Rooms::Kind const& kind = found->second;
+                        for (size_t i = 0; i < kind.pieces.size() && i < 256 && offered < MaxGossipItems; ++i)
+                            if (Rooms::Attach(s_kinds, layouts, r, i, sender))
+                            {
+                                char const* facing = Rooms::Facing(Rooms::PieceWorld(layouts[r], kind.pieces[i]));
+                                AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, "Room " + std::to_string(r + 1) + " (" + kind.name
+                                    + "), " + facing + " wall", sender, ActionPlaceRoom + uint32(r) * 256 + uint32(i));
+                                ++offered;
+                            }
+                    }
+                    if (!offered)
+                        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "That room does not fit against any free wall.", 0, 0);
+                    SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
+                }
+                else
+                {
+                    std::string const error = action == ActionRemoveRoom ? RemoveLastRoom(player, *own)
+                        : AddRoom(player, *own, (action - ActionPlaceRoom) / 256, (action - ActionPlaceRoom) % 256, sender);
+                    if (!error.empty())
+                        ChatHandler(player->GetSession()).SendSysMessage(error);
+                }
+                return true;
+            }
+
             switch (action)
             {
                 case ActionLeave:
@@ -746,6 +985,8 @@ namespace
             s_config.stewardEntry = sConfigMgr->GetOption<uint32>("EsteriaHousing.StewardEntry", 9500100);
             s_config.starterQuantity = uint16(std::min<uint32>(1000, sConfigMgr->GetOption<uint32>("EsteriaHousing.StarterQuantity", 5)));
             s_config.editsPerSecond = std::max<uint32>(1, sConfigMgr->GetOption<uint32>("EsteriaHousing.EditsPerSecond", 8));
+            s_config.firstRoomKind = sConfigMgr->GetOption<uint32>("EsteriaHousing.FirstRoomKind", 1);
+            s_config.maxRooms = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxRooms", 8), 1, 32);
             if (s_config.enabled && !s_loaded && sObjectMgr->GetGameObjectTemplates()->size())
                 Load(); // a .reload config that turns housing on after startup
             ApplyHooks();
@@ -796,6 +1037,7 @@ namespace
             if (auto house = s_houseInstance.find(it->second); house != s_houseInstance.end() && house->second == it->first)
                 s_houseInstance.erase(house);
             s_spawned.erase(it->first);
+            s_roomSpawned.erase(it->first);
             s_populated.erase(it->first);
             s_instanceHouse.erase(it);
         }

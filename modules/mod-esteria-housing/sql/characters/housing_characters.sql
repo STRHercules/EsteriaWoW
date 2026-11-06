@@ -23,6 +23,18 @@ CREATE TABLE IF NOT EXISTS `housing_room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Placed decor. The transform is stored exactly as the server finalized it.
+-- Where each room sits: a retail HouseRoom kind at an offset from the room template's origin, turned by quarter
+-- turns. A room with no row is EsteriaHousing.FirstRoomKind at the origin (houses claimed before Phase 3a).
+CREATE TABLE IF NOT EXISTS `housing_room_layout` (
+  `room_id`     INT UNSIGNED NOT NULL,
+  `kind`        INT UNSIGNED NOT NULL COMMENT 'housing_room_kind.kind (HouseRoom.ID)',
+  `offset_x`    FLOAT NOT NULL DEFAULT 0,
+  `offset_y`    FLOAT NOT NULL DEFAULT 0,
+  `yaw_quarter` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`room_id`),
+  CONSTRAINT `fk_layout_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `housing_placed_decor` (
   `placed_id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `house_id`          INT UNSIGNED NOT NULL,
