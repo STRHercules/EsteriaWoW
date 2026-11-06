@@ -30,7 +30,7 @@
 #
 #    EsteriaHousing.MaxRooms
 #        Description: Rooms a house can hold, 1-32.
-#        Default:     8
+#        Default:     16
 
 EsteriaHousing.Enable = 0
 EsteriaHousing.RoomTemplate = 1
@@ -38,4 +38,4 @@ EsteriaHousing.PlotPrice = 1000000
 EsteriaHousing.StarterQuantity = 5
 EsteriaHousing.EditsPerSecond = 8
 EsteriaHousing.FirstRoomKind = 1
-EsteriaHousing.MaxRooms = 8
+EsteriaHousing.MaxRooms = 16

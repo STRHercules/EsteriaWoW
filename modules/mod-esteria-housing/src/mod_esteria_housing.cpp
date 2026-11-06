@@ -96,7 +96,7 @@ namespace
         uint16 starterQuantity = 5;
         uint32 editsPerSecond = 8;
         uint32 firstRoomKind = 1; // HouseRoom 1, Square Room (Small)
-        uint32 maxRooms = 8;
+        uint32 maxRooms = 16;
     };
 
     std::recursive_mutex s_lock;
@@ -1391,7 +1391,7 @@ namespace
             s_config.starterQuantity = uint16(std::min<uint32>(1000, sConfigMgr->GetOption<uint32>("EsteriaHousing.StarterQuantity", 5)));
             s_config.editsPerSecond = std::max<uint32>(1, sConfigMgr->GetOption<uint32>("EsteriaHousing.EditsPerSecond", 8));
             s_config.firstRoomKind = sConfigMgr->GetOption<uint32>("EsteriaHousing.FirstRoomKind", 1);
-            s_config.maxRooms = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxRooms", 8), 1, 32);
+            s_config.maxRooms = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxRooms", 16), 1, 32);
             if (s_config.enabled && !s_loaded && sObjectMgr->GetGameObjectTemplates()->size())
                 Load(); // a .reload config that turns housing on after startup
             ApplyHooks();
