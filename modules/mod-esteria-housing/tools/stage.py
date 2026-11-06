@@ -122,12 +122,12 @@ def counts():
            f" (SELECT COUNT(*) FROM `{w}`.gameobject_template WHERE entry BETWEEN 9500000 AND 9500399),"
            f" (SELECT COUNT(*) FROM `{w}`.gameobjectdisplayinfo_dbc WHERE ID BETWEEN 60000 AND 60399),"
            f" (SELECT COUNT(*) FROM `{w}`.creature_template WHERE entry = 9500100),"
-           f" (SELECT COUNT(*) FROM `{w}`.map_dbc WHERE ID = 35), (SELECT COUNT(*) FROM `{w}`.instance_template WHERE map = 35);")
+           f" (SELECT COUNT(*) FROM `{w}`.map_dbc WHERE ID = 2783), (SELECT COUNT(*) FROM `{w}`.instance_template WHERE map = 2783);")
     return tuple(int(v) for v in mysql(sql=sql).split())
 
 
 def test_migration():
-    names = "world tables, char tables, GO templates, display rows, steward, map_dbc 35, instance_template 35"
+    names = "world tables, char tables, GO templates, display rows, steward, map_dbc 2783, instance_template 2783"
     print("columns:", names)
     apply(); after = counts(); print("after apply   ", after)
     rooms = len(__import__("make_slice").ROOM_MODELS)

@@ -121,6 +121,11 @@ namespace
     std::unordered_map<ObjectGuid, uint32> s_pending;      // player -> house they are teleporting into
     std::unordered_map<ObjectGuid, uint32> s_lastHouse;    // player -> last house entered (relog inside)
     std::unordered_map<ObjectGuid, WorldLocation> s_returnTo;
+    std::unordered_map<ObjectGuid, WorldLocation> s_neighborhoodReturn;
+
+    // NeighborhoodMap.db2 row 1, Founder's Point: map, entry position and facing (make_slice.py spawns its steward there).
+    constexpr uint32 NeighborhoodMap = 2735;
+    constexpr float NeighborhoodEntry[4] = { 3807.76f, -160.427f, 194.111f, 2.852f };
     std::unordered_map<uint32, EditSession> s_editSessions; // account -> seq/rate state
 
     RoomTemplate const* Room(House const& house)
@@ -836,6 +841,8 @@ namespace
         ActionAddRoom = 5,    // lists room kinds
         ActionPickKind = 6,   // sender = kind; lists walls it fits through
         ActionRemoveRoom = 7,
+        ActionVisitNeighborhood = 8,
+        ActionLeaveNeighborhood = 9,
         ActionPlaceRoom = 1000, // + room * 256 + piece; sender = kind
     };
 
@@ -866,6 +873,10 @@ namespace
             else
             {
                 uint32 const account = player->GetSession()->GetAccountId();
+                if (player->GetMapId() == NeighborhoodMap)
+                    AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave Founder's Point.", 0, ActionLeaveNeighborhood);
+                else
+                    AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Visit Founder's Point.", 0, ActionVisitNeighborhood);
                 if (HouseOfAccount(account))
                     AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Take me to my house.", 0, ActionEnter);
                 else
@@ -946,6 +957,31 @@ namespace
                 case ActionLeave:
                     if (HouseOfInstance(player->GetMap()))
                         Leave(player);
+                    break;
+                case ActionVisitNeighborhood:
+                    if (player->GetMapId() != NeighborhoodMap && !IsHousingMap(player->GetMapId()))
+                    {
+                        s_neighborhoodReturn[player->GetGUID()] = WorldLocation(player->GetMapId(), player->GetPositionX(),
+                            player->GetPositionY(), player->GetPositionZ(), player->GetOrientation());
+                        player->TeleportTo(NeighborhoodMap, NeighborhoodEntry[0], NeighborhoodEntry[1], NeighborhoodEntry[2],
+                            NeighborhoodEntry[3]);
+                    }
+                    break;
+                case ActionLeaveNeighborhood:
+                    if (player->GetMapId() == NeighborhoodMap)
+                    {
+                        auto it = s_neighborhoodReturn.find(player->GetGUID());
+                        if (it != s_neighborhoodReturn.end())
+                        {
+                            WorldLocation const to = it->second;
+                            s_neighborhoodReturn.erase(it);
+                            player->TeleportTo(to.GetMapId(), to.GetPositionX(), to.GetPositionY(), to.GetPositionZ(),
+                                to.GetOrientation());
+                        }
+                        else
+                            player->TeleportTo(player->m_homebindMapId, player->m_homebindX, player->m_homebindY,
+                                player->m_homebindZ, player->GetOrientation());
+                    }
                     break;
                 case ActionEnter:
                     if (House* house = HouseOfAccount(account))

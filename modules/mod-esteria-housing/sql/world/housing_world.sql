@@ -340,15 +340,26 @@ INSERT INTO `housing_room_kit` VALUES (15, 177, 1, -24.0, 0.0, 0.0, 0.0, 9500239
 INSERT INTO `housing_room_kit` VALUES (15, 178, 3, 0.0, 0.0, 7.0, 0.0, 9500204, 0, 0, 0);
 
 DELETE FROM `housing_room_template` WHERE `room_template_id` = 1;
-INSERT INTO `housing_room_template` VALUES (1, 35, -0.91, 40.57, 6.27, 0.0, -11.91, 29.57, 5.77, 10.09, 51.57, 17.27, 50, 'Retail rooms above Stormwind Vault');
+INSERT INTO `housing_room_template` VALUES (1, 2783, -1000.0, -1000.0, 0.5, 0.0, -1011.0, -1011.0, 0.0, -989.0, -989.0, 11.5, 50, 'Home Interior');
 
 DELETE FROM `creature_template` WHERE `entry` = 9500100;
 DELETE FROM `creature_template_model` WHERE `CreatureID` = 9500100;
 INSERT INTO `creature_template` (`entry`, `name`, `subname`, `minlevel`, `maxlevel`, `faction`, `npcflag`, `unit_class`, `unit_flags`, `type`, `ScriptName`) VALUES (9500100, 'Housing Steward', 'Esteria Housing', 80, 80, 35, 1, 1, 2, 7, 'npc_esteria_housing_steward');
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`) SELECT 9500100, 0, `CreatureDisplayID`, 1, 1 FROM `creature_template_model` WHERE `CreatureID` = 6740 AND `Idx` = 0;
 
--- Map 35 (Stormwind Vault, unused) becomes a party instance on this realm only. The client's Map.dbc keeps type 0.
+-- Phases 1-3a borrowed map 35 (Stormwind Vault); stock acore_world has no rows for it.
 DELETE FROM `instance_template` WHERE `map` = 35;
-INSERT INTO `instance_template` (`map`, `parent`, `script`, `allowMount`) VALUES (35, 0, '', 0);
 DELETE FROM `map_dbc` WHERE `ID` = 35;
-INSERT INTO `map_dbc` VALUES (35, 'StormwindPrison', 1, 0, 0, '<unused>StormwindPrison', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712190, 717, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712188, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712188, 23, 1.0, 0, -8762.4765625, 848.0491333007812, -1, 0, 0, 40);
+
+-- Retail housing maps; the client gets the same Map.dbc rows from the dev patch.
+DELETE FROM `map_dbc` WHERE `ID` IN (2783, 2735);
+INSERT INTO `map_dbc` VALUES (2783, '2783', 1, 0, 0, 'Home Interior', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712190, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712188, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712188, 23, 1.0, 0, -8762.4765625, 848.0491333007812, -1, 0, 0, 40);
+INSERT INTO `map_dbc` VALUES (2735, '2735', 0, 0, 0, 'Founder''s Point', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712190, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712188, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 16712188, 23, 1.0, 0, -8762.4765625, 848.0491333007812, -1, 0, 0, 0);
+DELETE FROM `instance_template` WHERE `map` = 2783;
+INSERT INTO `instance_template` (`map`, `parent`, `script`, `allowMount`) VALUES (2783, 0, '', 0);
+DELETE FROM `mapdifficulty_dbc` WHERE `ID` = 2783;
+INSERT INTO `mapdifficulty_dbc` (`ID`, `MapID`, `Difficulty`, `Message_Lang_Mask`, `RaidDuration`, `MaxPlayers`) VALUES (2783, 2783, 0, 16712188, 0, 40);
+
+-- A steward at Founder's Point's entry takes players home.
+DELETE FROM `creature` WHERE `guid` = 9500100;
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES (9500100, 9500100, 2735, 1, 1, 3807.76, -160.427, 194.111, 2.852, 300);
