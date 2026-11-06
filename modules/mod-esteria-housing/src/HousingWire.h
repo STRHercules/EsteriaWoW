@@ -31,13 +31,14 @@
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
 //                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
 //                 rooms n(u8), then n x kind(u32) x(f32) y(f32) quarter(u8) wallTheme floorTheme ceilingTheme(u32)
-//                 ceilingHidden(u8)
-//                 sockets n(u16), then n x room(u8) piece(u8) x(f32) y(f32) nx(f32) ny(f32) fits n(u8) x kind(u32)
+//                 ceilingHidden(u8) level(u8: floor, 0 ground)
+//                 sockets n(u16), then n x room(u8) piece(u8) level(u8) x(f32) y(f32) nx(f32) ny(f32)
+//                 fits n(u8) x kind(u32)
 //                 themes n(u8), then n x theme(u32) name(string)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 3;
+    inline constexpr uint16_t Proto = 4;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;

@@ -59,6 +59,9 @@ namespace
 
     // Retail HouseTheme: the room kit's mesh themes (Generic is the kit itself).
     constexpr uint32 GenericTheme = 3;
+    constexpr uint32 StairwellTop = 48; // Stairwell Room (Empty): the floor above a stairwell, built with it
+    inline bool IsStairwell(uint32 kind) { return kind == 10 || kind == 50; } // Stairwell (Left) / (Right)
+    constexpr uint8 MaxLevel = 3;       // floors 1..4
 
     struct HouseRoom
     {
@@ -360,6 +363,18 @@ namespace
                 r.layout = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(), uint8(f[5].Get<uint8>() % 4) };
                 house->second.rooms.push_back(r);
             } while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT l.room_id, r.house_id, l.level FROM housing_room_level l "
+            "JOIN housing_room r ON r.room_id = l.room_id"))
+            do
+            {
+                Field* f = result->Fetch();
+                auto house = s_houses.find(f[1].Get<uint32>());
+                if (house == s_houses.end())
+                    continue;
+                for (HouseRoom& r : house->second.rooms)
+                    if (r.id == f[0].Get<uint32>())
+                        r.layout.level = std::min<uint8>(f[2].Get<uint8>(), MaxLevel);
+            } while (result->NextRow());
         if (QueryResult result = CharacterDatabase.Query("SELECT s.room_id, r.house_id, s.wall_theme, s.floor_theme, "
             "s.ceiling_theme, s.ceiling_hidden FROM housing_room_style s JOIN housing_room r ON r.room_id = s.room_id"))
             do
@@ -469,17 +484,19 @@ namespace
             return false;
         Rooms::Box const b = Rooms::Footprint(kind->second, house.rooms[index].layout);
         for (int i = 0; i < 2; ++i) { min[i] = t.Origin(i) + b.min[i]; max[i] = t.Origin(i) + b.max[i]; }
-        min[2] = t.Origin(2) + kind->second.min[2] - 0.5f;
-        max[2] = t.Origin(2) + kind->second.max[2] + 0.5f;
+        float const floor = t.Origin(2) + float(house.rooms[index].layout.level) * Rooms::LevelHeight;
+        min[2] = floor + std::max(0.0f, kind->second.min[2]) - 0.5f;
+        max[2] = floor + std::min(Rooms::LevelHeight, kind->second.max[2]) + 0.5f; // a stairwell's top half is the floor above
         return true;
     }
 
-    int RoomAt(House const& house, RoomTemplate const& t, float x, float y)
+    int RoomAt(House const& house, RoomTemplate const& t, float x, float y, float z)
     {
         for (size_t i = 0; i < house.rooms.size(); ++i)
         {
             float min[3], max[3];
-            if (RoomBox(house, t, i, min, max) && x >= min[0] && x <= max[0] && y >= min[1] && y <= max[1])
+            if (RoomBox(house, t, i, min, max) && x >= min[0] && x <= max[0] && y >= min[1] && y <= max[1]
+                && z >= min[2] - 1.0f && z <= max[2] + 1.0f)
                 return int(i);
         }
         return -1;
@@ -547,7 +564,10 @@ namespace
                 continue;
             for (size_t i = 0; i < kind->second.pieces.size(); ++i)
             {
-                if (kind->second.pieces[i].type == 3 && house.rooms[r].ceilingHidden)
+                uint8 const type = kind->second.pieces[i].type;
+                if (type == 3 && (house.rooms[r].ceilingHidden || IsStairwell(layouts[r].kind)))
+                    continue;
+                if (type == 2 && layouts[r].kind == StairwellTop)
                     continue;
                 Rooms::KitPiece const piece = Themed(house.rooms[r], kind->second.pieces[i]);
                 Rooms::Pose const p = Rooms::PieceWorld(layouts[r], piece);
@@ -583,6 +603,19 @@ namespace
         session->SendPacket(&data);
     }
 
+    // Whether `kind` can be built through socket (room, piece): it fits there, and a stairwell also needs the floor above
+    // free for its top (and a floor left to climb to).
+    bool Fits(std::vector<Rooms::Room> const& layouts, size_t room, size_t piece, uint32 kind)
+    {
+        auto placed = Rooms::Attach(s_kinds, layouts, room, piece, kind);
+        if (!placed)
+            return false;
+        if (!IsStairwell(kind))
+            return true;
+        Rooms::Room top{ StairwellTop, placed->x, placed->y, placed->quarter, uint8(placed->level + 1) };
+        return placed->level < MaxLevel && Rooms::Fits(s_kinds, layouts, top);
+    }
+
     // The owner's blueprint: room kinds, the rooms placed, and every free wall with the kinds that fit through it.
     void SendLayout(Player* player, House const& house, RoomTemplate const& room)
     {
@@ -600,7 +633,7 @@ namespace
         data << uint8(house.rooms.size());
         for (HouseRoom const& r : house.rooms)
             data << r.layout.kind << r.layout.x << r.layout.y << r.layout.quarter << r.theme[0] << r.theme[1] << r.theme[2]
-                 << uint8(r.ceilingHidden);
+                 << uint8(r.ceilingHidden) << r.layout.level;
         bool const full = layouts.size() >= s_config.maxRooms;
         uint16 sockets = 0;
         WorldPacket list(SMSG_ESTERIA_HOUSING_LAYOUT, 512);
@@ -615,12 +648,13 @@ namespace
                     continue;
                 std::vector<uint32> fits;
                 for (auto const& [id, k] : s_kinds)
-                    if (Rooms::Attach(s_kinds, layouts, r, i, id))
+                    if (id != StairwellTop && Fits(layouts, r, i, id))
                         fits.push_back(id);
                 if (fits.empty())
                     continue;
                 Rooms::Pose const p = Rooms::PieceWorld(layouts[r], kind->second.pieces[i]);
-                list << uint8(r) << uint8(i) << p.x << p.y << p.nx << p.ny << uint8(std::min<size_t>(fits.size(), 255));
+                list << uint8(r) << uint8(i) << layouts[r].level << p.x << p.y << p.nx << p.ny
+                     << uint8(std::min<size_t>(fits.size(), 255));
                 for (size_t f = 0; f < fits.size() && f < 255; ++f)
                     list << fits[f];
                 ++sockets;
@@ -755,7 +789,7 @@ namespace
         // Bounds are those of the room the decor lands in; outside every room, an empty box refuses it.
         if (room && house)
         {
-            int const at = RoomAt(*house, *room, e.pos[0], e.pos[1]);
+            int const at = RoomAt(*house, *room, e.pos[0], e.pos[1], e.pos[2]);
             if (at < 0 || !RoomBox(*house, *room, size_t(at), f.boundsMin, f.boundsMax))
                 for (int i = 0; i < 3; ++i) { f.boundsMin[i] = 1; f.boundsMax[i] = 0; }
         }
@@ -1010,34 +1044,46 @@ namespace
         SpawnRooms(map, house);
         RoomTemplate const* t = Room(house);
         map->DoForAllPlayers([&](Player* p) {
-            if (t && RoomAt(house, *t, p->GetPositionX(), p->GetPositionY()) < 0)
+            if (t && RoomAt(house, *t, p->GetPositionX(), p->GetPositionY(), p->GetPositionZ()) < 0)
                 p->NearTeleportTo(t->entry[0], t->entry[1], t->entry[2], t->entry[3]);
             SendState(p);
         });
     }
 
-    std::string AddRoom(Player* player, House& house, size_t room, size_t piece, uint32 kind)
+    void SaveRoom(House& house, Rooms::Room const& layout)
     {
-        if (house.rooms.size() >= s_config.maxRooms)
-            return "Your house already has the most rooms it can hold.";
-        auto placed = Rooms::Attach(s_kinds, Layouts(house), room, piece, kind);
-        if (!placed)
-            return "That room no longer fits there.";
-        uint32 const price = RoomPrice(s_kinds.at(kind));
-        if (!player->HasEnoughMoney(price))
-            return "You cannot afford that room.";
-        player->ModifyMoney(-int32(price));
-        HouseRoom r{ s_nextRoomId++, *placed };
+        HouseRoom r{ s_nextRoomId++, layout };
         uint8 const slot = uint8(house.rooms.size());
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
         trans->Append("INSERT INTO housing_room (room_id, house_id, room_template_id, slot) VALUES ({}, {}, {}, {})", r.id,
             house.id, house.roomTemplate, slot);
         trans->Append("INSERT INTO housing_room_layout (room_id, kind, offset_x, offset_y, yaw_quarter) VALUES ({}, {}, {}, {}, {})",
-            r.id, kind, r.layout.x, r.layout.y, r.layout.quarter);
+            r.id, layout.kind, layout.x, layout.y, layout.quarter);
+        if (layout.level)
+            trans->Append("INSERT INTO housing_room_level (room_id, level) VALUES ({}, {})", r.id, layout.level);
         CharacterDatabase.CommitTransaction(trans);
         house.rooms.push_back(r);
-        LOG_INFO("module", "housing: house {} added room {} (kind {}) at {:.2f}, {:.2f} turn {}", house.id, r.id, kind,
-            r.layout.x, r.layout.y, r.layout.quarter);
+        LOG_INFO("module", "housing: house {} added room {} (kind {}) at {:.2f}, {:.2f} floor {} turn {}", house.id, r.id,
+            layout.kind, layout.x, layout.y, layout.level + 1, layout.quarter);
+    }
+
+    std::string AddRoom(Player* player, House& house, size_t room, size_t piece, uint32 kind)
+    {
+        size_t const needed = IsStairwell(kind) ? 2 : 1;
+        if (house.rooms.size() + needed > s_config.maxRooms)
+            return "Your house already has the most rooms it can hold.";
+        std::vector<Rooms::Room> const layouts = Layouts(house);
+        if (kind == StairwellTop || !s_kinds.count(kind) || !Fits(layouts, room, piece, kind))
+            return IsStairwell(kind) ? "That stairwell no longer fits there, or the floor above is taken."
+                : "That room no longer fits there.";
+        auto const placed = Rooms::Attach(s_kinds, layouts, room, piece, kind);
+        uint32 const price = RoomPrice(s_kinds.at(kind));
+        if (!player->HasEnoughMoney(price))
+            return "You cannot afford that room.";
+        player->ModifyMoney(-int32(price));
+        SaveRoom(house, *placed);
+        if (IsStairwell(kind))
+            SaveRoom(house, { StairwellTop, placed->x, placed->y, placed->quarter, uint8(placed->level + 1) });
         RoomsChanged(player->GetMap(), house);
         return "";
     }
@@ -1072,12 +1118,17 @@ namespace
         if (!t || house.rooms.size() < 2)
             return "The first room cannot be removed.";
         size_t const last = house.rooms.size() - 1;
+        size_t const count = house.rooms[last].layout.kind == StairwellTop && last >= 2
+            && IsStairwell(house.rooms[last - 1].layout.kind) ? 2 : 1;
         for (auto const& [id, p] : house.placed)
-            if (RoomAt(house, *t, p.pos[0], p.pos[1]) == int(last))
+            if (int const at = RoomAt(house, *t, p.pos[0], p.pos[1], p.pos[2]); at >= int(house.rooms.size() - count))
                 return "Remove the decor in that room first.";
-        CharacterDatabase.Execute("DELETE FROM housing_room WHERE room_id = {}", house.rooms[last].id); // layout cascades
-        LOG_INFO("module", "housing: house {} removed room {}", house.id, house.rooms[last].id);
-        house.rooms.pop_back();
+        for (size_t i = 0; i < count; ++i)
+        {
+            CharacterDatabase.Execute("DELETE FROM housing_room WHERE room_id = {}", house.rooms.back().id); // the rest cascades
+            LOG_INFO("module", "housing: house {} removed room {}", house.id, house.rooms.back().id);
+            house.rooms.pop_back();
+        }
         RoomsChanged(player->GetMap(), house);
         return "";
     }

@@ -101,3 +101,23 @@ kind	name	min_x	min_y	min_z	max_x	max_y	max_z	piece	type	x	y	z	rot_deg	solid	doo
 15	Octagon Room (Large)	-24.144	-24.144	-0.0	24.144	24.144	11.0	176	1	0.0	-24.0	0.0	-90.0	6431846	6431843	6431849	6431835	6431862	21.06	world/wmo/expansion11/playerhousing/room/12ph_octagon_room_large_wall_0_0_generic02.wmo
 15	Octagon Room (Large)	-24.144	-24.144	-0.0	24.144	24.144	11.0	177	1	-24.0	0.0	0.0	0.0	6431846	6431843	6431849	6431835	6431862	21.06	world/wmo/expansion11/playerhousing/room/12ph_octagon_room_large_wall_0_0_generic02.wmo
 15	Octagon Room (Large)	-24.144	-24.144	-0.0	24.144	24.144	11.0	178	3	0.0	0.0	7.0	0.0	6431778	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_octagon_room_large_ceiling_0_0_generic01.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	51	2	-0.0001	0.0001	0.0	0.0	6431804	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_square_room_small_floor_0_0_generic01.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	52	1	-12.0001	0.0001	0.0	0.0	6431857	6431856	6431858	6431835	6431862	23.27	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	53	1	-0.0001	12.0001	0.0	90.0	6431857	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	54	1	12.0	0.0001	0.0	-180.0	6431857	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	55	1	-0.0001	-11.9999	0.0	-90.0	6431857	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	56	4	-0.0001	0.0001	0.0	0.0	6431818	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_stairwell_left_stairs_0_2_generic01.wmo
+10	Stairwell (Left)	-11.5	-11.5	-1.0	11.5	11.5	14.0	57	3	-0.0001	0.0001	12.0001	0.0	6431786	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_square_room_small_ceiling_0_0_generic01.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	216	3	-0.0001	0.0001	12.0001	0.0	6431786	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_square_room_small_ceiling_0_0_generic01.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	217	2	-0.0001	0.0001	0.0	0.0	6431804	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_square_room_small_floor_0_0_generic01.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	218	4	-0.0001	0.0001	0.0	0.0	6997123	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_stairwell_right_stairs_0_2_generic01.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	219	1	-12.0001	0.0001	0.0	0.0	6431857	6431856	6431858	6431835	6431862	23.27	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	220	1	-0.0001	12.0001	0.0	90.0	6431857	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	221	1	12.0	0.0001	0.0	-180.0	6431857	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+50	Stairwell (Right)	-11.5	-11.5	-1.0	11.5	11.5	14.0	222	1	-0.0001	-11.9999	0.0	-90.0	6431857	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+48	Stairwell Room (Empty)	-11.5	-11.5	-0.0	11.5	11.5	14.0	210	3	-0.0001	0.0001	12.0001	0.0	6431786	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_square_room_small_ceiling_0_0_generic01.wmo
+48	Stairwell Room (Empty)	-11.5	-11.5	-0.0	11.5	11.5	14.0	211	2	-0.0001	0.0001	0.0	0.0	6431804	0	0	0	0	0	world/wmo/expansion11/playerhousing/room/12ph_square_room_small_floor_0_0_generic01.wmo
+48	Stairwell Room (Empty)	-11.5	-11.5	-0.0	11.5	11.5	14.0	212	1	-12.0001	0.0001	0.0	0.0	6431857	6431856	6431858	6431835	6431862	23.27	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+48	Stairwell Room (Empty)	-11.5	-11.5	-0.0	11.5	11.5	14.0	213	1	-0.0001	12.0001	0.0	90.0	6431857	6431856	6431858	6431835	6431862	23.27	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+48	Stairwell Room (Empty)	-11.5	-11.5	-0.0	11.5	11.5	14.0	214	1	12.0	0.0001	0.0	-180.0	6431857	6431856	6431858	6431835	6431862	23.27	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo
+48	Stairwell Room (Empty)	-11.5	-11.5	-0.0	11.5	11.5	14.0	215	1	-0.0001	-11.9999	0.0	-90.0	6431857	6431856	6431858	6431835	6431862	23.27	world/wmo/expansion11/playerhousing/room/12ph_generic_wall_0_0_multitheme27.wmo

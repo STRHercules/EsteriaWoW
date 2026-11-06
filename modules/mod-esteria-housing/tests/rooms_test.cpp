@@ -87,6 +87,16 @@ int main()
     auto east = Attach(kinds, rooms, 1, 3, 12);
     CHECK(east && Near(east->x, 24) && Near(east->y, -36));
 
+    // Floors: a room one floor up sits LevelHeight higher, overlaps nothing below, and joins only rooms on its floor.
+    std::vector<Room> stack{ { 1, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1 } };
+    CHECK(Near(PieceWorld(stack[1], small.pieces[1]).z, LevelHeight));
+    CHECK(Fits(kinds, { stack[0] }, stack[1]) && !Fits(kinds, { stack[0] }, stack[0]));
+    auto up = Attach(kinds, stack, 1, 4, 1);
+    CHECK(up && up->level == 1 && Near(up->x, 24));
+    stack.push_back(*up);
+    auto vs = Variants(kinds, stack);
+    CHECK(vs[0][4] == Solid && vs[1][4] == Door); // the ground room's north wall stays shut
+
     // Founder's Point plot 0: house at (2973.1, -245.3), cornerstone at (2942.7, -214.3), to the south-west (-x, +y).
     // The default base's door hooks (12ph_exterior_human_base01): the front door is one of the two on the -x face.
     std::vector<Hook> doors = { { 9.281f, 3.469f, -0.561f, 0 }, { -9.456f, -3.508f, -0.561f, 180 }, { 9.281f, -3.455f, -0.561f, 0 },

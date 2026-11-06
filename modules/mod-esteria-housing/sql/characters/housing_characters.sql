@@ -46,6 +46,14 @@ CREATE TABLE IF NOT EXISTS `housing_room_style` (
   CONSTRAINT `fk_style_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- A room's floor when it is not the ground floor (stairwells lead up; floors are 12 yd apart).
+CREATE TABLE IF NOT EXISTS `housing_room_level` (
+  `room_id` INT UNSIGNED NOT NULL,
+  `level`   TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`room_id`),
+  CONSTRAINT `fk_level_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
 CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
   `map_id`     SMALLINT UNSIGNED NOT NULL,

@@ -16,6 +16,8 @@
 namespace EsteriaHousing::Rooms
 {
     constexpr float Pi = 3.14159265358979f;
+    // One floor of a house: retail's stairwell climbs to a landing 12 yd up, where its ceiling and the next floor are.
+    constexpr float LevelHeight = 12.0f;
 
     struct KitPiece
     {
@@ -42,6 +44,7 @@ namespace EsteriaHousing::Rooms
         uint32_t kind = 0;
         float x = 0, y = 0;  // offset from the template origin
         uint8_t quarter = 0; // yaw = quarter * 90 degrees
+        uint8_t level = 0;   // floor: 0 ground, its z is level * LevelHeight
     };
 
     struct Pose { float x = 0, y = 0, z = 0, yaw = 0, nx = 0, ny = 0; };
@@ -65,7 +68,7 @@ namespace EsteriaHousing::Rooms
         Rotate(QuarterYaw(room.quarter), p.x, p.y, o.x, o.y);
         o.x += room.x;
         o.y += room.y;
-        o.z = p.z;
+        o.z = p.z + float(room.level) * LevelHeight;
         // Retail's OffsetRot turns clockwise seen from above: only then do the corner pieces sit inside the room.
         o.yaw = QuarterYaw(room.quarter) - p.rotDeg * Pi / 180;
         Rotate(o.yaw, -1, 0, o.nx, o.ny); // a wall's slab lies on its local +x, so -x faces out of the room
@@ -190,7 +193,7 @@ namespace EsteriaHousing::Rooms
                 continue;
             for (uint8_t q = 0; q < 4; ++q)
             {
-                Room candidate{ kind, 0, 0, q };
+                Room candidate{ kind, 0, 0, q, rooms[room].level };
                 Pose const p = PieceWorld(candidate, s);
                 if (!AxisAligned(p) || p.nx * t.nx + p.ny * t.ny > -0.99f)
                     continue;
@@ -199,13 +202,28 @@ namespace EsteriaHousing::Rooms
                 Box const box = Footprint(k->second, candidate);
                 bool clear = true;
                 for (Room const& r : rooms)
-                    if (auto other = kinds.find(r.kind); other != kinds.end() && Overlaps(box, Footprint(other->second, r)))
+                    if (auto other = kinds.find(r.kind); other != kinds.end() && r.level == candidate.level
+                        && Overlaps(box, Footprint(other->second, r)))
                         clear = false;
                 if (clear)
                     return candidate;
             }
         }
         return std::nullopt;
+    }
+
+    // True when no room on `room`'s floor overlaps it: for a room placed by rule (the stairwell top) rather than a socket.
+    inline bool Fits(Kinds const& kinds, std::vector<Room> const& rooms, Room const& room)
+    {
+        auto k = kinds.find(room.kind);
+        if (k == kinds.end())
+            return false;
+        Box const box = Footprint(k->second, room);
+        for (Room const& r : rooms)
+            if (auto other = kinds.find(r.kind); other != kinds.end() && r.level == room.level
+                && Overlaps(box, Footprint(other->second, r)))
+                return false;
+        return true;
     }
 
     // A house exterior on a neighborhood plot. The plot's yaw turns the whole house counter-clockwise (a world facing);
