@@ -458,16 +458,25 @@ namespace
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
             return;
-        if (GameObject* go = map->SummonGameObject(entry->second.goEntry, p.pos[0], p.pos[1], p.pos[2], p.yaw, p.rot[0], p.rot[1],
-            p.rot[2], p.rot[3], 0, false))
+        // Map::SummonGameObject, with the scale set before the object enters the map: the client builds a gameobject's
+        // transform (CGGameObject_C::UpdateWorldObject) from OBJECT_FIELD_SCALE_X when it is created, and a later scale
+        // update does not rebuild it.
+        GameObject* go = new GameObject();
+        if (go->Create(map->GenerateLowGuid<HighGuid::GameObject>(), entry->second.goEntry, map, PHASEMASK_NORMAL, p.pos[0],
+            p.pos[1], p.pos[2], p.yaw, G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]), 100, GO_STATE_READY))
         {
-            if (std::fabs(p.scale - 1) > 1e-4f)
-                go->SetObjectScale(p.scale);
+            go->SetObjectScale(p.scale);
+            go->SetRespawnTime(0);
+            go->SetSpawnedByDefault(false);
+            map->AddToMap(go, false);
             s_spawned[map->GetInstanceId()][p.id] = go->GetGUID();
         }
         else
+        {
+            delete go;
             LOG_ERROR("module", "housing: could not spawn decor {} (placed {}) in instance {}", p.decorId, p.id,
                 map->GetInstanceId());
+        }
     }
 
     void Despawn(Map* map, uint64 placedId)
