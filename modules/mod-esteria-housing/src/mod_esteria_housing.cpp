@@ -61,7 +61,10 @@ namespace
     constexpr uint32 GenericTheme = 3;
     constexpr uint32 StairwellTop = 48; // Stairwell Room (Empty): the floor above a stairwell, built with it
     inline bool IsStairwell(uint32 kind) { return kind == 10 || kind == 50; } // Stairwell (Left) / (Right)
-    constexpr int8 MinLevel = -1, MaxLevel = 3; // a basement and four floors
+    // A basement, then floors above the ground: 4 to start, up to 15 bought with gold (ActionUpgrade).
+    constexpr int8 MinLevel = -1;
+    constexpr uint8 BaseFloors = 4, FloorCap = 15;
+    constexpr uint16 DecorBase = 200, DecorCap = 5000, DecorStep = 100;
 
     struct HouseRoom
     {
@@ -85,6 +88,8 @@ namespace
     {
         uint32 id = 0, account = 0, roomTemplate = 0, roomId = 0, revision = 0;
         uint16 maxDecor = 0;
+        uint8 floors = BaseFloors;    // floors above the ground it may build (housing_house_limits)
+        int8 MaxLevel() const { return int8(floors - 1); }
         std::map<uint64, Placed> placed;
         std::vector<HouseRoom> rooms; // slot order; rooms[0] is the room decor rows reference (roomId)
     };
@@ -325,6 +330,11 @@ namespace
                 s_nextHouseId = std::max(s_nextHouseId, h.id + 1);
                 s_houses[h.id] = std::move(h);
             } while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT house_id, floors FROM housing_house_limits"))
+            do
+                if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
+                    house->second.floors = uint8(std::clamp<int>(result->Fetch()[1].Get<uint8>(), BaseFloors, FloorCap));
+            while (result->NextRow());
 
         s_plots.clear();
         s_exterior.clear();
@@ -384,7 +394,7 @@ namespace
                     continue;
                 for (HouseRoom& r : house->second.rooms)
                     if (r.id == f[0].Get<uint32>())
-                        r.layout.level = int8(std::clamp<int>(f[2].Get<int8>(), MinLevel, MaxLevel));
+                        r.layout.level = int8(std::clamp<int>(f[2].Get<int8>(), MinLevel, FloorCap - 1));
             } while (result->NextRow());
         if (QueryResult result = CharacterDatabase.Query("SELECT s.room_id, r.house_id, s.wall_theme, s.floor_theme, "
             "s.ceiling_theme, s.ceiling_hidden FROM housing_room_style s JOIN housing_room r ON r.room_id = s.room_id"))
@@ -553,6 +563,18 @@ namespace
         return nullptr;
     }
 
+    // The next floor: 100 g for the 5th, 200 g for the 6th ... 1100 g for the 15th. 0 at the cap.
+    uint32 FloorPrice(House const& house)
+    {
+        return house.floors >= FloorCap ? 0 : uint32(house.floors - BaseFloors + 1) * 100 * 10000;
+    }
+
+    // The next +100 decor: 10 g, then a gold more for each step bought. 0 at the cap.
+    uint32 DecorPrice(House const& house)
+    {
+        return house.maxDecor >= DecorCap ? 0 : (10 + uint32(std::max<int>(0, house.maxDecor - DecorBase)) / DecorStep) * 10000;
+    }
+
     uint32 RoomPrice(Rooms::Kind const& kind)
     {
         float const area = (kind.max[0] - kind.min[0]) * (kind.max[1] - kind.min[1]);
@@ -655,7 +677,7 @@ namespace
 
     // Whether `kind` can be built through socket (room, piece): it fits there, and a stairwell also needs the floor above
     // free for its top (and a floor left to climb to).
-    bool Fits(std::vector<Rooms::Room> const& layouts, size_t room, size_t piece, uint32 kind)
+    bool Fits(std::vector<Rooms::Room> const& layouts, size_t room, size_t piece, uint32 kind, int8 maxLevel)
     {
         if (kind > StairsDownBase) // a stairwell down: its top on this floor through the socket, the stairwell below it
         {
@@ -670,7 +692,7 @@ namespace
         if (!IsStairwell(kind))
             return true;
         Rooms::Room top{ StairwellTop, placed->x, placed->y, placed->quarter, int8(placed->level + 1) };
-        return placed->level < MaxLevel && Rooms::Fits(s_kinds, layouts, top);
+        return placed->level < maxLevel && Rooms::Fits(s_kinds, layouts, top);
     }
 
     // The owner's blueprint: room kinds, the rooms placed, and every free wall with the kinds that fit through it.
@@ -714,9 +736,9 @@ namespace
                 std::vector<uint32> fits;
                 for (auto const& [id, k] : s_kinds)
                 {
-                    if (id != StairwellTop && Fits(layouts, r, i, id))
+                    if (id != StairwellTop && Fits(layouts, r, i, id, house.MaxLevel()))
                         fits.push_back(id);
-                    if (IsStairwell(id) && Fits(layouts, r, i, StairsDownBase + id))
+                    if (IsStairwell(id) && Fits(layouts, r, i, StairsDownBase + id, house.MaxLevel()))
                         fits.push_back(StairsDownBase + id);
                 }
                 if (fits.empty())
@@ -735,6 +757,7 @@ namespace
         data << uint8(std::min<size_t>(s_themes.size(), 255));
         for (auto const& [id, name] : s_themes)
             data << id << name;
+        data << house.floors << FloorPrice(house) << DecorPrice(house) << DecorStep << DecorCap;
         player->SendDirectMessage(&data);
     }
 
@@ -1159,7 +1182,7 @@ namespace
         if (kind > StairsDownBase)
         {
             uint32 const stairwell = kind - StairsDownBase;
-            if (!Fits(layouts, room, piece, kind))
+            if (!Fits(layouts, room, piece, kind, house.MaxLevel()))
                 return "Those stairs no longer fit there, or the floor below is taken.";
             auto const top = Rooms::Attach(s_kinds, layouts, room, piece, StairwellTop);
             uint32 const price = RoomPrice(s_kinds.at(stairwell));
@@ -1171,7 +1194,7 @@ namespace
             RoomsChanged(player->GetMap(), house);
             return "";
         }
-        if (kind == StairwellTop || !s_kinds.count(kind) || !Fits(layouts, room, piece, kind))
+        if (kind == StairwellTop || !s_kinds.count(kind) || !Fits(layouts, room, piece, kind, house.MaxLevel()))
             return IsStairwell(kind) ? "That stairwell no longer fits there, or the floor above is taken."
                 : "That room no longer fits there.";
         auto const placed = Rooms::Attach(s_kinds, layouts, room, piece, kind);
@@ -1195,7 +1218,7 @@ namespace
         Rooms::Room const* below = StairwellNext(layouts, layouts[room], -1);
         Rooms::Room top = layouts[room];
         top.level = int8(top.level + 1);
-        if (!below || layouts[room].level >= MaxLevel || !Rooms::Fits(s_kinds, layouts, top))
+        if (!below || layouts[room].level >= house.MaxLevel() || !Rooms::Fits(s_kinds, layouts, top))
             return "There is no space for stairs above that.";
         if (house.rooms.size() + 1 > s_config.maxRooms)
             return "Your house already has the most rooms it can hold.";
@@ -1579,6 +1602,34 @@ namespace
                 LOG_INFO("module", "housing: account {} bought {} x decor {} for {} copper", session->GetAccountId(), count, decorId,
                     price);
                 SendCatalog(session, 0);
+            }
+        }
+        else if (action == ActionUpgrade)
+        {
+            uint8 what;
+            packet >> what;
+            uint32 const price = what == UpgradeFloors ? FloorPrice(*own) : what == UpgradeDecor ? DecorPrice(*own) : 0;
+            if (!price)
+                error = "That is already as large as it gets.";
+            else if (!player->HasEnoughMoney(price))
+                error = "You cannot afford that upgrade.";
+            else
+            {
+                player->ModifyMoney(-int32(price));
+                if (what == UpgradeFloors)
+                {
+                    ++own->floors;
+                    CharacterDatabase.Execute("REPLACE INTO housing_house_limits (house_id, floors) VALUES ({}, {})", own->id,
+                        own->floors);
+                }
+                else
+                {
+                    own->maxDecor = uint16(std::min<int>(DecorCap, own->maxDecor + DecorStep));
+                    CharacterDatabase.Execute("UPDATE housing_house SET max_decor = {} WHERE house_id = {}", own->maxDecor, own->id);
+                }
+                LOG_INFO("module", "housing: house {} bought upgrade {} for {} copper (floors {}, decor {})", own->id, what, price,
+                    own->floors, own->maxDecor);
+                BroadcastState(player->GetMap());
             }
         }
         else if (action == ActionStairsUp)

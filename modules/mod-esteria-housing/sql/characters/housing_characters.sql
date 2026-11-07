@@ -55,6 +55,14 @@ CREATE TABLE IF NOT EXISTS `housing_room_level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `housing_room_level` MODIFY `level` TINYINT NOT NULL DEFAULT 0 COMMENT '-1 basement, 0 ground';
 
+-- Upgrades bought with gold beyond a new house's limits (the decor budget is housing_house.max_decor).
+CREATE TABLE IF NOT EXISTS `housing_house_limits` (
+  `house_id` INT UNSIGNED NOT NULL,
+  `floors`   TINYINT UNSIGNED NOT NULL DEFAULT 4 COMMENT 'floors above the ground it may build, 4 to 15',
+  PRIMARY KEY (`house_id`),
+  CONSTRAINT `fk_limits_house` FOREIGN KEY (`house_id`) REFERENCES `housing_house` (`house_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
 CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
   `map_id`     SMALLINT UNSIGNED NOT NULL,

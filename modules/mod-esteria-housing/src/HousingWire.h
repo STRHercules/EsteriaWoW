@@ -37,10 +37,12 @@
 //                 sockets n(u16), then n x room(u8) piece(u8) level(i8) x(f32) y(f32) nx(f32) ny(f32)
 //                 fits n(u8) x kind(u32)
 //                 themes n(u8), then n x theme(u32) name(string)
+//                 maxFloors(u8) floorPrice(u32 copper, 0 at the cap) decorPrice(u32, 0 at the cap) decorStep(u16)
+//                 decorCap(u16)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 7;
+    inline constexpr uint16_t Proto = 8;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -55,7 +57,7 @@ namespace EsteriaHousingWire
     inline constexpr uint32_t SMSG_LAYOUT = 0x541;
 
     inline constexpr uint16_t CatalogPageSize = 50;
-    inline constexpr uint16_t MaxStateEntries = 1000;
+    inline constexpr uint16_t MaxStateEntries = 5000; // the largest decor budget
 
     enum Op : uint8_t
     {
@@ -80,9 +82,16 @@ namespace EsteriaHousingWire
         ActionRoomCeiling = 6, // room(u8) hidden(u8)
         ActionStairsUp = 7,   // room(u8): a stairwell's top becomes another stairwell, with a new top above
         ActionBuyDecor = 8,   // decorId(u32) count(u16): the catalog's price each, into storage
+        ActionUpgrade = 9,    // what(u8 Upgrade): buy the house's next floor or decor budget step
     };
 
     inline constexpr uint32_t StairsDownBase = 1000;
+
+    enum Upgrade : uint8_t
+    {
+        UpgradeFloors = 1, // one more floor above the ground, 4 to 15
+        UpgradeDecor = 2,  // the decor budget, 200 to 5000 in steps of 100
+    };
 
     enum PlotStatus : uint8_t
     {
