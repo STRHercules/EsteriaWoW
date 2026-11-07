@@ -1,6 +1,8 @@
 -- Undoes housing_world.sql. Map 35 has no map_dbc/instance_template rows in stock acore_world, so deleting them
 -- restores Map.dbc's own row (type 0, not instanced).
 DELETE FROM `map_dbc` WHERE `ID` = 35;
+DELETE FROM `map_dbc` WHERE `ID` IN (2783, 2735);
+DELETE FROM `areatable_dbc` WHERE `ID` IN (16105, 16300);
 DELETE FROM `instance_template` WHERE `map` = 35;
 DELETE FROM `creature` WHERE `id` = 9500100;
 DELETE FROM `creature_template_model` WHERE `CreatureID` = 9500100;
