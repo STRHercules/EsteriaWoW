@@ -43,6 +43,12 @@ AREA_TEMPLATE = 12  # Elwynn Forest: flags, ambience and music
 WORLD_MAP_NAME = "FoundersPoint"
 WORLD_MAP_BOUNDS = (2935.42, -2454.17, 4762.5, 1168.75)  # left (max y), right (min y), top (max x), bottom (min x)
 AREA_DBC_NAME, WORLD_MAP_DBC_NAME = r"DBFilesClient\AreaTable.dbc", r"DBFilesClient\WorldMapArea.dbc"
+# Retail's loading screens (LoadingScreens.MainImageFileDataID 7377860 and 7367528, data/loadscreens from wowdecomp
+# docs/housing/tools/ui/make_loadscreen.py): Map.dbc's LoadingScreenID names a LoadingScreens row, whose file has a Wide
+# twin for widescreen.
+LOADING_SCREENS = {NEIGHBORHOOD_MAP: (900, "FoundersPoint", "LoadScreenFoundersPoint"),
+                   HOUSE_MAP: (901, "HomeInterior", "LoadScreenHomeInterior")}
+LOADING_DBC_NAME = r"DBFilesClient\LoadingScreens.dbc"
 # NeighborhoodMap 1 (Founder's Point): entry position and facing; the steward stands there.
 NEIGHBORHOOD_ENTRY = (3807.76, -160.427, 194.111, 2.852)
 
@@ -214,6 +220,7 @@ def map_rows(data):
         assert map_id not in taken, f"map {map_id} already in Map.dbc"
         row = list(base)
         row[0], row[2], row[22], row[65] = map_id, instance_type, 0, max_players  # AreaTableID 0: the server has no row for ours
+        row[57] = LOADING_SCREENS[map_id][0]
         out.append((row, {1: directory, 5: name}))
     return strings, out
 
@@ -460,10 +467,18 @@ def patch_world_map(storm, client):
         new.append(([next_id, map_id, area, 0, *[float(v) for v in WORLD_MAP_BOUNDS], -1, 0, 0], {3: WORLD_MAP_NAME}))
     files[WORLD_MAP_DBC_NAME] = append_rows(world, 11, 44, new)
 
+    _, screens = winning_dbc(storm, client, LOADING_DBC_NAME)
+    screen_dir = "Interface\\Glues\\LoadingScreens\\"
+    new = [([screen, 0, 0, 1], {1: name, 2: f"{screen_dir}{stem}.blp"}) for screen, name, stem in LOADING_SCREENS.values()]
+    files[LOADING_DBC_NAME] = append_rows(screens, 4, 16, new)
+    for _, _, stem in LOADING_SCREENS.values():
+        for suffix in ("", "Wide"):
+            files[f"{screen_dir}{stem}{suffix}.blp"] = (MODULE / "data/loadscreens" / f"{stem}{suffix}.blp").read_bytes()
+
     tiles = MODULE / "data/worldmap" / WORLD_MAP_NAME
     for blp in sorted(tiles.glob("*.blp")):
         files[f"Interface\\WorldMap\\{WORLD_MAP_NAME}\\{blp.name}"] = blp.read_bytes()
-    assert sum(1 for name in files if name.endswith(".blp")) == 12, "the world map needs its 12 tiles"
+    assert sum(1 for name in files if WORLD_MAP_NAME + "\\" in name) == 12, "the world map needs its 12 tiles"
     return files
 
 
