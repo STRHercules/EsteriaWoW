@@ -1,0 +1,46 @@
+[worldserver]
+
+###################################################################################################
+# mod-esteria-housing (Phase 1 slice). Dev realms only until retail-asset distribution is decided.
+#
+#    EsteriaHousing.Enable
+#        Description: Player housing: the steward NPC, plot cornerstones, the per-house instance hook and the edit opcodes.
+#                     Needs the world/characters SQL from modules/mod-esteria-housing/sql applied first.
+#        Default:     0 - (Disabled; the core hooks stay null)
+#
+#    EsteriaHousing.RoomTemplate
+#        Description: housing_room_template row every new house uses.
+#        Default:     1
+#
+#    EsteriaHousing.PlotPrice
+#        Description: Copper a neighborhood plot costs. Buying one builds the house on it.
+#        Default:     1000000 (100 gold)
+#
+#    EsteriaHousing.StarterQuantity
+#        Description: How many of each enabled catalog decor an account gets when it claims a house.
+#        Default:     5
+#
+#    EsteriaHousing.EditsPerSecond
+#        Description: Edit requests per account per second before RATE_LIMITED.
+#        Default:     8
+#
+#    EsteriaHousing.FirstRoomKind
+#        Description: Retail HouseRoom ID a new house starts with (housing_room_kind).
+#        Default:     1 (Square Room (Small))
+#
+#    EsteriaHousing.MaxRooms
+#        Description: Rooms a house can hold, 1-32.
+#        Default:     16
+#
+#    EsteriaHousing.RoomPrice
+#        Description: Copper a 23 x 23 yd room costs to build; other kinds scale by floor area (at least 1 gold).
+#        Default:     250000 (25 gold)
+
+EsteriaHousing.Enable = 0
+EsteriaHousing.RoomTemplate = 1
+EsteriaHousing.PlotPrice = 1000000
+EsteriaHousing.StarterQuantity = 5
+EsteriaHousing.EditsPerSecond = 8
+EsteriaHousing.FirstRoomKind = 1
+EsteriaHousing.MaxRooms = 16
+EsteriaHousing.RoomPrice = 250000

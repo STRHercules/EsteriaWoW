@@ -1,0 +1,164 @@
+style	name	role	fdid	x	y	z	rot_deg	mat_x	mat_z
+92	Human House (Small)	base	6648736	0	0	0	0	0	0
+92	Human House (Small)	roof	7420602	0	0	0	0	0	0
+92	Human House (Small)	window	7118944	5.38	3.469	4.164	0.0	0	0
+92	Human House (Small)	window	7118944	5.361	-3.455	4.144	0.0	0	0
+92	Human House (Small)	window	7118944	0.078	7.003	4.172	-90.0	0	0
+92	Human House (Small)	window	7118944	-5.372	3.417	4.144	180.0	0	0
+92	Human House (Small)	window	7118944	-5.392	-3.508	4.164	180.0	0	0
+92	Human House (Small)	window	7118944	0.042	-6.983	4.172	90.0	0	0
+92	Human House (Small)	chimney	7118950	-3.647	5.595	12.356	90.0	0	0
+92	Human House (Small)	door_hook	7450804	9.281	3.469	-0.561	0.0	-1.396	2.0
+92	Human House (Small)	door_hook	7450804	-9.456	-3.508	-0.561	180.0	-1.396	2.0
+92	Human House (Small)	door_hook	7450804	9.281	-3.455	-0.561	0.0	-1.396	2.0
+92	Human House (Small)	door_hook	7450804	0.078	10.889	-0.561	-90.0	-1.396	2.0
+92	Human House (Small)	door_hook	7450804	0.078	-10.995	-0.561	90.0	-1.396	2.0
+92	Human House (Small)	door_hook	7450804	-9.456	3.469	-0.561	180.0	-1.396	2.0
+93	Human House (Medium)	base	6648733	0	0	0	0	0	0
+93	Human House (Medium)	roof	7420584	0	0	0	0	0	0
+93	Human House (Medium)	window	7118944	12.569	-3.889	4.936	0.0	0	0
+93	Human House (Medium)	window	7118944	2.242	6.339	4.936	0.0	0	0
+93	Human House (Medium)	window	7118944	7.186	0.697	4.936	-90.0	0	0
+93	Human House (Medium)	window	7118944	-10.122	-6.031	4.936	180.0	0	0
+93	Human House (Medium)	window	7118944	-10.122	5.911	4.936	180.0	0	0
+93	Human House (Medium)	window	7118944	7.186	-8.569	4.936	90.0	0	0
+93	Human House (Medium)	window	7118944	-3.972	-12.164	4.936	90.0	0	0
+93	Human House (Medium)	window	7118944	-3.972	12.083	4.936	-90.0	0	0
+93	Human House (Medium)	chimney	7118950	-0.15	6.336	9.689	-90.0	0	0
+93	Human House (Medium)	door_hook	7450804	6.106	6.083	0.0	0.0	-1.396	2.0
+93	Human House (Medium)	door_hook	7450804	-3.958	-16.022	0.0	90.0	-1.396	2.0
+93	Human House (Medium)	door_hook	7450804	16.342	-3.928	0.0	0.0	-1.396	2.0
+93	Human House (Medium)	door_hook	7450804	-3.958	15.936	0.0	-90.0	-1.396	2.0
+93	Human House (Medium)	door_hook	7450804	7.239	4.6	0.0	-90.0	-1.396	2.0
+93	Human House (Medium)	door_hook	7450804	-13.969	6.025	0.0	180.0	-1.396	2.0
+93	Human House (Medium)	door_hook	7450804	-13.969	-6.031	0.0	180.0	-1.396	2.0
+94	Human House (Large)	base	6648730	0	0	0	0	0	0
+94	Human House (Large)	roof	7420563	0	0	0	0	0	0
+94	Human House (Large)	window	7118944	1.833	18.122	4.994	0.0	0	0
+94	Human House (Large)	window	7118944	8.933	8.856	4.994	0.0	0	0
+94	Human House (Large)	window	7118944	1.833	-0.192	4.994	0.0	0	0
+94	Human House (Large)	window	7118944	6.553	-3.953	4.994	-90.0	0	0
+94	Human House (Large)	window	7118944	18.256	-11.92	4.994	0.0	0	0
+94	Human House (Large)	window	7118944	5.014	-19.83	4.994	90.0	0	0
+94	Human House (Large)	window	7118944	-7.283	-19.83	4.994	90.0	0	0
+94	Human House (Large)	window	7118944	5.014	-19.978	10.981	90.0	0	0
+94	Human House (Large)	window	7118944	-7.283	-19.978	10.981	90.0	0	0
+94	Human House (Large)	window	7118944	11.064	-11.917	10.611	0.0	0	0
+94	Human House (Large)	window	7118944	6.553	-3.547	10.608	-90.0	0	0
+94	Human House (Large)	window	7118944	-5.286	22.111	4.856	-90.0	0	0
+94	Human House (Large)	window	7118944	-12.311	15.578	4.994	180.0	0	0
+94	Human House (Large)	window	7118944	-12.311	2.431	4.994	180.0	0	0
+94	Human House (Large)	window	7118944	-13.475	-11.908	4.994	180.0	0	0
+94	Human House (Large)	window	7118944	-13.786	-11.908	10.922	180.0	0	0
+94	Human House (Large)	chimney	7118950	7.047	-7.497	21.492	0.0	0	0
+94	Human House (Large)	door_hook	7450804	12.822	8.856	0.0	0.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	22.186	-11.92	0.0	0.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	4.897	-23.767	0.0	90.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	-6.967	-23.767	0.0	90.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	-5.4	26.045	0.0	-90.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	-16.281	15.586	0.0	180.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	-16.281	2.372	0.0	180.0	-1.396	2.0
+94	Human House (Large)	door_hook	7450804	-17.239	-11.95	0.0	180.0	-1.396	2.0
+553	Night Elf House (Medium)	base	6892497	0	0	0	0	0	0
+553	Night Elf House (Medium)	roof	6892524	0	0	0	0	0	0
+553	Night Elf House (Medium)	door_hook	6892533	4.806	9.608	0.0	0.0	5.995	1.75
+553	Night Elf House (Medium)	door_hook	6892533	20.15	-6.058	0.0	0.0	5.995	1.75
+553	Night Elf House (Medium)	door_hook	6892533	-4.847	9.675	0.0	180.0	5.995	1.75
+553	Night Elf House (Medium)	door_hook	6892533	-12.664	-5.992	0.0	180.0	5.995	1.75
+553	Night Elf House (Medium)	door_hook	6892533	-0.033	-15.117	0.0	90.0	5.995	1.75
+553	Night Elf House (Medium)	door_hook	6892533	0.033	17.775	0.0	-90.0	5.995	1.75
+554	Night Elf House (Large)	base	6892521	0	0	0	0	0	0
+554	Night Elf House (Large)	roof	6892530	0	0	0	0	0	0
+554	Night Elf House (Large)	door_hook	6892533	5.036	3.189	0.0	0.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	11.481	16.978	0.0	0.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	0.1	22.297	0.0	-90.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	20.15	-12.478	0.0	0.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	-4.847	3.233	0.0	180.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	-12.664	-12.556	0.0	180.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	-10.822	17.044	0.0	180.0	5.995	1.75
+554	Night Elf House (Large)	door_hook	6892533	0.0	-21.544	0.0	90.0	5.995	1.75
+552	Night Elf House (Small)	base	6892518	0	0	0	0	0	0
+552	Night Elf House (Small)	roof	6892527	0	0	0	0	0	0
+552	Night Elf House (Small)	door_hook	6892533	12.75	0.086	0.0	0.0	5.995	1.75
+552	Night Elf House (Small)	door_hook	6892533	-4.686	0.153	0.0	180.0	5.995	1.75
+552	Night Elf House (Small)	door_hook	6892533	-0.106	-9.153	0.0	90.0	5.995	1.75
+552	Night Elf House (Small)	door_hook	6892533	-0.047	9.228	0.0	-90.0	5.995	1.75
+562	Blood Elf House (Small)	base	6892558	0	0	0	0	0	0
+562	Blood Elf House (Small)	roof	6892567	0	0	0	0	0	0
+562	Blood Elf House (Small)	door_hook	6892573	-5.431	0.0	0.0	0.0	14.222	1.5
+562	Blood Elf House (Small)	door_hook	6892573	0.0	5.333	0.0	90.0	14.222	1.5
+562	Blood Elf House (Small)	door_hook	6892573	0.0	-5.333	0.0	-90.0	14.222	1.5
+562	Blood Elf House (Small)	door_hook	6892573	5.236	0.0	0.0	180.0	14.222	1.5
+563	Blood Elf House (Medium)	base	6892555	0	0	0	0	0	0
+563	Blood Elf House (Medium)	roof	6892564	0	0	0	0	0	0
+563	Blood Elf House (Medium)	door_hook	6892573	0.0	0.0	0.0	90.0	14.222	1.5
+563	Blood Elf House (Medium)	door_hook	6892573	0.0	0.0	0.0	-90.0	14.222	1.5
+563	Blood Elf House (Medium)	door_hook	6892573	-0.094	0.0	0.0	0.0	14.222	1.5
+563	Blood Elf House (Medium)	door_hook	6892573	-0.094	0.0	0.0	180.0	14.222	1.5
+563	Blood Elf House (Medium)	door_hook	6892573	-4.284	4.254	0.0	-134.999	14.222	1.5
+564	Blood Elf House (Large)	base	6892561	0	0	0	0	0	0
+564	Blood Elf House (Large)	roof	6892570	0	0	0	0	0	0
+564	Blood Elf House (Large)	door_hook	6892573	0.0	-0.0	0.0	90.0	14.222	1.5
+564	Blood Elf House (Large)	door_hook	6892573	0.0	-0.0	0.0	-90.0	14.222	1.5
+564	Blood Elf House (Large)	door_hook	6892573	-0.094	-0.0	0.0	0.0	14.222	1.5
+564	Blood Elf House (Large)	door_hook	6892573	-0.094	-0.0	0.0	180.0	14.222	1.5
+564	Blood Elf House (Large)	door_hook	6892573	-4.237	4.239	0.0	-134.999	14.222	1.5
+874	Orc House (Large)	base	6648678	0	0	0	0	0	0
+874	Orc House (Large)	roof	7118909	0	0	0	0	0	0
+874	Orc House (Large)	window	7118915	21.05	-5.033	4.356	0.0	0	0
+874	Orc House (Large)	window	7118915	9.131	-16.706	6.469	47.925	0	0
+874	Orc House (Large)	window	7118915	-2.339	-21.611	6.469	90.0	0	0
+874	Orc House (Large)	window	7118915	-14.025	-16.892	6.469	132.075	0	0
+874	Orc House (Large)	window	7118915	-18.922	-5.328	6.469	180.0	0	0
+874	Orc House (Large)	window	7118915	-8.003	16.336	6.469	-132.075	0	0
+874	Orc House (Large)	window	7118915	3.858	16.639	6.469	-47.925	0	0
+874	Orc House (Large)	chimney	7118923	-13.889	-15.961	14.342	-47.925	0	0
+874	Orc House (Large)	door_hook	7118912	15.361	-22.508	0.0	47.925	-1.606	2.5
+874	Orc House (Large)	door_hook	7118912	-20.125	-22.694	0.0	132.075	-1.606	2.5
+874	Orc House (Large)	door_hook	7118912	-27.364	-5.342	0.0	180.0	-1.606	2.5
+874	Orc House (Large)	door_hook	7118912	-13.575	22.578	0.0	-132.075	-1.606	2.5
+874	Orc House (Large)	door_hook	7118912	8.8	23.567	0.0	-47.925	-1.606	2.5
+874	Orc House (Large)	door_hook	7118912	-22.958	9.569	0.0	-157.38	-1.606	2.5
+874	Orc House (Large)	door_hook	7118912	17.631	11.628	0.0	-33.398	-1.606	2.5
+872	Orc House (Small)	base	6648684	0	0	0	0	0	0
+872	Orc House (Small)	roof	7118906	0	0	0	0	0	0
+872	Orc House (Small)	window	7118915	8.181	-5.606	5.367	33.398	0	0
+872	Orc House (Small)	window	7118915	8.417	4.467	5.367	-22.62	0	0
+872	Orc House (Small)	window	7118915	0.4	9.392	5.367	-90.0	0	0
+872	Orc House (Small)	window	7118915	-0.436	-9.583	5.367	90.0	0	0
+872	Orc House (Small)	window	7118915	-8.239	4.825	5.367	-146.602	0	0
+872	Orc House (Small)	window	7118915	-8.328	-4.683	5.367	146.602	0	0
+872	Orc House (Small)	chimney	7118923	7.042	3.661	12.069	157.38	0	0
+872	Orc House (Small)	door_hook	7118912	15.186	-9.008	0.0	22.62	-1.606	2.5
+872	Orc House (Small)	door_hook	7118912	15.581	8.133	0.0	-22.62	-1.606	2.5
+872	Orc House (Small)	door_hook	7118912	0.247	17.217	0.0	-90.0	-1.606	2.5
+872	Orc House (Small)	door_hook	7118912	-0.025	-18.006	0.0	90.0	-1.606	2.5
+872	Orc House (Small)	door_hook	7118912	-15.144	8.583	0.0	-146.602	-1.606	2.5
+872	Orc House (Small)	door_hook	7118912	-15.472	-8.497	0.0	157.38	-1.606	2.5
+873	Orc House (Medium)	base	6648681	0	0	0	0	0	0
+873	Orc House (Medium)	roof	7118903	0	0	0	0	0	0
+873	Orc House (Medium)	window	7118915	-10.642	-2.861	6.497	146.602	0	0
+873	Orc House (Medium)	window	7118915	-10.653	9.567	6.497	-146.602	0	0
+873	Orc House (Medium)	window	7118915	-0.089	15.364	6.497	-90.0	0	0
+873	Orc House (Medium)	window	7118915	10.425	9.056	6.6	-22.62	0	0
+873	Orc House (Medium)	window	7118915	17.039	-4.233	4.483	-33.398	0	0
+873	Orc House (Medium)	window	7118915	17.628	-15.947	4.572	36.87	0	0
+873	Orc House (Medium)	window	7118915	7.533	-20.786	4.431	90.0	0	0
+873	Orc House (Medium)	window	7118915	-2.617	-13.883	4.625	146.602	0	0
+873	Orc House (Medium)	chimney	7118923	-10.456	-2.939	16.294	146.602	0	0
+873	Orc House (Medium)	door_hook	7118912	0.017	23.417	0.0	-90.0	-1.606	2.5
+873	Orc House (Medium)	door_hook	7118912	-17.967	-6.622	0.0	146.602	-1.606	2.5
+873	Orc House (Medium)	door_hook	7118912	-17.853	13.636	0.0	-146.602	-1.606	2.5
+873	Orc House (Medium)	door_hook	7118912	17.594	12.444	0.0	-22.62	-1.606	2.5
+1662	Lush Garden Treehouse (Small)	base	7769898	0	0	0	0	0	0
+1662	Lush Garden Treehouse (Small)	roof	7771137	0	0	0	0	0	0
+1662	Lush Garden Treehouse (Small)	door_hook	7771138	0.0	0.0	0.0	0.0	13.406	0.5
+1722	Spring Blossom Treehouse (Small)	base	7810378	0	0	0	0	0	0
+1722	Spring Blossom Treehouse (Small)	roof	7810376	0	0	0	0	0	0
+1722	Spring Blossom Treehouse (Small)	door_hook	7810377	0.0	0.0	0.0	0.0	13.406	0.5
+2502	Autumnal Westfall Barn Facade (Small)	base	7864253	0	0	0	0	0	0
+2502	Autumnal Westfall Barn Facade (Small)	roof	7864258	0	0	0	0	0	0
+2502	Autumnal Westfall Barn Facade (Small)	door_hook	7864256	0.0	0.0	0.0	0.0	1.5	0.0
+2512	Springtime Westfall Barn Facade (Small)	base	7864255	0	0	0	0	0	0
+2512	Springtime Westfall Barn Facade (Small)	roof	7864259	0	0	0	0	0	0
+2512	Springtime Westfall Barn Facade (Small)	door_hook	7864257	0.0	0.0	0.0	0.0	1.5	0.0
