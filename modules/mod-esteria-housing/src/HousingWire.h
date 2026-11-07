@@ -27,7 +27,8 @@
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
 //   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
 //                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8), ActionBuyDecor decorId(u32)
-//                 count(u16), ActionHouseAccess access(u8 Access bits), ActionPlotFixture type(u8) component(u32);
+//                 count(u16), ActionHouseAccess access(u8 Access bits), ActionPlotFixture type(u8) component(u32),
+//                 ActionPlotSpot spot(u8, as SMSG_PLOT lists them) type(u8 FixtureType, 0 empty);
 //                 nothing for the others.
 //                 Rooms cost gold. A kind of StairsDownBase + stairwell builds that stairwell down from the socket.
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
@@ -38,6 +39,8 @@
 //                 (your plot only; n 0 otherwise)
 //                 fixtures n(u8) x type(u8 FixtureType) chosen(u32 component) options n(u16) x component(u32)
 //                 parent(u32: a colour variant's shape, 0 for a shape) name(string)  (your plot only; n 0 otherwise)
+//                 spots n(u8) x x y z(f32, world) accepts(u8 SpotAccepts bits) type(u8 FixtureType, 0 empty): the places on
+//                 the walls and roof a dormer, tower or chimney can go (your plot only)
 //                 sent when a cornerstone is clicked (the client opens the plot window) and after a plot action
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
 //                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
@@ -55,7 +58,7 @@
 //                 the Neighborhood window's contents: the answer to every ActionNeighborhood and ActionTravel*
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 13;
+    inline constexpr uint16_t Proto = 14;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -105,6 +108,15 @@ namespace EsteriaHousingWire
         ActionTravelPlot = 15,         // plot(u16, 1-based): go to that plot, beside its cornerstone
         ActionHouseAccess = 16,        // access(u8 Access bits): who may visit your house; visitors who no longer may leave
         ActionPlotFixture = 17,        // type(u8 FixtureType) component(u32, 0: the style's default): swap a part of your house
+        ActionPlotSpot = 18,           // spot(u8) type(u8): what stands on one of your house's wall or roof spots
+    };
+
+    // Which of the spot types a wall or roof spot takes (SMSG_PLOT spots).
+    enum SpotAccepts : uint8_t
+    {
+        SpotDormer = 1,
+        SpotTower = 2,
+        SpotChimney = 4,
     };
 
     // The parts of a house exterior an owner may swap (retail ExteriorComponentType).
@@ -114,7 +126,9 @@ namespace EsteriaHousingWire
         FixtureRoof = 10,
         FixtureDoor = 11,
         FixtureWindow = 12,
-        FixtureChimney = 16,
+        FixtureDormer = 14, // on a roof spot
+        FixtureTower = 15,  // on a wall or roof spot
+        FixtureChimney = 16, // on a roof spot
     };
 
     // Who may go into a house besides its owner (housing_permission.scope n is bit 1 << n).

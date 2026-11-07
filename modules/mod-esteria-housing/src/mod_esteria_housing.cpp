@@ -170,7 +170,19 @@ namespace
         std::string name;
         float matX = 0, matZ = 0;
     };
-    constexpr uint8 FixtureTypes[] = { FixtureBase, FixtureRoof, FixtureDoor, FixtureWindow, FixtureChimney };
+    constexpr uint8 FixtureTypes[] = { FixtureBase, FixtureRoof, FixtureDoor, FixtureWindow, FixtureChimney, FixtureTower,
+        FixtureDormer };
+    // A wall or roof spot: the dormer, tower and chimney hooks of one base or roof shape at one place.
+    struct Spot
+    {
+        uint32 shape = 0;
+        uint8 local = 0;   // its number on the shape, in hook order
+        uint8 accepts = 0; // SpotAccepts
+        std::map<uint8, Rooms::Hook> hooks; // type -> the hook it stands on
+    };
+    std::map<std::tuple<uint16, uint8, uint32, uint8>, uint8> s_plotSpot; // plot, shape, spot -> type (0 empty)
+    uint8 SpotBit(uint8 type) { return type == FixtureDormer ? SpotDormer : type == FixtureTower ? SpotTower
+        : type == FixtureChimney ? SpotChimney : 0; }
     struct Placement { uint32 entry; float x, y, z, yaw; float rot[4] = { 0, 0, 0, 0 }; float scale = 1; }; // rot all 0: turn by yaw
     // Saved world spawns keep no size of their own (acore gameobject has no scale): the module sets it as each one enters
     // the world (EsteriaHousingSpawnScale), from this map, rebuilt at startup from the plots and outdoor decor.
@@ -429,6 +441,13 @@ namespace
                 Field* f = result->Fetch();
                 s_fixtureHooks[f[0].Get<uint32>()].push_back({ f[1].Get<uint8>(),
                     Rooms::Hook{ f[2].Get<float>(), f[3].Get<float>(), f[4].Get<float>(), f[5].Get<float>() } });
+            } while (result->NextRow());
+        s_plotSpot.clear();
+        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, shape, spot, type FROM housing_plot_spot"))
+            do
+            {
+                Field* f = result->Fetch();
+                s_plotSpot[{ f[0].Get<uint16>(), f[1].Get<uint8>(), f[2].Get<uint32>(), f[3].Get<uint8>() }] = f[4].Get<uint8>();
             } while (result->NextRow());
         if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, theme, type, component FROM housing_plot_fixture"))
             do
@@ -1580,6 +1599,60 @@ namespace
         return out;
     }
 
+    // The spots of a base or roof (its shape's hooks), grouped by place: a tower and a chimney share a spot though their
+    // hooks may differ a yard in height.
+    std::vector<Spot> SpotsOn(Fixture const& x)
+    {
+        uint32 const shape = s_fixtureHooks.count(x.id) ? x.id : x.parent;
+        std::vector<Spot> out;
+        auto it = s_fixtureHooks.find(shape);
+        if (it == s_fixtureHooks.end())
+            return out;
+        for (auto const& [type, h] : it->second)
+        {
+            if (!SpotBit(type))
+                continue;
+            Spot* spot = nullptr;
+            for (Spot& o : out)
+            {
+                Rooms::Hook const& f = o.hooks.begin()->second;
+                if (std::fabs(f.x - h.x) < 0.3f && std::fabs(f.y - h.y) < 0.3f && std::fabs(f.z - h.z) < 1.5f)
+                    spot = &o;
+            }
+            if (!spot)
+            {
+                out.push_back({ shape, uint8(out.size()), 0, {} });
+                spot = &out.back();
+            }
+            spot->accepts |= SpotBit(type);
+            spot->hooks.emplace(type, h); // the first hook of a type there
+        }
+        return out;
+    }
+
+    std::vector<Spot> HouseSpots(Fixture const& base, Fixture const& roof)
+    {
+        std::vector<Spot> spots = SpotsOn(base);
+        for (Spot& s : SpotsOn(roof))
+            spots.push_back(std::move(s));
+        return spots;
+    }
+
+    // What stands on a spot: the owner's choice, else a chimney on the roof's first chimney spot (the house every plot
+    // had before spots), else nothing.
+    uint8 SpotType(Plot const& plot, std::vector<Spot> const& spots, size_t i, uint32 roofShape)
+    {
+        Spot const& s = spots[i];
+        if (auto c = s_plotSpot.find({ plot.map, plot.index, s.shape, s.local }); c != s_plotSpot.end())
+            return (s.accepts & SpotBit(c->second)) ? c->second : 0;
+        if (s.shape != roofShape || !(s.accepts & SpotChimney))
+            return 0;
+        for (size_t k = 0; k < i; ++k)
+            if (spots[k].shape == roofShape && (spots[k].accepts & SpotChimney))
+                return 0;
+        return FixtureChimney;
+    }
+
     std::vector<Placement> Exterior(Plot const& plot, Rooms::Pose* door = nullptr)
     {
         std::vector<Placement> out;
@@ -1612,9 +1685,12 @@ namespace
             if (Fixture const* window = PartOf(plot, l.style, FixtureWindow))
                 for (Rooms::Hook const& h : HooksOn(*base, FixtureWindow))
                     put(window->entry, h);
-            if (Fixture const* chimney = PartOf(plot, l.style, FixtureChimney))
-                if (std::vector<Rooms::Hook> const hooks = HooksOn(*roof, FixtureChimney); !hooks.empty())
-                    put(chimney->entry, hooks[0]);
+            std::vector<Spot> const spots = HouseSpots(*base, *roof);
+            uint32 const roofShape = s_fixtureHooks.count(roof->id) ? roof->id : roof->parent;
+            for (size_t i = 0; i < spots.size(); ++i)
+                if (uint8 const type = SpotType(plot, spots, i, roofShape))
+                    if (Fixture const* part = PartOf(plot, l.style, type))
+                        put(part->entry, spots[i].hooks.at(type));
             for (Rooms::Hook const& h : HooksOn(*base, FixtureDoor))
             {
                 doors.push_back({ h.x * s, h.y * s, h.z * s, h.rotDeg });
@@ -1901,6 +1977,21 @@ namespace
             }
         data << types;
         data.append(parts);
+        // the wall and roof spots, where they are in the world, so the window can point at them
+        Fixture const* base = status == PlotYours ? PartOf(plot, l.style, FixtureBase) : nullptr;
+        Fixture const* roof = status == PlotYours ? PartOf(plot, l.style, FixtureRoof) : nullptr;
+        std::vector<Spot> const spots = base && roof ? HouseSpots(*base, *roof) : std::vector<Spot>{};
+        uint32 const roofShape = roof ? (s_fixtureHooks.count(roof->id) ? roof->id : roof->parent) : 0;
+        float const s = l.scale, yaw = plot.house[3] + l.turn * float(M_PI) / 180;
+        uint8 const spotCount = uint8(std::min<size_t>(spots.size(), 255));
+        data << spotCount;
+        for (size_t i = 0; i < spotCount; ++i)
+        {
+            Rooms::Hook const& h = spots[i].hooks.begin()->second;
+            Rooms::Pose const p = Rooms::OnPlot(plot.house[0] + l.dx, plot.house[1] + l.dy, plot.house[2] + l.dz, yaw,
+                { h.x * s, h.y * s, h.z * s, h.rotDeg });
+            data << p.x << p.y << p.z << spots[i].accepts << SpotType(plot, spots, i, roofShape);
+        }
         player->SendDirectMessage(&data);
     }
 
@@ -2063,7 +2154,7 @@ namespace
             SendNeighborhood(player, refused);
             return;
         }
-        if (action == ActionPlotStyle || action == ActionPlotPlace || action == ActionPlotFixture)
+        if (action == ActionPlotStyle || action == ActionPlotPlace || action == ActionPlotFixture || action == ActionPlotSpot)
         {
             Plot const* plot = ViewedPlot(player);
             bool const fromEditor = !plot && action == ActionPlotPlace; // the outdoor editor's house handles
@@ -2077,6 +2168,26 @@ namespace
             }
             PlotLook look = s_plotLook.count({ plot->map, plot->index }) ? s_plotLook[{ plot->map, plot->index }] : PlotLook{};
             std::string message;
+            if (action == ActionPlotSpot)
+            {
+                uint8 index, type;
+                packet >> index >> type;
+                Fixture const* base = PartOf(*plot, look.style, FixtureBase);
+                Fixture const* roof = PartOf(*plot, look.style, FixtureRoof);
+                std::vector<Spot> const spots = base && roof ? HouseSpots(*base, *roof) : std::vector<Spot>{};
+                if (index >= spots.size() || (type && !(spots[index].accepts & SpotBit(type))))
+                    message = "That does not fit there.";
+                else
+                {
+                    Spot const& spot = spots[index];
+                    s_plotSpot[{ plot->map, plot->index, spot.shape, spot.local }] = type;
+                    CharacterDatabase.Execute("REPLACE INTO housing_plot_spot (map_id, plot, shape, spot, type) VALUES ({}, {}, {}, {}, {})",
+                        plot->map, plot->index, spot.shape, spot.local, type);
+                    RefreshExterior(player->GetMap(), *plot);
+                }
+                SendPlot(player, *plot, message);
+                return;
+            }
             if (action == ActionPlotFixture)
             {
                 uint8 type;

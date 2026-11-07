@@ -102,6 +102,18 @@ CREATE TABLE IF NOT EXISTS `housing_plot_fixture` (
   PRIMARY KEY (`map_id`, `plot`, `theme`, `type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- What stands on each wall or roof spot of a plot's house (a spot: the dormer, tower and chimney hooks of one base or
+-- roof shape at one place, numbered in hook order). No row: the roof's first chimney spot has a chimney, the rest
+-- are empty.
+CREATE TABLE IF NOT EXISTS `housing_plot_spot` (
+  `map_id` SMALLINT UNSIGNED NOT NULL,
+  `plot`   TINYINT UNSIGNED NOT NULL,
+  `shape`  INT UNSIGNED NOT NULL COMMENT 'housing_exterior_fixture.component of the base or roof shape',
+  `spot`   TINYINT UNSIGNED NOT NULL,
+  `type`   TINYINT UNSIGNED NOT NULL COMMENT '0 empty, 14 dormer, 15 tower, 16 chimney',
+  PRIMARY KEY (`map_id`, `plot`, `shape`, `spot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Outdoor decor (housing_placed_decor rows with room_id NULL) and the saved world spawn each one is.
 CREATE TABLE IF NOT EXISTS `housing_outdoor_spawn` (
   `placed_id` BIGINT UNSIGNED NOT NULL,

@@ -28,19 +28,31 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 588	55	16	1	0	0	6892544	Woodland Chimney - Violet	0	0
 589	55	12	1	0	0	6892536	Woodland Window	0	0
 590	55	11	1	0	1	6892533	Woodland Entryway - Violet	5.995	1.75
+591	55	15	1	0	0	6892550	Woodland Tower - Violet	0	0
+592	55	15	1	0	0	6892551	Embellished Tower - Violet	0	0
+593	55	15	1	0	0	6892553	Rustic Tower - Violet	0	0
+594	55	15	1	0	0	6892552	Stone Tower - Violet	0	0
+595	55	15	1	0	0	6892554	Embellished Stone Tower - Violet	0	0
 596	55	11	1	0	0	6892535	Rustic Entryway - Violet	4.148	1.75
 597	55	11	1	0	0	6892534	Embellished Entryway - Violet	5.101	1.75
 598	55	16	1	0	0	6892546	Rustic Chimney - Violet	0	0
 599	55	16	1	0	0	6892548	Relic Chimney - Violet	0	0
 600	55	12	1	0	0	6892537	Relic Window	0	0
+601	55	14	1	0	0	6892542	Relic Dormer	0	0
+602	55	14	1	0	0	6892541	Woodland Dormer - Violet	0	0
+603	55	14	1	0	0	6892543	Embellished Dormer - Violet	0	0
 604	55	12	1	0	0	6892538	Arched Window	0	0
 605	55	12	1	0	0	6892539	Lattice Window	0	0
 606	55	12	1	0	0	6892540	Embellished Window	0	0
+607	56	15	1	0	0	6892591	Tiered Spire - Crimson	0	0
+608	56	15	1	0	0	6892589	Elegant Spire - Crimson	0	0
 609	56	16	1	0	0	6892587	Extravagant Chimney	0	0
 610	56	16	1	0	0	6892586	Bell Chimney	0	0
 611	56	16	1	0	0	6892588	Sturdy Winged Chimney	0	0
 612	56	16	1	0	0	6892584	Regal Chimney	0	0
 613	56	16	1	0	0	6892585	Winged Chimney	0	0
+614	56	14	1	0	0	6892581	Domed Dormer - Crimson	0	0
+615	56	14	1	0	0	6892583	Regal Dormer - Crimson	0	0
 616	56	12	1	0	0	6892579	Regal Window - Crimson	0	0
 617	56	12	1	0	0	6892580	Domed Window - Crimson	0	0
 618	56	11	1	0	1	6892573	Simple Entryway	14.222	1.5
@@ -66,6 +78,10 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 638	56	12	1	0	0	6892576	Filigree Window	0	0
 639	56	12	1	0	0	6892577	Planter Window	0	0
 640	56	12	1	0	0	6892578	Winged Window	0	0
+641	56	14	1	0	0	6892582	Elegant Dormer - Crimson	0	0
+642	56	15	1	0	0	6892498	Simple Spire - Crimson	0	0
+643	56	15	1	0	0	6892592	Faceted Spire - Crimson	0	0
+644	56	15	1	0	0	6892590	Sturdy Spire - Crimson	0	0
 645	56	10	2	0	0	6892569	Tiered Roof	0	0
 975	87	11	1	0	0	7118913	Covered Entry - Crimson	-1.541	1.0
 976	87	11	1	0	1	7118912	Drawbridge Entry - Crimson	-1.606	2.5
@@ -75,6 +91,7 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 980	87	12	1	0	0	7118918	Covered Window	0	0
 981	87	12	1	0	0	7118919	Shuttered Window	0	0
 982	87	12	1	0	1	7118915	Angled Window	0	0
+984	87	14	1	0	0	7118922	Round Window	0	0
 986	87	16	1	0	0	7338373	Spoked Chimney	0	0
 987	87	16	1	0	0	7118925	Furnace Chimney	0	0
 988	87	16	1	0	0	7118924	Simple Chimney	0	0
@@ -96,6 +113,36 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 1383	9	11	1	1380	0	7450812	Simple Entryway - Crimson	-1.396	2.0
 1384	9	11	1	1380	0	7450809	Simple Entryway - Nutmeg	-1.396	2.0
 1385	9	11	1	1380	0	7450805	Simple Entryway - Forest	-1.396	2.0
+1386	9	15	1	0	0	7450803	Regal Tower - Ocean	0	0
+1387	9	15	1	1386	0	7450862	Regal Tower - Mustard	0	0
+1388	9	15	1	1386	0	7450857	Regal Tower - Violet	0	0
+1389	9	15	1	1386	0	7450852	Regal Tower - Crimson	0	0
+1390	9	15	1	1386	0	7450847	Regal Tower - Nutmeg	0	0
+1391	9	15	1	1386	0	7450842	Regal Tower - Forest	0	0
+1392	9	15	1	0	0	7450802	Square Tower - Ocean	0	0
+1393	9	15	1	1392	0	7450860	Square Tower - Mustard	0	0
+1394	9	15	1	1392	0	7450855	Square Tower - Violet	0	0
+1395	9	15	1	1392	0	7450850	Square Tower - Crimson	0	0
+1396	9	15	1	1392	0	7450845	Square Tower - Nutmeg	0	0
+1397	9	15	1	1392	0	7450840	Square Tower - Forest	0	0
+1398	9	15	1	0	0	7450801	Watch Tower - Ocean	0	0
+1399	9	15	1	1398	0	7450861	Watch Tower - Mustard	0	0
+1400	9	15	1	1398	0	7450856	Watch Tower - Violet	0	0
+1401	9	15	1	1398	0	7450851	Watch Tower - Crimson	0	0
+1402	9	15	1	1398	0	7450846	Watch Tower - Nutmeg	0	0
+1403	9	15	1	1398	0	7450841	Watch Tower - Forest	0	0
+1404	9	15	1	0	1	7450800	Large Tower - Ocean	0	0
+1405	9	15	1	1404	0	7450858	Large Tower - Mustard	0	0
+1406	9	15	1	1404	0	7450853	Large Tower - Violet	0	0
+1407	9	15	1	1404	0	7450848	Large Tower -  Crimson	0	0
+1408	9	15	1	1404	0	7450843	Large Tower - Nutmeg	0	0
+1409	9	15	1	1404	0	7450838	Large Tower - Forest	0	0
+1410	9	14	1	0	0	7450799	Square Dormer - Ocean	0	0
+1411	9	14	1	1410	0	7450837	Square Dormer - Mustard	0	0
+1412	9	14	1	1410	0	7450833	Square Dormer - Violet	0	0
+1413	9	14	1	1410	0	7450829	Square Dormer - Crimson	0	0
+1414	9	14	1	1410	0	7450826	Square Dormer - Nutmeg	0	0
+1415	9	14	1	1410	0	7450823	Square Dormer - Forest	0	0
 1416	9	16	1	0	1	7118950	Simple Chimney	0	0
 1417	9	12	1	0	0	7448532	Shuttered Window	0	0
 1418	9	12	1	0	1	7118944	Simple Window	0	0
@@ -106,6 +153,11 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 1423	9	11	1	1419	0	7450810	Square Entryway - Nutmeg	-1.088	2.0
 1424	9	11	1	1419	0	7450806	Square Entryway - Forest	-1.088	2.0
 1425	9	11	1	0	0	7450797	Sloped Entryway - Ocean	-1.162	2.0
+1426	9	14	1	1425	0	7450836	Sloped Dormer - Mustard	0	0
+1427	9	14	1	1425	0	7450832	Sloped Dormer - Violet	0	0
+1428	9	14	1	1425	0	7450828	Sloped Dormer - Crimson	0	0
+1429	9	14	1	1425	0	7450825	Sloped Dormer - Nutmeg	0	0
+1430	9	14	1	1425	0	7450822	Sloped Dormer - Forest	0	0
 1431	9	11	1	1425	0	7450820	Sloped Entryway - Mustard	-1.162	2.0
 1432	9	11	1	1425	0	7450817	Sloped Entryway - Violet	-1.162	2.0
 1433	9	11	1	1425	0	7450814	Sloped Entryway - Crimson	-1.162	2.0
@@ -113,10 +165,23 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 1435	9	11	1	1425	0	7450808	Sloped Entryway - Forest	-1.162	2.0
 1436	9	12	1	0	0	7448531	Wide Window	0	0
 1437	9	12	1	0	0	7118945	Round Window	0	0
+1438	9	15	1	0	0	7450796	Mage Tower - Ocean	0	0
+1439	9	15	1	1438	0	7450859	Mage Tower - Mustard	0	0
+1440	9	15	1	1438	0	7450854	Mage Tower - Violet	0	0
+1441	9	15	1	1438	0	7450849	Mage Tower - Crimson	0	0
+1442	9	15	1	1438	0	7450844	Mage Tower - Nutmeg	0	0
+1443	9	15	1	1438	0	7450839	Mage Tower - Forest	0	0
 1444	9	16	1	0	0	7118954	Tall Brick Chimney	0	0
 1445	9	16	1	0	0	7118953	Covered Chimney	0	0
+1446	9	14	1	0	1	7450795	Simple Dormer - Ocean	0	0
+1447	9	14	1	1446	0	7450835	Simple Dormer - Mustard	0	0
+1448	9	14	1	1446	0	7450830	Simple Dormer - Violet	0	0
+1449	9	14	1	1446	0	7450827	Simple Dormer - Crimson	0	0
+1450	9	14	1	1446	0	7450824	Simple Dormer - Nutmeg	0	0
+1451	9	14	1	1446	0	7450821	Simple Dormer - Forest	0	0
 1452	9	16	1	0	0	7118952	Reinforced Chimney	0	0
 1453	9	16	1	0	0	7118951	Wide Brick Chimney	0	0
+1454	9	14	1	0	0	7450794	Sloped Dormer - Ocean	0	0
 1455	9	10	4	0	0	7420575	Square Roof	0	0
 1456	9	10	4	1455	0	7420574	Square Roof	0	0
 1457	9	10	4	1455	0	7420578	Square Roof	0	0
@@ -171,6 +236,41 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 1506	9	10	2	1503	0	7420614	Simple Roof	0	0
 1507	9	10	2	1503	0	7420607	Simple Roof	0	0
 1508	9	10	2	1503	0	7420608	Simple Roof	0	0
+2434	87	14	1	0	0	7462697	Angled Window - Nutmeg	0	0
+2435	87	14	1	0	0	7462696	Angled Window - Rust	0	0
+2436	87	14	1	0	0	7462695	Angled Window - Ocean	0	0
+2437	87	14	1	0	0	7462694	Angled Window - Mustard	0	0
+2438	87	14	1	0	0	7462693	Arched Window - Nutmeg	0	0
+2439	87	14	1	0	0	7462692	Arched Window - Rust	0	0
+2440	87	14	1	0	0	7462691	Arched Window - Ocean	0	0
+2441	87	14	1	0	0	7462690	Arched Window - Mustard	0	0
+2442	87	14	1	0	0	7462689	Angled Window  - Forest	0	0
+2443	87	14	1	0	0	7462688	Arched Window - Forest	0	0
+2444	87	15	1	0	0	7462687	Wood Window Fortification - Nutmeg	0	0
+2445	87	15	1	0	0	7462686	Stone Window Fortification - Nutmeg	0	0
+2446	87	15	1	0	0	7462685	Covered Fortification  - Nutmeg	0	0
+2447	87	15	1	0	0	7462684	Hatch Fortification - Nutmeg	0	0
+2448	87	15	1	0	0	7462683	Vented Fortification - Nutmeg	0	0
+2449	87	15	1	0	0	7462682	Wood Window Fortification - Rust	0	0
+2450	87	15	1	0	0	7462681	Stone Window Fortification - Rust	0	0
+2451	87	15	1	0	0	7462680	Covered Fortification - Rust	0	0
+2452	87	15	1	0	0	7462679	Hatch Fortification - Rust	0	0
+2453	87	15	1	0	0	7462678	Vented Fortification - Rust	0	0
+2454	87	15	1	0	0	7462677	Wood Window Fortification - Ocean	0	0
+2455	87	15	1	0	0	7462676	Stone Window Fortification - Ocean	0	0
+2456	87	15	1	0	0	7462675	Covered Fortification - Ocean	0	0
+2457	87	15	1	0	0	7462674	Hatch Fortification - Ocean	0	0
+2458	87	15	1	0	0	7462673	Vented Fortification - Ocean	0	0
+2459	87	15	1	0	0	7462672	Wood Window Fortification - Mustard	0	0
+2460	87	15	1	0	0	7462671	Stone Window Fortification - Mustard	0	0
+2461	87	15	1	0	0	7462670	Covered Fortification - Mustard	0	0
+2462	87	15	1	0	0	7462669	Hatch Fortification - Mustard	0	0
+2463	87	15	1	0	0	7462668	Vented Fortification - Mustard	0	0
+2464	87	15	1	0	0	7462667	Wood Window Fortification - Forest	0	0
+2465	87	15	1	0	0	7462666	Stone Window Fortification - Forest	0	0
+2466	87	15	1	0	0	7462665	Covered Fortification - Forest	0	0
+2467	87	15	1	0	0	7462664	Hatch Fortification - Forest	0	0
+2468	87	15	1	0	0	7462663	Vented Fortification - Forest	0	0
 2470	87	10	2	3805	0	7460533	Plated Roof	0	0
 2471	87	10	2	3805	0	7460522	Plated Roof	0	0
 2472	87	10	2	3805	0	7460513	Plated Roof	0	0
@@ -216,6 +316,13 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 2521	87	10	4	3853	0	7460506	Hide Roof	0	0
 2522	87	10	4	3853	0	7460497	Hide Roof	0	0
 2523	87	10	4	3853	0	7460488	Hide Roof	0	0
+2525	87	15	1	0	1	7118926	Vented Fortification - Crimson	0	0
+2526	87	15	1	0	0	7118930	Wood Window Fortification - Crimson	0	0
+2527	87	15	1	0	0	7118929	Stone Window Fortification - Crimson	0	0
+2528	87	15	1	0	0	7118928	Covered Fortification - Crimson	0	0
+2529	87	15	1	0	0	7118927	Hatch Fortification - Crimson	0	0
+2530	87	14	1	0	1	7118920	Arched Window - Crimson	0	0
+2531	87	14	1	0	0	7118921	Angled Window - Crimson	0	0
 3793	9	9	4	0	0	6648724	Stonework	0	0
 3795	9	9	3	0	0	6648725	Stonework	0	0
 3797	9	9	2	0	0	7118931	Cottage	0	0
@@ -253,6 +360,41 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 5489	55	16	1	0	0	7513273	Rustic Chimney - Forest	0	0
 5490	55	16	1	0	0	7513271	Tall Relic Chimney - Forest	0	0
 5491	55	16	1	0	0	7513270	Woodland Chimney - Forest	0	0
+5492	55	14	1	0	0	7478179	Embellished Dormer - Ocean	0	0
+5493	55	14	1	0	0	7478099	Woodland Dormer - Ocean	0	0
+5494	55	14	1	0	0	7478180	Embellished Dormer - Plum	0	0
+5495	55	14	1	0	0	7478100	Woodland Dormer - Plum	0	0
+5496	55	14	1	0	0	7478181	Embellished Dormer - Ochre	0	0
+5497	55	14	1	0	0	7478101	Woodland Dormer - Ochre	0	0
+5498	55	14	1	0	0	7478183	Embellished Dormer - Nutmeg	0	0
+5499	55	14	1	0	0	7478103	Woodland Dormer - Nutmeg	0	0
+5500	55	14	1	0	0	7478182	Embellished Dormer - Forest	0	0
+5501	55	14	1	0	0	7478102	Woodland Dormer - Forest	0	0
+5502	55	15	1	0	0	7478209	Embellished Stone Tower - Ocean	0	0
+5503	55	15	1	0	0	7478204	Rustic Tower - Ocean	0	0
+5504	55	15	1	0	0	7478199	Stone Tower - Ocean	0	0
+5505	55	15	1	0	0	7478194	Embellished Tower - Ocean	0	0
+5506	55	15	1	0	0	7478189	Woodland Tower - Ocean	0	0
+5507	55	15	1	0	0	7478210	Embellished Stone Tower - Plum	0	0
+5508	55	15	1	0	0	7478205	Rustic Tower - Plum	0	0
+5509	55	15	1	0	0	7478200	Stone Tower - Plum	0	0
+5510	55	15	1	0	0	7478195	Embellished Tower - Plum	0	0
+5511	55	15	1	0	0	7478190	Woodland Tower - Plum	0	0
+5512	55	15	1	0	0	7478211	Embellished Stone Tower - Ochre	0	0
+5513	55	15	1	0	0	7478206	Rustic Tower - Ochre	0	0
+5514	55	15	1	0	0	7478201	Stone Tower - Ochre	0	0
+5515	55	15	1	0	0	7478196	Embellished Tower - Ochre	0	0
+5516	55	15	1	0	0	7478191	Woodland Tower - Ochre	0	0
+5517	55	15	1	0	0	7478213	Embellished Stone Tower - Nutmeg	0	0
+5518	55	15	1	0	0	7478208	Rustic Tower - Nutmeg	0	0
+5519	55	15	1	0	0	7478203	Stone Tower - Nutmeg	0	0
+5520	55	15	1	0	0	7478198	Embellished Tower - Nutmeg	0	0
+5521	55	15	1	0	0	7478193	Woodland Tower - Nutmeg	0	0
+5522	55	15	1	0	0	7478212	Embellished Stone Tower - Forest	0	0
+5523	55	15	1	0	0	7478207	Rustic Tower - Forest	0	0
+5524	55	15	1	0	0	7478202	Stone Tower - Forest	0	0
+5525	55	15	1	0	0	7478197	Embellished Tower - Forest	0	0
+5526	55	15	1	0	0	7478192	Woodland Tower - Forest	0	0
 5532	55	11	1	597	0	7513268	Embellished Entryway - Ocean	5.101	1.75
 5533	55	11	1	597	0	7513265	Embellished Entryway - Plum	5.101	1.75
 5534	55	11	1	597	0	7513262	Embellished Entryway - Ochre	5.101	1.75
@@ -323,6 +465,46 @@ component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
 5738	56	12	1	0	0	7513128	Regal Window - Ocean	0	0
 5739	56	12	1	0	0	7513127	Domed Window - Sapphire	0	0
 5740	56	12	1	0	0	7513126	Regal Window - Sapphire	0	0
+5741	56	14	1	0	0	7478282	Regal Dormer - Plum	0	0
+5742	56	14	1	0	0	7478286	Regal Dormer - Charcoal	0	0
+5743	56	14	1	0	0	7478285	Regal Dormer - Emerald	0	0
+5744	56	14	1	0	0	7478283	Regal Dormer - Ocean	0	0
+5745	56	14	1	0	0	7478284	Regal Dormer - Sapphire	0	0
+5746	56	15	1	0	0	7478292	Sturdy Spire - Plum	0	0
+5747	56	15	1	0	0	7478296	Sturdy Spire - Charcoal	0	0
+5748	56	15	1	0	0	7478295	Sturdy Spire - Emerald	0	0
+5749	56	15	1	0	0	7478293	Sturdy Spire - Ocean	0	0
+5750	56	15	1	0	0	7478294	Sturdy Spire - Sapphire	0	0
+5751	56	14	1	0	0	7478277	Elegant Dormer - Plum	0	0
+5752	56	14	1	0	0	7478272	Domed Dormer - Plum	0	0
+5753	56	14	1	0	0	7478281	Elegant Dormer - Charcoal	0	0
+5754	56	14	1	0	0	7478276	Domed Dormer - Charcoal	0	0
+5755	56	14	1	0	0	7478280	Elegant Dormer - Emerald	0	0
+5756	56	14	1	0	0	7478275	Domed Dormer - Emerald	0	0
+5757	56	14	1	0	0	7478278	Elegant Dormer - Ocean	0	0
+5758	56	14	1	0	0	7478273	Domed Dormer - Ocean	0	0
+5759	56	14	1	0	0	7478279	Elegant Dormer - Sapphire	0	0
+5760	56	14	1	0	0	7478274	Domed Dormer - Sapphire	0	0
+5761	56	15	1	0	0	7478307	Simple Spire - Plum	0	0
+5762	56	15	1	0	0	7478302	Faceted Spire - Plum	0	0
+5763	56	15	1	0	0	7478297	Tiered Spire - Plum	0	0
+5764	56	15	1	0	0	7478287	Elegant Spire - Plum	0	0
+5765	56	15	1	0	0	7478311	Simple Spire - Charcoal	0	0
+5766	56	15	1	0	0	7478306	Faceted Spire - Charcoal	0	0
+5767	56	15	1	0	0	7478301	Tiered Spire - Charcoal	0	0
+5768	56	15	1	0	0	7478291	Elegant Spire - Charcoal	0	0
+5769	56	15	1	0	0	7478310	Simple Spire - Emerald	0	0
+5770	56	15	1	0	0	7478305	Faceted Spire - Emerald	0	0
+5771	56	15	1	0	0	7478300	Tiered Spire - Emerald	0	0
+5772	56	15	1	0	0	7478290	Elegant Spire - Emerald	0	0
+5773	56	15	1	0	0	7478308	Simple Spire - Ocean	0	0
+5774	56	15	1	0	0	7478303	Faceted Spire - Ocean	0	0
+5775	56	15	1	0	0	7478298	Tiered Spire - Ocean	0	0
+5776	56	15	1	0	0	7478288	Elegant Spire - Ocean	0	0
+5777	56	15	1	0	0	7478309	Simple Spire - Sapphire	0	0
+5778	56	15	1	0	0	7478304	Faceted Spire - Sapphire	0	0
+5779	56	15	1	0	0	7478299	Tiered Spire - Sapphire	0	0
+5780	56	15	1	0	0	7478289	Elegant Spire - Sapphire	0	0
 5781	56	10	2	645	0	7478248	Tiered Roof	0	0
 5782	56	10	2	645	0	7478256	Tiered Roof	0	0
 5783	56	10	2	645	0	7478251	Tiered Roof	0	0
