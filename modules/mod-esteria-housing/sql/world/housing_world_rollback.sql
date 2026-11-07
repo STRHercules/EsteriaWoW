@@ -9,9 +9,9 @@ DELETE FROM `creature_template_model` WHERE `CreatureID` = 9500100;
 DELETE FROM `creature_template` WHERE `entry` = 9500100;
 DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9500000 AND 9500399;
 DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN 60000 AND 60399;
-DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9501000 AND 9502999;
-DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN 61000 AND 62999;
-DELETE FROM `gameobject` WHERE `id` BETWEEN 9501000 AND 9502999; -- outdoor decor and swapped house parts
+DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9501000 AND 9505999;
+DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN 61000 AND 65999;
+DELETE FROM `gameobject` WHERE `id` BETWEEN 9501000 AND 9505999; -- outdoor decor and swapped house parts
 DELETE FROM `gameobject` WHERE `id` BETWEEN 9500000 AND 9500399; -- cornerstones and saved house exteriors
 DROP TABLE IF EXISTS `housing_plot`;
 DROP TABLE IF EXISTS `housing_exterior_piece`;
