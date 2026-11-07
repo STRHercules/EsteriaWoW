@@ -82,7 +82,18 @@ CREATE TABLE IF NOT EXISTS `housing_plot_style` (
   PRIMARY KEY (`map_id`, `plot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Outdoor decor (housing_placed_decor rows with room_id 0) and the saved world spawn each one is.
+-- The parts an owner swapped on their plot's house (housing_exterior_fixture.component); a missing type is the
+-- style's default. Choices for another style are kept for when the owner goes back to it.
+CREATE TABLE IF NOT EXISTS `housing_plot_fixture` (
+  `map_id`    SMALLINT UNSIGNED NOT NULL,
+  `plot`      TINYINT UNSIGNED NOT NULL,
+  `theme`     INT UNSIGNED NOT NULL COMMENT 'HouseExteriorWmoData.ID',
+  `type`      TINYINT UNSIGNED NOT NULL COMMENT '9 base 10 roof 11 door 12 window 16 chimney',
+  `component` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`map_id`, `plot`, `theme`, `type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Outdoor decor (housing_placed_decor rows with room_id NULL) and the saved world spawn each one is.
 CREATE TABLE IF NOT EXISTS `housing_outdoor_spawn` (
   `placed_id` BIGINT UNSIGNED NOT NULL,
   `spawn_id`  INT UNSIGNED NOT NULL COMMENT 'acore_world gameobject guid',
@@ -104,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
 CREATE TABLE IF NOT EXISTS `housing_placed_decor` (
   `placed_id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `house_id`          INT UNSIGNED NOT NULL,
-  `room_id`           INT UNSIGNED NOT NULL,
+  `room_id`           INT UNSIGNED NULL COMMENT 'NULL: outdoor decor on the plot',
   `decor_id`          INT UNSIGNED NOT NULL,
   `pos_x` FLOAT NOT NULL, `pos_y` FLOAT NOT NULL, `pos_z` FLOAT NOT NULL,
   `rot_x` FLOAT NOT NULL DEFAULT 0, `rot_y` FLOAT NOT NULL DEFAULT 0,
@@ -118,6 +129,8 @@ CREATE TABLE IF NOT EXISTS `housing_placed_decor` (
   CONSTRAINT `fk_placed_house` FOREIGN KEY (`house_id`) REFERENCES `housing_house` (`house_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_placed_room` FOREIGN KEY (`room_id`) REFERENCES `housing_room` (`room_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Outdoor decor has no room: room_id 0 broke fk_placed_room and rolled back the whole save.
+ALTER TABLE `housing_placed_decor` MODIFY `room_id` INT UNSIGNED NULL COMMENT 'NULL: outdoor decor on the plot';
 
 -- Decor owned by an account (shared across characters, warband-style).
 CREATE TABLE IF NOT EXISTS `housing_account_decor` (
@@ -131,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `housing_account_decor` (
 -- Who may visit or edit. MVP: only the owner edits; this is for the permission phase.
 CREATE TABLE IF NOT EXISTS `housing_permission` (
   `house_id`          INT UNSIGNED NOT NULL,
-  `scope`             TINYINT UNSIGNED NOT NULL COMMENT '0 everyone 1 friends 2 guild 3 account',
+  `scope`             TINYINT UNSIGNED NOT NULL COMMENT '0 everyone 1 friends 2 guild 3 account 4 party (no row: party may visit)',
   `grantee`           INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'account id for scope 3, else 0',
   `can_visit`         TINYINT UNSIGNED NOT NULL DEFAULT 1,
   `can_edit`          TINYINT UNSIGNED NOT NULL DEFAULT 0,

@@ -78,6 +78,19 @@ EXTERIOR_DISPLAY_BASE, EXTERIOR_GO_BASE = DISPLAY_BASE + 100, GO_BASE + 150
 CORNERSTONE_DISPLAY, CORNERSTONE_GO = EXTERIOR_DISPLAY_BASE + 99, EXTERIOR_GO_BASE + 49
 FRONT_DOOR_DISPLAY, FRONT_DOOR_GO = EXTERIOR_DISPLAY_BASE + 98, EXTERIOR_GO_BASE + 48
 assert len(EXTERIOR_MODELS) <= 48, f"{len(EXTERIOR_MODELS)} exterior models; entries {EXTERIOR_GO_BASE}+ hold 48 before the front door"
+# Every part an owner may swap in (data/fixtures.tsv, fixture_hooks.tsv from make_plots.py). A model the default
+# exterior already uses keeps its entry there, so existing houses keep their spawns; the rest get entries of their own.
+FIXTURES = list(csv.DictReader((MODULE / "data/fixtures.tsv").open(encoding="utf-8"), delimiter="\t"))
+FIXTURE_HOOKS = list(csv.DictReader((MODULE / "data/fixture_hooks.tsv").open(encoding="utf-8"), delimiter="\t"))
+FIXTURE_MODELS = sorted({int(r["fdid"]) for r in FIXTURES} - set(EXTERIOR_MODELS))
+FIXTURE_DISPLAY_BASE, FIXTURE_GO_BASE, FIXTURE_SLOTS = 62000, 9502000, 1000
+assert len(FIXTURE_MODELS) <= FIXTURE_SLOTS, f"{len(FIXTURE_MODELS)} fixture models, {FIXTURE_SLOTS} slots"
+
+
+def fixture_entry(fdid):
+    return EXTERIOR_GO_BASE + EXTERIOR_MODELS.index(fdid) if fdid in EXTERIOR_MODELS else FIXTURE_GO_BASE + FIXTURE_MODELS.index(fdid)
+
+
 CORNERSTONE_GUID_BASE = 9500000  # gameobject guids 9500000 + plot; checked free in acore_world (max 5.7M)
 # The template's min_z is the floor the module builds rooms on (RoomTemplate::Origin); x/y bounds are per room now.
 BOUNDS_HALF = (11.0, 11.0)
@@ -318,6 +331,21 @@ def world_sql(map_dbc):
                  f"({FRONT_DOOR_GO}, 10, {FRONT_DOOR_DISPLAY}, 'Front Door', 1, 'go_esteria_housing_front_door');")
     lines.append(f"INSERT INTO `housing_exterior_piece` (`style`, `role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, "
                  f"`rot_deg`) VALUES (0, 'front_door', {FRONT_DOOR_GO}, 0, 0, 0, 0);")
+    lines += [f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {FIXTURE_GO_BASE} AND {FIXTURE_GO_BASE + FIXTURE_SLOTS - 1};",
+              f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {FIXTURE_DISPLAY_BASE} AND "
+              f"{FIXTURE_DISPLAY_BASE + FIXTURE_SLOTS - 1};"]
+    for i, fdid in enumerate(FIXTURE_MODELS):
+        display, entry = FIXTURE_DISPLAY_BASE + i, FIXTURE_GO_BASE + i
+        lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
+                     f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.wmo')}, -12, -12, 0, 12, 12, 15);")
+        lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
+                     f"VALUES ({entry}, 14, {display}, {q(f'House piece {fdid}')}, 1);")
+    for r in FIXTURES:
+        lines.append(f"INSERT INTO `housing_exterior_fixture` VALUES ({r['component']}, {r['theme']}, {r['type']}, {r['size']}, "
+                     f"{r['parent']}, {r['is_default']}, {fixture_entry(int(r['fdid']))}, {q(r['name'])}, {r['mat_x']}, {r['mat_z']});")
+    for r in FIXTURE_HOOKS:
+        lines.append(f"INSERT INTO `housing_exterior_fixture_hook` (`component`, `type`, `pos_x`, `pos_y`, `pos_z`, `rot_deg`) "
+                     f"VALUES ({r['component']}, {r['type']}, {r['x']}, {r['y']}, {r['z']}, {r['rot_deg']});")
     lines.append("DELETE FROM `housing_exterior_style`;")
     for style, name in sorted({(int(r["style"]), r["name"]) for r in EXTERIOR}):
         lines.append(f"INSERT INTO `housing_exterior_style` VALUES ({style}, {q(name)});")
@@ -393,6 +421,7 @@ def patch_dbc(storm, client):
     models = [(DECOR_DISPLAY_BASE + i, f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(CATALOG)]
     models += [(ROOM_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 11)) for i, fdid in enumerate(ROOM_MODELS)]
     models += [(EXTERIOR_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(EXTERIOR_MODELS)]
+    models += [(FIXTURE_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(FIXTURE_MODELS)]
     models.append((CORNERSTONE_DISPLAY, f"retail\\{CORNERSTONE_FDID}.m2", (-1, -1, 0, 1, 1, 3)))
     models.append((FRONT_DOOR_DISPLAY, f"retail\\{FRONT_DOOR_FDID}.m2", (-1, -1, 0, 1, 1, 1)))
     for display, name, box in models:
@@ -434,7 +463,7 @@ def main():
             assert storm.read(handle, name) == data, f"read-back mismatch: {name}"
     finally:
         storm.dll.SFileCloseArchive(handle)
-    print(f"wrote {target} ({len(CATALOG) + len(ROOM_MODELS) + len(EXTERIOR_MODELS) + 2} display rows on top of {source.name}; "
+    print(f"wrote {target} ({len(CATALOG) + len(ROOM_MODELS) + len(EXTERIOR_MODELS) + len(FIXTURE_MODELS) + 2} display rows on top of {source.name}; "
           f"maps {', '.join(map(str, MAPS))} on top of {map_source.name}'s Map.dbc)")
     # The client finds each map's WDT through these aliases (Data/Retail/RetailCasc.ini aliases=).
     for map_id, fdid in MAP_FDIDS.items():

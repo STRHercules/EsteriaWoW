@@ -91,9 +91,11 @@ namespace
         uint16 maxDecor = 0;
         uint8 floors = BaseFloors;    // floors above the ground it may build (housing_house_limits)
         uint8 roomLimit = 0;          // rooms it may hold; 0: the realm's EsteriaHousing.MaxRooms
+        uint8 access = AccessParty;   // who else may go in (housing_permission)
+        std::string owner;            // the owner's most played character, for visitors' lists
         int8 MaxLevel() const { return int8(floors - 1); }
         std::map<uint64, Placed> placed;
-        std::map<uint64, Placed> outdoor; // decor on its plot (housing_placed_decor.room_id 0), saved world spawns
+        std::map<uint64, Placed> outdoor; // decor on its plot (housing_placed_decor.room_id NULL), saved world spawns
         std::vector<HouseRoom> rooms; // slot order; rooms[0] is the room decor rows reference (roomId)
     };
 
@@ -156,6 +158,16 @@ namespace
         float dx = 0, dy = 0, turn = 0; // yd east/north of the plot's spot; degrees
     };
     constexpr float PlotReachYd = 8.0f; // how far the house may move from the plot's spot
+    // A swappable part (housing_exterior_fixture) and the hooks on it (housing_exterior_fixture_hook).
+    struct Fixture
+    {
+        uint32 id = 0, theme = 0, parent = 0, entry = 0;
+        uint8 type = 0, size = 0;
+        bool isDefault = false;
+        std::string name;
+        float matX = 0, matZ = 0;
+    };
+    constexpr uint8 FixtureTypes[] = { FixtureBase, FixtureRoof, FixtureDoor, FixtureWindow, FixtureChimney };
     struct Placement { uint32 entry; float x, y, z, yaw; float rot[4] = { 0, 0, 0, 0 }; }; // rot all 0: turn by yaw
     constexpr uint16 OutdoorBudget = 100;           // decor on a plot
     float s_plotRadius = 20;                        // half the distance between the closest two plots, at most 30 yd
@@ -165,6 +177,9 @@ namespace
     std::vector<Plot> s_plots;
     std::vector<ExteriorPiece> s_exterior;
     std::map<uint32, std::string> s_exteriorStyles;                    // style -> name
+    std::map<uint32, Fixture> s_fixtures;                              // component -> part
+    std::unordered_map<uint32, std::vector<std::pair<uint8, Rooms::Hook>>> s_fixtureHooks; // shape -> (type, hook)
+    std::map<std::tuple<uint16, uint8, uint32, uint8>, uint32> s_plotFixture; // plot, theme, type -> component
     std::map<std::pair<uint16, uint8>, PlotLook> s_plotLook;
     std::map<std::pair<uint16, uint8>, uint32> s_plotHouse;           // plot -> house
     std::map<std::pair<uint16, uint8>, std::vector<uint32>> s_plotSpawns; // plot -> its saved exterior spawns
@@ -349,6 +364,22 @@ namespace
                 s_nextHouseId = std::max(s_nextHouseId, h.id + 1);
                 s_houses[h.id] = std::move(h);
             } while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT house_id, scope, can_visit FROM housing_permission "
+            "WHERE scope IN (0, 1, 2, 4) AND grantee = 0"))
+            do
+                if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
+                {
+                    uint8 const bit = uint8(1 << result->Fetch()[1].Get<uint8>());
+                    house->second.access = result->Fetch()[2].Get<uint8>() ? house->second.access | bit : house->second.access & ~bit;
+                }
+            while (result->NextRow());
+        // most played last, so it wins
+        if (QueryResult result = CharacterDatabase.Query("SELECT h.house_id, c.name FROM characters c JOIN housing_house h "
+            "ON h.account_id = c.account ORDER BY c.totaltime"))
+            do
+                if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
+                    house->second.owner = result->Fetch()[1].Get<std::string>();
+            while (result->NextRow());
         if (QueryResult result = CharacterDatabase.Query("SELECT house_id, floors, rooms FROM housing_house_limits"))
             do
                 if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
@@ -369,6 +400,36 @@ namespace
         s_exteriorStyles.clear();
         s_plotLook.clear();
         s_plotHouse.clear();
+        s_fixtures.clear();
+        s_fixtureHooks.clear();
+        s_plotFixture.clear();
+        if (QueryResult result = WorldDatabase.Query("SELECT component, theme, type, size, parent, is_default, gameobject_entry, "
+            "name, mat_x, mat_z FROM housing_exterior_fixture"))
+            do
+            {
+                Field* f = result->Fetch();
+                Fixture x;
+                x.id = f[0].Get<uint32>(); x.theme = f[1].Get<uint32>(); x.type = f[2].Get<uint8>(); x.size = f[3].Get<uint8>();
+                x.parent = f[4].Get<uint32>(); x.isDefault = f[5].Get<uint8>() != 0; x.entry = f[6].Get<uint32>();
+                x.name = f[7].Get<std::string>(); x.matX = f[8].Get<float>(); x.matZ = f[9].Get<float>();
+                GameObjectTemplate const* go = sObjectMgr->GetGameObjectTemplate(x.entry);
+                if (go && go->type == GAMEOBJECT_TYPE_MAP_OBJECT)
+                    s_fixtures[x.id] = std::move(x);
+            } while (result->NextRow());
+        if (QueryResult result = WorldDatabase.Query("SELECT component, type, pos_x, pos_y, pos_z, rot_deg "
+            "FROM housing_exterior_fixture_hook ORDER BY id"))
+            do
+            {
+                Field* f = result->Fetch();
+                s_fixtureHooks[f[0].Get<uint32>()].push_back({ f[1].Get<uint8>(),
+                    Rooms::Hook{ f[2].Get<float>(), f[3].Get<float>(), f[4].Get<float>(), f[5].Get<float>() } });
+            } while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, theme, type, component FROM housing_plot_fixture"))
+            do
+            {
+                Field* f = result->Fetch();
+                s_plotFixture[{ f[0].Get<uint16>(), f[1].Get<uint8>(), f[2].Get<uint32>(), f[3].Get<uint8>() }] = f[4].Get<uint32>();
+            } while (result->NextRow());
         if (QueryResult result = WorldDatabase.Query("SELECT style, name FROM housing_exterior_style"))
             do
                 s_exteriorStyles[result->Fetch()[0].Get<uint32>()] = result->Fetch()[1].Get<std::string>();
@@ -477,7 +538,7 @@ namespace
             s_nextPlacedId = std::max<uint64>(1, result->Fetch()[0].Get<uint64>() + 1);
 
         if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, house_id, decor_id, pos_x, pos_y, pos_z, rot_x, "
-            "rot_y, rot_z, rot_w, scale, room_id FROM housing_placed_decor"))
+            "rot_y, rot_z, rot_w, scale, COALESCE(room_id, 0) FROM housing_placed_decor"))
             do
             {
                 Field* f = result->Fetch();
@@ -1059,7 +1120,7 @@ namespace
             ++owned[e.decorId].placed;
             trans->Append("INSERT INTO housing_placed_decor (placed_id, house_id, room_id, decor_id, pos_x, pos_y, pos_z, "
                 "rot_x, rot_y, rot_z, rot_w, scale, placed_by, placed_at) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
-                placedId, house->id, outdoors ? 0 : house->roomId, e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[0],
+                placedId, house->id, outdoors ? std::string("NULL") : std::to_string(house->roomId), e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[0],
                 out.rot[1], out.rot[2], out.rot[3], out.scale, character, now32);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed + 1 WHERE account_id = {} AND decor_id = {}",
                 account, e.decorId);
@@ -1265,6 +1326,7 @@ namespace
         h.account = account;
         h.roomTemplate = room->id;
         h.maxDecor = room->maxDecor;
+        h.owner = player->GetName();
         uint32 const now = uint32(GameTime::GetGameTime().count());
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
         trans->Append("INSERT INTO housing_house (house_id, account_id, room_template_id, revision, max_decor, created_at) "
@@ -1462,6 +1524,38 @@ namespace
 
     // The default exterior on a plot: every piece but the door hooks, plus the door on the hook facing the cornerstone.
     // door receives the spot just outside that door, where walking in enters the house.
+    // Whether a part fits a style: its theme, and for walls and roofs its size too.
+    bool Fits(Fixture const& x, uint32 style, uint8 type)
+    {
+        return x.type == type && x.theme == style / 10 && ((type != FixtureBase && type != FixtureRoof) || x.size == style % 10);
+    }
+
+    // The part of this type the plot's house has: the owner's choice where it still fits, else the style's default.
+    Fixture const* PartOf(Plot const& plot, uint32 style, uint8 type)
+    {
+        if (auto c = s_plotFixture.find({ plot.map, plot.index, style / 10, type }); c != s_plotFixture.end())
+            if (auto x = s_fixtures.find(c->second); x != s_fixtures.end() && Fits(x->second, style, type))
+                return &x->second;
+        for (auto const& [id, x] : s_fixtures)
+            if (x.isDefault && Fits(x, style, type))
+                return &x;
+        return nullptr;
+    }
+
+    // The hooks of one type on a part; a colour variant has its shape's.
+    std::vector<Rooms::Hook> HooksOn(Fixture const& x, uint8 type)
+    {
+        auto it = s_fixtureHooks.find(x.id);
+        if (it == s_fixtureHooks.end())
+            it = s_fixtureHooks.find(x.parent);
+        std::vector<Rooms::Hook> out;
+        if (it != s_fixtureHooks.end())
+            for (auto const& [t, h] : it->second)
+                if (t == type)
+                    out.push_back(h);
+        return out;
+    }
+
     std::vector<Placement> Exterior(Plot const& plot, Rooms::Pose* door = nullptr)
     {
         std::vector<Placement> out;
@@ -1474,6 +1568,33 @@ namespace
         // where the house stands: the plot's spot, moved and turned as its owner set it
         float const hx = plot.house[0] + l.dx, hy = plot.house[1] + l.dy, hz = plot.house[2];
         float const yaw = plot.house[3] + l.turn * float(M_PI) / 180;
+        // The parts the owner picked, on their hooks (housing_exterior_fixture); the fixed recipe below when the world
+        // data has no parts for this style.
+        Fixture const* base = PartOf(plot, l.style, FixtureBase);
+        Fixture const* roof = PartOf(plot, l.style, FixtureRoof);
+        Fixture const* doorPart = PartOf(plot, l.style, FixtureDoor);
+        bool const parts = base && roof && doorPart && !HooksOn(*base, FixtureDoor).empty();
+        if (parts)
+        {
+            auto const put = [&](uint32 entry, Rooms::Hook const& h) {
+                Rooms::Pose const p = Rooms::OnPlot(hx, hy, hz, yaw, h);
+                out.push_back({ entry, p.x, p.y, p.z, p.yaw });
+            };
+            put(base->entry, {});
+            put(roof->entry, {});
+            if (Fixture const* window = PartOf(plot, l.style, FixtureWindow))
+                for (Rooms::Hook const& h : HooksOn(*base, FixtureWindow))
+                    put(window->entry, h);
+            if (Fixture const* chimney = PartOf(plot, l.style, FixtureChimney))
+                if (std::vector<Rooms::Hook> const hooks = HooksOn(*roof, FixtureChimney); !hooks.empty())
+                    put(chimney->entry, hooks[0]);
+            for (Rooms::Hook const& h : HooksOn(*base, FixtureDoor))
+            {
+                doors.push_back(h);
+                doorEntries.push_back(doorPart->entry);
+                doorMats.push_back({ doorPart->matX, doorPart->matZ });
+            }
+        }
         for (ExteriorPiece const& e : s_exterior)
         {
             Rooms::Hook const h{ e.pos[0], e.pos[1], e.pos[2], e.rotDeg };
@@ -1482,7 +1603,7 @@ namespace
                 frontDoor = e.entry;
                 continue;
             }
-            if (e.style != l.style)
+            if (e.style != l.style || parts)
                 continue;
             if (e.role == "door_hook")
             {
@@ -1621,36 +1742,103 @@ namespace
         s_returnTo[player->GetGUID()] = WorldLocation(plot.map, plot.exit[0], plot.exit[1], plot.exit[2], plot.corner[3]);
     }
 
-    // Owner, or anyone grouped with the owner, may go in.
-    bool MayEnter(Player* player, House const& house)
+    // The accounts a player is tied to, for house access: grouped with, befriended by, and sharing a guild with.
+    struct Ties
     {
-        if (house.account == player->GetSession()->GetAccountId())
-            return true;
+        std::unordered_set<uint32> party, friends, guild;
+    };
+
+    Ties TiesOf(Player* player)
+    {
+        Ties t;
         if (Group* group = player->GetGroup())
             for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next())
-                if (ref->GetSource() && ref->GetSource()->GetSession()->GetAccountId() == house.account)
-                    return true;
-        return false;
+                if (ref->GetSource())
+                    t.party.insert(ref->GetSource()->GetSession()->GetAccountId());
+        // accounts with a character that has this one on its friends list (character_social flag 1: friend)
+        if (QueryResult r = CharacterDatabase.Query("SELECT DISTINCT c.account FROM character_social s JOIN characters c "
+            "ON c.guid = s.guid WHERE s.friend = {} AND (s.flags & 1)", player->GetGUID().GetCounter()))
+            do t.friends.insert(r->Fetch()[0].Get<uint32>()); while (r->NextRow());
+        if (uint32 const guild = player->GetGuildId())
+            if (QueryResult r = CharacterDatabase.Query("SELECT DISTINCT c.account FROM guild_member m JOIN characters c "
+                "ON c.guid = m.guid WHERE m.guildid = {}", guild))
+                do t.guild.insert(r->Fetch()[0].Get<uint32>()); while (r->NextRow());
+        return t;
+    }
+
+    bool MayEnter(uint32 account, Ties const& t, House const& house)
+    {
+        return house.account == account || (house.access & AccessEveryone)
+            || ((house.access & AccessParty) && t.party.count(house.account))
+            || ((house.access & AccessFriends) && t.friends.count(house.account))
+            || ((house.access & AccessGuild) && t.guild.count(house.account));
+    }
+
+    // The owner, or whoever the house's access lets in.
+    bool MayEnter(Player* player, House const& house)
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        return house.account == account || (house.access & AccessEveryone) || MayEnter(account, TiesOf(player), house);
+    }
+
+    // Saves who may visit, and sends out whoever is inside and no longer may.
+    void SetAccess(House& house, uint8 access)
+    {
+        house.access = access & (AccessEveryone | AccessFriends | AccessGuild | AccessParty);
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        for (uint8 scope : { 0, 1, 2, 4 })
+            trans->Append("REPLACE INTO housing_permission (house_id, scope, grantee, can_visit, can_edit) VALUES ({}, {}, 0, {}, 0)",
+                house.id, scope, (house.access >> scope) & 1);
+        CharacterDatabase.CommitTransaction(trans);
+        LOG_INFO("module", "housing: house {} access now {}", house.id, house.access);
+        RoomTemplate const* room = Room(house);
+        auto instance = s_houseInstance.find(house.id);
+        if (!room || instance == s_houseInstance.end())
+            return;
+        if (Map* map = sMapMgr->FindMap(room->mapId, instance->second))
+            map->DoForAllPlayers([&](Player* p) {
+                if (!MayEnter(p, house))
+                {
+                    ChatHandler(p->GetSession()).SendNotification("The owner has closed their house to you.");
+                    Leave(p);
+                }
+            });
     }
 
     char const* const NeighborhoodName = "Founder's Point";
     constexpr float PlotReach = 15.0f; // how far from the cornerstone the plot window keeps working
 
+    uint8 StatusOfPlot(Player* player, Plot const& plot)
+    {
+        auto owner = s_plotHouse.find({ plot.map, plot.index });
+        if (owner == s_plotHouse.end())
+            return PlotForSale;
+        auto house = s_houses.find(owner->second);
+        return house == s_houses.end() ? PlotPrivate : house->second.account == player->GetSession()->GetAccountId() ? PlotYours
+            : MayEnter(player, house->second) ? PlotVisitable : PlotPrivate;
+    }
+
+    // As above, with the player's ties worked out once for a whole list of plots.
+    uint8 StatusOfPlot(uint32 account, Ties const& ties, Plot const& plot)
+    {
+        auto owner = s_plotHouse.find({ plot.map, plot.index });
+        if (owner == s_plotHouse.end())
+            return PlotForSale;
+        auto house = s_houses.find(owner->second);
+        return house == s_houses.end() ? PlotPrivate : house->second.account == account ? PlotYours
+            : MayEnter(account, ties, house->second) ? PlotVisitable : PlotPrivate;
+    }
+
     void SendPlot(Player* player, Plot const& plot, std::string const& message = "")
     {
         uint32 const account = player->GetSession()->GetAccountId();
         House const* own = HouseOfAccount(account);
-        uint8 status = PlotForSale;
-        if (auto owner = s_plotHouse.find({ plot.map, plot.index }); owner != s_plotHouse.end())
-        {
-            auto house = s_houses.find(owner->second);
-            status = house == s_houses.end() ? PlotPrivate : house->second.account == account ? PlotYours
-                : MayEnter(player, house->second) ? PlotVisitable : PlotPrivate;
-        }
-        // shortcut: no owner name; housing_house only knows the account. Add a character name column when visitors need it.
+        uint8 const status = StatusOfPlot(player, plot);
+        auto const claim = s_plotHouse.find({ plot.map, plot.index });
+        std::string const owner = claim != s_plotHouse.end() && s_houses.count(claim->second) ? s_houses[claim->second].owner : "";
         WorldPacket data(SMSG_ESTERIA_HOUSING_PLOT, 64);
         data << uint16(plot.index + 1) << status << s_config.plotPrice
-             << uint8(own && s_housePlot.count(own->id) && status != PlotYours) << NeighborhoodName << "" << message;
+             << uint8(own && s_housePlot.count(own->id) && status != PlotYours) << NeighborhoodName << owner << message;
         auto const look = s_plotLook.find({ plot.map, plot.index });
         PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
         data << l.style << l.dx << l.dy << l.turn << PlotReachYd;
@@ -1660,7 +1848,107 @@ namespace
         for (auto const& [id, name] : s_exteriorStyles)
             if (n++ < styles)
                 data << id << name;
+        ByteBuffer parts;
+        uint8 types = 0;
+        if (status == PlotYours)
+            for (uint8 type : FixtureTypes)
+            {
+                Fixture const* now = PartOf(plot, l.style, type);
+                std::vector<Fixture const*> options;
+                for (auto const& [id, x] : s_fixtures)
+                    if (Fits(x, l.style, type))
+                        options.push_back(&x);
+                if (!now || options.size() < 2)
+                    continue; // nothing to choose
+                parts << type << now->id << uint16(options.size());
+                for (Fixture const* x : options)
+                    parts << x->id << x->parent << x->name;
+                ++types;
+            }
+        data << types;
+        data.append(parts);
         player->SendDirectMessage(&data);
+    }
+
+    void SendNeighborhood(Player* player, std::string const& message = "")
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        Ties const ties = TiesOf(player);
+        House const* own = HouseOfAccount(account);
+        uint16 homePlot = 0;
+        ByteBuffer plots;
+        for (Plot const& plot : s_plots)
+        {
+            uint8 const status = StatusOfPlot(account, ties, plot);
+            if (status == PlotYours)
+                homePlot = uint16(plot.index + 1);
+            std::string const name = status == PlotVisitable ? s_houses[s_plotHouse[{ plot.map, plot.index }]].owner : "";
+            plots << uint16(plot.index + 1) << status << name;
+        }
+        uint8 const where = IsHousingMap(player->GetMapId()) ? WhereHouse
+            : player->GetMapId() == NeighborhoodMap ? WhereNeighborhood : WhereAway;
+        WorldPacket data(SMSG_ESTERIA_HOUSING_NEIGHBORHOOD, 64 + plots.size());
+        data << NeighborhoodName << s_config.plotPrice << where << message << homePlot
+             << uint8(own ? own->rooms.size() : 0) << uint16(own ? own->placed.size() : 0) << uint16(own ? own->maxDecor : 0)
+             << uint16(s_plots.size());
+        data.append(plots);
+        data << uint8(own ? own->access : 0);
+        player->SendDirectMessage(&data);
+    }
+
+    // Why this character can't travel by the Neighborhood window right now; empty when it can. The window greys its
+    // buttons by the same rules, but only this check counts.
+    std::string TravelBlock(Player* player)
+    {
+        if (player->IsBeingTeleported())
+            return "You are already traveling.";
+        if (player->IsInCombat())
+            return "You cannot travel while in combat.";
+        if (!player->IsAlive())
+            return "You cannot travel while dead.";
+        if (player->IsInFlight())
+            return "You cannot travel while on a flight path.";
+        Map const* map = player->GetMap();
+        if (map->IsBattlegroundOrArena())
+            return "You cannot travel from a battleground or arena.";
+        if (map->Instanceable() && !IsHousingMap(map->GetId()) && map->GetId() != NeighborhoodMap)
+            return "You cannot travel from inside a dungeon or raid.";
+        return "";
+    }
+
+    // Keeps where "leave the neighborhood" goes back to: this spot, or from a house, wherever its door leads outside
+    // the neighborhood.
+    void RememberNeighborhoodReturn(Player* player)
+    {
+        if (IsHousingMap(player->GetMapId()))
+        {
+            auto it = s_returnTo.find(player->GetGUID());
+            if (it != s_returnTo.end() && it->second.GetMapId() != NeighborhoodMap)
+                s_neighborhoodReturn[player->GetGUID()] = it->second;
+        }
+        else if (player->GetMapId() != NeighborhoodMap)
+            s_neighborhoodReturn[player->GetGUID()] = WorldLocation(player->GetMapId(), player->GetPositionX(),
+                player->GetPositionY(), player->GetPositionZ(), player->GetOrientation());
+    }
+
+    void VisitNeighborhood(Player* player)
+    {
+        RememberNeighborhoodReturn(player);
+        player->TeleportTo(NeighborhoodMap, NeighborhoodEntry[0], NeighborhoodEntry[1], NeighborhoodEntry[2], NeighborhoodEntry[3]);
+    }
+
+    void LeaveNeighborhood(Player* player)
+    {
+        auto it = s_neighborhoodReturn.find(player->GetGUID());
+        if (it != s_neighborhoodReturn.end())
+        {
+            WorldLocation const to = it->second;
+            s_neighborhoodReturn.erase(it);
+            player->TeleportTo(to.GetMapId(), to.GetPositionX(), to.GetPositionY(), to.GetPositionZ(), to.GetOrientation());
+        }
+        else
+            player->TeleportTo(player->m_homebindMapId, player->m_homebindX, player->m_homebindY, player->m_homebindZ,
+                player->GetOrientation());
     }
 
     // The plot the player's open window is about, while they are still beside its cornerstone.
@@ -1699,7 +1987,49 @@ namespace
             packet.rfinish();
             return;
         }
-        if (action == ActionPlotStyle || action == ActionPlotPlace)
+        if (action == ActionNeighborhood)
+        {
+            SendNeighborhood(player);
+            return;
+        }
+        if (action == ActionHouseAccess)
+        {
+            uint8 access;
+            packet >> access;
+            if (House* house = HouseOfAccount(session->GetAccountId()))
+                SetAccess(*house, access);
+            SendNeighborhood(player);
+            return;
+        }
+        if (action == ActionTravelNeighborhood || action == ActionTravelBack || action == ActionTravelPlot)
+        {
+            uint16 number = 0;
+            if (action == ActionTravelPlot)
+                packet >> number;
+            std::string const refused = TravelBlock(player);
+            if (refused.empty())
+            {
+                if (action == ActionTravelNeighborhood)
+                    VisitNeighborhood(player);
+                else if (action == ActionTravelBack)
+                {
+                    if (player->GetMapId() == NeighborhoodMap)
+                        LeaveNeighborhood(player);
+                }
+                else
+                    for (Plot const& plot : s_plots)
+                        if (plot.index + 1 == number)
+                        {
+                            RememberNeighborhoodReturn(player);
+                            // the spot leaving its house puts you: in front of the door, by the cornerstone
+                            player->TeleportTo(plot.map, plot.exit[0], plot.exit[1], plot.exit[2], plot.corner[3]);
+                            break;
+                        }
+            }
+            SendNeighborhood(player, refused);
+            return;
+        }
+        if (action == ActionPlotStyle || action == ActionPlotPlace || action == ActionPlotFixture)
         {
             Plot const* plot = ViewedPlot(player);
             auto owner = plot ? s_plotHouse.find({ plot->map, plot->index }) : s_plotHouse.end();
@@ -1710,6 +2040,33 @@ namespace
             }
             PlotLook look = s_plotLook.count({ plot->map, plot->index }) ? s_plotLook[{ plot->map, plot->index }] : PlotLook{};
             std::string message;
+            if (action == ActionPlotFixture)
+            {
+                uint8 type;
+                uint32 component;
+                packet >> type >> component;
+                auto x = s_fixtures.find(component);
+                if (component && (x == s_fixtures.end() || !Fits(x->second, look.style, type)))
+                    message = "That part does not fit this house.";
+                else
+                {
+                    auto const key = std::make_tuple(plot->map, plot->index, look.style / 10, type);
+                    if (component)
+                        s_plotFixture[key] = component;
+                    else
+                        s_plotFixture.erase(key);
+                    if (component)
+                        CharacterDatabase.Execute("REPLACE INTO housing_plot_fixture (map_id, plot, theme, type, component) "
+                            "VALUES ({}, {}, {}, {}, {})", plot->map, plot->index, look.style / 10, type, component);
+                    else
+                        CharacterDatabase.Execute("DELETE FROM housing_plot_fixture WHERE map_id = {} AND plot = {} AND theme = {} "
+                            "AND type = {}", plot->map, plot->index, look.style / 10, type);
+                    RefreshExterior(player->GetMap(), *plot);
+                    LOG_INFO("module", "housing: plot {} part {} now {}", plot->index, type, component);
+                }
+                SendPlot(player, *plot, message);
+                return;
+            }
             if (action == ActionPlotStyle)
             {
                 uint32 style;
@@ -1890,7 +2247,7 @@ namespace
                         if (Player* member = ref->GetSource())
                         {
                             uint32 const owner = member->GetSession()->GetAccountId();
-                            if (owner != account && HouseOfAccount(owner))
+                            if (owner != account && HouseOfAccount(owner) && MayEnter(player, *HouseOfAccount(owner)))
                                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Visit " + member->GetName() + "'s house.", owner,
                                     ActionVisit);
                         }
@@ -1914,28 +2271,11 @@ namespace
                     break;
                 case ActionVisitNeighborhood:
                     if (player->GetMapId() != NeighborhoodMap && !IsHousingMap(player->GetMapId()))
-                    {
-                        s_neighborhoodReturn[player->GetGUID()] = WorldLocation(player->GetMapId(), player->GetPositionX(),
-                            player->GetPositionY(), player->GetPositionZ(), player->GetOrientation());
-                        player->TeleportTo(NeighborhoodMap, NeighborhoodEntry[0], NeighborhoodEntry[1], NeighborhoodEntry[2],
-                            NeighborhoodEntry[3]);
-                    }
+                        VisitNeighborhood(player);
                     break;
                 case ActionLeaveNeighborhood:
                     if (player->GetMapId() == NeighborhoodMap)
-                    {
-                        auto it = s_neighborhoodReturn.find(player->GetGUID());
-                        if (it != s_neighborhoodReturn.end())
-                        {
-                            WorldLocation const to = it->second;
-                            s_neighborhoodReturn.erase(it);
-                            player->TeleportTo(to.GetMapId(), to.GetPositionX(), to.GetPositionY(), to.GetPositionZ(),
-                                to.GetOrientation());
-                        }
-                        else
-                            player->TeleportTo(player->m_homebindMapId, player->m_homebindX, player->m_homebindY,
-                                player->m_homebindZ, player->GetOrientation());
-                    }
+                        LeaveNeighborhood(player);
                     break;
                 case ActionEnter:
                     if (House* house = HouseOfAccount(account))
@@ -1943,13 +2283,8 @@ namespace
                     break;
                 case ActionVisit:
                 {
-                    // Re-check: the owner must still be in the visitor's group and own a house.
-                    House* house = HouseOfAccount(sender);
-                    bool grouped = false;
-                    if (Group* group = player->GetGroup())
-                        for (GroupReference* ref = group->GetFirstMember(); ref && !grouped; ref = ref->next())
-                            grouped = ref->GetSource() && ref->GetSource()->GetSession()->GetAccountId() == sender;
-                    if (house && grouped)
+                    // Re-check: the owner must still own a house that lets this player in.
+                    if (House* house = HouseOfAccount(sender); house && MayEnter(player, *house))
                         EnterHouse(player, *house);
                     break;
                 }
@@ -1992,7 +2327,7 @@ namespace
                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, house->account == player->GetSession()->GetAccountId()
                     ? "Enter your house." : "Visit this house.", 0, ActionEnterPlot);
             else
-                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is someone's home. Group with them to visit.", 0, 0);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is someone's home. The owner has not opened it to you.", 0, 0);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, go->GetGUID());
             return true;
         }
@@ -2038,7 +2373,7 @@ namespace
                 if (MayEnter(player, house->second))
                     EnterFromPlot(player, house->second, *plot);
                 else
-                    ChatHandler(player->GetSession()).SendNotification("This is someone's home. Group with them to visit.");
+                    ChatHandler(player->GetSession()).SendNotification("This is someone's home. The owner has not opened it to you.");
                 break;
             }
             return true;
@@ -2136,6 +2471,16 @@ namespace
                 player->m_Events.AddEventAtOffset([guid]() {
                     if (Player* p = ObjectAccessor::FindPlayer(guid); p && p->IsInWorld())
                         p->TeleportTo(p->m_homebindMapId, p->m_homebindX, p->m_homebindY, p->m_homebindZ, p->GetOrientation());
+                }, 1s);
+                return;
+            }
+            if (!MayEnter(player, *house)) // relogged into a house its owner has since closed to them
+            {
+                ObjectGuid const guid = player->GetGUID();
+                player->m_Events.AddEventAtOffset([guid]() {
+                    std::lock_guard<std::recursive_mutex> guard(s_lock);
+                    if (Player* p = ObjectAccessor::FindPlayer(guid); p && p->IsInWorld())
+                        Leave(p);
                 }, 1s);
                 return;
             }

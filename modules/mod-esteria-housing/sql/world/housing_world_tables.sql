@@ -114,3 +114,27 @@ CREATE TABLE IF NOT EXISTS `housing_exterior_style` (
   `name`  VARCHAR(64) NOT NULL,
   PRIMARY KEY (`style`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- What an owner may swap on their house: retail ExteriorComponent bases, roofs, doors, windows and chimneys.
+DROP TABLE IF EXISTS `housing_exterior_fixture`;
+CREATE TABLE IF NOT EXISTS `housing_exterior_fixture` (
+  `component`        INT UNSIGNED NOT NULL COMMENT 'ExteriorComponent.ID',
+  `theme`            INT UNSIGNED NOT NULL COMMENT 'HouseExteriorWmoData.ID (style / 10)',
+  `type`             TINYINT UNSIGNED NOT NULL COMMENT '9 base 10 roof 11 door 12 window 16 chimney',
+  `size`             TINYINT UNSIGNED NOT NULL COMMENT 'bases and roofs: the style size (style % 10); others 1',
+  `parent`           INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'a colour variant: its shape; 0 for a shape',
+  `is_default`       TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `gameobject_entry` INT UNSIGNED NOT NULL COMMENT 'type 14, display retail\<fdid>.wmo',
+  `name`             VARCHAR(64) NOT NULL,
+  `mat_x` FLOAT NOT NULL DEFAULT 0 COMMENT 'doors: where the Front Door mat lies, out from the door (yd)',
+  `mat_z` FLOAT NOT NULL DEFAULT 0 COMMENT 'doors: the porch floor height there',
+  PRIMARY KEY (`component`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `housing_exterior_fixture_hook`;
+CREATE TABLE IF NOT EXISTS `housing_exterior_fixture_hook` (
+  `id`        INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `component` INT UNSIGNED NOT NULL COMMENT 'the base or roof shape the hook is on',
+  `type`      TINYINT UNSIGNED NOT NULL COMMENT 'what goes there: 11 door 12 window 16 chimney',
+  `pos_x` FLOAT NOT NULL, `pos_y` FLOAT NOT NULL, `pos_z` FLOAT NOT NULL,
+  `rot_deg` FLOAT NOT NULL COMMENT 'hook OffsetRot z, applied clockwise',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -25,13 +25,16 @@
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
 //   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
 //                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8), ActionBuyDecor decorId(u32)
-//                 count(u16); nothing for the others.
+//                 count(u16), ActionHouseAccess access(u8 Access bits), ActionPlotFixture type(u8) component(u32);
+//                 nothing for the others.
 //                 Rooms cost gold. A kind of StairsDownBase + stairwell builds that stairwell down from the socket.
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
 //   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
 //                 neighborhood(string) owner(string) message(string)
 //                 then style(u32) dx(f32) dy(f32) turn(f32 degrees) reach(f32 yd) styles n(u8) x style(u32) name(string)
 //                 (your plot only; n 0 otherwise)
+//                 fixtures n(u8) x type(u8 FixtureType) chosen(u32 component) options n(u16) x component(u32)
+//                 parent(u32: a colour variant's shape, 0 for a shape) name(string)  (your plot only; n 0 otherwise)
 //                 sent when a cornerstone is clicked (the client opens the plot window) and after a plot action
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
 //                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
@@ -43,9 +46,13 @@
 //                 maxFloors(u8) floorPrice(u32 copper, 0 at the cap) decorPrice(u32, 0 at the cap) decorStep(u16)
 //                 decorCap(u16) roomPrice(u32, 0 at the cap) roomStep(u8) roomCap(u8)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
+//   SMSG_NEIGHBORHOOD neighborhood(string) plotPrice(u32 copper) where(u8 Where) message(string) homePlot(u16, 0 none)
+//                 rooms(u8) placed(u16) maxDecor(u16) plots n(u16), then n x plot(u16) status(u8 PlotStatus) name(string)
+//                 (name: the owner's character, for a plot you may visit) access(u8 Access bits: who may visit your house)
+//                 the Neighborhood window's contents: the answer to every ActionNeighborhood and ActionTravel*
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 10;
+    inline constexpr uint16_t Proto = 12;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -58,6 +65,7 @@ namespace EsteriaHousingWire
     inline constexpr uint32_t CMSG_ACTION = 0x53F;
     inline constexpr uint32_t SMSG_PLOT = 0x540;
     inline constexpr uint32_t SMSG_LAYOUT = 0x541;
+    inline constexpr uint32_t SMSG_NEIGHBORHOOD = 0x542;
 
     inline constexpr uint16_t CatalogPageSize = 50;
     inline constexpr uint16_t MaxStateEntries = 5000; // the largest decor budget
@@ -88,6 +96,31 @@ namespace EsteriaHousingWire
         ActionUpgrade = 9,    // what(u8 Upgrade): buy the house's next floor or decor budget step
         ActionPlotStyle = 10, // style(u32): rebuild your plot's house in another exterior style
         ActionPlotPlace = 11, // dx(f32) dy(f32) turnDegrees(f32): where the house stands on your plot, from its spot
+        ActionNeighborhood = 12,       // send me SMSG_NEIGHBORHOOD
+        ActionTravelNeighborhood = 13, // go to the neighborhood's entry, from anywhere travel is allowed
+        ActionTravelBack = 14,         // leave the neighborhood for where you came from
+        ActionTravelPlot = 15,         // plot(u16, 1-based): go to that plot, beside its cornerstone
+        ActionHouseAccess = 16,        // access(u8 Access bits): who may visit your house; visitors who no longer may leave
+        ActionPlotFixture = 17,        // type(u8 FixtureType) component(u32, 0: the style's default): swap a part of your house
+    };
+
+    // The parts of a house exterior an owner may swap (retail ExteriorComponentType).
+    enum FixtureType : uint8_t
+    {
+        FixtureBase = 9, // the walls
+        FixtureRoof = 10,
+        FixtureDoor = 11,
+        FixtureWindow = 12,
+        FixtureChimney = 16,
+    };
+
+    // Who may go into a house besides its owner (housing_permission.scope n is bit 1 << n).
+    enum Access : uint8_t
+    {
+        AccessEveryone = 1 << 0,
+        AccessFriends = 1 << 1, // the owner's friends (any of the owner's characters)
+        AccessGuild = 1 << 2,   // members of a guild one of the owner's characters is in
+        AccessParty = 1 << 4,   // grouped with the owner; a new house's only setting
     };
 
     inline constexpr uint32_t StairsDownBase = 1000;
@@ -103,8 +136,15 @@ namespace EsteriaHousingWire
     {
         PlotForSale = 0,
         PlotYours = 1,
-        PlotVisitable = 2, // someone's, and you may go in (grouped with the owner)
+        PlotVisitable = 2, // someone's, and you may go in (its Access lets you)
         PlotPrivate = 3,
+    };
+
+    enum Where : uint8_t
+    {
+        WhereAway = 0,
+        WhereNeighborhood = 1,
+        WhereHouse = 2,
     };
 
     enum Result : uint8_t

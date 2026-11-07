@@ -1,0 +1,412 @@
+component	theme	type	size	parent	is_default	fdid	name	mat_x	mat_z
+141	9	9	2	0	1	6648736	Stucco	0	0
+142	9	9	2	0	0	6648737	Stonework	0	0
+144	9	9	3	0	1	6648733	Stucco	0	0
+145	9	9	3	0	0	6648734	Cottage	0	0
+147	9	9	4	0	1	6648730	Stucco	0	0
+148	9	9	4	0	0	6648731	Cottage	0	0
+568	55	10	4	0	0	6892531	Embellished Roof	0	0
+569	55	10	4	0	1	6892530	Woodland Roof	0	0
+570	55	9	3	0	0	6892517	Stone	0	0
+571	55	9	3	0	0	6892516	Embellished	0	0
+572	55	10	3	0	1	6892524	Woodland Roof	0	0
+573	55	10	3	0	0	6892525	Embellished Roof	0	0
+574	55	9	3	0	1	6892497	Woodland	0	0
+575	55	10	3	0	0	6892526	Rustic Roof	0	0
+576	55	10	4	0	0	6892532	Rustic Roof	0	0
+577	55	9	4	0	0	6892523	Stone	0	0
+578	55	9	4	0	1	6892521	Woodland	0	0
+579	55	10	2	0	0	6892529	Rustic Roof	0	0
+580	55	9	2	0	0	6892520	Stone	0	0
+581	55	9	2	0	0	6892519	Embellished	0	0
+582	55	10	2	0	1	6892527	Woodland Roof	0	0
+583	55	9	2	0	1	6892518	Woodland	0	0
+584	55	10	2	0	0	6892528	Embellished Roof	0	0
+585	55	9	4	0	0	6892522	Embellished	0	0
+586	55	16	1	0	0	6892547	Embellished Chimney - Violet	0	0
+587	55	16	1	0	0	6892545	Tall Relic Chimney - Violet	0	0
+588	55	16	1	0	0	6892544	Woodland Chimney - Violet	0	0
+589	55	12	1	0	0	6892536	Woodland Window	0	0
+590	55	11	1	0	1	6892533	Woodland Entryway - Violet	5.995	1.75
+596	55	11	1	0	0	6892535	Rustic Entryway - Violet	4.148	1.75
+597	55	11	1	0	0	6892534	Embellished Entryway - Violet	5.101	1.75
+598	55	16	1	0	0	6892546	Rustic Chimney - Violet	0	0
+599	55	16	1	0	0	6892548	Relic Chimney - Violet	0	0
+600	55	12	1	0	0	6892537	Relic Window	0	0
+604	55	12	1	0	0	6892538	Arched Window	0	0
+605	55	12	1	0	0	6892539	Lattice Window	0	0
+606	55	12	1	0	0	6892540	Embellished Window	0	0
+609	56	16	1	0	0	6892587	Extravagant Chimney	0	0
+610	56	16	1	0	0	6892586	Bell Chimney	0	0
+611	56	16	1	0	0	6892588	Sturdy Winged Chimney	0	0
+612	56	16	1	0	0	6892584	Regal Chimney	0	0
+613	56	16	1	0	0	6892585	Winged Chimney	0	0
+616	56	12	1	0	0	6892579	Regal Window - Crimson	0	0
+617	56	12	1	0	0	6892580	Domed Window - Crimson	0	0
+618	56	11	1	0	1	6892573	Simple Entryway	14.222	1.5
+619	56	11	1	0	0	6892575	Grand Entryway - Crimson	17.675	1.5
+620	56	11	1	0	0	6892574	Elegant Entryway - Crimson	21.333	1.5
+621	56	10	2	0	1	6892567	Domed Roof	0	0
+622	56	9	2	0	1	6892558	Engraved	0	0
+623	56	10	4	0	0	6892571	Faceted Roof	0	0
+624	56	9	4	0	0	6892563	Craftsman	0	0
+625	56	9	4	0	0	6892562	Arches	0	0
+626	56	10	4	0	0	6892572	Tiered Roof	0	0
+627	56	10	3	0	0	6892566	Tiered Roof	0	0
+628	56	10	3	0	1	6892564	Domed Roof	0	0
+629	56	10	2	0	0	6892568	Faceted Roof	0	0
+630	56	9	3	0	0	6892557	Craftsman	0	0
+631	56	9	2	0	0	6892559	Arches	0	0
+632	56	9	3	0	1	6892555	Engraved	0	0
+633	56	9	4	0	1	6892561	Engraved	0	0
+634	56	10	4	0	1	6892570	Domed Roof	0	0
+635	56	9	3	0	0	6892556	Arches	0	0
+636	56	10	3	0	0	6892565	Faceted Roof	0	0
+637	56	9	2	0	0	6892560	Craftsman	0	0
+638	56	12	1	0	0	6892576	Filigree Window	0	0
+639	56	12	1	0	0	6892577	Planter Window	0	0
+640	56	12	1	0	0	6892578	Winged Window	0	0
+645	56	10	2	0	0	6892569	Tiered Roof	0	0
+975	87	11	1	0	0	7118913	Covered Entry - Crimson	-1.541	1.0
+976	87	11	1	0	1	7118912	Drawbridge Entry - Crimson	-1.606	2.5
+977	87	11	1	0	0	7118914	Scrap Metal Entry - Crimson	-1.741	2.25
+978	87	12	1	0	0	7118916	Arched Window	0	0
+979	87	12	1	0	0	7118917	Round Window	0	0
+980	87	12	1	0	0	7118918	Covered Window	0	0
+981	87	12	1	0	0	7118919	Shuttered Window	0	0
+982	87	12	1	0	1	7118915	Angled Window	0	0
+986	87	16	1	0	0	7338373	Spoked Chimney	0	0
+987	87	16	1	0	0	7118925	Furnace Chimney	0	0
+988	87	16	1	0	0	7118924	Simple Chimney	0	0
+989	87	16	1	0	1	7118923	Stone Chimney - Crimson	0	0
+990	87	16	1	0	0	7338375	Vented Chimney	0	0
+999	87	9	4	0	0	6648679	Smooth Stone	0	0
+1000	87	9	4	0	1	6648678	Reclaimed Wood	0	0
+1003	87	9	2	0	0	6648685	Smooth Stone	0	0
+1004	87	9	2	0	1	6648684	Reclaimed Wood	0	0
+1006	87	9	3	0	1	6648681	Reclaimed Wood	0	0
+1009	87	9	4	0	0	7118902	Worn Stone	0	0
+1011	87	9	2	0	0	7118901	Worn Stone	0	0
+1012	87	9	3	0	0	7118900	Worn Stone	0	0
+1207	87	9	3	0	0	6648682	Smooth Stone	0	0
+1379	9	12	1	0	0	7118946	Square Window	0	0
+1380	9	11	1	0	1	7450804	Simple Entryway - Ocean	-1.396	2.0
+1381	9	11	1	1380	0	7450818	Simple Entryway - Mustard	-1.396	2.0
+1382	9	11	1	1380	0	7450815	Simple Entryway - Violet	-1.396	2.0
+1383	9	11	1	1380	0	7450812	Simple Entryway - Crimson	-1.396	2.0
+1384	9	11	1	1380	0	7450809	Simple Entryway - Nutmeg	-1.396	2.0
+1385	9	11	1	1380	0	7450805	Simple Entryway - Forest	-1.396	2.0
+1416	9	16	1	0	1	7118950	Simple Chimney	0	0
+1417	9	12	1	0	0	7448532	Shuttered Window	0	0
+1418	9	12	1	0	1	7118944	Simple Window	0	0
+1419	9	11	1	0	0	7450798	Square Entryway - Ocean	-1.088	2.0
+1420	9	11	1	1419	0	7450819	Square Entryway - Mustard	-1.088	2.0
+1421	9	11	1	1419	0	7450816	Square Entryway - Violet	-1.088	2.0
+1422	9	11	1	1419	0	7450813	Square Entryway - Crimson	-1.088	2.0
+1423	9	11	1	1419	0	7450810	Square Entryway - Nutmeg	-1.088	2.0
+1424	9	11	1	1419	0	7450806	Square Entryway - Forest	-1.088	2.0
+1425	9	11	1	0	0	7450797	Sloped Entryway - Ocean	-1.162	2.0
+1431	9	11	1	1425	0	7450820	Sloped Entryway - Mustard	-1.162	2.0
+1432	9	11	1	1425	0	7450817	Sloped Entryway - Violet	-1.162	2.0
+1433	9	11	1	1425	0	7450814	Sloped Entryway - Crimson	-1.162	2.0
+1434	9	11	1	1425	0	7450811	Sloped Entryway - Nutmeg	-1.162	2.0
+1435	9	11	1	1425	0	7450808	Sloped Entryway - Forest	-1.162	2.0
+1436	9	12	1	0	0	7448531	Wide Window	0	0
+1437	9	12	1	0	0	7118945	Round Window	0	0
+1444	9	16	1	0	0	7118954	Tall Brick Chimney	0	0
+1445	9	16	1	0	0	7118953	Covered Chimney	0	0
+1452	9	16	1	0	0	7118952	Reinforced Chimney	0	0
+1453	9	16	1	0	0	7118951	Wide Brick Chimney	0	0
+1455	9	10	4	0	0	7420575	Square Roof	0	0
+1456	9	10	4	1455	0	7420574	Square Roof	0	0
+1457	9	10	4	1455	0	7420578	Square Roof	0	0
+1458	9	10	4	1455	0	7420579	Square Roof	0	0
+1459	9	10	4	1455	0	7420576	Square Roof	0	0
+1460	9	10	4	1455	0	7420577	Square Roof	0	0
+1461	9	10	4	0	0	7420568	Sloped Roof	0	0
+1462	9	10	4	1461	0	7420573	Sloped Roof	0	0
+1463	9	10	4	1461	0	7420571	Sloped Roof	0	0
+1464	9	10	4	1461	0	7420572	Sloped Roof	0	0
+1465	9	10	4	1461	0	7420569	Sloped Roof	0	0
+1466	9	10	4	1461	0	7420570	Sloped Roof	0	0
+1467	9	10	4	0	1	7420563	Simple Roof	0	0
+1468	9	10	4	1467	0	7420562	Simple Roof	0	0
+1469	9	10	4	1467	0	7420566	Simple Roof	0	0
+1470	9	10	4	1467	0	7420567	Simple Roof	0	0
+1471	9	10	4	1467	0	7420564	Simple Roof	0	0
+1472	9	10	4	1467	0	7420565	Simple Roof	0	0
+1473	9	10	3	0	0	7420586	Square Roof	0	0
+1474	9	10	3	1473	0	7420599	Square Roof	0	0
+1475	9	10	3	1473	0	7420595	Square Roof	0	0
+1476	9	10	3	1473	0	7420598	Square Roof	0	0
+1477	9	10	3	1473	0	7420589	Square Roof	0	0
+1478	9	10	3	1473	0	7420592	Square Roof	0	0
+1479	9	10	3	0	0	7420585	Sloped Roof	0	0
+1480	9	10	3	1479	0	7420600	Sloped Roof	0	0
+1481	9	10	3	1479	0	7420594	Sloped Roof	0	0
+1482	9	10	3	1479	0	7420597	Sloped Roof	0	0
+1483	9	10	3	1479	0	7420588	Sloped Roof	0	0
+1484	9	10	3	1479	0	7420591	Sloped Roof	0	0
+1485	9	10	3	0	1	7420584	Simple Roof	0	0
+1486	9	10	3	1485	0	7420601	Simple Roof	0	0
+1487	9	10	3	1485	0	7420593	Simple Roof	0	0
+1488	9	10	3	1485	0	7420596	Simple Roof	0	0
+1489	9	10	3	1485	0	7420587	Simple Roof	0	0
+1490	9	10	3	1485	0	7420590	Simple Roof	0	0
+1491	9	10	2	0	0	7420604	Square Roof	0	0
+1492	9	10	2	1491	0	7420617	Square Roof	0	0
+1493	9	10	2	1491	0	7420611	Square Roof	0	0
+1494	9	10	2	1491	0	7420616	Square Roof	0	0
+1495	9	10	2	1491	0	7420605	Square Roof	0	0
+1496	9	10	2	1491	0	7420610	Square Roof	0	0
+1497	9	10	2	0	0	7420603	Sloped Roof	0	0
+1498	9	10	2	1497	0	7420618	Sloped Roof	0	0
+1499	9	10	2	1497	0	7420612	Sloped Roof	0	0
+1500	9	10	2	1497	0	7420615	Sloped Roof	0	0
+1501	9	10	2	1497	0	7420606	Sloped Roof	0	0
+1502	9	10	2	1497	0	7420609	Sloped Roof	0	0
+1503	9	10	2	0	1	7420602	Simple Roof	0	0
+1504	9	10	2	1503	0	7420619	Simple Roof	0	0
+1505	9	10	2	1503	0	7420613	Simple Roof	0	0
+1506	9	10	2	1503	0	7420614	Simple Roof	0	0
+1507	9	10	2	1503	0	7420607	Simple Roof	0	0
+1508	9	10	2	1503	0	7420608	Simple Roof	0	0
+2470	87	10	2	3805	0	7460533	Plated Roof	0	0
+2471	87	10	2	3805	0	7460522	Plated Roof	0	0
+2472	87	10	2	3805	0	7460513	Plated Roof	0	0
+2473	87	10	2	3805	0	7460504	Plated Roof	0	0
+2474	87	10	2	3805	0	7460495	Plated Roof	0	0
+2476	87	10	2	3811	0	7460531	Vented Roof	0	0
+2477	87	10	2	3811	0	7460520	Vented Roof	0	0
+2478	87	10	2	3811	0	7460511	Vented Roof	0	0
+2479	87	10	2	3811	0	7460502	Vented Roof	0	0
+2480	87	10	2	3811	0	7460493	Vented Roof	0	0
+2482	87	10	2	3817	0	7460532	Hide Roof	0	0
+2483	87	10	2	3817	0	7460521	Hide Roof	0	0
+2484	87	10	2	3817	0	7460512	Hide Roof	0	0
+2485	87	10	2	3817	0	7460503	Hide Roof	0	0
+2486	87	10	2	3817	0	7460494	Hide Roof	0	0
+2488	87	10	4	3823	0	7460525	Plated Roof	0	0
+2489	87	10	4	3823	0	7460516	Plated Roof	0	0
+2490	87	10	4	3823	0	7460507	Plated Roof	0	0
+2491	87	10	4	3823	0	7460498	Plated Roof	0	0
+2492	87	10	4	3823	0	7460489	Plated Roof	0	0
+2494	87	10	3	3829	0	7460529	Plated Roof	0	0
+2495	87	10	3	3829	0	7460519	Plated Roof	0	0
+2496	87	10	3	3829	0	7460510	Plated Roof	0	0
+2497	87	10	3	3829	0	7460501	Plated Roof	0	0
+2498	87	10	3	3829	0	7460492	Plated Roof	0	0
+2500	87	10	3	3835	0	7460528	Hide Roof	0	0
+2501	87	10	3	3835	0	7460518	Hide Roof	0	0
+2502	87	10	3	3835	0	7460509	Hide Roof	0	0
+2503	87	10	3	3835	0	7460500	Hide Roof	0	0
+2504	87	10	3	3835	0	7460491	Hide Roof	0	0
+2507	87	10	3	3841	0	7460527	Vented Roof	0	0
+2508	87	10	3	3841	0	7460517	Vented Roof	0	0
+2509	87	10	3	3841	0	7460508	Vented Roof	0	0
+2510	87	10	3	3841	0	7460499	Vented Roof	0	0
+2511	87	10	3	3841	0	7460490	Vented Roof	0	0
+2513	87	10	4	3847	0	7460523	Vented Roof	0	0
+2514	87	10	4	3847	0	7460514	Vented Roof	0	0
+2515	87	10	4	3847	0	7460505	Vented Roof	0	0
+2516	87	10	4	3847	0	7460496	Vented Roof	0	0
+2517	87	10	4	3847	0	7460487	Vented Roof	0	0
+2519	87	10	4	3853	0	7460524	Hide Roof	0	0
+2520	87	10	4	3853	0	7460515	Hide Roof	0	0
+2521	87	10	4	3853	0	7460506	Hide Roof	0	0
+2522	87	10	4	3853	0	7460497	Hide Roof	0	0
+2523	87	10	4	3853	0	7460488	Hide Roof	0	0
+3793	9	9	4	0	0	6648724	Stonework	0	0
+3795	9	9	3	0	0	6648725	Stonework	0	0
+3797	9	9	2	0	0	7118931	Cottage	0	0
+3805	87	10	2	0	0	7118908	Plated Roof	0	0
+3811	87	10	2	0	1	7118906	Vented Roof	0	0
+3817	87	10	2	0	0	7118907	Hide Roof	0	0
+3823	87	10	4	0	0	7118911	Plated Roof	0	0
+3829	87	10	3	0	0	7118905	Plated Roof	0	0
+3835	87	10	3	0	0	7118904	Hide Roof	0	0
+3841	87	10	3	0	1	7118903	Vented Roof	0	0
+3847	87	10	4	0	1	7118909	Vented Roof	0	0
+3853	87	10	4	0	0	7118910	Hide Roof	0	0
+5467	55	16	1	0	0	7515175	Relic Chimney - Ocean	0	0
+5468	55	16	1	0	0	7515174	Embellished Chimney - Ocean	0	0
+5469	55	16	1	0	0	7515173	Rustic Chimney - Ocean	0	0
+5470	55	16	1	0	0	7515172	Tall Relic Chimney - Ocean	0	0
+5471	55	16	1	0	0	7515171	Woodland Chimney - Ocean	0	0
+5472	55	16	1	0	0	7515170	Relic Chimney - Plum	0	0
+5473	55	16	1	0	0	7515169	Embellished Chimney - Plum	0	0
+5474	55	16	1	0	0	7515168	Rustic Chimney - Plum	0	0
+5475	55	16	1	0	0	7515167	Tall Relic Chimney - Plum	0	0
+5476	55	16	1	0	0	7515166	Woodland Chimney - Plum	0	0
+5477	55	16	1	0	0	7515165	Relic Chimney - Ochre	0	0
+5478	55	16	1	0	0	7515164	Embellished Chimney - Ochre	0	0
+5479	55	16	1	0	0	7515163	Rustic Chimney - Ochre	0	0
+5480	55	16	1	0	0	7515162	Tall Relic Chimney - Ochre	0	0
+5481	55	16	1	0	0	7515161	Woodland Chimney - Ochre	0	0
+5482	55	16	1	0	0	7515160	Relic Chimney - Nutmeg	0	0
+5483	55	16	1	0	0	7515159	Embellished Chimney - Nutmeg	0	0
+5484	55	16	1	0	0	7515158	Rustic Chimney - Nutmeg	0	0
+5485	55	16	1	0	0	7515153	Tall Relic Chimney - Nutmeg	0	0
+5486	55	16	1	0	0	7515152	Woodland Chimney - Nutmeg	0	0
+5487	55	16	1	0	0	7513277	Relic Chimney - Forest	0	0
+5488	55	16	1	0	0	7513274	Embellished Chimney - Forest	0	0
+5489	55	16	1	0	0	7513273	Rustic Chimney - Forest	0	0
+5490	55	16	1	0	0	7513271	Tall Relic Chimney - Forest	0	0
+5491	55	16	1	0	0	7513270	Woodland Chimney - Forest	0	0
+5532	55	11	1	597	0	7513268	Embellished Entryway - Ocean	5.101	1.75
+5533	55	11	1	597	0	7513265	Embellished Entryway - Plum	5.101	1.75
+5534	55	11	1	597	0	7513262	Embellished Entryway - Ochre	5.101	1.75
+5535	55	11	1	597	0	7513259	Embellished Entryway - Nutmeg	5.101	1.75
+5536	55	11	1	597	0	7513256	Embellished Entryway - Forest	5.101	1.75
+5538	55	11	1	590	0	7513267	Woodland Entryway - Ocean	5.995	1.75
+5539	55	11	1	590	0	7513264	Woodland Entryway - Plum	5.995	1.75
+5540	55	11	1	590	0	7513261	Woodland Entryway - Ochre	5.995	1.75
+5541	55	11	1	590	0	7513258	Woodland Entryway - Nutmeg	5.995	1.75
+5542	55	11	1	590	0	7513255	Woodland Entryway - Forest	5.995	1.75
+5549	55	11	1	596	0	7513269	Rustic Entryway - Ocean	4.148	1.75
+5550	55	11	1	596	0	7513266	Rustic Entryway - Plum	4.148	1.75
+5551	55	11	1	596	0	7513263	Rustic Entryway - Ochre	4.148	1.75
+5552	55	11	1	596	0	7513260	Rustic Entryway - Nutmeg	4.148	1.75
+5553	55	11	1	596	0	7513257	Rustic Entryway - Forest	4.148	1.75
+5558	55	10	2	584	0	7478039	Embellished Roof	0	0
+5559	55	10	2	584	0	7478040	Embellished Roof	0	0
+5560	55	10	2	584	0	7478041	Embellished Roof	0	0
+5561	55	10	2	584	0	7478043	Embellished Roof	0	0
+5562	55	10	2	584	0	7478042	Embellished Roof	0	0
+5564	55	10	2	582	0	7478029	Woodland Roof	0	0
+5565	55	10	2	582	0	7478030	Woodland Roof	0	0
+5566	55	10	2	582	0	7478031	Woodland Roof	0	0
+5567	55	10	2	582	0	7478033	Woodland Roof	0	0
+5568	55	10	2	582	0	7478032	Woodland Roof	0	0
+5570	55	10	2	579	0	7478049	Rustic Roof	0	0
+5571	55	10	2	579	0	7478050	Rustic Roof	0	0
+5572	55	10	2	579	0	7478051	Rustic Roof	0	0
+5573	55	10	2	579	0	7478053	Rustic Roof	0	0
+5574	55	10	2	579	0	7478052	Rustic Roof	0	0
+5576	55	10	4	576	0	7478089	Rustic Roof	0	0
+5577	55	10	4	576	0	7478090	Rustic Roof	0	0
+5578	55	10	4	576	0	7478091	Rustic Roof	0	0
+5579	55	10	4	576	0	7478093	Rustic Roof	0	0
+5580	55	10	4	576	0	7478092	Rustic Roof	0	0
+5582	55	10	3	575	0	7478018	Rustic Roof	0	0
+5583	55	10	3	575	0	7478019	Rustic Roof	0	0
+5584	55	10	3	575	0	7478020	Rustic Roof	0	0
+5585	55	10	3	575	0	7478022	Rustic Roof	0	0
+5586	55	10	3	575	0	7478021	Rustic Roof	0	0
+5587	55	10	3	573	0	7478006	Embellished Roof	0	0
+5588	55	10	3	573	0	7478007	Embellished Roof	0	0
+5589	55	10	3	573	0	7478008	Embellished Roof	0	0
+5590	55	10	3	573	0	7478010	Embellished Roof	0	0
+5591	55	10	3	573	0	7478009	Embellished Roof	0	0
+5592	55	10	3	572	0	7477990	Woodland Roof	0	0
+5593	55	10	3	572	0	7477991	Woodland Roof	0	0
+5594	55	10	3	572	0	7477992	Woodland Roof	0	0
+5595	55	10	3	572	0	7477994	Woodland Roof	0	0
+5596	55	10	3	572	0	7477993	Woodland Roof	0	0
+5598	55	10	4	569	0	7478069	Woodland Roof	0	0
+5599	55	10	4	569	0	7478070	Woodland Roof	0	0
+5600	55	10	4	569	0	7478071	Woodland Roof	0	0
+5601	55	10	4	569	0	7478073	Woodland Roof	0	0
+5602	55	10	4	569	0	7478072	Woodland Roof	0	0
+5603	55	10	4	568	0	7478079	Embellished Roof	0	0
+5604	55	10	4	568	0	7478080	Embellished Roof	0	0
+5605	55	10	4	568	0	7478081	Embellished Roof	0	0
+5606	55	10	4	568	0	7478083	Embellished Roof	0	0
+5607	55	10	4	568	0	7478082	Embellished Roof	0	0
+5731	56	12	1	0	0	7513135	Domed Window - Plum	0	0
+5732	56	12	1	0	0	7513134	Regal Window - Plum	0	0
+5733	56	12	1	0	0	7513133	Domed Window - Charcoal	0	0
+5734	56	12	1	0	0	7513132	Regal Window - Charcoal	0	0
+5735	56	12	1	0	0	7513131	Domed Window - Emerald	0	0
+5736	56	12	1	0	0	7513130	Regal Window - Emerald	0	0
+5737	56	12	1	0	0	7513129	Domed Window - Ocean	0	0
+5738	56	12	1	0	0	7513128	Regal Window - Ocean	0	0
+5739	56	12	1	0	0	7513127	Domed Window - Sapphire	0	0
+5740	56	12	1	0	0	7513126	Regal Window - Sapphire	0	0
+5781	56	10	2	645	0	7478248	Tiered Roof	0	0
+5782	56	10	2	645	0	7478256	Tiered Roof	0	0
+5783	56	10	2	645	0	7478251	Tiered Roof	0	0
+5784	56	10	2	645	0	7478249	Tiered Roof	0	0
+5785	56	10	2	645	0	7478250	Tiered Roof	0	0
+5790	56	10	3	636	0	7478224	Faceted Roof	0	0
+5791	56	10	3	636	0	7478228	Faceted Roof	0	0
+5792	56	10	3	636	0	7478227	Faceted Roof	0	0
+5793	56	10	3	636	0	7478225	Faceted Roof	0	0
+5794	56	10	3	636	0	7478226	Faceted Roof	0	0
+5795	56	10	4	634	0	7478257	Domed Roof	0	0
+5796	56	10	4	634	0	7478261	Domed Roof	0	0
+5797	56	10	4	634	0	7478260	Domed Roof	0	0
+5798	56	10	4	634	0	7478258	Domed Roof	0	0
+5799	56	10	4	634	0	7478259	Domed Roof	0	0
+5800	56	10	2	629	0	7478243	Faceted Roof	0	0
+5801	56	10	2	629	0	7478247	Faceted Roof	0	0
+5802	56	10	2	629	0	7478246	Faceted Roof	0	0
+5803	56	10	2	629	0	7478244	Faceted Roof	0	0
+5804	56	10	2	629	0	7478245	Faceted Roof	0	0
+5805	56	10	3	628	0	7478219	Domed Roof	0	0
+5806	56	10	3	628	0	7478223	Domed Roof	0	0
+5807	56	10	3	628	0	7478222	Domed Roof	0	0
+5808	56	10	3	628	0	7478220	Domed Roof	0	0
+5809	56	10	3	628	0	7478221	Domed Roof	0	0
+5810	56	10	3	627	0	7478229	Tiered Roof	0	0
+5811	56	10	3	627	0	7478237	Tiered Roof	0	0
+5812	56	10	3	627	0	7478236	Tiered Roof	0	0
+5813	56	10	3	627	0	7478230	Tiered Roof	0	0
+5814	56	10	3	627	0	7478235	Tiered Roof	0	0
+5815	56	10	4	626	0	7478267	Tiered Roof	0	0
+5816	56	10	4	626	0	7478271	Tiered Roof	0	0
+5817	56	10	4	626	0	7478270	Tiered Roof	0	0
+5818	56	10	4	626	0	7478268	Tiered Roof	0	0
+5819	56	10	4	626	0	7478269	Tiered Roof	0	0
+5820	56	10	4	623	0	7478262	Faceted Roof	0	0
+5821	56	10	4	623	0	7478266	Faceted Roof	0	0
+5822	56	10	4	623	0	7478265	Faceted Roof	0	0
+5823	56	10	4	623	0	7478263	Faceted Roof	0	0
+5824	56	10	4	623	0	7478264	Faceted Roof	0	0
+5825	56	10	2	621	0	7478238	Domed Roof	0	0
+5826	56	10	2	621	0	7478242	Domed Roof	0	0
+5827	56	10	2	621	0	7478241	Domed Roof	0	0
+5828	56	10	2	621	0	7478239	Domed Roof	0	0
+5829	56	10	2	621	0	7478240	Domed Roof	0	0
+5831	56	11	1	620	0	7513124	Elegant Entryway - Plum	21.333	1.5
+5832	56	11	1	620	0	7513122	Elegant Entryway - Charcoal	21.333	1.5
+5833	56	11	1	620	0	7513120	Elegant Entryway - Emerald	21.333	1.5
+5834	56	11	1	620	0	7513118	Elegant Entryway - Ocean	21.333	1.5
+5835	56	11	1	620	0	7513116	Elegant Entryway - Sapphire	21.333	1.5
+5837	56	11	1	619	0	7513125	Grand Entryway - Plum	17.675	1.5
+5838	56	11	1	619	0	7513123	Grand Entryway - Charcoal	17.675	1.5
+5839	56	11	1	619	0	7513121	Grand Entryway - Emerald	17.675	1.5
+5840	56	11	1	619	0	7513119	Grand Entryway - Ocean	17.675	1.5
+5841	56	11	1	619	0	7513117	Grand Entryway - Sapphire	17.675	1.5
+6090	87	16	1	0	0	7509654	Stone Chimney - Nutmeg	0	0
+6091	87	16	1	0	0	7509653	Stone Chimney - Rust	0	0
+6092	87	16	1	0	0	7509652	Stone Chimney - Ocean	0	0
+6093	87	16	1	0	0	7509651	Stone Chimney - Mustard	0	0
+6094	87	16	1	0	0	7509650	Stone Chimney - Forest	0	0
+6101	87	11	1	977	0	7509667	Scrap Metal Entry - Nutmeg	-1.741	2.25
+6102	87	11	1	977	0	7509665	Scrap Metal Entry - Rust	-1.741	2.25
+6103	87	11	1	977	0	7509663	Scrap Metal Entry - Ocean	-1.741	2.25
+6104	87	11	1	977	0	7509660	Scrap Metal Entry - Mustard	-1.741	2.25
+6105	87	11	1	977	0	7509657	Scrap Metal Entry - Forest	-1.741	2.25
+6107	87	11	1	976	0	7509669	Drawbridge Entry - Rust	-1.606	2.5
+6108	87	11	1	976	0	7509668	Drawbridge Entry - Nutmeg	-1.606	2.5
+6109	87	11	1	976	0	7509661	Drawbridge Entry - Ocean	-1.606	2.5
+6110	87	11	1	976	0	7509658	Drawbridge Entry - Mustard	-1.606	2.5
+6111	87	11	1	976	0	7509655	Drawbridge Entry - Forest	-1.606	2.5
+6113	87	11	1	975	0	7509666	Covered Entry - Nutmeg	-1.541	1.0
+6114	87	11	1	975	0	7509664	Covered Entry - Rust	-1.541	1.0
+6115	87	11	1	975	0	7509662	Covered Entry - Ocean	-1.541	1.0
+6116	87	11	1	975	0	7509659	Covered Entry - Mustard	-1.541	1.0
+6117	87	11	1	975	0	7509656	Covered Entry - Forest	-1.541	1.0
+6942	166	9	2	0	1	7769898	Lush Garden Treehouse Base	0	0
+6944	166	11	2	0	1	7771138	Lush Garden Treehouse Door	13.406	0.5
+6947	166	10	2	0	1	7771137	Lush Garden Treehouse Roof	0	0
+7077	172	10	2	0	1	7810376	Spring Blossom Treehouse Roof	0	0
+7078	172	9	2	0	1	7810378	Spring Blossom Treehouse Base	0	0
+7079	172	11	2	0	1	7810377	Spring Blossom Treehouse Door	13.406	0.5
+7254	250	10	2	0	1	7864258		0	0
+7255	250	9	2	0	1	7864253		0	0
+7256	251	10	2	0	1	7864259		0	0
+7257	251	9	2	0	1	7864255		0	0
+7258	250	11	1	0	1	7864256		1.5	0.0
+7259	251	11	1	0	1	7864257		1.5	0.0
