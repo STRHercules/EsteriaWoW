@@ -63,6 +63,17 @@ CREATE TABLE IF NOT EXISTS `housing_house_limits` (
   CONSTRAINT `fk_limits_house` FOREIGN KEY (`house_id`) REFERENCES `housing_house` (`house_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- How an owner set their plot's house: its exterior style, and its offset (yd) and turn (degrees) from the plot's spot.
+CREATE TABLE IF NOT EXISTS `housing_plot_style` (
+  `map_id`   SMALLINT UNSIGNED NOT NULL,
+  `plot`     TINYINT UNSIGNED NOT NULL,
+  `style`    INT UNSIGNED NOT NULL DEFAULT 92,
+  `offset_x` FLOAT NOT NULL DEFAULT 0,
+  `offset_y` FLOAT NOT NULL DEFAULT 0,
+  `turn`     FLOAT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`map_id`, `plot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
 CREATE TABLE IF NOT EXISTS `housing_plot_claim` (
   `map_id`     SMALLINT UNSIGNED NOT NULL,

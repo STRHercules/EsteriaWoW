@@ -96,11 +96,21 @@ CREATE TABLE IF NOT EXISTS `housing_plot` (
   PRIMARY KEY (`map_id`, `plot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `housing_exterior_piece`; -- generated data; dropped so new columns arrive
 CREATE TABLE IF NOT EXISTS `housing_exterior_piece` (
   `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `style`            INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'HouseExteriorWmoData.ID * 10 + size; 0: every style (the front door)',
   `role`             VARCHAR(16) NOT NULL COMMENT 'base roof window chimney, or door_hook: a candidate door position',
   `gameobject_entry` INT UNSIGNED NOT NULL COMMENT 'type 14, display retail\<fdid>.wmo',
   `pos_x` FLOAT NOT NULL, `pos_y` FLOAT NOT NULL, `pos_z` FLOAT NOT NULL,
   `rot_deg` FLOAT NOT NULL COMMENT 'hook OffsetRot z, applied clockwise',
+  `mat_x`  FLOAT NOT NULL DEFAULT 0 COMMENT 'door hooks: where the Front Door mat lies, out from the door (yd)',
+  `mat_z`  FLOAT NOT NULL DEFAULT 0 COMMENT 'door hooks: the porch floor height there',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `housing_exterior_style`;
+CREATE TABLE IF NOT EXISTS `housing_exterior_style` (
+  `style` INT UNSIGNED NOT NULL,
+  `name`  VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`style`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

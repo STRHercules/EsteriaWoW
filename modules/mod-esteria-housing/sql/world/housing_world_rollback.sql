@@ -12,6 +12,7 @@ DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN 61000 AND 61999;
 DELETE FROM `gameobject` WHERE `id` BETWEEN 9500000 AND 9500399; -- cornerstones and saved house exteriors
 DROP TABLE IF EXISTS `housing_plot`;
 DROP TABLE IF EXISTS `housing_exterior_piece`;
+DROP TABLE IF EXISTS `housing_exterior_style`;
 DROP TABLE IF EXISTS `housing_room_piece`;
 DROP TABLE IF EXISTS `housing_room_kit`;
 DROP TABLE IF EXISTS `housing_room_kit_theme`;

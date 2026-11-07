@@ -139,14 +139,25 @@ namespace
     };
     struct ExteriorPiece
     {
+        uint32 style = 0; // HouseExteriorWmoData.ID * 10 + size; 0 for the front door, which every style uses
         std::string role; // base roof window chimney door_hook front_door
         uint32 entry = 0;
         float pos[3] = { 0, 0, 0 };
         float rotDeg = 0;
+        float matX = 0, matZ = 0; // door hooks: where the Front Door mat lies on the porch, in the door's own coordinates
     };
+    // How an owner set their plot's house: its style, and where it stands from the plot's spot (housing_plot_style).
+    struct PlotLook
+    {
+        uint32 style = 92; // Human House (Small), the house every plot started with
+        float dx = 0, dy = 0, turn = 0; // yd east/north of the plot's spot; degrees
+    };
+    constexpr float PlotReachYd = 8.0f; // how far the house may move from the plot's spot
     struct Placement { uint32 entry; float x, y, z, yaw; };
     std::vector<Plot> s_plots;
     std::vector<ExteriorPiece> s_exterior;
+    std::map<uint32, std::string> s_exteriorStyles;                    // style -> name
+    std::map<std::pair<uint16, uint8>, PlotLook> s_plotLook;
     std::map<std::pair<uint16, uint8>, uint32> s_plotHouse;           // plot -> house
     std::map<std::pair<uint16, uint8>, std::vector<uint32>> s_plotSpawns; // plot -> its saved exterior spawns
     std::unordered_map<uint32, std::pair<uint16, uint8>> s_housePlot; // house -> plot
@@ -338,7 +349,20 @@ namespace
 
         s_plots.clear();
         s_exterior.clear();
+        s_exteriorStyles.clear();
+        s_plotLook.clear();
         s_plotHouse.clear();
+        if (QueryResult result = WorldDatabase.Query("SELECT style, name FROM housing_exterior_style"))
+            do
+                s_exteriorStyles[result->Fetch()[0].Get<uint32>()] = result->Fetch()[1].Get<std::string>();
+            while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, style, offset_x, offset_y, turn FROM housing_plot_style"))
+            do
+            {
+                Field* f = result->Fetch();
+                s_plotLook[{ f[0].Get<uint16>(), f[1].Get<uint8>() }] = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(),
+                    f[5].Get<float>() };
+            } while (result->NextRow());
         s_housePlot.clear();
         if (QueryResult result = WorldDatabase.Query("SELECT map_id, plot, house_x, house_y, house_z, house_yaw, corner_x, "
             "corner_y, corner_z, corner_o, exit_x, exit_y, exit_z FROM housing_plot ORDER BY map_id, plot"))
@@ -351,7 +375,7 @@ namespace
                 for (int i = 0; i < 3; ++i) p.exit[i] = f[10 + i].Get<float>();
                 s_plots.push_back(p);
             } while (result->NextRow());
-        if (QueryResult result = WorldDatabase.Query("SELECT role, gameobject_entry, pos_x, pos_y, pos_z, rot_deg "
+        if (QueryResult result = WorldDatabase.Query("SELECT role, gameobject_entry, pos_x, pos_y, pos_z, rot_deg, style, mat_x, mat_z "
             "FROM housing_exterior_piece ORDER BY id"))
             do
             {
@@ -360,6 +384,7 @@ namespace
                 e.role = f[0].Get<std::string>(); e.entry = f[1].Get<uint32>();
                 for (int i = 0; i < 3; ++i) e.pos[i] = f[2 + i].Get<float>();
                 e.rotDeg = f[5].Get<float>();
+                e.style = f[6].Get<uint32>(); e.matX = f[7].Get<float>(); e.matZ = f[8].Get<float>();
                 GameObjectTemplate const* go = sObjectMgr->GetGameObjectTemplate(e.entry);
                 if (!go || (go->type != GAMEOBJECT_TYPE_MAP_OBJECT && e.role != "front_door"))
                 {
@@ -1330,7 +1355,13 @@ namespace
         std::vector<Placement> out;
         std::vector<Rooms::Hook> doors;
         std::vector<uint32> doorEntries;
+        std::vector<std::pair<float, float>> doorMats; // x out of the door, z up
         uint32 frontDoor = 0;
+        auto const look = s_plotLook.find({ plot.map, plot.index });
+        PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
+        // where the house stands: the plot's spot, moved and turned as its owner set it
+        float const hx = plot.house[0] + l.dx, hy = plot.house[1] + l.dy, hz = plot.house[2];
+        float const yaw = plot.house[3] + l.turn * float(M_PI) / 180;
         for (ExteriorPiece const& e : s_exterior)
         {
             Rooms::Hook const h{ e.pos[0], e.pos[1], e.pos[2], e.rotDeg };
@@ -1339,23 +1370,26 @@ namespace
                 frontDoor = e.entry;
                 continue;
             }
+            if (e.style != l.style)
+                continue;
             if (e.role == "door_hook")
             {
                 doors.push_back(h);
                 doorEntries.push_back(e.entry);
+                doorMats.push_back({ e.matX, e.matZ });
                 continue;
             }
-            Rooms::Pose const p = Rooms::OnPlot(plot.house[0], plot.house[1], plot.house[2], plot.house[3], h);
+            Rooms::Pose const p = Rooms::OnPlot(hx, hy, hz, yaw, h);
             out.push_back({ e.entry, p.x, p.y, p.z, p.yaw });
         }
         if (!doors.empty())
         {
-            size_t const i = Rooms::FrontDoor(plot.house[0], plot.house[1], plot.house[2], plot.house[3], doors, plot.corner[0],
-                plot.corner[1]);
-            Rooms::Pose const p = Rooms::OnPlot(plot.house[0], plot.house[1], plot.house[2], plot.house[3], doors[i]);
+            size_t const i = Rooms::FrontDoor(hx, hy, hz, yaw, doors, plot.corner[0], plot.corner[1]);
+            Rooms::Pose const p = Rooms::OnPlot(hx, hy, hz, yaw, doors[i]);
             out.push_back({ doorEntries[i], p.x, p.y, p.z, p.yaw });
             if (frontDoor)
-                out.push_back({ frontDoor, p.x - p.nx * 1.5f, p.y - p.ny * 1.5f, p.z + 2.02f, p.yaw });
+                out.push_back({ frontDoor, p.x + p.nx * doorMats[i].first, p.y + p.ny * doorMats[i].first, p.z + doorMats[i].second,
+                    p.yaw });
             if (door)
             {
                 *door = p;
@@ -1503,6 +1537,15 @@ namespace
         WorldPacket data(SMSG_ESTERIA_HOUSING_PLOT, 64);
         data << uint16(plot.index + 1) << status << s_config.plotPrice
              << uint8(own && s_housePlot.count(own->id) && status != PlotYours) << NeighborhoodName << "" << message;
+        auto const look = s_plotLook.find({ plot.map, plot.index });
+        PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
+        data << l.style << l.dx << l.dy << l.turn << PlotReachYd;
+        uint8 const styles = status == PlotYours ? uint8(std::min<size_t>(s_exteriorStyles.size(), 255)) : 0;
+        data << styles;
+        size_t n = 0;
+        for (auto const& [id, name] : s_exteriorStyles)
+            if (n++ < styles)
+                data << id << name;
         player->SendDirectMessage(&data);
     }
 
@@ -1540,6 +1583,50 @@ namespace
         if (!player || !s_config.enabled || !s_loaded)
         {
             packet.rfinish();
+            return;
+        }
+        if (action == ActionPlotStyle || action == ActionPlotPlace)
+        {
+            Plot const* plot = ViewedPlot(player);
+            auto owner = plot ? s_plotHouse.find({ plot->map, plot->index }) : s_plotHouse.end();
+            if (owner == s_plotHouse.end() || !s_houses.count(owner->second) || s_houses[owner->second].account != session->GetAccountId())
+            {
+                packet.rfinish();
+                return;
+            }
+            PlotLook look = s_plotLook.count({ plot->map, plot->index }) ? s_plotLook[{ plot->map, plot->index }] : PlotLook{};
+            std::string message;
+            if (action == ActionPlotStyle)
+            {
+                uint32 style;
+                packet >> style;
+                if (s_exteriorStyles.count(style))
+                    look.style = style;
+                else
+                    message = "That house style is not available.";
+            }
+            else
+            {
+                float dx, dy, turn;
+                packet >> dx >> dy >> turn;
+                if (!std::isfinite(dx) || !std::isfinite(dy) || !std::isfinite(turn) || dx * dx + dy * dy > PlotReachYd * PlotReachYd)
+                    message = "The house cannot move that far from its spot.";
+                else
+                {
+                    look.dx = dx; look.dy = dy;
+                    look.turn = std::fmod(std::round(turn / 15) * 15 + 360, 360.0f); // 15 degree steps
+                }
+            }
+            if (message.empty())
+            {
+                s_plotLook[{ plot->map, plot->index }] = look;
+                CharacterDatabase.Execute("REPLACE INTO housing_plot_style (map_id, plot, style, offset_x, offset_y, turn) "
+                    "VALUES ({}, {}, {}, {}, {}, {})", plot->map, plot->index, look.style, look.dx, look.dy, look.turn);
+                RefreshExterior(player->GetMap(), *plot);
+                LOG_INFO("module", "housing: plot {} now style {} at {:.2f}, {:.2f} turned {}", plot->index, look.style, look.dx,
+                    look.dy, look.turn);
+            }
+            SendPlot(player, *plot, message);
             return;
         }
         if (action == ActionBuyPlot || action == ActionEnterPlot)
@@ -1824,9 +1911,11 @@ namespace
                 auto house = s_houses.find(houseId);
                 if (!plot || plot->map != go->GetMapId() || house == s_houses.end())
                     continue;
-                Rooms::Pose door;
-                Exterior(*plot, &door);
-                if (go->GetExactDist2d(door.x, door.y) > 4.0f) // the mat lies 3 yd behind the door point, on the porch
+                // this plot's house has its front door mat right where this one lies
+                bool mine = false;
+                for (Placement const& p : Exterior(*plot))
+                    mine = mine || (p.entry == go->GetEntry() && go->GetExactDist2d(p.x, p.y) < 1.0f);
+                if (!mine)
                     continue;
                 if (MayEnter(player, house->second))
                     EnterFromPlot(player, house->second, *plot);

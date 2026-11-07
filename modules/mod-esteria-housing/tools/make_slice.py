@@ -77,6 +77,7 @@ CORNERSTONE_FDID = 6935310  # GameObjects 527268 "Cornerstone - Plot 0" -> GameO
 EXTERIOR_DISPLAY_BASE, EXTERIOR_GO_BASE = DISPLAY_BASE + 100, GO_BASE + 150
 CORNERSTONE_DISPLAY, CORNERSTONE_GO = EXTERIOR_DISPLAY_BASE + 99, EXTERIOR_GO_BASE + 49
 FRONT_DOOR_DISPLAY, FRONT_DOOR_GO = EXTERIOR_DISPLAY_BASE + 98, EXTERIOR_GO_BASE + 48
+assert len(EXTERIOR_MODELS) <= 48, f"{len(EXTERIOR_MODELS)} exterior models; entries {EXTERIOR_GO_BASE}+ hold 48 before the front door"
 CORNERSTONE_GUID_BASE = 9500000  # gameobject guids 9500000 + plot; checked free in acore_world (max 5.7M)
 # The template's min_z is the floor the module builds rooms on (RoomTemplate::Origin); x/y bounds are per room now.
 BOUNDS_HALF = (11.0, 11.0)
@@ -315,12 +316,16 @@ def world_sql(map_dbc):
                  f"-1, -1, 0, 1, 1, 1);")
     lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES "
                  f"({FRONT_DOOR_GO}, 10, {FRONT_DOOR_DISPLAY}, 'Front Door', 1, 'go_esteria_housing_front_door');")
-    lines.append(f"INSERT INTO `housing_exterior_piece` (`role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, `rot_deg`) "
-                 f"VALUES ('front_door', {FRONT_DOOR_GO}, 0, 0, 0, 0);")
+    lines.append(f"INSERT INTO `housing_exterior_piece` (`style`, `role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, "
+                 f"`rot_deg`) VALUES (0, 'front_door', {FRONT_DOOR_GO}, 0, 0, 0, 0);")
+    lines.append("DELETE FROM `housing_exterior_style`;")
+    for style, name in sorted({(int(r["style"]), r["name"]) for r in EXTERIOR}):
+        lines.append(f"INSERT INTO `housing_exterior_style` VALUES ({style}, {q(name)});")
     for r in EXTERIOR:
-        lines.append(f"INSERT INTO `housing_exterior_piece` (`role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, `rot_deg`) "
-                     f"VALUES ({q(r['role'])}, {EXTERIOR_GO_BASE + EXTERIOR_MODELS.index(int(r['fdid']))}, {r['x']}, {r['y']}, "
-                     f"{r['z']}, {r['rot_deg']});")
+        lines.append(f"INSERT INTO `housing_exterior_piece` (`style`, `role`, `gameobject_entry`, `pos_x`, `pos_y`, `pos_z`, "
+                     f"`rot_deg`, `mat_x`, `mat_z`) VALUES ({r['style']}, {q(r['role'])}, "
+                     f"{EXTERIOR_GO_BASE + EXTERIOR_MODELS.index(int(r['fdid']))}, {r['x']}, {r['y']}, {r['z']}, {r['rot_deg']}, "
+                     f"{r['mat_x']}, {r['mat_z']});")
     for p in PLOTS:
         lines.append(f"INSERT INTO `housing_plot` VALUES ({NEIGHBORHOOD_MAP}, {p['plot']}, {p['house_x']}, {p['house_y']}, "
                      f"{p['house_z']}, {p['house_yaw']}, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {p['corner_o']}, "

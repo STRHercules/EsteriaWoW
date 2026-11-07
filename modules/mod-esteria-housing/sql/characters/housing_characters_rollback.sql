@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS `housing_permission`;
 DROP TABLE IF EXISTS `housing_account_decor`;
 DROP TABLE IF EXISTS `housing_placed_decor`;
 DROP TABLE IF EXISTS `housing_plot_claim`;
+DROP TABLE IF EXISTS `housing_plot_style`;
 DROP TABLE IF EXISTS `housing_room_style`;
 DROP TABLE IF EXISTS `housing_room_level`;
 DROP TABLE IF EXISTS `housing_house_limits`;

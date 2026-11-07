@@ -29,6 +29,8 @@
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
 //   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
 //                 neighborhood(string) owner(string) message(string)
+//                 then style(u32) dx(f32) dy(f32) turn(f32 degrees) reach(f32 yd) styles n(u8) x style(u32) name(string)
+//                 (your plot only; n 0 otherwise)
 //                 sent when a cornerstone is clicked (the client opens the plot window) and after a plot action
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
 //                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
@@ -42,7 +44,7 @@
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 8;
+    inline constexpr uint16_t Proto = 9;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -83,6 +85,8 @@ namespace EsteriaHousingWire
         ActionStairsUp = 7,   // room(u8): a stairwell's top becomes another stairwell, with a new top above
         ActionBuyDecor = 8,   // decorId(u32) count(u16): the catalog's price each, into storage
         ActionUpgrade = 9,    // what(u8 Upgrade): buy the house's next floor or decor budget step
+        ActionPlotStyle = 10, // style(u32): rebuild your plot's house in another exterior style
+        ActionPlotPlace = 11, // dx(f32) dy(f32) turnDegrees(f32): where the house stands on your plot, from its spot
     };
 
     inline constexpr uint32_t StairsDownBase = 1000;
