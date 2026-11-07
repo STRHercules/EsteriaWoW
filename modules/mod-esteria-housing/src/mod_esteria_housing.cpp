@@ -65,6 +65,7 @@ namespace
     constexpr int8 MinLevel = -1;
     constexpr uint8 BaseFloors = 4, FloorCap = 15;
     constexpr uint16 DecorBase = 200, DecorCap = 5000, DecorStep = 100;
+    constexpr uint8 RoomCap = 64, RoomStep = 4;
 
     struct HouseRoom
     {
@@ -89,8 +90,10 @@ namespace
         uint32 id = 0, account = 0, roomTemplate = 0, roomId = 0, revision = 0;
         uint16 maxDecor = 0;
         uint8 floors = BaseFloors;    // floors above the ground it may build (housing_house_limits)
+        uint8 roomLimit = 0;          // rooms it may hold; 0: the realm's EsteriaHousing.MaxRooms
         int8 MaxLevel() const { return int8(floors - 1); }
         std::map<uint64, Placed> placed;
+        std::map<uint64, Placed> outdoor; // decor on its plot (housing_placed_decor.room_id 0), saved world spawns
         std::vector<HouseRoom> rooms; // slot order; rooms[0] is the room decor rows reference (roomId)
     };
 
@@ -153,7 +156,12 @@ namespace
         float dx = 0, dy = 0, turn = 0; // yd east/north of the plot's spot; degrees
     };
     constexpr float PlotReachYd = 8.0f; // how far the house may move from the plot's spot
-    struct Placement { uint32 entry; float x, y, z, yaw; };
+    struct Placement { uint32 entry; float x, y, z, yaw; float rot[4] = { 0, 0, 0, 0 }; }; // rot all 0: turn by yaw
+    constexpr uint16 OutdoorBudget = 100;           // decor on a plot
+    float s_plotRadius = 20;                        // half the distance between the closest two plots, at most 30 yd
+    std::unordered_map<uint64, uint32> s_outdoorSpawn; // outdoor placed decor -> its saved world spawn
+    std::unordered_map<ObjectGuid, uint32> s_onPlot;   // player -> house whose plot they stand on (0: none)
+    std::unordered_map<ObjectGuid, uint32> s_plotWatch; // player -> ms before the next plot check
     std::vector<Plot> s_plots;
     std::vector<ExteriorPiece> s_exterior;
     std::map<uint32, std::string> s_exteriorStyles;                    // style -> name
@@ -341,10 +349,19 @@ namespace
                 s_nextHouseId = std::max(s_nextHouseId, h.id + 1);
                 s_houses[h.id] = std::move(h);
             } while (result->NextRow());
-        if (QueryResult result = CharacterDatabase.Query("SELECT house_id, floors FROM housing_house_limits"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT house_id, floors, rooms FROM housing_house_limits"))
             do
                 if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
+                {
                     house->second.floors = uint8(std::clamp<int>(result->Fetch()[1].Get<uint8>(), BaseFloors, FloorCap));
+                    house->second.roomLimit = uint8(std::min<int>(result->Fetch()[2].Get<uint8>(), RoomCap));
+                }
+            while (result->NextRow());
+
+        s_outdoorSpawn.clear();
+        if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, spawn_id FROM housing_outdoor_spawn"))
+            do
+                s_outdoorSpawn[result->Fetch()[0].Get<uint64>()] = result->Fetch()[1].Get<uint32>();
             while (result->NextRow());
 
         s_plots.clear();
@@ -375,6 +392,11 @@ namespace
                 for (int i = 0; i < 3; ++i) p.exit[i] = f[10 + i].Get<float>();
                 s_plots.push_back(p);
             } while (result->NextRow());
+        s_plotRadius = 30;
+        for (Plot const& a : s_plots)
+            for (Plot const& b : s_plots)
+                if (&a != &b && a.map == b.map)
+                    s_plotRadius = std::min(s_plotRadius, 0.5f * std::hypot(a.house[0] - b.house[0], a.house[1] - b.house[1]));
         if (QueryResult result = WorldDatabase.Query("SELECT role, gameobject_entry, pos_x, pos_y, pos_z, rot_deg, style, mat_x, mat_z "
             "FROM housing_exterior_piece ORDER BY id"))
             do
@@ -455,7 +477,7 @@ namespace
             s_nextPlacedId = std::max<uint64>(1, result->Fetch()[0].Get<uint64>() + 1);
 
         if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, house_id, decor_id, pos_x, pos_y, pos_z, rot_x, "
-            "rot_y, rot_z, rot_w, scale FROM housing_placed_decor"))
+            "rot_y, rot_z, rot_w, scale, room_id FROM housing_placed_decor"))
             do
             {
                 Field* f = result->Fetch();
@@ -468,7 +490,7 @@ namespace
                 for (int i = 0; i < 4; ++i) p.rot[i] = f[6 + i].Get<float>();
                 p.scale = f[10].Get<float>();
                 p.yaw = EsteriaHousing::SnapYaw(p.rot, 0);
-                house->second.placed[p.id] = p;
+                (f[11].Get<uint32>() ? house->second.placed : house->second.outdoor)[p.id] = p;
             } while (result->NextRow());
 
         if (QueryResult result = CharacterDatabase.Query("SELECT account_id, decor_id, quantity_owned, quantity_placed "
@@ -600,6 +622,15 @@ namespace
         return house.maxDecor >= DecorCap ? 0 : (10 + uint32(std::max<int>(0, house.maxDecor - DecorBase)) / DecorStep) * 10000;
     }
 
+    uint32 MaxRooms(House const& house) { return std::max<uint32>(s_config.maxRooms, house.roomLimit); }
+
+    // The next +4 rooms: 50 g, then 25 g more for each step bought. 0 at the cap.
+    uint32 RoomLimitPrice(House const& house)
+    {
+        uint32 const now = MaxRooms(house);
+        return now >= RoomCap ? 0 : (50 + (now > s_config.maxRooms ? (now - s_config.maxRooms) / RoomStep : 0) * 25) * 10000;
+    }
+
     uint32 RoomPrice(Rooms::Kind const& kind)
     {
         float const area = (kind.max[0] - kind.min[0]) * (kind.max[1] - kind.min[1]);
@@ -725,7 +756,7 @@ namespace
     {
         std::vector<Rooms::Room> const layouts = Layouts(house);
         WorldPacket data(SMSG_ESTERIA_HOUSING_LAYOUT, 512);
-        data << uint8(s_config.maxRooms) << room.Origin(0) << room.Origin(1);
+        data << uint8(MaxRooms(house)) << room.Origin(0) << room.Origin(1);
         // the kinds, then a "Stairs Down" entry per stairwell (StairsDownBase + its kind)
         std::vector<std::pair<uint32, Rooms::Kind const*>> listed;
         for (auto const& [id, kind] : s_kinds)
@@ -746,7 +777,7 @@ namespace
         for (HouseRoom const& r : house.rooms)
             data << r.layout.kind << r.layout.x << r.layout.y << r.layout.quarter << r.theme[0] << r.theme[1] << r.theme[2]
                  << uint8(r.ceilingHidden) << int8(r.layout.level);
-        bool const full = layouts.size() >= s_config.maxRooms;
+        bool const full = layouts.size() >= MaxRooms(house);
         uint16 sockets = 0;
         WorldPacket list(SMSG_ESTERIA_HOUSING_LAYOUT, 512);
         for (size_t r = 0; r < layouts.size() && r < 256 && !full; ++r)
@@ -782,16 +813,76 @@ namespace
         data << uint8(std::min<size_t>(s_themes.size(), 255));
         for (auto const& [id, name] : s_themes)
             data << id << name;
-        data << house.floors << FloorPrice(house) << DecorPrice(house) << DecorStep << DecorCap;
+        data << house.floors << FloorPrice(house) << DecorPrice(house) << DecorStep << DecorCap << RoomLimitPrice(house)
+             << RoomStep << RoomCap;
         player->SendDirectMessage(&data);
+    }
+
+    struct Plot;
+    Plot const* PlotOf(uint32 houseId);
+    uint32 SaveSpawn(Map* map, Placement const& p);
+    void DeleteSpawn(Map* map, uint32 spawnId);
+
+    // The owner standing on their own plot at the neighborhood: its house and plot, or nulls.
+    std::pair<House*, Plot const*> OnOwnPlot(Player* player)
+    {
+        if (!player || player->GetMapId() != NeighborhoodMap)
+            return { nullptr, nullptr };
+        House* house = HouseOfAccount(player->GetSession()->GetAccountId());
+        Plot const* plot = house ? PlotOf(house->id) : nullptr;
+        if (!plot || std::fabs(player->GetPositionX() - plot->house[0]) > s_plotRadius
+            || std::fabs(player->GetPositionY() - plot->house[1]) > s_plotRadius)
+            return { nullptr, nullptr };
+        return { house, plot };
+    }
+
+    // Outdoor decor is a saved world spawn, so it stays for everyone across restarts; rotation saved, scale not.
+    void SpawnOutdoor(Map* map, Placed const& p, CharacterDatabaseTransaction trans)
+    {
+        auto entry = s_catalog.find(p.decorId);
+        if (entry == s_catalog.end())
+            return;
+        Placement placement{ entry->second.goEntry, p.pos[0], p.pos[1], p.pos[2], p.yaw };
+        for (int i = 0; i < 4; ++i) placement.rot[i] = p.rot[i];
+        if (uint32 const spawnId = SaveSpawn(map, placement))
+        {
+            s_outdoorSpawn[p.id] = spawnId;
+            trans->Append("REPLACE INTO housing_outdoor_spawn (placed_id, spawn_id) VALUES ({}, {})", p.id, spawnId);
+        }
+    }
+
+    void DespawnOutdoor(Map* map, uint64 placedId, CharacterDatabaseTransaction trans)
+    {
+        auto it = s_outdoorSpawn.find(placedId);
+        if (it == s_outdoorSpawn.end())
+            return;
+        DeleteSpawn(map, it->second);
+        s_outdoorSpawn.erase(it);
+        trans->Append("DELETE FROM housing_outdoor_spawn WHERE placed_id = {}", placedId);
     }
 
     void SendState(Player* player)
     {
         House const* house = HouseOfInstance(player->GetMap());
         RoomTemplate const* room = house ? Room(*house) : nullptr;
-        WorldPacket data(SMSG_ESTERIA_HOUSING_STATE, 64 + (house ? house->placed.size() * 28 : 0));
-        data << uint8(house && room) << uint8(house && house->account == player->GetSession()->GetAccountId())
+        auto const [plotHouse, plot] = house ? std::pair<House*, Plot const*>{ nullptr, nullptr } : OnOwnPlot(player);
+        if (plotHouse)
+        {
+            // outside: the plot's decor, in a box around the house's spot
+            WorldPacket data(SMSG_ESTERIA_HOUSING_STATE, 64 + plotHouse->outdoor.size() * 44);
+            data << uint8(1) << uint8(1) << uint8(1) << plotHouse->id << plotHouse->revision << uint16(plotHouse->outdoor.size())
+                 << OutdoorBudget;
+            data << (plot->house[0] - s_plotRadius) << (plot->house[1] - s_plotRadius) << (plot->house[2] - 10)
+                 << (plot->house[0] + s_plotRadius) << (plot->house[1] + s_plotRadius) << (plot->house[2] + 30);
+            data << uint16(plotHouse->outdoor.size());
+            for (auto const& [id, p] : plotHouse->outdoor)
+                data << uint64(id) << uint32(p.decorId) << p.pos[0] << p.pos[1] << p.pos[2] << p.rot[0] << p.rot[1] << p.rot[2]
+                     << p.rot[3] << p.scale;
+            player->SendDirectMessage(&data);
+            return;
+        }
+        WorldPacket data(SMSG_ESTERIA_HOUSING_STATE, 64 + (house ? house->placed.size() * 44 : 0));
+        data << uint8(house && room) << uint8(house && house->account == player->GetSession()->GetAccountId()) << uint8(0)
              << uint32(house ? house->id : 0) << uint32(house ? house->revision : 0)
              << uint16(house ? house->placed.size() : 0) << uint16(house ? house->maxDecor : 0);
         // The client only gets one box: the union of the rooms (the server still checks per room).
@@ -893,6 +984,11 @@ namespace
         uint32 const account = session->GetAccountId();
         House* house = player ? HouseOfInstance(player->GetMap()) : nullptr;
         RoomTemplate const* room = house ? Room(*house) : nullptr;
+        Plot const* plot = nullptr;
+        if (!house && player)
+            std::tie(house, plot) = OnOwnPlot(player);
+        bool const outdoors = plot != nullptr;
+        std::map<uint64, Placed>* decor = house ? (outdoors ? &house->outdoor : &house->placed) : nullptr;
         EditSession& state = s_editSessions[account];
         uint64 const now = GameTime::GetGameTimeMS().count();
         while (!state.recent.empty() && now - state.recent.front() >= 1000)
@@ -900,7 +996,7 @@ namespace
 
         EsteriaHousing::Facts f;
         f.enabled = s_config.enabled && s_loaded;
-        f.inHouse = house && room;
+        f.inHouse = house && (room || outdoors);
         f.isOwner = house && house->account == account;
         f.lastSeq = state.lastSeq;
         f.revision = house ? house->revision : 0;
@@ -908,20 +1004,25 @@ namespace
         auto& owned = s_owned[account];
         if (auto o = owned.find(e.decorId); o != owned.end())
             f.available = o->second.owned > o->second.placed ? o->second.owned - o->second.placed : 0;
-        f.placementKnown = house && house->placed.count(e.placedId);
-        f.placed = house ? uint32(house->placed.size()) : 0;
-        f.maxDecor = house ? house->maxDecor : 0;
+        f.placementKnown = decor && decor->count(e.placedId);
+        f.placed = decor ? uint32(decor->size()) : 0;
+        f.maxDecor = house ? (outdoors ? OutdoorBudget : house->maxDecor) : 0;
+        if (outdoors) // the plot's box: as SendState gives it
+        {
+            f.boundsMin[0] = plot->house[0] - s_plotRadius; f.boundsMax[0] = plot->house[0] + s_plotRadius;
+            f.boundsMin[1] = plot->house[1] - s_plotRadius; f.boundsMax[1] = plot->house[1] + s_plotRadius;
+            f.boundsMin[2] = plot->house[2] - 10; f.boundsMax[2] = plot->house[2] + 30;
+        }
         // Bounds are those of the room the decor lands in; outside every room, an empty box refuses it.
-        if (room && house)
+        if (room && house && !outdoors)
         {
             int const at = RoomAt(*house, *room, e.pos[0], e.pos[1], e.pos[2]);
             if (at < 0 || !RoomBox(*house, *room, size_t(at), f.boundsMin, f.boundsMax))
                 for (int i = 0; i < 3; ++i) { f.boundsMin[i] = 1; f.boundsMax[i] = 0; }
         }
         // a move carries no decorId; its scale range is that of the decor already placed
-        uint32 const decorId = e.op == OpPlace || !house || !house->placed.count(e.placedId) ? e.decorId
-            : house->placed.at(e.placedId).decorId;
-        if (auto c = s_catalog.find(decorId); c != s_catalog.end())
+        uint32 const decorId = e.op == OpPlace || !decor || !decor->count(e.placedId) ? e.decorId : decor->at(e.placedId).decorId;
+        if (auto c = s_catalog.find(decorId); c != s_catalog.end() && !outdoors) // outdoors: saved spawns keep no scale
         {
             f.minScale = c->second.minScale;
             f.maxScale = c->second.maxScale;
@@ -954,20 +1055,20 @@ namespace
             placedId = s_nextPlacedId++;
             Placed p{ placedId, e.decorId, { out.pos[0], out.pos[1], out.pos[2] }, out.yaw,
                 { out.rot[0], out.rot[1], out.rot[2], out.rot[3] }, out.scale };
-            house->placed[placedId] = p;
+            (*decor)[placedId] = p;
             ++owned[e.decorId].placed;
             trans->Append("INSERT INTO housing_placed_decor (placed_id, house_id, room_id, decor_id, pos_x, pos_y, pos_z, "
                 "rot_x, rot_y, rot_z, rot_w, scale, placed_by, placed_at) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
-                placedId, house->id, house->roomId, e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[0], out.rot[1],
-                out.rot[2], out.rot[3], out.scale, character, now32);
+                placedId, house->id, outdoors ? 0 : house->roomId, e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[0],
+                out.rot[1], out.rot[2], out.rot[3], out.scale, character, now32);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed + 1 WHERE account_id = {} AND decor_id = {}",
                 account, e.decorId);
             after = "'" + Json(p) + "'";
-            Spawn(map, p);
+            if (outdoors) SpawnOutdoor(map, p, trans); else Spawn(map, p);
         }
         else if (e.op == OpMove)
         {
-            Placed& p = house->placed[placedId];
+            Placed& p = (*decor)[placedId];
             before = "'" + Json(p) + "'";
             for (int i = 0; i < 3; ++i) p.pos[i] = out.pos[i];
             p.yaw = out.yaw;
@@ -977,20 +1078,28 @@ namespace
                 "rot_w = {}, scale = {} WHERE placed_id = {} AND house_id = {}", out.pos[0], out.pos[1], out.pos[2], out.rot[0],
                 out.rot[1], out.rot[2], out.rot[3], out.scale, placedId, house->id);
             after = "'" + Json(p) + "'";
-            Despawn(map, placedId);
-            Spawn(map, p);
+            if (outdoors)
+            {
+                DespawnOutdoor(map, placedId, trans);
+                SpawnOutdoor(map, p, trans);
+            }
+            else
+            {
+                Despawn(map, placedId);
+                Spawn(map, p);
+            }
         }
         else
         {
-            Placed const p = house->placed[placedId];
+            Placed const p = (*decor)[placedId];
             before = "'" + Json(p) + "'";
-            house->placed.erase(placedId);
+            decor->erase(placedId);
             if (Owned& o = owned[p.decorId]; o.placed)
                 --o.placed;
             trans->Append("DELETE FROM housing_placed_decor WHERE placed_id = {} AND house_id = {}", placedId, house->id);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
                 "AND decor_id = {} AND quantity_placed > 0", account, p.decorId);
-            Despawn(map, placedId);
+            if (outdoors) DespawnOutdoor(map, placedId, trans); else Despawn(map, placedId);
             out = EsteriaHousing::Final{};
         }
         house->revision = revision;
@@ -1002,7 +1111,10 @@ namespace
         LOG_INFO("module", "housing: account {} house {} rev {} op {} placed {} decor {}", account, house->id, revision,
             e.op, placedId, e.decorId);
         SendAck(session, e.seq, Ok, revision, placedId, &out);
-        BroadcastState(map);
+        if (outdoors)
+            SendState(player); // the neighborhood is everyone's map; only the editor needs the list
+        else
+            BroadcastState(map);
     }
 
     void Leave(Player* player)
@@ -1201,7 +1313,7 @@ namespace
     std::string AddRoom(Player* player, House& house, size_t room, size_t piece, uint32 kind)
     {
         size_t const needed = IsStairwell(kind) || kind > StairsDownBase ? 2 : 1;
-        if (house.rooms.size() + needed > s_config.maxRooms)
+        if (house.rooms.size() + needed > MaxRooms(house))
             return "Your house already has the most rooms it can hold.";
         std::vector<Rooms::Room> const layouts = Layouts(house);
         if (kind > StairsDownBase)
@@ -1245,7 +1357,7 @@ namespace
         top.level = int8(top.level + 1);
         if (!below || layouts[room].level >= house.MaxLevel() || !Rooms::Fits(s_kinds, layouts, top))
             return "There is no space for stairs above that.";
-        if (house.rooms.size() + 1 > s_config.maxRooms)
+        if (house.rooms.size() + 1 > MaxRooms(house))
             return "Your house already has the most rooms it can hold.";
         uint32 const price = RoomPrice(s_kinds.at(below->kind));
         if (!player->HasEnoughMoney(price))
@@ -1407,7 +1519,9 @@ namespace
         if (!info)
             return 0;
         GameObject* object = new GameObject();
-        G3D::Quat const rotation = G3D::Quat::fromAxisAngleRotation(G3D::Vector3::unitZ(), p.yaw);
+        bool const turnOnly = !p.rot[0] && !p.rot[1] && !p.rot[2] && !p.rot[3];
+        G3D::Quat const rotation = turnOnly ? G3D::Quat::fromAxisAngleRotation(G3D::Vector3::unitZ(), p.yaw)
+            : G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]);
         if (!object->Create(map->GenerateLowGuid<HighGuid::GameObject>(), info->entry, map, PHASEMASK_NORMAL, p.x, p.y, p.z,
             p.yaw, rotation, 0, GO_STATE_READY))
         {
@@ -1695,7 +1809,8 @@ namespace
         {
             uint8 what;
             packet >> what;
-            uint32 const price = what == UpgradeFloors ? FloorPrice(*own) : what == UpgradeDecor ? DecorPrice(*own) : 0;
+            uint32 const price = what == UpgradeFloors ? FloorPrice(*own) : what == UpgradeDecor ? DecorPrice(*own)
+                : what == UpgradeRooms ? RoomLimitPrice(*own) : 0;
             if (!price)
                 error = "That is already as large as it gets.";
             else if (!player->HasEnoughMoney(price))
@@ -1703,11 +1818,14 @@ namespace
             else
             {
                 player->ModifyMoney(-int32(price));
-                if (what == UpgradeFloors)
+                if (what == UpgradeFloors || what == UpgradeRooms)
                 {
-                    ++own->floors;
-                    CharacterDatabase.Execute("REPLACE INTO housing_house_limits (house_id, floors) VALUES ({}, {})", own->id,
-                        own->floors);
+                    if (what == UpgradeFloors)
+                        ++own->floors;
+                    else
+                        own->roomLimit = uint8(std::min<uint32>(RoomCap, MaxRooms(*own) + RoomStep));
+                    CharacterDatabase.Execute("REPLACE INTO housing_house_limits (house_id, floors, rooms) VALUES ({}, {}, {})",
+                        own->id, own->floors, own->roomLimit);
                 }
                 else
                 {
@@ -1942,6 +2060,33 @@ namespace
         }
     };
 
+    // Stepping onto or off your own plot at the neighborhood switches the editor to its outdoor decor (SMSG_STATE).
+    class EsteriaHousingPlotWatch : public PlayerScript
+    {
+    public:
+        EsteriaHousingPlotWatch() : PlayerScript("EsteriaHousingPlotWatch", { PLAYERHOOK_ON_UPDATE }) { }
+
+        void OnPlayerUpdate(Player* player, uint32 diff) override
+        {
+            if (player->GetMapId() != NeighborhoodMap || player->IsBeingTeleported())
+                return;
+            std::lock_guard<std::recursive_mutex> guard(s_lock); // map threads call this
+            if (!s_config.enabled || !s_loaded || !s_hasUi.count(player->GetSession()->GetAccountId()))
+                return;
+            uint32& wait = s_plotWatch[player->GetGUID()];
+            if (wait > diff) { wait -= diff; return; }
+            wait = 1000;
+            House const* house = OnOwnPlot(player).first;
+            uint32& was = s_onPlot[player->GetGUID()];
+            uint32 const now = house ? house->id : 0;
+            if (was != now)
+            {
+                was = now;
+                SendState(player);
+            }
+        }
+    };
+
     class EsteriaHousingWorld : public WorldScript
     {
     public:
@@ -2028,6 +2173,7 @@ void AddSC_mod_esteria_housing()
     new go_esteria_housing_cornerstone();
     new go_esteria_housing_front_door();
     new go_esteria_housing_exit();
+    new EsteriaHousingPlotWatch();
     new EsteriaHousingWorld();
     new EsteriaHousingMaps();
 }

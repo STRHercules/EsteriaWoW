@@ -18,7 +18,8 @@
 //   SMSG_EDIT_ACK seq(u32) result(u8) revision(u32) placedId(u64) pos(f32 x3) rot(f32 x4) scale(f32)
 //                 the transform is the server-final one; it is zero when result != Ok
 //   CMSG_ENTER    action(u8): 0 send me SMSG_STATE, 1 leave the house
-//   SMSG_STATE    inHouse(u8) isOwner(u8) houseId(u32) revision(u32) placed(u16) maxDecor(u16)
+//   SMSG_STATE    inHouse(u8) isOwner(u8) outdoors(u8) houseId(u32) revision(u32) placed(u16) maxDecor(u16)
+//                 (outdoors: the owner on their own plot, editing its outdoor decor; inHouse is then 1 too)
 //                 boundsMin(f32 x3) boundsMax(f32 x3) n(u16), then n x
 //                 placedId(u64) decorId(u32) pos(f32 x3) rot(f32 x4, xyzw) scale(f32)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
@@ -40,11 +41,11 @@
 //                 fits n(u8) x kind(u32)
 //                 themes n(u8), then n x theme(u32) name(string)
 //                 maxFloors(u8) floorPrice(u32 copper, 0 at the cap) decorPrice(u32, 0 at the cap) decorStep(u16)
-//                 decorCap(u16)
+//                 decorCap(u16) roomPrice(u32, 0 at the cap) roomStep(u8) roomCap(u8)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 9;
+    inline constexpr uint16_t Proto = 10;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -95,6 +96,7 @@ namespace EsteriaHousingWire
     {
         UpgradeFloors = 1, // one more floor above the ground, 4 to 15
         UpgradeDecor = 2,  // the decor budget, 200 to 5000 in steps of 100
+        UpgradeRooms = 3,  // the room limit, the realm's base (16) to 64 in steps of 4
     };
 
     enum PlotStatus : uint8_t

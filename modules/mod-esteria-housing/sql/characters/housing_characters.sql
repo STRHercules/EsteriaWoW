@@ -62,6 +62,14 @@ CREATE TABLE IF NOT EXISTS `housing_house_limits` (
   PRIMARY KEY (`house_id`),
   CONSTRAINT `fk_limits_house` FOREIGN KEY (`house_id`) REFERENCES `housing_house` (`house_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- rooms arrived after floors; MySQL has no ADD COLUMN IF NOT EXISTS, so it is added only when missing
+SET @has_rooms = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE()
+  AND table_name = 'housing_house_limits' AND column_name = 'rooms');
+SET @add_rooms = IF(@has_rooms = 0,
+  'ALTER TABLE `housing_house_limits` ADD COLUMN `rooms` TINYINT UNSIGNED NOT NULL DEFAULT 0', 'DO 0');
+PREPARE add_rooms FROM @add_rooms;
+EXECUTE add_rooms;
+DEALLOCATE PREPARE add_rooms;
 
 -- How an owner set their plot's house: its exterior style, and its offset (yd) and turn (degrees) from the plot's spot.
 CREATE TABLE IF NOT EXISTS `housing_plot_style` (
@@ -72,6 +80,13 @@ CREATE TABLE IF NOT EXISTS `housing_plot_style` (
   `offset_y` FLOAT NOT NULL DEFAULT 0,
   `turn`     FLOAT NOT NULL DEFAULT 0,
   PRIMARY KEY (`map_id`, `plot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Outdoor decor (housing_placed_decor rows with room_id 0) and the saved world spawn each one is.
+CREATE TABLE IF NOT EXISTS `housing_outdoor_spawn` (
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `spawn_id`  INT UNSIGNED NOT NULL COMMENT 'acore_world gameobject guid',
+  PRIMARY KEY (`placed_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Which neighborhood plot a house stands on, and the world gameobject guids of its exterior (saved spawns).
