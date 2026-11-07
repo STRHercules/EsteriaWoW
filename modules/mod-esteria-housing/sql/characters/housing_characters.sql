@@ -82,6 +82,15 @@ CREATE TABLE IF NOT EXISTS `housing_plot_style` (
   PRIMARY KEY (`map_id`, `plot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- height and size arrived after offset and turn; added only when missing
+SET @has_oz = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE()
+  AND table_name = 'housing_plot_style' AND column_name = 'offset_z');
+SET @add_oz = IF(@has_oz = 0, 'ALTER TABLE `housing_plot_style` ADD COLUMN `offset_z` FLOAT NOT NULL DEFAULT 0, '
+  'ADD COLUMN `scale` FLOAT NOT NULL DEFAULT 1', 'DO 0');
+PREPARE add_oz FROM @add_oz;
+EXECUTE add_oz;
+DEALLOCATE PREPARE add_oz;
+
 -- The parts an owner swapped on their plot's house (housing_exterior_fixture.component); a missing type is the
 -- style's default. Choices for another style are kept for when the owner goes back to it.
 CREATE TABLE IF NOT EXISTS `housing_plot_fixture` (

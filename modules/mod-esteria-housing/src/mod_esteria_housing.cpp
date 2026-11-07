@@ -156,8 +156,11 @@ namespace
     {
         uint32 style = 92; // Human House (Small), the house every plot started with
         float dx = 0, dy = 0, turn = 0; // yd east/north of the plot's spot; degrees
+        float dz = 0, scale = 1;        // yd up from the spot; size
     };
-    constexpr float PlotReachYd = 8.0f; // how far the house may move from the plot's spot
+    constexpr float PlotReachYd = 15.0f;   // how far the house may move from the plot's spot
+    constexpr float PlotHeightYd = 15.0f;  // and up or down
+    constexpr float HouseMinScale = 0.5f, HouseMaxScale = 1.5f;
     // A swappable part (housing_exterior_fixture) and the hooks on it (housing_exterior_fixture_hook).
     struct Fixture
     {
@@ -168,7 +171,10 @@ namespace
         float matX = 0, matZ = 0;
     };
     constexpr uint8 FixtureTypes[] = { FixtureBase, FixtureRoof, FixtureDoor, FixtureWindow, FixtureChimney };
-    struct Placement { uint32 entry; float x, y, z, yaw; float rot[4] = { 0, 0, 0, 0 }; }; // rot all 0: turn by yaw
+    struct Placement { uint32 entry; float x, y, z, yaw; float rot[4] = { 0, 0, 0, 0 }; float scale = 1; }; // rot all 0: turn by yaw
+    // Saved world spawns keep no size of their own (acore gameobject has no scale): the module sets it as each one enters
+    // the world (EsteriaHousingSpawnScale), from this map, rebuilt at startup from the plots and outdoor decor.
+    std::unordered_map<uint32, float> s_spawnScale;
     constexpr uint16 OutdoorBudget = 100;           // decor on a plot
     float s_plotRadius = 20;                        // half the distance between the closest two plots, at most 30 yd
     std::unordered_map<uint64, uint32> s_outdoorSpawn; // outdoor placed decor -> its saved world spawn
@@ -434,12 +440,13 @@ namespace
             do
                 s_exteriorStyles[result->Fetch()[0].Get<uint32>()] = result->Fetch()[1].Get<std::string>();
             while (result->NextRow());
-        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, style, offset_x, offset_y, turn FROM housing_plot_style"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, style, offset_x, offset_y, turn, offset_z, scale "
+            "FROM housing_plot_style"))
             do
             {
                 Field* f = result->Fetch();
                 s_plotLook[{ f[0].Get<uint16>(), f[1].Get<uint8>() }] = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(),
-                    f[5].Get<float>() };
+                    f[5].Get<float>(), f[6].Get<float>(), std::clamp(f[7].Get<float>(), HouseMinScale, HouseMaxScale) };
             } while (result->NextRow());
         s_housePlot.clear();
         if (QueryResult result = WorldDatabase.Query("SELECT map_id, plot, house_x, house_y, house_z, house_yaw, corner_x, "
@@ -561,6 +568,16 @@ namespace
                 Field* f = result->Fetch();
                 s_owned[f[0].Get<uint32>()][f[1].Get<uint32>()] = { f[2].Get<uint16>(), f[3].Get<uint16>() };
             } while (result->NextRow());
+
+        s_spawnScale.clear();
+        for (auto const& [key, spawns] : s_plotSpawns)
+            if (auto look = s_plotLook.find(key); look != s_plotLook.end() && look->second.scale != 1)
+                for (uint32 id : spawns)
+                    s_spawnScale[id] = look->second.scale;
+        for (auto const& [id, house] : s_houses)
+            for (auto const& [placedId, p] : house.outdoor)
+                if (auto spawn = s_outdoorSpawn.find(placedId); spawn != s_outdoorSpawn.end() && p.scale != 1)
+                    s_spawnScale[spawn->second] = p.scale;
 
         s_loaded = true;
         LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses", s_catalog.size(),
@@ -897,7 +914,7 @@ namespace
         return { house, plot };
     }
 
-    // Outdoor decor is a saved world spawn, so it stays for everyone across restarts; rotation saved, scale not.
+    // Outdoor decor is a saved world spawn, so it stays for everyone across restarts (its size: s_spawnScale).
     void SpawnOutdoor(Map* map, Placed const& p, CharacterDatabaseTransaction trans)
     {
         auto entry = s_catalog.find(p.decorId);
@@ -905,6 +922,7 @@ namespace
             return;
         Placement placement{ entry->second.goEntry, p.pos[0], p.pos[1], p.pos[2], p.yaw };
         for (int i = 0; i < 4; ++i) placement.rot[i] = p.rot[i];
+        placement.scale = p.scale;
         if (uint32 const spawnId = SaveSpawn(map, placement))
         {
             s_outdoorSpawn[p.id] = spawnId;
@@ -939,6 +957,10 @@ namespace
             for (auto const& [id, p] : plotHouse->outdoor)
                 data << uint64(id) << uint32(p.decorId) << p.pos[0] << p.pos[1] << p.pos[2] << p.rot[0] << p.rot[1] << p.rot[2]
                      << p.rot[3] << p.scale;
+            auto const look = s_plotLook.find({ plot->map, plot->index });
+            PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
+            data << plot->house[0] << plot->house[1] << plot->house[2] << plot->house[3] << l.dx << l.dy << l.dz << l.turn << l.scale
+                 << PlotReachYd;
             player->SendDirectMessage(&data);
             return;
         }
@@ -974,6 +996,8 @@ namespace
                      << p.rot[2] << p.rot[3] << p.scale;
             }
         }
+        for (int i = 0; i < 10; ++i) // no plot house indoors
+            data << 0.0f;
         player->SendDirectMessage(&data);
         if (house && room && house->account == player->GetSession()->GetAccountId())
             SendLayout(player, *house, *room);
@@ -1083,7 +1107,7 @@ namespace
         }
         // a move carries no decorId; its scale range is that of the decor already placed
         uint32 const decorId = e.op == OpPlace || !decor || !decor->count(e.placedId) ? e.decorId : decor->at(e.placedId).decorId;
-        if (auto c = s_catalog.find(decorId); c != s_catalog.end() && !outdoors) // outdoors: saved spawns keep no scale
+        if (auto c = s_catalog.find(decorId); c != s_catalog.end())
         {
             f.minScale = c->second.minScale;
             f.maxScale = c->second.maxScale;
@@ -1566,7 +1590,8 @@ namespace
         auto const look = s_plotLook.find({ plot.map, plot.index });
         PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
         // where the house stands: the plot's spot, moved and turned as its owner set it
-        float const hx = plot.house[0] + l.dx, hy = plot.house[1] + l.dy, hz = plot.house[2];
+        float const hx = plot.house[0] + l.dx, hy = plot.house[1] + l.dy, hz = plot.house[2] + l.dz;
+        float const s = l.scale;
         float const yaw = plot.house[3] + l.turn * float(M_PI) / 180;
         // The parts the owner picked, on their hooks (housing_exterior_fixture); the fixed recipe below when the world
         // data has no parts for this style.
@@ -1577,8 +1602,10 @@ namespace
         if (parts)
         {
             auto const put = [&](uint32 entry, Rooms::Hook const& h) {
-                Rooms::Pose const p = Rooms::OnPlot(hx, hy, hz, yaw, h);
-                out.push_back({ entry, p.x, p.y, p.z, p.yaw });
+                Rooms::Pose const p = Rooms::OnPlot(hx, hy, hz, yaw, { h.x * s, h.y * s, h.z * s, h.rotDeg });
+                Placement placement{ entry, p.x, p.y, p.z, p.yaw };
+                placement.scale = s;
+                out.push_back(placement);
             };
             put(base->entry, {});
             put(roof->entry, {});
@@ -1590,7 +1617,7 @@ namespace
                     put(chimney->entry, hooks[0]);
             for (Rooms::Hook const& h : HooksOn(*base, FixtureDoor))
             {
-                doors.push_back(h);
+                doors.push_back({ h.x * s, h.y * s, h.z * s, h.rotDeg });
                 doorEntries.push_back(doorPart->entry);
                 doorMats.push_back({ doorPart->matX, doorPart->matZ });
             }
@@ -1619,10 +1646,12 @@ namespace
         {
             size_t const i = Rooms::FrontDoor(hx, hy, hz, yaw, doors, plot.corner[0], plot.corner[1]);
             Rooms::Pose const p = Rooms::OnPlot(hx, hy, hz, yaw, doors[i]);
-            out.push_back({ doorEntries[i], p.x, p.y, p.z, p.yaw });
+            Placement piece{ doorEntries[i], p.x, p.y, p.z, p.yaw };
+            piece.scale = s;
+            out.push_back(piece);
             if (frontDoor)
-                out.push_back({ frontDoor, p.x + p.nx * doorMats[i].first, p.y + p.ny * doorMats[i].first, p.z + doorMats[i].second,
-                    p.yaw });
+                out.push_back({ frontDoor, p.x + p.nx * doorMats[i].first * s, p.y + p.ny * doorMats[i].first * s,
+                    p.z + doorMats[i].second * s, p.yaw });
             if (door)
             {
                 *door = p;
@@ -1652,6 +1681,8 @@ namespace
         object->SaveToDB(map->GetId(), 1 << map->GetSpawnMode(), PHASEMASK_NORMAL);
         uint32 const spawnId = object->GetSpawnId();
         delete object;
+        if (p.scale != 1)
+            s_spawnScale[spawnId] = p.scale;
         object = new GameObject();
         if (!object->LoadGameObjectFromDB(spawnId, map, true))
         {
@@ -1675,6 +1706,7 @@ namespace
         }
         sObjectMgr->DeleteGOData(spawnId);
         WorldDatabase.Execute("DELETE FROM gameobject WHERE guid = {}", spawnId);
+        s_spawnScale.erase(spawnId);
     }
 
     // A plot bought before the exterior recipe changed (the clickable front door) gets the current one.
@@ -1689,8 +1721,10 @@ namespace
         for (size_t i = 0; same && i < have.size(); ++i)
         {
             GameObjectData const* d = sObjectMgr->GetGameObjectData(have[i]);
+            auto const size = s_spawnScale.find(have[i]);
             same = d && d->id == want[i].entry && std::fabs(d->posX - want[i].x) < 0.05f && std::fabs(d->posY - want[i].y) < 0.05f
-                && std::fabs(d->posZ - want[i].z) < 0.05f;
+                && std::fabs(d->posZ - want[i].z) < 0.05f
+                && std::fabs((size == s_spawnScale.end() ? 1.0f : size->second) - want[i].scale) < 0.001f;
         }
         if (same)
             return;
@@ -1841,7 +1875,7 @@ namespace
              << uint8(own && s_housePlot.count(own->id) && status != PlotYours) << NeighborhoodName << owner << message;
         auto const look = s_plotLook.find({ plot.map, plot.index });
         PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
-        data << l.style << l.dx << l.dy << l.turn << PlotReachYd;
+        data << l.style << l.dx << l.dy << l.dz << l.turn << l.scale << PlotReachYd;
         uint8 const styles = status == PlotYours ? uint8(std::min<size_t>(s_exteriorStyles.size(), 255)) : 0;
         data << styles;
         size_t n = 0;
@@ -2032,6 +2066,9 @@ namespace
         if (action == ActionPlotStyle || action == ActionPlotPlace || action == ActionPlotFixture)
         {
             Plot const* plot = ViewedPlot(player);
+            bool const fromEditor = !plot && action == ActionPlotPlace; // the outdoor editor's house handles
+            if (fromEditor)
+                plot = OnOwnPlot(player).second;
             auto owner = plot ? s_plotHouse.find({ plot->map, plot->index }) : s_plotHouse.end();
             if (owner == s_plotHouse.end() || !s_houses.count(owner->second) || s_houses[owner->second].account != session->GetAccountId())
             {
@@ -2078,26 +2115,38 @@ namespace
             }
             else
             {
-                float dx, dy, turn;
-                packet >> dx >> dy >> turn;
-                if (!std::isfinite(dx) || !std::isfinite(dy) || !std::isfinite(turn) || dx * dx + dy * dy > PlotReachYd * PlotReachYd)
+                float dx, dy, dz, turn, scale;
+                packet >> dx >> dy >> dz >> turn >> scale;
+                if (!std::isfinite(dx) || !std::isfinite(dy) || !std::isfinite(dz) || !std::isfinite(turn) || !std::isfinite(scale)
+                    || dx * dx + dy * dy > PlotReachYd * PlotReachYd + 0.01f || std::fabs(dz) > PlotHeightYd + 0.01f)
                     message = "The house cannot move that far from its spot.";
+                else if (scale < HouseMinScale - 0.001f || scale > HouseMaxScale + 0.001f)
+                    message = "The house cannot be that size.";
                 else
                 {
-                    look.dx = dx; look.dy = dy;
-                    look.turn = std::fmod(std::round(turn / 15) * 15 + 360, 360.0f); // 15 degree steps
+                    look.dx = dx; look.dy = dy; look.dz = dz;
+                    look.turn = std::fmod(std::round(turn) + 360, 360.0f); // whole degrees
+                    look.scale = std::round(scale * 100) / 100;
                 }
             }
             if (message.empty())
             {
                 s_plotLook[{ plot->map, plot->index }] = look;
-                CharacterDatabase.Execute("REPLACE INTO housing_plot_style (map_id, plot, style, offset_x, offset_y, turn) "
-                    "VALUES ({}, {}, {}, {}, {}, {})", plot->map, plot->index, look.style, look.dx, look.dy, look.turn);
+                CharacterDatabase.Execute("REPLACE INTO housing_plot_style (map_id, plot, style, offset_x, offset_y, turn, offset_z, "
+                    "scale) VALUES ({}, {}, {}, {}, {}, {}, {}, {})", plot->map, plot->index, look.style, look.dx, look.dy, look.turn,
+                    look.dz, look.scale);
                 RefreshExterior(player->GetMap(), *plot);
-                LOG_INFO("module", "housing: plot {} now style {} at {:.2f}, {:.2f} turned {}", plot->index, look.style, look.dx,
-                    look.dy, look.turn);
+                LOG_INFO("module", "housing: plot {} now style {} at {:.2f}, {:.2f}, {:.2f} turned {} size {:.2f}", plot->index,
+                    look.style, look.dx, look.dy, look.dz, look.turn, look.scale);
             }
-            SendPlot(player, *plot, message);
+            if (fromEditor) // the editor reads the house from SMSG_STATE; the plot window is not open
+            {
+                if (!message.empty())
+                    ChatHandler(session).SendNotification(message);
+                SendState(player);
+            }
+            else
+                SendPlot(player, *plot, message);
             return;
         }
         if (action == ActionBuyPlot || action == ActionEnterPlot)
@@ -2395,6 +2444,20 @@ namespace
         }
     };
 
+    // A saved spawn's size (s_spawnScale), set as it enters the world and before any client is told about it.
+    class EsteriaHousingSpawnScale : public AllGameObjectScript
+    {
+    public:
+        EsteriaHousingSpawnScale() : AllGameObjectScript("EsteriaHousingSpawnScale") { }
+
+        void OnGameObjectAddWorld(GameObject* go) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            if (auto it = s_spawnScale.find(go->GetSpawnId()); it != s_spawnScale.end())
+                go->SetObjectScale(it->second);
+        }
+    };
+
     // Stepping onto or off your own plot at the neighborhood switches the editor to its outdoor decor (SMSG_STATE).
     class EsteriaHousingPlotWatch : public PlayerScript
     {
@@ -2521,4 +2584,5 @@ void AddSC_mod_esteria_housing()
     new EsteriaHousingPlotWatch();
     new EsteriaHousingWorld();
     new EsteriaHousingMaps();
+    new EsteriaHousingSpawnScale();
 }

@@ -22,6 +22,8 @@
 //                 (outdoors: the owner on their own plot, editing its outdoor decor; inHouse is then 1 too)
 //                 boundsMin(f32 x3) boundsMax(f32 x3) n(u16), then n x
 //                 placedId(u64) decorId(u32) pos(f32 x3) rot(f32 x4, xyzw) scale(f32)
+//                 then the plot's house (outdoors; zeros otherwise): spot x y z (f32) yaw (f32 radians), its offset dx dy dz
+//                 (f32 yd), turn (f32 degrees), scale (f32) and reach (f32 yd)
 //                 sent on entering a house, after every accepted edit (to everyone inside) and on request
 //   CMSG_ACTION   action(u8), then for ActionAddRoom room(u8) piece(u8) kind(u32), ActionRoomStyle room(u8) part(u8)
 //                 theme(u32), ActionRoomCeiling room(u8) hidden(u8), ActionStairsUp room(u8), ActionBuyDecor decorId(u32)
@@ -31,7 +33,8 @@
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
 //   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
 //                 neighborhood(string) owner(string) message(string)
-//                 then style(u32) dx(f32) dy(f32) turn(f32 degrees) reach(f32 yd) styles n(u8) x style(u32) name(string)
+//                 then style(u32) dx(f32) dy(f32) dz(f32) turn(f32 degrees) scale(f32) reach(f32 yd)
+//                 styles n(u8) x style(u32) name(string)
 //                 (your plot only; n 0 otherwise)
 //                 fixtures n(u8) x type(u8 FixtureType) chosen(u32 component) options n(u16) x component(u32)
 //                 parent(u32: a colour variant's shape, 0 for a shape) name(string)  (your plot only; n 0 otherwise)
@@ -52,7 +55,7 @@
 //                 the Neighborhood window's contents: the answer to every ActionNeighborhood and ActionTravel*
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 12;
+    inline constexpr uint16_t Proto = 13;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -95,7 +98,7 @@ namespace EsteriaHousingWire
         ActionBuyDecor = 8,   // decorId(u32) count(u16): the catalog's price each, into storage
         ActionUpgrade = 9,    // what(u8 Upgrade): buy the house's next floor or decor budget step
         ActionPlotStyle = 10, // style(u32): rebuild your plot's house in another exterior style
-        ActionPlotPlace = 11, // dx(f32) dy(f32) turnDegrees(f32): where the house stands on your plot, from its spot
+        ActionPlotPlace = 11, // dx dy dz(f32 yd) turnDegrees(f32) scale(f32): where the house stands on your plot, from its spot
         ActionNeighborhood = 12,       // send me SMSG_NEIGHBORHOOD
         ActionTravelNeighborhood = 13, // go to the neighborhood's entry, from anywhere travel is allowed
         ActionTravelBack = 14,         // leave the neighborhood for where you came from
