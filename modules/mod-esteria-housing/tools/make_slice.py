@@ -161,6 +161,7 @@ SLICE = [
 # The rest of the retail player-housing catalog: every 12ph M2 the Phase 0 inventory checked loads ("ok"), named from
 # its file (12ph_folk_tallshelf01.m2 -> "Folk Tallshelf"). Retail doors (..._door01, ..._frontdoor01) become exits.
 INVENTORY = Path(r"R:\Users\Zach\Documents\GitHub\wowdecomp\docs\housing\existing-assets.tsv")
+THUMBNAILS_LUA = Path(r"R:\Users\Zach\Documents\GitHub\wowdecomp\Addons\EsteriaHousing\Thumbnails.lua")
 DECOR_DISPLAY_BASE, DECOR_GO_BASE, DECOR_SLOTS = 61000, 9501000, 1000
 EXIT_DOOR = re.compile(r"_(front)?door\d+\.m2$")
 
@@ -201,8 +202,52 @@ def is_exit(fdid):
 
 
 INVENTORY_ROWS = list(csv.DictReader(INVENTORY.open(encoding="utf-8"), delimiter="\t"))
-CATALOG = catalog()
-assert len(CATALOG) <= DECOR_SLOTS, f"{len(CATALOG)} decor, {DECOR_SLOTS} slots"
+
+# Retail HouseDecor (wago.tools live, 2026-11-07): real names, placement Type and thumbnails. Catalog slots stay where
+# catalog() put them (placed decor and outdoor spawns hold their gameobject entry); only names and surfaces change.
+HOUSE_DECOR = {int(r["ID"]): r for r in csv.DictReader((MODULE / "data/house_decor.csv").open(encoding="utf-8"))}
+SURFACE_OF_TYPE = {"1": "floor", "2": "wall", "3": "ceiling", "4": "floor"}  # HouseDecor.Type; 4 is rugs
+
+
+def is_dnt(decor):
+    name = HOUSE_DECOR[decor]["Name_lang"] if decor in HOUSE_DECOR else ""
+    return "[DNT]" in name or "do not use" in name.lower() or name.lower().startswith("test")
+
+
+def retail_named(rows):
+    out, names = [], set()
+    for decor, fdid, name, category, surface in rows:
+        r = HOUSE_DECOR.get(decor)
+        if r and not is_dnt(decor) and r["Name_lang"].strip():
+            name = r["Name_lang"].strip()[:96]
+            if surface != "on-decor":  # retail has no such Type; keep SLICE's hand-picked ones
+                surface = SURFACE_OF_TYPE.get(r["Type"], surface)
+        base, n = name, 2
+        while name in names:
+            name, n = f"{base} {n}", n + 1
+        names.add(name)
+        out.append((decor, fdid, name, category, surface))
+    return out
+
+
+# Group 1 (2026-11-07): every real retail decor in our build's inventory that catalog() skipped, i.e. M2s outside
+# playerhousing\ and ones Phase 0 flagged against the old MPQ, kept where RetailAssetProbe --batch loaded the model
+# from the pinned build. Append-only, so slots never move. Thumbnails: retail's picture of each decor that loaded.
+CATALOG2_ROWS = list(csv.DictReader((MODULE / "data/catalog2.tsv").open(encoding="utf-8"), delimiter="\t"))
+THUMBNAILS = {int(r["decor_id"]): int(r["thumb_fdid"])
+              for r in csv.DictReader((MODULE / "data/decor_thumbnails.tsv").open(encoding="utf-8"), delimiter="\t")}
+DECOR2_DISPLAY_BASE, DECOR2_GO_BASE, DECOR2_SLOTS = 63000, 9503000, 3000
+CATALOG = retail_named(catalog() + [(int(r["decor_id"]), int(r["model_fdid"]), "", r["category"], "floor")
+                                    for r in CATALOG2_ROWS])
+BLOCK1 = len(CATALOG) - len(CATALOG2_ROWS)
+assert BLOCK1 <= DECOR_SLOTS and len(CATALOG2_ROWS) <= DECOR2_SLOTS, f"{BLOCK1} + {len(CATALOG2_ROWS)} decor"
+assert len({r[0] for r in CATALOG}) == len(CATALOG), "a decor ID is in both blocks"
+
+
+def decor_slot(i):
+    """Display and gameobject entry of CATALOG[i]: block 1 (catalog()) then block 2 (catalog2.tsv)."""
+    return (DECOR_DISPLAY_BASE + i, DECOR_GO_BASE + i) if i < BLOCK1 else \
+        (DECOR2_DISPLAY_BASE + i - BLOCK1, DECOR2_GO_BASE + i - BLOCK1)
 
 
 def q(text):
@@ -267,9 +312,12 @@ def world_sql(map_dbc):
         f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DISPLAY_BASE} AND {ROOM_DISPLAY_BASE + ROOM_SLOTS - 1};",
     ]
     lines += [f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {DECOR_GO_BASE} AND {DECOR_GO_BASE + DECOR_SLOTS - 1};",
-              f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DECOR_DISPLAY_BASE} AND {DECOR_DISPLAY_BASE + DECOR_SLOTS - 1};"]
+              f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DECOR_DISPLAY_BASE} AND {DECOR_DISPLAY_BASE + DECOR_SLOTS - 1};",
+              f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {DECOR2_GO_BASE} AND {DECOR2_GO_BASE + DECOR2_SLOTS - 1};",
+              f"DELETE FROM `gameobjectdisplayinfo_dbc` WHERE `ID` BETWEEN {DECOR2_DISPLAY_BASE} AND "
+              f"{DECOR2_DISPLAY_BASE + DECOR2_SLOTS - 1};"]
     for i, (decor, fdid, name, category, surface) in enumerate(CATALOG):
-        display, entry = DECOR_DISPLAY_BASE + i, DECOR_GO_BASE + i
+        display, entry = decor_slot(i)
         lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
                      f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.m2')}, -1, -1, 0, 1, 1, 2);")
         if is_exit(fdid):  # type 10 (goober): clicking it runs the script's gossip hello, which leaves the house
@@ -280,7 +328,7 @@ def world_sql(map_dbc):
                          f"VALUES ({entry}, 5, {display}, {q(name)}, 1);")
         lines.append(f"INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, "
                      f"`category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES ({decor}, {fdid}, {display}, "
-                     f"{entry}, {q(name)}, {CATEGORY[category]}, {SURFACE[surface]}, 0.5, 2, 'retail', 1);")
+                     f"{entry}, {q(name)}, {CATEGORY[category]}, {SURFACE[surface]}, 0.5, 2, 'retail', {int(not is_dnt(decor))});")
     lines += ["", "DELETE FROM `housing_room_kit`;", "DELETE FROM `housing_room_kind`;"]
     for i, fdid in enumerate(ROOM_MODELS):
         display, entry = ROOM_DISPLAY_BASE + i, ROOM_GO_BASE + i
@@ -520,7 +568,7 @@ def patch_dbc(storm, client):
     taken = {struct.unpack_from("<I", r)[0] for r in rows}
     strings = bytearray(strings)
     added = []
-    models = [(DECOR_DISPLAY_BASE + i, f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(CATALOG)]
+    models = [(decor_slot(i)[0], f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(CATALOG)]
     models += [(ROOM_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 11)) for i, fdid in enumerate(ROOM_MODELS)]
     models += [(EXTERIOR_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(EXTERIOR_MODELS)]
     models += [(FIXTURE_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(FIXTURE_MODELS)]
@@ -567,6 +615,12 @@ def main():
         storm.dll.SFileCloseArchive(handle)
     print(f"wrote {target} ({len(CATALOG) + len(ROOM_MODELS) + len(EXTERIOR_MODELS) + len(FIXTURE_MODELS) + 2} display rows on top of {source.name}; "
           f"maps {', '.join(map(str, MAPS))} on top of {map_source.name}'s Map.dbc)")
+    thumbs = sorted((decor, THUMBNAILS[decor]) for decor, *_ in CATALOG if decor in THUMBNAILS and not is_dnt(decor))
+    THUMBNAILS_LUA.write_text("-- Generated by EsteriaWoW mod-esteria-housing/tools/make_slice.py. Do not edit.\n"
+                              "-- decorId = retail HouseDecor.ThumbnailFileDataID; the chest shows retail/<fdid>.blp\n"
+                              "EsteriaHousingUI = EsteriaHousingUI or {}\nEsteriaHousingUI.THUMBNAILS = {\n"
+                              + "".join(f"  [{d}] = {t},\n" for d, t in thumbs) + "}\n", encoding="utf-8", newline="\n")
+    print(f"wrote {THUMBNAILS_LUA} ({len(thumbs)} thumbnails)")
     # The client finds each map's WDT through these aliases (Data/Retail/RetailCasc.ini aliases=).
     for map_id, fdid in MAP_FDIDS.items():
         print(f"alias: {fdid};World\\Maps\\{MAPS[map_id][0]}\\{MAPS[map_id][0]}.wdt")
