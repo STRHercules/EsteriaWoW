@@ -45,7 +45,13 @@ AREA_TEMPLATE = 12  # Elwynn Forest: flags, ambience and music
 SUBZONES = {16376: "Brumewood Hollow", 16377: "Gilded Oaks", 16378: "The Outer Banks", 16588: "Town Center",
             16700: "Faldir's Torch", 16701: "Morgan's Rest", 16704: "Breakwater Bight", 16709: "Crescent Cove",
             16818: "Stoneveil Ridge"}
-SUBZONE_TEMPLATE = 87  # Goldshire: a subzone's flags
+SUBZONE_TEMPLATE = 87  # Goldshire: a subzone's sounds
+# Exploration bits under 4096 (the server's PLAYER_EXPLORED_ZONES holds 128 x 32 and logs any bit past it), free in the
+# client's AreaTable, the server's AreaTable.dbc and acore_world.areatable_dbc (checked 2026-11-07).
+AREA_BITS = {16105: 4095, 16300: 4094, **{area: 4093 - i for i, area in enumerate(SUBZONES)}}
+SANCTUARY, REST_HORDE, REST_ALLIANCE = 0x800, 0x400000, 0x800000
+# Founder's Point is a sanctuary; a house is one too and rests whoever is inside, as retail's do.
+AREA_FLAGS = {NEIGHBORHOOD_MAP: SANCTUARY, HOUSE_MAP: SANCTUARY | REST_HORDE | REST_ALLIANCE}
 WORLD_MAP_NAME = "FoundersPoint"
 WORLD_MAP_BOUNDS = (2935.42, -2454.17, 4762.5, 1168.75)  # left (max y), right (min y), top (max x), bottom (min x)
 AREA_DBC_NAME, WORLD_MAP_DBC_NAME = r"DBFilesClient\AreaTable.dbc", r"DBFilesClient\WorldMapArea.dbc"
@@ -225,7 +231,9 @@ def map_rows(data):
     for map_id, (directory, name, instance_type, max_players) in MAPS.items():
         assert map_id not in taken, f"map {map_id} already in Map.dbc"
         row = list(base)
-        row[0], row[2], row[22], row[65] = map_id, instance_type, 0, max_players  # AreaTableID 0: the server has no row for ours
+        # AreaTableID: the zone the server gives a player on this map (it has no area data for it), and so the zone
+        # character select names
+        row[0], row[2], row[22], row[65] = map_id, instance_type, AREAS[map_id][0], max_players
         row[57] = LOADING_SCREENS[map_id][0]
         out.append((row, {1: directory, 5: name}))
     return strings, out
@@ -321,6 +329,20 @@ def world_sql(map_dbc):
     strings, rows = map_rows(map_dbc)
     for row, texts in rows:
         lines.append(f"INSERT INTO `map_dbc` VALUES ({', '.join(map_sql_values(strings, row, texts))});")
+    # The server's AreaTable lacks the zones map_dbc's AreaTableID names (Founder's Point, Home Interior): their rows,
+    # as the client's (subzones need no row; without area data the server never places anyone in one).
+    zones = [(area, map_id, name) for map_id, (area, name) in AREAS.items()]
+    lines.append(f"DELETE FROM `areatable_dbc` WHERE `ID` IN ({', '.join(str(a) for a, _, _ in zones)});")
+    for area, map_id, name in zones:
+        lines.append(f"INSERT INTO `areatable_dbc` (`ID`, `ContinentID`, `ParentAreaID`, `AreaBit`, `Flags`, `SoundProviderPref`, "
+                     f"`SoundProviderPrefUnderwater`, `AmbienceID`, `ZoneMusic`, `IntroSound`, `ExplorationLevel`, `AreaName_Lang_enUS`, "
+                     f"`AreaName_Lang_enGB`, `AreaName_Lang_koKR`, `AreaName_Lang_frFR`, `AreaName_Lang_deDE`, `AreaName_Lang_enCN`, "
+                     f"`AreaName_Lang_zhCN`, `AreaName_Lang_enTW`, `AreaName_Lang_zhTW`, `AreaName_Lang_esES`, `AreaName_Lang_esMX`, "
+                     f"`AreaName_Lang_ruRU`, `AreaName_Lang_ptPT`, `AreaName_Lang_ptBR`, `AreaName_Lang_itIT`, `AreaName_Lang_Unk`, "
+                     f"`AreaName_Lang_Mask`, `FactionGroupMask`, `LiquidTypeID_1`, `LiquidTypeID_2`, `LiquidTypeID_3`, `LiquidTypeID_4`, "
+                     f"`MinElevation`, `Ambient_Multiplier`, `Lightid`) VALUES ({area}, {map_id}, 0, {AREA_BITS[area]}, "
+                     f"{AREA_FLAGS[map_id]}, 0, 0, 0, 0, 0, 0, {q(name)}, {', '.join(['' + chr(39) * 2] * 15)}, 16712190, 6, 0, 0, 0, 0, "
+                     f"-500, 0, 0);")
     lines += [
         f"DELETE FROM `instance_template` WHERE `map` = {HOUSE_MAP};",
         f"INSERT INTO `instance_template` (`map`, `parent`, `script`, `allowMount`) VALUES ({HOUSE_MAP}, 0, '', 0);",
@@ -458,11 +480,12 @@ def patch_world_map(storm, client):
     bit = max(struct.unpack_from("<I", r, 12)[0] for r in rows)
     places = [(area, map_id, 0, name, AREA_TEMPLATE) for map_id, (area, name) in AREAS.items()]
     places += [(area, NEIGHBORHOOD_MAP, AREAS[NEIGHBORHOOD_MAP][0], name, SUBZONE_TEMPLATE) for area, name in SUBZONES.items()]
+    taken = {struct.unpack_from("<I", r, 12)[0] for r in rows}
     new = []
     for area, map_id, parent, name, template in places:
-        bit += 1
+        assert AREA_BITS[area] not in taken, f"AreaBit {AREA_BITS[area]} is used in this client's AreaTable"
         words = row_of(template)
-        words[0], words[1], words[2], words[3] = area, map_id, parent, bit
+        words[0], words[1], words[2], words[3], words[4] = area, map_id, parent, AREA_BITS[area], AREA_FLAGS[map_id]
         new.append((words, {11: name}))  # enUS name; the other locales keep the template's
     files = {AREA_DBC_NAME: append_rows(areas, 36, 144, new)}
 
