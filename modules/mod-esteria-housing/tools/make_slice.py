@@ -34,6 +34,15 @@ MAPS = {  # id: directory, name, InstanceType (1 party: one copy per house; 0 wo
     NEIGHBORHOOD_MAP: ("2735", "Founder's Point", 0, 0),
 }
 MAP_FDIDS = {HOUSE_MAP: 5890928, NEIGHBORHOOD_MAP: 5660542}  # Map.db2 WdtFileDataID
+# The world map: an AreaTable row naming each map (16105 is retail's Founder's Point) and an orphan WorldMapArea for it,
+# which 3.3.5 shows on any map that is not a continent (as for battlegrounds). Both use retail's painted Founder's
+# Point map (UiMap 2401, data/worldmap from wowdecomp docs/housing/tools/ui/make_worldmap.py), whose world bounds are
+# UiMapAssignment's region; inside a house the player lies outside them, so the map shows without an arrow.
+AREAS = {NEIGHBORHOOD_MAP: (16105, "Founder's Point"), HOUSE_MAP: (16106, "Home Interior")}
+AREA_TEMPLATE = 12  # Elwynn Forest: flags, ambience and music
+WORLD_MAP_NAME = "FoundersPoint"
+WORLD_MAP_BOUNDS = (2935.42, -2454.17, 4762.5, 1168.75)  # left (max y), right (min y), top (max x), bottom (min x)
+AREA_DBC_NAME, WORLD_MAP_DBC_NAME = r"DBFilesClient\AreaTable.dbc", r"DBFilesClient\WorldMapArea.dbc"
 # NeighborhoodMap 1 (Founder's Point): entry position and facing; the steward stands there.
 NEIGHBORHOOD_ENTRY = (3807.76, -160.427, 194.111, 2.852)
 
@@ -204,7 +213,7 @@ def map_rows(data):
     for map_id, (directory, name, instance_type, max_players) in MAPS.items():
         assert map_id not in taken, f"map {map_id} already in Map.dbc"
         row = list(base)
-        row[0], row[2], row[22], row[65] = map_id, instance_type, 0, max_players  # AreaTableID 0: no retail areas
+        row[0], row[2], row[22], row[65] = map_id, instance_type, 0, max_players  # AreaTableID 0: the server has no row for ours
         out.append((row, {1: directory, 5: name}))
     return strings, out
 
@@ -411,6 +420,53 @@ def patch_map_dbc(original):
     return b"WDBC" + struct.pack("<4I", len(rows), fields, size, len(strings)) + b"".join(rows) + bytes(strings)
 
 
+def append_rows(original, fields, size, new):
+    """WDBC original plus rows given as (words, {field: text}); words are packed as uint32 unless float."""
+    count, f, sz, _ = struct.unpack_from("<4I", original, 4)
+    assert (f, sz) == (fields, size), f"layout {f}x{sz}, expected {fields}x{size}"
+    _, _, rows, strings = read_wdbc(original)
+    taken = {struct.unpack_from("<I", r)[0] for r in rows}
+    strings = bytearray(strings)
+    for words, texts in new:
+        assert words[0] not in taken, f"row {words[0]} already there"
+        words = list(words)
+        for i, text in texts.items():
+            words[i] = len(strings)
+            strings += text.encode("utf-8") + b"\0"
+        rows.append(b"".join(struct.pack("<f" if isinstance(w, float) else "<i" if w < 0 else "<I", w) for w in words))
+    return b"WDBC" + struct.pack("<4I", len(rows), fields, size, len(strings)) + b"".join(rows) + bytes(strings)
+
+
+def patch_world_map(storm, client):
+    """AreaTable.dbc and WorldMapArea.dbc with the housing maps, and the world map's tiles."""
+    _, areas = winning_dbc(storm, client, AREA_DBC_NAME)
+    _, _, rows, _ = read_wdbc(areas)
+    template = next(list(struct.unpack("<36I", r)) for r in rows if struct.unpack_from("<I", r)[0] == AREA_TEMPLATE)
+    bit = max(struct.unpack_from("<I", r, 12)[0] for r in rows)
+    new = []
+    for map_id, (area, name) in AREAS.items():
+        bit += 1
+        words = list(template)
+        words[0], words[1], words[2], words[3] = area, map_id, 0, bit
+        new.append((words, {11: name}))  # enUS name; the other locales keep the template's
+    files = {AREA_DBC_NAME: append_rows(areas, 36, 144, new)}
+
+    _, world = winning_dbc(storm, client, WORLD_MAP_DBC_NAME)
+    _, _, rows, _ = read_wdbc(world)
+    next_id = max(struct.unpack_from("<I", r)[0] for r in rows)
+    new = []
+    for map_id, (area, _name) in AREAS.items():
+        next_id += 1
+        new.append(([next_id, map_id, area, 0, *[float(v) for v in WORLD_MAP_BOUNDS], -1, 0, 0], {3: WORLD_MAP_NAME}))
+    files[WORLD_MAP_DBC_NAME] = append_rows(world, 11, 44, new)
+
+    tiles = MODULE / "data/worldmap" / WORLD_MAP_NAME
+    for blp in sorted(tiles.glob("*.blp")):
+        files[f"Interface\\WorldMap\\{WORLD_MAP_NAME}\\{blp.name}"] = blp.read_bytes()
+    assert sum(1 for name in files if name.endswith(".blp")) == 12, "the world map needs its 12 tiles"
+    return files
+
+
 def patch_dbc(storm, client):
     archive, original = winning_dbc(storm, client, DBC_NAME)
     fields, size, rows, strings = read_wdbc(original)
@@ -452,7 +508,7 @@ def main():
     storm = Storm(STORMLIB)
     source, dbc = patch_dbc(storm, args.client)
     map_source, map_original = winning_dbc(storm, args.client, MAP_DBC_NAME)
-    files = {DBC_NAME: dbc, MAP_DBC_NAME: patch_map_dbc(map_original)}
+    files = {DBC_NAME: dbc, MAP_DBC_NAME: patch_map_dbc(map_original), **patch_world_map(storm, args.client)}
     target = out / PATCH_NAME
     if target.exists():
         target.unlink()
