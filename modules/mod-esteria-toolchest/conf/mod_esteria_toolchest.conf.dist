@@ -1,0 +1,4 @@
+[worldserver]
+
+# Lowest account security that may use the GM Tool Chest: 1 moderator, 2 gamemaster, 3 administrator.
+EsteriaToolChest.MinSecurity = 2
