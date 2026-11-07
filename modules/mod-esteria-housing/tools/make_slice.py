@@ -38,8 +38,14 @@ MAP_FDIDS = {HOUSE_MAP: 5890928, NEIGHBORHOOD_MAP: 5660542}  # Map.db2 WdtFileDa
 # which 3.3.5 shows on any map that is not a continent (as for battlegrounds). Both use retail's painted Founder's
 # Point map (UiMap 2401, data/worldmap from wowdecomp docs/housing/tools/ui/make_worldmap.py), whose world bounds are
 # UiMapAssignment's region; inside a house the player lies outside them, so the map shows without an arrow.
-AREAS = {NEIGHBORHOOD_MAP: (16105, "Founder's Point"), HOUSE_MAP: (16106, "Home Interior")}
+AREAS = {NEIGHBORHOOD_MAP: (16105, "Founder's Point"), HOUSE_MAP: (16300, "Home Interior")}  # retail AreaTable IDs
 AREA_TEMPLATE = 12  # Elwynn Forest: flags, ambience and music
+# Founder's Point's subzones (retail AreaTable, ParentAreaID 16105). The client keeps a terrain chunk's retail area ID
+# when AreaTable has it (wowdecomp RetailTerrain), so these name the minimap's zone text.
+SUBZONES = {16376: "Brumewood Hollow", 16377: "Gilded Oaks", 16378: "The Outer Banks", 16588: "Town Center",
+            16700: "Faldir's Torch", 16701: "Morgan's Rest", 16704: "Breakwater Bight", 16709: "Crescent Cove",
+            16818: "Stoneveil Ridge"}
+SUBZONE_TEMPLATE = 87  # Goldshire: a subzone's flags
 WORLD_MAP_NAME = "FoundersPoint"
 WORLD_MAP_BOUNDS = (2935.42, -2454.17, 4762.5, 1168.75)  # left (max y), right (min y), top (max x), bottom (min x)
 AREA_DBC_NAME, WORLD_MAP_DBC_NAME = r"DBFilesClient\AreaTable.dbc", r"DBFilesClient\WorldMapArea.dbc"
@@ -448,13 +454,15 @@ def patch_world_map(storm, client):
     """AreaTable.dbc and WorldMapArea.dbc with the housing maps, and the world map's tiles."""
     _, areas = winning_dbc(storm, client, AREA_DBC_NAME)
     _, _, rows, _ = read_wdbc(areas)
-    template = next(list(struct.unpack("<36I", r)) for r in rows if struct.unpack_from("<I", r)[0] == AREA_TEMPLATE)
+    row_of = lambda id: next(list(struct.unpack("<36I", r)) for r in rows if struct.unpack_from("<I", r)[0] == id)  # noqa: E731
     bit = max(struct.unpack_from("<I", r, 12)[0] for r in rows)
+    places = [(area, map_id, 0, name, AREA_TEMPLATE) for map_id, (area, name) in AREAS.items()]
+    places += [(area, NEIGHBORHOOD_MAP, AREAS[NEIGHBORHOOD_MAP][0], name, SUBZONE_TEMPLATE) for area, name in SUBZONES.items()]
     new = []
-    for map_id, (area, name) in AREAS.items():
+    for area, map_id, parent, name, template in places:
         bit += 1
-        words = list(template)
-        words[0], words[1], words[2], words[3] = area, map_id, 0, bit
+        words = row_of(template)
+        words[0], words[1], words[2], words[3] = area, map_id, parent, bit
         new.append((words, {11: name}))  # enUS name; the other locales keep the template's
     files = {AREA_DBC_NAME: append_rows(areas, 36, 144, new)}
 
