@@ -338,10 +338,11 @@ def world_sql(map_dbc):
         else:  # 5 generic M2; 14 map object, the type 3.3.5 draws a WMO for
             lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
                          f"VALUES ({entry}, {14 if decor in WMO_DECOR else 5}, {display}, {q(name)}, 1);")
-        # model_fdid is what the client previews as an M2 (ghost, chest model): 0 for a WMO, which has none
+        # model_fdid is what the client previews (ghost, chest model): a WMO's with the high bit set (wowdecomp Housing.cpp
+        # WmoDecorBit), so it previews that as a map object
         lines.append(f"INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, "
                      f"`category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES ({decor}, "
-                     f"{0 if decor in WMO_DECOR else fdid}, {display}, "
+                     f"{fdid | 0x80000000 if decor in WMO_DECOR else fdid}, {display}, "
                      f"{entry}, {q(name)}, {CATEGORY[category]}, {SURFACE[surface]}, 0.5, 2, 'retail', {int(not is_dnt(decor))});")
     lines += ["", "DELETE FROM `housing_room_kit`;", "DELETE FROM `housing_room_kind`;"]
     for i, fdid in enumerate(ROOM_MODELS):
