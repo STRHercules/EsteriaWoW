@@ -356,3 +356,26 @@ CREATE TABLE IF NOT EXISTS `housing_shop_gear` (
   `owner_guid` INT UNSIGNED NOT NULL COMMENT 'the character who gave it; a bound item only goes back to them',
   PRIMARY KEY (`placed_id`, `slot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---------------------------------------------------------------- combat, training and adventure (section 3)
+-- A placed training dummy's, portal's or meeting stone's settings (tab-separated; HousingAdventure.inc reads them).
+CREATE TABLE IF NOT EXISTS `housing_adventure` (
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `config`    VARCHAR(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`placed_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Which home Teleport: Home and Portal: Home lead to (no row: the account's first house).
+CREATE TABLE IF NOT EXISTS `housing_home_choice` (
+  `account_id`      INT UNSIGNED NOT NULL,
+  `house_id`        INT UNSIGNED NOT NULL,
+  `neighborhood_id` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Each character's best damage (or healing) per second on each kind of training dummy.
+CREATE TABLE IF NOT EXISTS `housing_training_best` (
+  `guid` INT UNSIGNED NOT NULL,
+  `kind` TINYINT UNSIGNED NOT NULL,
+  `best` INT UNSIGNED NOT NULL DEFAULT 0,
+  `at`   INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`guid`, `kind`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
