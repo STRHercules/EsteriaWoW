@@ -1435,8 +1435,10 @@
         else if (verb == "setup" && f.size() >= 10)
         {
             std::string const name = Clean(f[1], 40), theme = Clean(f[2], 40);
-            bool const named = (!name.empty() && name != s.name) || theme != s.theme;
-            bool const respawn = s.kind == ServiceMerchant && named;
+            // every save renames a merchant onto a fresh entry and respawns it, so its name and title show at once, even
+            // for a client that cached an older name under its current entry
+            bool const named = true;
+            bool const respawn = s.kind == ServiceMerchant;
             if (!name.empty())
                 s.name = name;
             s.theme = theme;
