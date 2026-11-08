@@ -13,6 +13,8 @@
 #include "EsteriaHousingHooks.h"
 #include "GameObject.h"
 #include "GameTime.h"
+#include "AchievementMgr.h"
+#include "Bag.h"
 #include "Group.h"
 #include "Guild.h"
 #include "GuildMgr.h"
@@ -136,6 +138,7 @@ namespace
         uint32 firstRoomKind = 1; // HouseRoom 1, Square Room (Small)
         uint32 maxRooms = 16;
         uint32 roomPrice = 250000; // copper for a 23 x 23 yd room; others scale by floor area
+        uint32 maxAnimated = 12;   // moving displays (stable mounts, sanctuary pets) per house or neighborhood instance
         uint32 guildHoodPrice = 50000000; // copper from the guild bank for a guild neighborhood (5000 g)
     };
 
@@ -299,6 +302,23 @@ namespace
     void LoadAdventure();
     void TrainingTick(uint32 diff);
     void SyncHomeSpells(Player* player);
+    // Trophies, mounts, mannequins, the library and pets: catalog rows CollectionDecorBase + kind (HousingCollections.inc).
+    enum CollectionKind : uint8
+    {
+        ColTrophyMount = 1, ColTrophyPedestal, ColTrophyPlaque, ColTrophyCase, ColStall, ColPaddock, ColMountPedestal,
+        ColMannequin, ColBookshelf, ColLectern, ColDisplayTable, ColReadingNook, ColHabitat, ColPetBed, ColPetToy, ColFeeder,
+        ColLast = ColFeeder
+    };
+    constexpr uint32 CollectionDecorBase = 40200;
+    constexpr uint8 CollectionKindOf(uint32 decorId) { return decorId > CollectionDecorBase && decorId <= CollectionDecorBase + ColLast ? uint8(decorId - CollectionDecorBase) : 0; }
+    void LoadCollections();
+    void SpawnMannequin(Map* map, Placed const& p);
+    void SpawnDisplayExtras(Map* map, Placed const& p);
+    void DespawnDisplayExtras(Map* map, uint64 placed);
+    void CollectionRemoved(uint64 placed, CharacterDatabaseTransaction trans);
+    void PushDisplayNames(Player* player, Map* map);
+    bool DisplayMirrorImage(Player* player, Unit* unit);
+    void ForgetDisplayUnit(ObjectGuid guid);
 
     RoomTemplate const* Room(House const& house)
     {
@@ -832,6 +852,7 @@ namespace
 
         LoadCommerce();
         LoadAdventure();
+        LoadCollections();
         s_loaded = true;
         LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses, {} neighborhoods",
             s_catalog.size(), s_rooms.size(), s_kinds.size(), s_houses.size(), s_hoods.size());
@@ -848,6 +869,9 @@ namespace
         uint8 const adventure = AdventureKindOf(p.decorId);
         if (adventure >= AdvDummy && adventure <= AdvBoss)
             return SpawnDummy(map, p);
+        uint8 const collection = CollectionKindOf(p.decorId);
+        if (collection == ColMannequin)
+            return SpawnMannequin(map, p);
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
             return;
@@ -867,6 +891,8 @@ namespace
             s_spawned[map->GetInstanceId()][p.id] = go->GetGUID();
             if (ServiceKindOf(p.decorId)) // a shop's name floats above it
                 SpawnShopLabel(map, p);
+            if (collection) // a trophy, mount or habitat's pets beside it
+                SpawnDisplayExtras(map, p);
         }
         else
         {
@@ -879,10 +905,12 @@ namespace
     void Despawn(Map* map, uint64 placedId)
     {
         DespawnShopLabel(map, placedId);
+        DespawnDisplayExtras(map, placedId);
         auto& spawned = s_spawned[map->GetInstanceId()];
         auto it = spawned.find(placedId);
         if (it == spawned.end())
             return;
+        ForgetDisplayUnit(it->second);
         if (GameObject* go = it->second.IsGameObject() ? map->GetGameObject(it->second) : nullptr)
         {
             go->SetRespawnTime(0);
@@ -1436,6 +1464,7 @@ namespace
                 "AND decor_id = {} AND quantity_placed > 0", account, p.decorId);
             ShopRemoved(placedId, trans);
             AdventureRemoved(placedId, trans);
+            CollectionRemoved(placedId, trans);
             Despawn(map, placedId);
             out = EsteriaHousing::Final{};
         }
@@ -2104,6 +2133,7 @@ namespace
                 Despawn(map, id);
             ShopRemoved(id, trans);
             AdventureRemoved(id, trans);
+            CollectionRemoved(id, trans);
             if (Owned& o = owned[p.decorId]; o.placed)
                 --o.placed;
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
@@ -2770,6 +2800,7 @@ namespace
 
 #include "HousingCommerce.inc"
 #include "HousingAdventure.inc"
+#include "HousingCollections.inc"
 
     void HandleAction(WorldSession* session, WorldPacket& packet)
     {
@@ -2788,6 +2819,8 @@ namespace
             packet >> text;
             if (text.rfind("adv\t", 0) == 0) // section 3 shares the commerce channel
                 HandleAdventure(player, Split(text));
+            else if (text.rfind("col\t", 0) == 0) // and section 4
+                HandleCollection(player, Split(text));
             else
                 HandleCommerce(player, text);
             return;
@@ -3464,6 +3497,7 @@ namespace
             s_config.maxRooms = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxRooms", 16), 1, 32);
             s_config.roomPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.RoomPrice", 250000);
             s_config.guildHoodPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.GuildNeighborhoodPrice", 50000000);
+            s_config.maxAnimated = sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxAnimatedDisplays", 12);
             if (s_config.enabled && !s_loaded && sObjectMgr->GetGameObjectTemplates()->size())
                 Load(); // a .reload config that turns housing on after startup
             ApplyHooks();
@@ -3548,6 +3582,7 @@ namespace
                 s_lastHood[player->GetGUID()] = hood->id;
                 PopulateHood(map, *hood);
                 PushMerchantNames(player, map);
+                PushDisplayNames(player, map);
                 return;
             }
             if (!IsHousingMap(map->GetId()))
@@ -3568,6 +3603,7 @@ namespace
             }
             Populate(map, *house);
             PushMerchantNames(player, map);
+            PushDisplayNames(player, map);
             SendState(player);
         }
 
@@ -3579,6 +3615,13 @@ namespace
             s_roomSpawned.erase(instance);
             s_lotSpawned.erase(instance);
             s_populated.erase(instance);
+            for (auto it = s_extras.begin(); it != s_extras.end();)
+            {
+                if (it->second.instance != instance) { ++it; continue; }
+                for (ObjectGuid const& g : it->second.units)
+                    s_extraPlaced.erase(g);
+                it = s_extras.erase(it);
+            }
             if (auto it = s_instanceHood.find(instance); it != s_instanceHood.end())
             {
                 if (auto hood = s_hoodInstance.find(it->second); hood != s_hoodInstance.end() && hood->second == instance)
@@ -3605,6 +3648,9 @@ void AddSC_mod_esteria_housing()
     new go_esteria_housing_service();
     new go_esteria_housing_adventure();
     new npc_esteria_housing_dummy();
+    new npc_esteria_housing_display();
+    new go_esteria_housing_collection();
+    new EsteriaHousingBooks();
     new EsteriaHousingHomeSpells();
     RegisterSpellScript(spell_esteria_housing_home);
     new EsteriaHousingPlotWatch();

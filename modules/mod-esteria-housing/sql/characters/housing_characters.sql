@@ -394,3 +394,26 @@ SET @has_lh = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schem
   AND table_name = 'housing_shop' AND column_name = 'label_height');
 SET @q = IF(@has_lh = 0, 'ALTER TABLE `housing_shop` ADD COLUMN `label_height` FLOAT NOT NULL DEFAULT 2.4', 'DO 0');
 PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
+
+-- Section 4, collections and display. A display's settings (HousingCollections.inc DisplayText): the trophy, mount,
+-- mannequin outfit and look, or habitat pets it shows. It holds ids only, never an item.
+CREATE TABLE IF NOT EXISTS `housing_display` (
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `config`    TEXT NOT NULL,
+  PRIMARY KEY (`placed_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- An account's saved mannequin outfits ("slot:item," pairs).
+CREATE TABLE IF NOT EXISTS `housing_outfit` (
+  `account_id` INT UNSIGNED NOT NULL,
+  `name`       VARCHAR(32) NOT NULL,
+  `gear`       VARCHAR(512) NOT NULL DEFAULT '',
+  PRIMARY KEY (`account_id`, `name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- The books an account has read (by first page), for its library: counted from when the library came in.
+CREATE TABLE IF NOT EXISTS `housing_library_book` (
+  `account_id` INT UNSIGNED NOT NULL,
+  `page_id`    INT UNSIGNED NOT NULL,
+  `read_at`    INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`account_id`, `page_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT IGNORE INTO `housing_counter` (`name`, `value`) VALUES ('display_entry', 9507100);

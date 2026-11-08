@@ -106,6 +106,8 @@ REALM_SQL = (f"UPDATE `realmlist` SET `name` = 'Esteria Housing Dev', `address` 
 def apply():
     run_file(CLONE["acore_world"], MODULE / "sql/world/housing_world.sql")
     run_file(CLONE["acore_world"], MODULE / "sql/world/housing_commerce_world.sql")
+    run_file(CLONE["acore_world"], MODULE / "sql/world/housing_adventure_world.sql")
+    run_file(CLONE["acore_world"], MODULE / "sql/world/housing_collections_world.sql")
     run_file(CLONE["acore_characters"], MODULE / "sql/characters/housing_characters.sql")
     mysql(CLONE["acore_auth"], REALM_SQL)
     print("realmlist 1 ->", f"127.0.0.1:{WORLD_PORT} in", CLONE["acore_auth"])

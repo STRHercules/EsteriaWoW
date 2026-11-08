@@ -40,6 +40,11 @@
 #        Description: Copper a Guild Master pays from the guild bank for a guild neighborhood (and each more, once
 #                     every one the guild has is full).
 #        Default:     50000000 (5000 gold)
+#
+#    EsteriaHousing.MaxAnimatedDisplays
+#        Description: Moving displays (stalled and paddock mounts, habitat pets) one house or neighborhood instance
+#                     animates; past it, more stand still (mounts) or nap (pets).
+#        Default:     12
 
 EsteriaHousing.Enable = 0
 EsteriaHousing.RoomTemplate = 1
@@ -50,3 +55,4 @@ EsteriaHousing.FirstRoomKind = 1
 EsteriaHousing.MaxRooms = 16
 EsteriaHousing.RoomPrice = 250000
 EsteriaHousing.GuildNeighborhoodPrice = 50000000
+EsteriaHousing.MaxAnimatedDisplays = 12
