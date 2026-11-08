@@ -213,6 +213,7 @@ namespace EsteriaHousingWire
         RateLimited = 12,
         Internal = 13,
         BadOp = 14,
+        ShopHasStock = 15, // removing a shop (merchant, case, shelf, rack, counter) that still has items for sale
     };
 
     enum Category : uint8_t

@@ -436,6 +436,15 @@
     }
 
     // A placed shop is being taken down: unsold stock goes home by mail.
+    // Whether a placed shop still holds goods for sale.
+    bool HasStockForSale(uint64 placedId)
+    {
+        for (auto const& [id, l] : s_listings)
+            if (l.shop == placedId && l.Stock())
+                return true;
+        return false;
+    }
+
     void ShopRemoved(uint64 placedId, CharacterDatabaseTransaction trans)
     {
         auto shop = s_shops.find(placedId);
