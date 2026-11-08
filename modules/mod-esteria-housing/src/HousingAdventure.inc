@@ -48,7 +48,8 @@
 
     constexpr uint32 AdventureDecorBase = 40100, DummyEntryBase = 9505000, VoidZoneEntry = 9505004;
     constexpr uint32 PortalLookBase = 9506020, MagePortalLook = 3, PortalLooks = 4;
-    constexpr uint32 SpellTeleportHome = 9500100, SpellPortalHome = 9500101, DrillBolt = 15232; // Shadow Bolt, 3 s cast
+    // the boss dummy's drill: Greater Heal on itself, a 3 s interruptible cast that harms no one (only the tank dummy fights)
+    constexpr uint32 SpellTeleportHome = 9500100, SpellPortalHome = 9500101, DrillCast = 2060;
     constexpr uint64 IdleEndMs = 15000;
 
     std::unordered_map<uint64, DummyConfig> s_dummyConfig;   // placed id ->
@@ -416,7 +417,7 @@
 
         void OnSpellCast(SpellInfo const* spell) override
         {
-            if (spell->Id == DrillBolt)
+            if (spell->Id == DrillCast)
                 m_castDone = true;
         }
 
@@ -475,27 +476,20 @@
             }
             if (kind == AdvBoss)
             {
-                if (!me->GetVictim())
-                {
-                    me->SetReactState(REACT_AGGRESSIVE);
-                    me->SetInCombatWith(p);
-                    p->SetInCombatWith(me);
-                }
                 // interruptible casts: one every 10 s; kicked when the cast stops before it lands
                 if ((cfg.drills & 1) && (m_drill += diff) >= 10000 && !me->HasUnitState(UNIT_STATE_CASTING))
                 {
                     m_drill = 0;
                     m_casting = true;
                     m_castDone = false;
-                    me->SetFacingToObject(p);
-                    me->CastSpell(p, DrillBolt, false);
+                    me->CastSpell(me, DrillCast, false);
                 }
                 else if (m_casting && !me->HasUnitState(UNIT_STATE_CASTING))
                 {
                     m_casting = false;
                     if (m_castDone) ++s.missed; else ++s.kicks;
                 }
-                // puddles: one under the player every 12 s, for 8 s; standing in one hurts
+                // puddles: one under the player every 12 s, for 8 s; each second stood in one counts (no damage)
                 if (cfg.drills & 2)
                 {
                     if ((m_puddle += diff) >= 12000)
@@ -511,15 +505,10 @@
                         std::erase_if(m_zones, [&](ObjectGuid const& g) { return !me->GetMap()->GetCreature(g); });
                         for (ObjectGuid const& g : m_zones)
                             if (Creature* z = me->GetMap()->GetCreature(g); z && p->GetExactDist2d(z) < 3.0f)
-                            {
                                 ++s.puddles;
-                                Unit::DealDamage(me, p, std::max<uint32>(1, p->GetMaxHealth() / 20), nullptr, DIRECT_DAMAGE,
-                                    SPELL_SCHOOL_MASK_SHADOW);
-                            }
                     }
                 }
-                uint64 const now = GameTime::GetGameTimeMS().count();
-                s.last = now;
+                uint64 const now = GameTime::GetGameTimeMS().count(); // the session idles out like any other once hits stop
                 if ((cfg.drills & 4) && cfg.enrage && now - s.start >= uint64(cfg.enrage) * 1000)
                 {
                     EndSession(p, "Enraged: the dummy outlasted you.");
@@ -532,6 +521,11 @@
         void DamageDealt(Unit* victim, uint32& damage, DamageEffectType, SpellSchoolMask) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
+            if (Kind() != AdvTank) // only the tank dummy hurts anyone
+            {
+                damage = 0;
+                return;
+            }
             if (Player* p = victim ? victim->ToPlayer() : nullptr)
                 if (auto s = s_sessions.find(p->GetGUID()); s != s_sessions.end() && s->second.active)
                     s->second.taken += damage;
