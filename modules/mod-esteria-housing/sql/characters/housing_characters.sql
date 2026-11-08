@@ -379,3 +379,12 @@ CREATE TABLE IF NOT EXISTS `housing_training_best` (
   `at`   INT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`guid`, `kind`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Counters that must outlive a restart (merchant_entry: the next pooled merchant creature entry; clients cache names by
+-- entry, so one must not come back around while a client may still remember it). Starts past every entry used so far.
+CREATE TABLE IF NOT EXISTS `housing_counter` (
+  `name`  VARCHAR(32) NOT NULL,
+  `value` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT IGNORE INTO `housing_counter` (`name`, `value`) VALUES ('merchant_entry', 9501100);
