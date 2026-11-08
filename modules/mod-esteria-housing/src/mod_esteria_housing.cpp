@@ -3091,6 +3091,33 @@ namespace
                 EnterFromPlot(player, s_houses[owner->second], lot, *plot);
             return;
         }
+        // Buying decor fills the account's storage: it works anywhere, not only inside a house (the yard's chest too).
+        if (action == ActionBuyDecor)
+        {
+            std::string error;
+            uint32 decorId;
+            uint16 count;
+            packet >> decorId >> count;
+            auto entry = s_catalog.find(decorId);
+            uint32 const price = entry == s_catalog.end() ? 0 : DecorPrice(entry->second) * count; // at most 100 x 5 g
+            Owned& o = s_owned[account][decorId];
+            if (entry == s_catalog.end() || count < 1 || count > 100 || o.owned + count > 1000)
+                error = "That decor cannot be bought.";
+            else if (!player->HasEnoughMoney(price))
+                error = "You cannot afford that.";
+            else
+            {
+                player->ModifyMoney(-int32(price));
+                o.owned = uint16(o.owned + count);
+                CharacterDatabase.Execute("INSERT INTO housing_account_decor (account_id, decor_id, quantity_owned, quantity_placed) "
+                    "VALUES ({}, {}, {}, 0) ON DUPLICATE KEY UPDATE quantity_owned = {}", account, decorId, o.owned, o.owned);
+                LOG_INFO("module", "housing: account {} bought {} x decor {} for {} copper", account, count, decorId, price);
+                SendCatalog(session, 0);
+            }
+            if (!error.empty())
+                ChatHandler(session).SendNotification(error);
+            return;
+        }
         // Room editing: the owner, inside their own house.
         House* own = HouseOfInstance(player->GetMap());
         if (!own || own->account != account)
@@ -3114,28 +3141,6 @@ namespace
             uint32 theme;
             packet >> room >> part >> theme;
             error = StyleRoom(player, *own, room, part, theme);
-        }
-        else if (action == ActionBuyDecor)
-        {
-            uint32 decorId;
-            uint16 count;
-            packet >> decorId >> count;
-            auto entry = s_catalog.find(decorId);
-            uint32 const price = entry == s_catalog.end() ? 0 : DecorPrice(entry->second) * count; // at most 100 x 5 g
-            Owned& o = s_owned[account][decorId];
-            if (entry == s_catalog.end() || count < 1 || count > 100 || o.owned + count > 1000)
-                error = "That decor cannot be bought.";
-            else if (!player->HasEnoughMoney(price))
-                error = "You cannot afford that.";
-            else
-            {
-                player->ModifyMoney(-int32(price));
-                o.owned = uint16(o.owned + count);
-                CharacterDatabase.Execute("INSERT INTO housing_account_decor (account_id, decor_id, quantity_owned, quantity_placed) "
-                    "VALUES ({}, {}, {}, 0) ON DUPLICATE KEY UPDATE quantity_owned = {}", account, decorId, o.owned, o.owned);
-                LOG_INFO("module", "housing: account {} bought {} x decor {} for {} copper", account, count, decorId, price);
-                SendCatalog(session, 0);
-            }
         }
         else if (action == ActionUpgrade)
         {
