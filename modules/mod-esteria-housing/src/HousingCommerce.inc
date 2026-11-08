@@ -97,6 +97,7 @@
         std::string lookHex, bodyHex; // a merchant's saved appearance, as the client sent it
         std::map<uint8, Gear> gear;
         std::string name, theme = "General Goods", greeting = "Welcome! Have a look.", thanks = "Thank you!", farewell = "Safe travels.", sign;
+        float labelHeight = 2.4f; // yd above a case's, shelf's, rack's, counter's or sign's base that its name floats
     };
     struct ShopAccount { uint64 treasury = 0; bool bankDeposit = false; };
     struct Recipe
@@ -144,6 +145,8 @@
         }
         t->Name = shop.name;
         t->SubName = shop.theme;
+        for (CreatureModel& m : t->Models) // a merchant at full size; any other shop's entry is its floating label, a speck
+            m.DisplayScale = shop.kind == ServiceMerchant ? 1.0f : 0.01f;
         t->InitializeQueryData();
     }
 
@@ -165,9 +168,10 @@
     void SaveShop(Shop const& s, CharacterDatabaseTransaction trans)
     {
         trans->Append("REPLACE INTO housing_shop (placed_id, house_id, account_id, owner_guid, kind, creature_entry, race, sex, look_hex, body_hex, "
-            "symbol, border, name, theme, greeting, thanks, farewell, sign) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, '{}', '{}', {}, {}, '{}', '{}', '{}', '{}', '{}', '{}')",
+            "symbol, border, name, theme, greeting, thanks, farewell, sign, label_height) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, '{}', '{}', {}, {}, "
+            "'{}', '{}', '{}', '{}', '{}', '{}', {})",
             s.placed, s.house, s.account, s.ownerGuid, s.kind, s.entry, s.race, s.sex, Sql(s.lookHex), Sql(s.bodyHex), s.symbol, s.border, Sql(s.name),
-            Sql(s.theme), Sql(s.greeting), Sql(s.thanks), Sql(s.farewell), Sql(s.sign));
+            Sql(s.theme), Sql(s.greeting), Sql(s.thanks), Sql(s.farewell), Sql(s.sign), s.labelHeight);
     }
 
     void SaveShopAccount(uint32 account, CharacterDatabaseTransaction trans)
@@ -275,7 +279,7 @@
         s_shops.clear(); s_shopAccounts.clear(); s_listings.clear(); s_orders.clear();
         LoadRecipes();
         if (QueryResult r = CharacterDatabase.Query("SELECT placed_id, house_id, account_id, owner_guid, kind, creature_entry, race, symbol, border, "
-            "name, theme, greeting, thanks, farewell, sign, sex, look_hex, body_hex FROM housing_shop"))
+            "name, theme, greeting, thanks, farewell, sign, sex, look_hex, body_hex, label_height FROM housing_shop"))
             do
             {
                 Field* f = r->Fetch();
@@ -286,6 +290,7 @@
                 s.greeting = f[11].Get<std::string>(); s.thanks = f[12].Get<std::string>(); s.farewell = f[13].Get<std::string>();
                 s.sign = f[14].Get<std::string>();
                 s.sex = f[15].Get<uint8>(); s.lookHex = f[16].Get<std::string>(); s.bodyHex = f[17].Get<std::string>();
+                s.labelHeight = f[18].Get<float>();
                 if (s.entry)
                 {
                     s_nextMerchantEntry = std::max(s_nextMerchantEntry, std::min(s.entry + 1, MerchantEntryLast));
@@ -508,7 +513,8 @@
         std::ostringstream out;
         out << "shop\t" << int(owner) << '\t' << s.name << '\t' << s.theme << '\t' << s.greeting << '\t' << message << '\t'
             << (owner ? account.treasury : 0) << '\t' << int(s.kind) << '\t' << 0 << '\t' << s.thanks << '\t' << s.farewell << '\t'
-            << s.sign << '\t' << int(s.symbol) << '\t' << int(s.border) << '\t' << int(owner && account.bankDeposit) << '\t' << BankDepositPrice << '\n';
+            << s.sign << '\t' << int(s.symbol) << '\t' << int(s.border) << '\t' << int(owner && account.bankDeposit) << '\t' << BankDepositPrice
+            << '\t' << s.labelHeight << '\n';
         for (auto const& [id, l] : s_listings)
         {
             if (l.shop != s.placed || (!owner && !l.published))
@@ -831,10 +837,11 @@
         if (shop == s_shops.end() || shop->second.kind == ServiceMerchant || !shop->second.entry)
             return;
         DespawnShopLabel(map, p.id);
-        if (Creature* c = map->SummonCreature(shop->second.entry, Position(p.pos[0], p.pos[1], p.pos[2] + 2.4f * p.scale, p.yaw)))
+        // a real model shrunk to a speck (its template's scale, NameTemplate: it is created that small, never seen shrinking);
+        // the client draws no name over the invisible stalker's empty model
+        if (Creature* c = map->SummonCreature(shop->second.entry, Position(p.pos[0], p.pos[1], p.pos[2] + shop->second.labelHeight,
+            p.yaw)))
         {
-            // a real model shrunk to a speck: the client draws no name over the invisible stalker's empty model
-            c->SetObjectScale(0.01f);
             c->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_IMMUNE_TO_NPC);
             c->SetReactState(REACT_PASSIVE);
             c->SetDisableGravity(true);
@@ -1502,6 +1509,9 @@
             s.sign = Clean(f[7], 40);
             s.symbol = uint8(std::min<uint32>(Num(f, 8), 15));
             s.border = uint8(std::min<uint32>(Num(f, 9), 3));
+            if (f.size() > 10) // the name's height above a case's base, in yards (0 to 10)
+                if (float const h = std::strtof(f[10].c_str(), nullptr); std::isfinite(h))
+                    s.labelHeight = std::clamp(h, 0.0f, 10.0f);
             if (named)
             {
                 if (uint32 const entry = NextMerchantEntry())
