@@ -902,10 +902,14 @@
             s_shopView[player->GetGUID()].object = now->second;
     }
 
-    void SendLook(Player* to, ObjectGuid guid, Shop const& s)
+    void SendLookHex(Player* to, ObjectGuid guid, std::string const& lookHex, std::string const& bodyHex);
+    void SendLook(Player* to, ObjectGuid guid, Shop const& s) { SendLookHex(to, guid, s.lookHex, s.bodyHex); }
+
+    // A saved customization (a merchant's, a mannequin's), to one client: it keeps looks by guid.
+    void SendLookHex(Player* to, ObjectGuid guid, std::string const& lookHex, std::string const& bodyHex)
     {
         std::array<uint8, CharacterRetailLook::PayloadSize> look;
-        if (FromHex(s.lookHex, look))
+        if (FromHex(lookHex, look))
         {
             WorldPacket data(SMSG_ESTERIA_RETAIL_LOOK, 8 + look.size());
             data << guid.GetRawValue();
@@ -913,7 +917,7 @@
             to->SendDirectMessage(&data);
         }
         std::array<uint8, CharacterBodyShape::PayloadSize> body;
-        if (FromHex(s.bodyHex, body))
+        if (FromHex(bodyHex, body))
         {
             WorldPacket data(SMSG_ESTERIA_BODY_SHAPE, 8 + body.size());
             data << guid.GetRawValue();
@@ -928,7 +932,7 @@
         std::lock_guard<std::recursive_mutex> guard(s_lock);
         Creature* creature = unit->ToCreature();
         if (!creature || creature->GetEntry() < MerchantEntryFirst || creature->GetEntry() > MerchantEntryLast)
-            return false;
+            return DisplayMirrorImage(player, unit); // a mannequin
         Shop const* shop = nullptr;
         for (auto const& [id, guid] : s_spawned[unit->GetInstanceId()])
             if (guid == unit->GetGUID())
