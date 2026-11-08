@@ -1,10 +1,12 @@
-// Esteria housing, Phase 1 slice (wowdecomp docs/housing/). One house per account in a per-house instance of a reused
-// interior map, decor as temporary GameObjects, edits over the HousingWire.h opcodes. Everything is off unless
+// Esteria housing (wowdecomp docs/housing/). Houses in a per-house instance of a reused interior map; neighborhoods
+// (an account's own, or a guild's) each an instance of a neighborhood map, with every house's exterior and outdoor
+// decor spawned into it; decor as temporary GameObjects, edits over the HousingWire.h opcodes. Everything is off unless
 // EsteriaHousing.Enable = 1; with it off both core hooks stay null and the module does nothing.
 //
 // All state lives on the world thread (PROCESS_THREADUNSAFE packets, gossip, teleports, map enter), so the maps below
 // are only guarded against the occasional map-thread caller by one mutex.
 
+#include "CharacterCache.h"
 #include "Chat.h"
 #include "Config.h"
 #include "DatabaseEnv.h"
@@ -12,6 +14,8 @@
 #include "GameObject.h"
 #include "GameTime.h"
 #include "Group.h"
+#include "Guild.h"
+#include "GuildMgr.h"
 #include "HousingRooms.h"
 #include "HousingRules.h"
 #include "InstanceSaveMgr.h"
@@ -30,6 +34,7 @@
 #include <tuple>
 #include <deque>
 #include <map>
+#include <set>
 #include <mutex>
 #include <unordered_map>
 #include <unordered_set>
@@ -95,7 +100,8 @@ namespace
         std::string owner;            // the owner's most played character, for visitors' lists
         int8 MaxLevel() const { return int8(floors - 1); }
         std::map<uint64, Placed> placed;
-        std::map<uint64, Placed> outdoor; // decor on its plot (housing_placed_decor.room_id NULL), saved world spawns
+        // decor on its plots (housing_placed_decor.room_id NULL), by neighborhood: a house has one plot in each
+        std::map<uint32, std::map<uint64, Placed>> outdoor;
         std::vector<HouseRoom> rooms; // slot order; rooms[0] is the room decor rows reference (roomId)
     };
 
@@ -120,6 +126,7 @@ namespace
         uint32 firstRoomKind = 1; // HouseRoom 1, Square Room (Small)
         uint32 maxRooms = 16;
         uint32 roomPrice = 250000; // copper for a 23 x 23 yd room; others scale by floor area
+        uint32 guildHoodPrice = 50000000; // copper from the guild bank for a guild neighborhood (5000 g)
     };
 
     std::recursive_mutex s_lock;
@@ -180,16 +187,14 @@ namespace
         uint8 accepts = 0; // SpotAccepts
         std::map<uint8, Rooms::Hook> hooks; // type -> the hook it stands on
     };
-    std::map<std::tuple<uint16, uint8, uint32, uint8>, uint8> s_plotSpot; // plot, shape, spot -> type (0 empty)
+    // A plot in one neighborhood: (neighborhood_id, plot index). The plot's place on its map is a Plot.
+    using Lot = std::pair<uint32, uint8>;
+    std::map<std::tuple<uint32, uint8, uint32, uint8>, uint8> s_plotSpot; // neighborhood, plot, shape, spot -> type (0 empty)
     uint8 SpotBit(uint8 type) { return type == FixtureDormer ? SpotDormer : type == FixtureTower ? SpotTower
         : type == FixtureChimney ? SpotChimney : 0; }
     struct Placement { uint32 entry; float x, y, z, yaw; float rot[4] = { 0, 0, 0, 0 }; float scale = 1; }; // rot all 0: turn by yaw
-    // Saved world spawns keep no size of their own (acore gameobject has no scale): the module sets it as each one enters
-    // the world (EsteriaHousingSpawnScale), from this map, rebuilt at startup from the plots and outdoor decor.
-    std::unordered_map<uint32, float> s_spawnScale;
     constexpr uint16 OutdoorBudget = 100;           // decor on a plot
     float s_plotRadius = 20;                        // half the distance between the closest two plots, at most 30 yd
-    std::unordered_map<uint64, uint32> s_outdoorSpawn; // outdoor placed decor -> its saved world spawn
     std::unordered_map<ObjectGuid, uint32> s_onPlot;   // player -> house whose plot they stand on (0: none)
     std::unordered_map<ObjectGuid, uint32> s_plotWatch; // player -> ms before the next plot check
     std::vector<Plot> s_plots;
@@ -197,35 +202,66 @@ namespace
     std::map<uint32, std::string> s_exteriorStyles;                    // style -> name
     std::map<uint32, Fixture> s_fixtures;                              // component -> part
     std::unordered_map<uint32, std::vector<std::pair<uint8, Rooms::Hook>>> s_fixtureHooks; // shape -> (type, hook)
-    std::map<std::tuple<uint16, uint8, uint32, uint8>, uint32> s_plotFixture; // plot, theme, type -> component
-    std::map<std::pair<uint16, uint8>, PlotLook> s_plotLook;
-    std::map<std::pair<uint16, uint8>, uint32> s_plotHouse;           // plot -> house
-    std::map<std::pair<uint16, uint8>, std::vector<uint32>> s_plotSpawns; // plot -> its saved exterior spawns
-    std::unordered_map<uint32, std::pair<uint16, uint8>> s_housePlot; // house -> plot
+    std::map<std::tuple<uint32, uint8, uint32, uint8>, uint32> s_plotFixture; // neighborhood, plot, theme, type -> component
+    std::map<Lot, PlotLook> s_plotLook;
+    std::map<Lot, uint32> s_plotHouse;                                 // plot -> house
+    std::unordered_map<uint32, std::set<Lot>> s_houseLots;             // house -> its plots, one per neighborhood at most
     std::unordered_map<uint32, House> s_houses;
-    std::unordered_map<uint32, uint32> s_houseByAccount;
+    std::unordered_map<uint32, std::vector<uint32>> s_accountHouses;   // account -> its houses, oldest first
     std::unordered_map<uint32, std::unordered_map<uint32, Owned>> s_owned; // account -> decor -> counts
     uint32 s_nextHouseId = 1, s_nextRoomId = 1;
     uint64 s_nextPlacedId = 1;
 
-    // Live instances. A house keeps its instance only while that map exists.
+    // The neighborhood maps (retail NeighborhoodMap 1 and 2): map, name, entry and facing (make_slice.py spawns a
+    // steward there). Every neighborhood is an instance of one of them.
+    struct HoodMap { uint16 map; char const* name; float entry[4]; };
+    constexpr HoodMap HoodMaps[] = {
+        { 2735, "Founder's Point", { 3807.76f, -160.427f, 194.111f, 2.852f } },
+        { 2736, "Razorwind Shores", { 2053.6f, 175.468f, 175.12f, 3.4558f } },
+    };
+    constexpr uint8 HoodMapCount = 2;
+    // An account's own neighborhood, or one of a guild's (housing_neighborhood).
+    enum HoodKind : uint8 { HoodAccount = 0, HoodGuild = 1 };
+    struct Hood
+    {
+        uint32 id = 0, owner = 0; // account, or guild
+        uint8 kind = HoodAccount, mapIndex = 0;
+        std::set<uint32> members; // accounts the owner invited: they may come in and buy plots
+        uint16 Map() const { return HoodMaps[mapIndex].map; }
+    };
+    std::map<uint32, Hood> s_hoods;
+    std::unordered_map<uint32, uint32> s_accountHood;      // account -> its own neighborhood
+    uint32 s_nextHoodId = 1;
+    // Guild rank rights (Right bits) in a guild's neighborhoods (housing_guild_right); the Guild Master has them all.
+    constexpr uint8 DefaultRankRights = RightBuy;
+    std::map<std::pair<uint32, uint8>, uint8> s_guildRights; // (guild, rank) -> GuildRight bits
+    std::unordered_map<uint32, std::vector<std::pair<uint32, uint32>>> s_favorites; // account -> (house, neighborhood)
+    std::unordered_map<uint32, std::deque<std::pair<uint32, uint32>>> s_recent;     // character -> visits, newest first
+    constexpr size_t RecentVisits = 10;
+    std::unordered_map<uint32, std::string> s_accountName;  // account -> its most played character
+    std::unordered_map<uint32, uint32> s_guildCheckAt;      // guild -> ms left before its plots are checked (members left)
+
+    // Live instances. A house or neighborhood keeps its instance only while that map exists.
     std::unordered_map<uint32, uint32> s_houseInstance;    // house -> instance
     std::unordered_map<uint32, uint32> s_instanceHouse;    // instance -> house
+    std::unordered_map<uint32, uint32> s_hoodInstance;     // neighborhood -> instance
+    std::unordered_map<uint32, uint32> s_instanceHood;     // instance -> neighborhood
     std::unordered_map<uint32, std::unordered_map<uint64, ObjectGuid>> s_spawned; // instance -> placed -> GO
     std::unordered_set<uint32> s_populated;
     std::unordered_map<uint32, std::vector<ObjectGuid>> s_roomSpawned; // instance -> room-kit GOs
+    std::unordered_map<uint32, std::map<uint8, std::vector<ObjectGuid>>> s_lotSpawned; // instance -> plot -> exterior GOs
 
     std::unordered_map<ObjectGuid, uint32> s_pending;      // player -> house they are teleporting into
     std::unordered_map<ObjectGuid, uint32> s_lastHouse;    // player -> last house entered (relog inside)
+    std::unordered_map<ObjectGuid, uint32> s_pendingHood;  // player -> neighborhood they are teleporting into
+    std::unordered_map<ObjectGuid, uint32> s_lastHood;     // player -> last neighborhood entered (relog inside)
     std::unordered_map<ObjectGuid, WorldLocation> s_returnTo;
+    std::unordered_map<ObjectGuid, uint32> s_returnHood;   // player -> neighborhood s_returnTo leads into (0: none)
     std::unordered_map<ObjectGuid, WorldLocation> s_neighborhoodReturn;
 
-    // NeighborhoodMap.db2 row 1, Founder's Point: map, entry position and facing (make_slice.py spawns its steward there).
-    constexpr uint32 NeighborhoodMap = 2735;
-    constexpr float NeighborhoodEntry[4] = { 3807.76f, -160.427f, 194.111f, 2.852f };
     std::unordered_map<uint32, EditSession> s_editSessions; // account -> seq/rate state
     std::unordered_set<uint32> s_hasUi;                     // accounts whose client said HELLO with this Proto
-    std::unordered_map<ObjectGuid, std::pair<uint16, uint8>> s_plotView; // player -> plot whose cornerstone they clicked
+    std::unordered_map<ObjectGuid, Lot> s_plotView;         // player -> plot whose cornerstone they clicked
 
     RoomTemplate const* Room(House const& house)
     {
@@ -256,10 +292,115 @@ namespace
         return house == s_houses.end() ? nullptr : &house->second;
     }
 
+    // The account's first house (the steward's "take me to my house"), or null.
     House* HouseOfAccount(uint32 account)
     {
-        auto it = s_houseByAccount.find(account);
-        return it == s_houseByAccount.end() ? nullptr : &s_houses[it->second];
+        auto it = s_accountHouses.find(account);
+        return it == s_accountHouses.end() || it->second.empty() ? nullptr : &s_houses[it->second.front()];
+    }
+
+    bool IsNeighborhoodMap(uint32 mapId)
+    {
+        for (HoodMap const& m : HoodMaps)
+            if (m.map == mapId)
+                return true;
+        return false;
+    }
+
+    Hood* FindHood(uint32 id)
+    {
+        auto it = s_hoods.find(id);
+        return it == s_hoods.end() ? nullptr : &it->second;
+    }
+
+    // The neighborhood a neighborhood-map instance is, or null.
+    Hood* HoodOfMap(Map const* map)
+    {
+        if (!map || !IsNeighborhoodMap(map->GetId()))
+            return nullptr;
+        auto it = s_instanceHood.find(map->GetInstanceId());
+        Hood* hood = it == s_instanceHood.end() ? nullptr : FindHood(it->second);
+        return hood && hood->Map() == map->GetId() ? hood : nullptr;
+    }
+
+    // The live instance of a neighborhood, or null.
+    Map* LiveMap(Hood const& hood)
+    {
+        auto it = s_hoodInstance.find(hood.id);
+        return it == s_hoodInstance.end() ? nullptr : sMapMgr->FindMap(hood.Map(), it->second);
+    }
+
+    Plot const* FindPlot(uint16 map, uint8 index)
+    {
+        for (Plot const& p : s_plots)
+            if (p.map == map && p.index == index)
+                return &p;
+        return nullptr;
+    }
+
+    Plot const* PlotOfLot(Lot const& lot)
+    {
+        Hood const* hood = FindHood(lot.first);
+        return hood ? FindPlot(hood->Map(), lot.second) : nullptr;
+    }
+
+    // The account's most played character's name (houses and neighborhoods are named for it).
+    std::string const& AccountName(uint32 account)
+    {
+        auto it = s_accountName.find(account);
+        if (it != s_accountName.end())
+            return it->second;
+        std::string name = "Someone";
+        if (QueryResult r = CharacterDatabase.Query("SELECT name FROM characters WHERE account = {} ORDER BY totaltime DESC "
+            "LIMIT 1", account))
+            name = r->Fetch()[0].Get<std::string>();
+        return s_accountName[account] = name;
+    }
+
+    std::string HoodName(Hood const& hood)
+    {
+        if (hood.kind == HoodGuild)
+        {
+            Guild const* guild = sGuildMgr->GetGuildById(hood.owner);
+            uint32 n = 0, mine = 0;
+            for (auto const& [id, h] : s_hoods)
+                if (h.kind == HoodGuild && h.owner == hood.owner && ++n && id == hood.id)
+                    mine = n;
+            std::string name = (guild ? guild->GetName() : std::string("A guild")) + "'s Neighborhood";
+            return mine > 1 ? name + " " + std::to_string(mine) : name;
+        }
+        return AccountName(hood.owner) + "'s Neighborhood";
+    }
+
+    uint16 PlotCount(Hood const& hood)
+    {
+        uint16 n = 0;
+        for (Plot const& p : s_plots)
+            n += p.map == hood.Map();
+        return n;
+    }
+
+    uint16 FreePlots(Hood const& hood)
+    {
+        uint16 taken = 0;
+        for (auto const& [lot, house] : s_plotHouse)
+            taken += lot.first == hood.id;
+        return uint16(PlotCount(hood) - std::min<uint16>(taken, PlotCount(hood)));
+    }
+
+    // The account's own neighborhood, made on first use (Founder's Point).
+    Hood& AccountHood(uint32 account)
+    {
+        if (auto it = s_accountHood.find(account); it != s_accountHood.end())
+            return s_hoods[it->second];
+        Hood h;
+        h.id = s_nextHoodId++;
+        h.owner = account;
+        CharacterDatabase.Execute("INSERT INTO housing_neighborhood (neighborhood_id, kind, owner, map_id, created_at) "
+            "VALUES ({}, 0, {}, {}, {})", h.id, account, h.Map(), uint32(GameTime::GetGameTime().count()));
+        s_accountHood[account] = h.id;
+        LOG_INFO("module", "housing: account {} gets neighborhood {}", account, h.id);
+        return s_hoods[h.id] = h;
     }
 
     void Load()
@@ -267,8 +408,15 @@ namespace
         s_catalog.clear();
         s_rooms.clear();
         s_houses.clear();
-        s_houseByAccount.clear();
+        s_accountHouses.clear();
         s_owned.clear();
+        s_hoods.clear();
+        s_accountHood.clear();
+        s_houseLots.clear();
+        s_guildRights.clear();
+        s_favorites.clear();
+        s_recent.clear();
+        s_accountName.clear();
 
         if (QueryResult result = WorldDatabase.Query("SELECT decor_id, model_fdid, display_id, gameobject_entry, name, "
             "category, surface, min_scale, max_scale FROM housing_decor_catalog WHERE enabled = 1"))
@@ -371,14 +519,14 @@ namespace
         // house count outgrows a dev realm.
         if (QueryResult result = CharacterDatabase.Query("SELECT h.house_id, h.account_id, h.room_template_id, h.revision, "
             "h.max_decor, COALESCE(MIN(r.room_id), 0) FROM housing_house h LEFT JOIN housing_room r ON r.house_id = h.house_id "
-            "GROUP BY h.house_id"))
+            "GROUP BY h.house_id ORDER BY h.house_id"))
             do
             {
                 Field* f = result->Fetch();
                 House h;
                 h.id = f[0].Get<uint32>(); h.account = f[1].Get<uint32>(); h.roomTemplate = f[2].Get<uint32>();
                 h.revision = f[3].Get<uint32>(); h.maxDecor = f[4].Get<uint16>(); h.roomId = f[5].Get<uint32>();
-                s_houseByAccount[h.account] = h.id;
+                s_accountHouses[h.account].push_back(h.id);
                 s_nextHouseId = std::max(s_nextHouseId, h.id + 1);
                 s_houses[h.id] = std::move(h);
             } while (result->NextRow());
@@ -407,10 +555,65 @@ namespace
                 }
             while (result->NextRow());
 
-        s_outdoorSpawn.clear();
-        if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, spawn_id FROM housing_outdoor_spawn"))
+        // Before neighborhoods were instances, exteriors and outdoor decor were saved world spawns, which an instanced map
+        // would load into every neighborhood: delete them (they are spawned per instance now).
+        std::vector<uint32> legacy;
+        if (QueryResult result = CharacterDatabase.Query("SELECT spawn_id FROM housing_outdoor_spawn"))
+            do legacy.push_back(result->Fetch()[0].Get<uint32>()); while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT spawns FROM housing_plot_claim WHERE spawns <> ''"))
             do
-                s_outdoorSpawn[result->Fetch()[0].Get<uint64>()] = result->Fetch()[1].Get<uint32>();
+            {
+                std::istringstream spawns(result->Fetch()[0].Get<std::string>());
+                for (uint32 id; spawns >> id;)
+                    legacy.push_back(id);
+            } while (result->NextRow());
+        for (uint32 id : legacy)
+        {
+            sObjectMgr->DeleteGOData(id);
+            WorldDatabase.Execute("DELETE FROM gameobject WHERE guid = {}", id);
+        }
+        if (!legacy.empty())
+        {
+            CharacterDatabase.Execute("DELETE FROM housing_outdoor_spawn");
+            CharacterDatabase.Execute("UPDATE housing_plot_claim SET spawns = ''");
+            LOG_INFO("module", "housing: deleted {} saved exterior and outdoor decor spawns (now spawned per neighborhood)",
+                legacy.size());
+        }
+
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, kind, owner, map_id FROM housing_neighborhood"))
+            do
+            {
+                Field* f = result->Fetch();
+                Hood h;
+                h.id = f[0].Get<uint32>(); h.kind = f[1].Get<uint8>(); h.owner = f[2].Get<uint32>();
+                for (uint8 i = 0; i < HoodMapCount; ++i)
+                    if (HoodMaps[i].map == f[3].Get<uint16>())
+                        h.mapIndex = i;
+                if (h.kind == HoodAccount)
+                    s_accountHood[h.owner] = h.id;
+                s_nextHoodId = std::max(s_nextHoodId, h.id + 1);
+                s_hoods[h.id] = h;
+            } while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, account_id FROM housing_neighborhood_member"))
+            do
+                if (Hood* hood = FindHood(result->Fetch()[0].Get<uint32>()))
+                    hood->members.insert(result->Fetch()[1].Get<uint32>());
+            while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT guild_id, rank_id, rights FROM housing_guild_right"))
+            do
+                s_guildRights[{ result->Fetch()[0].Get<uint32>(), result->Fetch()[1].Get<uint8>() }] = result->Fetch()[2].Get<uint8>();
+            while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT account_id, house_id, neighborhood_id FROM housing_favorite "
+            "ORDER BY added_at"))
+            do
+                s_favorites[result->Fetch()[0].Get<uint32>()].push_back({ result->Fetch()[1].Get<uint32>(),
+                    result->Fetch()[2].Get<uint32>() });
+            while (result->NextRow());
+        if (QueryResult result = CharacterDatabase.Query("SELECT guid, house_id, neighborhood_id FROM housing_recent_visit "
+            "ORDER BY visited_at DESC"))
+            do
+                if (auto& list = s_recent[result->Fetch()[0].Get<uint32>()]; list.size() < RecentVisits)
+                    list.push_back({ result->Fetch()[1].Get<uint32>(), result->Fetch()[2].Get<uint32>() });
             while (result->NextRow());
 
         s_plots.clear();
@@ -443,31 +646,31 @@ namespace
                     Rooms::Hook{ f[2].Get<float>(), f[3].Get<float>(), f[4].Get<float>(), f[5].Get<float>() } });
             } while (result->NextRow());
         s_plotSpot.clear();
-        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, shape, spot, type FROM housing_plot_spot"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, plot, shape, spot, type FROM housing_plot_spot"))
             do
             {
                 Field* f = result->Fetch();
-                s_plotSpot[{ f[0].Get<uint16>(), f[1].Get<uint8>(), f[2].Get<uint32>(), f[3].Get<uint8>() }] = f[4].Get<uint8>();
+                s_plotSpot[{ f[0].Get<uint32>(), f[1].Get<uint8>(), f[2].Get<uint32>(), f[3].Get<uint8>() }] = f[4].Get<uint8>();
             } while (result->NextRow());
-        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, theme, type, component FROM housing_plot_fixture"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, plot, theme, type, component FROM housing_plot_fixture"))
             do
             {
                 Field* f = result->Fetch();
-                s_plotFixture[{ f[0].Get<uint16>(), f[1].Get<uint8>(), f[2].Get<uint32>(), f[3].Get<uint8>() }] = f[4].Get<uint32>();
+                s_plotFixture[{ f[0].Get<uint32>(), f[1].Get<uint8>(), f[2].Get<uint32>(), f[3].Get<uint8>() }] = f[4].Get<uint32>();
             } while (result->NextRow());
         if (QueryResult result = WorldDatabase.Query("SELECT style, name FROM housing_exterior_style"))
             do
                 s_exteriorStyles[result->Fetch()[0].Get<uint32>()] = result->Fetch()[1].Get<std::string>();
             while (result->NextRow());
-        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, style, offset_x, offset_y, turn, offset_z, scale "
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, plot, style, offset_x, offset_y, turn, offset_z, scale "
             "FROM housing_plot_style"))
             do
             {
                 Field* f = result->Fetch();
-                s_plotLook[{ f[0].Get<uint16>(), f[1].Get<uint8>() }] = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(),
+                s_plotLook[{ f[0].Get<uint32>(), f[1].Get<uint8>() }] = { f[2].Get<uint32>(), f[3].Get<float>(), f[4].Get<float>(),
                     f[5].Get<float>(), f[6].Get<float>(), std::clamp(f[7].Get<float>(), HouseMinScale, HouseMaxScale) };
             } while (result->NextRow());
-        s_housePlot.clear();
+
         if (QueryResult result = WorldDatabase.Query("SELECT map_id, plot, house_x, house_y, house_z, house_yaw, corner_x, "
             "corner_y, corner_z, corner_o, exit_x, exit_y, exit_z FROM housing_plot ORDER BY map_id, plot"))
             do
@@ -546,16 +749,15 @@ namespace
                     }
             } while (result->NextRow());
 
-        if (QueryResult result = CharacterDatabase.Query("SELECT map_id, plot, house_id, spawns FROM housing_plot_claim"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, plot, house_id FROM housing_plot_claim"))
             do
             {
                 Field* f = result->Fetch();
-                auto const key = std::make_pair(f[0].Get<uint16>(), f[1].Get<uint8>());
-                s_plotHouse[key] = f[2].Get<uint32>();
-                std::istringstream spawns(f[3].Get<std::string>());
-                for (uint32 id; spawns >> id;)
-                    s_plotSpawns[key].push_back(id);
-                s_housePlot[f[2].Get<uint32>()] = key;
+                Lot const lot{ f[0].Get<uint32>(), f[1].Get<uint8>() };
+                if (!PlotOfLot(lot) || !s_houses.count(f[2].Get<uint32>()))
+                    continue;
+                s_plotHouse[lot] = f[2].Get<uint32>();
+                s_houseLots[f[2].Get<uint32>()].insert(lot);
             } while (result->NextRow());
 
         if (QueryResult result = CharacterDatabase.Query("SELECT MAX(room_id) FROM housing_room"))
@@ -564,7 +766,7 @@ namespace
             s_nextPlacedId = std::max<uint64>(1, result->Fetch()[0].Get<uint64>() + 1);
 
         if (QueryResult result = CharacterDatabase.Query("SELECT placed_id, house_id, decor_id, pos_x, pos_y, pos_z, rot_x, "
-            "rot_y, rot_z, rot_w, scale, COALESCE(room_id, 0) FROM housing_placed_decor"))
+            "rot_y, rot_z, rot_w, scale, COALESCE(room_id, 0), neighborhood_id FROM housing_placed_decor"))
             do
             {
                 Field* f = result->Fetch();
@@ -577,7 +779,7 @@ namespace
                 for (int i = 0; i < 4; ++i) p.rot[i] = f[6 + i].Get<float>();
                 p.scale = f[10].Get<float>();
                 p.yaw = EsteriaHousing::SnapYaw(p.rot, 0);
-                (f[11].Get<uint32>() ? house->second.placed : house->second.outdoor)[p.id] = p;
+                (f[11].Get<uint32>() ? house->second.placed : house->second.outdoor[f[12].Get<uint32>()])[p.id] = p;
             } while (result->NextRow());
 
         if (QueryResult result = CharacterDatabase.Query("SELECT account_id, decor_id, quantity_owned, quantity_placed "
@@ -588,19 +790,10 @@ namespace
                 s_owned[f[0].Get<uint32>()][f[1].Get<uint32>()] = { f[2].Get<uint16>(), f[3].Get<uint16>() };
             } while (result->NextRow());
 
-        s_spawnScale.clear();
-        for (auto const& [key, spawns] : s_plotSpawns)
-            if (auto look = s_plotLook.find(key); look != s_plotLook.end() && look->second.scale != 1)
-                for (uint32 id : spawns)
-                    s_spawnScale[id] = look->second.scale;
-        for (auto const& [id, house] : s_houses)
-            for (auto const& [placedId, p] : house.outdoor)
-                if (auto spawn = s_outdoorSpawn.find(placedId); spawn != s_outdoorSpawn.end() && p.scale != 1)
-                    s_spawnScale[spawn->second] = p.scale;
 
         s_loaded = true;
-        LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses", s_catalog.size(),
-            s_rooms.size(), s_kinds.size(), s_houses.size());
+        LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses, {} neighborhoods",
+            s_catalog.size(), s_rooms.size(), s_kinds.size(), s_houses.size(), s_hoods.size());
         if (!DefaultRoom())
             LOG_ERROR("module", "housing: room template {} (EsteriaHousing.RoomTemplate) is missing", s_config.roomTemplate);
     }
@@ -915,68 +1108,49 @@ namespace
         player->SendDirectMessage(&data);
     }
 
-    struct Plot;
-    Plot const* PlotOf(uint32 houseId);
-    uint32 SaveSpawn(Map* map, Placement const& p);
-    void DeleteSpawn(Map* map, uint32 spawnId);
-
-    // The owner standing on their own plot at the neighborhood: its house and plot, or nulls.
-    std::pair<House*, Plot const*> OnOwnPlot(Player* player)
+    // The owner standing on one of their own plots in the neighborhood they are in: its house, plot and neighborhood.
+    struct OwnPlot { House* house = nullptr; Plot const* plot = nullptr; uint32 hood = 0; };
+    OwnPlot OnOwnPlot(Player* player)
     {
-        if (!player || player->GetMapId() != NeighborhoodMap)
-            return { nullptr, nullptr };
-        House* house = HouseOfAccount(player->GetSession()->GetAccountId());
-        Plot const* plot = house ? PlotOf(house->id) : nullptr;
-        if (!plot || std::fabs(player->GetPositionX() - plot->house[0]) > s_plotRadius
-            || std::fabs(player->GetPositionY() - plot->house[1]) > s_plotRadius)
-            return { nullptr, nullptr };
-        return { house, plot };
-    }
-
-    // Outdoor decor is a saved world spawn, so it stays for everyone across restarts (its size: s_spawnScale).
-    void SpawnOutdoor(Map* map, Placed const& p, CharacterDatabaseTransaction trans)
-    {
-        auto entry = s_catalog.find(p.decorId);
-        if (entry == s_catalog.end())
-            return;
-        Placement placement{ entry->second.goEntry, p.pos[0], p.pos[1], p.pos[2], p.yaw };
-        for (int i = 0; i < 4; ++i) placement.rot[i] = p.rot[i];
-        placement.scale = p.scale;
-        if (uint32 const spawnId = SaveSpawn(map, placement))
+        Hood const* hood = player ? HoodOfMap(player->GetMap()) : nullptr;
+        if (!hood)
+            return {};
+        auto mine = s_accountHouses.find(player->GetSession()->GetAccountId());
+        if (mine == s_accountHouses.end())
+            return {};
+        for (auto const& [lot, houseId] : s_plotHouse)
         {
-            s_outdoorSpawn[p.id] = spawnId;
-            trans->Append("REPLACE INTO housing_outdoor_spawn (placed_id, spawn_id) VALUES ({}, {})", p.id, spawnId);
+            if (lot.first != hood->id || std::find(mine->second.begin(), mine->second.end(), houseId) == mine->second.end())
+                continue;
+            Plot const* plot = FindPlot(hood->Map(), lot.second);
+            if (plot && std::fabs(player->GetPositionX() - plot->house[0]) <= s_plotRadius
+                && std::fabs(player->GetPositionY() - plot->house[1]) <= s_plotRadius)
+                return { &s_houses[houseId], plot, hood->id };
         }
-    }
-
-    void DespawnOutdoor(Map* map, uint64 placedId, CharacterDatabaseTransaction trans)
-    {
-        auto it = s_outdoorSpawn.find(placedId);
-        if (it == s_outdoorSpawn.end())
-            return;
-        DeleteSpawn(map, it->second);
-        s_outdoorSpawn.erase(it);
-        trans->Append("DELETE FROM housing_outdoor_spawn WHERE placed_id = {}", placedId);
+        return {};
     }
 
     void SendState(Player* player)
     {
         House const* house = HouseOfInstance(player->GetMap());
         RoomTemplate const* room = house ? Room(*house) : nullptr;
-        auto const [plotHouse, plot] = house ? std::pair<House*, Plot const*>{ nullptr, nullptr } : OnOwnPlot(player);
-        if (plotHouse)
+        OwnPlot const own = house ? OwnPlot{} : OnOwnPlot(player);
+        if (own.house)
         {
             // outside: the plot's decor, in a box around the house's spot
-            WorldPacket data(SMSG_ESTERIA_HOUSING_STATE, 64 + plotHouse->outdoor.size() * 44);
-            data << uint8(1) << uint8(1) << uint8(1) << plotHouse->id << plotHouse->revision << uint16(plotHouse->outdoor.size())
+            House* plotHouse = own.house;
+            Plot const* plot = own.plot;
+            std::map<uint64, Placed> const& outdoor = plotHouse->outdoor[own.hood];
+            WorldPacket data(SMSG_ESTERIA_HOUSING_STATE, 64 + outdoor.size() * 44);
+            data << uint8(1) << uint8(1) << uint8(1) << plotHouse->id << plotHouse->revision << uint16(outdoor.size())
                  << OutdoorBudget;
             data << (plot->house[0] - s_plotRadius) << (plot->house[1] - s_plotRadius) << (plot->house[2] - 10)
                  << (plot->house[0] + s_plotRadius) << (plot->house[1] + s_plotRadius) << (plot->house[2] + 30);
-            data << uint16(plotHouse->outdoor.size());
-            for (auto const& [id, p] : plotHouse->outdoor)
+            data << uint16(outdoor.size());
+            for (auto const& [id, p] : outdoor)
                 data << uint64(id) << uint32(p.decorId) << p.pos[0] << p.pos[1] << p.pos[2] << p.rot[0] << p.rot[1] << p.rot[2]
                      << p.rot[3] << p.scale;
-            auto const look = s_plotLook.find({ plot->map, plot->index });
+            auto const look = s_plotLook.find({ own.hood, plot->index });
             PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
             data << plot->house[0] << plot->house[1] << plot->house[2] << plot->house[3] << l.dx << l.dy << l.dz << l.turn << l.scale
                  << PlotReachYd;
@@ -1089,10 +1263,14 @@ namespace
         House* house = player ? HouseOfInstance(player->GetMap()) : nullptr;
         RoomTemplate const* room = house ? Room(*house) : nullptr;
         Plot const* plot = nullptr;
+        uint32 hood = 0;
         if (!house && player)
-            std::tie(house, plot) = OnOwnPlot(player);
+        {
+            OwnPlot const own = OnOwnPlot(player);
+            house = own.house; plot = own.plot; hood = own.hood;
+        }
         bool const outdoors = plot != nullptr;
-        std::map<uint64, Placed>* decor = house ? (outdoors ? &house->outdoor : &house->placed) : nullptr;
+        std::map<uint64, Placed>* decor = house ? (outdoors ? &house->outdoor[hood] : &house->placed) : nullptr;
         EditSession& state = s_editSessions[account];
         uint64 const now = GameTime::GetGameTimeMS().count();
         while (!state.recent.empty() && now - state.recent.front() >= 1000)
@@ -1161,14 +1339,14 @@ namespace
                 { out.rot[0], out.rot[1], out.rot[2], out.rot[3] }, out.scale };
             (*decor)[placedId] = p;
             ++owned[e.decorId].placed;
-            trans->Append("INSERT INTO housing_placed_decor (placed_id, house_id, room_id, decor_id, pos_x, pos_y, pos_z, "
-                "rot_x, rot_y, rot_z, rot_w, scale, placed_by, placed_at) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
-                placedId, house->id, outdoors ? std::string("NULL") : std::to_string(house->roomId), e.decorId, out.pos[0], out.pos[1], out.pos[2], out.rot[0],
-                out.rot[1], out.rot[2], out.rot[3], out.scale, character, now32);
+            trans->Append("INSERT INTO housing_placed_decor (placed_id, house_id, room_id, neighborhood_id, decor_id, pos_x, pos_y, "
+                "pos_z, rot_x, rot_y, rot_z, rot_w, scale, placed_by, placed_at) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
+                "{}, {}, {})", placedId, house->id, outdoors ? std::string("NULL") : std::to_string(house->roomId), hood, e.decorId,
+                out.pos[0], out.pos[1], out.pos[2], out.rot[0], out.rot[1], out.rot[2], out.rot[3], out.scale, character, now32);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed + 1 WHERE account_id = {} AND decor_id = {}",
                 account, e.decorId);
             after = "'" + Json(p) + "'";
-            if (outdoors) SpawnOutdoor(map, p, trans); else Spawn(map, p);
+            Spawn(map, p);
         }
         else if (e.op == OpMove)
         {
@@ -1182,16 +1360,8 @@ namespace
                 "rot_w = {}, scale = {} WHERE placed_id = {} AND house_id = {}", out.pos[0], out.pos[1], out.pos[2], out.rot[0],
                 out.rot[1], out.rot[2], out.rot[3], out.scale, placedId, house->id);
             after = "'" + Json(p) + "'";
-            if (outdoors)
-            {
-                DespawnOutdoor(map, placedId, trans);
-                SpawnOutdoor(map, p, trans);
-            }
-            else
-            {
-                Despawn(map, placedId);
-                Spawn(map, p);
-            }
+            Despawn(map, placedId);
+            Spawn(map, p);
         }
         else
         {
@@ -1203,7 +1373,7 @@ namespace
             trans->Append("DELETE FROM housing_placed_decor WHERE placed_id = {} AND house_id = {}", placedId, house->id);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
                 "AND decor_id = {} AND quantity_placed > 0", account, p.decorId);
-            if (outdoors) DespawnOutdoor(map, placedId, trans); else Despawn(map, placedId);
+            Despawn(map, placedId);
             out = EsteriaHousing::Final{};
         }
         house->revision = revision;
@@ -1216,7 +1386,7 @@ namespace
             e.op, placedId, e.decorId);
         SendAck(session, e.seq, Ok, revision, placedId, &out);
         if (outdoors)
-            SendState(player); // the neighborhood is everyone's map; only the editor needs the list
+            SendState(player); // others in the neighborhood see the decor itself; only the editor needs the list
         else
             BroadcastState(map);
     }
@@ -1228,6 +1398,13 @@ namespace
         {
             WorldLocation const to = it->second;
             s_returnTo.erase(it);
+            // back into the neighborhood the house was entered from
+            if (auto hood = s_returnHood.find(player->GetGUID()); hood != s_returnHood.end())
+            {
+                if (IsNeighborhoodMap(to.GetMapId()))
+                    s_pendingHood[player->GetGUID()] = hood->second;
+                s_returnHood.erase(hood);
+            }
             player->TeleportTo(to.GetMapId(), to.GetPositionX(), to.GetPositionY(), to.GetPositionZ(), to.GetOrientation());
         }
         else
@@ -1290,10 +1467,40 @@ namespace
         }
     }
 
-    // MapInstanced hook: the owner's instance for whoever is entering a house.
+    // A neighborhood map's instance for whoever is entering it: the neighborhood they are traveling to, the one they
+    // were last in (a relog), else their own.
+    uint32 PickHoodInstance(Player* player, uint32 mapId)
+    {
+        uint32 hoodId = 0;
+        if (auto it = s_pendingHood.find(player->GetGUID()); it != s_pendingHood.end())
+            hoodId = it->second;
+        else if (auto last = s_lastHood.find(player->GetGUID()); last != s_lastHood.end())
+            hoodId = last->second;
+        Hood* hood = FindHood(hoodId);
+        if (!hood || hood->Map() != mapId)
+            hood = &AccountHood(player->GetSession()->GetAccountId());
+        if (hood->Map() != mapId)
+            return 0; // the stock instance, which sends them home (EsteriaHousingMaps)
+        uint32& instanceId = s_hoodInstance[hood->id];
+        if (!instanceId || !sMapMgr->FindMap(mapId, instanceId))
+        {
+            if (instanceId)
+                s_instanceHood.erase(instanceId);
+            instanceId = sMapMgr->GenerateInstanceId();
+            s_instanceHood[instanceId] = hood->id;
+        }
+        if (InstancePlayerBind* bind = sInstanceSaveMgr->PlayerGetBoundInstance(player->GetGUID(), mapId, DUNGEON_DIFFICULTY_NORMAL))
+            if (!bind->perm && bind->save && bind->save->GetInstanceId() != instanceId)
+                sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUID(), mapId, DUNGEON_DIFFICULTY_NORMAL, true, player);
+        return instanceId;
+    }
+
+    // MapInstanced hook: the owner's instance for whoever is entering a house, the neighborhood's for a neighborhood.
     uint32 PickInstance(Player* player, uint32 mapId)
     {
         std::lock_guard<std::recursive_mutex> guard(s_lock);
+        if (s_config.enabled && s_loaded && IsNeighborhoodMap(mapId))
+            return PickHoodInstance(player, mapId);
         if (!s_config.enabled || !s_loaded || !IsHousingMap(mapId))
             return 0;
         uint32 houseId = 0;
@@ -1334,11 +1541,20 @@ namespace
         if (!room)
             return false;
         if (!IsHousingMap(player->GetMapId()))
+        {
             s_returnTo[player->GetGUID()] = WorldLocation(player->GetMapId(), player->GetPositionX(), player->GetPositionY(),
                 player->GetPositionZ(), player->GetOrientation());
+            if (Hood const* hood = HoodOfMap(player->GetMap()))
+                s_returnHood[player->GetGUID()] = hood->id;
+            else
+                s_returnHood.erase(player->GetGUID());
+        }
+        House const* inside = HouseOfInstance(player->GetMap());
         s_pending[player->GetGUID()] = house.id;
         LOG_INFO("module", "housing: {} enters house {} (owner account {})", player->GetName(), house.id, house.account);
-        return player->TeleportTo(room->mapId, room->entry[0], room->entry[1], room->entry[2], room->entry[3]);
+        // from another house: the same map, but that house's instance
+        return player->TeleportTo(room->mapId, room->entry[0], room->entry[1], room->entry[2], room->entry[3], 0, nullptr,
+            inside && inside->id != house.id);
     }
 
     // Starter decor: StarterQuantity of every catalog entry. shortcut: grants stand in for acquisition (vendors, drops).
@@ -1357,12 +1573,13 @@ namespace
         }
     }
 
+    // A new house for the player's account (an account may own any number).
     House* Claim(Player* player)
     {
         uint32 const account = player->GetSession()->GetAccountId();
         RoomTemplate const* room = DefaultRoom();
-        if (!room || HouseOfAccount(account))
-            return HouseOfAccount(account);
+        if (!room)
+            return nullptr;
         House h;
         h.id = s_nextHouseId++;
         h.roomId = s_nextRoomId++;
@@ -1381,7 +1598,7 @@ namespace
         h.rooms.push_back({ h.roomId, { s_config.firstRoomKind, 0, 0, 0 } });
         GrantStarter(account, trans);
         CharacterDatabase.CommitTransaction(trans);
-        s_houseByAccount[account] = h.id;
+        s_accountHouses[account].push_back(h.id);
         LOG_INFO("module", "housing: {} (account {}) claimed house {}", player->GetName(), account, h.id);
         return &(s_houses[h.id] = std::move(h));
     }
@@ -1554,19 +1771,12 @@ namespace
         return best;
     }
 
-    Plot const* PlotOf(uint32 houseId)
+    PlotLook LookOf(Lot const& lot)
     {
-        auto it = s_housePlot.find(houseId);
-        if (it == s_housePlot.end())
-            return nullptr;
-        for (Plot const& p : s_plots)
-            if (p.map == it->second.first && p.index == it->second.second)
-                return &p;
-        return nullptr;
+        auto it = s_plotLook.find(lot);
+        return it == s_plotLook.end() ? PlotLook{} : it->second;
     }
 
-    // The default exterior on a plot: every piece but the door hooks, plus the door on the hook facing the cornerstone.
-    // door receives the spot just outside that door, where walking in enters the house.
     // Whether a part fits a style: its theme, and for walls and roofs its size too.
     bool Fits(Fixture const& x, uint32 style, uint8 type)
     {
@@ -1574,9 +1784,9 @@ namespace
     }
 
     // The part of this type the plot's house has: the owner's choice where it still fits, else the style's default.
-    Fixture const* PartOf(Plot const& plot, uint32 style, uint8 type)
+    Fixture const* PartOf(Lot const& lot, uint32 style, uint8 type)
     {
-        if (auto c = s_plotFixture.find({ plot.map, plot.index, style / 10, type }); c != s_plotFixture.end())
+        if (auto c = s_plotFixture.find({ lot.first, lot.second, style / 10, type }); c != s_plotFixture.end())
             if (auto x = s_fixtures.find(c->second); x != s_fixtures.end() && Fits(x->second, style, type))
                 return &x->second;
         for (auto const& [id, x] : s_fixtures)
@@ -1640,10 +1850,10 @@ namespace
 
     // What stands on a spot: the owner's choice, else a chimney on the roof's first chimney spot (the house every plot
     // had before spots), else nothing.
-    uint8 SpotType(Plot const& plot, std::vector<Spot> const& spots, size_t i, uint32 roofShape)
+    uint8 SpotType(Lot const& lot, std::vector<Spot> const& spots, size_t i, uint32 roofShape)
     {
         Spot const& s = spots[i];
-        if (auto c = s_plotSpot.find({ plot.map, plot.index, s.shape, s.local }); c != s_plotSpot.end())
+        if (auto c = s_plotSpot.find({ lot.first, lot.second, s.shape, s.local }); c != s_plotSpot.end())
             return (s.accepts & SpotBit(c->second)) ? c->second : 0;
         if (s.shape != roofShape || !(s.accepts & SpotChimney))
             return 0;
@@ -1653,24 +1863,25 @@ namespace
         return FixtureChimney;
     }
 
-    std::vector<Placement> Exterior(Plot const& plot, Rooms::Pose* door = nullptr)
+    // The exterior on a plot: the owner's parts on their hooks, plus the door on the hook facing the cornerstone.
+    // door receives the spot just outside that door, where walking in enters the house.
+    std::vector<Placement> Exterior(Lot const& lot, Plot const& plot, Rooms::Pose* door = nullptr)
     {
         std::vector<Placement> out;
         std::vector<Rooms::Hook> doors;
         std::vector<uint32> doorEntries;
         std::vector<std::pair<float, float>> doorMats; // x out of the door, z up
         uint32 frontDoor = 0;
-        auto const look = s_plotLook.find({ plot.map, plot.index });
-        PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
+        PlotLook const l = LookOf(lot);
         // where the house stands: the plot's spot, moved and turned as its owner set it
         float const hx = plot.house[0] + l.dx, hy = plot.house[1] + l.dy, hz = plot.house[2] + l.dz;
         float const s = l.scale;
         float const yaw = plot.house[3] + l.turn * float(M_PI) / 180;
         // The parts the owner picked, on their hooks (housing_exterior_fixture); the fixed recipe below when the world
         // data has no parts for this style.
-        Fixture const* base = PartOf(plot, l.style, FixtureBase);
-        Fixture const* roof = PartOf(plot, l.style, FixtureRoof);
-        Fixture const* doorPart = PartOf(plot, l.style, FixtureDoor);
+        Fixture const* base = PartOf(lot, l.style, FixtureBase);
+        Fixture const* roof = PartOf(lot, l.style, FixtureRoof);
+        Fixture const* doorPart = PartOf(lot, l.style, FixtureDoor);
         bool const parts = base && roof && doorPart && !HooksOn(*base, FixtureDoor).empty();
         if (parts)
         {
@@ -1682,14 +1893,14 @@ namespace
             };
             put(base->entry, {});
             put(roof->entry, {});
-            if (Fixture const* window = PartOf(plot, l.style, FixtureWindow))
+            if (Fixture const* window = PartOf(lot, l.style, FixtureWindow))
                 for (Rooms::Hook const& h : HooksOn(*base, FixtureWindow))
                     put(window->entry, h);
             std::vector<Spot> const spots = HouseSpots(*base, *roof);
             uint32 const roofShape = s_fixtureHooks.count(roof->id) ? roof->id : roof->parent;
             for (size_t i = 0; i < spots.size(); ++i)
-                if (uint8 const type = SpotType(plot, spots, i, roofShape))
-                    if (Fixture const* part = PartOf(plot, l.style, type))
+                if (uint8 const type = SpotType(lot, spots, i, roofShape))
+                    if (Fixture const* part = PartOf(lot, l.style, type))
                         put(part->entry, spots[i].hooks.at(type));
             for (Rooms::Hook const& h : HooksOn(*base, FixtureDoor))
             {
@@ -1738,118 +1949,158 @@ namespace
         return out;
     }
 
-    // Saves a permanent world spawn the way .gobject add does, so the grid owns it across unloads and restarts.
-    uint32 SaveSpawn(Map* map, Placement const& p)
+    // One exterior piece, a temporary GameObject in a neighborhood's instance (sized before it enters the map, as Spawn).
+    ObjectGuid SpawnPiece(Map* map, Placement const& p)
     {
         GameObjectTemplate const* info = sObjectMgr->GetGameObjectTemplate(p.entry);
         if (!info)
-            return 0;
-        GameObject* object = new GameObject();
+            return ObjectGuid::Empty;
         bool const turnOnly = !p.rot[0] && !p.rot[1] && !p.rot[2] && !p.rot[3];
         G3D::Quat const rotation = turnOnly ? G3D::Quat::fromAxisAngleRotation(G3D::Vector3::unitZ(), p.yaw)
             : G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]);
-        if (!object->Create(map->GenerateLowGuid<HighGuid::GameObject>(), info->entry, map, PHASEMASK_NORMAL, p.x, p.y, p.z,
-            p.yaw, rotation, 0, GO_STATE_READY))
+        GameObject* go = new GameObject();
+        if (!go->Create(map->GenerateLowGuid<HighGuid::GameObject>(), info->entry, map, PHASEMASK_NORMAL, p.x, p.y, p.z, p.yaw,
+            rotation, 0, GO_STATE_READY))
         {
-            delete object;
-            return 0;
+            delete go;
+            return ObjectGuid::Empty;
         }
-        object->SaveToDB(map->GetId(), 1 << map->GetSpawnMode(), PHASEMASK_NORMAL);
-        uint32 const spawnId = object->GetSpawnId();
-        delete object;
-        if (p.scale != 1)
-            s_spawnScale[spawnId] = p.scale;
-        object = new GameObject();
-        if (!object->LoadGameObjectFromDB(spawnId, map, true))
-        {
-            delete object;
-            return 0;
-        }
-        sObjectMgr->AddGameobjectToGrid(spawnId, sObjectMgr->GetGameObjectData(spawnId));
-        return spawnId;
+        go->SetObjectScale(p.scale);
+        go->SetRespawnTime(0);
+        go->SetSpawnedByDefault(false);
+        map->AddToMap(go, false);
+        return go->GetGUID();
     }
 
-    void DeleteSpawn(Map* map, uint32 spawnId)
+    void ClearExterior(Map* map, uint8 index)
     {
-        std::vector<GameObject*> loaded;
-        auto range = map->GetGameObjectBySpawnIdStore().equal_range(spawnId);
-        for (auto it = range.first; it != range.second; ++it)
-            loaded.push_back(it->second);
-        for (GameObject* go : loaded)
-        {
-            go->SetRespawnTime(0);
-            go->Delete();
-        }
-        sObjectMgr->DeleteGOData(spawnId);
-        WorldDatabase.Execute("DELETE FROM gameobject WHERE guid = {}", spawnId);
-        s_spawnScale.erase(spawnId);
-    }
-
-    // A plot bought before the exterior recipe changed (the clickable front door) gets the current one.
-    void RefreshExterior(Map* map, Plot const& plot)
-    {
-        auto const key = std::make_pair(plot.map, plot.index);
-        std::vector<Placement> const want = Exterior(plot);
-        std::vector<uint32>& have = s_plotSpawns[key];
-        if (map->GetId() != plot.map)
+        auto& lots = s_lotSpawned[map->GetInstanceId()];
+        auto it = lots.find(index);
+        if (it == lots.end())
             return;
-        bool same = have.size() == want.size();
-        for (size_t i = 0; same && i < have.size(); ++i)
-        {
-            GameObjectData const* d = sObjectMgr->GetGameObjectData(have[i]);
-            auto const size = s_spawnScale.find(have[i]);
-            same = d && d->id == want[i].entry && std::fabs(d->posX - want[i].x) < 0.05f && std::fabs(d->posY - want[i].y) < 0.05f
-                && std::fabs(d->posZ - want[i].z) < 0.05f
-                && std::fabs((size == s_spawnScale.end() ? 1.0f : size->second) - want[i].scale) < 0.001f;
-        }
-        if (same)
-            return;
-        for (uint32 id : have)
-            DeleteSpawn(map, id);
-        have.clear();
-        std::string spawns;
-        for (Placement const& p : want)
-            if (uint32 const spawnId = SaveSpawn(map, p))
+        for (ObjectGuid const& guid : it->second)
+            if (GameObject* go = map->GetGameObject(guid))
             {
-                have.push_back(spawnId);
-                spawns += (spawns.empty() ? "" : " ") + std::to_string(spawnId);
+                go->SetRespawnTime(0);
+                go->Delete();
             }
-        CharacterDatabase.Execute("UPDATE housing_plot_claim SET spawns = '{}' WHERE map_id = {} AND plot = {}", spawns, plot.map,
-            plot.index);
-        LOG_INFO("module", "housing: rebuilt the exterior on plot {} (spawns {})", plot.index, spawns);
+        lots.erase(it);
     }
 
-    std::string ClaimPlot(Player* player, Plot const& plot)
+    // The house on a plot, rebuilt in its neighborhood's live instance (map, else the live one, if any) after anything
+    // about it changed; nothing stands on a free plot.
+    void RefreshExterior(Lot const& lot, Map* map = nullptr)
     {
-        uint32 const account = player->GetSession()->GetAccountId();
-        if (s_plotHouse.count({ plot.map, plot.index }))
+        Hood const* hood = FindHood(lot.first);
+        if (!map && hood)
+            map = LiveMap(*hood);
+        Plot const* plot = PlotOfLot(lot);
+        if (!map || !plot)
+            return;
+        ClearExterior(map, lot.second);
+        if (!s_plotHouse.count(lot))
+            return;
+        auto& spawned = s_lotSpawned[map->GetInstanceId()][lot.second];
+        for (Placement const& p : Exterior(lot, *plot))
+            if (ObjectGuid const guid = SpawnPiece(map, p); !guid.IsEmpty())
+                spawned.push_back(guid);
+    }
+
+    // A neighborhood instance's houses and outdoor decor, once, as the first player arrives.
+    void PopulateHood(Map* map, Hood const& hood)
+    {
+        if (!s_populated.insert(map->GetInstanceId()).second)
+            return;
+        size_t houses = 0, decor = 0;
+        for (auto const& [lot, houseId] : s_plotHouse)
+        {
+            if (lot.first != hood.id)
+                continue;
+            RefreshExterior(lot, map);
+            for (auto const& [id, p] : s_houses[houseId].outdoor[hood.id])
+            {
+                Spawn(map, p);
+                ++decor;
+            }
+            ++houses;
+        }
+        LOG_INFO("module", "housing: neighborhood {} populated instance {} with {} houses and {} outdoor decor", hood.id,
+            map->GetInstanceId(), houses, decor);
+    }
+
+    // A house's outdoor decor on its plot in one neighborhood goes back to the account's storage.
+    void ReturnOutdoor(House& house, uint32 hoodId, CharacterDatabaseTransaction trans)
+    {
+        Hood const* hood = FindHood(hoodId);
+        Map* map = hood ? LiveMap(*hood) : nullptr;
+        auto& owned = s_owned[house.account];
+        for (auto const& [id, p] : house.outdoor[hoodId])
+        {
+            if (map)
+                Despawn(map, id);
+            if (Owned& o = owned[p.decorId]; o.placed)
+                --o.placed;
+            trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
+                "AND decor_id = {} AND quantity_placed > 0", house.account, p.decorId);
+        }
+        trans->Append("DELETE FROM housing_placed_decor WHERE house_id = {} AND room_id IS NULL AND neighborhood_id = {}", house.id,
+            hoodId);
+        house.outdoor.erase(hoodId);
+    }
+
+    // Takes a house off a plot. The house, its rooms and indoor decor stay (saved, to stand on another plot); its outdoor
+    // decor there goes back to storage.
+    void ReleaseLot(Lot const& lot)
+    {
+        auto claim = s_plotHouse.find(lot);
+        if (claim == s_plotHouse.end())
+            return;
+        uint32 const houseId = claim->second;
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        ReturnOutdoor(s_houses[houseId], lot.first, trans);
+        trans->Append("DELETE FROM housing_plot_claim WHERE neighborhood_id = {} AND plot = {}", lot.first, lot.second);
+        for (char const* table : { "housing_plot_style", "housing_plot_fixture", "housing_plot_spot" })
+            trans->Append("DELETE FROM {} WHERE neighborhood_id = {} AND plot = {}", table, lot.first, lot.second);
+        CharacterDatabase.CommitTransaction(trans);
+        s_plotLook.erase(lot);
+        for (auto it = s_plotFixture.begin(); it != s_plotFixture.end();)
+            it = std::get<0>(it->first) == lot.first && std::get<1>(it->first) == lot.second ? s_plotFixture.erase(it) : std::next(it);
+        for (auto it = s_plotSpot.begin(); it != s_plotSpot.end();)
+            it = std::get<0>(it->first) == lot.first && std::get<1>(it->first) == lot.second ? s_plotSpot.erase(it) : std::next(it);
+        s_plotHouse.erase(claim);
+        s_houseLots[houseId].erase(lot);
+        RefreshExterior(lot); // clears it
+        LOG_INFO("module", "housing: house {} left plot {} of neighborhood {}", houseId, lot.second, lot.first);
+    }
+
+    // Puts a house on a plot: houseId 0 builds a new one; an existing house is mirrored there (the same rooms and decor
+    // as wherever else it stands).
+    std::string ClaimPlot(Player* player, Hood const& hood, Plot const& plot, uint32 houseId)
+    {
+        Lot const lot{ hood.id, plot.index };
+        if (s_plotHouse.count(lot))
             return "Someone has already claimed this plot.";
-        House* house = HouseOfAccount(account);
-        if (house && s_housePlot.count(house->id))
-            return "Your house already stands on another plot.";
-        if (!house && !(house = Claim(player)))
+        House* house = nullptr;
+        if (houseId)
+        {
+            auto it = s_houses.find(houseId);
+            if (it == s_houses.end() || it->second.account != player->GetSession()->GetAccountId())
+                return "That is not your house.";
+            house = &it->second;
+            for (Lot const& l : s_houseLots[houseId])
+                if (l.first == hood.id)
+                    return "That house already stands in this neighborhood.";
+        }
+        else if (!(house = Claim(player)))
             return "Housing could not create your house.";
-        std::string spawns;
-        for (Placement const& p : Exterior(plot))
-            if (uint32 const spawnId = SaveSpawn(player->GetMap(), p))
-                spawns += (spawns.empty() ? "" : " ") + std::to_string(spawnId);
-        CharacterDatabase.Execute("INSERT INTO housing_plot_claim (map_id, plot, house_id, spawns, claimed_at) VALUES ({}, {}, {}, '{}', {})",
-            plot.map, plot.index, house->id, spawns, uint32(GameTime::GetGameTime().count()));
-        std::istringstream ids(spawns);
-        for (uint32 id; ids >> id;)
-            s_plotSpawns[{ plot.map, plot.index }].push_back(id);
-        s_plotHouse[{ plot.map, plot.index }] = house->id;
-        s_housePlot[house->id] = { plot.map, plot.index };
-        LOG_INFO("module", "housing: {} claimed plot {} on map {} for house {} (spawns {})", player->GetName(), plot.index,
-            plot.map, house->id, spawns);
+        CharacterDatabase.Execute("INSERT INTO housing_plot_claim (neighborhood_id, plot, house_id, spawns, claimed_at) "
+            "VALUES ({}, {}, {}, '', {})", hood.id, plot.index, house->id, uint32(GameTime::GetGameTime().count()));
+        s_plotHouse[lot] = house->id;
+        s_houseLots[house->id].insert(lot);
+        RefreshExterior(lot);
+        LOG_INFO("module", "housing: {} put house {} on plot {} of neighborhood {}", player->GetName(), house->id, plot.index,
+            hood.id);
         return "";
-    }
-
-    // Entering from a plot: leaving the house puts you at the plot's arrival point, not back on the door.
-    void EnterFromPlot(Player* player, House const& house, Plot const& plot)
-    {
-        EnterHouse(player, house);
-        s_returnTo[player->GetGUID()] = WorldLocation(plot.map, plot.exit[0], plot.exit[1], plot.exit[2], plot.corner[3]);
     }
 
     // The accounts a player is tied to, for house access: grouped with, befriended by, and sharing a guild with.
@@ -1891,6 +2142,42 @@ namespace
         return house.account == account || (house.access & AccessEveryone) || MayEnter(account, TiesOf(player), house);
     }
 
+    // A guild member's rights in their guild's neighborhoods: the Guild Master has every one, other ranks what the
+    // Guild Master gave them.
+    uint8 GuildRights(Player* player, uint32 guildId)
+    {
+        if (!guildId || player->GetGuildId() != guildId)
+            return 0;
+        Guild const* guild = sGuildMgr->GetGuildById(guildId);
+        if (guild && guild->GetLeaderGUID() == player->GetGUID())
+            return RightBuy | RightInvite | RightManage;
+        auto it = s_guildRights.find({ guildId, player->GetRank() });
+        return it == s_guildRights.end() ? DefaultRankRights : it->second;
+    }
+
+    // What a player may do in a neighborhood (Right bits): its owner everything, someone it invited buy plots.
+    uint8 RightsIn(Player* player, Hood const& hood)
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        if (hood.kind == HoodGuild)
+            return GuildRights(player, hood.owner);
+        return hood.owner == account ? RightBuy | RightInvite | RightManage : hood.members.count(account) ? RightBuy : 0;
+    }
+
+    // Who may come into a neighborhood: its owner, its guild, those it invited, and anyone a house there lets in.
+    bool MayEnterHood(Player* player, Hood const& hood, Ties const& ties)
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        if (RightsIn(player, hood) || hood.members.count(account) || (hood.kind == HoodGuild && player->GetGuildId() == hood.owner))
+            return true;
+        for (auto const& [lot, houseId] : s_plotHouse)
+            if (lot.first == hood.id && MayEnter(account, ties, s_houses[houseId]))
+                return true;
+        return false;
+    }
+
+    bool MayEnterHood(Player* player, Hood const& hood) { return MayEnterHood(player, hood, TiesOf(player)); }
+
     // Saves who may visit, and sends out whoever is inside and no longer may.
     void SetAccess(House& house, uint8 access)
     {
@@ -1915,23 +2202,11 @@ namespace
             });
     }
 
-    char const* const NeighborhoodName = "Founder's Point";
     constexpr float PlotReach = 15.0f; // how far from the cornerstone the plot window keeps working
 
-    uint8 StatusOfPlot(Player* player, Plot const& plot)
+    uint8 StatusOfPlot(uint32 account, Ties const& ties, Lot const& lot)
     {
-        auto owner = s_plotHouse.find({ plot.map, plot.index });
-        if (owner == s_plotHouse.end())
-            return PlotForSale;
-        auto house = s_houses.find(owner->second);
-        return house == s_houses.end() ? PlotPrivate : house->second.account == player->GetSession()->GetAccountId() ? PlotYours
-            : MayEnter(player, house->second) ? PlotVisitable : PlotPrivate;
-    }
-
-    // As above, with the player's ties worked out once for a whole list of plots.
-    uint8 StatusOfPlot(uint32 account, Ties const& ties, Plot const& plot)
-    {
-        auto owner = s_plotHouse.find({ plot.map, plot.index });
+        auto owner = s_plotHouse.find(lot);
         if (owner == s_plotHouse.end())
             return PlotForSale;
         auto house = s_houses.find(owner->second);
@@ -1939,18 +2214,37 @@ namespace
             : MayEnter(account, ties, house->second) ? PlotVisitable : PlotPrivate;
     }
 
-    void SendPlot(Player* player, Plot const& plot, std::string const& message = "")
+    // A house's plot in a neighborhood, 1-based; 0 when it stands on none there.
+    uint16 PlotNumber(uint32 houseId, uint32 hoodId)
+    {
+        for (Lot const& l : s_houseLots[houseId])
+            if (l.first == hoodId)
+                return uint16(l.second + 1);
+        return 0;
+    }
+
+    bool IsFavorite(uint32 account, uint32 houseId, uint32 hoodId)
+    {
+        for (auto const& f : s_favorites[account])
+            if (f.first == houseId && f.second == hoodId)
+                return true;
+        return false;
+    }
+
+    void SendPlot(Player* player, Lot const& lot, Plot const& plot, std::string const& message = "")
     {
         uint32 const account = player->GetSession()->GetAccountId();
-        House const* own = HouseOfAccount(account);
-        uint8 const status = StatusOfPlot(player, plot);
-        auto const claim = s_plotHouse.find({ plot.map, plot.index });
-        std::string const owner = claim != s_plotHouse.end() && s_houses.count(claim->second) ? s_houses[claim->second].owner : "";
-        WorldPacket data(SMSG_ESTERIA_HOUSING_PLOT, 64);
-        data << uint16(plot.index + 1) << status << s_config.plotPrice
-             << uint8(own && s_housePlot.count(own->id) && status != PlotYours) << NeighborhoodName << owner << message;
-        auto const look = s_plotLook.find({ plot.map, plot.index });
-        PlotLook const l = look == s_plotLook.end() ? PlotLook{} : look->second;
+        Hood const* hood = FindHood(lot.first);
+        if (!hood)
+            return;
+        Ties const ties = TiesOf(player);
+        uint8 const status = StatusOfPlot(account, ties, lot);
+        auto const claim = s_plotHouse.find(lot);
+        uint32 const houseId = claim != s_plotHouse.end() ? claim->second : 0;
+        std::string const owner = houseId && s_houses.count(houseId) ? s_houses[houseId].owner : "";
+        WorldPacket data(SMSG_ESTERIA_HOUSING_PLOT, 128);
+        data << uint16(plot.index + 1) << status << s_config.plotPrice << uint8(0) << HoodName(*hood) << owner << message;
+        PlotLook const l = LookOf(lot);
         data << l.style << l.dx << l.dy << l.dz << l.turn << l.scale << PlotReachYd;
         uint8 const styles = status == PlotYours ? uint8(std::min<size_t>(s_exteriorStyles.size(), 255)) : 0;
         data << styles;
@@ -1963,7 +2257,7 @@ namespace
         if (status == PlotYours)
             for (uint8 type : FixtureTypes)
             {
-                Fixture const* now = PartOf(plot, l.style, type);
+                Fixture const* now = PartOf(lot, l.style, type);
                 std::vector<Fixture const*> options;
                 for (auto const& [id, x] : s_fixtures)
                     if (Fits(x, l.style, type))
@@ -1978,8 +2272,8 @@ namespace
         data << types;
         data.append(parts);
         // the wall and roof spots, where they are in the world, so the window can point at them
-        Fixture const* base = status == PlotYours ? PartOf(plot, l.style, FixtureBase) : nullptr;
-        Fixture const* roof = status == PlotYours ? PartOf(plot, l.style, FixtureRoof) : nullptr;
+        Fixture const* base = status == PlotYours ? PartOf(lot, l.style, FixtureBase) : nullptr;
+        Fixture const* roof = status == PlotYours ? PartOf(lot, l.style, FixtureRoof) : nullptr;
         std::vector<Spot> const spots = base && roof ? HouseSpots(*base, *roof) : std::vector<Spot>{};
         uint32 const roofShape = roof ? (s_fixtureHooks.count(roof->id) ? roof->id : roof->parent) : 0;
         float const s = l.scale, yaw = plot.house[3] + l.turn * float(M_PI) / 180;
@@ -1990,34 +2284,172 @@ namespace
             Rooms::Hook const& h = spots[i].hooks.begin()->second;
             Rooms::Pose const p = Rooms::OnPlot(plot.house[0] + l.dx, plot.house[1] + l.dy, plot.house[2] + l.dz, yaw,
                 { h.x * s, h.y * s, h.z * s, h.rotDeg });
-            data << p.x << p.y << p.z << spots[i].accepts << SpotType(plot, spots, i, roofShape);
+            data << p.x << p.y << p.z << spots[i].accepts << SpotType(lot, spots, i, roofShape);
         }
+        // proto 15: the neighborhood, whether this house is a favorite, and what a buyer may put here: a new house, or
+        // one of theirs that does not stand in this neighborhood yet (mirrored)
+        data << hood->id << uint8(houseId && IsFavorite(account, houseId, hood->id)) << houseId
+             << uint8(status == PlotForSale && (RightsIn(player, *hood) & RightBuy));
+        ByteBuffer choices;
+        uint8 count = 0;
+        if (status == PlotForSale)
+            for (uint32 id : s_accountHouses[account])
+            {
+                if (PlotNumber(id, hood->id) || count == 255)
+                    continue;
+                House const& h = s_houses[id];
+                std::string label;
+                if (!s_houseLots[id].empty())
+                {
+                    Lot const& at = *s_houseLots[id].begin();
+                    Hood const* there = FindHood(at.first);
+                    label = "Mirror your house on plot " + std::to_string(at.second + 1) + ", " + (there ? HoodName(*there) : "");
+                }
+                else
+                    label = "Your saved house (" + std::to_string(h.rooms.size()) + " rooms)";
+                choices << id << label;
+                ++count;
+            }
+        data << count;
+        data.append(choices);
         player->SendDirectMessage(&data);
     }
 
-    void SendNeighborhood(Player* player, std::string const& message = "")
+    // A favorite or recent visit: the house, where it stands (in that neighborhood, else wherever else it does), and
+    // whether this player may go in.
+    void WriteVisit(ByteBuffer& b, uint32 account, Ties const& ties, uint32 houseId, uint32 hoodId)
+    {
+        auto house = s_houses.find(houseId);
+        uint16 plot = house != s_houses.end() ? PlotNumber(houseId, hoodId) : 0;
+        if (!plot && house != s_houses.end() && !s_houseLots[houseId].empty())
+        {
+            hoodId = s_houseLots[houseId].begin()->first;
+            plot = PlotNumber(houseId, hoodId);
+        }
+        Hood const* hood = FindHood(hoodId);
+        bool const ok = house != s_houses.end() && plot && hood && MayEnter(account, ties, house->second);
+        b << houseId << uint32(hood ? hood->id : 0) << plot << (house != s_houses.end() ? house->second.owner : std::string())
+          << (hood ? HoodName(*hood) : std::string()) << uint8(ok);
+    }
+
+    // The neighborhoods a player can go to, with how they belong there: 0 their own, 1 invited, 2 their guild's,
+    // 3 visiting (a house there lets them in).
+    std::vector<std::pair<Hood const*, uint8>> HoodsOf(Player* player, Ties const& ties)
+    {
+        uint32 const account = player->GetSession()->GetAccountId();
+        std::vector<std::pair<Hood const*, uint8>> out;
+        out.push_back({ &AccountHood(account), 0 });
+        for (auto const& [id, h] : s_hoods)
+        {
+            if (h.kind == HoodAccount && h.owner == account)
+                continue;
+            uint8 const role = h.members.count(account) ? 1 : h.kind == HoodGuild && h.owner == player->GetGuildId() ? 2 : 3;
+            if (role < 3 || MayEnterHood(player, h, ties))
+                out.push_back({ &h, role });
+        }
+        std::stable_sort(out.begin(), out.end(), [](auto const& a, auto const& b) { return a.second < b.second; });
+        return out;
+    }
+
+    uint8 WhereOf(Player* player)
+    {
+        return IsHousingMap(player->GetMapId()) ? WhereHouse : HoodOfMap(player->GetMap()) ? WhereNeighborhood : WhereAway;
+    }
+
+    uint8 GuildRankCount(uint32 guildId)
+    {
+        if (QueryResult r = CharacterDatabase.Query("SELECT COUNT(*) FROM guild_rank WHERE guildid = {}", guildId))
+            return uint8(std::min<uint64>(r->Fetch()[0].Get<uint64>(), 10));
+        return 0;
+    }
+
+    // The Neighborhood window: the neighborhood being looked at (browse; 0 the one the player is in, else their own),
+    // their homes, the neighborhoods they can go to, favorites, recent visits, invitees and guild neighborhoods.
+    void SendNeighborhood(Player* player, uint32 browse = 0, std::string const& message = "")
     {
         uint32 const account = player->GetSession()->GetAccountId();
         Ties const ties = TiesOf(player);
-        House const* own = HouseOfAccount(account);
-        uint16 homePlot = 0;
+        Hood const* here = HoodOfMap(player->GetMap());
+        Hood const* hood = FindHood(browse);
+        if (!hood || !MayEnterHood(player, *hood, ties))
+            hood = here ? here : &AccountHood(account);
+        uint8 const rights = RightsIn(player, *hood);
+        WorldPacket data(SMSG_ESTERIA_HOUSING_NEIGHBORHOOD, 512);
+        data << hood->id << hood->kind << hood->mapIndex << HoodName(*hood) << HoodMaps[hood->mapIndex].name << s_config.plotPrice
+             << WhereOf(player) << message << rights << uint8(here == hood);
         ByteBuffer plots;
+        uint16 plotCount = 0;
         for (Plot const& plot : s_plots)
         {
-            uint8 const status = StatusOfPlot(account, ties, plot);
-            if (status == PlotYours)
-                homePlot = uint16(plot.index + 1);
-            std::string const name = status == PlotVisitable ? s_houses[s_plotHouse[{ plot.map, plot.index }]].owner : "";
+            if (plot.map != hood->Map())
+                continue;
+            Lot const lot{ hood->id, plot.index };
+            uint8 const status = StatusOfPlot(account, ties, lot);
+            std::string const name = status == PlotVisitable || status == PlotYours ? s_houses[s_plotHouse[lot]].owner : "";
             plots << uint16(plot.index + 1) << status << name;
+            ++plotCount;
         }
-        uint8 const where = IsHousingMap(player->GetMapId()) ? WhereHouse
-            : player->GetMapId() == NeighborhoodMap ? WhereNeighborhood : WhereAway;
-        WorldPacket data(SMSG_ESTERIA_HOUSING_NEIGHBORHOOD, 64 + plots.size());
-        data << NeighborhoodName << s_config.plotPrice << where << message << homePlot
-             << uint8(own ? own->rooms.size() : 0) << uint16(own ? own->placed.size() : 0) << uint16(own ? own->maxDecor : 0)
-             << uint16(s_plots.size());
+        data << plotCount;
         data.append(plots);
-        data << uint8(own ? own->access : 0);
+
+        ByteBuffer homes;
+        uint8 homeCount = 0;
+        for (uint32 id : s_accountHouses[account])
+        {
+            House const& h = s_houses[id];
+            std::vector<Lot> lots(s_houseLots[id].begin(), s_houseLots[id].end());
+            if (lots.empty())
+                lots.push_back({ 0, 0 }); // saved: on no plot
+            for (Lot const& lot : lots)
+                if (homeCount < 255)
+                {
+                    Hood const* at = FindHood(lot.first);
+                    homes << id << lot.first << uint16(at ? lot.second + 1 : 0) << (at ? HoodName(*at) : std::string())
+                          << uint8(h.rooms.size()) << uint16(h.placed.size()) << h.maxDecor << h.access;
+                    ++homeCount;
+                }
+        }
+        data << homeCount;
+        data.append(homes);
+
+        auto const hoods = HoodsOf(player, ties);
+        data << uint8(std::min<size_t>(hoods.size(), 255));
+        for (size_t i = 0; i < hoods.size() && i < 255; ++i)
+            data << hoods[i].first->id << hoods[i].first->kind << hoods[i].second << hoods[i].first->mapIndex
+                 << FreePlots(*hoods[i].first) << HoodName(*hoods[i].first);
+
+        auto const& favorites = s_favorites[account];
+        data << uint8(std::min<size_t>(favorites.size(), 255));
+        for (size_t i = 0; i < favorites.size() && i < 255; ++i)
+            WriteVisit(data, account, ties, favorites[i].first, favorites[i].second);
+        auto const& recent = s_recent[player->GetGUID().GetCounter()];
+        data << uint8(recent.size());
+        for (auto const& [houseId, hoodId] : recent)
+            WriteVisit(data, account, ties, houseId, hoodId);
+
+        uint8 const members = rights & RightInvite ? uint8(std::min<size_t>(hood->members.size(), 255)) : 0;
+        data << members;
+        size_t written = 0;
+        for (uint32 member : hood->members)
+            if (written++ < members)
+                data << member << AccountName(member);
+
+        // the player's guild: whether they lead it, what a neighborhood costs, the bank, and each rank's rights
+        Guild* guild = sGuildMgr->GetGuildById(player->GetGuildId());
+        bool const leader = guild && guild->GetLeaderGUID() == player->GetGUID();
+        bool full = true; // a guild buys another neighborhood only when every one it has is full
+        for (auto const& [id, h] : s_hoods)
+            if (guild && h.kind == HoodGuild && h.owner == guild->GetId() && FreePlots(h))
+                full = false;
+        data << uint32(guild ? guild->GetId() : 0) << uint8(leader) << s_config.guildHoodPrice
+             << uint32(guild ? std::min<uint64>(guild->GetTotalBankMoney(), 0xFFFFFFFFu) : 0) << uint8(leader && full);
+        uint8 const ranks = leader ? GuildRankCount(guild->GetId()) : 0;
+        data << uint8(ranks > 1 ? ranks - 1 : 0);
+        for (uint8 rank = 1; rank < ranks; ++rank)
+        {
+            auto it = s_guildRights.find({ guild->GetId(), rank });
+            data << uint8(it == s_guildRights.end() ? DefaultRankRights : it->second);
+        }
         player->SendDirectMessage(&data);
     }
 
@@ -2036,30 +2468,39 @@ namespace
         Map const* map = player->GetMap();
         if (map->IsBattlegroundOrArena())
             return "You cannot travel from a battleground or arena.";
-        if (map->Instanceable() && !IsHousingMap(map->GetId()) && map->GetId() != NeighborhoodMap)
+        if (map->Instanceable() && !IsHousingMap(map->GetId()) && !IsNeighborhoodMap(map->GetId()))
             return "You cannot travel from inside a dungeon or raid.";
         return "";
     }
 
     // Keeps where "leave the neighborhood" goes back to: this spot, or from a house, wherever its door leads outside
-    // the neighborhood.
+    // the neighborhoods.
     void RememberNeighborhoodReturn(Player* player)
     {
         if (IsHousingMap(player->GetMapId()))
         {
             auto it = s_returnTo.find(player->GetGUID());
-            if (it != s_returnTo.end() && it->second.GetMapId() != NeighborhoodMap)
+            if (it != s_returnTo.end() && !IsNeighborhoodMap(it->second.GetMapId()))
                 s_neighborhoodReturn[player->GetGUID()] = it->second;
         }
-        else if (player->GetMapId() != NeighborhoodMap)
+        else if (!IsNeighborhoodMap(player->GetMapId()))
             s_neighborhoodReturn[player->GetGUID()] = WorldLocation(player->GetMapId(), player->GetPositionX(),
                 player->GetPositionY(), player->GetPositionZ(), player->GetOrientation());
     }
 
-    void VisitNeighborhood(Player* player)
+    // Into a neighborhood's instance: a new instance when the player stands in another neighborhood on the same map.
+    void TravelInto(Player* player, Hood const& hood, float x, float y, float z, float o)
     {
         RememberNeighborhoodReturn(player);
-        player->TeleportTo(NeighborhoodMap, NeighborhoodEntry[0], NeighborhoodEntry[1], NeighborhoodEntry[2], NeighborhoodEntry[3]);
+        Hood const* here = HoodOfMap(player->GetMap());
+        s_pendingHood[player->GetGUID()] = hood.id;
+        player->TeleportTo(hood.Map(), x, y, z, o, 0, nullptr, player->GetMapId() == hood.Map() && here != &hood);
+    }
+
+    void VisitNeighborhood(Player* player, Hood const& hood)
+    {
+        float const* e = HoodMaps[hood.mapIndex].entry;
+        TravelInto(player, hood, e[0], e[1], e[2], e[3]);
     }
 
     void LeaveNeighborhood(Player* player)
@@ -2076,30 +2517,188 @@ namespace
                 player->GetOrientation());
     }
 
-    // The plot the player's open window is about, while they are still beside its cornerstone.
-    Plot const* ViewedPlot(Player* player)
+    // A visit to someone else's house goes on this character's recent list.
+    void RecordVisit(Player* player, House const& house, uint32 hoodId)
     {
-        auto it = s_plotView.find(player->GetGUID());
-        if (it == s_plotView.end() || player->GetMapId() != it->second.first)
-            return nullptr;
-        for (Plot const& p : s_plots)
-            if (p.map == it->second.first && p.index == it->second.second)
-                return player->GetExactDist2d(p.corner[0], p.corner[1]) <= PlotReach ? &p : nullptr;
-        return nullptr;
+        if (house.account == player->GetSession()->GetAccountId())
+            return;
+        uint32 const guid = player->GetGUID().GetCounter();
+        auto& list = s_recent[guid];
+        std::pair<uint32, uint32> const visit{ house.id, hoodId };
+        list.erase(std::remove(list.begin(), list.end(), visit), list.end());
+        list.push_front(visit);
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        trans->Append("REPLACE INTO housing_recent_visit (guid, house_id, neighborhood_id, visited_at) VALUES ({}, {}, {}, {})",
+            guid, house.id, hoodId, uint32(GameTime::GetGameTime().count()));
+        while (list.size() > RecentVisits)
+        {
+            trans->Append("DELETE FROM housing_recent_visit WHERE guid = {} AND house_id = {} AND neighborhood_id = {}", guid,
+                list.back().first, list.back().second);
+            list.pop_back();
+        }
+        CharacterDatabase.CommitTransaction(trans);
     }
 
-    std::string BuyPlot(Player* player, Plot const& plot)
+    // Entering from a plot: leaving the house puts you at the plot's arrival point, not back on the door.
+    void EnterFromPlot(Player* player, House const& house, Lot const& lot, Plot const& plot)
     {
-        if (s_plotHouse.count({ plot.map, plot.index }))
+        EnterHouse(player, house);
+        s_returnTo[player->GetGUID()] = WorldLocation(plot.map, plot.exit[0], plot.exit[1], plot.exit[2], plot.corner[3]);
+        s_returnHood[player->GetGUID()] = lot.first;
+        RecordVisit(player, house, lot.first);
+    }
+
+    // The plot the player's open window is about, while they are still beside its cornerstone in that neighborhood.
+    Plot const* ViewedPlot(Player* player, Lot* lot = nullptr)
+    {
+        auto it = s_plotView.find(player->GetGUID());
+        Hood const* here = HoodOfMap(player->GetMap());
+        if (it == s_plotView.end() || !here || here->id != it->second.first)
+            return nullptr;
+        Plot const* p = FindPlot(here->Map(), it->second.second);
+        if (!p || player->GetExactDist2d(p->corner[0], p->corner[1]) > PlotReach)
+            return nullptr;
+        if (lot)
+            *lot = it->second;
+        return p;
+    }
+
+    std::string BuyPlot(Player* player, Lot const& lot, Plot const& plot, uint32 houseId)
+    {
+        Hood const* hood = FindHood(lot.first);
+        if (!hood)
+            return "This neighborhood is gone.";
+        if (s_plotHouse.count(lot))
             return "Someone has already bought this plot.";
-        if (House const* own = HouseOfAccount(player->GetSession()->GetAccountId()); own && s_housePlot.count(own->id))
-            return "Your house already stands on another plot.";
+        if (!(RightsIn(player, *hood) & RightBuy))
+            return hood->kind == HoodGuild ? "Your guild rank may not buy plots here."
+                : "Only the owner and those they invite may buy plots here.";
         if (!player->HasEnoughMoney(s_config.plotPrice))
             return "You cannot afford this plot.";
-        std::string const error = ClaimPlot(player, plot);
+        std::string const error = ClaimPlot(player, *hood, plot, houseId);
         if (error.empty())
             player->ModifyMoney(-int32(s_config.plotPrice));
         return error;
+    }
+
+    // Moves a neighborhood to the other map: each house keeps its plot number (both maps have 55), its outdoor decor goes
+    // back to storage and it stands on the new plot's spot. Everyone inside is sent back where they came from.
+    void MoveHood(Hood& hood, uint8 mapIndex)
+    {
+        if (Map* map = LiveMap(hood))
+            map->DoForAllPlayers([&](Player* p) {
+                ChatHandler(p->GetSession()).SendNotification("This neighborhood is moving to {}.", HoodMaps[mapIndex].name);
+                LeaveNeighborhood(p);
+            });
+        if (auto it = s_hoodInstance.find(hood.id); it != s_hoodInstance.end())
+        {
+            s_instanceHood.erase(it->second);
+            s_hoodInstance.erase(it);
+        }
+        std::vector<Lot> lots;
+        for (auto const& [lot, houseId] : s_plotHouse)
+            if (lot.first == hood.id)
+                lots.push_back(lot);
+        uint16 const to = HoodMaps[mapIndex].map;
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        for (Lot const& lot : lots)
+        {
+            if (!FindPlot(to, lot.second))
+                continue;
+            ReturnOutdoor(s_houses[s_plotHouse[lot]], hood.id, trans);
+            PlotLook& look = s_plotLook[lot];
+            look.dx = look.dy = look.dz = look.turn = 0;
+            trans->Append("UPDATE housing_plot_style SET offset_x = 0, offset_y = 0, offset_z = 0, turn = 0 WHERE neighborhood_id = {} "
+                "AND plot = {}", hood.id, lot.second);
+        }
+        hood.mapIndex = mapIndex;
+        trans->Append("UPDATE housing_neighborhood SET map_id = {} WHERE neighborhood_id = {}", to, hood.id);
+        CharacterDatabase.CommitTransaction(trans);
+        for (Lot const& lot : lots)
+            if (!FindPlot(to, lot.second))
+                ReleaseLot(lot);
+        LOG_INFO("module", "housing: neighborhood {} moved to map {}", hood.id, to);
+    }
+
+    std::string BuyGuildHood(Player* player, uint8 mapIndex)
+    {
+        Guild* guild = sGuildMgr->GetGuildById(player->GetGuildId());
+        if (!guild)
+            return "You are not in a guild.";
+        if (guild->GetLeaderGUID() != player->GetGUID())
+            return "Only the Guild Master can buy a guild neighborhood.";
+        if (mapIndex >= HoodMapCount)
+            return "That neighborhood is not available.";
+        for (auto const& [id, h] : s_hoods)
+            if (h.kind == HoodGuild && h.owner == guild->GetId() && FreePlots(h))
+                return "Your guild's neighborhood still has free plots.";
+        if (guild->GetTotalBankMoney() < s_config.guildHoodPrice)
+            return "The guild bank cannot afford a neighborhood.";
+        Hood h;
+        h.id = s_nextHoodId++;
+        h.kind = HoodGuild;
+        h.owner = guild->GetId();
+        h.mapIndex = mapIndex;
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        if (!guild->ModifyBankMoney(trans, s_config.guildHoodPrice, false))
+            return "The guild bank cannot afford a neighborhood.";
+        trans->Append("INSERT INTO housing_neighborhood (neighborhood_id, kind, owner, map_id, created_at) VALUES ({}, 1, {}, {}, {})",
+            h.id, h.owner, h.Map(), uint32(GameTime::GetGameTime().count()));
+        CharacterDatabase.CommitTransaction(trans);
+        s_hoods[h.id] = h;
+        LOG_INFO("module", "housing: guild {} bought neighborhood {} on map {} for {} copper", h.owner, h.id, h.Map(),
+            s_config.guildHoodPrice);
+        return "";
+    }
+
+    // A house in a guild's neighborhood whose account has no character left in the guild is taken off its plot (saved,
+    // to move into its next guild's neighborhood).
+    void CheckGuildPlots(uint32 guildId)
+    {
+        std::unordered_set<uint32> accounts;
+        if (QueryResult r = CharacterDatabase.Query("SELECT DISTINCT c.account FROM guild_member m JOIN characters c "
+            "ON c.guid = m.guid WHERE m.guildid = {}", guildId))
+            do accounts.insert(r->Fetch()[0].Get<uint32>()); while (r->NextRow());
+        std::vector<Lot> gone;
+        for (auto const& [lot, houseId] : s_plotHouse)
+            if (Hood const* h = FindHood(lot.first); h && h->kind == HoodGuild && h->owner == guildId
+                && !accounts.count(s_houses[houseId].account))
+                gone.push_back(lot);
+        for (Lot const& lot : gone)
+            ReleaseLot(lot);
+    }
+
+    // A disbanded guild's neighborhoods close; every house in them is saved.
+    void CloseGuildHoods(uint32 guildId)
+    {
+        std::vector<uint32> hoods;
+        for (auto const& [id, h] : s_hoods)
+            if (h.kind == HoodGuild && h.owner == guildId)
+                hoods.push_back(id);
+        for (uint32 id : hoods)
+        {
+            Hood& hood = s_hoods[id];
+            if (Map* map = LiveMap(hood))
+                map->DoForAllPlayers([](Player* p) { LeaveNeighborhood(p); });
+            std::vector<Lot> lots;
+            for (auto const& [lot, houseId] : s_plotHouse)
+                if (lot.first == id)
+                    lots.push_back(lot);
+            for (Lot const& lot : lots)
+                ReleaseLot(lot);
+            CharacterDatabase.Execute("DELETE FROM housing_neighborhood WHERE neighborhood_id = {}", id);
+            CharacterDatabase.Execute("DELETE FROM housing_neighborhood_member WHERE neighborhood_id = {}", id);
+            if (auto it = s_hoodInstance.find(id); it != s_hoodInstance.end())
+            {
+                s_instanceHood.erase(it->second);
+                s_hoodInstance.erase(it);
+            }
+            s_hoods.erase(id);
+            LOG_INFO("module", "housing: guild {} disbanded; its neighborhood {} closed", guildId, id);
+        }
+        CharacterDatabase.Execute("DELETE FROM housing_guild_right WHERE guild_id = {}", guildId);
+        for (auto it = s_guildRights.begin(); it != s_guildRights.end();)
+            it = it->first.first == guildId ? s_guildRights.erase(it) : std::next(it);
     }
 
     void HandleAction(WorldSession* session, WorldPacket& packet)
@@ -2112,80 +2711,217 @@ namespace
             packet.rfinish();
             return;
         }
+        uint32 const account = session->GetAccountId();
         if (action == ActionNeighborhood)
         {
-            SendNeighborhood(player);
+            uint32 browse;
+            packet >> browse;
+            SendNeighborhood(player, browse);
             return;
         }
         if (action == ActionHouseAccess)
         {
+            uint32 houseId;
             uint8 access;
-            packet >> access;
-            if (House* house = HouseOfAccount(session->GetAccountId()))
-                SetAccess(*house, access);
+            packet >> houseId >> access;
+            if (auto house = s_houses.find(houseId); house != s_houses.end() && house->second.account == account)
+                SetAccess(house->second, access);
             SendNeighborhood(player);
             return;
         }
-        if (action == ActionTravelNeighborhood || action == ActionTravelBack || action == ActionTravelPlot)
+        if (action == ActionFavorite)
         {
+            uint32 houseId, hoodId;
+            uint8 on;
+            packet >> houseId >> hoodId >> on;
+            auto& list = s_favorites[account];
+            std::pair<uint32, uint32> const fav{ houseId, hoodId };
+            list.erase(std::remove(list.begin(), list.end(), fav), list.end());
+            CharacterDatabase.Execute("DELETE FROM housing_favorite WHERE account_id = {} AND house_id = {} AND neighborhood_id = {}",
+                account, houseId, hoodId);
+            if (on && s_houses.count(houseId) && list.size() < 50)
+            {
+                list.push_back(fav);
+                CharacterDatabase.Execute("INSERT INTO housing_favorite (account_id, house_id, neighborhood_id, added_at) VALUES "
+                    "({}, {}, {}, {})", account, houseId, hoodId, uint32(GameTime::GetGameTime().count()));
+            }
+            Lot lot;
+            if (Plot const* plot = ViewedPlot(player, &lot))
+                SendPlot(player, lot, *plot);
+            SendNeighborhood(player);
+            return;
+        }
+        if (action == ActionInvite || action == ActionUninvite || action == ActionHoodMap)
+        {
+            uint32 hoodId;
+            packet >> hoodId;
+            Hood* hood = FindHood(hoodId);
+            std::string message;
+            uint8 const rights = hood ? RightsIn(player, *hood) : 0;
+            if (action == ActionInvite)
+            {
+                std::string name;
+                packet >> name;
+                ObjectGuid const guid = sCharacterCache->GetCharacterGuidByName(name);
+                uint32 const invitee = guid ? sCharacterCache->GetCharacterAccountIdByGuid(guid) : 0;
+                if (!hood || !(rights & RightInvite))
+                    message = "You may not invite anyone here.";
+                else if (!invitee)
+                    message = "There is no character named " + name + ".";
+                else if (invitee == account)
+                    message = "You live here already.";
+                else if (hood->members.insert(invitee).second)
+                {
+                    CharacterDatabase.Execute("REPLACE INTO housing_neighborhood_member (neighborhood_id, account_id) VALUES ({}, {})",
+                        hood->id, invitee);
+                    message = name + " is invited.";
+                    if (Player* p = ObjectAccessor::FindPlayerByName(name, false))
+                        ChatHandler(p->GetSession()).PSendSysMessage("{} invited you to {}. Open the Neighborhood window to go "
+                            "there.", player->GetName(), HoodName(*hood));
+                }
+                else
+                    message = name + " is already invited.";
+            }
+            else if (action == ActionUninvite)
+            {
+                uint32 member;
+                packet >> member;
+                if (hood && (rights & RightInvite) && hood->members.erase(member))
+                {
+                    CharacterDatabase.Execute("DELETE FROM housing_neighborhood_member WHERE neighborhood_id = {} AND account_id = {}",
+                        hood->id, member);
+                    if (Map* map = LiveMap(*hood))
+                        map->DoForAllPlayers([&](Player* p) {
+                            if (p->GetSession()->GetAccountId() == member && !MayEnterHood(p, *hood))
+                            {
+                                ChatHandler(p->GetSession()).SendNotification("You are no longer invited here.");
+                                LeaveNeighborhood(p);
+                            }
+                        });
+                }
+            }
+            else
+            {
+                uint8 mapIndex;
+                packet >> mapIndex;
+                if (!hood || !(rights & RightManage))
+                    message = "You may not move this neighborhood.";
+                else if (mapIndex < HoodMapCount && mapIndex != hood->mapIndex)
+                {
+                    MoveHood(*hood, mapIndex);
+                    message = "Your neighborhood is now at " + std::string(HoodMaps[mapIndex].name) + ".";
+                }
+            }
+            SendNeighborhood(player, hoodId, message);
+            return;
+        }
+        if (action == ActionBuyGuildHood || action == ActionGuildRights)
+        {
+            std::string message;
+            if (action == ActionBuyGuildHood)
+            {
+                uint8 mapIndex;
+                packet >> mapIndex;
+                message = BuyGuildHood(player, mapIndex);
+                if (message.empty())
+                    message = "Your guild has a new neighborhood.";
+            }
+            else
+            {
+                uint8 rank, rights;
+                packet >> rank >> rights;
+                Guild const* guild = sGuildMgr->GetGuildById(player->GetGuildId());
+                if (guild && guild->GetLeaderGUID() == player->GetGUID() && rank >= 1 && rank < 10)
+                {
+                    rights &= RightBuy | RightInvite | RightManage;
+                    s_guildRights[{ guild->GetId(), rank }] = rights;
+                    CharacterDatabase.Execute("REPLACE INTO housing_guild_right (guild_id, rank_id, rights) VALUES ({}, {}, {})",
+                        guild->GetId(), rank, rights);
+                }
+            }
+            SendNeighborhood(player, 0, message);
+            return;
+        }
+        if (action == ActionTravelNeighborhood || action == ActionTravelBack || action == ActionTravelPlot
+            || action == ActionEnterHouse)
+        {
+            uint32 hoodId = 0, houseId = 0;
             uint16 number = 0;
-            if (action == ActionTravelPlot)
-                packet >> number;
-            std::string const refused = TravelBlock(player);
+            if (action == ActionTravelNeighborhood)
+                packet >> hoodId;
+            else if (action == ActionTravelPlot)
+                packet >> hoodId >> number;
+            else if (action == ActionEnterHouse)
+                packet >> houseId;
+            std::string refused = TravelBlock(player);
+            Hood const* hood = hoodId ? FindHood(hoodId) : &AccountHood(account);
+            if (refused.empty() && action != ActionTravelBack && action != ActionEnterHouse && (!hood || !MayEnterHood(player, *hood)))
+                refused = "You may not go there.";
             if (refused.empty())
             {
                 if (action == ActionTravelNeighborhood)
-                    VisitNeighborhood(player);
+                    VisitNeighborhood(player, *hood);
                 else if (action == ActionTravelBack)
                 {
-                    if (player->GetMapId() == NeighborhoodMap)
+                    if (HoodOfMap(player->GetMap()))
                         LeaveNeighborhood(player);
                 }
-                else
-                    for (Plot const& plot : s_plots)
-                        if (plot.index + 1 == number)
-                        {
-                            RememberNeighborhoodReturn(player);
-                            // the spot leaving its house puts you: in front of the door, by the cornerstone
-                            player->TeleportTo(plot.map, plot.exit[0], plot.exit[1], plot.exit[2], plot.corner[3]);
-                            break;
-                        }
+                else if (action == ActionEnterHouse)
+                {
+                    if (auto house = s_houses.find(houseId); house != s_houses.end() && house->second.account == account)
+                        EnterHouse(player, house->second);
+                }
+                else if (Plot const* plot = FindPlot(hood->Map(), uint8(number - 1)); plot && number)
+                    // the spot leaving its house puts you: in front of the door, by the cornerstone
+                    TravelInto(player, *hood, plot->exit[0], plot->exit[1], plot->exit[2], plot->corner[3]);
             }
-            SendNeighborhood(player, refused);
+            SendNeighborhood(player, hood ? hood->id : 0, refused);
             return;
         }
-        if (action == ActionPlotStyle || action == ActionPlotPlace || action == ActionPlotFixture || action == ActionPlotSpot)
+        if (action == ActionPlotStyle || action == ActionPlotPlace || action == ActionPlotFixture || action == ActionPlotSpot
+            || action == ActionMoveOut)
         {
-            Plot const* plot = ViewedPlot(player);
+            Lot lot;
+            Plot const* plot = ViewedPlot(player, &lot);
             bool const fromEditor = !plot && action == ActionPlotPlace; // the outdoor editor's house handles
             if (fromEditor)
-                plot = OnOwnPlot(player).second;
-            auto owner = plot ? s_plotHouse.find({ plot->map, plot->index }) : s_plotHouse.end();
-            if (owner == s_plotHouse.end() || !s_houses.count(owner->second) || s_houses[owner->second].account != session->GetAccountId())
+            {
+                OwnPlot const own = OnOwnPlot(player);
+                plot = own.plot;
+                lot = { own.hood, plot ? plot->index : uint8(0) };
+            }
+            auto owner = plot ? s_plotHouse.find(lot) : s_plotHouse.end();
+            if (owner == s_plotHouse.end() || !s_houses.count(owner->second) || s_houses[owner->second].account != account)
             {
                 packet.rfinish();
                 return;
             }
-            PlotLook look = s_plotLook.count({ plot->map, plot->index }) ? s_plotLook[{ plot->map, plot->index }] : PlotLook{};
+            if (action == ActionMoveOut)
+            {
+                ReleaseLot(lot);
+                SendPlot(player, lot, *plot, "Your house is saved. Buy a plot anywhere to move it there.");
+                return;
+            }
+            PlotLook look = LookOf(lot);
             std::string message;
             if (action == ActionPlotSpot)
             {
                 uint8 index, type;
                 packet >> index >> type;
-                Fixture const* base = PartOf(*plot, look.style, FixtureBase);
-                Fixture const* roof = PartOf(*plot, look.style, FixtureRoof);
+                Fixture const* base = PartOf(lot, look.style, FixtureBase);
+                Fixture const* roof = PartOf(lot, look.style, FixtureRoof);
                 std::vector<Spot> const spots = base && roof ? HouseSpots(*base, *roof) : std::vector<Spot>{};
                 if (index >= spots.size() || (type && !(spots[index].accepts & SpotBit(type))))
                     message = "That does not fit there.";
                 else
                 {
                     Spot const& spot = spots[index];
-                    s_plotSpot[{ plot->map, plot->index, spot.shape, spot.local }] = type;
-                    CharacterDatabase.Execute("REPLACE INTO housing_plot_spot (map_id, plot, shape, spot, type) VALUES ({}, {}, {}, {}, {})",
-                        plot->map, plot->index, spot.shape, spot.local, type);
-                    RefreshExterior(player->GetMap(), *plot);
+                    s_plotSpot[{ lot.first, lot.second, spot.shape, spot.local }] = type;
+                    CharacterDatabase.Execute("REPLACE INTO housing_plot_spot (neighborhood_id, plot, shape, spot, type) VALUES "
+                        "({}, {}, {}, {}, {})", lot.first, lot.second, spot.shape, spot.local, type);
+                    RefreshExterior(lot);
                 }
-                SendPlot(player, *plot, message);
+                SendPlot(player, lot, *plot, message);
                 return;
             }
             if (action == ActionPlotFixture)
@@ -2198,21 +2934,23 @@ namespace
                     message = "That part does not fit this house.";
                 else
                 {
-                    auto const key = std::make_tuple(plot->map, plot->index, look.style / 10, type);
+                    auto const key = std::make_tuple(lot.first, lot.second, look.style / 10, type);
                     if (component)
+                    {
                         s_plotFixture[key] = component;
+                        CharacterDatabase.Execute("REPLACE INTO housing_plot_fixture (neighborhood_id, plot, theme, type, component) "
+                            "VALUES ({}, {}, {}, {}, {})", lot.first, lot.second, look.style / 10, type, component);
+                    }
                     else
+                    {
                         s_plotFixture.erase(key);
-                    if (component)
-                        CharacterDatabase.Execute("REPLACE INTO housing_plot_fixture (map_id, plot, theme, type, component) "
-                            "VALUES ({}, {}, {}, {}, {})", plot->map, plot->index, look.style / 10, type, component);
-                    else
-                        CharacterDatabase.Execute("DELETE FROM housing_plot_fixture WHERE map_id = {} AND plot = {} AND theme = {} "
-                            "AND type = {}", plot->map, plot->index, look.style / 10, type);
-                    RefreshExterior(player->GetMap(), *plot);
-                    LOG_INFO("module", "housing: plot {} part {} now {}", plot->index, type, component);
+                        CharacterDatabase.Execute("DELETE FROM housing_plot_fixture WHERE neighborhood_id = {} AND plot = {} "
+                            "AND theme = {} AND type = {}", lot.first, lot.second, look.style / 10, type);
+                    }
+                    RefreshExterior(lot);
+                    LOG_INFO("module", "housing: neighborhood {} plot {} part {} now {}", lot.first, lot.second, type, component);
                 }
-                SendPlot(player, *plot, message);
+                SendPlot(player, lot, *plot, message);
                 return;
             }
             if (action == ActionPlotStyle)
@@ -2242,13 +2980,13 @@ namespace
             }
             if (message.empty())
             {
-                s_plotLook[{ plot->map, plot->index }] = look;
-                CharacterDatabase.Execute("REPLACE INTO housing_plot_style (map_id, plot, style, offset_x, offset_y, turn, offset_z, "
-                    "scale) VALUES ({}, {}, {}, {}, {}, {}, {}, {})", plot->map, plot->index, look.style, look.dx, look.dy, look.turn,
-                    look.dz, look.scale);
-                RefreshExterior(player->GetMap(), *plot);
-                LOG_INFO("module", "housing: plot {} now style {} at {:.2f}, {:.2f}, {:.2f} turned {} size {:.2f}", plot->index,
-                    look.style, look.dx, look.dy, look.dz, look.turn, look.scale);
+                s_plotLook[lot] = look;
+                CharacterDatabase.Execute("REPLACE INTO housing_plot_style (neighborhood_id, plot, style, offset_x, offset_y, turn, "
+                    "offset_z, scale) VALUES ({}, {}, {}, {}, {}, {}, {}, {})", lot.first, lot.second, look.style, look.dx, look.dy,
+                    look.turn, look.dz, look.scale);
+                RefreshExterior(lot);
+                LOG_INFO("module", "housing: neighborhood {} plot {} now style {} at {:.2f}, {:.2f}, {:.2f} turned {} size {:.2f}",
+                    lot.first, lot.second, look.style, look.dx, look.dy, look.dz, look.turn, look.scale);
             }
             if (fromEditor) // the editor reads the house from SMSG_STATE; the plot window is not open
             {
@@ -2257,27 +2995,31 @@ namespace
                 SendState(player);
             }
             else
-                SendPlot(player, *plot, message);
+                SendPlot(player, lot, *plot, message);
             return;
         }
         if (action == ActionBuyPlot || action == ActionEnterPlot)
         {
-            Plot const* plot = ViewedPlot(player);
+            uint32 houseId = 0;
+            if (action == ActionBuyPlot)
+                packet >> houseId;
+            Lot lot;
+            Plot const* plot = ViewedPlot(player, &lot);
             if (!plot)
                 return;
             if (action == ActionBuyPlot)
             {
-                std::string const error = BuyPlot(player, *plot);
-                SendPlot(player, *plot, error.empty() ? "Welcome home! Walk in through your front door." : error);
+                std::string const error = BuyPlot(player, lot, *plot, houseId);
+                SendPlot(player, lot, *plot, error.empty() ? "Welcome home! Walk in through your front door." : error);
             }
-            else if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner != s_plotHouse.end()
-                && s_houses.count(owner->second) && MayEnter(player, s_houses[owner->second]))
-                EnterFromPlot(player, s_houses[owner->second], *plot);
+            else if (auto owner = s_plotHouse.find(lot); owner != s_plotHouse.end() && s_houses.count(owner->second)
+                && MayEnter(player, s_houses[owner->second]))
+                EnterFromPlot(player, s_houses[owner->second], lot, *plot);
             return;
         }
         // Room editing: the owner, inside their own house.
         House* own = HouseOfInstance(player->GetMap());
-        if (!own || own->account != session->GetAccountId())
+        if (!own || own->account != account)
         {
             packet.rfinish();
             return;
@@ -2306,7 +3048,7 @@ namespace
             packet >> decorId >> count;
             auto entry = s_catalog.find(decorId);
             uint32 const price = entry == s_catalog.end() ? 0 : DecorPrice(entry->second) * count; // at most 100 x 5 g
-            Owned& o = s_owned[session->GetAccountId()][decorId];
+            Owned& o = s_owned[account][decorId];
             if (entry == s_catalog.end() || count < 1 || count > 100 || o.owned + count > 1000)
                 error = "That decor cannot be bought.";
             else if (!player->HasEnoughMoney(price))
@@ -2316,9 +3058,8 @@ namespace
                 player->ModifyMoney(-int32(price));
                 o.owned = uint16(o.owned + count);
                 CharacterDatabase.Execute("INSERT INTO housing_account_decor (account_id, decor_id, quantity_owned, quantity_placed) "
-                    "VALUES ({}, {}, {}, 0) ON DUPLICATE KEY UPDATE quantity_owned = {}", session->GetAccountId(), decorId, o.owned, o.owned);
-                LOG_INFO("module", "housing: account {} bought {} x decor {} for {} copper", session->GetAccountId(), count, decorId,
-                    price);
+                    "VALUES ({}, {}, {}, 0) ON DUPLICATE KEY UPDATE quantity_owned = {}", account, decorId, o.owned, o.owned);
+                LOG_INFO("module", "housing: account {} bought {} x decor {} for {} copper", account, count, decorId, price);
                 SendCatalog(session, 0);
             }
         }
@@ -2379,7 +3120,8 @@ namespace
         ActionLeaveNeighborhood = 9,
     };
 
-    // The steward at Founder's Point: travel only. Houses are bought at plot cornerstones and edited in the client UI.
+    // The steward at each neighborhood's entry: travel only. Houses are bought at plot cornerstones and edited in the
+    // client UI.
     class npc_esteria_housing_steward : public CreatureScript
     {
     public:
@@ -2396,10 +3138,10 @@ namespace
                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave the house.", 0, ActionLeave);
             else
             {
-                if (player->GetMapId() == NeighborhoodMap)
-                    AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave Founder's Point.", 0, ActionLeaveNeighborhood);
+                if (Hood const* here = HoodOfMap(player->GetMap()))
+                    AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Leave " + HoodName(*here) + ".", 0, ActionLeaveNeighborhood);
                 else
-                    AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Visit Founder's Point.", 0, ActionVisitNeighborhood);
+                    AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Go to my neighborhood.", 0, ActionVisitNeighborhood);
                 if (HouseOfAccount(account))
                     AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Take me to my house.", 0, ActionEnter);
                 if (Group* group = player->GetGroup())
@@ -2430,11 +3172,11 @@ namespace
                         Leave(player);
                     break;
                 case ActionVisitNeighborhood:
-                    if (player->GetMapId() != NeighborhoodMap && !IsHousingMap(player->GetMapId()))
-                        VisitNeighborhood(player);
+                    if (!HoodOfMap(player->GetMap()) && !IsHousingMap(player->GetMapId()))
+                        VisitNeighborhood(player, AccountHood(account));
                     break;
                 case ActionLeaveNeighborhood:
-                    if (player->GetMapId() == NeighborhoodMap)
+                    if (HoodOfMap(player->GetMap()))
                         LeaveNeighborhood(player);
                     break;
                 case ActionEnter:
@@ -2458,6 +3200,16 @@ namespace
         ActionEnterPlot = 21,
     };
 
+    // The plot a cornerstone stands on, in the neighborhood it stands in.
+    Plot const* PlotOfCornerstone(GameObject* go, Lot& lot)
+    {
+        Hood const* hood = s_config.enabled && s_loaded ? HoodOfMap(go->GetMap()) : nullptr;
+        Plot const* plot = hood ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
+        if (plot)
+            lot = { hood->id, plot->index };
+        return plot;
+    }
+
     // The sign on every plot (make_slice.py spawns one per housing_plot row). Free: claim it. Claimed: go in, if allowed.
     class go_esteria_housing_cornerstone : public GameObjectScript
     {
@@ -2468,20 +3220,17 @@ namespace
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             ClearGossipMenuFor(player);
-            Plot const* plot = s_config.enabled && s_loaded ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
-            if (plot)
-                if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner != s_plotHouse.end()
-                    && s_houses.count(owner->second) && s_houses[owner->second].account == player->GetSession()->GetAccountId())
-                    RefreshExterior(go->GetMap(), *plot);
+            Lot lot;
+            Plot const* plot = PlotOfCornerstone(go, lot);
             if (plot && s_hasUi.count(player->GetSession()->GetAccountId()))
             {
-                s_plotView[player->GetGUID()] = { plot->map, plot->index };
-                SendPlot(player, *plot);
+                s_plotView[player->GetGUID()] = lot;
+                SendPlot(player, lot, *plot);
                 return true; // the client opens its plot window instead of a gossip menu
             }
             if (!plot)
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is not available.", 0, 0);
-            else if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner == s_plotHouse.end())
+            else if (auto owner = s_plotHouse.find(lot); owner == s_plotHouse.end())
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This plot is for sale. Buying it needs the Esteria housing client.", 0, 0);
             else if (House* house = s_houses.count(owner->second) ? &s_houses[owner->second] : nullptr; house && MayEnter(player, *house))
                 AddGossipItemFor(player, GOSSIP_ICON_TAXI, house->account == player->GetSession()->GetAccountId()
@@ -2496,13 +3245,14 @@ namespace
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             CloseGossipMenuFor(player);
-            Plot const* plot = s_config.enabled && s_loaded ? PlotAt(go->GetMapId(), go->GetPositionX(), go->GetPositionY(), 3) : nullptr;
+            Lot lot;
+            Plot const* plot = PlotOfCornerstone(go, lot);
             if (!plot)
                 return true;
             if (action == ActionEnterPlot)
-                if (auto owner = s_plotHouse.find({ plot->map, plot->index }); owner != s_plotHouse.end() && s_houses.count(owner->second)
+                if (auto owner = s_plotHouse.find(lot); owner != s_plotHouse.end() && s_houses.count(owner->second)
                     && MayEnter(player, s_houses[owner->second]))
-                    EnterFromPlot(player, s_houses[owner->second], *plot);
+                    EnterFromPlot(player, s_houses[owner->second], lot, *plot);
             return true;
         }
     };
@@ -2516,22 +3266,23 @@ namespace
         bool OnGossipHello(Player* player, GameObject* go) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
-            if (!s_config.enabled || !s_loaded)
+            Hood const* hood = s_config.enabled && s_loaded ? HoodOfMap(go->GetMap()) : nullptr;
+            if (!hood)
                 return true;
-            for (auto const& [key, houseId] : s_plotHouse)
+            for (auto const& [lot, houseId] : s_plotHouse)
             {
-                Plot const* plot = PlotOf(houseId);
+                Plot const* plot = lot.first == hood->id ? PlotOfLot(lot) : nullptr;
                 auto house = s_houses.find(houseId);
-                if (!plot || plot->map != go->GetMapId() || house == s_houses.end())
+                if (!plot || house == s_houses.end())
                     continue;
                 // this plot's house has its front door mat right where this one lies
                 bool mine = false;
-                for (Placement const& p : Exterior(*plot))
+                for (Placement const& p : Exterior(lot, *plot))
                     mine = mine || (p.entry == go->GetEntry() && go->GetExactDist2d(p.x, p.y) < 1.0f);
                 if (!mine)
                     continue;
                 if (MayEnter(player, house->second))
-                    EnterFromPlot(player, house->second, *plot);
+                    EnterFromPlot(player, house->second, lot, *plot);
                 else
                     ChatHandler(player->GetSession()).SendNotification("This is someone's home. The owner has not opened it to you.");
                 break;
@@ -2555,21 +3306,7 @@ namespace
         }
     };
 
-    // A saved spawn's size (s_spawnScale), set as it enters the world and before any client is told about it.
-    class EsteriaHousingSpawnScale : public AllGameObjectScript
-    {
-    public:
-        EsteriaHousingSpawnScale() : AllGameObjectScript("EsteriaHousingSpawnScale") { }
-
-        void OnGameObjectAddWorld(GameObject* go) override
-        {
-            std::lock_guard<std::recursive_mutex> guard(s_lock);
-            if (auto it = s_spawnScale.find(go->GetSpawnId()); it != s_spawnScale.end())
-                go->SetObjectScale(it->second);
-        }
-    };
-
-    // Stepping onto or off your own plot at the neighborhood switches the editor to its outdoor decor (SMSG_STATE).
+    // Stepping onto or off your own plot in a neighborhood switches the editor to its outdoor decor (SMSG_STATE).
     class EsteriaHousingPlotWatch : public PlayerScript
     {
     public:
@@ -2577,7 +3314,7 @@ namespace
 
         void OnPlayerUpdate(Player* player, uint32 diff) override
         {
-            if (player->GetMapId() != NeighborhoodMap || player->IsBeingTeleported())
+            if (!IsNeighborhoodMap(player->GetMapId()) || player->IsBeingTeleported())
                 return;
             std::lock_guard<std::recursive_mutex> guard(s_lock); // map threads call this
             if (!s_config.enabled || !s_loaded || !s_hasUi.count(player->GetSession()->GetAccountId()))
@@ -2585,7 +3322,7 @@ namespace
             uint32& wait = s_plotWatch[player->GetGUID()];
             if (wait > diff) { wait -= diff; return; }
             wait = 1000;
-            House const* house = OnOwnPlot(player).first;
+            House const* house = OnOwnPlot(player).house;
             uint32& was = s_onPlot[player->GetGUID()];
             uint32 const now = house ? house->id : 0;
             if (was != now)
@@ -2596,10 +3333,33 @@ namespace
         }
     };
 
+    // Members leaving a guild take their houses off its neighborhoods' plots (checked a moment later, once the core has
+    // removed them); a disbanded guild's neighborhoods close.
+    class EsteriaHousingGuilds : public GuildScript
+    {
+    public:
+        EsteriaHousingGuilds() : GuildScript("EsteriaHousingGuilds", { GUILDHOOK_ON_REMOVE_MEMBER, GUILDHOOK_ON_DISBAND }) { }
+
+        void OnRemoveMember(Guild* guild, Player* /*player*/, bool isDisbanding, bool /*isKicked*/) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            if (s_config.enabled && s_loaded && !isDisbanding)
+                s_guildCheckAt[guild->GetId()] = 2000;
+        }
+
+        void OnDisband(Guild* guild) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            if (s_config.enabled && s_loaded)
+                CloseGuildHoods(guild->GetId());
+        }
+    };
+
     class EsteriaHousingWorld : public WorldScript
     {
     public:
-        EsteriaHousingWorld() : WorldScript("EsteriaHousingWorld", { WORLDHOOK_ON_AFTER_CONFIG_LOAD, WORLDHOOK_ON_STARTUP }) { }
+        EsteriaHousingWorld() : WorldScript("EsteriaHousingWorld", { WORLDHOOK_ON_AFTER_CONFIG_LOAD, WORLDHOOK_ON_STARTUP,
+            WORLDHOOK_ON_UPDATE }) { }
 
         void OnAfterConfigLoad(bool /*reload*/) override
         {
@@ -2612,6 +3372,7 @@ namespace
             s_config.firstRoomKind = sConfigMgr->GetOption<uint32>("EsteriaHousing.FirstRoomKind", 1);
             s_config.maxRooms = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxRooms", 16), 1, 32);
             s_config.roomPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.RoomPrice", 250000);
+            s_config.guildHoodPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.GuildNeighborhoodPrice", 50000000);
             if (s_config.enabled && !s_loaded && sObjectMgr->GetGameObjectTemplates()->size())
                 Load(); // a .reload config that turns housing on after startup
             ApplyHooks();
@@ -2621,8 +3382,36 @@ namespace
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
             if (s_config.enabled)
+            {
                 Load();
+                // guilds that changed while the realm was down
+                std::set<uint32> guilds;
+                for (auto const& [id, h] : s_hoods)
+                    if (h.kind == HoodGuild)
+                        guilds.insert(h.owner);
+                for (uint32 guild : guilds)
+                    if (sGuildMgr->GetGuildById(guild))
+                        CheckGuildPlots(guild);
+                    else
+                        CloseGuildHoods(guild);
+            }
             ApplyHooks();
+        }
+
+        void OnUpdate(uint32 diff) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            for (auto it = s_guildCheckAt.begin(); it != s_guildCheckAt.end();)
+            {
+                if (it->second > diff)
+                {
+                    it->second -= diff;
+                    ++it;
+                    continue;
+                }
+                CheckGuildPlots(it->first);
+                it = s_guildCheckAt.erase(it);
+            }
         }
     };
 
@@ -2631,33 +3420,45 @@ namespace
     public:
         EsteriaHousingMaps() : AllMapScript("EsteriaHousingMaps", { ALLMAPHOOK_ON_PLAYER_ENTER_ALL, ALLMAPHOOK_ON_DESTROY_INSTANCE }) { }
 
+        // Someone who may not be somewhere (a stale bind, a GM teleport, a closed neighborhood) is sent away a moment later.
+        static void SendAway(Player* player, bool toReturn)
+        {
+            ObjectGuid const guid = player->GetGUID();
+            player->m_Events.AddEventAtOffset([guid, toReturn]() {
+                std::lock_guard<std::recursive_mutex> guard(s_lock);
+                if (Player* p = ObjectAccessor::FindPlayer(guid); p && p->IsInWorld())
+                {
+                    if (toReturn)
+                        Leave(p);
+                    else
+                        p->TeleportTo(p->m_homebindMapId, p->m_homebindX, p->m_homebindY, p->m_homebindZ, p->GetOrientation());
+                }
+            }, 1s);
+        }
+
         void OnPlayerEnterAll(Map* map, Player* player) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
-            if (!s_config.enabled || !s_loaded || !IsHousingMap(map->GetId()))
+            if (!s_config.enabled || !s_loaded)
+                return;
+            if (IsNeighborhoodMap(map->GetId()))
+            {
+                s_pendingHood.erase(player->GetGUID());
+                Hood* hood = HoodOfMap(map);
+                if (!hood || !MayEnterHood(player, *hood))
+                    return SendAway(player, false);
+                s_lastHood[player->GetGUID()] = hood->id;
+                PopulateHood(map, *hood);
+                return;
+            }
+            if (!IsHousingMap(map->GetId()))
                 return;
             s_pending.erase(player->GetGUID());
             House* house = HouseOfInstance(map);
-            if (!house)
-            {
-                // The interior map is reserved for houses: anyone else (stale bind, GM teleport) goes home.
-                ObjectGuid const guid = player->GetGUID();
-                player->m_Events.AddEventAtOffset([guid]() {
-                    if (Player* p = ObjectAccessor::FindPlayer(guid); p && p->IsInWorld())
-                        p->TeleportTo(p->m_homebindMapId, p->m_homebindX, p->m_homebindY, p->m_homebindZ, p->GetOrientation());
-                }, 1s);
-                return;
-            }
+            if (!house) // The interior map is reserved for houses
+                return SendAway(player, false);
             if (!MayEnter(player, *house)) // relogged into a house its owner has since closed to them
-            {
-                ObjectGuid const guid = player->GetGUID();
-                player->m_Events.AddEventAtOffset([guid]() {
-                    std::lock_guard<std::recursive_mutex> guard(s_lock);
-                    if (Player* p = ObjectAccessor::FindPlayer(guid); p && p->IsInWorld())
-                        Leave(p);
-                }, 1s);
-                return;
-            }
+                return SendAway(player, true);
             s_lastHouse[player->GetGUID()] = house->id;
             if (house->account == player->GetSession()->GetAccountId())
             {
@@ -2673,14 +3474,22 @@ namespace
         void OnDestroyInstance(MapInstanced* /*mapInstanced*/, Map* map) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
-            auto it = s_instanceHouse.find(map->GetInstanceId());
+            uint32 const instance = map->GetInstanceId();
+            s_spawned.erase(instance);
+            s_roomSpawned.erase(instance);
+            s_lotSpawned.erase(instance);
+            s_populated.erase(instance);
+            if (auto it = s_instanceHood.find(instance); it != s_instanceHood.end())
+            {
+                if (auto hood = s_hoodInstance.find(it->second); hood != s_hoodInstance.end() && hood->second == instance)
+                    s_hoodInstance.erase(hood);
+                s_instanceHood.erase(it);
+            }
+            auto it = s_instanceHouse.find(instance);
             if (it == s_instanceHouse.end())
                 return;
             if (auto house = s_houseInstance.find(it->second); house != s_houseInstance.end() && house->second == it->first)
                 s_houseInstance.erase(house);
-            s_spawned.erase(it->first);
-            s_roomSpawned.erase(it->first);
-            s_populated.erase(it->first);
             s_instanceHouse.erase(it);
         }
     };
@@ -2693,7 +3502,7 @@ void AddSC_mod_esteria_housing()
     new go_esteria_housing_front_door();
     new go_esteria_housing_exit();
     new EsteriaHousingPlotWatch();
+    new EsteriaHousingGuilds();
     new EsteriaHousingWorld();
     new EsteriaHousingMaps();
-    new EsteriaHousingSpawnScale();
 }

@@ -1,4 +1,9 @@
 -- Removes every housing table and all houses, placements and owned decor.
+DROP TABLE IF EXISTS `housing_recent_visit`;
+DROP TABLE IF EXISTS `housing_favorite`;
+DROP TABLE IF EXISTS `housing_guild_right`;
+DROP TABLE IF EXISTS `housing_neighborhood_member`;
+DROP TABLE IF EXISTS `housing_neighborhood`;
 DROP TABLE IF EXISTS `housing_revision`;
 DROP TABLE IF EXISTS `housing_permission`;
 DROP TABLE IF EXISTS `housing_account_decor`;

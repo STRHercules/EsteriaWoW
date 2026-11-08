@@ -32,7 +32,7 @@
 //                 nothing for the others.
 //                 Rooms cost gold. A kind of StairsDownBase + stairwell builds that stairwell down from the socket.
 //                 Plot actions act on the plot whose cornerstone the player last clicked, and re-check range.
-//   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) houseElsewhere(u8)
+//   SMSG_PLOT     plot(u16, 1-based) status(u8 PlotStatus) price(u32 copper) unused(u8, 0)
 //                 neighborhood(string) owner(string) message(string)
 //                 then style(u32) dx(f32) dy(f32) dz(f32) turn(f32 degrees) scale(f32) reach(f32 yd)
 //                 styles n(u8) x style(u32) name(string)
@@ -41,6 +41,8 @@
 //                 parent(u32: a colour variant's shape, 0 for a shape) name(string)  (your plot only; n 0 otherwise)
 //                 spots n(u8) x x y z(f32, world) accepts(u8 SpotAccepts bits) type(u8 FixtureType, 0 empty): the places on
 //                 the walls and roof a dormer, tower or chimney can go (your plot only)
+//                 then neighborhood(u32) favorite(u8: the plot's house is one of yours) house(u32, 0 none) canBuy(u8)
+//                 choices n(u8) x house(u32) label(string): your houses not yet in this neighborhood, to mirror here
 //                 sent when a cornerstone is clicked (the client opens the plot window) and after a plot action
 //   SMSG_LAYOUT   maxRooms(u8) originX(f32) originY(f32)
 //                 kinds n(u8), then n x kind(u32) sizeX(f32) sizeY(f32) price(u32 copper) name(string)
@@ -52,13 +54,23 @@
 //                 maxFloors(u8) floorPrice(u32 copper, 0 at the cap) decorPrice(u32, 0 at the cap) decorStep(u16)
 //                 decorCap(u16) roomPrice(u32, 0 at the cap) roomStep(u8) roomCap(u8)
 //                 room offsets and socket poses are relative to the origin; sent to the owner with each SMSG_STATE
-//   SMSG_NEIGHBORHOOD neighborhood(string) plotPrice(u32 copper) where(u8 Where) message(string) homePlot(u16, 0 none)
-//                 rooms(u8) placed(u16) maxDecor(u16) plots n(u16), then n x plot(u16) status(u8 PlotStatus) name(string)
-//                 (name: the owner's character, for a plot you may visit) access(u8 Access bits: who may visit your house)
-//                 the Neighborhood window's contents: the answer to every ActionNeighborhood and ActionTravel*
+//   SMSG_NEIGHBORHOOD the Neighborhood window's contents: the answer to every ActionNeighborhood and ActionTravel*
+//                 the neighborhood shown: id(u32) kind(u8 0 an account's, 1 a guild's) map(u8: 0 Founder's Point,
+//                 1 Razorwind Shores) name(string) mapName(string) plotPrice(u32 copper) where(u8 Where) message(string)
+//                 rights(u8 Right bits, yours there) here(u8: you are in it)
+//                 plots n(u16) x plot(u16) status(u8 PlotStatus) name(string: the owner's character, yours or visitable)
+//                 homes n(u8) x house(u32) neighborhood(u32) plot(u16) neighborhoodName(string) rooms(u8) placed(u16)
+//                 maxDecor(u16) access(u8 Access bits): a row per plot each of your houses stands on (0 0: saved, on none)
+//                 neighborhoods n(u8) x id(u32) kind(u8) role(u8: 0 yours, 1 invited, 2 your guild's, 3 visiting) map(u8)
+//                 freePlots(u16) name(string)
+//                 favorites n(u8), recent n(u8), each x house(u32) neighborhood(u32) plot(u16, 0 gone) owner(string)
+//                 neighborhoodName(string) ok(u8: you may go in)
+//                 members n(u8) x account(u32) name(string): who the shown neighborhood invited (if you may invite)
+//                 guild(u32, 0 none) leader(u8) neighborhoodPrice(u32 copper) bank(u32 copper) canBuy(u8)
+//                 ranks n(u8) x rights(u8 Right bits) for guild ranks 1.. (to the leader only)
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 14;
+    inline constexpr uint16_t Proto = 15;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -91,7 +103,7 @@ namespace EsteriaHousingWire
 
     enum Action : uint8_t
     {
-        ActionBuyPlot = 1,
+        ActionBuyPlot = 1,             // house(u32, 0: build a new one): put a house on the viewed plot
         ActionEnterPlot = 2,
         ActionAddRoom = 3,
         ActionRemoveRoom = 4, // the newest room
@@ -102,13 +114,29 @@ namespace EsteriaHousingWire
         ActionUpgrade = 9,    // what(u8 Upgrade): buy the house's next floor or decor budget step
         ActionPlotStyle = 10, // style(u32): rebuild your plot's house in another exterior style
         ActionPlotPlace = 11, // dx dy dz(f32 yd) turnDegrees(f32) scale(f32): where the house stands on your plot, from its spot
-        ActionNeighborhood = 12,       // send me SMSG_NEIGHBORHOOD
-        ActionTravelNeighborhood = 13, // go to the neighborhood's entry, from anywhere travel is allowed
+        ActionNeighborhood = 12,       // neighborhood(u32, 0: the one you are in, else yours): send me SMSG_NEIGHBORHOOD
+        ActionTravelNeighborhood = 13, // neighborhood(u32, 0 yours): go to its entry, from anywhere travel is allowed
         ActionTravelBack = 14,         // leave the neighborhood for where you came from
-        ActionTravelPlot = 15,         // plot(u16, 1-based): go to that plot, beside its cornerstone
-        ActionHouseAccess = 16,        // access(u8 Access bits): who may visit your house; visitors who no longer may leave
+        ActionTravelPlot = 15,         // neighborhood(u32) plot(u16, 1-based): go to that plot, beside its cornerstone
+        ActionHouseAccess = 16,        // house(u32) access(u8 Access bits): who may visit it; visitors who no longer may leave
         ActionPlotFixture = 17,        // type(u8 FixtureType) component(u32, 0: the style's default): swap a part of your house
         ActionPlotSpot = 18,           // spot(u8) type(u8): what stands on one of your house's wall or roof spots
+        ActionFavorite = 19,           // house(u32) neighborhood(u32) on(u8)
+        ActionInvite = 20,             // neighborhood(u32) name(string): that character's account may come in and buy plots
+        ActionUninvite = 21,           // neighborhood(u32) account(u32)
+        ActionHoodMap = 22,            // neighborhood(u32) map(u8): move it to the other map
+        ActionBuyGuildHood = 23,       // map(u8): the Guild Master buys a guild neighborhood from the guild bank
+        ActionGuildRights = 24,        // rank(u8, 1-9) rights(u8 Right bits): the Guild Master sets a rank's rights
+        ActionMoveOut = 25,            // take your house off the viewed plot (it is saved)
+        ActionEnterHouse = 26,         // house(u32): go into one of your houses
+    };
+
+    // What a player may do in a neighborhood (SMSG_NEIGHBORHOOD rights, guild rank rights).
+    enum Right : uint8_t
+    {
+        RightBuy = 1,    // buy plots
+        RightInvite = 2, // invite others in
+        RightManage = 4, // move it to the other map
     };
 
     // Which of the spot types a wall or roof spot takes (SMSG_PLOT spots).

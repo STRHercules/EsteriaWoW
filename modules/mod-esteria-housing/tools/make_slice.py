@@ -28,41 +28,57 @@ STEWARD_MODEL_FROM = 6740  # copy the Stormwind innkeeper's display
 # Retail housing maps (docs/housing/maps-recon.md). Rows are cloned from map 35's in Map.dbc and given the retail
 # directory, so World\Maps\<id>\<id>.wdt resolves through Data/Retail aliases to the retail WDT (RetailTerrain.cpp).
 TEMPLATE_MAP = 35
-HOUSE_MAP, NEIGHBORHOOD_MAP = 2783, 2735
-MAPS = {  # id: directory, name, InstanceType (1 party: one copy per house; 0 world), MaxPlayers
+HOUSE_MAP, NEIGHBORHOOD_MAP, RAZORWIND_MAP = 2783, 2735, 2736
+# Every map is a party instance (InstanceType 1): one copy per house, and one per neighborhood (an account's or a
+# guild's; the module picks the instance), so 40 players never fill one.
+MAPS = {  # id: directory, name, InstanceType, MaxPlayers
     HOUSE_MAP: ("2783", "Home Interior", 1, 40),
-    NEIGHBORHOOD_MAP: ("2735", "Founder's Point", 0, 0),
+    NEIGHBORHOOD_MAP: ("2735", "Founder's Point", 1, 40),
+    RAZORWIND_MAP: ("2736", "Razorwind Shores", 1, 40),
 }
-MAP_FDIDS = {HOUSE_MAP: 5890928, NEIGHBORHOOD_MAP: 5660542}  # Map.db2 WdtFileDataID
+NEIGHBORHOOD_MAPS = (NEIGHBORHOOD_MAP, RAZORWIND_MAP)
+MAP_FDIDS = {HOUSE_MAP: 5890928, NEIGHBORHOOD_MAP: 5660542, RAZORWIND_MAP: 5660543}  # Map.db2 WdtFileDataID
 # The world map: an AreaTable row naming each map (16105 is retail's Founder's Point) and an orphan WorldMapArea for it,
 # which 3.3.5 shows on any map that is not a continent (as for battlegrounds). Both use retail's painted Founder's
 # Point map (UiMap 2401, data/worldmap from wowdecomp docs/housing/tools/ui/make_worldmap.py), whose world bounds are
 # UiMapAssignment's region; inside a house the player lies outside them, so the map shows without an arrow.
-AREAS = {NEIGHBORHOOD_MAP: (16105, "Founder's Point"), HOUSE_MAP: (16300, "Home Interior")}  # retail AreaTable IDs
+AREAS = {NEIGHBORHOOD_MAP: (16105, "Founder's Point"), HOUSE_MAP: (16300, "Home Interior"),
+         RAZORWIND_MAP: (15524, "Razorwind Shores")}  # retail AreaTable IDs
 AREA_TEMPLATE = 12  # Elwynn Forest: flags, ambience and music
 # Founder's Point's subzones (retail AreaTable, ParentAreaID 16105). The client keeps a terrain chunk's retail area ID
 # when AreaTable has it (wowdecomp RetailTerrain), so these name the minimap's zone text.
 SUBZONES = {16376: "Brumewood Hollow", 16377: "Gilded Oaks", 16378: "The Outer Banks", 16588: "Town Center",
             16700: "Faldir's Torch", 16701: "Morgan's Rest", 16704: "Breakwater Bight", 16709: "Crescent Cove",
             16818: "Stoneveil Ridge"}
+# Razorwind Shores' (ParentAreaID 15524; DurotarMain_Housing is retail's own placeholder name, left out).
+RAZORWIND_SUBZONES = {16226: "Cragthorn Highlands", 16228: "Runetotem's Bounty", 16229: "Saltfang Shoals",
+                      16589: "The Common", 16687: "Four Sisters", 16688: "Ragewater Springs", 16690: "Scorchsong Isle",
+                      16753: "The Bloom"}
+SUBZONES_OF = {NEIGHBORHOOD_MAP: SUBZONES, RAZORWIND_MAP: RAZORWIND_SUBZONES}
 SUBZONE_TEMPLATE = 87  # Goldshire: a subzone's sounds
 # Exploration bits under 4096 (the server's PLAYER_EXPLORED_ZONES holds 128 x 32 and logs any bit past it), free in the
 # client's AreaTable, the server's AreaTable.dbc and acore_world.areatable_dbc (checked 2026-11-07).
-AREA_BITS = {16105: 4095, 16300: 4094, **{area: 4093 - i for i, area in enumerate(SUBZONES)}}
+AREA_BITS = {16105: 4095, 16300: 4094, **{area: 4093 - i for i, area in enumerate(SUBZONES)},
+             15524: 4083, **{area: 4082 - i for i, area in enumerate(RAZORWIND_SUBZONES)}}
 SANCTUARY, REST_HORDE, REST_ALLIANCE = 0x800, 0x400000, 0x800000
 # Founder's Point is a sanctuary; a house is one too and rests whoever is inside, as retail's do.
-AREA_FLAGS = {NEIGHBORHOOD_MAP: SANCTUARY, HOUSE_MAP: SANCTUARY | REST_HORDE | REST_ALLIANCE}
-WORLD_MAP_NAME = "FoundersPoint"
-WORLD_MAP_BOUNDS = (2935.42, -2454.17, 4762.5, 1168.75)  # left (max y), right (min y), top (max x), bottom (min x)
+AREA_FLAGS = {NEIGHBORHOOD_MAP: SANCTUARY, RAZORWIND_MAP: SANCTUARY, HOUSE_MAP: SANCTUARY | REST_HORDE | REST_ALLIANCE}
+# Each map's world map: its tiles (data/worldmap/<name>) and bounds, left (max y), right (min y), top (max x), bottom
+# (min x). Razorwind Shores is UiMap 2402 (Horde Housing District, art 2057) over UiMapAssignment's region for 2736.
+WORLD_MAPS = {NEIGHBORHOOD_MAP: ("FoundersPoint", (2935.42, -2454.17, 4762.5, 1168.75)),
+              HOUSE_MAP: ("FoundersPoint", (2935.42, -2454.17, 4762.5, 1168.75)),
+              RAZORWIND_MAP: ("RazorwindShores", (3870.83, -2956.25, 4339.58, -212.5))}
 AREA_DBC_NAME, WORLD_MAP_DBC_NAME = r"DBFilesClient\AreaTable.dbc", r"DBFilesClient\WorldMapArea.dbc"
 # Retail's loading screens (LoadingScreens.MainImageFileDataID 7377860 and 7367528, data/loadscreens from wowdecomp
 # docs/housing/tools/ui/make_loadscreen.py): Map.dbc's LoadingScreenID names a LoadingScreens row, whose file has a Wide
 # twin for widescreen.
 LOADING_SCREENS = {NEIGHBORHOOD_MAP: (900, "FoundersPoint", "LoadScreenFoundersPoint"),
-                   HOUSE_MAP: (901, "HomeInterior", "LoadScreenHomeInterior")}
+                   HOUSE_MAP: (901, "HomeInterior", "LoadScreenHomeInterior"),
+                   RAZORWIND_MAP: (902, "RazorwindShores", "LoadScreenRazorwindShores")}  # retail 672, 7490877
 LOADING_DBC_NAME = r"DBFilesClient\LoadingScreens.dbc"
 # NeighborhoodMap 1 (Founder's Point): entry position and facing; the steward stands there.
 NEIGHBORHOOD_ENTRY = (3807.76, -160.427, 194.111, 2.852)
+ENTRIES = {NEIGHBORHOOD_MAP: NEIGHBORHOOD_ENTRY, RAZORWIND_MAP: (2053.6, 175.468, 175.12, 3.4558)}  # NeighborhoodMap 2: 198 deg
 
 # Retail room kit: 12 generic HouseRoom kinds and their RoomComponent pieces (data/room_kit.tsv, written by wowdecomp
 # docs/housing/tools/phase3/make_kit.py). Each distinct WMO becomes a GameObjectDisplayInfo row retail\<fdid>.wmo and a
@@ -98,6 +114,9 @@ ENTRY = (ROOM_ORIGIN[0], ROOM_ORIGIN[1], ROOM_ORIGIN[2] + 0.5, 0.0)
 # docs/housing/tools/phase3/make_plots.py). Each plot gets a permanent cornerstone (retail 12ph_plotsalesign01, a
 # clickable GameObject the module scripts); a claimed plot's exterior pieces are type-14 GameObjects the module saves.
 PLOTS = list(csv.DictReader((MODULE / "data/plots.tsv").open(encoding="utf-8"), delimiter="\t"))
+# Razorwind Shores' (tools/neighborhood_plots.py, NeighborhoodMap 2)
+PLOTS_OF = {NEIGHBORHOOD_MAP: PLOTS,
+            RAZORWIND_MAP: list(csv.DictReader((MODULE / "data/plots_razorwind.tsv").open(encoding="utf-8"), delimiter="\t"))}
 EXTERIOR = list(csv.DictReader((MODULE / "data/exterior.tsv").open(encoding="utf-8"), delimiter="\t"))
 EXTERIOR_MODELS = sorted({int(r["fdid"]) for r in EXTERIOR})
 CORNERSTONE_FDID = 6935310  # GameObjects 527268 "Cornerstone - Plot 0" -> GameObjectDisplayInfo 110660
@@ -407,12 +426,13 @@ def world_sql(map_dbc):
                      f"{AREA_FLAGS[map_id]}, 0, 0, 0, 0, 0, 0, {q(name)}, {', '.join(['' + chr(39) * 2] * 15)}, 16712190, 6, 0, 0, 0, 0, "
                      f"-500, 0, 0);")
     lines += [
-        f"DELETE FROM `instance_template` WHERE `map` = {HOUSE_MAP};",
-        f"INSERT INTO `instance_template` (`map`, `parent`, `script`, `allowMount`) VALUES ({HOUSE_MAP}, 0, '', 0);",
+        f"DELETE FROM `instance_template` WHERE `map` IN ({', '.join(map(str, MAPS))});",
+        *[f"INSERT INTO `instance_template` (`map`, `parent`, `script`, `allowMount`) VALUES ({m}, 0, '', {int(m != HOUSE_MAP)});"
+          for m in MAPS],
         # MapMgr::PlayerCannotEnter refuses a party map with no MapDifficulty row; 40 players so visits never fill it.
-        f"DELETE FROM `mapdifficulty_dbc` WHERE `ID` = {HOUSE_MAP};",
-        f"INSERT INTO `mapdifficulty_dbc` (`ID`, `MapID`, `Difficulty`, `Message_Lang_Mask`, `RaidDuration`, `MaxPlayers`) "
-        f"VALUES ({HOUSE_MAP}, {HOUSE_MAP}, 0, 16712188, 0, {MAPS[HOUSE_MAP][3]});",
+        f"DELETE FROM `mapdifficulty_dbc` WHERE `ID` IN ({', '.join(map(str, MAPS))});",
+        *[f"INSERT INTO `mapdifficulty_dbc` (`ID`, `MapID`, `Difficulty`, `Message_Lang_Mask`, `RaidDuration`, `MaxPlayers`) "
+          f"VALUES ({m}, {m}, 0, 16712188, 0, {MAPS[m][3]});" for m in MAPS],
         "",
         "-- Plots: a cornerstone on each, and the exterior recipe the module builds a claimed plot's house from.",
         "DELETE FROM `housing_plot`;",
@@ -461,24 +481,24 @@ def world_sql(map_dbc):
                      f"`rot_deg`, `mat_x`, `mat_z`) VALUES ({r['style']}, {q(r['role'])}, "
                      f"{EXTERIOR_GO_BASE + EXTERIOR_MODELS.index(int(r['fdid']))}, {r['x']}, {r['y']}, {r['z']}, {r['rot_deg']}, "
                      f"{r['mat_x']}, {r['mat_z']});")
-    for p in PLOTS:
-        lines.append(f"INSERT INTO `housing_plot` VALUES ({NEIGHBORHOOD_MAP}, {p['plot']}, {p['house_x']}, {p['house_y']}, "
+    for map_id, p in ((m, p) for m in NEIGHBORHOOD_MAPS for p in PLOTS_OF[m]):
+        lines.append(f"INSERT INTO `housing_plot` VALUES ({map_id}, {p['plot']}, {p['house_x']}, {p['house_y']}, "
                      f"{p['house_z']}, {p['house_yaw']}, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {p['corner_o']}, "
                      f"{p['exit_x']}, {p['exit_y']}, {p['exit_z']});")
         # The retail sign model faces its -x: facing the street takes CornerstoneRotation turned half way round.
         o = (float(p["corner_o"]) + math.pi) % (2 * math.pi)
         lines.append(f"INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, "
                      f"`position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, "
-                     f"`animprogress`, `state`) VALUES ({CORNERSTONE_GUID_BASE + int(p['plot'])}, {CORNERSTONE_GO}, "
-                     f"{NEIGHBORHOOD_MAP}, 1, 1, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {o}, 0, 0, "
+                     f"`animprogress`, `state`) VALUES ({CORNERSTONE_GUID_BASE + 100 * NEIGHBORHOOD_MAPS.index(map_id) + int(p['plot'])}, "
+                     f"{CORNERSTONE_GO}, {map_id}, 1, 1, {p['corner_x']}, {p['corner_y']}, {p['corner_z']}, {o}, 0, 0, "
                      f"{round(math.sin(o / 2), 6)}, {round(math.cos(o / 2), 6)}, 0, 100, 1);")
     lines += [
         "",
-        f"-- A steward at Founder's Point's entry takes players home.",
-        f"DELETE FROM `creature` WHERE `guid` = {STEWARD};",
-        f"INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, "
-        f"`orientation`, `spawntimesecs`) VALUES ({STEWARD}, {STEWARD}, {NEIGHBORHOOD_MAP}, 1, 1, "
-        f"{', '.join(map(str, NEIGHBORHOOD_ENTRY))}, 300);",
+        f"-- A steward at each neighborhood's entry takes players home.",
+        f"DELETE FROM `creature` WHERE `guid` IN ({STEWARD}, {STEWARD + 1});",
+        *[f"INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, "
+          f"`orientation`, `spawntimesecs`) VALUES ({STEWARD + i}, {STEWARD}, {m}, 1, 1, {', '.join(map(str, ENTRIES[m]))}, 300);"
+          for i, m in enumerate(NEIGHBORHOOD_MAPS)],
         "",
     ]
     return "\n".join(lines)
@@ -542,7 +562,7 @@ def patch_world_map(storm, client):
     row_of = lambda id: next(list(struct.unpack("<36I", r)) for r in rows if struct.unpack_from("<I", r)[0] == id)  # noqa: E731
     bit = max(struct.unpack_from("<I", r, 12)[0] for r in rows)
     places = [(area, map_id, 0, name, AREA_TEMPLATE) for map_id, (area, name) in AREAS.items()]
-    places += [(area, NEIGHBORHOOD_MAP, AREAS[NEIGHBORHOOD_MAP][0], name, SUBZONE_TEMPLATE) for area, name in SUBZONES.items()]
+    places += [(area, m, AREAS[m][0], name, SUBZONE_TEMPLATE) for m, zones in SUBZONES_OF.items() for area, name in zones.items()]
     taken = {struct.unpack_from("<I", r, 12)[0] for r in rows}
     new = []
     for area, map_id, parent, name, template in places:
@@ -558,7 +578,8 @@ def patch_world_map(storm, client):
     new = []
     for map_id, (area, _name) in AREAS.items():
         next_id += 1
-        new.append(([next_id, map_id, area, 0, *[float(v) for v in WORLD_MAP_BOUNDS], -1, 0, 0], {3: WORLD_MAP_NAME}))
+        name, bounds = WORLD_MAPS[map_id]
+        new.append(([next_id, map_id, area, 0, *[float(v) for v in bounds], -1, 0, 0], {3: name}))
     files[WORLD_MAP_DBC_NAME] = append_rows(world, 11, 44, new)
 
     _, screens = winning_dbc(storm, client, LOADING_DBC_NAME)
@@ -569,10 +590,10 @@ def patch_world_map(storm, client):
         for suffix in ("", "Wide"):
             files[f"{screen_dir}{stem}{suffix}.blp"] = (MODULE / "data/loadscreens" / f"{stem}{suffix}.blp").read_bytes()
 
-    tiles = MODULE / "data/worldmap" / WORLD_MAP_NAME
-    for blp in sorted(tiles.glob("*.blp")):
-        files[f"Interface\\WorldMap\\{WORLD_MAP_NAME}\\{blp.name}"] = blp.read_bytes()
-    assert sum(1 for name in files if WORLD_MAP_NAME + "\\" in name) == 12, "the world map needs its 12 tiles"
+    for name in sorted({name for name, _ in WORLD_MAPS.values()}):
+        for blp in sorted((MODULE / "data/worldmap" / name).glob("*.blp")):
+            files[f"Interface\\WorldMap\\{name}\\{blp.name}"] = blp.read_bytes()
+        assert sum(1 for f in files if f"\\{name}\\" in f) == 12, f"the {name} world map needs its 12 tiles"
     return files
 
 
