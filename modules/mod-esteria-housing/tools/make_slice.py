@@ -237,10 +237,21 @@ CATALOG2_ROWS = list(csv.DictReader((MODULE / "data/catalog2.tsv").open(encoding
 THUMBNAILS = {int(r["decor_id"]): (int(r["thumb_fdid"]), int(r["width"]))
               for r in csv.DictReader((MODULE / "data/decor_thumbnails.tsv").open(encoding="utf-8"), delimiter="\t")}
 DECOR2_DISPLAY_BASE, DECOR2_GO_BASE, DECOR2_SLOTS = 63000, 9503000, 3000
+# Groups 2 and 3 (2026-11-07, tools/retail_decor.py): retail decor newer than our build, whose files ship packed
+# (patch-RetailDecor-001.MPQ), and the WMO decor our build has; kept where RetailAssetProbe --batch loaded the model.
+# Appended to block 2 after catalog2.tsv, so no slot moves.
+CATALOG3_ROWS = list(csv.DictReader((MODULE / "data/catalog3.tsv").open(encoding="utf-8"), delimiter="\t"))
+WMO_DECOR = {int(r["decor_id"]) for r in CATALOG3_ROWS if r["kind"] == "wmo"}
 CATALOG = retail_named(catalog() + [(int(r["decor_id"]), int(r["model_fdid"]), "", r["category"], "floor")
-                                    for r in CATALOG2_ROWS])
-BLOCK1 = len(CATALOG) - len(CATALOG2_ROWS)
-assert BLOCK1 <= DECOR_SLOTS and len(CATALOG2_ROWS) <= DECOR2_SLOTS, f"{BLOCK1} + {len(CATALOG2_ROWS)} decor"
+                                    for r in CATALOG2_ROWS + CATALOG3_ROWS])
+BLOCK1 = len(CATALOG) - len(CATALOG2_ROWS) - len(CATALOG3_ROWS)
+assert BLOCK1 <= DECOR_SLOTS and len(CATALOG2_ROWS) + len(CATALOG3_ROWS) <= DECOR2_SLOTS, \
+    f"{BLOCK1} + {len(CATALOG2_ROWS)} + {len(CATALOG3_ROWS)} decor"
+
+
+def decor_model(decor, fdid):
+    """The display's model and geometry box: a WMO decor is a building-sized map object."""
+    return (f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) if decor in WMO_DECOR else (f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2))
 assert len({r[0] for r in CATALOG}) == len(CATALOG), "a decor ID is in both blocks"
 
 
@@ -318,16 +329,19 @@ def world_sql(map_dbc):
               f"{DECOR2_DISPLAY_BASE + DECOR2_SLOTS - 1};"]
     for i, (decor, fdid, name, category, surface) in enumerate(CATALOG):
         display, entry = decor_slot(i)
+        model, box = decor_model(decor, fdid)
         lines.append(f"INSERT INTO `gameobjectdisplayinfo_dbc` (`ID`, `ModelName`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, "
-                     f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(f'retail\\{fdid}.m2')}, -1, -1, 0, 1, 1, 2);")
+                     f"`GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`) VALUES ({display}, {q(model)}, {', '.join(map(str, box))});")
         if is_exit(fdid):  # type 10 (goober): clicking it runs the script's gossip hello, which leaves the house
             lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) "
                          f"VALUES ({entry}, 10, {display}, {q(name + ' (exit)')}, 1, 'go_esteria_housing_exit');")
-        else:
+        else:  # 5 generic M2; 14 map object, the type 3.3.5 draws a WMO for
             lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) "
-                         f"VALUES ({entry}, 5, {display}, {q(name)}, 1);")
+                         f"VALUES ({entry}, {14 if decor in WMO_DECOR else 5}, {display}, {q(name)}, 1);")
+        # model_fdid is what the client previews as an M2 (ghost, chest model): 0 for a WMO, which has none
         lines.append(f"INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, "
-                     f"`category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES ({decor}, {fdid}, {display}, "
+                     f"`category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES ({decor}, "
+                     f"{0 if decor in WMO_DECOR else fdid}, {display}, "
                      f"{entry}, {q(name)}, {CATEGORY[category]}, {SURFACE[surface]}, 0.5, 2, 'retail', {int(not is_dnt(decor))});")
     lines += ["", "DELETE FROM `housing_room_kit`;", "DELETE FROM `housing_room_kind`;"]
     for i, fdid in enumerate(ROOM_MODELS):
@@ -568,7 +582,7 @@ def patch_dbc(storm, client):
     taken = {struct.unpack_from("<I", r)[0] for r in rows}
     strings = bytearray(strings)
     added = []
-    models = [(decor_slot(i)[0], f"retail\\{fdid}.m2", (-1, -1, 0, 1, 1, 2)) for i, (_, fdid, *_rest) in enumerate(CATALOG)]
+    models = [(decor_slot(i)[0], *decor_model(decor, fdid)) for i, (decor, fdid, *_rest) in enumerate(CATALOG)]
     models += [(ROOM_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 11)) for i, fdid in enumerate(ROOM_MODELS)]
     models += [(EXTERIOR_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(EXTERIOR_MODELS)]
     models += [(FIXTURE_DISPLAY_BASE + i, f"retail\\{fdid}.wmo", (-12, -12, 0, 12, 12, 15)) for i, fdid in enumerate(FIXTURE_MODELS)]
