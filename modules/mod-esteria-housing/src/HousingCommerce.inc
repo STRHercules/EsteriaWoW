@@ -123,7 +123,6 @@
     std::unordered_map<ObjectGuid, View> s_shopView, s_boardView;
     std::unordered_map<ObjectGuid, uint64> s_labelPlaced;                        // a shop's floating label -> the shop
     std::unordered_map<uint64, std::pair<uint32, ObjectGuid>> s_shopLabel;      // shop -> its label's instance and guid
-    constexpr uint32 InvisibleDisplay = 11686;                                   // the invisible stalker's model
     uint32 s_nextListing = 1, s_nextOrder = 1, s_nextMerchantEntry = MerchantEntryFirst;
     uint32 s_orderSweep = 0;
 
@@ -834,15 +833,18 @@
         DespawnShopLabel(map, p.id);
         if (Creature* c = map->SummonCreature(shop->second.entry, Position(p.pos[0], p.pos[1], p.pos[2] + 2.4f * p.scale, p.yaw)))
         {
-            c->SetDisplayId(InvisibleDisplay);
-            c->SetNativeDisplayId(InvisibleDisplay);
+            // a real model shrunk to a speck: the client draws no name over the invisible stalker's empty model
+            c->SetObjectScale(0.01f);
             c->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_IMMUNE_TO_NPC);
             c->SetReactState(REACT_PASSIVE);
             c->SetDisableGravity(true);
             c->SetControlled(true, UNIT_STATE_ROOT);
             s_labelPlaced[c->GetGUID()] = p.id;
             s_shopLabel[p.id] = { map->GetInstanceId(), c->GetGUID() };
+            LOG_INFO("module", "housing: shop {} label '{}' spawned in instance {}", p.id, shop->second.name, map->GetInstanceId());
         }
+        else
+            LOG_ERROR("module", "housing: shop {} label (entry {}) could not spawn", p.id, shop->second.entry);
     }
 
     void DespawnShopLabel(Map* map, uint64 placedId)
