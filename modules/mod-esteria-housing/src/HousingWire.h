@@ -57,7 +57,8 @@
 //   SMSG_NEIGHBORHOOD the Neighborhood window's contents: the answer to every ActionNeighborhood and ActionTravel*
 //                 the neighborhood shown: id(u32) kind(u8 0 an account's, 1 a guild's) map(u8: 0 Founder's Point,
 //                 1 Razorwind Shores) name(string) mapName(string) plotPrice(u32 copper) where(u8 Where) message(string)
-//                 rights(u8 Right bits, yours there) here(u8: you are in it)
+//                 rights(u8 Right bits, yours there) here(u8: you are in it) choose(u8: your account has not picked its
+//                 neighborhood's map yet; ActionHoodMap on it picks, the same map included)
 //                 plots n(u16) x plot(u16) status(u8 PlotStatus) name(string: the owner's character, yours or visitable)
 //                 homes n(u8) x house(u32) neighborhood(u32) plot(u16) neighborhoodName(string) rooms(u8) placed(u16)
 //                 maxDecor(u16) access(u8 Access bits): a row per plot each of your houses stands on (0 0: saved, on none)
@@ -70,7 +71,7 @@
 //                 ranks n(u8) x rights(u8 Right bits) for guild ranks 1.. (to the leader only)
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 15;
+    inline constexpr uint16_t Proto = 16;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;

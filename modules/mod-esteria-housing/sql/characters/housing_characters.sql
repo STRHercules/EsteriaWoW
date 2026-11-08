@@ -291,3 +291,10 @@ PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
 UPDATE `housing_placed_decor` p JOIN `housing_house` h ON h.`house_id` = p.`house_id`
   JOIN `housing_neighborhood` n ON n.`kind` = 0 AND n.`owner` = h.`account_id`
   SET p.`neighborhood_id` = n.`neighborhood_id` WHERE p.`room_id` IS NULL AND p.`neighborhood_id` = 0;
+
+-- Whether an account picked its neighborhood's map (the Neighborhood window asks until it does).
+SET @has_chosen = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE()
+  AND table_name = 'housing_neighborhood' AND column_name = 'chosen');
+SET @q = IF(@has_chosen = 0, 'ALTER TABLE `housing_neighborhood` ADD COLUMN `chosen` TINYINT UNSIGNED NOT NULL DEFAULT 0 '
+  'COMMENT ''an account''''s: its owner picked the map''', 'DO 0');
+PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
