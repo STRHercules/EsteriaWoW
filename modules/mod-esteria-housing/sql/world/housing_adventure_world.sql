@@ -2,7 +2,7 @@
 -- Housing section 3: training dummies, portals, meeting stones, Teleport: Home and Portal: Home.
 
 DELETE FROM `housing_decor_catalog` WHERE `decor_id` BETWEEN 40101 AND 40199;
-DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9506010 AND 9506039;
+DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9506010 AND 9506059;
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506010, 2, 63784, 'Training Dummy', 1, 'go_esteria_housing_adventure');
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES (40101, 6190527, 63784, 9506010, 'Training Dummy', 7, 0, 0.5, 2, 'retail', 1);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506011, 2, 64257, 'Tank Dummy', 1, 'go_esteria_housing_adventure');
@@ -15,6 +15,20 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`,
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES (40105, 7280689, 61445, 9506014, 'Portal', 7, 0, 0.5, 2, 'retail', 1);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506015, 2, 64020, 'Meeting Stone', 1, 'go_esteria_housing_adventure');
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES (40106, 6796710, 64020, 9506015, 'Meeting Stone', 7, 0, 0.5, 2, 'retail', 1);
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506040, 2, 8111, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506041, 2, 4396, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506042, 2, 4394, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506043, 2, 4393, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506044, 2, 6955, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506045, 2, 7848, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506046, 2, 4395, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506047, 2, 4398, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506048, 2, 4397, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506049, 2, 6956, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506050, 2, 7849, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506051, 2, 7146, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506052, 2, 7146, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506053, 2, 8111, 'Mage Portal', 1, 'go_esteria_housing_adventure');
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506020, 2, 61445, 'K''areshi Portal', 1, 'go_esteria_housing_adventure');
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506021, 2, 61260, 'Portal to Damnation', 1, 'go_esteria_housing_adventure');
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506022, 2, 64210, 'Translocation Portal', 1, 'go_esteria_housing_adventure');
