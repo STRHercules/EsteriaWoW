@@ -121,6 +121,9 @@
     std::map<uint32, Order> s_orders;
     std::unordered_map<uint32, Recipe> s_recipes;
     std::unordered_map<ObjectGuid, View> s_shopView, s_boardView;
+    std::unordered_map<ObjectGuid, uint64> s_labelPlaced;                        // a shop's floating label -> the shop
+    std::unordered_map<uint64, std::pair<uint32, ObjectGuid>> s_shopLabel;      // shop -> its label's instance and guid
+    constexpr uint32 InvisibleDisplay = 11686;                                   // the invisible stalker's model
     uint32 s_nextListing = 1, s_nextOrder = 1, s_nextMerchantEntry = MerchantEntryFirst;
     uint32 s_orderSweep = 0;
 
@@ -294,6 +297,13 @@
         // where the pool left off: a restart must not hand out an entry clients already cached under an older name
         if (QueryResult r = CharacterDatabase.Query("SELECT value FROM housing_counter WHERE name = 'merchant_entry'"))
             s_nextMerchantEntry = std::clamp(r->Fetch()[0].Get<uint32>(), MerchantEntryFirst, MerchantEntryLast);
+        // shops placed before every shop was named get their entry now
+        for (auto& [placed, s] : s_shops)
+            if (!s.entry && (s.entry = NextMerchantEntry()))
+            {
+                NameTemplate(s);
+                CharacterDatabase.Execute("UPDATE housing_shop SET creature_entry = {} WHERE placed_id = {}", s.entry, placed);
+            }
         if (QueryResult r = CharacterDatabase.Query("SELECT account_id, treasury, bank_deposit FROM housing_shop_account"))
             do
                 s_shopAccounts[r->Fetch()[0].Get<uint32>()] = { r->Fetch()[1].Get<uint64>(), r->Fetch()[2].Get<uint8>() != 0 };
@@ -405,7 +415,7 @@
         Shop shop;
         shop.placed = p.id; shop.house = house.id; shop.account = house.account; shop.ownerGuid = player->GetGUID().GetCounter(); shop.kind = kind;
         shop.name = kind < std::size(DefaultShopName) ? DefaultShopName[kind] : "Shop";
-        if (kind == ServiceMerchant && (shop.entry = NextMerchantEntry()))
+        if ((shop.entry = NextMerchantEntry())) // every shop is named: the merchant itself, the others by a floating label
             NameTemplate(shop);
         SaveShop(shop, trans);
         s_shops[p.id] = std::move(shop);
@@ -435,7 +445,6 @@
         mail(item);
     }
 
-    // A placed shop is being taken down: unsold stock goes home by mail.
     // Whether a placed shop still holds goods for sale.
     bool HasStockForSale(uint64 placedId)
     {
@@ -445,6 +454,7 @@
         return false;
     }
 
+    // A placed shop is being taken down: unsold stock goes home by mail.
     void ShopRemoved(uint64 placedId, CharacterDatabaseTransaction trans)
     {
         auto shop = s_shops.find(placedId);
@@ -814,12 +824,45 @@
         return false;
     }
 
-    // The names of the merchants in a map, sent to a player arriving there: clients cache creature names by entry, and the
+    // A case's, shelf's, rack's, counter's or sign's name and title: objects show no name, so an invisible creature named
+    // for the shop floats above it (clicking it opens the shop, as the object does).
+    void SpawnShopLabel(Map* map, Placed const& p)
+    {
+        auto shop = s_shops.find(p.id);
+        if (shop == s_shops.end() || shop->second.kind == ServiceMerchant || !shop->second.entry)
+            return;
+        DespawnShopLabel(map, p.id);
+        if (Creature* c = map->SummonCreature(shop->second.entry, Position(p.pos[0], p.pos[1], p.pos[2] + 2.4f * p.scale, p.yaw)))
+        {
+            c->SetDisplayId(InvisibleDisplay);
+            c->SetNativeDisplayId(InvisibleDisplay);
+            c->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_IMMUNE_TO_NPC);
+            c->SetReactState(REACT_PASSIVE);
+            c->SetDisableGravity(true);
+            c->SetControlled(true, UNIT_STATE_ROOT);
+            s_labelPlaced[c->GetGUID()] = p.id;
+            s_shopLabel[p.id] = { map->GetInstanceId(), c->GetGUID() };
+        }
+    }
+
+    void DespawnShopLabel(Map* map, uint64 placedId)
+    {
+        auto it = s_shopLabel.find(placedId);
+        if (it == s_shopLabel.end())
+            return;
+        if (it->second.first == map->GetInstanceId())
+            if (Creature* c = map->GetCreature(it->second.second))
+                c->DespawnOrUnsummon();
+        s_labelPlaced.erase(it->second.second);
+        s_shopLabel.erase(it);
+    }
+
+    // The names of the shops in a map, sent to a player arriving there: clients cache creature names by entry, and the
     // pool's entries are reused, so a cached one may be stale.
     void PushMerchantNames(Player* player, Map* map)
     {
         for (auto const& [placed, guid] : s_spawned[map->GetInstanceId()])
-            if (auto shop = s_shops.find(placed); shop != s_shops.end() && shop->second.kind == ServiceMerchant)
+            if (auto shop = s_shops.find(placed); shop != s_shops.end() && shop->second.entry)
                 if (CreatureTemplate const* t = sObjectMgr->GetCreatureTemplate(shop->second.entry))
                 {
                     WorldPacket name = t->queryData;
@@ -1447,7 +1490,7 @@
             // every save renames a merchant onto a fresh entry and respawns it, so its name and title show at once, even
             // for a client that cached an older name under its current entry
             bool const named = true;
-            bool const respawn = s.kind == ServiceMerchant;
+            bool const respawn = true;
             if (!name.empty())
                 s.name = name;
             s.theme = theme;
@@ -1457,7 +1500,7 @@
             s.sign = Clean(f[7], 40);
             s.symbol = uint8(std::min<uint32>(Num(f, 8), 15));
             s.border = uint8(std::min<uint32>(Num(f, 9), 3));
-            if (s.kind == ServiceMerchant && named)
+            if (named)
             {
                 if (uint32 const entry = NextMerchantEntry())
                     s.entry = entry;
@@ -1472,8 +1515,14 @@
             CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
             SaveShop(s, trans);
             CharacterDatabase.CommitTransaction(trans);
-            if (respawn)
+            if (respawn && s.kind == ServiceMerchant)
                 RespawnMerchant(player, s);
+            else if (respawn) // a case, shelf, rack, counter or sign: its label takes the new name
+                if (Placed const* p = FindPlaced(s_houses[s.house], s.placed))
+                {
+                    DespawnShopLabel(player->GetMap(), s.placed);
+                    SpawnShopLabel(player->GetMap(), *p);
+                }
         }
         if (ViewedShop(player)) // Retrieve can erase what `l` pointed at; nothing below uses it
             SendShop(player, message);
@@ -1487,6 +1536,8 @@
         for (auto const& [id, guid] : s_spawned[player->GetInstanceId()])
             if (guid == object->GetGUID())
                 placed = id;
+        if (auto label = s_labelPlaced.find(object->GetGUID()); label != s_labelPlaced.end()) // a shop's name, clicked
+            placed = label->second;
         if (!placed)
             return false;
         if (object->GetEntry() == BoardGo)

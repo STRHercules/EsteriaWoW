@@ -286,6 +286,8 @@ namespace
     bool MerchantMirrorImage(Player* player, Unit* unit);
     void PushMerchantNames(Player* player, Map* map);
     bool HasStockForSale(uint64 placedId);
+    void SpawnShopLabel(Map* map, Placed const& p);
+    void DespawnShopLabel(Map* map, uint64 placedId);
     void SweepOrders();
     // Training dummies, portals and meeting stones: catalog rows AdventureDecorBase + kind (HousingAdventure.inc).
     enum AdventureKind : uint8 { AdvDummy = 1, AdvTank = 2, AdvHeal = 3, AdvBoss = 4, AdvPortal = 5, AdvStone = 6 };
@@ -863,6 +865,8 @@ namespace
             go->SetSpawnedByDefault(false);
             map->AddToMap(go, false);
             s_spawned[map->GetInstanceId()][p.id] = go->GetGUID();
+            if (ServiceKindOf(p.decorId)) // a shop's name floats above it
+                SpawnShopLabel(map, p);
         }
         else
         {
@@ -874,6 +878,7 @@ namespace
 
     void Despawn(Map* map, uint64 placedId)
     {
+        DespawnShopLabel(map, placedId);
         auto& spawned = s_spawned[map->GetInstanceId()];
         auto it = spawned.find(placedId);
         if (it == spawned.end())
