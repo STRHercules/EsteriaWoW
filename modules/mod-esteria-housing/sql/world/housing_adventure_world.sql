@@ -2,7 +2,7 @@
 -- Housing section 3: training dummies, portals, meeting stones, Teleport: Home and Portal: Home.
 
 DELETE FROM `housing_decor_catalog` WHERE `decor_id` BETWEEN 40101 AND 40199;
-DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9506010 AND 9506029;
+DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9506010 AND 9506039;
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506010, 2, 63784, 'Training Dummy', 1, 'go_esteria_housing_adventure');
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES (40101, 6190527, 63784, 9506010, 'Training Dummy', 7, 0, 0.5, 2, 'retail', 1);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506011, 2, 64257, 'Tank Dummy', 1, 'go_esteria_housing_adventure');
@@ -19,6 +19,10 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`,
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506021, 2, 61260, 'Portal to Damnation', 1, 'go_esteria_housing_adventure');
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506022, 2, 64210, 'Translocation Portal', 1, 'go_esteria_housing_adventure');
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506023, 2, 4396, 'Mage Portal', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506030, 2, 64020, 'Harandar Runestone', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506031, 2, 65004, 'Runestone Ring', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506032, 2, 65011, 'Rune Pillar', 1, 'go_esteria_housing_adventure');
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506033, 2, 5494, 'Meeting Stone', 1, 'go_esteria_housing_adventure');
 
 DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9505000 AND 9505009;
 DELETE FROM `creature_template` WHERE `entry` BETWEEN 9505000 AND 9505009;

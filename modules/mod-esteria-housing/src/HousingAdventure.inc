@@ -16,7 +16,7 @@
         uint32 health = 1000000;
         bool killable = false;
         uint16 duration = 0;   // seconds a session runs; 0 until it is stopped (or goes idle)
-        uint8 drills = 7;      // boss dummy: 1 interruptible casts, 2 puddles, 4 enrage timer
+        uint8 drills = 1;      // boss dummy: 1 interruptible heals, 4 enrage timer
         uint16 enrage = 180;   // seconds
     };
 
@@ -55,6 +55,8 @@
     std::unordered_map<uint64, DummyConfig> s_dummyConfig;   // placed id ->
     std::unordered_map<uint64, PortalConfig> s_portalConfig; // placed id ->
     std::unordered_map<uint64, uint32> s_stoneBind;          // placed id -> world meeting stone guid
+    std::unordered_map<uint64, uint8> s_stoneLook;           // placed id -> StoneLookBase + look
+    constexpr uint32 StoneLookBase = 9506030, StoneLooks = 4;
     std::vector<Destination> s_destinations;
     std::map<uint32, Stone> s_stones;                         // world meeting stone guid ->
     std::unordered_map<uint32, std::pair<uint32, uint32>> s_homeChoice; // account -> house, neighborhood
@@ -98,7 +100,7 @@
 
     void LoadAdventure()
     {
-        s_dummyConfig.clear(); s_portalConfig.clear(); s_stoneBind.clear(); s_destinations.clear(); s_stones.clear();
+        s_dummyConfig.clear(); s_portalConfig.clear(); s_stoneBind.clear(); s_stoneLook.clear(); s_destinations.clear(); s_stones.clear();
         s_homeChoice.clear(); s_best.clear();
         std::unordered_map<uint64, uint32> decorOf;
         for (auto const& [id, house] : s_houses)
@@ -122,7 +124,10 @@
                 else if (kind == AdvPortal && f.size() >= 5)
                     s_portalConfig[placed] = { uint8(num(0)), num(1), num(2), uint8(num(3)), uint8(num(4)), f.size() > 5 ? f[5] : "" };
                 else if (kind == AdvStone)
+                {
                     s_stoneBind[placed] = num(0);
+                    s_stoneLook[placed] = uint8(std::min<uint32>(num(1), StoneLooks - 1));
+                }
             } while (r->NextRow());
         if (QueryResult r = CharacterDatabase.Query("SELECT account_id, house_id, neighborhood_id FROM housing_home_choice"))
             do s_homeChoice[r->Fetch()[0].Get<uint32>()] = { r->Fetch()[1].Get<uint32>(), r->Fetch()[2].Get<uint32>() };
@@ -271,6 +276,12 @@
         }
     }
 
+    uint32 StoneLookEntry(uint64 placed)
+    {
+        auto it = s_stoneLook.find(placed);
+        return StoneLookBase + (it == s_stoneLook.end() ? 0 : it->second);
+    }
+
     uint32 PortalLookEntry(uint64 placed)
     {
         auto it = s_portalConfig.find(placed);
@@ -279,7 +290,7 @@
 
     void AdventureRemoved(uint64 placed, CharacterDatabaseTransaction trans)
     {
-        if (s_dummyConfig.erase(placed) | s_portalConfig.erase(placed) | s_stoneBind.erase(placed))
+        if (s_dummyConfig.erase(placed) | s_portalConfig.erase(placed) | s_stoneBind.erase(placed) | s_stoneLook.erase(placed))
             trans->Append("DELETE FROM housing_adventure WHERE placed_id = {}", placed);
     }
 
@@ -377,7 +388,7 @@
         }
 
         uint8 Kind() const { return uint8(me->GetEntry() - DummyEntryBase + 1); }
-        uint32 m_heal = 0, m_drill = 0, m_puddle = 0, m_puddleTick = 0, m_idle = 0;
+        uint32 m_heal = 0, m_drill = 0, m_idle = 0;
         bool m_casting = false, m_castDone = false;
         std::vector<ObjectGuid> m_zones;
 
@@ -476,8 +487,8 @@
             }
             if (kind == AdvBoss)
             {
-                // interruptible casts: one every 10 s; kicked when the cast stops before it lands
-                if ((cfg.drills & 1) && (m_drill += diff) >= 10000 && !me->HasUnitState(UNIT_STATE_CASTING))
+                // it stands and heals itself, again and again (a cast every 6 s); kicked when the cast stops before it lands
+                if ((cfg.drills & 1) && (m_drill += diff) >= 6000 && !me->HasUnitState(UNIT_STATE_CASTING))
                 {
                     m_drill = 0;
                     m_casting = true;
@@ -488,25 +499,6 @@
                 {
                     m_casting = false;
                     if (m_castDone) ++s.missed; else ++s.kicks;
-                }
-                // puddles: one under the player every 12 s, for 8 s; each second stood in one counts (no damage)
-                if (cfg.drills & 2)
-                {
-                    if ((m_puddle += diff) >= 12000)
-                    {
-                        m_puddle = 0;
-                        if (Creature* z = me->SummonCreature(VoidZoneEntry, p->GetPositionX(), p->GetPositionY(), p->GetPositionZ(), 0,
-                            TEMPSUMMON_TIMED_DESPAWN, 8000))
-                            m_zones.push_back(z->GetGUID());
-                    }
-                    if ((m_puddleTick += diff) >= 1000)
-                    {
-                        m_puddleTick = 0;
-                        std::erase_if(m_zones, [&](ObjectGuid const& g) { return !me->GetMap()->GetCreature(g); });
-                        for (ObjectGuid const& g : m_zones)
-                            if (Creature* z = me->GetMap()->GetCreature(g); z && p->GetExactDist2d(z) < 3.0f)
-                                ++s.puddles;
-                    }
                 }
                 uint64 const now = GameTime::GetGameTimeMS().count(); // the session idles out like any other once hits stop
                 if ((cfg.drills & 4) && cfg.enrage && now - s.start >= uint64(cfg.enrage) * 1000)
@@ -683,7 +675,8 @@
         auto bind = s_stoneBind.find(placed);
         Stone const* s = bind == s_stoneBind.end() || !s_stones.count(bind->second) ? nullptr : &s_stones[bind->second];
         std::string text = "stone\n" + Join({ "stone", S(placed), S(int(owner)), s ? s->name : "", S(s ? s->minLevel : 0),
-            S(s ? s->expansion : 0), S(s ? s->guid : 0), S(int(player->GetGroup() != nullptr)) });
+            S(s ? s->expansion : 0), S(s ? s->guid : 0), S(int(player->GetGroup() != nullptr)),
+            S(s_stoneLook.count(placed) ? s_stoneLook[placed] : 0) });
         if (owner)
             for (auto const& [guid, st] : s_stones)
                 text += "\n" + Join({ "stoneopt", S(guid), st.name, S(st.minLevel), S(st.expansion) });
@@ -795,7 +788,7 @@
                 }
             SendPortal(player, placed, *house);
         }
-        else if (cmd == "stonego" || cmd == "stoneset" || cmd == "stoneparty")
+        else if (cmd == "stonego" || cmd == "stoneset" || cmd == "stoneparty" || cmd == "stonelook")
         {
             uint64 const placed = num(2);
             House* house = here(placed);
@@ -808,7 +801,24 @@
                 if (house->account != account)
                     return note("Only the owner can bind this stone.");
                 s_stoneBind[placed] = uint32(num(3));
-                SaveAdventure(placed, S(num(3)));
+                SaveAdventure(placed, Join({ S(s_stoneBind[placed]), S(s_stoneLook[placed]) }));
+                return SendStone(player, placed, *house);
+            }
+            if (cmd == "stonelook")
+            {
+                if (house->account != account)
+                    return note("Only the owner can change this stone.");
+                uint8 const look = uint8(std::min<uint64>(num(3), StoneLooks - 1));
+                if (look != s_stoneLook[placed])
+                {
+                    s_stoneLook[placed] = look;
+                    SaveAdventure(placed, Join({ S(s_stoneBind[placed]), S(look) }));
+                    if (Placed const* p = FindPlaced(*house, placed)) // a new look is a new object
+                    {
+                        Despawn(player->GetMap(), placed);
+                        Spawn(player->GetMap(), *p);
+                    }
+                }
                 return SendStone(player, placed, *house);
             }
             // the party: each member beside it gets a choice, and goes only if they are eligible themselves

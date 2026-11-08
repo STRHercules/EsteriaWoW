@@ -290,6 +290,7 @@ namespace
     uint8 AdventureKindOf(uint32 decorId);
     void SpawnDummy(Map* map, Placed const& p);
     uint32 PortalLookEntry(uint64 placed);
+    uint32 StoneLookEntry(uint64 placed);
     void AdventureRemoved(uint64 placed, CharacterDatabaseTransaction trans);
     void LoadAdventure();
     void TrainingTick(uint32 diff);
@@ -846,7 +847,8 @@ namespace
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
             return;
-        uint32 const goEntry = adventure == AdvPortal ? PortalLookEntry(p.id) : entry->second.goEntry;
+        uint32 const goEntry = adventure == AdvPortal ? PortalLookEntry(p.id) : adventure == AdvStone ? StoneLookEntry(p.id)
+            : entry->second.goEntry;
         // Map::SummonGameObject, with the scale set before the object enters the map: the client builds a gameobject's
         // transform (CGGameObject_C::UpdateWorldObject) from OBJECT_FIELD_SCALE_X when it is created, and a later scale
         // update does not rebuild it.
