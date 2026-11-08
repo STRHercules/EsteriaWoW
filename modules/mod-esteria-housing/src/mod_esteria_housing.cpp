@@ -226,6 +226,7 @@ namespace
     {
         uint32 id = 0, owner = 0; // account, or guild
         uint8 kind = HoodAccount, mapIndex = 0;
+        bool chosen = true;       // an account's: its owner picked the map (the Neighborhood window asks until then)
         std::set<uint32> members; // accounts the owner invited: they may come in and buy plots
         uint16 Map() const { return HoodMaps[mapIndex].map; }
     };
@@ -396,8 +397,9 @@ namespace
         Hood h;
         h.id = s_nextHoodId++;
         h.owner = account;
-        CharacterDatabase.Execute("INSERT INTO housing_neighborhood (neighborhood_id, kind, owner, map_id, created_at) "
-            "VALUES ({}, 0, {}, {}, {})", h.id, account, h.Map(), uint32(GameTime::GetGameTime().count()));
+        h.chosen = false;
+        CharacterDatabase.Execute("INSERT INTO housing_neighborhood (neighborhood_id, kind, owner, map_id, created_at, chosen) "
+            "VALUES ({}, 0, {}, {}, {}, 0)", h.id, account, h.Map(), uint32(GameTime::GetGameTime().count()));
         s_accountHood[account] = h.id;
         LOG_INFO("module", "housing: account {} gets neighborhood {}", account, h.id);
         return s_hoods[h.id] = h;
@@ -580,12 +582,13 @@ namespace
                 legacy.size());
         }
 
-        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, kind, owner, map_id FROM housing_neighborhood"))
+        if (QueryResult result = CharacterDatabase.Query("SELECT neighborhood_id, kind, owner, map_id, chosen FROM housing_neighborhood"))
             do
             {
                 Field* f = result->Fetch();
                 Hood h;
                 h.id = f[0].Get<uint32>(); h.kind = f[1].Get<uint8>(); h.owner = f[2].Get<uint32>();
+                h.chosen = h.kind != HoodAccount || f[4].Get<uint8>();
                 for (uint8 i = 0; i < HoodMapCount; ++i)
                     if (HoodMaps[i].map == f[3].Get<uint16>())
                         h.mapIndex = i;
@@ -2376,7 +2379,7 @@ namespace
         uint8 const rights = RightsIn(player, *hood);
         WorldPacket data(SMSG_ESTERIA_HOUSING_NEIGHBORHOOD, 512);
         data << hood->id << hood->kind << hood->mapIndex << HoodName(*hood) << HoodMaps[hood->mapIndex].name << s_config.plotPrice
-             << WhereOf(player) << message << rights << uint8(here == hood);
+             << WhereOf(player) << message << rights << uint8(here == hood) << uint8(!AccountHood(account).chosen);
         ByteBuffer plots;
         uint16 plotCount = 0;
         for (Plot const& plot : s_plots)
@@ -2806,10 +2809,16 @@ namespace
                 packet >> mapIndex;
                 if (!hood || !(rights & RightManage))
                     message = "You may not move this neighborhood.";
-                else if (mapIndex < HoodMapCount && mapIndex != hood->mapIndex)
+                else if (mapIndex < HoodMapCount)
                 {
-                    MoveHood(*hood, mapIndex);
-                    message = "Your neighborhood is now at " + std::string(HoodMaps[mapIndex].name) + ".";
+                    if (mapIndex != hood->mapIndex)
+                        MoveHood(*hood, mapIndex);
+                    if (!hood->chosen) // the first pick, the map it already had included
+                    {
+                        hood->chosen = true;
+                        CharacterDatabase.Execute("UPDATE housing_neighborhood SET chosen = 1 WHERE neighborhood_id = {}", hood->id);
+                    }
+                    message = "Your neighborhood is at " + std::string(HoodMaps[mapIndex].name) + ".";
                 }
             }
             SendNeighborhood(player, hoodId, message);
