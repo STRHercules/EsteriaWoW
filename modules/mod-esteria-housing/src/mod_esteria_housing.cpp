@@ -285,6 +285,7 @@ namespace
     void MerchantJustPlaced(Player* player, Placed const& p);
     bool MerchantMirrorImage(Player* player, Unit* unit);
     void PushMerchantNames(Player* player, Map* map);
+    bool HasStockForSale(uint64 placedId);
     void SweepOrders();
     // Training dummies, portals and meeting stones: catalog rows AdventureDecorBase + kind (HousingAdventure.inc).
     enum AdventureKind : uint8 { AdvDummy = 1, AdvTank = 2, AdvHeal = 3, AdvBoss = 4, AdvPortal = 5, AdvStone = 6 };
@@ -1373,6 +1374,9 @@ namespace
             LOG_DEBUG("module", "housing: account {} edit seq {} op {} refused: {}", account, e.seq, e.op, uint32(result));
             return SendAck(session, e.seq, result, house ? house->revision : 0, e.placedId, nullptr);
         }
+        // a shop with goods still for sale stays until its owner empties it (the items would otherwise be mailed off unasked)
+        if (e.op == OpRemove && HasStockForSale(e.placedId))
+            return SendAck(session, e.seq, ShopHasStock, house->revision, e.placedId, nullptr);
 
         // Apply in memory, persist in one transaction, then update the world for everyone inside.
         Map* map = player->GetMap();
