@@ -639,6 +639,10 @@ def main():
     source, dbc = patch_dbc(storm, args.client)
     map_source, map_original = winning_dbc(storm, args.client, MAP_DBC_NAME)
     files = {DBC_NAME: dbc, MAP_DBC_NAME: patch_map_dbc(map_original), **patch_world_map(storm, args.client)}
+    # section 3 (make_adventure.py): its client rows, and sql/world/housing_adventure_world.sql
+    import make_adventure
+    display_of = {decor: (decor_slot(i)[0], fdid) for i, (decor, fdid, *_rest) in enumerate(CATALOG)}
+    files.update(make_adventure.patch_files(winning_dbc, append_rows, storm, args.client, display_of))
     target = out / PATCH_NAME
     if target.exists():
         target.unlink()

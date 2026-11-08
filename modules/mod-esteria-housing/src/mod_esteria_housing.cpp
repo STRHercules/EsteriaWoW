@@ -30,7 +30,10 @@
 #include "ScriptMgr.h"
 #include "BodyShapeWire.h"
 #include "RetailLookWire.h"
+#include "ScriptedCreature.h"
 #include "ScriptedGossip.h"
+#include "SpellScript.h"
+#include "World.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
 #include "DBCStores.h"
@@ -282,6 +285,15 @@ namespace
     void MerchantJustPlaced(Player* player, Placed const& p);
     bool MerchantMirrorImage(Player* player, Unit* unit);
     void SweepOrders();
+    // Training dummies, portals and meeting stones: catalog rows AdventureDecorBase + kind (HousingAdventure.inc).
+    enum AdventureKind : uint8 { AdvDummy = 1, AdvTank = 2, AdvHeal = 3, AdvBoss = 4, AdvPortal = 5, AdvStone = 6 };
+    uint8 AdventureKindOf(uint32 decorId);
+    void SpawnDummy(Map* map, Placed const& p);
+    uint32 PortalLookEntry(uint64 placed);
+    void AdventureRemoved(uint64 placed, CharacterDatabaseTransaction trans);
+    void LoadAdventure();
+    void TrainingTick(uint32 diff);
+    void SyncHomeSpells(Player* player);
 
     RoomTemplate const* Room(House const& house)
     {
@@ -814,6 +826,7 @@ namespace
 
 
         LoadCommerce();
+        LoadAdventure();
         s_loaded = true;
         LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses, {} neighborhoods",
             s_catalog.size(), s_rooms.size(), s_kinds.size(), s_houses.size(), s_hoods.size());
@@ -827,14 +840,18 @@ namespace
     {
         if (ServiceKindOf(p.decorId) == ServiceMerchant)
             return SpawnMerchant(map, p);
+        uint8 const adventure = AdventureKindOf(p.decorId);
+        if (adventure >= AdvDummy && adventure <= AdvBoss)
+            return SpawnDummy(map, p);
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
             return;
+        uint32 const goEntry = adventure == AdvPortal ? PortalLookEntry(p.id) : entry->second.goEntry;
         // Map::SummonGameObject, with the scale set before the object enters the map: the client builds a gameobject's
         // transform (CGGameObject_C::UpdateWorldObject) from OBJECT_FIELD_SCALE_X when it is created, and a later scale
         // update does not rebuild it.
         GameObject* go = new GameObject();
-        if (go->Create(map->GenerateLowGuid<HighGuid::GameObject>(), entry->second.goEntry, map, PHASEMASK_NORMAL, p.pos[0],
+        if (go->Create(map->GenerateLowGuid<HighGuid::GameObject>(), goEntry, map, PHASEMASK_NORMAL, p.pos[0],
             p.pos[1], p.pos[2], p.yaw, G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]), 100, GO_STATE_READY))
         {
             go->SetObjectScale(p.scale);
@@ -1406,6 +1423,7 @@ namespace
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
                 "AND decor_id = {} AND quantity_placed > 0", account, p.decorId);
             ShopRemoved(placedId, trans);
+            AdventureRemoved(placedId, trans);
             Despawn(map, placedId);
             out = EsteriaHousing::Final{};
         }
@@ -2073,6 +2091,7 @@ namespace
             if (map)
                 Despawn(map, id);
             ShopRemoved(id, trans);
+            AdventureRemoved(id, trans);
             if (Owned& o = owned[p.decorId]; o.placed)
                 --o.placed;
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
@@ -2133,6 +2152,7 @@ namespace
         s_plotHouse[lot] = house->id;
         s_houseLots[house->id].insert(lot);
         RefreshExterior(lot);
+        SyncHomeSpells(player); // a first house teaches Teleport: Home and Portal: Home
         LOG_INFO("module", "housing: {} put house {} on plot {} of neighborhood {}", player->GetName(), house->id, plot.index,
             hood.id);
         return "";
@@ -2737,6 +2757,7 @@ namespace
     }
 
 #include "HousingCommerce.inc"
+#include "HousingAdventure.inc"
 
     void HandleAction(WorldSession* session, WorldPacket& packet)
     {
@@ -2753,7 +2774,10 @@ namespace
         {
             std::string text;
             packet >> text;
-            HandleCommerce(player, text);
+            if (text.rfind("adv\t", 0) == 0) // section 3 shares the commerce channel
+                HandleAdventure(player, Split(text));
+            else
+                HandleCommerce(player, text);
             return;
         }
         if (action == ActionNeighborhood)
@@ -3456,6 +3480,8 @@ namespace
                 s_orderSweep = 0;
                 SweepOrders();
             }
+            if (s_loaded)
+                TrainingTick(diff);
             for (auto it = s_guildCheckAt.begin(); it != s_guildCheckAt.end();)
             {
                 if (it->second > diff)
@@ -3558,6 +3584,10 @@ void AddSC_mod_esteria_housing()
     new go_esteria_housing_exit();
     new npc_esteria_housing_merchant();
     new go_esteria_housing_service();
+    new go_esteria_housing_adventure();
+    new npc_esteria_housing_dummy();
+    new EsteriaHousingHomeSpells();
+    RegisterSpellScript(spell_esteria_housing_home);
     new EsteriaHousingPlotWatch();
     new EsteriaHousingGuilds();
     new EsteriaHousingWorld();
