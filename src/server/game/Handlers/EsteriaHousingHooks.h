@@ -14,6 +14,7 @@
 #include <atomic>
 
 class Player;
+class Unit;
 class WorldPacket;
 class WorldSession;
 
@@ -30,6 +31,9 @@ namespace EsteriaHousingHooks
 
     AC_GAME_API extern std::atomic<PacketHandler> Packet;
     AC_GAME_API extern std::atomic<InstancePicker> Instance;
+    // CMSG_GET_MIRRORIMAGE_DATA for a unit that is not a clone: true when the module answered (a housing merchant).
+    using MirrorImageData = bool (*)(Player* player, Unit* unit);
+    AC_GAME_API extern std::atomic<MirrorImageData> MirrorImage;
 }
 
 #endif

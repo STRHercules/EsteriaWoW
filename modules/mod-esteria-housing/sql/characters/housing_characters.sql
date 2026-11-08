@@ -298,3 +298,61 @@ SET @has_chosen = (SELECT COUNT(*) FROM information_schema.columns WHERE table_s
 SET @q = IF(@has_chosen = 0, 'ALTER TABLE `housing_neighborhood` ADD COLUMN `chosen` TINYINT UNSIGNED NOT NULL DEFAULT 0 '
   'COMMENT ''an account''''s: its owner picked the map''', 'DO 0');
 PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
+
+-- Player shops and crafting commissions. Every placed merchant, sign, case, shelf, rack or counter is its own shop.
+DROP TABLE IF EXISTS `housing_service`;
+CREATE TABLE IF NOT EXISTS `housing_shop` (
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `house_id` INT UNSIGNED NOT NULL, `account_id` INT UNSIGNED NOT NULL, `owner_guid` INT UNSIGNED NOT NULL COMMENT 'who gets its stock if it is taken down',
+  `kind` TINYINT UNSIGNED NOT NULL COMMENT '1 merchant 3 sign 4 case 5 shelf 6 rack 7 counter',
+  `creature_entry` INT UNSIGNED NOT NULL DEFAULT 0, `look` TINYINT UNSIGNED NOT NULL DEFAULT 6,
+  `symbol` TINYINT UNSIGNED NOT NULL DEFAULT 0, `border` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `name` VARCHAR(64) NOT NULL, `theme` VARCHAR(64) NOT NULL DEFAULT '', `greeting` VARCHAR(255) NOT NULL DEFAULT '',
+  `thanks` VARCHAR(255) NOT NULL DEFAULT '', `farewell` VARCHAR(255) NOT NULL DEFAULT '', `sign` VARCHAR(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`placed_id`), KEY `idx_shop_account` (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `housing_shop_account` (
+  `account_id` INT UNSIGNED NOT NULL,
+  `treasury` BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'copper from all its shops, not yet withdrawn',
+  `bank_deposit` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'paid to stock shops from the personal bank',
+  PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `housing_shop_listing` (
+  `listing_id` INT UNSIGNED NOT NULL,
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `item_entry` INT UNSIGNED NOT NULL,
+  `item_guid` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'item_instance held for sale; 0 sold out',
+  `bundle` INT UNSIGNED NOT NULL DEFAULT 1,
+  `price` INT UNSIGNED NOT NULL COMMENT 'copper per bundle',
+  `published` TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`listing_id`), KEY `idx_listing_shop` (`placed_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `housing_shop_sale` (
+  `sale_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `account_id` INT UNSIGNED NOT NULL, `shop_name` VARCHAR(64) NOT NULL,
+  `item_entry` INT UNSIGNED NOT NULL, `count` INT UNSIGNED NOT NULL, `price` INT UNSIGNED NOT NULL,
+  `buyer_guid` INT UNSIGNED NOT NULL, `buyer_name` VARCHAR(16) NOT NULL, `sold_at` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`sale_id`), KEY `idx_sale_account` (`account_id`, `sale_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `housing_commission` (
+  `order_id` INT UNSIGNED NOT NULL,
+  `customer_guid` INT UNSIGNED NOT NULL, `crafter_guid` INT UNSIGNED NOT NULL DEFAULT 0,
+  `spell_id` INT UNSIGNED NOT NULL, `item_entry` INT UNSIGNED NOT NULL,
+  `quantity` INT UNSIGNED NOT NULL, `fee` INT UNSIGNED NOT NULL,
+  `state` TINYINT UNSIGNED NOT NULL COMMENT '0 open 1 accepted 2 completed 3 cancelled 4 expired',
+  `materials` VARCHAR(255) NOT NULL COMMENT 'entry:count, held in escrow until the order ends',
+  `expires_at` INT UNSIGNED NOT NULL, `finished_at` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`order_id`), KEY `idx_commission_state` (`state`, `finished_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Merchants look like player characters, and wear real equipment.
+SET @has_race = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'housing_shop' AND column_name = 'race');
+SET @q = IF(@has_race = 0, 'ALTER TABLE `housing_shop` ADD COLUMN `race` TINYINT UNSIGNED NOT NULL DEFAULT 1, ADD COLUMN `sex` TINYINT UNSIGNED NOT NULL DEFAULT 0, ADD COLUMN `look_hex` VARCHAR(300) NOT NULL DEFAULT \'\', ADD COLUMN `body_hex` VARCHAR(120) NOT NULL DEFAULT \'\'', 'DO 0');
+PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
+CREATE TABLE IF NOT EXISTS `housing_shop_gear` (
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `slot` TINYINT UNSIGNED NOT NULL,
+  `item_guid` INT UNSIGNED NOT NULL,
+  `owner_guid` INT UNSIGNED NOT NULL COMMENT 'the character who gave it; a bound item only goes back to them',
+  PRIMARY KEY (`placed_id`, `slot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

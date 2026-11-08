@@ -1,4 +1,11 @@
 -- Removes every housing table and all houses, placements and owned decor.
+DROP TABLE IF EXISTS `housing_commission`;
+DROP TABLE IF EXISTS `housing_shop_sale`;
+DROP TABLE IF EXISTS `housing_shop_listing`;
+DROP TABLE IF EXISTS `housing_shop_gear`;
+DROP TABLE IF EXISTS `housing_shop_account`;
+DROP TABLE IF EXISTS `housing_shop`;
+DROP TABLE IF EXISTS `housing_service`;
 DROP TABLE IF EXISTS `housing_recent_visit`;
 DROP TABLE IF EXISTS `housing_favorite`;
 DROP TABLE IF EXISTS `housing_guild_right`;

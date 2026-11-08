@@ -15,6 +15,7 @@ namespace EsteriaHousingHooks
 {
     std::atomic<PacketHandler> Packet{ nullptr };
     std::atomic<InstancePicker> Instance{ nullptr };
+std::atomic<MirrorImageData> MirrorImage{ nullptr };
 }
 
 void WorldSession::HandleEsteriaHousingOpcode(WorldPacket& recvData)
