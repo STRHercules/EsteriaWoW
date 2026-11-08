@@ -144,6 +144,26 @@ namespace EsteriaHousing
             return OverBudget;
         return Ok;
     }
+
+    // ---- shops and commissions
+    inline constexpr uint32_t MaxListingPrice = 1000000000; // copper; a price must fit the int32 ModifyMoney takes
+
+    // A listing sells `bundle` at a time, for `price` copper a bundle, from a held stack of `count`.
+    inline bool ValidListing(uint32_t bundle, uint32_t count, uint32_t maxStack, uint32_t price)
+    {
+        return bundle >= 1 && bundle <= count && bundle <= maxStack && price >= 1 && price <= MaxListingPrice;
+    }
+
+    enum OrderState : uint8_t { OrderOpen = 0, OrderAccepted = 1, OrderCompleted = 2, OrderCancelled = 3, OrderExpired = 4 };
+
+    inline bool OrderCan(uint8_t from, uint8_t to)
+    {
+        if (from == OrderOpen)
+            return to == OrderAccepted || to == OrderCancelled || to == OrderExpired;
+        if (from == OrderAccepted)
+            return to == OrderOpen || to == OrderCompleted || to == OrderCancelled || to == OrderExpired;
+        return false; // completed, cancelled and expired are final: escrow is paid out exactly once
+    }
 }
 
 #endif

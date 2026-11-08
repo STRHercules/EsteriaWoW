@@ -50,6 +50,9 @@ public:
     void LoadBank();
     bool MigrateLegacyBank();
     bool Unlocked() const { return _unlocked; }
+    // Player shops: what is held here, and taking one out (it leaves with its whole virtual stack; the player save persists it).
+    std::vector<Item*> Items() const;
+    Item* TakeForShop(uint32 guid);
 
 private:
     struct StoredItem

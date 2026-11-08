@@ -464,6 +464,27 @@ Item* DigitalInventory::WithdrawItem(uint32 guid)
     return stored;
 }
 
+std::vector<Item*> DigitalInventory::Items() const
+{
+    std::vector<Item*> out;
+    for (auto const& [guid, stored] : _items)
+        out.push_back(stored.item);
+    return out;
+}
+
+Item* DigitalInventory::TakeForShop(uint32 guid)
+{
+    auto itr = _items.find(guid);
+    if (itr == _items.end())
+        return nullptr;
+    Item* item = itr->second.item;
+    _items.erase(itr);
+    _removedStorage.push_back(guid);
+    Changed();
+    Send(0, 0, "");
+    return item;
+}
+
 uint32 DigitalInventory::Consume(uint32 entry, uint32 count)
 {
     uint32 consumed = 0;

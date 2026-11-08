@@ -2,6 +2,7 @@
 //   g++ -std=c++20 -I modules/mod-esteria-housing/src modules/mod-esteria-housing/tests/rules_test.cpp -o rules_test && ./rules_test
 #include "HousingRules.h"
 #include <cstdio>
+#include <initializer_list>
 #include <limits>
 
 using namespace EsteriaHousing;
@@ -109,6 +110,21 @@ int main()
         EXPECT(std::fabs(yawOf(90, 0, 1.5f) - 90) < 1e-3);
         EXPECT(std::fabs(yawOf(44, 0, 1) - 45) < 1e-3);
         EXPECT(std::fabs(yawOf(44, 0.3f, 1) - 45) > 0.5); // tilted: not snapped
+    }
+
+    // shops and commissions
+    {
+        EXPECT(ValidListing(5, 20, 20, 100));
+        EXPECT(!ValidListing(0, 20, 20, 100));
+        EXPECT(!ValidListing(21, 40, 20, 100)); // more than one stack at a time
+        EXPECT(!ValidListing(5, 4, 20, 100));   // more than it holds
+        EXPECT(!ValidListing(1, 1, 1, 0));      // free
+        EXPECT(!ValidListing(1, 1, 1, MaxListingPrice + 1));
+        EXPECT(OrderCan(OrderOpen, OrderAccepted) && OrderCan(OrderAccepted, OrderCompleted) && OrderCan(OrderAccepted, OrderOpen));
+        EXPECT(!OrderCan(OrderOpen, OrderCompleted)); // nobody took it
+        for (uint8_t done : { OrderCompleted, OrderCancelled, OrderExpired })
+            for (uint8_t to = 0; to < 5; ++to)
+                EXPECT(!OrderCan(done, to)); // no double payout or refund
     }
 
     std::printf(failures ? "%d failure(s)\n" : "all housing rule tests passed\n", failures);

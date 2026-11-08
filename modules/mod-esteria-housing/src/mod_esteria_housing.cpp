@@ -19,14 +19,21 @@
 #include "HousingRooms.h"
 #include "HousingRules.h"
 #include "InstanceSaveMgr.h"
+#include "Item.h"
 #include "Log.h"
+#include "Mail.h"
 #include "Map.h"
 #include "MapMgr.h"
 #include "ObjectMgr.h"
 #include "ObjectAccessor.h"
 #include "Player.h"
 #include "ScriptMgr.h"
+#include "BodyShapeWire.h"
+#include "RetailLookWire.h"
 #include "ScriptedGossip.h"
+#include "SpellInfo.h"
+#include "SpellMgr.h"
+#include "DBCStores.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include <cmath>
@@ -263,6 +270,18 @@ namespace
     std::unordered_map<uint32, EditSession> s_editSessions; // account -> seq/rate state
     std::unordered_set<uint32> s_hasUi;                     // accounts whose client said HELLO with this Proto
     std::unordered_map<ObjectGuid, Lot> s_plotView;         // player -> plot whose cornerstone they clicked
+
+    // Shop decor: catalog rows ServiceDecorBase + kind (housing_commerce_world.sql).
+    enum ServiceKind : uint8 { ServiceMerchant = 1, ServiceBoard = 2 };
+    constexpr uint32 ServiceDecorBase = 40000;
+    constexpr uint8 ServiceKindOf(uint32 decorId) { return decorId > ServiceDecorBase && decorId <= ServiceDecorBase + 7 ? uint8(decorId - ServiceDecorBase) : 0; }
+    void LoadCommerce();
+    void SpawnMerchant(Map* map, Placed const& p);
+    void ShopPlaced(House const& house, Placed const& p, Player* player, CharacterDatabaseTransaction trans);
+    void ShopRemoved(uint64 placedId, CharacterDatabaseTransaction trans);
+    void MerchantJustPlaced(Player* player, Placed const& p);
+    bool MerchantMirrorImage(Player* player, Unit* unit);
+    void SweepOrders();
 
     RoomTemplate const* Room(House const& house)
     {
@@ -794,6 +813,7 @@ namespace
             } while (result->NextRow());
 
 
+        LoadCommerce();
         s_loaded = true;
         LOG_INFO("module", "housing: loaded {} catalog entries, {} room templates, {} room kinds, {} houses, {} neighborhoods",
             s_catalog.size(), s_rooms.size(), s_kinds.size(), s_houses.size(), s_hoods.size());
@@ -805,6 +825,8 @@ namespace
 
     void Spawn(Map* map, Placed const& p)
     {
+        if (ServiceKindOf(p.decorId) == ServiceMerchant)
+            return SpawnMerchant(map, p);
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
             return;
@@ -835,11 +857,13 @@ namespace
         auto it = spawned.find(placedId);
         if (it == spawned.end())
             return;
-        if (GameObject* go = map->GetGameObject(it->second))
+        if (GameObject* go = it->second.IsGameObject() ? map->GetGameObject(it->second) : nullptr)
         {
             go->SetRespawnTime(0);
             go->Delete();
         }
+        else if (Creature* c = it->second.IsGameObject() ? nullptr : map->GetCreature(it->second))
+            c->DespawnOrUnsummon();
         spawned.erase(it);
     }
 
@@ -1229,7 +1253,8 @@ namespace
         {
             CatalogEntry const& e = it->second;
             auto o = owned.find(e.decorId);
-            uint16 const have = o == owned.end() ? 0 : o->second.owned, used = o == owned.end() ? 0 : o->second.placed;
+            uint16 const used = o == owned.end() ? 0 : o->second.placed;
+            uint16 const have = ServiceKindOf(e.decorId) ? uint16(used + 99) : o == owned.end() ? 0 : o->second.owned; // shops cost only decor budget
             data << e.decorId << e.goEntry << e.fdid << uint16(have > used ? have - used : 0) << used << e.category
                  << e.surface << DecorPrice(e) << e.name;
         }
@@ -1289,6 +1314,8 @@ namespace
         auto& owned = s_owned[account];
         if (auto o = owned.find(e.decorId); o != owned.end())
             f.available = o->second.owned > o->second.placed ? o->second.owned - o->second.placed : 0;
+        if (ServiceKindOf(e.decorId))
+            f.available = 99;
         f.placementKnown = decor && decor->count(e.placedId);
         f.placed = decor ? uint32(decor->size()) : 0;
         f.maxDecor = house ? (outdoors ? OutdoorBudget : house->maxDecor) : 0;
@@ -1349,7 +1376,9 @@ namespace
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed + 1 WHERE account_id = {} AND decor_id = {}",
                 account, e.decorId);
             after = "'" + Json(p) + "'";
+            ShopPlaced(*house, p, player, trans);
             Spawn(map, p);
+            MerchantJustPlaced(player, p);
         }
         else if (e.op == OpMove)
         {
@@ -1376,6 +1405,7 @@ namespace
             trans->Append("DELETE FROM housing_placed_decor WHERE placed_id = {} AND house_id = {}", placedId, house->id);
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
                 "AND decor_id = {} AND quantity_placed > 0", account, p.decorId);
+            ShopRemoved(placedId, trans);
             Despawn(map, placedId);
             out = EsteriaHousing::Final{};
         }
@@ -1536,6 +1566,7 @@ namespace
     {
         EsteriaHousingHooks::Packet.store(&OnPacket);
         EsteriaHousingHooks::Instance.store(s_config.enabled ? &PickInstance : nullptr);
+        EsteriaHousingHooks::MirrorImage.store(s_config.enabled ? &MerchantMirrorImage : nullptr);
     }
 
     bool EnterHouse(Player* player, House const& house)
@@ -2041,6 +2072,7 @@ namespace
         {
             if (map)
                 Despawn(map, id);
+            ShopRemoved(id, trans);
             if (Owned& o = owned[p.decorId]; o.placed)
                 --o.placed;
             trans->Append("UPDATE housing_account_decor SET quantity_placed = quantity_placed - 1 WHERE account_id = {} "
@@ -2704,6 +2736,8 @@ namespace
             it = it->first.first == guildId ? s_guildRights.erase(it) : std::next(it);
     }
 
+#include "HousingCommerce.inc"
+
     void HandleAction(WorldSession* session, WorldPacket& packet)
     {
         uint8 action;
@@ -2715,6 +2749,13 @@ namespace
             return;
         }
         uint32 const account = session->GetAccountId();
+        if (action == ActionCommerce)
+        {
+            std::string text;
+            packet >> text;
+            HandleCommerce(player, text);
+            return;
+        }
         if (action == ActionNeighborhood)
         {
             uint32 browse;
@@ -3410,6 +3451,11 @@ namespace
         void OnUpdate(uint32 diff) override
         {
             std::lock_guard<std::recursive_mutex> guard(s_lock);
+            if (s_loaded && (s_orderSweep += diff) >= 60000)
+            {
+                s_orderSweep = 0;
+                SweepOrders();
+            }
             for (auto it = s_guildCheckAt.begin(); it != s_guildCheckAt.end();)
             {
                 if (it->second > diff)
@@ -3510,6 +3556,8 @@ void AddSC_mod_esteria_housing()
     new go_esteria_housing_cornerstone();
     new go_esteria_housing_front_door();
     new go_esteria_housing_exit();
+    new npc_esteria_housing_merchant();
+    new go_esteria_housing_service();
     new EsteriaHousingPlotWatch();
     new EsteriaHousingGuilds();
     new EsteriaHousingWorld();

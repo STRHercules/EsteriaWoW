@@ -15,6 +15,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "EsteriaHousingHooks.h"
 #include "DBCStores.h"
 #include "GameObjectAI.h"
 #include "Log.h"
@@ -755,6 +756,9 @@ void WorldSession::HandleMirrorImageDataRequest(WorldPacket& recvData)
     // Get unit for which data is needed by client
     Unit* unit = ObjectAccessor::GetUnit(*_player, guid);
     if (!unit)
+        return;
+
+    if (auto housing = EsteriaHousingHooks::MirrorImage.load(); housing && housing(_player, unit))
         return;
 
     if (!unit->HasCloneCasterAura())

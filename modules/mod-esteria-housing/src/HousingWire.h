@@ -69,9 +69,10 @@
 //                 members n(u8) x account(u32) name(string): who the shown neighborhood invited (if you may invite)
 //                 guild(u32, 0 none) leader(u8) neighborhoodPrice(u32 copper) bank(u32 copper) canBuy(u8)
 //                 ranks n(u8) x rights(u8 Right bits) for guild ranks 1.. (to the leader only)
+//   SMSG_COMMERCE text(string): newline-separated records of tab-separated fields, read by Commerce.lua
 namespace EsteriaHousingWire
 {
-    inline constexpr uint16_t Proto = 16;
+    inline constexpr uint16_t Proto = 18;
 
     inline constexpr uint32_t CMSG_HELLO = 0x537;
     inline constexpr uint32_t SMSG_HELLO = 0x538;
@@ -85,6 +86,7 @@ namespace EsteriaHousingWire
     inline constexpr uint32_t SMSG_PLOT = 0x540;
     inline constexpr uint32_t SMSG_LAYOUT = 0x541;
     inline constexpr uint32_t SMSG_NEIGHBORHOOD = 0x542;
+    inline constexpr uint32_t SMSG_COMMERCE = 0x543;
 
     inline constexpr uint16_t CatalogPageSize = 50;
     inline constexpr uint16_t MaxStateEntries = 5000; // the largest decor budget
@@ -130,6 +132,7 @@ namespace EsteriaHousingWire
         ActionGuildRights = 24,        // rank(u8, 1-9) rights(u8 Right bits): the Guild Master sets a rank's rights
         ActionMoveOut = 25,            // take your house off the viewed plot (it is saved)
         ActionEnterHouse = 26,         // house(u32): go into one of your houses
+        ActionCommerce = 27,           // text(string): a shop or commission command, tab-separated
     };
 
     // What a player may do in a neighborhood (SMSG_NEIGHBORHOOD rights, guild rank rights).
