@@ -388,3 +388,9 @@ CREATE TABLE IF NOT EXISTS `housing_counter` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 INSERT IGNORE INTO `housing_counter` (`name`, `value`) VALUES ('merchant_entry', 9501100);
+
+-- How high a case's, shelf's, rack's, counter's or sign's name floats above its base (yd).
+SET @has_lh = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE()
+  AND table_name = 'housing_shop' AND column_name = 'label_height');
+SET @q = IF(@has_lh = 0, 'ALTER TABLE `housing_shop` ADD COLUMN `label_height` FLOAT NOT NULL DEFAULT 2.4', 'DO 0');
+PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
