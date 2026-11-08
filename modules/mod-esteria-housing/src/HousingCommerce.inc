@@ -373,6 +373,8 @@
 
     // ---------------------------------------------------------------- the objects in the world
 
+    void SendLook(Player* to, ObjectGuid guid, Shop const& s);
+
     void SpawnMerchant(Map* map, Placed const& p)
     {
         auto shop = s_shops.find(p.id);
@@ -397,6 +399,10 @@
                 if (auto gear = s.gear.find(uint8(GearMainHand + i)); gear != s.gear.end())
                     c->SetUInt32Value(UNIT_VIRTUAL_ITEM_SLOT_ID + i, gear->second.item->GetEntry());
             s_spawned[map->GetInstanceId()][p.id] = c->GetGUID();
+            // its saved look, to everyone here now: the client keeps looks by guid and applies one as soon as the model is
+            // built, so it does not hang on the mirror-image request (which a client may not make for a fresh spawn)
+            ObjectGuid const guid = c->GetGUID();
+            map->DoForAllPlayers([&](Player* player) { SendLook(player, guid, s); });
         }
     }
 
@@ -866,17 +872,21 @@
         s_shopLabel.erase(it);
     }
 
-    // The names of the shops in a map, sent to a player arriving there: clients cache creature names by entry, and the
-    // pool's entries are reused, so a cached one may be stale.
+    // The names of the shops in a map, and its merchants' looks, sent to a player arriving there: clients cache creature
+    // names by entry (the pool's entries are reused, so a cached one may be stale), and keep looks by guid.
     void PushMerchantNames(Player* player, Map* map)
     {
         for (auto const& [placed, guid] : s_spawned[map->GetInstanceId()])
             if (auto shop = s_shops.find(placed); shop != s_shops.end() && shop->second.entry)
+            {
                 if (CreatureTemplate const* t = sObjectMgr->GetCreatureTemplate(shop->second.entry))
                 {
                     WorldPacket name = t->queryData;
                     player->SendDirectMessage(&name);
                 }
+                if (shop->second.kind == ServiceMerchant) // and a merchant's saved look (SpawnMerchant)
+                    SendLook(player, guid, shop->second);
+            }
     }
 
     void RespawnMerchant(Player* player, Shop const& s)
