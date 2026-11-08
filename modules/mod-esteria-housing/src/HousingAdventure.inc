@@ -48,6 +48,8 @@
 
     constexpr uint32 AdventureDecorBase = 40100, DummyEntryBase = 9505000, VoidZoneEntry = 9505004;
     constexpr uint32 PortalLookBase = 9506020, MagePortalLook = 3, PortalLooks = 4;
+    // the Mage Portal look shows its city (make_adventure.py MAGE_PORTAL_DISPLAY); + 0 is a home's (Dalaran's violet)
+    constexpr uint32 MagePortalBase = 9506040, MagePortalDestinations = 13;
     // the boss dummy's drill: Greater Heal on itself, a 3 s interruptible cast that harms no one (only the tank dummy fights)
     constexpr uint32 SpellTeleportHome = 9500100, SpellPortalHome = 9500101, DrillCast = 2060;
     constexpr uint64 IdleEndMs = 15000;
@@ -285,7 +287,12 @@
     uint32 PortalLookEntry(uint64 placed)
     {
         auto it = s_portalConfig.find(placed);
-        return PortalLookBase + (it == s_portalConfig.end() ? 0 : std::min<uint32>(it->second.look, PortalLooks - 1));
+        if (it == s_portalConfig.end())
+            return PortalLookBase;
+        PortalConfig const& c = it->second;
+        if (c.look == MagePortalLook)
+            return MagePortalBase + (c.destKind == 0 && c.dest <= MagePortalDestinations ? c.dest : 0);
+        return PortalLookBase + std::min<uint32>(c.look, PortalLooks - 1);
     }
 
     void AdventureRemoved(uint64 placed, CharacterDatabaseTransaction trans)
@@ -769,14 +776,15 @@
             if (house->account != account || f.size() < 9)
                 return note("Only the owner can set up this portal.");
             PortalConfig& c = s_portalConfig[placed];
+            uint32 const before = PortalLookEntry(placed); // what stands there now
             c.destKind = uint8(num(3) ? 1 : 0);
             c.dest = uint32(num(4));
             c.destHood = uint32(num(5));
             if (c.destKind == 1 && (!s_houses.count(c.dest) || s_houses[c.dest].account != account))
                 c.dest = 0;
             uint8 const look = uint8(std::min<uint64>(num(6), PortalLooks - 1));
-            bool const relook = look != c.look;
             c.look = look;
+            bool const relook = PortalLookEntry(placed) != before; // a new look, or the Mage Portal's new city
             c.access = uint8(num(7)) & (AccessEveryone | AccessFriends | AccessGuild | AccessParty);
             c.name = f[8].substr(0, 40);
             SaveAdventure(placed, PortalText(c));
@@ -942,7 +950,7 @@
             if (GetSpellInfo()->Id == SpellTeleportHome)
                 return GoHome(player, t);
             float const o = player->GetOrientation();
-            if (GameObject* go = player->SummonGameObject(PortalLookBase + MagePortalLook, player->GetPositionX() + 2.5f * std::cos(o),
+            if (GameObject* go = player->SummonGameObject(MagePortalBase, player->GetPositionX() + 2.5f * std::cos(o),
                 player->GetPositionY() + 2.5f * std::sin(o), player->GetPositionZ(), o, 0, 0, 0, 0, 60))
                 s_homePortals[go->GetGUID()] = { player->GetGUID(), player->GetSession()->GetAccountId() };
         }
