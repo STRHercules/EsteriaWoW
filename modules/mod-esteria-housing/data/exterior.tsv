@@ -162,3 +162,6 @@ style	name	role	fdid	x	y	z	rot_deg	mat_x	mat_z
 2512	Springtime Westfall Barn Facade (Small)	base	7864255	0	0	0	0	0	0
 2512	Springtime Westfall Barn Facade (Small)	roof	7864259	0	0	0	0	0	0
 2512	Springtime Westfall Barn Facade (Small)	door_hook	7864257	0.0	0.0	0.0	0.0	1.5	0.0
+2542	Spirited Grimtide Manse (Small)	base	7835491	0	0	0	0	0	0
+2542	Spirited Grimtide Manse (Small)	roof	7835490	0	0	0	0	0	0
+2542	Spirited Grimtide Manse (Small)	door_hook	7928919	0.0	0.0	0.0	0.0	1.5	0.0

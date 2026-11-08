@@ -4,6 +4,8 @@
                                                                     # category, kind, packed); kind m2 or wmo
     python retail_decor.py fetch <cache dir>                        # downloads every packed=1 row's files (wago.tools)
     python retail_decor.py pack <cache dir> <out MPQ>               # EsteriaRetail\\<scope>\\<locale>\\<fdid>.bin
+    python retail_decor.py fetch-wmo <cache dir> <root fdid>...     # a building's WMO root, groups, textures, doodads
+                                                                    # (house exteriors newer than our build)
 
 data/house_decor.csv is retail HouseDecor (wago.tools, live). A decor our build lacks (not in wowdecomp
 docs/housing/existing-assets.tsv, the pinned build's HouseDecor) has packed=1: its model and everything the model
@@ -141,6 +143,37 @@ def fetch(cache):
     print(f"{len(seen) - len(failed)} files in {cache} ({len(failed)} unavailable)")
 
 
+def wmo_references(data):
+    """The FileDataIDs a WMO root names: its groups (GFID), material textures (MOMT texture_1..3 and the runtime
+    texture slots shaders use) and doodads (MODI). Chunk tags are stored reversed."""
+    c = chunks(data)
+    found = [(v, "other") for blob in c.get(b"DIFG", []) for v in words(blob)]
+    for blob in c.get(b"TMOM", []):
+        for k in range(0, len(blob) - 63, 64):
+            found += [(struct.unpack_from("<I", blob, k + at)[0], "other") for at in (12, 24, 36, 48, 52, 56, 60)]
+    found += [(v, "m2") for blob in c.get(b"IDOM", []) for v in words(blob)]
+    return [(v, kind) for v, kind in found if v > 1000]  # small values in the runtime slots are not files
+
+
+def fetch_wmo(cache, roots):
+    """Like fetch, for building models (house exteriors): each root, its groups, textures and doodads (and theirs)."""
+    cache = Path(cache)
+    cache.mkdir(parents=True, exist_ok=True)
+    todo, seen, failed = [(int(r), "wmo") for r in roots], set(), set()
+    while todo:
+        batch = [(f, k) for f, k in dict.fromkeys(todo) if f not in seen]
+        seen.update(f for f, _ in batch)
+        todo = []
+        for (fdid, kind), data in zip(batch, map(lambda b: download(b[0], cache), batch)):
+            if data is None:
+                failed.add(fdid)
+                continue
+            todo += wmo_references(data) if kind == "wmo" else references(data)
+        print(f"  fetched {len(seen) - len(failed)} files so far")
+    (cache / "manifest.txt").write_text("\n".join(str(f) for f in sorted(seen - failed)) + "\n", encoding="utf-8")
+    print(f"{len(seen) - len(failed)} files in {cache} ({len(failed)} unavailable: {sorted(failed)[:20]})")
+
+
 def pack(cache, out):
     sys.path.insert(0, r"R:\Users\Zach\Documents\GitHub\EsteriaWoW\tools")
     from cars_mount_pack import Storm  # noqa: E402
@@ -164,4 +197,5 @@ def pack(cache, out):
 
 if __name__ == "__main__":
     {"select": lambda: select(sys.argv[2]), "fetch": lambda: fetch(sys.argv[2]),
+     "fetch-wmo": lambda: fetch_wmo(sys.argv[2], sys.argv[3:]),
      "pack": lambda: pack(sys.argv[2], sys.argv[3])}[sys.argv[1]]()
