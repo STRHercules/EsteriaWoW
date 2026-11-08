@@ -153,6 +153,7 @@
         {
             uint32 const entry = s_nextMerchantEntry;
             s_nextMerchantEntry = entry == MerchantEntryLast ? MerchantEntryFirst : entry + 1;
+            CharacterDatabase.Execute("REPLACE INTO housing_counter (name, value) VALUES ('merchant_entry', {})", s_nextMerchantEntry);
             if (std::none_of(s_shops.begin(), s_shops.end(), [entry](auto const& s) { return s.second.entry == entry; }))
                 return entry;
         }
@@ -290,6 +291,9 @@
                 }
                 s_shops[s.placed] = std::move(s);
             } while (r->NextRow());
+        // where the pool left off: a restart must not hand out an entry clients already cached under an older name
+        if (QueryResult r = CharacterDatabase.Query("SELECT value FROM housing_counter WHERE name = 'merchant_entry'"))
+            s_nextMerchantEntry = std::clamp(r->Fetch()[0].Get<uint32>(), MerchantEntryFirst, MerchantEntryLast);
         if (QueryResult r = CharacterDatabase.Query("SELECT account_id, treasury, bank_deposit FROM housing_shop_account"))
             do
                 s_shopAccounts[r->Fetch()[0].Get<uint32>()] = { r->Fetch()[1].Get<uint64>(), r->Fetch()[2].Get<uint8>() != 0 };
@@ -799,6 +803,19 @@
             if (sObjectMgr->GetPlayerInfo(race, cls))
                 return true;
         return false;
+    }
+
+    // The names of the merchants in a map, sent to a player arriving there: clients cache creature names by entry, and the
+    // pool's entries are reused, so a cached one may be stale.
+    void PushMerchantNames(Player* player, Map* map)
+    {
+        for (auto const& [placed, guid] : s_spawned[map->GetInstanceId()])
+            if (auto shop = s_shops.find(placed); shop != s_shops.end() && shop->second.kind == ServiceMerchant)
+                if (CreatureTemplate const* t = sObjectMgr->GetCreatureTemplate(shop->second.entry))
+                {
+                    WorldPacket name = t->queryData;
+                    player->SendDirectMessage(&name);
+                }
     }
 
     void RespawnMerchant(Player* player, Shop const& s)
@@ -1434,6 +1451,12 @@
                 if (uint32 const entry = NextMerchantEntry())
                     s.entry = entry;
                 NameTemplate(s);
+                // and tell everyone here the name at once, so even a client that cached this entry before shows the new one
+                if (CreatureTemplate const* t = sObjectMgr->GetCreatureTemplate(s.entry))
+                {
+                    WorldPacket name = t->queryData;
+                    player->GetMap()->DoForAllPlayers([&](Player* p) { p->SendDirectMessage(&name); });
+                }
             }
             CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
             SaveShop(s, trans);

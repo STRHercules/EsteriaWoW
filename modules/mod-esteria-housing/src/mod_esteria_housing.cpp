@@ -284,6 +284,7 @@ namespace
     void ShopRemoved(uint64 placedId, CharacterDatabaseTransaction trans);
     void MerchantJustPlaced(Player* player, Placed const& p);
     bool MerchantMirrorImage(Player* player, Unit* unit);
+    void PushMerchantNames(Player* player, Map* map);
     void SweepOrders();
     // Training dummies, portals and meeting stones: catalog rows AdventureDecorBase + kind (HousingAdventure.inc).
     enum AdventureKind : uint8 { AdvDummy = 1, AdvTank = 2, AdvHeal = 3, AdvBoss = 4, AdvPortal = 5, AdvStone = 6 };
@@ -3537,6 +3538,7 @@ namespace
                     return SendAway(player, false);
                 s_lastHood[player->GetGUID()] = hood->id;
                 PopulateHood(map, *hood);
+                PushMerchantNames(player, map);
                 return;
             }
             if (!IsHousingMap(map->GetId()))
@@ -3556,6 +3558,7 @@ namespace
                     CharacterDatabase.CommitTransaction(trans);
             }
             Populate(map, *house);
+            PushMerchantNames(player, map);
             SendState(player);
         }
 
