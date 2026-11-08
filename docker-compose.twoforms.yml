@@ -1,3 +1,3 @@
 services:
   ac-worldserver:
-    image: esteria-coa:20261108k-housing
+    image: esteria-coa:20261108l-housing
