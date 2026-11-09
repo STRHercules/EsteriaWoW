@@ -314,7 +314,8 @@ namespace
         // household services (HousingHousehold.inc): several decor pieces share a kind, see CollectionKindOf
         ColInnkeeper, ColBanker, ColBankVault, ColGuildVault, ColMailbox, ColRepairNpc, ColRepairBench, ColAuctioneer, ColStorage,
         ColStation, ColTrainer,
-        ColLast = ColTrainer
+        ColMountMat,              // an invisible mat a mount stands on
+        ColLast = ColMountMat
     };
     constexpr uint32 CollectionDecorBase = 40200;
     // Catalog rows 40201-40216 are one kind each; the services' (housing_household_world.sql) map onto theirs.
@@ -336,12 +337,21 @@ namespace
         }
         if (decorId >= 40230 && decorId <= 40239) return ColStation;
         if (decorId >= 40251 && decorId <= 40264) return ColTrainer;
-        return 0;
+        switch (decorId)
+        {
+            case 40265: return ColMountMat;
+            case 40266: case 40267: case 40268: return ColHabitat;   // small habitats: rugs and a cushion
+            case 40269: case 40270: case 40271: return ColPetToy;    // plushies
+            default: return 0;
+        }
     }
     // a character drawn with a customizable look: the mannequin and the service NPCs
     constexpr bool IsFigureKind(uint8 k) { return k == ColMannequin || k == ColInnkeeper || k == ColBanker || k == ColRepairNpc
         || k == ColAuctioneer || k == ColTrainer; }
     constexpr bool IsHouseholdKind(uint8 k) { return k >= ColInnkeeper && k <= ColTrainer; }
+    // A piece drawn at a fixed share of its placed size: gameobject_template.size (1 for most; the mount stall's model
+    // is large, the mount mat's is shrunk out of sight).
+    float BaseScale(uint32 decorId);
     void HouseholdPlaced(Placed const& p, uint32 account, CharacterDatabaseTransaction trans);
     void LoadCollections();
     void SpawnMannequin(Map* map, Placed const& p);
@@ -894,6 +904,13 @@ namespace
 
     // ---------------------------------------------------------------- world objects
 
+    float BaseScale(uint32 decorId)
+    {
+        auto entry = s_catalog.find(decorId);
+        GameObjectTemplate const* t = entry == s_catalog.end() ? nullptr : sObjectMgr->GetGameObjectTemplate(entry->second.goEntry);
+        return t && t->size > 0.0f ? t->size : 1.0f;
+    }
+
     void Spawn(Map* map, Placed const& p)
     {
         if (ServiceKindOf(p.decorId) == ServiceMerchant)
@@ -916,7 +933,7 @@ namespace
         if (go->Create(map->GenerateLowGuid<HighGuid::GameObject>(), goEntry, map, PHASEMASK_NORMAL, p.pos[0],
             p.pos[1], p.pos[2], p.yaw, G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]), 100, GO_STATE_READY))
         {
-            go->SetObjectScale(p.scale);
+            go->SetObjectScale(p.scale * BaseScale(p.decorId));
             go->SetRespawnTime(0);
             go->SetSpawnedByDefault(false);
             map->AddToMap(go, false);

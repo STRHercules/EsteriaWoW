@@ -22,23 +22,28 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`)
   JOIN `housing_decor_catalog` c ON c.decor_id = v.decor;
 
 -- The pieces: type 2 (questgiver) with no quests, so using one opens the script's gossip. The mannequin's object is never
--- spawned: it is a creature (its picture is the merchant's).
-DELETE FROM `housing_decor_catalog` WHERE `decor_id` BETWEEN 40201 AND 40299;
+-- spawned: it is a creature (its picture is a statue's). `size` is the share of its placed size a piece is drawn at
+-- (BaseScale): the stall's model is large, the mount mat is shrunk out of sight (only its mount shows), the small
+-- habitats are small rugs. The Trophy Wall Mount (40201) was retired.
+-- go = 9506060 + n for decor 40200 + n; the later pieces (decor 40265-40271) take 9506088-9506094.
+DELETE FROM `housing_decor_catalog` WHERE `decor_id` BETWEEN 40201 AND 40216 OR `decor_id` BETWEEN 40265 AND 40299;
+DROP TEMPORARY TABLE IF EXISTS `housing_collection_piece`;
+CREATE TEMPORARY TABLE `housing_collection_piece` (`decor_id` INT UNSIGNED, `go` INT UNSIGNED, `borrow` INT UNSIGNED, `name` VARCHAR(64),
+  `size` FLOAT);
+INSERT INTO `housing_collection_piece` VALUES
+  (40202, 9506062, 3836, 'Trophy Pedestal', 1), (40203, 9506063, 27617, 'Trophy Plaque', 1), (40204, 9506064, 21106, 'Trophy Case', 1),
+  (40205, 9506065, 2537, 'Mount Stall', 0.4), (40206, 9506066, 14346, 'Mount Paddock', 1), (40207, 9506067, 7607, 'Mount Pedestal', 1),
+  (40208, 9506068, 5564, 'Mannequin', 1), (40209, 9506069, 11895, 'Library Bookshelf', 1),
+  (40210, 9506070, 3832, 'Storyteller''s Lectern', 1), (40211, 9506071, 11881, 'Explorer''s Display Table', 1),
+  (40212, 9506072, 15064, 'Reading Nook', 1), (40213, 9506073, 15290, 'Pet Habitat', 1), (40214, 9506074, 12246, 'Pet Bed', 1),
+  (40215, 9506075, 23548, 'Pet Ball', 1), (40216, 9506076, 23549, 'Feeding Station', 1),
+  (40265, 9506088, 2094, 'Mount Mat', 0.01),
+  (40266, 9506089, 2094, 'Small Pet Rug', 0.6), (40267, 9506090, 1698, 'Pet Cushion', 0.7), (40268, 9506091, 12194, 'Tiny Pet Rug', 0.45),
+  (40269, 9506092, 14839, 'Wolf Plushie', 1), (40270, 9506093, 14838, 'Lion Plushie', 1), (40271, 9506094, 26479, 'Murloc Plushie', 1);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`)
-  SELECT 9506060 + v.n, 2, c.display_id, v.name, 1, 'go_esteria_housing_collection'
-  FROM (SELECT 1 n, 15490 decor, 'Trophy Wall Mount' name UNION ALL SELECT 2, 3836, 'Trophy Pedestal' UNION ALL SELECT 3, 27617, 'Trophy Plaque'
-        UNION ALL SELECT 4, 21106, 'Trophy Case' UNION ALL SELECT 5, 2537, 'Mount Stall' UNION ALL SELECT 6, 14346, 'Mount Paddock'
-        UNION ALL SELECT 7, 7607, 'Mount Pedestal' UNION ALL SELECT 8, 16098, 'Mannequin' UNION ALL SELECT 9, 11895, 'Library Bookshelf'
-        UNION ALL SELECT 10, 3832, 'Storyteller''s Lectern' UNION ALL SELECT 11, 11881, 'Explorer''s Display Table'
-        UNION ALL SELECT 12, 15064, 'Reading Nook' UNION ALL SELECT 13, 15290, 'Pet Habitat' UNION ALL SELECT 14, 12246, 'Pet Bed'
-        UNION ALL SELECT 15, 26202, 'Pet Toy' UNION ALL SELECT 16, 23549, 'Feeding Station') v
-  JOIN `housing_decor_catalog` c ON c.decor_id = v.decor;
+  SELECT v.go, 2, c.display_id, v.name, v.size, 'go_esteria_housing_collection'
+  FROM `housing_collection_piece` v JOIN `housing_decor_catalog` c ON c.decor_id = v.borrow;
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `budget_cost`, `min_scale`, `max_scale`, `origin`, `enabled`)
-  SELECT 40200 + v.n, IF(v.n = 8, 1011653, c.model_fdid), c.display_id, 9506060 + v.n, v.name, 8, 0, 1, 0.5, 2, 'retail', 1
-  FROM (SELECT 1 n, 15490 decor, 'Trophy Wall Mount' name UNION ALL SELECT 2, 3836, 'Trophy Pedestal' UNION ALL SELECT 3, 27617, 'Trophy Plaque'
-        UNION ALL SELECT 4, 21106, 'Trophy Case' UNION ALL SELECT 5, 2537, 'Mount Stall' UNION ALL SELECT 6, 14346, 'Mount Paddock'
-        UNION ALL SELECT 7, 7607, 'Mount Pedestal' UNION ALL SELECT 8, 16098, 'Mannequin' UNION ALL SELECT 9, 11895, 'Library Bookshelf'
-        UNION ALL SELECT 10, 3832, 'Storyteller''s Lectern' UNION ALL SELECT 11, 11881, 'Explorer''s Display Table'
-        UNION ALL SELECT 12, 15064, 'Reading Nook' UNION ALL SELECT 13, 15290, 'Pet Habitat' UNION ALL SELECT 14, 12246, 'Pet Bed'
-        UNION ALL SELECT 15, 26202, 'Pet Toy' UNION ALL SELECT 16, 23549, 'Feeding Station') v
-  JOIN `housing_decor_catalog` c ON c.decor_id = v.decor;
+  SELECT v.decor_id, c.model_fdid, c.display_id, v.go, v.name, 8, 0, 1, 0.5, 2, 'retail', 1
+  FROM `housing_collection_piece` v JOIN `housing_decor_catalog` c ON c.decor_id = v.borrow;
+DROP TEMPORARY TABLE `housing_collection_piece`;

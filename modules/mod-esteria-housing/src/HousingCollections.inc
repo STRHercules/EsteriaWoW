@@ -22,6 +22,9 @@
     constexpr uint8 PoseKneel = 6, PoseSit = 7, PoseCount = 8, MannequinTypes = 4, MaxHabitatPets = 6;
     constexpr size_t MaxPicks = 400;
 
+    // how a mount stands: still (a statue), idle in place, or wandering its radius
+    enum MountMotion : uint8 { MotionStill = 0, MotionIdle = 1, MotionWander = 2, MotionDefault = 255 };
+
     struct Display
     {
         uint8 kind = 0;
@@ -46,7 +49,16 @@
         // deposits, flags (HouseholdFlag) and an auctioneer's greeting
         uint8 access = AccessEveryone, access2 = 0, flags = 0;
         std::string greeting;
+        float side = 0;                      // a replica's or mount's yards to the object's right
+        uint8 motion = MotionDefault;        // a mount's MountMotion; MotionDefault: its piece's own
     };
+
+    uint8 MotionOf(Display const& d)
+    {
+        if (d.motion != MotionDefault)
+            return d.motion;
+        return d.kind == ColMountPedestal ? MotionStill : d.kind == ColPaddock ? MotionWander : MotionIdle;
+    }
 
     void HouseholdDefaults(Display& d);
     void NameFigure(Display& d, uint32 decorId);
@@ -68,7 +80,7 @@
     uint32 s_nextDisplayEntry = DisplayEntryFirst;
 
     bool IsTrophyKind(uint8 k) { return k >= ColTrophyMount && k <= ColTrophyCase; }
-    bool IsMountKind(uint8 k) { return k >= ColStall && k <= ColMountPedestal; }
+    bool IsMountKind(uint8 k) { return (k >= ColStall && k <= ColMountPedestal) || k == ColMountMat; }
     bool IsLibraryKind(uint8 k) { return k >= ColBookshelf && k <= ColReadingNook; }
     bool IsPetKind(uint8 k) { return k >= ColHabitat && k <= ColFeeder; }
 
@@ -101,7 +113,7 @@
         // the order LoadCollections reads; text fields last but the look, which has no tabs
         return Join({ S(d.entry), S(d.source), S(d.id), S(d.date), S(d.style), S(d.effect), S(d.mount), S(d.finish), place,
             S(d.race), S(d.sex), S(d.type), S(d.pose), GearText(d.gear), S(d.radius), pets, d.lookHex, d.bodyHex, d.label, d.sub,
-            S(d.access), S(d.access2), S(d.flags), d.greeting });
+            S(d.access), S(d.access2), S(d.flags), d.greeting, S(int(d.side * 100)), S(d.motion) });
     }
 
     void SaveDisplay(uint64 placed, Display const& d)
@@ -138,6 +150,11 @@
             d.access = uint8(num(23)); d.access2 = uint8(num(24)); d.flags = uint8(num(25));
             d.greeting = f.size() > 26 ? f[26] : "";
         }
+        if (f.size() > 28)
+        {
+            d.side = float(int32(std::strtol(f[27].c_str(), nullptr, 10))) / 100.0f;
+            d.motion = uint8(num(28));
+        }
         return d;
     }
 
@@ -153,6 +170,7 @@
             case ColTrophyPlaque: d.height = 1.2f; d.forward = 0.2f; d.size = 0.4f; break;
             case ColTrophyCase: d.height = 0.9f; d.size = 0.4f; break;
             case ColStall: d.forward = 2.0f; d.turn = 90; break;
+            case ColPaddock: d.radius = 4; break;
             case ColMountPedestal: d.height = 1.0f; d.size = 0.5f; break;
             case ColMannequin: d.label = "Mannequin"; break;
             default: HouseholdDefaults(d); break;
@@ -467,9 +485,10 @@
 
     Position ExtraSpot(Placed const& p, Display const& d)
     {
-        float const yaw = p.yaw;
-        return Position(p.pos[0] + d.forward * p.scale * std::cos(yaw), p.pos[1] + d.forward * p.scale * std::sin(yaw),
-            p.pos[2] + d.height * p.scale, Position::NormalizeOrientation(yaw + d.turn * float(M_PI) / 180.0f));
+        float const yaw = p.yaw, s = p.scale * BaseScale(p.decorId);
+        float const c = std::cos(yaw), n = std::sin(yaw);
+        return Position(p.pos[0] + (d.forward * c + d.side * n) * s, p.pos[1] + (d.forward * n - d.side * c) * s,
+            p.pos[2] + d.height * s, Position::NormalizeOrientation(yaw + d.turn * float(M_PI) / 180.0f));
     }
 
     GameObject* SpawnExtraGo(Map* map, uint32 entry, Position const& at, float scale)
@@ -717,25 +736,27 @@
         }
         else if (IsMountKind(d.kind) && d.mount && d.entry)
         {
-            bool const statue = d.kind == ColMountPedestal;
-            bool const animated = !statue && AnimatedRoom(e.instance);
+            uint8 const motion = MotionOf(d);
+            // wandering counts against the realm's moving displays; past the limit a mount idles in place
+            bool const wander = motion == MotionWander && AnimatedRoom(e.instance);
             if (Creature* c = summon(d.entry, at))
             {
-                if (statue || !animated)
-                {
+                if (!wander)
                     c->SetControlled(true, UNIT_STATE_ROOT);
+                if (motion == MotionStill)
+                {
                     c->AddAura(AuraFreeze, c);
+                    if (d.finish == 1)
+                        c->AddAura(AuraStone, c);
+                    else if (d.finish == 2)
+                        c->AddAura(AuraSpectral, c);
                 }
-                if (statue && d.finish == 1)
-                    c->AddAura(AuraStone, c);
-                else if (statue && d.finish == 2)
-                    c->AddAura(AuraSpectral, c);
-                if (statue)
-                    c->SetDisableGravity(true);
-                if (animated && d.kind == ColPaddock)
+                if (motion == MotionStill || d.height > 0.05f)
+                    c->SetDisableGravity(true); // a statue, or a mount raised off the floor, stays where it is put
+                if (wander)
                     if (auto* ai = dynamic_cast<DisplayAI*>(c->AI()))
-                        ai->Roam(at, 4.0f * p.scale, {});
-                e.animated = animated;
+                        ai->Roam(at, float(d.radius), {});
+                e.animated = wander;
             }
         }
         else if (d.kind == ColHabitat && !d.pets.empty())
@@ -957,6 +978,13 @@
         return "";
     }
 
+    std::string Side(Display const& d)
+    {
+        char out[16];
+        std::snprintf(out, sizeof(out), "%.2f", d.side);
+        return out;
+    }
+
     std::string PlaceText(Display const& d)
     {
         char out[96];
@@ -971,7 +999,8 @@
         if (d.source == TrophyItem)
             link = ItemLink(nullptr, d.id);
         std::string text = "trophy\n" + Join({ "trophy", S(v.placed), S(int(v.owner)), S(d.kind), S(d.source), S(d.id), DateText(d.date),
-            TrophyName(d), S(d.style), S(d.effect), PlaceText(d), d.label, d.sub, link, S(int(TrophyCreature(d.source == TrophyAchievement ? d.id : 0) != 0)) });
+            TrophyName(d), S(d.style), S(d.effect), PlaceText(d), d.label, d.sub, link, S(int(TrophyCreature(d.source == TrophyAchievement ? d.id : 0) != 0)),
+            Side(d) });
         if (v.owner)
         {
             for (auto const& [id, date] : AccountAchievements(v.house->account, v.player))
@@ -1011,7 +1040,7 @@
     {
         Display const& d = *v.d;
         std::string text = "mountdisp\n" + Join({ "mount", S(v.placed), S(int(v.owner)), S(d.kind), S(d.mount), LabelOf(d, MountName(d.mount)),
-            S(d.finish), PlaceText(d), d.label, d.sub });
+            S(d.finish), PlaceText(d), d.label, d.sub, Side(d), S(MotionOf(d)), S(d.radius) });
         if (v.owner)
         {
             std::set<std::string> names; // one row per mount, though some have a spell per faction
@@ -1235,6 +1264,21 @@
         return true;
     }
 
+    // How tall a creature display stands at scale 1 (yd): its model's collision height and the display's own scale.
+    // Bounding radius said little: Ragnaros' and Illidan's statues came out huge and others tiny.
+    float ModelHeight(uint32 display, float templateScale)
+    {
+        CreatureDisplayInfoEntry const* info = sCreatureDisplayInfoStore.LookupEntry(display);
+        CreatureModelDataEntry const* model = info ? sCreatureModelDataStore.LookupEntry(info->ModelId) : nullptr;
+        float height = model ? model->CollisionHeight * (model->Scale > 0 ? model->Scale : 1.0f) * (info->scale > 0 ? info->scale : 1.0f) : 0;
+        if (height < 0.1f) // no collision box: fall back to the bounding radius, roughly half a model's height
+        {
+            CreatureModelInfo const* mi = sObjectMgr->GetCreatureModelInfo(display);
+            height = mi && mi->bounding_radius > 0.05f ? mi->bounding_radius * 2.0f : 2.0f;
+        }
+        return std::max(0.1f, height * templateScale);
+    }
+
     // A display's pooled template, named and drawn as it shows (at load, and after every change).
     void DressDisplay(Display const& d)
     {
@@ -1246,11 +1290,7 @@
             auto [display, scale] = ModelOf(creature);
             float size = 0.01f; // a label's speck
             if (creature)
-            {
-                CreatureModelInfo const* info = sObjectMgr->GetCreatureModelInfo(display);
-                float const radius = info && info->bounding_radius > 0.05f ? info->bounding_radius : 0.5f;
-                size = std::clamp(scale * d.size * 0.5f / radius, 0.02f, 3.0f);
-            }
+                size = std::clamp(d.size / ModelHeight(display, 1.0f), 0.002f, 5.0f); // the statue's own scale replaces its template's
             std::string const sub = !d.sub.empty() ? d.sub : d.date ? (d.source == TrophyItem ? "Displayed " : "Earned ") + DateText(d.date) : "";
             DressTemplate(d.entry, TrophyName(d), sub, creature ? display : 0, size);
         }
@@ -1380,6 +1420,7 @@
             d.height = Real(f, 6, -2.0f, 6.0f, d.height);
             d.forward = Real(f, 7, -3.0f, 3.0f, d.forward);
             d.turn = Real(f, 8, -360.0f, 360.0f, d.turn);
+            d.side = Real(f, 9, -3.0f, 3.0f, d.side);
             Redisplay(v);
             return SendTrophy(v);
         }
@@ -1407,6 +1448,11 @@
             d.height = Real(f, 5, -2.0f, 6.0f, d.height);
             d.forward = Real(f, 6, -6.0f, 6.0f, d.forward);
             d.turn = Real(f, 7, -360.0f, 360.0f, d.turn);
+            d.side = Real(f, 8, -6.0f, 6.0f, d.side);
+            if (f.size() > 9 && !f[9].empty())
+                d.motion = uint8(std::min<uint32>(Num(f, 9), MotionWander));
+            if (f.size() > 10 && !f[10].empty())
+                d.radius = uint8(std::clamp<uint32>(Num(f, 10), 2, 10));
             Redisplay(v);
             return SendMount(v);
         }

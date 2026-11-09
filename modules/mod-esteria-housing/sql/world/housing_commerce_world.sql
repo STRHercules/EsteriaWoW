@@ -9,7 +9,7 @@ INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`,
   SELECT `entry`, 0, 3649, 1, 1 FROM `creature_template` WHERE `entry` BETWEEN 9501000 AND 9504999;
 
 -- Type 2 (questgiver) with no quests: using it opens the script's gossip, as the cornerstone does. Each borrows the model of a
--- retail decor piece and is sold as decor of its own (category 6, Shops). The merchant's object is never spawned: it is an NPC.
+-- retail decor piece and is sold as decor of its own (category 6, Shops). The merchant's object is never spawned: it is an NPC (its picture, a statue's).
 DELETE FROM `housing_decor_catalog` WHERE `decor_id` BETWEEN 40001 AND 40007;
 DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9506000 AND 9506006;
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`)
@@ -20,7 +20,7 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`,
   JOIN `housing_decor_catalog` c ON c.decor_id = v.decor;
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `budget_cost`, `min_scale`, `max_scale`, `origin`, `enabled`)
   SELECT v.id, IF(v.fdid, v.fdid, c.model_fdid), c.display_id, v.go, v.name, 6, 0, 1, 0.5, 2, 'retail', 1
-  FROM (SELECT 40001 id, 16098 decor, 9506006 go, 'Merchant' name, 1011653 fdid UNION ALL SELECT 40002, 4428, 9506000, 'Commission Board', 0
+  FROM (SELECT 40001 id, 5564 decor, 9506006 go, 'Merchant' name, 0 fdid UNION ALL SELECT 40002, 4428, 9506000, 'Commission Board', 0
         UNION ALL SELECT 40003, 4422, 9506001, 'Shop Sign', 0 UNION ALL SELECT 40004, 16098, 9506002, 'Display Case', 0
         UNION ALL SELECT 40005, 15061, 9506003, 'Display Shelf', 0 UNION ALL SELECT 40006, 26483, 9506004, 'Display Rack', 0
         UNION ALL SELECT 40007, 3985, 9506005, 'Shop Counter', 0) v
