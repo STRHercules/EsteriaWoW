@@ -459,13 +459,23 @@
     }
 
     // Bound goods only go back to whoever could hold them: soulbound to the character, account-bound to the account.
-    std::string BoundTo(Held const& h, Player* player)
+    // Bound goods are the owner's: only the house owner's account stores them, and only it takes them out again.
+    std::string BoundTo(Held const& h, Player* player, House const& house)
     {
-        if (h.item->IsBoundAccountWide())
-            return h.account == player->GetSession()->GetAccountId() ? "" : "Account-bound to its depositor";
-        if (h.item->IsSoulBound())
-            return h.depositor == player->GetGUID().GetCounter() ? "" : "Soulbound to its depositor";
-        return "";
+        if (!h.item->IsSoulBound() && !h.item->IsBoundAccountWide())
+            return "";
+        return player->GetSession()->GetAccountId() == house.account ? "" : "Bound: the owner's alone";
+    }
+
+    enum ChestSource : uint8 { ChestFromBags = 0, ChestFromInventory = 1 };
+
+    // What the player could put in: bags, then the Esteria Inventory.
+    template <typename Fn> void ForEachStorable(Player* player, Fn fn)
+    {
+        ForEachBagItem(player, [&](Item* item) { if (Storable(item)) fn(ChestFromBags, item); });
+        for (Item* item : player->GetDigitalInventory().Items())
+            if (Storable(item))
+                fn(ChestFromInventory, item);
     }
 
     void LogStorage(Storage& s, Player* player, char const* action, uint32 entry, uint32 count, CharacterDatabaseTransaction trans)
@@ -485,7 +495,7 @@
                 "({}, {}, {}, {}, {})", s.id, i, s.items[i].item->GetGUID().GetCounter(), s.items[i].depositor, s.items[i].account);
     }
 
-    std::string StoreItem(ViewCtx const& v, Storage& s, uint32 guid)
+    std::string StoreItem(ViewCtx const& v, Storage& s, uint8 source, uint32 guid)
     {
         Player* player = v.player;
         if (!MayUse(player, *v.house, v.d->access2))
@@ -493,11 +503,13 @@
         if (player->GetTradeData())
             return "Finish your trade first.";
         Item* found = nullptr;
-        ForEachBagItem(player, [&](Item* item) { if (item->GetGUID().GetCounter() == guid) found = item; });
+        ForEachStorable(player, [&](uint8 from, Item* item) { if (from == source && item->GetGUID().GetCounter() == guid) found = item; });
         if (!Storable(found))
             return "That cannot go in a chest.";
         uint32 const maxStack = found->GetTemplate()->GetMaxStackSize();
         bool const bound = found->IsSoulBound() || found->IsBoundAccountWide();
+        if (bound && player->GetSession()->GetAccountId() != v.house->account)
+            return "Only the owner can store bound items.";
         Held* merge = nullptr;
         if (maxStack > 1 && !bound)
             for (Held& h : s.items)
@@ -507,8 +519,16 @@
             return "This chest is full.";
         uint32 const entry = found->GetEntry(), count = found->GetCount();
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
-        player->MoveItemFromInventory(found->GetBagSlot(), found->GetSlot(), true);
-        found->DeleteFromInventoryDB(trans);
+        if (source == ChestFromInventory)
+        {
+            if (player->GetDigitalInventory().TakeForShop(guid) != found) // the player save below persists its removal
+                return "That item is not available.";
+        }
+        else
+        {
+            player->MoveItemFromInventory(found->GetBagSlot(), found->GetSlot(), true);
+            found->DeleteFromInventoryDB(trans);
+        }
         if (merge)
         {
             merge->item->SetCount(merge->item->GetCount() + count);
@@ -541,20 +561,36 @@
         auto it = std::find_if(s.items.begin(), s.items.end(), [guid](Held const& h) { return h.item->GetGUID().GetCounter() == guid; });
         if (it == s.items.end())
             return "That is no longer in the chest.";
-        if (std::string const why = BoundTo(*it, player); !why.empty())
+        if (std::string const why = BoundTo(*it, player, *v.house); !why.empty())
             return why + ".";
         Item* item = it->item;
-        uint32 const entry = item->GetEntry(), count = item->GetCount();
-        item->SetOwnerGUID(player->GetGUID());
+        uint32 const entry = item->GetEntry(), maxStack = item->GetTemplate()->GetMaxStackSize();
+        // an Esteria Inventory stack can be larger than a bag's: it comes out a bag stack at a time
+        bool const split = item->GetCount() > maxStack;
+        Item* moved = split ? item->CloneItem(maxStack, player) : item;
+        if (!moved)
+            return "That item could not be moved.";
+        uint32 const count = moved->GetCount();
+        moved->SetOwnerGUID(player->GetGUID());
         ItemPosCountVec dest;
-        if (player->CanStoreItem(NULL_BAG, NULL_SLOT, dest, item, false) != EQUIP_ERR_OK)
+        if (player->CanStoreItem(NULL_BAG, NULL_SLOT, dest, moved, false) != EQUIP_ERR_OK)
         {
-            item->SetOwnerGUID(ObjectGuid::Empty);
+            if (split)
+                delete moved;
+            else
+                item->SetOwnerGUID(ObjectGuid::Empty);
             return "Your bags are full.";
         }
-        s.items.erase(it);
-        player->MoveItemToInventory(dest, item, true); // may merge into a stack and delete it
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        if (split)
+        {
+            item->SetCount(item->GetCount() - count);
+            item->FSetState(ITEM_CHANGED);
+            item->SaveToDB(trans);
+        }
+        else
+            s.items.erase(it);
+        player->MoveItemToInventory(dest, moved, true); // may merge into a stack and delete it
         SaveHeld(s, trans);
         LogStorage(s, player, "took", entry, count, trans);
         player->SaveInventoryAndGoldToDB(trans);
@@ -574,7 +610,7 @@
             << '\t' << int(canTake) << '\t' << int(v.owner) << '\t' << int(v.d->access) << '\t' << int(v.d->access2) << '\t' << message << '\n';
         for (Held const& h : s->items)
             out << "S\t" << h.item->GetGUID().GetCounter() << '\t' << h.item->GetEntry() << '\t' << h.item->GetCount() << '\t'
-                << ItemLink(h.item, h.item->GetEntry()) << '\t' << BoundTo(h, player) << '\t' << h.item->GetTemplate()->Name1 << '\t'
+                << ItemLink(h.item, h.item->GetEntry()) << '\t' << BoundTo(h, player, *v.house) << '\t' << h.item->GetTemplate()->Name1 << '\t'
                 << h.item->GetTemplate()->Quality << '\n';
         for (std::string const& line : s->log)
         {
@@ -582,12 +618,13 @@
             ItemTemplate const* t = f.size() > 3 ? sObjectMgr->GetItemTemplate(Num(f, 3)) : nullptr;
             out << "L\t" << line << '\t' << (t ? t->Name1 : "") << '\n';
         }
-        if (canPut)
-            ForEachBagItem(player, [&](Item* item) {
-                if (Storable(item))
-                    out << "D\t" << item->GetGUID().GetCounter() << '\t' << item->GetEntry() << '\t' << item->GetCount() << '\t'
-                        << ItemLink(item, item->GetEntry()) << '\t' << item->GetTemplate()->Name1 << '\t'
-                        << item->GetTemplate()->Quality << '\n';
+        if (canPut) // bound goods only for the owner
+            ForEachStorable(player, [&](uint8 from, Item* item) {
+                if ((item->IsSoulBound() || item->IsBoundAccountWide()) && !v.owner)
+                    return;
+                out << "D\t" << item->GetGUID().GetCounter() << '\t' << item->GetEntry() << '\t' << item->GetCount() << '\t'
+                    << ItemLink(item, item->GetEntry()) << '\t' << item->GetTemplate()->Name1 << '\t'
+                    << item->GetTemplate()->Quality << '\t' << int(from) << '\n';
             });
         SendCommerce(player, out.str());
     }
@@ -769,7 +806,7 @@
         if (!s)
             return false;
         if (verb == "stput")
-            SendStorage(v, StoreItem(v, *s, Num(f, 3)));
+            SendStorage(v, StoreItem(v, *s, uint8(Num(f, 3)), Num(f, 4)));
         else if (verb == "sttake")
             SendStorage(v, TakeItem(v, *s, Num(f, 3)));
         else if (verb == "stset")

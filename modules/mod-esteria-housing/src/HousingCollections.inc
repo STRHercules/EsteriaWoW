@@ -804,7 +804,10 @@
         Display const& d = it->second;
         ChrRacesEntry const* race = sChrRacesStore.LookupEntry(d.race);
         uint32 const display = race ? (d.sex ? race->model_f : race->model_m) : 0;
-        DressTemplate(d.entry, d.label, d.sub, display, 1.0f);
+        // The template keeps the placeholder model, as a merchant's does. The unit is created with it and then switched to
+        // the race's body below; that model change is what makes the client rebuild it as a retail character (race and
+        // mirror flag set by then). Created with the race's body already, it stayed the stock model, and no customizer.
+        DressTemplate(d.entry, d.label, d.sub, 0, 1.0f);
         Creature* c = map->SummonCreature(d.entry, Position(p.pos[0], p.pos[1], p.pos[2], p.yaw));
         if (!c)
             return;
@@ -1253,8 +1256,7 @@
         }
         else if (IsFigureKind(d.kind))
         {
-            ChrRacesEntry const* race = sChrRacesStore.LookupEntry(d.race);
-            DressTemplate(d.entry, d.label, d.sub, race ? (d.sex ? race->model_f : race->model_m) : 0, 1.0f);
+            DressTemplate(d.entry, d.label, d.sub, 0, 1.0f); // the placeholder model, as SpawnMannequin's
         }
         else if (IsMountKind(d.kind))
         {
