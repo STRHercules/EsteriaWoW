@@ -343,6 +343,7 @@ namespace
             case 40265: return ColMountMat;
             case 40272: return ColTrophyRug;
             case 40266: case 40267: case 40268: return ColHabitat;   // small habitats: rugs and a cushion
+            case 40273: return ColHabitat;                           // the Grand Pet Rug: ten pets
             case 40269: case 40270: case 40271: return ColPetToy;    // plushies
             default: return 0;
         }
