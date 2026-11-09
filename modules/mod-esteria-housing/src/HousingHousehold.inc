@@ -233,7 +233,8 @@
         {
             int const focus = FocusIndex(p.decorId);
             uint32 const entry = kind == ColMailbox ? HiddenMailboxGo : focus >= 0 ? FocusGoBase + uint32(focus) : 0;
-            if (GameObject* go = entry ? SpawnExtraGo(map, entry, at, 1.0f) : nullptr)
+            // the mailbox is drawn (the client's mail window needs its model) but too small to see or click
+            if (GameObject* go = entry ? SpawnExtraGo(map, entry, at, kind == ColMailbox ? 0.01f : 1.0f) : nullptr)
             {
                 go->SetSpawnedByDefault(true); // GameObjectFocusCheck only counts a spawned focus
                 e.objects.push_back(go->GetGUID());

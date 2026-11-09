@@ -52,8 +52,10 @@ def world_sql(display_of):
     for i, (focus, name) in enumerate(FOCUSES):
         lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `Data0`, `Data1`) VALUES "
                      f"({FOCUS_GO_BASE + i}, 8, 0, {q(name)}, 1, {focus}, 10);")
+    # a real model (the 3.3.5 mailbox), spawned at 1%: the client measures its mail window's range against the object's
+    # model every frame (CGGameObject_C_TypeBase::CheckRange) and crashes on a mailbox with none
     lines.append(f"INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) VALUES "
-                 f"({HIDDEN_MAILBOX}, 19, 0, 'Mailbox', 1);")
+                 f"({HIDDEN_MAILBOX}, 19, 1907, 'Mailbox', 1);")
     lines.append("-- The pieces: type 2 (questgiver, no quests) opens the script's gossip; the guild vault is the core's own (34). "
                  "A figure's object is never spawned.")
     for decor, (name, borrow, gotype) in sorted(PIECES.items()):
