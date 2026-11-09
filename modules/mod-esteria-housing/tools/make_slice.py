@@ -643,6 +643,9 @@ def main():
     import make_adventure
     display_of = {decor: (decor_slot(i)[0], fdid) for i, (decor, fdid, *_rest) in enumerate(CATALOG)}
     files.update(make_adventure.patch_files(winning_dbc, append_rows, storm, args.client, display_of))
+    # section 5 (make_household.py): the House Hearthstone's rows, and sql/world/housing_household_world.sql
+    import make_household
+    files.update(make_household.patch_files(winning_dbc, append_rows, storm, args.client, display_of, files))
     target = out / PATCH_NAME
     if target.exists():
         target.unlink()

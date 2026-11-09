@@ -417,3 +417,42 @@ CREATE TABLE IF NOT EXISTS `housing_library_book` (
   PRIMARY KEY (`account_id`, `page_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 INSERT IGNORE INTO `housing_counter` (`name`, `value`) VALUES ('display_entry', 9507100);
+
+-- Section 5, household services. A storage chest and what it holds: placed_id NULL while it is packed away (its
+-- contents travel with it and come back when a chest of the same kind is placed again).
+CREATE TABLE IF NOT EXISTS `housing_storage` (
+  `storage_id` INT UNSIGNED NOT NULL,
+  `account_id` INT UNSIGNED NOT NULL,
+  `decor_id`   INT UNSIGNED NOT NULL,
+  `placed_id`  BIGINT UNSIGNED NULL,
+  `name`       VARCHAR(32) NOT NULL DEFAULT 'Storage Chest',
+  PRIMARY KEY (`storage_id`),
+  UNIQUE KEY `uk_placed` (`placed_id`),
+  KEY `idx_account` (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- The item_instance rows a chest holds (owner_guid 0 while inside), and who put each in (bound goods go back only to them).
+CREATE TABLE IF NOT EXISTS `housing_storage_item` (
+  `storage_id`        INT UNSIGNED NOT NULL,
+  `slot`              SMALLINT UNSIGNED NOT NULL,
+  `item_guid`         INT UNSIGNED NOT NULL,
+  `depositor_guid`    INT UNSIGNED NOT NULL,
+  `depositor_account` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`item_guid`),
+  KEY `idx_storage` (`storage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Every deposit and withdrawal: "time\tcharacter\taction\titem entry\tcount".
+CREATE TABLE IF NOT EXISTS `housing_storage_log` (
+  `log_id`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `storage_id` INT UNSIGNED NOT NULL,
+  `line`       VARCHAR(160) NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `idx_storage` (`storage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Where a character's House Hearthstone leads: the innkeeper it was bound at.
+CREATE TABLE IF NOT EXISTS `housing_hearth` (
+  `guid`      INT UNSIGNED NOT NULL,
+  `house_id`  INT UNSIGNED NOT NULL,
+  `placed_id` BIGINT UNSIGNED NOT NULL,
+  `bound_at`  INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`guid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

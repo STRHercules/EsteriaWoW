@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS `housing_hearth`;
+DROP TABLE IF EXISTS `housing_storage_log`;
+DROP TABLE IF EXISTS `housing_storage_item`;
+DROP TABLE IF EXISTS `housing_storage`;
 -- Removes every housing table and all houses, placements and owned decor.
 DROP TABLE IF EXISTS `housing_commission`;
 DROP TABLE IF EXISTS `housing_shop_sale`;

@@ -45,6 +45,14 @@
 #        Description: Moving displays (stalled and paddock mounts, habitat pets) one house or neighborhood instance
 #                     animates; past it, more stand still (mounts) or nap (pets).
 #        Default:     12
+#
+#    EsteriaHousing.RepairDiscount
+#        Description: Percent off repairs at a house's Repair Smith or Repair Bench. Capped at 25.
+#        Default:     10
+#
+#    EsteriaHousing.HearthCooldownMinutes
+#        Description: Minutes between uses of a House Hearthstone (an innkeeper in a house binds it), 1 to 1440.
+#        Default:     30
 
 EsteriaHousing.Enable = 0
 EsteriaHousing.RoomTemplate = 1
@@ -56,3 +64,5 @@ EsteriaHousing.MaxRooms = 16
 EsteriaHousing.RoomPrice = 250000
 EsteriaHousing.GuildNeighborhoodPrice = 50000000
 EsteriaHousing.MaxAnimatedDisplays = 12
+EsteriaHousing.RepairDiscount = 10
+EsteriaHousing.HearthCooldownMinutes = 30

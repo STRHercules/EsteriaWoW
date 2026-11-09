@@ -35,6 +35,7 @@
 #include "ScriptedCreature.h"
 #include "ScriptedGossip.h"
 #include "SpellScript.h"
+#include "Spell.h"
 #include "World.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
@@ -46,6 +47,7 @@
 #include <tuple>
 #include <deque>
 #include <map>
+#include <memory>
 #include <set>
 #include <mutex>
 #include <unordered_map>
@@ -140,6 +142,8 @@ namespace
         uint32 roomPrice = 250000; // copper for a 23 x 23 yd room; others scale by floor area
         uint32 maxAnimated = 12;   // moving displays (stable mounts, sanctuary pets) per house or neighborhood instance
         uint32 guildHoodPrice = 50000000; // copper from the guild bank for a guild neighborhood (5000 g)
+        uint32 repairDiscount = 10;       // percent off at a house's repair station, at most MaxRepairDiscount
+        uint32 hearthCooldown = 30;       // minutes between House Hearthstone uses
     };
 
     std::recursive_mutex s_lock;
@@ -307,10 +311,38 @@ namespace
     {
         ColTrophyMount = 1, ColTrophyPedestal, ColTrophyPlaque, ColTrophyCase, ColStall, ColPaddock, ColMountPedestal,
         ColMannequin, ColBookshelf, ColLectern, ColDisplayTable, ColReadingNook, ColHabitat, ColPetBed, ColPetToy, ColFeeder,
-        ColLast = ColFeeder
+        // household services (HousingHousehold.inc): several decor pieces share a kind, see CollectionKindOf
+        ColInnkeeper, ColBanker, ColBankVault, ColGuildVault, ColMailbox, ColRepairNpc, ColRepairBench, ColAuctioneer, ColStorage,
+        ColStation, ColTrainer,
+        ColLast = ColTrainer
     };
     constexpr uint32 CollectionDecorBase = 40200;
-    constexpr uint8 CollectionKindOf(uint32 decorId) { return decorId > CollectionDecorBase && decorId <= CollectionDecorBase + ColLast ? uint8(decorId - CollectionDecorBase) : 0; }
+    // Catalog rows 40201-40216 are one kind each; the services' (housing_household_world.sql) map onto theirs.
+    constexpr uint8 CollectionKindOf(uint32 decorId)
+    {
+        if (decorId > CollectionDecorBase && decorId <= CollectionDecorBase + ColFeeder) return uint8(decorId - CollectionDecorBase);
+        switch (decorId)
+        {
+            case 40217: return ColInnkeeper;
+            case 40218: return ColBanker;
+            case 40219: case 40220: return ColBankVault;
+            case 40221: return ColGuildVault;
+            case 40222: case 40223: return ColMailbox;
+            case 40224: return ColRepairNpc;
+            case 40225: return ColRepairBench;
+            case 40226: return ColAuctioneer;
+            case 40227: case 40228: case 40229: return ColStorage;
+            default: break;
+        }
+        if (decorId >= 40230 && decorId <= 40239) return ColStation;
+        if (decorId >= 40251 && decorId <= 40264) return ColTrainer;
+        return 0;
+    }
+    // a character drawn with a customizable look: the mannequin and the service NPCs
+    constexpr bool IsFigureKind(uint8 k) { return k == ColMannequin || k == ColInnkeeper || k == ColBanker || k == ColRepairNpc
+        || k == ColAuctioneer || k == ColTrainer; }
+    constexpr bool IsHouseholdKind(uint8 k) { return k >= ColInnkeeper && k <= ColTrainer; }
+    void HouseholdPlaced(Placed const& p, uint32 account, CharacterDatabaseTransaction trans);
     void LoadCollections();
     void SpawnMannequin(Map* map, Placed const& p);
     void SpawnDisplayExtras(Map* map, Placed const& p);
@@ -870,7 +902,7 @@ namespace
         if (adventure >= AdvDummy && adventure <= AdvBoss)
             return SpawnDummy(map, p);
         uint8 const collection = CollectionKindOf(p.decorId);
-        if (collection == ColMannequin)
+        if (IsFigureKind(collection))
             return SpawnMannequin(map, p);
         auto entry = s_catalog.find(p.decorId);
         if (entry == s_catalog.end())
@@ -1288,6 +1320,11 @@ namespace
     uint32 DecorPrice(CatalogEntry const& e)
     {
         static uint32 const gold[] = { 1, 5, 2, 3, 2, 4 }; // Misc Furniture Accents Lighting Nature Structural
+        if (e.category == 9) // services: a trainer or auctioneer is an investment
+        {
+            uint8 const k = CollectionKindOf(e.decorId);
+            return (k == ColTrainer || k == ColAuctioneer ? 100 : k == ColStation || k == ColMailbox ? 10 : 50) * 10000;
+        }
         return (e.category < 6 ? gold[e.category] : 1) * 10000;
     }
 
@@ -1434,6 +1471,7 @@ namespace
                 account, e.decorId);
             after = "'" + Json(p) + "'";
             ShopPlaced(*house, p, player, trans);
+            HouseholdPlaced(p, house->account, trans);
             Spawn(map, p);
             MerchantJustPlaced(player, p);
         }
@@ -1628,7 +1666,7 @@ namespace
         EsteriaHousingHooks::MirrorImage.store(s_config.enabled ? &MerchantMirrorImage : nullptr);
     }
 
-    bool EnterHouse(Player* player, House const& house)
+    bool EnterHouse(Player* player, House const& house, Position const* at = nullptr)
     {
         RoomTemplate const* room = Room(house);
         if (!room)
@@ -1646,7 +1684,9 @@ namespace
         s_pending[player->GetGUID()] = house.id;
         LOG_INFO("module", "housing: {} enters house {} (owner account {})", player->GetName(), house.id, house.account);
         // from another house: the same map, but that house's instance
-        return player->TeleportTo(room->mapId, room->entry[0], room->entry[1], room->entry[2], room->entry[3], 0, nullptr,
+        Position const door(room->entry[0], room->entry[1], room->entry[2], room->entry[3]);
+        Position const& to = at ? *at : door;
+        return player->TeleportTo(room->mapId, to.GetPositionX(), to.GetPositionY(), to.GetPositionZ(), to.GetOrientation(), 0, nullptr,
             inside && inside->id != house.id);
     }
 
@@ -1656,6 +1696,8 @@ namespace
         auto& owned = s_owned[account];
         for (auto const& [decorId, entry] : s_catalog)
         {
+            if (entry.category == 9) // services are bought
+                continue;
             Owned& o = owned[decorId];
             if (o.owned >= s_config.starterQuantity)
                 continue;
@@ -2801,6 +2843,7 @@ namespace
 #include "HousingCommerce.inc"
 #include "HousingAdventure.inc"
 #include "HousingCollections.inc"
+#include "HousingHousehold.inc"
 
     void HandleAction(WorldSession* session, WorldPacket& packet)
     {
@@ -3498,6 +3541,8 @@ namespace
             s_config.roomPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.RoomPrice", 250000);
             s_config.guildHoodPrice = sConfigMgr->GetOption<uint32>("EsteriaHousing.GuildNeighborhoodPrice", 50000000);
             s_config.maxAnimated = sConfigMgr->GetOption<uint32>("EsteriaHousing.MaxAnimatedDisplays", 12);
+            s_config.repairDiscount = std::min<uint32>(25, sConfigMgr->GetOption<uint32>("EsteriaHousing.RepairDiscount", 10));
+            s_config.hearthCooldown = std::clamp<uint32>(sConfigMgr->GetOption<uint32>("EsteriaHousing.HearthCooldownMinutes", 30), 1, 1440);
             if (s_config.enabled && !s_loaded && sObjectMgr->GetGameObjectTemplates()->size())
                 Load(); // a .reload config that turns housing on after startup
             ApplyHooks();
@@ -3651,6 +3696,9 @@ void AddSC_mod_esteria_housing()
     new npc_esteria_housing_display();
     new go_esteria_housing_collection();
     new EsteriaHousingBooks();
+    new EsteriaHousingHousehold();
+    new EsteriaHousingHouseholdSpells();
+    RegisterSpellScript(spell_esteria_housing_hearth);
     new EsteriaHousingHomeSpells();
     RegisterSpellScript(spell_esteria_housing_home);
     new EsteriaHousingPlotWatch();
