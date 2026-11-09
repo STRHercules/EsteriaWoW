@@ -260,12 +260,18 @@ DECOR2_DISPLAY_BASE, DECOR2_GO_BASE, DECOR2_SLOTS = 63000, 9503000, 3000
 # (patch-RetailDecor-001.MPQ), and the WMO decor our build has; kept where RetailAssetProbe --batch loaded the model.
 # Appended to block 2 after catalog2.tsv, so no slot moves.
 CATALOG3_ROWS = list(csv.DictReader((MODULE / "data/catalog3.tsv").open(encoding="utf-8"), delimiter="\t"))
-WMO_DECOR = {int(r["decor_id"]) for r in CATALOG3_ROWS if r["kind"] == "wmo"}
+# Classic stable buildings (not retail HouseDecor, so named here), appended after catalog3 so no slot moves.
+STABLES = [(40300, 107232, "Human Stable"), (40301, 106779, "Duskwood Stable"), (40302, 337787, "Arathi Stable"),
+           (40303, 107202, "Redridge Stable"), (40304, 108051, "Westfall Stable"), (40305, 108053, "Westfall Stable B"),
+           (40306, 108055, "Westfall Stable C"), (40307, 113950, "Dwarven Stable"), (40308, 113942, "Snowy Dwarven Stable"),
+           (40309, 112766, "Outland Dwarven Stable")]
+WMO_DECOR = {int(r["decor_id"]) for r in CATALOG3_ROWS if r["kind"] == "wmo"} | {decor for decor, *_ in STABLES}
 CATALOG = retail_named(catalog() + [(int(r["decor_id"]), int(r["model_fdid"]), "", r["category"], "floor")
-                                    for r in CATALOG2_ROWS + CATALOG3_ROWS])
-BLOCK1 = len(CATALOG) - len(CATALOG2_ROWS) - len(CATALOG3_ROWS)
-assert BLOCK1 <= DECOR_SLOTS and len(CATALOG2_ROWS) + len(CATALOG3_ROWS) <= DECOR2_SLOTS, \
-    f"{BLOCK1} + {len(CATALOG2_ROWS)} + {len(CATALOG3_ROWS)} decor"
+                                    for r in CATALOG2_ROWS + CATALOG3_ROWS]
+                       + [(decor, fdid, name, "Structural", "floor") for decor, fdid, name in STABLES])
+BLOCK2 = len(CATALOG2_ROWS) + len(CATALOG3_ROWS) + len(STABLES)
+BLOCK1 = len(CATALOG) - BLOCK2
+assert BLOCK1 <= DECOR_SLOTS and BLOCK2 <= DECOR2_SLOTS, f"{BLOCK1} + {BLOCK2} decor"
 
 
 def decor_model(decor, fdid):
