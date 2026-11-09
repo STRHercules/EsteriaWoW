@@ -25,7 +25,8 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`)
 -- spawned: it is a creature (its picture is a statue's). `size` is the share of its placed size a piece is drawn at
 -- (BaseScale): the stall's model is large, the mount mat shows its rug until a mount stands on it (MatHidden), the small
 -- habitats are small rugs. The Trophy Wall Mount (40201) was retired.
--- go = 9506060 + n for decor 40200 + n; the later pieces (decor 40265-40272) take 9506088-9506095. The trophy rug, like the
+-- go = 9506060 + n for decor 40200 + n; the later pieces (decor 40265-40273) take 9506088-9506096. The Grand Pet Rug
+-- holds ten pets (HabitatPets); any habitat can hide its rug. The trophy rug, like the
 -- mount mat, shows only until something stands on it.
 DELETE FROM `housing_decor_catalog` WHERE `decor_id` BETWEEN 40201 AND 40216 OR `decor_id` BETWEEN 40265 AND 40299;
 DROP TEMPORARY TABLE IF EXISTS `housing_collection_piece`;
@@ -41,7 +42,7 @@ INSERT INTO `housing_collection_piece` VALUES
   (40265, 9506088, 2094, 'Mount Mat', 1),
   (40266, 9506089, 2094, 'Small Pet Rug', 0.6), (40267, 9506090, 1698, 'Pet Cushion', 0.7), (40268, 9506091, 12194, 'Tiny Pet Rug', 0.45),
   (40269, 9506092, 14839, 'Wolf Plushie', 1), (40270, 9506093, 14838, 'Lion Plushie', 1), (40271, 9506094, 26479, 'Murloc Plushie', 1),
-  (40272, 9506095, 498, 'Trophy Rug', 1);
+  (40272, 9506095, 498, 'Trophy Rug', 1), (40273, 9506096, 4026, 'Grand Pet Rug', 1);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`)
   SELECT v.go, 2, c.display_id, v.name, v.size, 'go_esteria_housing_collection'
   FROM `housing_collection_piece` v JOIN `housing_decor_catalog` c ON c.decor_id = v.borrow;

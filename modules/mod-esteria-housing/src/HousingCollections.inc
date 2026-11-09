@@ -19,7 +19,10 @@
     // a mannequin's pose: a looping emote or a stand state (sit, kneel)
     constexpr uint32 PoseEmote[] = { 0, EMOTE_STATE_READY1H, EMOTE_STATE_READY2H, EMOTE_STATE_READY_BOW, EMOTE_STATE_READY_RIFLE,
         EMOTE_STATE_READY_SPELL_OMNI, 0, 0 };
-    constexpr uint8 PoseKneel = 6, PoseSit = 7, PoseCount = 8, MannequinTypes = 4, MaxHabitatPets = 6;
+    constexpr uint8 PoseKneel = 6, PoseSit = 7, PoseCount = 8, MannequinTypes = 4, MaxHabitatPets = 10;
+    constexpr uint8 FlagHideRug = 2; // a habitat's flags: only its pets show
+    // pets a habitat holds: the Grand Pet Rug ten, the others six
+    uint8 HabitatPets(uint32 decorId) { return decorId == 40273 ? 10 : 6; }
     constexpr size_t MaxPicks = 400;
 
     // how a mount stands: still (a statue), idle in place, or wandering its radius
@@ -73,7 +76,8 @@
     {
         auto it = s_displays.find(placed);
         return it != s_displays.end() && ((it->second.kind == ColMountMat && it->second.mount)
-            || (it->second.kind == ColTrophyRug && it->second.source != TrophyNone));
+            || (it->second.kind == ColTrophyRug && it->second.source != TrophyNone)
+            || (it->second.kind == ColHabitat && (it->second.flags & FlagHideRug)));
     }
 
     // what each display spawned beside its object: placed id -> instance, its creatures and objects
@@ -1174,7 +1178,8 @@
     void SendHabitat(ViewCtx const& v)
     {
         Display const& d = *v.d;
-        std::string text = "habitat\n" + Join({ "hab", S(v.placed), S(int(v.owner)), S(d.radius), S(MaxHabitatPets) });
+        std::string text = "habitat\n" + Join({ "hab", S(v.placed), S(int(v.owner)), S(d.radius), S(HabitatPets(v.p->decorId)),
+            S(int((d.flags & FlagHideRug) != 0)) });
         std::set<uint32> chosen(d.pets.begin(), d.pets.end());
         std::set<uint32> listed;
         auto row = [&](uint32 spell) {
@@ -1369,7 +1374,7 @@
         SaveDisplay(v.placed, d);
         if (renamed)
             PushTemplateName(map, d.entry);
-        if (IsFigureKind(d.kind) || d.kind == ColMountMat || d.kind == ColTrophyRug) // a figure is its own creature; a rug shows or hides
+        if (IsFigureKind(d.kind) || d.kind == ColMountMat || d.kind == ColTrophyRug || d.kind == ColHabitat) // a figure is its own creature; a rug shows or hides
         {
             Despawn(map, v.placed);
             Spawn(map, *v.p);
@@ -1498,7 +1503,7 @@
             d.label = Clean(f.size() > 3 ? f[3] : "", 40);
             d.sub = Clean(f.size() > 4 ? f[4] : "", 40);
             Redisplay(v);
-            return OpenDisplay(v);
+            return IsFigureKind(d.kind) ? SendMannequin(v) : OpenDisplay(v);
         }
         if (verb == "mountset" && IsMountKind(d.kind))
         {
@@ -1623,12 +1628,13 @@
             std::set<uint32> const known = AccountSpells(account, player);
             d.pets.clear();
             std::istringstream in(f.size() > 4 ? f[4] : "");
-            for (std::string part; std::getline(in, part, ',') && d.pets.size() < MaxHabitatPets;)
+            for (std::string part; std::getline(in, part, ',') && d.pets.size() < HabitatPets(v.p->decorId);)
                 if (uint32 const spell = uint32(std::strtoul(part.c_str(), nullptr, 10)); CompanionCreature(spell) && known.count(spell)
                     && std::find(d.pets.begin(), d.pets.end(), spell) == d.pets.end())
                     d.pets.push_back(spell);
-            SaveDisplay(v.placed, d);
-            SpawnDisplayExtras(player->GetMap(), *v.p);
+            if (f.size() > 5 && !f[5].empty())
+                d.flags = uint8((d.flags & ~FlagHideRug) | (Num(f, 5) ? FlagHideRug : 0));
+            Redisplay(v, false); // the rug shows or hides, the pets come back
             return SendHabitat(v);
         }
     }
