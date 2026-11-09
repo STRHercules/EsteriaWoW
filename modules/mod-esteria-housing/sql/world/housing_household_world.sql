@@ -11,7 +11,7 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`,
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `Data0`, `Data1`) VALUES (9506104, 8, 0, 'Black Anvil', 1, 623, 10);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `Data0`, `Data1`) VALUES (9506105, 8, 0, 'Black Forge', 1, 543, 10);
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `Data0`, `Data1`) VALUES (9506106, 8, 0, 'Runeforge', 1, 1552, 10);
-INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) VALUES (9506110, 19, 0, 'Mailbox', 1);
+INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`) VALUES (9506110, 19, 1907, 'Mailbox', 1);
 -- The pieces: type 2 (questgiver, no quests) opens the script's gossip; the guild vault is the core's own (34). A figure's object is never spawned.
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `size`, `ScriptName`) VALUES (9506120, 2, 61585, 'Innkeeper', 1, 'go_esteria_housing_collection');
 INSERT INTO `housing_decor_catalog` (`decor_id`, `model_fdid`, `display_id`, `gameobject_entry`, `name`, `category`, `surface`, `budget_cost`, `min_scale`, `max_scale`, `origin`, `enabled`) VALUES (40217, 1011653, 61585, 9506120, 'Innkeeper', 9, 0, 1, 0.5, 2, 'retail', 1);
