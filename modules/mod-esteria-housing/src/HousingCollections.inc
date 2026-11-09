@@ -1116,7 +1116,7 @@
         if (auto it = s_spawned[v.player->GetInstanceId()].find(v.placed); it != s_spawned[v.player->GetInstanceId()].end())
             guid = it->second;
         std::string text = "mannequin\n" + Join({ "mq", S(v.placed), S(int(v.owner)), S(d.race), S(d.sex), S(d.type), S(d.pose), d.label,
-            d.sub, GuidHex(guid) });
+            d.sub, GuidHex(guid), S(d.kind) });
         for (auto const& [slot, entry] : d.gear)
             text += "\n" + SlotItemText(slot, entry);
         if (v.owner)
@@ -1527,6 +1527,8 @@
         }
         if (IsFigureKind(d.kind))
         {
+            if (verb == "mqopen") // the outfit window, for a service NPC (the innkeeper, an auctioneer, a trainer...)
+                return SendMannequin(v);
             if (verb == "mqpick")
                 return SendMannequinPicks(v, uint8(Num(f, 3)));
             if (verb == "mqslot")
@@ -1612,8 +1614,8 @@
             }
             else
                 return;
-            Redisplay(v);
-            return FigureChanged(v);
+            Redisplay(v, false);
+            return SendMannequin(v);
         }
         if (verb == "habset" && d.kind == ColHabitat)
         {
