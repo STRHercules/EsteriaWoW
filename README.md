@@ -15,6 +15,20 @@ Most of this is opt-in per module or needs the matching client. Status words fol
 validated in game) and **manual** (not a normal CMake module). A feature listed here is
 not proof that it passed a live test; each section says what is known.
 
+**Jump to:** [Features](#what-esteria-adds) · [Quick start](#running) · [Repository map](#repository-map) · [Where to look](#where-to-look) · [Status](#status)
+
+| Section | Contents |
+| --- | --- |
+| [Playable races](#playable-races) | 64-slot race table, registry, server support |
+| [Freeborn](#freeborn-a-third-faction) | Third faction |
+| [Housing](#housing) | Plots, houses, decor, shops, collections, pets |
+| [Client interface](#client-interface-and-customization) | Character select, Glue, inventory, satchel |
+| [Gameplay modules](#content-and-gameplay-modules) | Battlemon, Dream Path, Mythic+, Nemesis and more |
+| [Admin and tooling](#admin-and-tooling) | GM Tool Chest, launcher API, chat bridge |
+| [Core changes](#core-changes) | What needed the core instead of a module |
+| [Planned work](#planned-and-design-stage-work) | Design documents, not shipped |
+| [Requirements](#requirements) and [Running](#running) | Docker setup, commands, SQL rules |
+
 ---
 
 ## What Esteria adds
@@ -63,6 +77,28 @@ Alliance and Horde. It is specified in
 with core hooks, a classless wildcard path and unit tests in
 `src/test/server/game/Combat/FreebornTeamTest.cpp`.
 
+### Housing
+
+`mod-esteria-housing` adds player housing with a matching client addon
+(`Addons/EsteriaHousing` in wowdecomp). Server rules, SQL order and known limits are in
+[modules/mod-esteria-housing/README.md](modules/mod-esteria-housing/README.md). It is off
+until `EsteriaHousing.Enable = 1`. All of it is built and running on the Live stack, but
+not yet checked in game.
+
+| Feature | What it does |
+| --- | --- |
+| Houses and plots | Claim a house from the Housing Steward. Each house is its own instance of map 35; group members can visit, only the owner edits. Restyle or move a house, including retail exteriors such as the Grimtide Manse |
+| Neighborhoods | Account and guild neighborhoods in Founder's Point, multiple homes, and a first-time map choice per account. Founder's Point and the house interior have world map tiles, loading screens and zone names |
+| Growth | Buy more floors, a larger decor budget and a higher room limit with gold. Decor can go outdoors on your plot, with wall and roof spots for towers, dormers and chimneys |
+| Decor catalog | Thousands of retail decor pieces with retail names, thumbnails and WMO pieces, placed with scale, height and rotation. Edits are validated server-side and persisted in one transaction |
+| Shops and commissions | Player shops with merchants that keep a customizable look, labelled cases, shelves, racks, counters and signs, and commissions. A shop with goods for sale cannot be removed |
+| Adventure pieces | Training hall dummies (tank and boss), portals, meeting stones, and Teleport/Portal: Home spells. Decor can be bought outside the house too |
+| Collections and display | 16 pieces in a Collections category: achievement and item trophies, mount stalls, paddocks and pedestals, mannequins with saved outfits, a four-tab library (books, exploration, achievements, storylines) and a pet sanctuary with beds, toys and feeding stations. Nothing on display is taken from your collection |
+
+Mounts and pets that move are capped at 12 per house or neighborhood
+(`EsteriaHousing.MaxAnimatedDisplays`). The collections checklist is
+`docs/housing/collections-checklist.md` in the wowdecomp repository.
+
 ### Client interface and customization
 
 | Feature | What it does |
@@ -81,7 +117,7 @@ not imply an expanded barber.
 
 | System | Status | Summary |
 | --- | --- | --- |
-| Battlemon (`mod-battlemon`) | Enabled | Pokemon-style collection, wild encounters, world pet battles, human and bot duels. 980 converted 3D models. See [Battlemon.md](docs/status/Battlemon.md) and [modules/mod-battlemon/README.md](modules/mod-battlemon/README.md) |
+| Battlemon (`mod-battlemon`) | Enabled | Pokemon-style collection, wild encounters, world pet battles, human and bot duels, breeding with a Day Care and eggs, Pokemon trading, held items, following Pokemon, mainline move learning, and zone-aware wild spawns with an admin panel. 980 converted 3D models. See [Battlemon.md](docs/status/Battlemon.md) and [modules/mod-battlemon/README.md](modules/mod-battlemon/README.md) |
 | `mod-wxl-dbc` | Enabled | Server DBC continuation files, so large custom tables (Battlemon, Freeborn) load without replacing base DBCs |
 | Echoes of the Worldsoul | Staged | Permanent attunement and stat bridge, in `mod-custom-server/src/mod_attunement_plus.cpp` |
 | Prestige and Draft | Staged | Character replay, ranks and draft choices through Eluna |
@@ -100,6 +136,14 @@ The full list, including the stock quality-of-life modules (AH bot, account-wide
 achievements and mounts, AOE loot, random enchants, item upgrade, corpse respawn and
 others), is in [Modules.md](docs/status/Modules.md) and [ModuleStatus.md](docs/status/ModuleStatus.md).
 
+### Admin and tooling
+
+| Module | What it does |
+| --- | --- |
+| GM Tool Chest (`mod-esteria-toolchest`) | Addon interface for searching and editing creature and game object templates, spawn data and related rows, with cloning, lookups and applying changes to the running server. `EsteriaToolChest.MinSecurity` sets the lowest account level allowed (default 2) |
+| Launcher API (`mod-launcher-api`) | HTTP API for a game launcher: account creation and management, character list and services, a read-only armory and world database, and presence. See [its README](modules/mod-launcher-api/README.md) |
+| Chat bridge (`mod-esteria-chat`) | Bridges in-game chat to an external API. Disabled until linked accounts and a private API are configured |
+
 ### Core changes
 
 Esteria prefers module hooks. Some things need the core:
@@ -112,6 +156,7 @@ Esteria prefers module hooks. Some things need the core:
 | Handlers | `CharacterHandler` create and enumerate extensions, digital inventory packets |
 | DBC | `DBCStore` continuation support used by `mod-wxl-dbc` |
 | Teams | Third `TeamId` and the code paths that read it |
+| Housing | Opcodes `0x537`-`0x53E`, a packet handler and instance picker hook, and `MapInstanced::CreateInstanceForPlayer` asking the picker first. No-ops unless the module sets its hooks |
 
 The exact core delta since the September 2 import is captured in
 [RaceGuide/05-SERVER.md](RaceGuide/05-SERVER.md).
@@ -198,7 +243,7 @@ directory. Do not edit `data/sql/base/`, `data/sql/archive/` or merged
 ```text
 EsteriaWoW/
 |-- src/                     AzerothCore core, with Esteria changes
-|-- modules/                 57 modules; mod-custom-server holds Esteria's own C++, SQL, race registry
+|-- modules/                 55 modules; mod-custom-server holds Esteria's own C++, SQL, race registry
 |                            (Eluna scripts are mounted from mod-worgoblin-high-elf/lua_scripts)
 |-- data/
 |   |-- sql/                 base, merged and pending database updates
@@ -230,6 +275,8 @@ EsteriaWoW/
     `-- azerothcore-wotlk-coa/   donor class tree used by the Conquest audit
 ```
 
+### Where to look
+
 | Looking for | Go to |
 | --- | --- |
 | Which races exist and their IDs | `modules/mod-custom-server/data/races/race_registry.json` |
@@ -238,6 +285,7 @@ EsteriaWoW/
 | Progression ownership and acceptance | [docs/status/PROGRESSION.md](docs/status/PROGRESSION.md) |
 | A planned feature | [docs/design/](docs/design/) |
 | Server SQL to apply | `data/sql/updates/pending_db_*` or a module's `data/sql/` |
+| Housing rules, SQL order, tools | [modules/mod-esteria-housing/README.md](modules/mod-esteria-housing/README.md) |
 | Client-side addon or native code | `client-customization/`, `modules/*/addon/` |
 
 Local-only folders such as `BinaryWork/`, `DBCs/`, `NewModels/`, `VulperaDBC/` and `var/`
