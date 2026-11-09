@@ -42,7 +42,14 @@
         // a habitat
         uint8 radius = 5;
         std::vector<uint32> pets;            // companion spells
+        // a household service: who may use it (0 the owner only, else Access bits; a chest's withdrawals), a chest's
+        // deposits, flags (HouseholdFlag) and an auctioneer's greeting
+        uint8 access = AccessEveryone, access2 = 0, flags = 0;
+        std::string greeting;
     };
+
+    void HouseholdDefaults(Display& d);
+    void NameFigure(Display& d, uint32 decorId);
 
     struct BookEntry { std::string name, group; };
     struct AreaEntry { uint32 id = 0, zone = 0, bit = 0; std::string name; };
@@ -93,7 +100,8 @@
         std::snprintf(place, sizeof(place), "%.2f\t%.2f\t%.1f\t%.2f", d.height, d.forward, d.turn, d.size);
         // the order LoadCollections reads; text fields last but the look, which has no tabs
         return Join({ S(d.entry), S(d.source), S(d.id), S(d.date), S(d.style), S(d.effect), S(d.mount), S(d.finish), place,
-            S(d.race), S(d.sex), S(d.type), S(d.pose), GearText(d.gear), S(d.radius), pets, d.lookHex, d.bodyHex, d.label, d.sub });
+            S(d.race), S(d.sex), S(d.type), S(d.pose), GearText(d.gear), S(d.radius), pets, d.lookHex, d.bodyHex, d.label, d.sub,
+            S(d.access), S(d.access2), S(d.flags), d.greeting });
     }
 
     void SaveDisplay(uint64 placed, Display const& d)
@@ -125,6 +133,11 @@
         d.bodyHex = f.size() > 20 ? f[20] : "";
         d.label = f.size() > 21 ? f[21] : "";
         d.sub = f.size() > 22 ? f[22] : "";
+        if (f.size() > 25)
+        {
+            d.access = uint8(num(23)); d.access2 = uint8(num(24)); d.flags = uint8(num(25));
+            d.greeting = f.size() > 26 ? f[26] : "";
+        }
         return d;
     }
 
@@ -142,7 +155,7 @@
             case ColStall: d.forward = 2.0f; d.turn = 90; break;
             case ColMountPedestal: d.height = 1.0f; d.size = 0.5f; break;
             case ColMannequin: d.label = "Mannequin"; break;
-            default: break;
+            default: HouseholdDefaults(d); break;
         }
         return d;
     }
@@ -351,6 +364,7 @@
     // ---------------------------------------------------------------- loading
 
     void DressDisplay(Display const& d);
+    void LoadHousehold();
 
     void LoadCollections()
     {
@@ -446,6 +460,7 @@
             }
         LOG_INFO("module", "housing: {} displays, {} books, {} explorable areas, {} storylines", s_displays.size(), s_books.size(),
             s_areas.size(), s_storylines.size());
+        LoadHousehold();
     }
 
     // ---------------------------------------------------------------- the world
@@ -585,6 +600,8 @@
         npc_esteria_housing_display() : CreatureScript("npc_esteria_housing_display") { }
         CreatureAI* GetAI(Creature* creature) const override { return new DisplayAI(creature); }
         bool OnGossipHello(Player* player, Creature* creature) override;
+        bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override;
+        bool OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, char const* code) override;
     };
 
     void Calm(Creature* c)
@@ -636,10 +653,22 @@
         }
     }
 
+    void SpawnHouseholdExtras(Map* map, Placed const& p, Extras& e);
+    void ApplyFigure(Creature* c, Display const& d, uint32 decorId);
+
     // What a display shows beside its object; called with the object's spawn (Spawn) and again after every change.
     void SpawnDisplayExtras(Map* map, Placed const& p)
     {
         DespawnDisplayExtras(map, p.id);
+        if (IsHouseholdKind(CollectionKindOf(p.decorId))) // a hidden banker, mailbox or spell focus beside the piece
+        {
+            Extras e;
+            e.instance = map->GetInstanceId();
+            SpawnHouseholdExtras(map, p, e);
+            if (!e.units.empty() || !e.objects.empty())
+                s_extras[p.id] = std::move(e);
+            return;
+        }
         auto it = s_displays.find(p.id);
         if (it == s_displays.end())
             return;
@@ -759,7 +788,8 @@
         auto it = s_displays.find(p.id);
         if (it == s_displays.end())
         {
-            Display d = NewDisplay(ColMannequin);
+            Display d = NewDisplay(CollectionKindOf(p.decorId));
+            NameFigure(d, p.decorId);
             if (!(d.entry = NextDisplayEntry()))
                 return;
             it = s_displays.emplace(p.id, d).first;
@@ -803,14 +833,18 @@
             c->AddAura(AuraStone, c);
         else if (d.type == 2)
             c->AddAura(AuraSpectral, c);
+        ApplyFigure(c, d, p.decorId);
         s_spawned[map->GetInstanceId()][p.id] = c->GetGUID();
         s_extraPlaced[c->GetGUID()] = p.id;
         ObjectGuid const guid = c->GetGUID();
         map->DoForAllPlayers([&](Player* player) { SendLookHex(player, guid, d.lookHex, d.bodyHex); });
     }
 
+    void StorageRemoved(uint64 placed, CharacterDatabaseTransaction trans);
+
     void CollectionRemoved(uint64 placed, CharacterDatabaseTransaction trans)
     {
+        StorageRemoved(placed, trans);
         if (s_displays.erase(placed))
             trans->Append("DELETE FROM housing_display WHERE placed_id = {}", placed);
     }
@@ -833,7 +867,7 @@
                 if (auto d = s_displays.find(placed); d != s_displays.end())
                     name(d->second.entry);
         for (auto const& [placed, guid] : s_spawned[map->GetInstanceId()])
-            if (auto d = s_displays.find(placed); d != s_displays.end() && d->second.kind == ColMannequin)
+            if (auto d = s_displays.find(placed); d != s_displays.end() && IsFigureKind(d->second.kind))
             {
                 name(d->second.entry);
                 SendLookHex(player, guid, d->second.lookHex, d->second.bodyHex);
@@ -847,7 +881,7 @@
             return false;
         auto placed = s_extraPlaced.find(c->GetGUID());
         auto d = placed == s_extraPlaced.end() ? s_displays.end() : s_displays.find(placed->second);
-        if (d == s_displays.end() || d->second.kind != ColMannequin)
+        if (d == s_displays.end() || !IsFigureKind(d->second.kind))
             return false;
         Display const& m = d->second;
         SendLookHex(player, c->GetGUID(), m.lookHex, m.bodyHex);
@@ -882,6 +916,11 @@
     // ---------------------------------------------------------------- the windows
 
     struct ViewCtx { Player* player; uint64 placed; House* house; Placed const* p; Display* d; bool owner; };
+    void SendStorage(ViewCtx const& v, std::string const& message = "");
+    bool HandleHousehold(ViewCtx& v, std::string const& verb, Fields const& f);
+    void FigureChanged(ViewCtx const& v);
+    bool OpenHousehold(ViewCtx& v, WorldObject* object);
+    void HouseholdSelect(Player* player, WorldObject* object, uint32 sender, uint32 action, char const* code);
 
     std::string LabelOf(Display const& d, std::string const& fallback) { return d.label.empty() ? fallback : d.label; }
 
@@ -1168,6 +1207,8 @@
         else if (kind == ColHabitat) SendHabitat(v);
         else if (IsPetKind(kind))
             SendCommerce(v.player, "note\tPets in a nearby Pet Habitat come here to sleep, play and eat.");
+        else if (kind == ColStorage)
+            SendStorage(v);
     }
 
     // The display a placed id is, made on first use; null when the player is not where it is.
@@ -1221,7 +1262,7 @@
         DressDisplay(d);
         SaveDisplay(v.placed, d);
         PushTemplateName(map, d.entry);
-        if (d.kind == ColMannequin)
+        if (IsFigureKind(d.kind))
         {
             Despawn(map, v.placed);
             Spawn(map, *v.p);
@@ -1276,6 +1317,8 @@
         uint32 const account = player->GetSession()->GetAccountId();
         if (verb == "open")
             return OpenDisplay(v);
+        if (IsHouseholdKind(d.kind) && HandleHousehold(v, verb, f))
+            return;
         if (verb == "libtab" && IsLibraryKind(d.kind))
             return SendLibraryTab(v, uint8(std::clamp<uint32>(Num(f, 3), 1, 4)));
         if (verb == "book" && IsLibraryKind(d.kind))
@@ -1353,7 +1396,7 @@
             Redisplay(v);
             return SendMount(v);
         }
-        if (d.kind == ColMannequin)
+        if (IsFigureKind(d.kind))
         {
             if (verb == "mqpick")
                 return SendMannequinPicks(v, uint8(Num(f, 3)));
@@ -1430,7 +1473,7 @@
                     ObjectGuid const guid = it->second;
                     player->GetMap()->DoForAllPlayers([&](Player* other) { SendLookHex(other, guid, d.lookHex, d.bodyHex); });
                 }
-                return SendMannequin(v);
+                return FigureChanged(v);
             }
             else if (verb == "mqlookreset")
             {
@@ -1441,7 +1484,7 @@
             else
                 return;
             Redisplay(v);
-            return SendMannequin(v);
+            return FigureChanged(v);
         }
         if (verb == "habset" && d.kind == ColHabitat)
         {
@@ -1459,10 +1502,10 @@
         }
     }
 
-    // A display's object or creature was clicked.
+    // A display's object or creature was clicked. Services answer with gossip, so they work without the addon.
     bool OpenCollection(Player* player, WorldObject* object)
     {
-        if (!s_config.enabled || !s_loaded || !s_hasUi.count(player->GetSession()->GetAccountId()))
+        if (!s_config.enabled || !s_loaded)
             return false;
         uint64 placed = 0;
         if (auto it = s_extraPlaced.find(object->GetGUID()); it != s_extraPlaced.end())
@@ -1474,6 +1517,11 @@
             return false;
         if (!v.owner && !MayEnter(player, *v.house))
             return false;
+        if (IsHouseholdKind(v.d->kind))
+            return OpenHousehold(v, object);
+        if (!s_hasUi.count(player->GetSession()->GetAccountId()))
+            return false;
+        CloseGossipMenuFor(player);
         OpenDisplay(v);
         return true;
     }
@@ -1483,10 +1531,7 @@
         std::lock_guard<std::recursive_mutex> guard(s_lock);
         ClearGossipMenuFor(player);
         if (OpenCollection(player, creature))
-        {
-            CloseGossipMenuFor(player);
-            return true;
-        }
+            return true; // the window, a service's own frame, or a gossip menu it sent
         AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This needs the Esteria housing client.", 0, 0);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
         return true;
@@ -1504,6 +1549,18 @@
                 return true;
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "This needs the Esteria housing client.", 0, 0);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, go->GetGUID());
+            return true;
+        }
+        bool OnGossipSelect(Player* player, GameObject* go, uint32 sender, uint32 action) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            HouseholdSelect(player, go, sender, action, nullptr);
+            return true;
+        }
+        bool OnGossipSelectCode(Player* player, GameObject* go, uint32 sender, uint32 action, char const* code) override
+        {
+            std::lock_guard<std::recursive_mutex> guard(s_lock);
+            HouseholdSelect(player, go, sender, action, code);
             return true;
         }
     };
