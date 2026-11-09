@@ -3,7 +3,7 @@
 A self-hosted World of Warcraft 3.3.5a (WotLK, client build `12340`) server built on
 AzerothCore with the PlayerBots fork, standard Eluna, Docker Compose and MySQL. Esteria
 extends the stock game with dozens of new playable races, a third player faction, a
-rebuilt client interface and a stack of progression and quality-of-life modules.
+rebuilt client interface, a classless character system with every Conquest of Azeroth ability and talent, and a stack of progression and quality-of-life modules.
 
 It is the server half of a matched pair. The client half is the
 [wowdecomp Esteria fork](https://github.com/STRHercules/wowdecomp), which supplies the
@@ -131,6 +131,12 @@ not imply an expanded barber.
 | Mounts | Staged | About 111 novelty and car mounts, packed by `tools/cars_mount_pack.py` and `mount_pack_batch2.py` |
 | Faction-Free (`mod-Faction-Free`) | Manual | Cross-faction player-to-NPC behavior with replacement faction DBCs |
 | Fly Anywhere (`mod-fly-anywhere`) | Enabled | Flying in Eastern Kingdoms and Kalimdor, with a matching `AreaTable.dbc` |
+| Loot Beam (`mod-loot-beam`) | Installed | Server half of the `wxl-loot-beam` client extension. Writes the best item quality in a corpse's loot into an update field, so the loot beacon is the right colour before the loot window opens |
+| Mana Speedflying (`mod-mana-speedflying`) | Installed | Flying mount speed follows how it flies: 220% climbing, 320% level, 600% diving, blended smoothly. Companion to the client's `wxl-mana-speedflying` |
+| Mana Loot Pet (`mod-mana-loot-pet`) | Installed | Your vanity companion walks to a fresh solo kill and loots it. Group loot rules and rolls are never bypassed; overflow is mailed |
+| Adaptive Auto-Attack (`mod-adaptive-autoattack`) | Installed | Automatically switches between melee and ranged basic attacks, so Auto Shot need not cost an ability pick in Free Pick or Wildcard systems |
+| Classless Wildcard (`mod-classless-wildcard`) | Installed | **Esteria is classless.** Character creation offers races only, and every character is a Hero whose abilities and talents come from the whole game, including all of the Conquest of Azeroth abilities and talents. A Hero spends essence currencies on chosen abilities or lets the dice decide. Has a client addon |
+| AzerothPlex (`mod-azeroth-plex`) | Installed | Server half of a client extension that plays a Plex stream in a world-space screen and broadcasts it to nearby players over its own TCP port |
 
 The full list, including the stock quality-of-life modules (AH bot, account-wide
 achievements and mounts, AOE loot, random enchants, item upgrade, corpse respawn and
