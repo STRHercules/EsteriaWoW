@@ -825,6 +825,21 @@
         return true;
     }
 
+    // The race's default retail look (every option at its first choice). A character with no look at all is drawn as the
+    // stock 3.3.5 body, which the customizer cannot edit; with this one it is a retail character from the start.
+    std::string DefaultLookHex(uint8 race, uint8 sex)
+    {
+        CharacterRetailLook::Look look;
+        look.race = race;
+        look.sex = sex;
+        std::array<uint8, CharacterRetailLook::PayloadSize> raw;
+        CharacterRetailLook::WritePayload(raw.data(), look);
+        static char const digits[] = "0123456789abcdef";
+        std::string out;
+        for (uint8 b : raw) { out += digits[b >> 4]; out += digits[b & 15]; }
+        return out;
+    }
+
     bool PlayableRace(uint8 race)
     {
         if (!sChrRacesStore.LookupEntry(race))
@@ -1475,7 +1490,7 @@
             else
             {
                 s.race = uint8(Num(f, 1)); s.sex = Num(f, 2) ? 1 : 0;
-                s.lookHex.clear(); s.bodyHex.clear();
+                s.lookHex = DefaultLookHex(s.race, s.sex); s.bodyHex.clear();
                 CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
                 SaveShop(s, trans);
                 CharacterDatabase.CommitTransaction(trans);

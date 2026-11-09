@@ -790,10 +790,16 @@
         {
             Display d = NewDisplay(CollectionKindOf(p.decorId));
             NameFigure(d, p.decorId);
+            d.lookHex = DefaultLookHex(d.race, d.sex);
             if (!(d.entry = NextDisplayEntry()))
                 return;
             it = s_displays.emplace(p.id, d).first;
             SaveDisplay(p.id, d);
+        }
+        if (it->second.lookHex.empty()) // placed before figures had a default look: the customizer needs one
+        {
+            it->second.lookHex = DefaultLookHex(it->second.race, it->second.sex);
+            SaveDisplay(p.id, it->second);
         }
         Display const& d = it->second;
         ChrRacesEntry const* race = sChrRacesStore.LookupEntry(d.race);
@@ -1245,6 +1251,11 @@
             std::string const sub = !d.sub.empty() ? d.sub : d.date ? (d.source == TrophyItem ? "Displayed " : "Earned ") + DateText(d.date) : "";
             DressTemplate(d.entry, TrophyName(d), sub, creature ? display : 0, size);
         }
+        else if (IsFigureKind(d.kind))
+        {
+            ChrRacesEntry const* race = sChrRacesStore.LookupEntry(d.race);
+            DressTemplate(d.entry, d.label, d.sub, race ? (d.sex ? race->model_f : race->model_m) : 0, 1.0f);
+        }
         else if (IsMountKind(d.kind))
         {
             auto [display, scale] = ModelOf(MountCreature(d.mount));
@@ -1290,7 +1301,8 @@
         if (auto it = s_spawned[v.player->GetInstanceId()].find(v.placed); it != s_spawned[v.player->GetInstanceId()].end())
             guid = it->second;
         std::ostringstream out;
-        out << "customize\t" << GuidHex(guid) << '\t' << int(v.d->race) << '\t' << int(v.d->sex) << '\t' << v.d->bodyHex << '\t' << v.placed << '\n';
+        out << "customize\t" << GuidHex(guid) << '\t' << int(v.d->race) << '\t' << int(v.d->sex) << '\t' << v.d->bodyHex << '\t' << v.placed << '\t'
+            << LabelOf(*v.d, "Mannequin") << '\n';
         for (uint32 i = 0; i < sChrRacesStore.GetNumRows(); ++i)
             if (ChrRacesEntry const* race = sChrRacesStore.LookupEntry(i); race && PlayableRace(uint8(i)))
                 out << "R\t" << i << '\t' << race->name[0] << '\n';
@@ -1456,7 +1468,7 @@
                     return note("That race is not available.");
                 d.race = uint8(Num(f, 3));
                 d.sex = Num(f, 4) ? 1 : 0;
-                d.lookHex.clear();
+                d.lookHex = DefaultLookHex(d.race, d.sex);
                 d.bodyHex.clear();
                 Redisplay(v);
                 return SendMannequinCustomize(v);

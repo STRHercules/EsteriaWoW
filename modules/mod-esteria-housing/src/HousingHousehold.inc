@@ -574,7 +574,8 @@
             << '\t' << int(canTake) << '\t' << int(v.owner) << '\t' << int(v.d->access) << '\t' << int(v.d->access2) << '\t' << message << '\n';
         for (Held const& h : s->items)
             out << "S\t" << h.item->GetGUID().GetCounter() << '\t' << h.item->GetEntry() << '\t' << h.item->GetCount() << '\t'
-                << ItemLink(h.item, h.item->GetEntry()) << '\t' << BoundTo(h, player) << '\n';
+                << ItemLink(h.item, h.item->GetEntry()) << '\t' << BoundTo(h, player) << '\t' << h.item->GetTemplate()->Name1 << '\t'
+                << h.item->GetTemplate()->Quality << '\n';
         for (std::string const& line : s->log)
         {
             Fields const f = Split(line);
@@ -585,14 +586,185 @@
             ForEachBagItem(player, [&](Item* item) {
                 if (Storable(item))
                     out << "D\t" << item->GetGUID().GetCounter() << '\t' << item->GetEntry() << '\t' << item->GetCount() << '\t'
-                        << ItemLink(item, item->GetEntry()) << '\n';
+                        << ItemLink(item, item->GetEntry()) << '\t' << item->GetTemplate()->Name1 << '\t'
+                        << item->GetTemplate()->Quality << '\n';
             });
         SendCommerce(player, out.str());
     }
 
-    // The storage window's commands; false for verbs that are not a household's.
+    bool UseService(ViewCtx const& v, WorldObject* object);
+
+    // ---------------------------------------------------------------- the service window (Household.lua)
+
+    void FigureChanged(ViewCtx const& v)
+    {
+        if (v.d->kind == ColMannequin)
+            SendMannequin(v);
+        else
+            SendCommerce(v.player, "note\tSaved.");
+    }
+
+    // The spawned object or creature of a placed service in the player's instance.
+    WorldObject* ObjectOfPlaced(Player* player, uint64 placed)
+    {
+        auto const& spawned = s_spawned[player->GetInstanceId()];
+        auto it = spawned.find(placed);
+        if (it == spawned.end())
+            return nullptr;
+        Map* map = player->GetMap();
+        return it->second.IsGameObject() ? static_cast<WorldObject*>(map->GetGameObject(it->second))
+            : static_cast<WorldObject*>(map->GetCreature(it->second));
+    }
+
+    void Repair(ViewCtx const& v)
+    {
+        Player* player = v.player;
+        uint32 const normal = RepairCost(player);
+        uint32 const paid = player->DurabilityRepairAll(true, (100 - s_config.repairDiscount) / 100.0f, false);
+        if (paid)
+            ChatHandler(player->GetSession()).PSendSysMessage("Repaired for {} (you saved {}).", Money(paid),
+                Money(normal > paid ? normal - paid : 0));
+        else if (normal)
+            ChatHandler(player->GetSession()).SendNotification("You cannot afford the repairs.");
+    }
+
+    std::string ServiceName(ViewCtx const& v)
+    {
+        auto entry = s_catalog.find(v.p->decorId);
+        std::string const piece = entry == s_catalog.end() ? "Service" : entry->second.name;
+        return IsFigureKind(v.d->kind) ? LabelOf(*v.d, piece) : piece;
+    }
+
+    // The window: what the service is, what the player can do with it, and (the owner's) its settings.
+    void SendService(ViewCtx const& v, std::string const& message = "")
+    {
+        Player* player = v.player;
+        Display const& d = *v.d;
+        uint8 const k = d.kind;
+        bool const may = MayUse(player, *v.house, d.access);
+        std::ostringstream out;
+        out << "service\t" << v.placed << '\t' << int(k) << '\t' << int(v.owner) << '\t' << ServiceName(v) << '\t'
+            << (IsFigureKind(k) ? d.sub : "") << '\t' << int(d.access) << '\t' << int(d.flags) << '\t' << d.greeting << '\t'
+            << int(IsFigureKind(k)) << '\t' << v.p->decorId << '\t' << message << '\n';
+        auto info = [&](std::string const& text) { out << "I\t" << text << '\n'; };
+        auto action = [&](char const* verb, std::string const& label, std::string const& confirm, uint32 money) {
+            out << "A\t" << verb << '\t' << label << '\t' << confirm << '\t' << money << '\n';
+        };
+        switch (k)
+        {
+            case ColBanker: case ColBankVault:
+                info("Opens your own bank: its slots and rules are the usual ones, and nobody can reach anyone else's.");
+                if (may) action("use", "Open my bank", "", 0);
+                break;
+            case ColMailbox:
+                info("Send and collect your own mail, as at any mailbox.");
+                if (may) action("use", "Check my mail", "", 0);
+                break;
+            case ColAuctioneer:
+                info("The realm's auction house, with its usual deposits, fees and mail.");
+                if (!d.greeting.empty()) info("\"" + d.greeting + "\"");
+                if (may) action("use", "Browse the auctions", "", 0);
+                break;
+            case ColTrainer:
+                if (Profession const* p = ProfessionOf(v.p->decorId))
+                    info(std::string("Teaches every rank and recipe of ") + p->name + ", at the usual levels, skill and cost.");
+                if (may) action("use", "Train me", "", 0);
+                break;
+            case ColInnkeeper:
+            {
+                auto old = s_hearth.find(player->GetGUID().GetCounter());
+                bool const bound = old != s_hearth.end() && s_houses.count(old->second.house);
+                if (bound)
+                    info("Your House Hearthstone leads to " + s_houses[old->second.house].owner + "'s house.");
+                else
+                    info("Bind a House Hearthstone here to return to this house from anywhere.");
+                if (may && (v.owner || (d.flags & FlagGuestsBind)))
+                    action("bind", "Make this house your home", bound ? "Your House Hearthstone leads to " + s_houses[old->second.house].owner
+                        + "'s house. Bind it here instead?" : "Bind your House Hearthstone to this house?", 0);
+                else
+                    info("The owner keeps this inn for their own household.");
+                break;
+            }
+            case ColRepairNpc: case ColRepairBench:
+            {
+                uint32 const normal = RepairCost(player);
+                uint32 const final = uint32(uint64(normal) * (100 - s_config.repairDiscount) / 100);
+                out << "C\tNormal cost\t" << normal << '\n' << "C\tHouse discount (" << s_config.repairDiscount << "%)\t" << (normal - final)
+                    << '\n' << "C\tYou pay\t" << final << '\n';
+                if (!normal)
+                    info("Nothing you carry needs repair.");
+                else if (may)
+                    action("repair", "Repair everything", "Repair all your gear?", final);
+                break;
+            }
+            case ColStation:
+            {
+                int const focus = FocusIndex(v.p->decorId);
+                info(std::string("Counts as ") + (focus >= 0 ? FocusNames[focus] : "a workstation")
+                    + " for recipes that need one. Your skill, recipes and reagents are what they always are.");
+                break;
+            }
+            default:
+                break;
+        }
+        if (!may)
+            info("The owner keeps this for their own household.");
+        SendCommerce(player, out.str());
+    }
+
+    // The window's commands (and the storage chest's); false for verbs that are not a household's.
     bool HandleHousehold(ViewCtx& v, std::string const& verb, Fields const& f)
     {
+        Player* player = v.player;
+        Display& d = *v.d;
+        bool const may = MayUse(player, *v.house, d.access);
+        if (verb == "svopen")
+            return SendService(v), true;
+        if (verb == "svuse")
+        {
+            WorldObject* object = ObjectOfPlaced(player, v.placed);
+            if (may && object && object->IsWithinDistInMap(player, INTERACTION_DISTANCE + 5.0f))
+            {
+                if (!v.owner && d.kind == ColAuctioneer && !d.greeting.empty())
+                    SpeakTo(player, object, d.greeting);
+                UseService(v, object);
+            }
+            return true;
+        }
+        if (verb == "svbind")
+        {
+            if (may)
+                Bind(v);
+            return SendService(v), true;
+        }
+        if (verb == "svrepair")
+        {
+            if (may && (d.kind == ColRepairNpc || d.kind == ColRepairBench))
+                Repair(v);
+            return SendService(v), true;
+        }
+        if (verb == "svset")
+        {
+            if (!v.owner)
+                return true;
+            d.access = uint8(Num(f, 5) & (AccessEveryone | AccessFriends | AccessGuild | AccessParty));
+            if (d.kind == ColInnkeeper)
+                d.flags = uint8(Num(f, 6) & FlagGuestsBind);
+            if (d.kind == ColAuctioneer)
+                d.greeting = Clean(f.size() > 7 ? f[7] : "", 120);
+            std::string const name = Clean(f.size() > 3 ? f[3] : "", 40), title = Clean(f.size() > 4 ? f[4] : "", 40);
+            if (IsFigureKind(d.kind) && ((!name.empty() && name != d.label) || title != d.sub))
+            {
+                if (!name.empty())
+                    d.label = name;
+                d.sub = title;
+                Redisplay(v); // a new pooled name, spawned again
+            }
+            else
+                SaveDisplay(v.placed, d);
+            return SendService(v, "Saved."), true;
+        }
+
         Storage* s = v.d->kind == ColStorage ? StorageAt(v.placed) : nullptr;
         if (!s)
             return false;
@@ -617,15 +789,7 @@
         return true;
     }
 
-    // ---------------------------------------------------------------- gossip
-
-    void FigureChanged(ViewCtx const& v)
-    {
-        if (v.d->kind == ColMannequin)
-            SendMannequin(v);
-        else
-            SendCommerce(v.player, "note\tSaved.");
-    }
+    // ---------------------------------------------------------------- gossip (clients without the addon)
 
     bool UseService(ViewCtx const& v, WorldObject* object)
     {
@@ -692,6 +856,12 @@
         }
         if (!v.owner && UseService(v, object))
             return true;
+        if (s_hasUi.count(player->GetSession()->GetAccountId()))
+        {
+            CloseGossipMenuFor(player);
+            SendService(v);
+            return true;
+        }
 
         ClearGossipMenuFor(player);
         if (k == ColBanker || k == ColBankVault || k == ColMailbox || k == ColAuctioneer || k == ColTrainer)
@@ -767,15 +937,7 @@
         else if (action == ActBind && may)
             Bind(v);
         else if (action == ActRepair && may && (d.kind == ColRepairNpc || d.kind == ColRepairBench))
-        {
-            uint32 const normal = RepairCost(player);
-            uint32 const paid = player->DurabilityRepairAll(true, (100 - s_config.repairDiscount) / 100.0f, false);
-            if (paid)
-                ChatHandler(player->GetSession()).PSendSysMessage("Repaired for {} (you saved {}).", Money(paid),
-                    Money(normal > paid ? normal - paid : 0));
-            else if (normal)
-                ChatHandler(player->GetSession()).SendNotification("You cannot afford the repairs.");
-        }
+            Repair(v);
         if (!v.owner || action < ActAccess)
             return;
         std::string const text = code ? Clean(code, 40) : "";
