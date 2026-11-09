@@ -1053,6 +1053,25 @@
         }
     }
 
+    // A habitat's pet is a companion creature of its own entry (no script of ours): talking to it opens its habitat, so a
+    // habitat whose rug is hidden can still be reached. True when it did (the packet is then ours).
+    bool TalkToHabitatPet(WorldSession* session, WorldPacket const& packet)
+    {
+        Player* player = session ? session->GetPlayer() : nullptr;
+        if (!player || !player->IsInWorld() || packet.size() < 8 || (!IsHousingMap(player->GetMapId()) && !IsNeighborhoodMap(player->GetMapId())))
+            return false;
+        WorldPacket copy(packet);
+        ObjectGuid guid;
+        copy >> guid;
+        std::lock_guard<std::recursive_mutex> guard(s_lock);
+        auto placed = s_extraPlaced.find(guid);
+        auto d = placed == s_extraPlaced.end() ? s_displays.end() : s_displays.find(placed->second);
+        if (d == s_displays.end() || d->second.kind != ColHabitat)
+            return false;
+        Creature* pet = player->GetMap()->GetCreature(guid);
+        return pet && pet->IsWithinDistInMap(player, INTERACTION_DISTANCE + 5.0f) && OpenCollection(player, pet);
+    }
+
     class EsteriaHousingHousehold : public ServerScript
     {
     public:
@@ -1061,6 +1080,8 @@
         bool CanPacketReceive(WorldSession* session, WorldPacket const& packet) override
         {
             uint16 const op = packet.GetOpcode();
+            if (op == CMSG_GOSSIP_HELLO)
+                return !TalkToHabitatPet(session, packet);
             if (!LeadingGuidOpcode(op))
                 return true;
             Player* player = session ? session->GetPlayer() : nullptr;

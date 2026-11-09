@@ -845,7 +845,9 @@
                 if (!c)
                     continue;
                 Calm(c);
-                c->ReplaceAllNpcFlags(UNIT_NPC_FLAG_NONE);
+                // talking to a pet opens its habitat (whose rug may be hidden); EsteriaHousingHousehold catches the gossip
+                c->ReplaceAllNpcFlags(UNIT_NPC_FLAG_GOSSIP);
+                s_extraPlaced[c->GetGUID()] = p.id;
                 c->AIM_Initialize(new DisplayAI(c)); // the pet's own AI would follow an owner; this one keeps it home
                 if (animated)
                     static_cast<DisplayAI*>(c->AI())->Roam(Position(p.pos[0], p.pos[1], p.pos[2]), float(d.radius), spots);
