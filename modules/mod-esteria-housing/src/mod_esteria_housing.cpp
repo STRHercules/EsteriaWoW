@@ -1328,6 +1328,11 @@ namespace
         return (e.category < 6 ? gold[e.category] : 1) * 10000;
     }
 
+    // Purchases answer with one catalog refresh once the buying stops: a cart buys many decor in a burst, and a refresh per
+    // purchase started as many page-by-page passes on the client, which spliced its list together (player id -> ms left).
+    std::unordered_map<ObjectGuid, uint32> s_catalogDue;
+    constexpr uint32 CatalogSettleMs = 400;
+
     void SendCatalog(WorldSession* session, uint32 page)
     {
         uint32 const account = session->GetAccountId();
@@ -3200,7 +3205,7 @@ namespace
                 CharacterDatabase.Execute("INSERT INTO housing_account_decor (account_id, decor_id, quantity_owned, quantity_placed) "
                     "VALUES ({}, {}, {}, 0) ON DUPLICATE KEY UPDATE quantity_owned = {}", account, decorId, o.owned, o.owned);
                 LOG_INFO("module", "housing: account {} bought {} x decor {} for {} copper", account, count, decorId, price);
-                SendCatalog(session, 0);
+                s_catalogDue[player->GetGUID()] = CatalogSettleMs;
             }
             if (!error.empty())
                 ChatHandler(session).SendNotification(error);
@@ -3578,6 +3583,18 @@ namespace
             }
             if (s_loaded)
                 TrainingTick(diff);
+            for (auto it = s_catalogDue.begin(); it != s_catalogDue.end();)
+            {
+                if (it->second > diff)
+                {
+                    it->second -= diff;
+                    ++it;
+                    continue;
+                }
+                if (Player* player = ObjectAccessor::FindConnectedPlayer(it->first))
+                    SendCatalog(player->GetSession(), 0);
+                it = s_catalogDue.erase(it);
+            }
             for (auto it = s_guildCheckAt.begin(); it != s_guildCheckAt.end();)
             {
                 if (it->second > diff)
