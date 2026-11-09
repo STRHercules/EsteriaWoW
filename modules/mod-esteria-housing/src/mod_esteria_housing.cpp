@@ -314,8 +314,9 @@ namespace
         // household services (HousingHousehold.inc): several decor pieces share a kind, see CollectionKindOf
         ColInnkeeper, ColBanker, ColBankVault, ColGuildVault, ColMailbox, ColRepairNpc, ColRepairBench, ColAuctioneer, ColStorage,
         ColStation, ColTrainer,
-        ColMountMat,              // an invisible mat a mount stands on
-        ColLast = ColMountMat
+        ColMountMat,              // a mat a mount stands on, unseen while it does
+        ColTrophyRug,             // a rug a statue or banner stands on, unseen while it does
+        ColLast = ColTrophyRug
     };
     constexpr uint32 CollectionDecorBase = 40200;
     // Catalog rows 40201-40216 are one kind each; the services' (housing_household_world.sql) map onto theirs.
@@ -340,6 +341,7 @@ namespace
         switch (decorId)
         {
             case 40265: return ColMountMat;
+            case 40272: return ColTrophyRug;
             case 40266: case 40267: case 40268: return ColHabitat;   // small habitats: rugs and a cushion
             case 40269: case 40270: case 40271: return ColPetToy;    // plushies
             default: return 0;
@@ -352,6 +354,7 @@ namespace
     // A piece drawn at a fixed share of its placed size: gameobject_template.size (1 for most; the mount stall's model
     // is large, the mount mat's is shrunk out of sight).
     float BaseScale(uint32 decorId);
+    bool MatHidden(uint64 placed); // a mount mat with a mount on it: only the mount shows
     void HouseholdPlaced(Placed const& p, uint32 account, CharacterDatabaseTransaction trans);
     void LoadCollections();
     void SpawnMannequin(Map* map, Placed const& p);
@@ -933,7 +936,7 @@ namespace
         if (go->Create(map->GenerateLowGuid<HighGuid::GameObject>(), goEntry, map, PHASEMASK_NORMAL, p.pos[0],
             p.pos[1], p.pos[2], p.yaw, G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]), 100, GO_STATE_READY))
         {
-            go->SetObjectScale(p.scale * BaseScale(p.decorId));
+            go->SetObjectScale(p.scale * (MatHidden(p.id) ? 0.01f : BaseScale(p.decorId)));
             go->SetRespawnTime(0);
             go->SetSpawnedByDefault(false);
             map->AddToMap(go, false);

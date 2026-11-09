@@ -57,7 +57,7 @@
     {
         if (d.motion != MotionDefault)
             return d.motion;
-        return d.kind == ColMountPedestal ? MotionStill : d.kind == ColPaddock ? MotionWander : MotionIdle;
+        return d.kind == ColMountPedestal ? MotionStill : d.kind == ColMountMat ? MotionIdle : MotionWander;
     }
 
     void HouseholdDefaults(Display& d);
@@ -68,6 +68,14 @@
     struct Storyline { uint32 first = 0; std::vector<uint32> quests; std::string name, group; };
 
     std::unordered_map<uint64, Display> s_displays;                       // placed id ->
+    // a mat with a mount, or a trophy rug with a trophy: only what stands on it shows
+    bool MatHidden(uint64 placed)
+    {
+        auto it = s_displays.find(placed);
+        return it != s_displays.end() && ((it->second.kind == ColMountMat && it->second.mount)
+            || (it->second.kind == ColTrophyRug && it->second.source != TrophyNone));
+    }
+
     // what each display spawned beside its object: placed id -> instance, its creatures and objects
     struct Extras { uint32 instance = 0; std::vector<ObjectGuid> units, objects; bool animated = false; };
     std::unordered_map<uint64, Extras> s_extras;
@@ -79,7 +87,32 @@
     std::map<std::pair<uint32, std::string>, std::string> s_outfits;     // (account, name) -> gear text
     uint32 s_nextDisplayEntry = DisplayEntryFirst;
 
-    bool IsTrophyKind(uint8 k) { return k >= ColTrophyMount && k <= ColTrophyCase; }
+    bool IsTrophyKind(uint8 k) { return (k >= ColTrophyMount && k <= ColTrophyCase) || k == ColTrophyRug; }
+
+    // What each trophy piece can show (bit per style): the plaque is the wall's (mounted heads, the dragon skull), the
+    // case holds cups and the Horseman's head, the rug banners and statues, the pedestal statues. Any can show a name.
+    bool StyleAllowed(uint8 kind, uint8 style)
+    {
+        uint32 mask = 1u << StyleNameOnly;
+        switch (kind)
+        {
+            case ColTrophyPedestal: mask |= 1u << StyleStatue; break;
+            case ColTrophyPlaque: mask |= (1u << 6) | (1u << 8); break;                       // Broodmother's head, dragon skull
+            case ColTrophyCase: mask |= (1u << StyleAureate) | (1u << StyleArgent) | (1u << StyleGleaming) | (1u << 7); break;
+            case ColTrophyRug: mask |= (1u << StyleStatue) | (1u << StyleAllianceBanner) | (1u << StyleHordeBanner); break;
+            default: mask = 0x3ff; break;
+        }
+        return style <= StyleNameOnly && (mask & (1u << style));
+    }
+
+    std::string AllowedStyles(uint8 kind)
+    {
+        std::string out;
+        for (uint8 s = 0; s <= StyleNameOnly; ++s)
+            if (StyleAllowed(kind, s))
+                out += (out.empty() ? "" : ",") + std::to_string(s);
+        return out;
+    }
     bool IsMountKind(uint8 k) { return (k >= ColStall && k <= ColMountPedestal) || k == ColMountMat; }
     bool IsLibraryKind(uint8 k) { return k >= ColBookshelf && k <= ColReadingNook; }
     bool IsPetKind(uint8 k) { return k >= ColHabitat && k <= ColFeeder; }
@@ -168,8 +201,9 @@
             case ColTrophyMount: d.height = 1.0f; d.forward = 0.3f; d.size = 0.6f; break;
             case ColTrophyPedestal: d.height = 1.1f; d.size = 0.6f; break;
             case ColTrophyPlaque: d.height = 1.2f; d.forward = 0.2f; d.size = 0.4f; break;
-            case ColTrophyCase: d.height = 0.9f; d.size = 0.4f; break;
-            case ColStall: d.forward = 2.0f; d.turn = 90; break;
+            case ColTrophyCase: d.height = 1.15f; d.size = 0.2f; break;
+            case ColTrophyRug: d.size = 0.6f; break;
+            case ColStall: d.forward = 2.0f; d.turn = 90; d.radius = 3; break;
             case ColPaddock: d.radius = 4; break;
             case ColMountPedestal: d.height = 1.0f; d.size = 0.5f; break;
             case ColMannequin: d.label = "Mannequin"; break;
@@ -517,7 +551,7 @@
             me->SetCombatMovement(false);
         }
 
-        struct Spot { Position at; uint8 kind = 0; };
+        struct Spot { Position at; uint8 kind = 0; float ring = 0.6f; }; // ring: how far from it the visitor stands
         bool m_roam = false;
         Position m_center;
         float m_radius = 0;
@@ -573,8 +607,8 @@
             {
                 Spot const& s = m_spots[urand(0, uint32(m_spots.size() - 1))];
                 float const a = frand(0, 2 * float(M_PI));
-                me->GetMotionMaster()->MovePoint(1 + s.kind, s.at.GetPositionX() + 0.6f * std::cos(a), s.at.GetPositionY() + 0.6f * std::sin(a),
-                    s.at.GetPositionZ(), FORCED_MOVEMENT_NONE, 0.f, 0.f, false);
+                float const x = s.at.GetPositionX() + s.ring * std::cos(a), y = s.at.GetPositionY() + s.ring * std::sin(a);
+                me->GetMotionMaster()->MovePoint(1 + s.kind, x, y, FloorAt(x, y), FORCED_MOVEMENT_NONE, 0.f, 0.f, false);
                 return;
             }
             float const a = frand(0, 2 * float(M_PI)), r = frand(0.5f, std::max(0.6f, m_radius));
@@ -739,7 +773,15 @@
             uint8 const motion = MotionOf(d);
             // wandering counts against the realm's moving displays; past the limit a mount idles in place
             bool const wander = motion == MotionWander && AnimatedRoom(e.instance);
-            if (Creature* c = summon(d.entry, at))
+            // a roaming mount starts on the ground, beside the paddock rather than up on it
+            Position start = at;
+            if (wander)
+            {
+                start.m_positionZ = p.pos[2];
+                if (d.kind == ColPaddock)
+                    start.m_positionX += 1.8f * p.scale * BaseScale(p.decorId);
+            }
+            if (Creature* c = summon(d.entry, start))
             {
                 if (!wander)
                     c->SetControlled(true, UNIT_STATE_ROOT);
@@ -751,11 +793,21 @@
                     else if (d.finish == 2)
                         c->AddAura(AuraSpectral, c);
                 }
-                if (motion == MotionStill || d.height > 0.05f)
+                if (motion == MotionStill || (!wander && d.height > 0.05f))
                     c->SetDisableGravity(true); // a statue, or a mount raised off the floor, stays where it is put
                 if (wander)
                     if (auto* ai = dynamic_cast<DisplayAI*>(c->AI()))
-                        ai->Roam(at, float(d.radius), {});
+                    {
+                        // around a stall or paddock, on the ground, coming back to it to graze (at its edge, not on it)
+                        std::vector<DisplayAI::Spot> spots;
+                        float const s = p.scale * BaseScale(p.decorId);
+                        Position const piece(p.pos[0], p.pos[1], p.pos[2]);
+                        if (d.kind == ColPaddock)
+                            spots.push_back({ piece, ColFeeder, 1.8f * s });
+                        else if (d.kind == ColStall)
+                            spots.push_back({ at, ColFeeder, 0.4f });
+                        ai->Roam(d.kind == ColPaddock || d.kind == ColStall ? piece : at, float(d.radius), spots);
+                    }
                 e.animated = wander;
             }
         }
@@ -1000,7 +1052,7 @@
             link = ItemLink(nullptr, d.id);
         std::string text = "trophy\n" + Join({ "trophy", S(v.placed), S(int(v.owner)), S(d.kind), S(d.source), S(d.id), DateText(d.date),
             TrophyName(d), S(d.style), S(d.effect), PlaceText(d), d.label, d.sub, link, S(int(TrophyCreature(d.source == TrophyAchievement ? d.id : 0) != 0)),
-            Side(d) });
+            Side(d), AllowedStyles(d.kind) });
         if (v.owner)
         {
             for (auto const& [id, date] : AccountAchievements(v.house->account, v.player))
@@ -1306,16 +1358,18 @@
     }
 
     // A changed display: a new pooled name (the client caches by entry) dressed as it now shows, then spawned again.
-    void Redisplay(ViewCtx const& v)
+    void Redisplay(ViewCtx const& v, bool renamed = true)
     {
         Display& d = *v.d;
         Map* map = v.player->GetMap();
-        if (uint32 const entry = NextDisplayEntry())
-            d.entry = entry;
+        if (renamed)
+            if (uint32 const entry = NextDisplayEntry())
+                d.entry = entry;
         DressDisplay(d);
         SaveDisplay(v.placed, d);
-        PushTemplateName(map, d.entry);
-        if (IsFigureKind(d.kind))
+        if (renamed)
+            PushTemplateName(map, d.entry);
+        if (IsFigureKind(d.kind) || d.kind == ColMountMat || d.kind == ColTrophyRug) // a figure is its own creature; a rug shows or hides
         {
             Despawn(map, v.placed);
             Spawn(map, *v.p);
@@ -1409,11 +1463,26 @@
             d.id = source == TrophyNone ? 0 : id;
             d.label.clear();
             d.sub.clear();
+            if (!StyleAllowed(d.kind, d.style))
+            {
+                bool const statue = source == TrophyAchievement && TrophyCreature(id) && StyleAllowed(d.kind, StyleStatue);
+                d.style = statue ? StyleStatue : StyleNameOnly;
+                for (uint8 st = StyleAureate; !statue && st < StyleNameOnly; ++st)
+                    if (StyleAllowed(d.kind, st) && source == TrophyAchievement)
+                    {
+                        d.style = st;
+                        break;
+                    }
+            }
+            Display const fresh = NewDisplay(d.kind); // the piece's own placement for its new trophy
+            d.height = fresh.height; d.forward = fresh.forward; d.side = fresh.side; d.turn = fresh.turn; d.size = fresh.size;
             Redisplay(v);
             return SendTrophy(v);
         }
         if (verb == "trophystyle" && IsTrophyKind(d.kind))
         {
+            if (!StyleAllowed(d.kind, uint8(Num(f, 3))))
+                return note("That does not go on this piece.");
             d.style = uint8(std::min<uint32>(Num(f, 3), StyleNameOnly));
             d.effect = uint8(std::min<uint32>(Num(f, 4), std::size(TrophyEffects) - 1));
             d.size = Real(f, 5, 0.1f, 3.0f, d.size);
@@ -1421,7 +1490,7 @@
             d.forward = Real(f, 7, -3.0f, 3.0f, d.forward);
             d.turn = Real(f, 8, -360.0f, 360.0f, d.turn);
             d.side = Real(f, 9, -3.0f, 3.0f, d.side);
-            Redisplay(v);
+            Redisplay(v, false);
             return SendTrophy(v);
         }
         if (verb == "label")
@@ -1453,7 +1522,7 @@
                 d.motion = uint8(std::min<uint32>(Num(f, 9), MotionWander));
             if (f.size() > 10 && !f[10].empty())
                 d.radius = uint8(std::clamp<uint32>(Num(f, 10), 2, 10));
-            Redisplay(v);
+            Redisplay(v, false);
             return SendMount(v);
         }
         if (IsFigureKind(d.kind))
