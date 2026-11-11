@@ -95,6 +95,10 @@ void CharacterDatabaseConnection::DoPrepareStatements()
         "WHERE c.account = ? AND c.deleteInfos_Name IS NULL "
         "UNION ALL SELECT f.guid, f.data, 1 FROM character_form_look AS f JOIN characters AS c ON c.guid = f.guid "
         "WHERE c.account = ? AND c.deleteInfos_Name IS NULL", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_MOUNT_LOOKS,
+        "SELECT display, choices FROM character_mount_look WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_REP_MOUNT_LOOK,
+        "REPLACE INTO character_mount_look (guid, display, choices) VALUES (?, ?, ?)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_RETAIL_LOOK,
         "SELECT data FROM character_retail_look WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_REP_RETAIL_LOOK,

@@ -1686,6 +1686,7 @@ inline void UpdateVisibilityOf_helper(Player* player, Player* target,
     v.push_back(target);
     target->SendBodyShapeTo(player);
     target->SendRetailLookTo(player);
+    target->SendMountLooksTo(player);
 }
 
 template <class T>
@@ -1761,6 +1762,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             {
                 other->SendBodyShapeTo(this);
                 other->SendRetailLookTo(this);
+                other->SendMountLooksTo(this);
             }
 
             // target aura duration for caster show only if target exist at

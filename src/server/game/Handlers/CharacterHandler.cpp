@@ -240,6 +240,10 @@ bool LoginQueryHolder::Initialize()
     stmt->SetData(0, rawGUID);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_RETAIL_LOOK, stmt);
 
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_MOUNT_LOOKS);
+    stmt->SetData(0, rawGUID);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_MOUNT_LOOKS, stmt);
+
     stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_FORM_LOOK);
     stmt->SetData(0, rawGUID);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK, stmt);
@@ -2327,6 +2331,25 @@ void WorldSession::HandleEquipmentSetUse(WorldPacket& recvData)
 //         other form's; both are version-2 looks (CharacterRetailLook).
 //   SMSG_ESTERIA_FORM_LOOK_ACK: guid(8) revision(u32) result(u8): 0 saved, 1 not this account's character, 2 invalid,
 //         3 not a Two Forms race. The write is a plain REPLACE, so a resend of the same commit is harmless.
+// display(4) + count(1) + count * choice(4): the choices one of this player's customizable mounts is drawn with. The
+// server only stores and relays them (every option is unlocked); the client knows what they mean.
+void WorldSession::HandleEsteriaMountLookOpcode(WorldPacket& recvData)
+{
+    Player* player = GetPlayer();
+    uint32 display = 0;
+    uint8 count = 0;
+    if (!player || recvData.size() - recvData.rpos() < 5)
+        return;
+    recvData >> display >> count;
+    if (!display || count > Player::MaxMountLookChoices || recvData.size() - recvData.rpos() != size_t(count) * 4)
+        return;
+    std::vector<uint32> choices(count);
+    for (uint32& choice : choices)
+        recvData >> choice;
+    if (!player->SetMountLook(display, std::move(choices)))
+        LOG_WARN("network.opcode", "CMSG_ESTERIA_MOUNT_LOOK from {} refused", player->GetName());
+}
+
 void WorldSession::HandleEsteriaFormLookOpcode(WorldPacket& recvData)
 {
     constexpr size_t payloadSize = CharacterRetailLook::PayloadSize;

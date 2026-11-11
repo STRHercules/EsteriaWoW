@@ -12348,6 +12348,70 @@ void Player::LoadRetailLook(PreparedQueryResult result)
     }
 }
 
+void Player::LoadMountLooks(PreparedQueryResult result)
+{
+    _mountLooks.clear();
+    if (!result)
+        return;
+    do
+    {
+        Field* fields = result->Fetch();
+        std::vector<uint32> choices;
+        for (std::string_view token : Acore::Tokenize(fields[1].Get<std::string_view>(), ',', false))
+            if (Optional<uint32> choice = Acore::StringTo<uint32>(token); choice && *choice && choices.size() < MaxMountLookChoices)
+                choices.push_back(*choice);
+        if (!choices.empty() && _mountLooks.size() < MaxMountLooks)
+            _mountLooks[fields[0].Get<uint32>()] = std::move(choices);
+    } while (result->NextRow());
+}
+
+// guid(8) + count(1) + count * (display(4) + choices(1) + choices * choice(4)): every mount look of this player.
+void Player::BuildMountLooks(WorldPacket& data) const
+{
+    data.Initialize(SMSG_ESTERIA_MOUNT_LOOKS, 9 + _mountLooks.size() * 32);
+    data << GetGUID().GetRawValue() << uint8(std::min<size_t>(_mountLooks.size(), 255));
+    size_t sent = 0;
+    for (auto const& [display, choices] : _mountLooks)
+    {
+        if (++sent > 255)
+            break;
+        data << display << uint8(choices.size());
+        for (uint32 choice : choices)
+            data << choice;
+    }
+}
+
+void Player::SendMountLooksTo(Player* receiver) const
+{
+    if (_mountLooks.empty() || !receiver || !receiver->GetSession())
+        return;
+    WorldPacket data;
+    BuildMountLooks(data);
+    receiver->GetSession()->SendPacket(&data);
+}
+
+bool Player::SetMountLook(uint32 display, std::vector<uint32> choices)
+{
+    if (!display || choices.size() > MaxMountLookChoices
+        || std::find(choices.begin(), choices.end(), 0u) != choices.end()
+        || (!_mountLooks.count(display) && _mountLooks.size() >= MaxMountLooks))
+        return false;
+    std::string text;
+    for (uint32 choice : choices)
+        text += (text.empty() ? "" : ",") + std::to_string(choice);
+    CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_MOUNT_LOOK);
+    stmt->SetData(0, GetGUID().GetCounter());
+    stmt->SetData(1, display);
+    stmt->SetData(2, text);
+    CharacterDatabase.Execute(stmt);
+    _mountLooks[display] = std::move(choices);
+    // To this player and everyone in view: anyone arriving later gets them from SendMountLooksTo.
+    WorldPacket data;
+    BuildMountLooks(data);
+    SendMessageToSet(&data, true);
+    return true;
+}
+
 void Player::SendRetailLookTo(Player* receiver) const
 {
     // Players without a saved look have nothing to send: the client falls back to the five stock bytes.
@@ -12426,6 +12490,7 @@ void Player::SendInitialPacketsAfterAddToMap()
 {
     SendBodyShapeTo(this);
     SendRetailLookTo(this);
+    SendMountLooksTo(this);
     UpdateVisibilityForPlayer(true);
 
     GetSession()->ResetTimeSync();

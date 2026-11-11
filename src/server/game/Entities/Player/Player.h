@@ -899,6 +899,7 @@ enum PlayerLoginQueryIndex
     PLAYER_LOGIN_QUERY_LOAD_DIGITAL_ITEMS,
     PLAYER_LOGIN_QUERY_LOAD_BODY_SHAPE,
     PLAYER_LOGIN_QUERY_LOAD_RETAIL_LOOK,
+    PLAYER_LOGIN_QUERY_LOAD_MOUNT_LOOKS,
     PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERK_PROFILE,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS,
@@ -1163,6 +1164,13 @@ public:
     // Full Retail customization (see RetailLookWire.h): opaque to the server, passed on to every player who sees this one.
     void LoadRetailLook(PreparedQueryResult result);
     void SendRetailLookTo(Player* receiver) const;
+    // Mount customization: choices per customizable mount display, saved and sent to everyone who sees this player.
+    static constexpr uint8 MaxMountLookChoices = 64;
+    static constexpr size_t MaxMountLooks = 256;
+    void LoadMountLooks(PreparedQueryResult result);
+    void BuildMountLooks(WorldPacket& data) const;
+    void SendMountLooksTo(Player* receiver) const;
+    bool SetMountLook(uint32 display, std::vector<uint32> choices);
     // Two Forms (Worgen Wolf/Human, Dracthyr Dragon/Visage): the look of the form that is not showing.
     // ToggleRetailForm swaps it with the active one, saves both and tells everyone who sees this player; false when
     // there is no saved pair.
@@ -2889,6 +2897,7 @@ protected:
     EsteriaPerks::Ranks _esteriaPerks{};
     uint8 _esteriaTrait = 0;
     uint8 _esteriaRespecs = 0;
+    std::map<uint32, std::vector<uint32>> _mountLooks;
     bool _hasRetailLook = false;
     std::array<uint8, CharacterRetailLook::PayloadSize> _retailLook{};
     bool _hasParkedLook = false;

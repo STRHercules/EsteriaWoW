@@ -712,6 +712,7 @@ public:                                                 // opcodes handlers
     void HandleCharEnumOpcode(WorldPacket& recvPacket);
     void HandleEsteriaInventoryOpcode(WorldPacket& recvPacket);
     void HandleEsteriaFormLookOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaMountLookOpcode(WorldPacket& recvPacket);
     void HandleEsteriaSwapRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaSwapRosterRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaHousingOpcode(WorldPacket& recvPacket); // forwards to mod-esteria-housing (EsteriaHousingHooks.h)
