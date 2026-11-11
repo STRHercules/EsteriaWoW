@@ -1,18 +1,54 @@
 # Decomped 64 Bit Ideas
 
+## Biography section in char creation
+- Ability to add optional biography to character in creation - can leave blank and just skip
+- Adds new screen; 'Biography' where the user can input the character's;
+    - Birth City
+    - Parent's Names
+    - Background; Soldier, Urchin, Apostle, Trader, etc
+    - Age
+    - Faith
+    - Story: Up to 2048 characters the player can input their own text giving context to their character's origin
+- In-game when right-clicking another player's portrait that will see a new option in the drop down; 'Biography' which will open a rich beautiful retail-like UI showcasing all of that respective player's biography options/text - etc as well as a 3D portrait and model display
+- The Player can include things in their biography pages such as achievements, favorite mounts/pets/hunter pet/warlock demon/companion pet/pokemon, location, etc
+
+## Custom Titles
+- Give players the ability to set a custom title in-game in real-time
+    * Prefix or Suffix
+- Give players ability to color their name in the nameplate, color their title, color their guild name
+- Unlockable with gold
+
+## Uncap the amount of Gold a player can carry
+
+## Things to take from Ascension
+- Manastorm
+- Worldforged items
+
+# Add more beginning Perks - a lot more
+- Zomboid style point system?
+
+# Turn Junk into EXP
+- Random bounties for grey items in zones
+- Garbage Collector NPCs that will pay for grey/junk items in pure experience instead of copper
+- Perk added to FATE system that allows user to convert junk items directly into experience 
+
 # Ability to places houses anywhere*
 * Within reason - perhaps not cities - also need to make sure the houses do not overlap/interfere with quests, events, existing buildings, cave entrances, etc etc.
+* Exceedingly expensive to unlock?
+    * 10,000,000 Gold?
+* Will include a 'yard' area / plot.
 
 # Housing Quick Ideas
 - Add 'Sales' profession 
     - Gain experience by making sales
     - Offer incentives such as increased profit, more items for sale, etc
 - Add 'Homemaker'/'Landlord' profession
+    - Gate certain limit ceilings around profession levels
+        * Can only achieve 5000 furniture capacity as grand master - etc
 - Add 'Woodworking' profession
 - Add ability to rent out houses to other players
     - `Player A` constructs house, adds decor, customized it and can then 'list' it on an internal 'real estate' browser
     - `Player B` must pay `X` (set by player A) per `Y` (day/week/month - set by `Player A`)
-
 
 # Proximity Voice Chat
 - Addon settings include settings such as:
@@ -24,6 +60,7 @@
 - Applies a 'now speaking' animation above the character that is speaking
     - Also shows the player who is speaking a live 'now speaking' with audio visualizer bar
 - Players with similar Access settings can hear eachother when speaking
+- Volume of players speaking increases as you approach, and gets quieter as you walk away
 
 # Battlemon
 - Configure Spawns to make more sense

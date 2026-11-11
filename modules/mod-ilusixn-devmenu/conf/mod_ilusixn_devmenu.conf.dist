@@ -1,0 +1,26 @@
+[worldserver]
+
+###################################################################################################
+# DEV MENU (in-game NPC editor, client addon DevMenu, /dev)
+#
+#    DevMenu.Enable
+#        Description: Answer the addon's requests.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+
+DevMenu.Enable = 1
+
+#    DevMenu.MinSecurity
+#        Description: Lowest account security level allowed to use the menu.
+#        Default:     2 - (Game master)
+#                     3 - (Administrator)
+
+DevMenu.MinSecurity = 2
+
+###################################################################################################
+
+#    DevMenu.Items.FirstId
+#        Description: First id of the 9999 item ids the "Create an item" tab uses. 0 = 9400001. Change it only if those ids are taken.
+#        Default:     0
+
+DevMenu.Items.FirstId = 0
