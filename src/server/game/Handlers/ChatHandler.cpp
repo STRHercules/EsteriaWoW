@@ -23,6 +23,7 @@
 #include "ChatPackets.h"
 #include "Common.h"
 #include "FreebornClaim.h"
+#include "Incarnations.h"
 #include "GameTime.h"
 #include "GridNotifiersImpl.h"
 #include "Group.h"
@@ -316,6 +317,9 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
             // Wildcard addon uses. See FreebornClaim.h for why the choice cannot be carried by
             // the create packet.
             if (FreebornClaim::HandleAddonMessage(sender, msg))
+                return;
+
+            if (type == CHAT_MSG_WHISPER && to == sender->GetName() && Incarnations::HandleAddonMessage(sender, msg))
                 return;
 
             if (AddonChannelCommandHandler(this).ParseCommands(msg.c_str()))

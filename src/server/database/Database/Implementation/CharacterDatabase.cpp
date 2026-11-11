@@ -99,6 +99,12 @@ void CharacterDatabaseConnection::DoPrepareStatements()
         "SELECT display, choices FROM character_mount_look WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_REP_MOUNT_LOOK,
         "REPLACE INTO character_mount_look (guid, display, choices) VALUES (?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_INCARNATIONS,
+        "SELECT category, display FROM character_incarnation WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_REP_INCARNATION,
+        "REPLACE INTO character_incarnation (guid, category, display) VALUES (?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DEL_INCARNATION,
+        "DELETE FROM character_incarnation WHERE guid = ? AND category = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_RETAIL_LOOK,
         "SELECT data FROM character_retail_look WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_REP_RETAIL_LOOK,

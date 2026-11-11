@@ -16,6 +16,7 @@
  */
 
 #include "Player.h"
+#include "Incarnations.h"
 #include "PerkFx.h"
 #include "KyrianRacials.h"
 #include "EyeEffects.h"
@@ -12388,6 +12389,60 @@ void Player::SendMountLooksTo(Player* receiver) const
     WorldPacket data;
     BuildMountLooks(data);
     receiver->GetSession()->SendPacket(&data);
+}
+
+void Player::LoadIncarnations(PreparedQueryResult result)
+{
+    _incarnations.clear();
+    if (!result)
+        return;
+    do
+    {
+        Field* fields = result->Fetch();
+        // A look dropped from the catalogue (or a class change) quietly falls back to the stock body.
+        if (Incarnations::IsLook(fields[0].Get<uint32>(), fields[1].Get<uint32>(), getClass()) && fields[1].Get<uint32>())
+            _incarnations[fields[0].Get<uint32>()] = fields[1].Get<uint32>();
+    } while (result->NextRow());
+}
+
+uint32 Player::GetIncarnation(uint32 category) const
+{
+    auto found = _incarnations.find(category);
+    return found == _incarnations.end() ? 0 : found->second;
+}
+
+// display 0 clears. Applied at once to the form the player is wearing and to demons already summoned.
+bool Player::SetIncarnation(uint32 category, uint32 display)
+{
+    if (!Incarnations::IsLook(category, display, getClass()))
+        return false;
+    CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(display ? CHAR_REP_INCARNATION : CHAR_DEL_INCARNATION);
+    stmt->SetData(0, GetGUID().GetCounter());
+    stmt->SetData(1, category);
+    if (display)
+        stmt->SetData(2, display);
+    CharacterDatabase.Execute(stmt);
+    if (display)
+        _incarnations[category] = display;
+    else
+        _incarnations.erase(category);
+
+    if (GetShapeshiftForm() != FORM_NONE && Incarnations::CategoryForForm(GetShapeshiftForm()) == category)
+    {
+        AuraEffectList const& shapeshifts = GetAuraEffectsByType(SPELL_AURA_MOD_SHAPESHIFT);
+        if (uint32 model = GetModelForForm(GetShapeshiftForm(), shapeshifts.empty() ? 0 : shapeshifts.front()->GetId()))
+            SetDisplayId(model);
+    }
+    for (Unit* minion : m_Controlled)
+        if (minion && Incarnations::CategoryForCreature(minion->GetEntry()) == category)
+            minion->SetDisplayId(display ? display : minion->GetNativeDisplayId());
+    return true;
+}
+
+void Player::ApplyIncarnation(Unit* minion) const
+{
+    if (uint32 display = GetIncarnation(Incarnations::CategoryForCreature(minion->GetEntry())))
+        minion->SetDisplayId(display);
 }
 
 bool Player::SetMountLook(uint32 display, std::vector<uint32> choices)

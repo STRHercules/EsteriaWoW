@@ -20,6 +20,7 @@
 */
 
 #include "World.h"
+#include "Incarnations.h"
 #include "AccountMgr.h"
 #include "AchievementMgr.h"
 #include "AddonMgr.h"
@@ -825,6 +826,9 @@ void World::SetInitialWorldSettings()
 
     LOG_INFO("server.loading", "Loading Creature Formations...");
     sFormationMgr->LoadCreatureFormations();
+
+    LOG_INFO("server.loading", "Loading Esteria Incarnations...");
+    Incarnations::LoadFromDB();
 
     LOG_INFO("server.loading", "Loading WorldStates...");              // must be loaded before battleground, outdoor PvP and conditions
     sWorldState->LoadWorldStates();

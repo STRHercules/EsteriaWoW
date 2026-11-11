@@ -52,6 +52,7 @@
 #include "OutdoorPvP.h"
 #include "PassiveAI.h"
 #include "Pet.h"
+#include "Incarnations.h"
 #include "PetAI.h"
 #include "PetPackets.h"
 #include "Player.h"
@@ -8093,6 +8094,10 @@ void Unit::SetMinion(Minion* minion, bool apply)
 
         m_Controlled.insert(minion);
 
+        // Esteria incarnations: the demon body this player chose (loaded pets set their saved display before this).
+        if (Player* player = ToPlayer())
+            player->ApplyIncarnation(minion);
+
         if (IsPlayer())
         {
             minion->m_ControlledByPlayer = true;
@@ -15904,6 +15909,11 @@ uint32 Unit::GetCombatRatingDamageReduction(CombatRating cr, float rate, float c
 
 uint32 Unit::GetModelForForm(ShapeshiftForm form, uint32 spellId)
 {
+    // Esteria incarnations: a body the player chose for this form wins over everything below.
+    if (Player* player = ToPlayer())
+        if (uint32 display = player->GetIncarnation(Incarnations::CategoryForForm(form)))
+            return display;
+
     // Hardcoded cases
     switch (spellId)
     {

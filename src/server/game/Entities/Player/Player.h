@@ -900,6 +900,7 @@ enum PlayerLoginQueryIndex
     PLAYER_LOGIN_QUERY_LOAD_BODY_SHAPE,
     PLAYER_LOGIN_QUERY_LOAD_RETAIL_LOOK,
     PLAYER_LOGIN_QUERY_LOAD_MOUNT_LOOKS,
+    PLAYER_LOGIN_QUERY_LOAD_INCARNATIONS,
     PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERK_PROFILE,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS,
@@ -1171,6 +1172,12 @@ public:
     void BuildMountLooks(WorldPacket& data) const;
     void SendMountLooksTo(Player* receiver) const;
     bool SetMountLook(uint32 display, std::vector<uint32> choices);
+    // Incarnations (Incarnations.h): the display chosen per form / demon category, saved and applied by the server.
+    void LoadIncarnations(PreparedQueryResult result);
+    std::map<uint32, uint32> const& GetIncarnations() const { return _incarnations; }
+    uint32 GetIncarnation(uint32 category) const;
+    bool SetIncarnation(uint32 category, uint32 display);
+    void ApplyIncarnation(Unit* minion) const;
     // Two Forms (Worgen Wolf/Human, Dracthyr Dragon/Visage): the look of the form that is not showing.
     // ToggleRetailForm swaps it with the active one, saves both and tells everyone who sees this player; false when
     // there is no saved pair.
@@ -2898,6 +2905,7 @@ protected:
     uint8 _esteriaTrait = 0;
     uint8 _esteriaRespecs = 0;
     std::map<uint32, std::vector<uint32>> _mountLooks;
+    std::map<uint32, uint32> _incarnations;
     bool _hasRetailLook = false;
     std::array<uint8, CharacterRetailLook::PayloadSize> _retailLook{};
     bool _hasParkedLook = false;
