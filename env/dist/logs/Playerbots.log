@@ -9363,3 +9363,5 @@ LFG Queue check finished
 [New RPG] Bot Gucli select random grind pos Map:530 X:-1900 Y:4600 Z:0 (19+436 available in 1117)
 [New RPG] Bot Gucli select random flight taxi node from:18940 (node 128) to:130 (1 available)
 [New RPG] Bot Gucli select random inn keeper pos Map:530 X:-573.1212 Y:4148.6943 Z:68.717 (3 available in 6)
+[New RPG] Bot Dresera select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 7)
+[New RPG] Bot Dresera select random grind pos Map:4294967295 X:0 Y:0 Z:0 (0+0 available in 1210)
