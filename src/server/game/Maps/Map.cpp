@@ -108,9 +108,15 @@ Map::Map(uint32 id, uint32 InstanceId, uint8 SpawnMode, Map* _parent) :
 // Hook called after map is created AND after added to map list
 void Map::OnCreateMap()
 {
-    // Instances load all grids by default (both base map and child maps)
-    if (GetInstanceId())
+    // Ordinary instances keep their historical eager grid loading. A scripted
+    // private copy of a world map loads grids lazily around its members; eager
+    // loading an entire continent would be wasteful and is not required for
+    // DB creature/gameobject fidelity.
+    if (GetInstanceId() &&
+        !(IsScriptedPrivateInstance() && !IsDungeon()))
+    {
         LoadAllGrids();
+    }
 
     sScriptMgr->OnCreateMap(this);
 }
@@ -277,6 +283,15 @@ void Map::LoadGridsInRange(Position const& center, float radius)
 
 bool Map::AddPlayerToMap(Player* player)
 {
+    if (IsScriptedPrivateInstance() &&
+        !IsScriptedPrivateMember(player->GetGUID()))
+    {
+        return false;
+    }
+
+    if (IsScriptedPrivateInstance())
+        m_unloadTimer = 0;
+
     CellCoord cellCoord = Acore::ComputeCellCoord(player->GetPositionX(), player->GetPositionY());
     if (!cellCoord.IsCoordValid())
     {
@@ -759,6 +774,13 @@ void Map::RemovePlayerFromMap(Player* player, bool remove)
 
 void Map::AfterPlayerUnlinkFromMap()
 {
+    if (IsScriptedPrivateInstance() &&
+        !m_unloadTimer &&
+        !HavePlayers())
+    {
+        m_unloadTimer =
+            _scriptedPrivateUnloadDelay;
+    }
 }
 
 template<class T>
@@ -2004,8 +2026,32 @@ void InstanceMap::InitVisibilityDistance()
 /*
     Do map specific checks to see if the player can enter
 */
+bool Map::IsScriptedPrivateInstance() const
+{
+    return GetInstanceId() != 0 &&
+        !_scriptedPrivateOwner.IsEmpty();
+}
+
+Map::EnterState Map::CannotEnter(
+    Player* player,
+    bool /*loginCheck*/)
+{
+    if (IsScriptedPrivateInstance() &&
+        (!player ||
+         !IsScriptedPrivateMember(
+             player->GetGUID())))
+    {
+        return CANNOT_ENTER_INSTANCE_BIND_MISMATCH;
+    }
+
+    return CAN_ENTER;
+}
+
 Map::EnterState InstanceMap::CannotEnter(Player* player, bool loginCheck)
 {
+    if (IsScriptedPrivateInstance())
+        return Map::CannotEnter(player, loginCheck);
+
     if (!loginCheck && player->GetMapRef().getTarget() == this)
     {
         LOG_ERROR("maps", "InstanceMap::CanEnter - player {} ({}) already in map {}, {}, {}!",
@@ -2079,7 +2125,10 @@ bool InstanceMap::AddPlayerToMap(Player* player)
     if (m_resetAfterUnload) // this instance has been reset, it's not meant to be used anymore
         return false;
 
-    if (IsDungeon())
+    if (IsScriptedPrivateInstance() && !IsScriptedPrivateMember(player->GetGUID()))
+        return false;
+
+    if (IsDungeon() && !IsScriptedPrivateInstance())
     {
         Group* group = player->GetGroup();
 
@@ -2177,7 +2226,8 @@ void InstanceMap::RemovePlayerFromMap(Player* player, bool remove)
 void InstanceMap::AfterPlayerUnlinkFromMap()
 {
     if (!m_unloadTimer && !HavePlayers())
-        m_unloadTimer = m_unloadWhenEmpty ? MIN_UNLOAD_DELAY : std::max(sWorld->getIntConfig(CONFIG_INSTANCE_UNLOAD_DELAY), (uint32)MIN_UNLOAD_DELAY);
+        m_unloadTimer = IsScriptedPrivateInstance() ? _scriptedPrivateUnloadDelay
+            : (m_unloadWhenEmpty ? MIN_UNLOAD_DELAY : std::max(sWorld->getIntConfig(CONFIG_INSTANCE_UNLOAD_DELAY), (uint32)MIN_UNLOAD_DELAY));
     Map::AfterPlayerUnlinkFromMap();
 }
 
@@ -2278,7 +2328,7 @@ std::string const& InstanceMap::GetScriptName() const
 
 void InstanceMap::PermBindAllPlayers()
 {
-    if (!IsDungeon())
+    if (!IsDungeon() || IsScriptedPrivateInstance())
         return;
 
     InstanceSave* save = sInstanceSaveMgr->GetInstanceSave(GetInstanceId());
@@ -2494,6 +2544,11 @@ void Map::SaveCreatureRespawnTime(ObjectGuid::LowType spawnId, time_t& respawnTi
     _creatureRespawnTimes[spawnId] = respawnTime;
     _respawnQueue.insert({respawnTime, SPAWN_TYPE_CREATURE, spawnId});
 
+    // Ephemeral private maps keep respawn state in memory only. Persisting a
+    // private-world kill would leak temporary state into the character DB.
+    if (IsScriptedPrivateInstance())
+        return;
+
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_CREATURE_RESPAWN);
     stmt->SetData(0, spawnId);
     stmt->SetData(1, uint32(respawnTime));
@@ -2510,6 +2565,9 @@ void Map::RemoveCreatureRespawnTime(ObjectGuid::LowType spawnId)
         _respawnQueue.erase({itr->second, SPAWN_TYPE_CREATURE, spawnId});
         _creatureRespawnTimes.erase(itr);
     }
+
+    if (IsScriptedPrivateInstance())
+        return;
 
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_CREATURE_RESPAWN);
     stmt->SetData(0, spawnId);
@@ -2539,6 +2597,9 @@ void Map::SaveGORespawnTime(ObjectGuid::LowType spawnId, time_t& respawnTime)
     _goRespawnTimes[spawnId] = respawnTime;
     _respawnQueue.insert({respawnTime, SPAWN_TYPE_GAMEOBJECT, spawnId});
 
+    if (IsScriptedPrivateInstance())
+        return;
+
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_GO_RESPAWN);
     stmt->SetData(0, spawnId);
     stmt->SetData(1, uint32(respawnTime));
@@ -2555,6 +2616,9 @@ void Map::RemoveGORespawnTime(ObjectGuid::LowType spawnId)
         _respawnQueue.erase({itr->second, SPAWN_TYPE_GAMEOBJECT, spawnId});
         _goRespawnTimes.erase(itr);
     }
+
+    if (IsScriptedPrivateInstance())
+        return;
 
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_GO_RESPAWN);
     stmt->SetData(0, spawnId);
@@ -2640,6 +2704,12 @@ bool Map::IsSpawnGroupActive(uint32 groupId) const
 
 bool Map::SpawnGroupSpawn(uint32 groupId, bool ignoreRespawn /*= false*/, bool force /*= false*/)
 {
+    if (IsScriptedPrivateInstance() &&
+        !LoadsScriptedPrivateDatabaseSpawns())
+    {
+        return false;
+    }
+
     SpawnGroupTemplateData const* groupData = sObjectMgr->GetSpawnGroupData(groupId);
     if (!groupData || (groupData->flags & SPAWNGROUP_FLAG_SYSTEM))
     {
@@ -2944,6 +3014,9 @@ void Map::ProcessGameObjectRespawn(ObjectGuid::LowType spawnId)
 
 void Map::UpdateEncounterState(EncounterCreditType type, uint32 creditEntry, Unit* source)
 {
+    if (IsScriptedPrivateInstance())
+        return; // The owning controller journals its own clears; no ordinary dungeon credit/save.
+
     Difficulty difficulty_fixed = (IsSharedDifficultyMap(GetId()) ? Difficulty(GetDifficulty() % 2) : GetDifficulty());
     DungeonEncounterList const* encounters;
     // 631 : ICC - 724 : Ruby Sanctum --- For heroic difficulties, for some reason, we don't have an encounter list, so we get the encounter list from normal diff. We shouldn't change difficulty_fixed variable.

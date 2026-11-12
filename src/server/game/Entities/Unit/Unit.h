@@ -1738,6 +1738,7 @@ public:
     [[nodiscard]] bool CanCastDuringChannel(SpellInfo const* info) const;
     void GrantFormLandingGrace(Milliseconds duration);
     [[nodiscard]] bool HasFormLandingGrace() const;
+    [[nodiscard]] bool HasManastormMovementGrace() const;
 
     [[nodiscard]] virtual bool CanEnterWater() const = 0;
     [[nodiscard]] virtual bool CanSwim() const;

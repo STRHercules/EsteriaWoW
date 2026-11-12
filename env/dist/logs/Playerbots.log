@@ -9365,3 +9365,5557 @@ LFG Queue check finished
 [New RPG] Bot Gucli select random inn keeper pos Map:530 X:-573.1212 Y:4148.6943 Z:68.717 (3 available in 6)
 [New RPG] Bot Dresera select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 7)
 [New RPG] Bot Dresera select random grind pos Map:4294967295 X:0 Y:0 Z:0 (0+0 available in 1210)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Including non-random bot player Zach into random bot update
+Random Bots Stats: 50 online
+Bots level:
+    10..19: 7 alliance, 3 horde
+    20..29: 3 alliance, 4 horde
+    30..39: 3 alliance, 4 horde
+    40..49: 2 alliance, 3 horde
+    50..59: 3 alliance, 3 horde
+    60..69: 0 alliance, 4 horde
+    70..79: 5 alliance, 2 horde
+    80..80: 2 alliance, 2 horde
+Bots race:
+    Human: 3, avg lvl: 37.6
+    Orc: 7, avg lvl: 34.5
+    Dwarf: 4, avg lvl: 37.7
+    Night Elf: 2, avg lvl: 53.5
+    Undead: 4, avg lvl: 62.5
+    Tauren: 1, avg lvl: 57
+    Gnome: 2, avg lvl: 51.5
+    Troll: 1, avg lvl: 16
+    Goblin: 5, avg lvl: 48.8
+    Blood Elf: 7, avg lvl: 47.1
+    Draenei: 5, avg lvl: 22.8
+    Worgen: 2, avg lvl: 68.5
+    High Elf: 7, avg lvl: 52
+Bots class:
+    paladin: 50, avg lvl: 44.5
+Bots role:
+    tank: 0, heal: 0, dps: 50
+Bots status:
+    Active: 1
+    Moving: 1
+    In flight: 1
+    On mount: 13
+    In combat: 1
+    In BG: 0
+    In Rest: 9
+    Dead: 1
+Bots rpg status:
+    Idle: 10, Rest: 3, GoGrind: 3, GoCamp: 2, MoveRandom: 3, MoveNpc: 8, DoQuest: 17, TravelFlight: 4, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 48, Combat: 1, Dead: 1
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Bot Astastus select random inn keeper pos Map:530 X:7555.64 Y:-6892.895 Z:96.61 (1 available in 6)
+[New RPG] Bot Astastus select random grind pos Map:530 X:7150 Y:-6600 Z:50 (19+122 available in 1210)
+[New RPG] Bot Astastus select random flight taxi node from:16189 (node 83) to:205 (1 available)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Bot #345 <Kalidra>: teleport for level and refresh
+Refreshing bot GUID Full: 0x0000000000000159 Type: Player Low: 345 <Kalidra>
+Random teleporting bot Kalidra (level 78) to Map: 571 (Northrend) Zone: 2817 (Crystalsong Forest) Area: 4559 (Windrunner's Overlook) ZoneLevel: 77 AreaLevel: 80 5037.8184,-520.28796,224.96913 (1/12 locations)
+[New RPG] Bot Dranian select random inn keeper pos Map:530 X:-4079.3687 Y:2187.6658 Z:108.085 (3 available in 23)
+[New RPG] Bot Dranian select random grind pos Map:530 X:-3150 Y:2100 Z:100 (22+305 available in 2696)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Mark bot Paelaas as dead, will be revived in 127s.
+[New RPG] Teleport Evtenden from (1617.4622,-4371.5957,12.445006,1) to (2338.5798,-2563.2166,103.357,1) as it stuck when moving far - Zone: 1637 (Orgrimmar)
+Bot GUID Full: 0x0000000000000178 Type: Player Low: 376 H:22 <Paelaas> revives at body
+[New RPG] Bot Kalidra select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 12)
+[New RPG] Bot Kalidra select random grind pos Map:4294967295 X:0 Y:0 Z:0 (0+0 available in 891)
+[New RPG] Bot Kadimir select random inn keeper pos Map:1 X:6208.02 Y:-1948.3518 Z:572.081 (1 available in 9)
+[New RPG] Bot Kadimir select random grind pos Map:1 X:4000 Y:-900 Z:250 (28+35 available in 517)
+[New RPG] Bot Kadimir select random flight taxi node from:22931 (node 166) to:65 (1 available)
+[New RPG] Bot Kadimir select random inn keeper pos Map:1 X:6208.02 Y:-1948.3518 Z:572.081 (1 available in 9)
+[New RPG] Bot Kadimir select random grind pos Map:1 X:4200 Y:-1100 Z:300 (28+35 available in 517)
+[New RPG] Bot Kadimir select random flight taxi node from:22931 (node 166) to:64 (1 available)
+[New RPG] Bot Kadimir select random grind pos Map:1 X:3800 Y:-1000 Z:250 (28+35 available in 517)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Irix marked as abandoned quest 125
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Bot Ireoh select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 7)
+[New RPG] Bot Ireoh select random grind pos Map:1 X:1400 Y:-2000 Z:100 (1+4 available in 1078)
+[New RPG] Bot Ireoh select random flight taxi node from:12616 (node 61) to:22 (1 available)
+[New RPG] Bot Ireoh select random flight taxi node from:12616 (node 61) to:25 (1 available)
+[New RPG] Bot Kalidra select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 12)
+[New RPG] Bot Kalidra select random grind pos Map:4294967295 X:0 Y:0 Z:0 (0+0 available in 891)
+[New RPG] Bot Beorenz select random inn keeper pos Map:1 X:6699.4355 Y:-4670.465 Z:722.15 (1 available in 7)
+[New RPG] Bot Beorenz select random grind pos Map:1 X:6650 Y:-5100 Z:800 (13+69 available in 1022)
+[New RPG] Bot Beorenz select random flight taxi node from:11139 (node 53) to:72 (1 available)
+[New RPG] Bot Beorenz select random grind pos Map:1 X:6050 Y:-4750 Z:800 (13+69 available in 1022)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Bot Helriel select random inn keeper pos Map:0 X:932.51324 Y:-1431.7295 Z:65.3343 (2 available in 11)
+[New RPG] Bot Helriel select random grind pos Map:0 X:1500 Y:-1200 Z:50 (12+30 available in 558)
+[New RPG] Bot Helriel select random flight taxi node from:12596 (node 66) to:6 (1 available)
+[New RPG] Bot Westorn select random inn keeper pos Map:1 X:-4624.941 Y:-3176.2188 Z:41.8244 (1 available in 7)
+[New RPG] Bot Westorn select random grind pos Map:1 X:-4900 Y:-3250 Z:50 (15+87 available in 505)
+[New RPG] Bot Westorn select random grind pos Map:1 X:-3600 Y:-4050 Z:0 (15+87 available in 505)
+[New RPG] Bot Pirlish select random inn keeper pos Map:0 X:-14461.046 Y:491.63226 Z:15.7129 (2 available in 9)
+[New RPG] Bot Pirlish select random grind pos Map:0 X:-11600 Y:600 Z:50 (16+101 available in 654)
+[New RPG] Bot Pirlish select random flight taxi node from:1387 (node 20) to:17 (1 available)
+[New RPG] Bot Cihwamio select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 7)
+[New RPG] Bot Cihwamio select random grind pos Map:1 X:3000 Y:-6000 Z:0 (1+35 available in 800)
+[New RPG] Bot Cihwamio select random grind pos Map:1 X:3550 Y:-5350 Z:100 (1+35 available in 800)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 50 online
+Bots level:
+    10..19: 7 alliance, 3 horde
+    20..29: 3 alliance, 4 horde
+    30..39: 3 alliance, 4 horde
+    40..49: 2 alliance, 3 horde
+    50..59: 3 alliance, 3 horde
+    60..69: 0 alliance, 4 horde
+    70..79: 5 alliance, 2 horde
+    80..80: 2 alliance, 2 horde
+Bots race:
+    Human: 3, avg lvl: 37.6
+    Orc: 7, avg lvl: 34.5
+    Dwarf: 4, avg lvl: 37.7
+    Night Elf: 2, avg lvl: 53.5
+    Undead: 4, avg lvl: 62.5
+    Tauren: 1, avg lvl: 57
+    Gnome: 2, avg lvl: 51.5
+    Troll: 1, avg lvl: 16
+    Goblin: 5, avg lvl: 48.8
+    Blood Elf: 7, avg lvl: 47.1
+    Draenei: 5, avg lvl: 22.8
+    Worgen: 2, avg lvl: 68.5
+    High Elf: 7, avg lvl: 52
+Bots class:
+    paladin: 50, avg lvl: 44.5
+Bots role:
+    tank: 0, heal: 0, dps: 50
+Bots status:
+    Active: 5
+    Moving: 4
+    In flight: 2
+    On mount: 13
+    In combat: 2
+    In BG: 0
+    In Rest: 8
+    Dead: 0
+Bots rpg status:
+    Idle: 7, Rest: 3, GoGrind: 6, GoCamp: 1, MoveRandom: 2, MoveNpc: 7, DoQuest: 19, TravelFlight: 5, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 48, Combat: 2, Dead: 0
+[New RPG] Bot Irix select random inn keeper pos Map:0 X:-9228.962 Y:-2156.6843 Z:64.5168 (1 available in 7)
+[New RPG] Bot Irix select random grind pos Map:0 X:-9650 Y:-2400 Z:50 (25+13 available in 1210)
+[New RPG] Bot Irix select random flight taxi node from:931 (node 5) to:4 (1 available)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Bot Crondiggold select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 7)
+[New RPG] Bot Crondiggold select random grind pos Map:1 X:-6400 Y:-3400 Z:-50 (0+50 available in 496)
+[New RPG] Bot Crondiggold select random flight taxi node from:4317 (node 30) to:38 (1 available)
+[New RPG] Bot Luncic select random inn keeper pos Map:1 X:897.84534 Y:925.2238 Z:106.864 (2 available in 7)
+[New RPG] Bot Luncic select random grind pos Map:1 X:1200 Y:0 Z:0 (0+35 available in 713)
+[New RPG] Bot Luncic select random flight taxi node from:2995 (node 22) to:25 (1 available)
+[New RPG] Bot Luncic select random inn keeper pos Map:1 X:897.84534 Y:925.2238 Z:106.864 (2 available in 7)
+[New RPG] Bot Nileya select random inn keeper pos Map:530 X:-1233.52 Y:7164.408 Z:57.8484 (4 available in 12)
+[New RPG] Bot Nileya select random grind pos Map:530 X:-350 Y:5000 Z:50 (0+602 available in 1214)
+[New RPG] Bot Nileya select random flight taxi node from:18940 (node 128) to:102 (1 available)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Bot Mundibill select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 6)
+[New RPG] Bot Mundibill select random grind pos Map:1 X:2400 Y:1450 Z:250 (11+40 available in 602)
+[New RPG] Bot Mundibill select random flight taxi node from:4407 (node 33) to:28 (1 available)
+[New RPG] Bot Mundibill select random grind pos Map:1 X:2600 Y:1300 Z:250 (11+40 available in 602)
+[New RPG] Bot Astastus select random inn keeper pos Map:530 X:7555.64 Y:-6892.895 Z:96.61 (1 available in 6)
+[New RPG] Bot Astastus select random grind pos Map:530 X:7300 Y:-5800 Z:0 (19+122 available in 1210)
+[New RPG] Bot Astastus select random flight taxi node from:16189 (node 83) to:205 (1 available)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Bot #309 <Bengren>: teleport for level and refresh
+Refreshing bot GUID Full: 0x0000000000000135 Type: Player Low: 309 <Bengren>
+Random teleporting bot Bengren (level 34) to Map: 1 (Kalimdor) Zone: 405 (Desolace) Area: 608 (Nijel's Point) ZoneLevel: 0 AreaLevel: 30 250.6424,1253.2374,192.2031 (1/3 locations)
+[New RPG] Bot Evtenden select random inn keeper pos Map:1 X:2338.5798 Y:-2563.2166 Z:103.357 (1 available in 7)
+[New RPG] Bot Evtenden select random grind pos Map:1 X:3400 Y:-400 Z:150 (6+102 available in 605)
+[New RPG] Bot Evtenden select random flight taxi node from:12616 (node 61) to:29 (1 available)
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+[New RPG] Bot Jini select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 8)
+[New RPG] Bot Jini select random grind pos Map:1 X:3050 Y:-200 Z:100 (4+31 available in 884)
+[New RPG] Bot Jini select random flight taxi node from:12616 (node 61) to:22 (1 available)
+[New RPG] Bot Jini select random grind pos Map:1 X:1950 Y:-2550 Z:100 (4+31 available in 884)
+[New RPG] Bot Celda select random inn keeper pos Map:4294967295 X:0 Y:0 Z:0 (0 available in 11)
+[New RPG] Bot Celda select random grind pos Map:4294967295 X:0 Y:0 Z:0 (0+0 available in 1229)
+Bot Cihwamio logging out
+Bot Bengren logging out
+Bot Ainimdi logging out
+Bot Irix logging out
+Bot Kamig logging out
+Bot Celda logging out
+Bot Nileya logging out
+Bot Kadimir logging out
+Bot Charonald logging out
+Bot Westorn logging out
+Bot Bemarrise logging out
+Bot Keahgevun logging out
+Bot Olette logging out
+Bot Lucini logging out
+Bot Nelaedon logging out
+Bot Kalidra logging out
+Bot Luncic logging out
+Bot Aeveoh logging out
+Bot Kaerad logging out
+Bot Ceerin logging out
+Bot Wukuhn logging out
+Bot Melilios logging out
+Bot Shuhma logging out
+Bot Zondoddu logging out
+Bot Crondiggold logging out
+Bot Jini logging out
+Bot Dresera logging out
+Bot Shernia logging out
+Bot Alathalis logging out
+Bot Paelaas logging out
+Bot Huflemak logging out
+Bot Blanorton logging out
+Bot Krunemuzz logging out
+Bot Aleluun logging out
+Bot Astastus logging out
+Bot Galerio logging out
+Bot Helriel logging out
+Bot Beorenz logging out
+Bot Amisilla logging out
+Bot Landraran logging out
+Bot Enrii logging out
+Bot Pirlish logging out
+Bot Mundibill logging out
+Bot Ireoh logging out
+Bot Evtenden logging out
+Bot Ceevia logging out
+Bot Gucli logging out
+Bot Casparald logging out
+Bot Gnuthuklink logging out
+Bot Dranian logging out
+Logout all bots due no real player session.
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Skipping invalid operation: BotLogoutGroupCleanup
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Scheduled guild cache validation
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Scheduled guild cache validation
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Scheduled guild cache validation
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Scheduled guild cache validation
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Scheduled guild cache validation
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Scheduled guild cache validation
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Scheduled guild cache validation
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Scheduled guild cache validation
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Random Bots Stats: 0 online
+Bots level:
+Bots race:
+Bots class:
+Bots role:
+    tank: 0, heal: 0, dps: 0
+Bots status:
+    Active: 0
+    Moving: 0
+    In flight: 0
+    On mount: 0
+    In combat: 0
+    In BG: 0
+    In Rest: 0
+    Dead: 0
+Bots rpg status:
+    Idle: 0, Rest: 0, GoGrind: 0, GoCamp: 0, MoveRandom: 0, MoveNpc: 0, DoQuest: 0, TravelFlight: 0, OutdoorPvP: 0
+Bots total quests:
+    Accepted: 5, Rewarded: 0, Dropped: 0
+Bots engine:
+    Non-combat: 0, Combat: 0, Dead: 0
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished
+Checking BG Queue...
+BG Queue check finished
+Checking LFG Queue...
+LFG Queue check finished

@@ -115,6 +115,34 @@ Map* MapInstanced::CreateInstanceForPlayer(const uint32 mapId, Player* player)
 
     Map* map = nullptr;
 
+    if (player->GetScriptedPrivateMapId() == mapId)
+    {
+        if (!IsNonRaidDungeon() &&
+            !(IsDungeon() &&
+                player->LoadsScriptedPrivateDatabaseSpawns()))
+        {
+            return nullptr;
+        }
+
+        uint32 id = player->GetScriptedPrivateInstanceId();
+        if (id)
+        {
+            Map* existing = FindInstanceMap(id);
+            return existing &&
+                existing->IsScriptedPrivateInstance() &&
+                existing->GetScriptedPrivateOwner() ==
+                    player->GetScriptedPrivateOwner() &&
+                existing->IsScriptedPrivateMember(
+                    player->GetGUID())
+                ? existing
+                : nullptr;
+        }
+
+        id = sMapMgr->GenerateInstanceId();
+        player->SetScriptedPrivateInstanceId(id);
+        return CreateInstance(id, nullptr, player->GetDifficulty(IsRaid()), player);
+    }
+
     if (IsBattlegroundOrArena())
     {
         // instantiate or find existing bg map for player
@@ -211,11 +239,19 @@ InstanceMap* MapInstanced::CreateInstance(uint32 InstanceId, InstanceSave* save,
     LOG_DEBUG("maps", "MapInstanced::CreateInstance: {} map instance {} for {} created with difficulty {}", save ? "" : "new ", InstanceId, GetId(), difficulty ? "heroic" : "normal");
 
     InstanceMap* map = new InstanceMap(GetId(), InstanceId, difficulty, this);
+    bool const privateInstance = player && player->GetScriptedPrivateMapId() == GetId()
+        && player->GetScriptedPrivateInstanceId() == InstanceId;
+    if (privateInstance)
+        map->SetScriptedPrivateOwner(player->GetScriptedPrivateOwner(), player->GetScriptedPrivateMembers(),
+            player->LoadsScriptedPrivateDatabaseSpawns());
     ASSERT(map->IsDungeon());
     m_InstancedMaps[InstanceId] = map;
 
-    map->LoadRespawnTimes();
-    map->LoadCorpseData();
+    if (!privateInstance)
+    {
+        map->LoadRespawnTimes();
+        map->LoadCorpseData();
+    }
 
     if (save)
         map->CreateInstanceScript(true, save->GetInstanceData(), save->GetCompletedEncounterMask());

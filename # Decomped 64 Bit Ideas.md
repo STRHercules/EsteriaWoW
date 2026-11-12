@@ -1,7 +1,115 @@
 # Decomped 64 Bit Ideas
 
+- Replace Waystone icon with Esteria icon
+
+- Gold Duels
+    - When selecting 'Duel' in the portrait drop-down the player is greeted with a window asking if they want a normal duel, or a gold duel - and if a gold duel they can input the amount of gold they wish to wager.
+    - When the Gold Duel ends, the winner is awarded the gold
+
+- Waystones/Gatewys
+    - Teleport Taxi Service
+
+- Adventure Company
+    - A dedicated dungeon faction offering rotating contracts at max difficulty. Complete them for reputation, unique rewards and standing with an organisation that only respects those willing to push hard.
+
+- Roaming Beasts / Bosses
+    - powerful beasts patrol more than 650 locations across Azeroth. They roam, they wander, and they will find you. The open world is never truly safe.
+    - Procedurally roaming beasts across Azeroth; they will spawn at over 650+ spawn points and randomly roam the lands. You can recognize them by the larger model size, the purple aura, and the fact that they are hostile.
+    - Roaming beasts will roughly be the average level for the zone they spawn in; add or take a couple. Roaming beasts have a chance at dropping both equipment and recipes, although much lower than the drop rates in, e.g., dungeons.
+
+- Tome of Knowledge
+    - Grants Talent Point
+    - Very low % drop in the world
+    - Low % drop from dungeon bosses
+    - Medium drop % from raid bosses
+
+- EXP Weekends
+    - Configurable schedule, or toggle
+
+- Flightmaster Whistle
+
+- Black Market Auction House
+    - Add exclusive mounts for gold sink
+
+- Loot Crates
+    - Gold Sink
+    - Buy Keys with Gold, open crates - crates contain basic items, with some rares
+    - Different tiers of crates, basic, rare, epic, legendary, artifact with varying levels of reward ceiling
+    - Users can trade/sell keys amongst eachother 
+    - Opening crates has a beautiful animation
+    - Exclusive rotating rewards
+
+- Diablo-style Gamble Vendor
+    - Stock rotates every time the shop window is opened
+    - User only sees unidentified icon
+    - The more the user spends per day, the more things cost in gold
+    - Can hold basic, rare, epic, and even legendary items as well as mounts, etc
+
+- Premium Companion Pets
+    - Vendors
+    - Questgivers
+    - Teleporters
+    - Trainers
+
+- Sit Means Rest
+    - Sitting down immediately begins health regeneration, either sitting down using X, or /sit or sitting ON a piece of furniture. 
+    - Sit long enough and the player begins to accrue rested exp at a very slow rate
+
+## Hunter / Warlock Pet
+- Tame Demon / Dragons / Dragonkin / Elemental / Undead / Mechinical
+    - Humanoid / Giant
+        * Maybe
+- Uncap Combat Pet storage, add pet bank - similar to pokemon 
+    - Accessible via Stable Master, replaces stock stable
+- Codex
+    - Allows whoever has a tame ability to acces the pet codex, which will act as a 'pokedex' for all tameable creatures on the server, for whatever family they can tame. 
+    - Shows a 3D preview of the model, targeting the model will show where it spawns, its level, and any other relevant data. (like a pokedex)
+    - Must use 'Beast Lore' or 'Dragon Lore' etc to record data of the target tame into the codex (like a pokedex)
+    - Taming milestones will reward the player with companion pets, mounts, cosmetics - rewarded via mail and achievement
+    - The Codex will be built directly into the UI and only appear once the player learns a 'tame' ability.
+    - Ability to track unrecorded tames on minimap
+- Allow users that have beast pets to RIDE those pets
+
+## Refine Seasonal Content/Rewards
+
+## Add ability to have multiple 'build' loadouts in the classless system
+- Add Stock and CoA classes as 'Archetypes'
+
+## Add placeable mission board to housing
+- Will act like the mission board in retail garrisons, send units/ships out on missions for exp, loot, etc
+- Can level up units/ships to access better missions to get better rewards
+
+## Cataclysm Guild Level System
+
+## Trading Post
+- Add exclusive mounts, cosmetics on a rotating schedule
+- Currency is gained from participating in content, like questing, dungeons, raids, pvp
+
+## Nat Pagle
+
+## Runescape
+- Wilderness
+    - Random high level zones are chosen at random, and for X hours is a 'Wilderness Zone' where pvp is forced on for all players within that zone, while they are in that zone. 
+    - During this time, all players are flagged for pvp against all other factions, so alliance are hostile to alliance, etc.
+    - During this time, if a player dies they will drop a small pouch on death and inside the pouch will be some of their gold and some of their equipped gear, and some items from their inventory. This pouch can be looted by the owner right away and anyone after X seconds/minutes. Unrecovered 
+    - During this time, players receive increased experience gain, increased gold gain, as well as increased reputation gain and increased honor gain. Honorable kills also reward a small amount of arena points along with honor.
+    - During this time, enemies in the zone have their power increaased.
+    - Freeborn have a higher payout on honor/arena points and when killing players, makes them drop more gold than other factions
+- Slayer Contracts
+    - Introduce Hunter's Guilds with rotating contracts based on creature types, families, zones, and elite targets. Include contract streaks, rare encounters, reputation, and exclusive rewards.
+
+# Retail Systems to Port 
+- Garrisons
+    - Missions/Companions?
+- Torghast
+- Mage Tower
+- Unified Starting Zone Experience 
+- Withered Army Training
+- Delves
+- Island Expeditions
+
 ## Chinese Worldbreaker Vendors
-- Add whelping
+- Add whelping vendors
 
 ## Biography section in char creation
 - Ability to add optional biography to character in creation - can leave blank and just skip
@@ -24,7 +132,6 @@
 ## Uncap the amount of Gold a player can carry
 
 ## Things to take from Ascension
-- Manastorm
 - Worldforged items
 
 # Turn Junk into EXP

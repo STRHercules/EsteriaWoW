@@ -184,7 +184,8 @@ def prepare():
     print("stage config in", etc, "(contains the DB password; not in any repo)")
 
 
-def start(image):
+def start(image, extra=()):
+    """extra: more docker run arguments for the worldserver (e.g. ["-v", "host:container:ro"])."""
     prepare()
     etc, logs = OUT / "stage/etc", OUT / "stage/logs"
     pw = password()
@@ -195,7 +196,7 @@ def start(image):
              "-e", "AC_DATA_DIR=/azerothcore/env/dist/data", "-e", "AC_UPDATES_ENABLE_DATABASES=0",
              "-e", "AC_LOGIN_DATABASE_INFO=" + db("acore_auth"), "-e", "AC_WORLD_DATABASE_INFO=" + db("acore_world"),
              "-e", "AC_CHARACTER_DATABASE_INFO=" + db("acore_characters"),
-             "-e", "AC_PLAYERBOTS_DATABASE_INFO=" + db("acore_playerbots"),
+             "-e", "AC_PLAYERBOTS_DATABASE_INFO=" + db("acore_playerbots"), *extra,
              image, "-c", "/azerothcore/env/dist/etc/worldserver.conf"]
     auth_image = subprocess.check_output(["docker", "inspect", "-f", "{{.Config.Image}}", "ac-authserver"], text=True).strip()
     auth = ["docker", "run", "-d", "--name", AUTH, "--network", NETWORK, "-p", f"{AUTH_PORT}:3724",

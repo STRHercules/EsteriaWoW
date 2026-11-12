@@ -214,7 +214,7 @@
 
 ## Misc
 
-- Allow users that have pets to RIDE those pets
+
 
 - Companion Module
     - Earns 'Companion' Skill
@@ -256,11 +256,7 @@
 ### Other 
 
 
-- Tome of Knowledge
-    - Grants Talent Point
-    - Very low % drop in the world
-    - Low % drop from dungeon bosses
-    - Medium drop % from raid bosses
+
 
 - Adventure Panel
 
@@ -271,22 +267,15 @@
 - Reduced required level for dual spec to 10
     - Reduce cost to 1g
 
-- Waystones/Gatewys
-    - Teleport Taxi Service
 
-- Dungeon Checkpoints
 
-- Adventure Company
-    - A dedicated dungeon faction offering rotating contracts at max difficulty. Complete them for reputation, unique rewards and standing with an organisation that only respects those willing to push hard.
+
 
 - Procedural loot:
     - Level-up rewards
         * Every level-up presents a choice of procedurally generated rewards tailored to your class. Quest completions can surprise you with one too. Pick what fits, keep moving.
 
-- Roaming Beasts / Bosses
-    - powerful beasts patrol more than 650 locations across Azeroth. They roam, they wander, and they will find you. The open world is never truly safe.
-    - Procedurally roaming beasts across Azeroth; they will spawn at over 650+ spawn points and randomly roam the lands. You can recognize them by the larger model size, the purple aura, and the fact that they are hostile.
-    - Roaming beasts will roughly be the average level for the zone they spawn in; add or take a couple. Roaming beasts have a chance at dropping both equipment and recipes, although much lower than the drop rates in, e.g., dungeons.
+
 
 - Paladin and warlock mount is now available for all races from class trainer
 

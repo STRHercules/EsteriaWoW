@@ -118,6 +118,12 @@ void WorldDatabaseConnection::DoPrepareStatements()
     PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SKILL_EXCLUDE, "SELECT race, skill FROM custom_race_start_skill_exclude", CONNECTION_SYNCH);
     PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SPELL, "SELECT race, classMask, spell FROM custom_race_start_spell", CONNECTION_SYNCH);
     PrepareStatement(WORLD_SEL_CUSTOM_RACE_START_SPELL_EXCLUDE, "SELECT race, spell FROM custom_race_start_spell_exclude", CONNECTION_SYNCH);
+
+    // mod-manastorm-endless (SQL as in CoA)
+    PrepareStatement(WORLD_SEL_MANASTORM_FLOOR_XP, "SELECT enabled, rdf_dungeon_id, multiplier FROM manastorm_floor_experience WHERE id = 1", CONNECTION_SYNCH);
+    PrepareStatement(WORLD_SEL_MANASTORM_PRIVATE_CREATURES, "SELECT guid, id, map, phaseMask, equipment_id, position_x, position_y, position_z, orientation, "
+        "spawntimesecs, wander_distance, currentwaypoint, curhealth, curmana, MovementType, npcflag, unit_flags, "
+        "dynamicflags FROM manastorm_private_creature ORDER BY guid", CONNECTION_SYNCH);
 }
 
 WorldDatabaseConnection::WorldDatabaseConnection(MySQLConnectionInfo& connInfo) : MySQLConnection(connInfo)

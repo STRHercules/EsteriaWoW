@@ -1381,7 +1381,28 @@ enum Opcodes : uint16
     SMSG_ESTERIA_TRAIT_SNAPSHOT                     = 0x547,
     CMSG_ESTERIA_TRAIT_RECHOOSE                     = 0x548,
     SMSG_ESTERIA_TRAIT_RESULT                       = 0x549,
-    NUM_MSG_TYPES                                   = 0x54A
+    // Manastorm keeps the Ascension wire numbers (mod-manastorm-endless ManastormNativeProtocol.h)
+    SMSG_COA_CONFIG                                 = 0x58D,
+    CMSG_MANASTORM_ENTER                            = 0x651,
+    SMSG_MANASTORM_ENTER_RESULT                     = 0x652,
+    SMSG_MANASTORM_PROGRESS_UPDATE                  = 0x65D,
+    SMSG_MANASTORM_LEVEL_COMPLETED                  = 0x65E,
+    SMSG_MANASTORM_COMPLETED_DEPTHS                 = 0x65F,
+    SMSG_MANASTORM_ACTIVE_STATE                     = 0x660,
+    CMSG_MANASTORM_LEAVE                            = 0x665,
+    SMSG_MANASTORM_LEAVE_RESULT                     = 0x666,
+    SMSG_MANASTORM_FAILED                           = 0x67B,
+    SMSG_MANASTORM_DEFINITION_ROW                   = 0x67D,
+    SMSG_MANASTORM_MESSAGE_ROW                      = 0x67E,
+    SMSG_MANASTORM_CHAOTIC_LINK                     = 0x67F,
+    SMSG_MANASTORM_FULL_LOADOUT                     = 0x688,
+    CMSG_MANASTORM_SET_LOADOUT_SLOT                 = 0x689,
+    SMSG_MANASTORM_SET_LOADOUT_RESULT               = 0x68A,
+    SMSG_MANASTORM_LOADOUT_UPDATE                   = 0x68B,
+    SMSG_MANASTORM_PLAYER_GROUP_MODIFIER_ROW        = 0x68C,
+    SMSG_MANASTORM_MODIFIER_ROW                     = 0x68D,
+    SMSG_MANASTORM_REWARD_VISIBILITY                = 0x6AD,
+    NUM_MSG_TYPES                                   = 0x6AE
 };
 
 enum OpcodeMisc : uint16

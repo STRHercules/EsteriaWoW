@@ -13792,3 +13792,759 @@ Last 500 diffs summary:
 |- Mean: 17ms
 |- Median: 1ms
 |- Percentiles (95, 99, max): 67ms, 90ms, 145ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Player::addSpell: Non-existed in SpellStore spell #1020 request.
+Player::addSpell: Non-existed in SpellStore spell #5627 request.
+Player::addSpell: Non-existed in SpellStore spell #25895 request.
+Player::addSpell: Non-existed in SpellStore spell #27144 request.
+Player::addSpell: Non-existed in SpellStore spell #27145 request.
+Player::addSpell: Non-existed in SpellStore spell #27148 request.
+Player::addSpell: Non-existed in SpellStore spell #27155 request.
+Player::addSpell: Non-existed in SpellStore spell #27158 request.
+Player::addSpell: Non-existed in SpellStore spell #27160 request.
+Player::addSpell: Non-existed in SpellStore spell #27166 request.
+Player::addSpell: Non-existed in SpellStore spell #27169 request.
+Player::addSpell: Non-existed in SpellStore spell #31895 request.
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[AP Sinks] C++ read: no sink rows for account=11
+[AP Sinks] C++ bonuses: fortitude=0.0000 meleePower=0.0000 spellPower=0.0000
+[AP Sinks] Dodge: 0.0000 Parry: 0.0000 Movement: 0.0000
+[AP Sinks] Crit: 0.0000 Haste: 0.0000
+[AP Sinks] Dodge rating applied: removed=0 added=0
+[AP Sinks] Parry rating applied: removed=0 added=0
+[AP Sinks] Crit rating applied: removed=0 added=0
+[AP Sinks] Haste rating applied: removed=0 added=0
+[EotW] Stats applied for Zach: STR=0 AGI=0 STA=0 INT=0 SPI=0 ARMOR=0 WDPS=0(AP+0)
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+[EotW] mastery=0 absorbPct=0.050 level=81 levelScale=1.000 effective=0.050
+[EotW] No snapshots found for accountId=11
+Update time diff: 205ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 21ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 79ms, 152ms, 211ms
+Update time diff: 114ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 60ms, 84ms, 147ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf130001d0f0011ec Type: Creature Entry: 7439  Low: 4588
+Update time diff: 161ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 71ms, 84ms, 161ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 215ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 57ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 256ms, 307ms, 366ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 271ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 69ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 320ms, 430ms, 562ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 220ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 47ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 220ms, 258ms, 770ms
+Update time diff: 276ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 55ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 251ms, 317ms, 410ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 471ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 85ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 382ms, 451ms, 529ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf13000164b0010a3 Type: Creature Entry: 5707  Low: 4259
+Update time diff: 442ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 124ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 594ms, 896ms, 1335ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 278ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 57ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 258ms, 312ms, 391ms
+Update time diff: 113ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 47ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 225ms, 264ms, 346ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 249ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 58ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 239ms, 416ms, 472ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 353ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 50ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 237ms, 333ms, 405ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf1300010eb0043ce Type: Creature Entry: 4331  Low: 17358
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 102ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 75ms, 93ms, 168ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+WorldSocket::ReadHeaderHandler(): client 172.19.0.1 sent malformed packet (size: 5635, cmd: 16777729)
+WorldSocket::ReadHeaderHandler(): client 172.19.0.1 sent malformed packet (size: 18245, cmd: 539959380)
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 112ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 64ms, 81ms, 112ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 128ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 70ms, 81ms, 128ms
+Update time diff: 104ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 72ms, 85ms, 104ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 266ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 54ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 252ms, 292ms, 349ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 307ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 55ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 255ms, 298ms, 508ms
+Update time diff: 122ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 56ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 261ms, 319ms, 345ms
+Update time diff: 143ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 62ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 278ms, 338ms, 565ms
+Update time diff: 191ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 64ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 285ms, 377ms, 424ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 154ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 62ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 276ms, 390ms, 504ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf1300055370028f4 Type: Creature Entry: 21815  Low: 10484
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 220ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 53ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 246ms, 311ms, 434ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf1300042fb003990 Type: Creature Entry: 17147  Low: 14736
+Update time diff: 126ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 52ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 245ms, 268ms, 328ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 134ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 59ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 275ms, 327ms, 489ms
+Update time diff: 113ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 60ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 275ms, 336ms, 465ms
+Update time diff: 210ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 28ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 123ms, 230ms, 266ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 233ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 52ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 249ms, 304ms, 435ms
+Update time diff: 224ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 53ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 248ms, 286ms, 388ms
+Update time diff: 228ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 59ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 277ms, 322ms, 439ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 332ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 51ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 250ms, 275ms, 381ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 256ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 49ms
+|- Median: 2ms
+|- Percentiles (95, 99, max): 240ms, 275ms, 345ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 119ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 63ms, 88ms, 119ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 101ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 18ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 76ms, 106ms, 141ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf130001d0f0011ec Type: Creature Entry: 7439  Low: 4588
+Update time diff: 109ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 64ms, 81ms, 109ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 137ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 47ms, 70ms, 137ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 158ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 76ms, 90ms, 158ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 140ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 19ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 85ms, 129ms, 195ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 173ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 73ms, 84ms, 173ms
+Update time diff: 148ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 67ms, 79ms, 148ms
+Update time diff: 200ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 72ms, 88ms, 200ms
+Update time diff: 131ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 60ms, 76ms, 131ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 142ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 67ms, 75ms, 142ms
+WorldSocket::ReadHeaderHandler(): client 172.19.0.1 sent malformed packet (size: 18245, cmd: 539959380)
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 149ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 68ms, 76ms, 149ms
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf1300042fb0039c5 Type: Creature Entry: 17147  Low: 14789
+Update time diff: 144ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 67ms, 73ms, 147ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 127ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 68ms, 81ms, 149ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+MoveSplineInitArgs::Validate: expression 'velocity > 0.01f' failed for GUID Full: 0xf130001d0f0011ec Type: Creature Entry: 7439  Low: 4588
+Update time diff: 145ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 43ms, 73ms, 145ms
+Update time diff: 137ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 72ms, 137ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 144ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 67ms, 83ms, 149ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 135ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 78ms, 141ms
+Update time diff: 149ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 74ms, 149ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 154ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 65ms, 74ms, 154ms
+Update time diff: 145ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 64ms, 76ms, 145ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 144ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 65ms, 73ms, 144ms
+Update time diff: 142ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 77ms, 156ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 127ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 42ms, 71ms, 127ms
+Update time diff: 113ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 40ms, 70ms, 113ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 133ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 72ms, 133ms
+Update time diff: 146ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 64ms, 73ms, 153ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 138ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 65ms, 73ms, 138ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 143ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 75ms, 143ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 150ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 75ms, 150ms
+Update time diff: 117ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 58ms, 71ms, 117ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 101ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 68ms, 75ms, 101ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 139ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 65ms, 70ms, 139ms
+Update time diff: 135ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 72ms, 135ms
+Update time diff: 143ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 73ms, 143ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 157ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 69ms, 88ms, 157ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 298ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 32ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 144ms, 247ms, 298ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 111ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 79ms, 91ms, 111ms
+WorldSocket::ReadHeaderHandler(): client 172.19.0.1 sent malformed packet (size: 18245, cmd: 539959380)
+Update time diff: 107ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 72ms, 99ms, 107ms
+Update time diff: 103ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 73ms, 85ms, 103ms
+Update time diff: 138ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 72ms, 99ms, 173ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 152ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 14ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 73ms, 152ms
+Update time diff: 157ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 69ms, 79ms, 157ms
+Update time diff: 138ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 71ms, 77ms, 148ms
+Update time diff: 123ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 70ms, 82ms, 142ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 136ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 77ms, 136ms
+Update time diff: 139ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 67ms, 73ms, 139ms
+Update time diff: 177ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 72ms, 85ms, 177ms
+Update time diff: 181ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 19ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 86ms, 107ms, 181ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 111ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 18ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 77ms, 107ms, 191ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 183ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 19ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 85ms, 97ms, 183ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 164ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 73ms, 100ms, 164ms
+Update time diff: 327ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 38ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 239ms, 302ms, 398ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 184ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 73ms, 104ms, 184ms
+Update time diff: 136ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 18ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 77ms, 94ms, 176ms
+Update time diff: 115ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 25ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 110ms, 170ms, 292ms
+Update time diff: 297ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 19ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 84ms, 131ms, 297ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 114ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 65ms, 81ms, 114ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 108ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 17ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 82ms, 94ms, 108ms
+Update time diff: 107ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 64ms, 83ms, 107ms
+Update time diff: 162ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 69ms, 84ms, 162ms
+Update time diff: 110ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 66ms, 88ms, 110ms
+Update time diff: 112ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 18ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 74ms, 108ms, 145ms
+Update time diff: 104ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 18ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 76ms, 104ms, 118ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 161ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 16ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 68ms, 85ms, 161ms
+> Config: Missing property AuctionHouseBot.ReturnExpiredAuctionItemsToBot in config file /azerothcore/env/dist/etc/worldserver.conf or module config, add "AuctionHouseBot.ReturnExpiredAuctionItemsToBot = 0" to this file or define 'AC_AUCTION_HOUSE_BOT_RETURN_EXPIRED_AUCTION_ITEMS_TO_BOT' as an environment variable.
+Update time diff: 158ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 15ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 68ms, 84ms, 158ms
+Update time diff: 207ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 18ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 85ms, 97ms, 207ms
+Update time diff: 362ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 25ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 95ms, 254ms, 476ms
+Update time diff: 246ms with 0 players online
+Last 500 diffs summary:
+|- Mean: 26ms
+|- Median: 1ms
+|- Percentiles (95, 99, max): 115ms, 177ms, 255ms

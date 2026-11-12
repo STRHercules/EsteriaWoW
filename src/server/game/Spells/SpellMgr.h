@@ -803,6 +803,8 @@ public:
     void LoadCreatureImmunities();
     void LoadSpellCooldownOverrides();
     void UnloadSpellInfoStore();
+    // Adds a spell built at runtime (Manastorm display helpers); fails if the ID is zero or already used.
+    SpellInfo* RegisterRuntimeSpell(SpellEntry const& entry);
     void UnloadSpellInfoImplicitTargetConditionLists();
     void LoadSpellInfoCustomAttributes();
     void LoadSpellInfoImmunities();

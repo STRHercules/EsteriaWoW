@@ -1364,6 +1364,8 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
+    sScriptMgr->ResolveSpellCast(this, spellInfo, triggeredByAura);
+
     if (!spellInfo)
     {
         LOG_ERROR("entities.unit", "CastSpell: unknown spell by caster {}", GetGUID().ToString());
@@ -4546,6 +4548,10 @@ bool Unit::CanCastSpellWhileMoving(SpellInfo const* info) const
     if (!info)
         return false;
 
+    // An active Manastorm Mobility Mixture lets every spell move; all movement gates go through here.
+    if (HasManastormMovementGrace())
+        return true;
+
     if (HasFormLandingGrace())
         return true;
 
@@ -4560,6 +4566,19 @@ bool Unit::CanCastDuringChannel(SpellInfo const* info) const
 void Unit::GrantFormLandingGrace(Milliseconds duration)
 {
     _formLandingGraceEnd = GameTime::GetGameTimeMS() + duration;
+}
+
+bool Unit::HasManastormMovementGrace() const
+{
+    // Only the temporary Mobility Mixture auras grant movement grace.
+    // Learned duration upgrades (1300186-1300192) never grant it by themselves.
+    Map const* map = FindMap();
+    if (!IsPlayer() || !map || !map->IsScriptedPrivateInstance())
+        return false;
+    for (uint32 spell = 1300179; spell <= 1300185; ++spell)
+        if (HasAura(spell))
+            return true;
+    return false;
 }
 
 bool Unit::HasFormLandingGrace() const

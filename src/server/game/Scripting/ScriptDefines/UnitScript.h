@@ -35,6 +35,7 @@ enum UnitHook
     UNITHOOK_ON_BEFORE_ROLL_MELEE_OUTCOME_AGAINST,
     UNITHOOK_ON_AURA_APPLY,
     UNITHOOK_ON_AURA_REMOVE,
+    UNITHOOK_RESOLVE_SPELL_CAST,
     UNITHOOK_IF_NORMAL_REACTION,
     UNITHOOK_CAN_SET_PHASE_MASK,
     UNITHOOK_IS_CUSTOM_BUILD_VALUES_UPDATE,
@@ -101,6 +102,9 @@ public:
     virtual void OnAuraApply(Unit* /*unit*/, Aura* /*aura*/) { }
 
     virtual void OnAuraRemove(Unit* /*unit*/, AuraApplication* /*aurApp*/, AuraRemoveMode /*mode*/) { }
+
+    // Lets a script swap the spell a unit is about to cast (e.g. Manastorm gadget ranks); may set it to null.
+    virtual void ResolveSpellCast(Unit* /*caster*/, SpellInfo const*& /*spellInfo*/, AuraEffect const* /*triggeredByAura*/) { }
 
     [[nodiscard]] virtual bool IfNormalReaction(Unit const* /*unit*/, Unit const* /*target*/, ReputationRank& /*repRank*/) { return true; }
 

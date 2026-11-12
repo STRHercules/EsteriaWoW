@@ -3853,6 +3853,17 @@ void Player::RemoveArenaSpellCooldowns(bool removeActivePetCooldowns)
         }
 }
 
+void Player::RemoveActivePetSpellCooldowns()
+{
+    if (Pet* pet = GetPet())
+    {
+        for (auto const& cooldown : pet->m_CreatureSpellCooldowns)
+            SendClearCooldown(cooldown.first, pet);
+
+        pet->m_CreatureSpellCooldowns.clear();
+    }
+}
+
 void Player::RemoveAllSpellCooldown()
 {
     RestoreAllSpellCharges();
@@ -16026,7 +16037,19 @@ void Player::_SaveCharacter(bool create, CharacterDatabaseTransaction trans)
         stmt->SetData(index++, GetByteValue(PLAYER_BYTES_2, 3));
         stmt->SetData(index++, GetPlayerFlags());
 
-        if (!IsBeingTeleported())
+        if (_scriptedPrivateMapId != MAPID_INVALID)
+        {
+            // Private-instance IDs are process-local. Crash recovery always starts outside.
+            stmt->SetData(index++, uint16(_scriptedPrivateReturn.GetMapId()));
+            stmt->SetData(index++, uint32(0));
+            stmt->SetData(index++, uint8(_scriptedPrivateReturnDungeonDifficulty)
+                | uint8(_scriptedPrivateReturnRaidDifficulty) << 4);
+            stmt->SetData(index++, finiteAlways(_scriptedPrivateReturn.GetPositionX()));
+            stmt->SetData(index++, finiteAlways(_scriptedPrivateReturn.GetPositionY()));
+            stmt->SetData(index++, finiteAlways(_scriptedPrivateReturn.GetPositionZ()));
+            stmt->SetData(index++, finiteAlways(_scriptedPrivateReturn.GetOrientation()));
+        }
+        else if (!IsBeingTeleported())
         {
             Difficulty dd = GetDungeonDifficulty(), rd = GetRaidDifficulty();
             if (Map* m = FindMap())

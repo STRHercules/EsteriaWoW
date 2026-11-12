@@ -793,6 +793,29 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_DEL_ACCOUNT_BANK_ITEM,
         "DELETE FROM account_bank_item WHERE account = ? AND item = ?", CONNECTION_ASYNC);
 
+    // mod-manastorm-endless (SQL as in CoA)
+    PrepareStatement(CHAR_SEL_MANASTORM_LOADOUT, "SELECT slot, spell FROM ascension_manastorm_loadout WHERE guid = ? UNION ALL SELECT 255, 0", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_REP_MANASTORM_LOADOUT, "REPLACE INTO ascension_manastorm_loadout (guid, slot, spell) VALUES (?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_MANASTORM_XP_LEVEL, "SELECT level, playerFlags FROM characters WHERE guid = ?", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_MANASTORM_FLOOR_XP, "SELECT base_xp FROM character_manastorm_pending_experience WHERE guid = ?", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_ADD_MANASTORM_FLOOR_XP, "INSERT INTO character_manastorm_pending_experience (guid, base_xp) VALUES (?, ?) "
+        "ON DUPLICATE KEY UPDATE base_xp = base_xp + VALUES(base_xp)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_CLAIM_MANASTORM_FLOOR_XP, "UPDATE character_manastorm_pending_experience SET base_xp = base_xp - ? WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_MANASTORM_FIRST_CLEAR, "SELECT COUNT(*) FROM character_manastorm_completed_depth "
+        "WHERE guid = ? AND mode = ? AND track = ? AND depth = ?", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_MANASTORM_COMPLETION_REWARD, "SELECT remainder_bp, earned FROM character_manastorm_completion_reward_state "
+        "WHERE guid = ? AND mode = ? AND track = ? AND reward_key = ? LIMIT 1", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_REP_MANASTORM_COMPLETION_REWARD, "INSERT INTO character_manastorm_completion_reward_state "
+        "(guid, mode, track, reward_key, remainder_bp, earned) VALUES (?, ?, ?, ?, ?, ?) "
+        "ON DUPLICATE KEY UPDATE remainder_bp = VALUES(remainder_bp), earned = VALUES(earned)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_MANASTORM_WEEKLY_CACHE, "SELECT COALESCE(MAX(reset_at), 0), COALESCE(MAX(caches_received), 0) "
+        "FROM manastorm_weekly_cache_lockout WHERE guid = ?", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_INS_MANASTORM_WEEKLY_CACHE, "INSERT INTO manastorm_weekly_cache_lockout (guid, reset_at, caches_received) "
+        "VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE reset_at = IF(reset_at = ? AND caches_received = ?, VALUES(reset_at), 0), "
+        "caches_received = VALUES(caches_received)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_MANASTORM_STAGE_RECEIPT, "INSERT INTO character_manastorm_stage_receipt (guid, run_seed, run_id, depth) "
+        "VALUES (?, ?, ?, ?)", CONNECTION_ASYNC);
+
     // CHAR_NO_OP_PROVIDE_REALM_CONTEXT is a no-op query that accepts a single parameter: the realm ID.
     // This query is used specifically in cross-realm scenarios when the database transaction
     // lacks sufficient context to determine which realm's database the query should target.

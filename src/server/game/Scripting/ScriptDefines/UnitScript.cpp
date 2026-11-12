@@ -79,6 +79,11 @@ void ScriptMgr::OnAuraRemove(Unit* unit, AuraApplication* aurApp, AuraRemoveMode
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_AURA_REMOVE, script->OnAuraRemove(unit, aurApp, mode));
 }
 
+void ScriptMgr::ResolveSpellCast(Unit* caster, SpellInfo const*& spellInfo, AuraEffect const* triggeredByAura)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_RESOLVE_SPELL_CAST, script->ResolveSpellCast(caster, spellInfo, triggeredByAura));
+}
+
 bool ScriptMgr::IfNormalReaction(Unit const* unit, Unit const* target, ReputationRank& repRank)
 {
     CALL_ENABLED_BOOLEAN_HOOKS(UnitScript, UNITHOOK_IF_NORMAL_REACTION, !script->IfNormalReaction(unit, target, repRank));
