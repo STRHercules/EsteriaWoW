@@ -24,6 +24,7 @@
 #include "SpellAuraEffects.h"
 #include "SpellMgr.h"
 #include "Unit.h"
+#include "PerkFx.h"
 
 inline bool _ModifyUInt32(bool apply, uint32& baseValue, int32& amount)
 {
@@ -349,6 +350,7 @@ void Player::UpdateArmor()
 
     float value = GetFlatModifierValue(unitMod, BASE_VALUE);   // base armor (from items)
     value *= GetPctModifierValue(unitMod, BASE_PCT);           // armor percent from items
+    value *= EsteriaPerkFx::ArmorGearMod(this);                // starting traits: armor from gear
     value += GetStat(STAT_AGILITY) * 2.0f;                             // armor bonus from stats
     value += GetFlatModifierValue(unitMod, TOTAL_VALUE);
 
@@ -1364,6 +1366,7 @@ void Guardian::UpdateMaxHealth()
     value *= GetPctModifierValue(unitMod, BASE_PCT);
     value += GetFlatModifierValue(unitMod, TOTAL_VALUE) + stamina * multiplicator;
     value *= GetPctModifierValue(unitMod, TOTAL_PCT);
+    value *= EsteriaPerkFx::PetHealthMod(this); // starting traits: the owner's pet health
 
     SetMaxHealth((uint32)value);
 }

@@ -17,6 +17,15 @@
 //                                       perk(u8) path(u8) tier(u8) rank(u8) maxRank(u8) cost(u8) lock(u8) flags(u8)
 // `lock` is the Result buying the card's next rank would get now (Ok when it can be bought, Rank when it is maxed).
 // Cards the player's class can never use are left out.
+//
+// Starting traits have their own channel and version, so the messages above never change shape. Results are
+// EsteriaTraits::Result (the server's PerkTraitRules.h; the addon's Data.lua has the sentences).
+//   CMSG_ESTERIA_TRAIT_SNAPSHOT_REQUEST proto(u8)
+//   CMSG_ESTERIA_TRAIT_RECHOOSE         proto(u8) count(u8) count x id(u16)   the whole new build, ids ascending
+//   SMSG_ESTERIA_TRAIT_RESULT           result(u8); a snapshot follows unless the result is Version
+//   SMSG_ESTERIA_TRAIT_SNAPSHOT         proto(u8) base(u8) fromFlaws(u8) spent(u8) respecs(u16) cost(u32, copper)
+//                                       lock(u8, a Result: Ok, Place or Gold) repair(u8) count(u8) count x id(u16)
+// `repair` is 1 when the saved build is no longer allowed (a trait was switched off): the next rechoose is free.
 namespace EsteriaPerkWire
 {
     inline constexpr uint8_t Proto = 1;
@@ -26,6 +35,12 @@ namespace EsteriaPerkWire
     inline constexpr uint32_t CMSG_PURCHASE = 0x52D;
     inline constexpr uint32_t CMSG_RESPEC = 0x52E;
     inline constexpr uint32_t SMSG_RESULT = 0x52F;
+
+    inline constexpr uint8_t TraitProto = 1;
+    inline constexpr uint32_t CMSG_TRAIT_SNAPSHOT_REQUEST = 0x546;
+    inline constexpr uint32_t SMSG_TRAIT_SNAPSHOT = 0x547;
+    inline constexpr uint32_t CMSG_TRAIT_RECHOOSE = 0x548;
+    inline constexpr uint32_t SMSG_TRAIT_RESULT = 0x549;
 
     enum Action : uint8_t
     {

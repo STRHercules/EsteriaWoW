@@ -56,6 +56,7 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include "PerkFx.h"
 
 CreatureMovementData::CreatureMovementData() : Ground(CreatureGroundMovementType::Run), Flight(CreatureFlightMovementType::None),
                                                Swim(true), Rooted(false), Chase(CreatureChaseMovementType::Run),
@@ -3454,6 +3455,9 @@ float Creature::GetAggroRange(Unit const* target) const
     float minRange = IsPet() ? 10.0f : 5.0f;
     if (aggroRadius < minRange)
         aggroRadius = minRange;
+
+    // starting traits: ordinary creatures notice a quiet traveller on foot from a little closer
+    aggroRadius *= EsteriaPerkFx::AggroMod(target, this);
 
     return (aggroRadius * aggroRate);
 }

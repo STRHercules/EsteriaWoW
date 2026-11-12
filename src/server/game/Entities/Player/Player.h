@@ -21,6 +21,7 @@
 #include "ArenaTeam.h"
 #include "BodyShapeWire.h"
 #include "PerkRules.h"
+#include "PerkTraitRules.h"
 #include "RetailLookWire.h"
 #include "Battleground.h"
 #include "CharmInfo.h"
@@ -904,6 +905,8 @@ enum PlayerLoginQueryIndex
     PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERK_PROFILE,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS,
+    PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAITS,
+    PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAIT_STATE,
     MAX_PLAYER_LOGIN_QUERY
 };
 
@@ -1186,7 +1189,20 @@ public:
     void LoadEsteriaPerks(PreparedQueryResult profile, PreparedQueryResult perks);
     uint8 GetEsteriaPerkRank(uint8 perk) const; // 0 when not owned or Paths of Fate is off
     EsteriaPerks::Ranks const& GetEsteriaPerkRanks() const { return _esteriaPerks; }
-    uint8 GetEsteriaTrait() const { return _esteriaTrait; }
+    // The single original background, 0 for any other build: what the v1 perk snapshot carries.
+    uint8 GetEsteriaTrait() const { return EsteriaTraits::LegacyTrait(_esteriaTraits); }
+    // Starting traits (PerkTraitRules.h). The build is whatever was saved; its effects only count implemented traits.
+    void LoadEsteriaTraits(PreparedQueryResult traits, PreparedQueryResult state);
+    bool HasEsteriaTrait(uint16 id) const { return EsteriaTraits::Has(_esteriaTraits, id); }
+    EsteriaTraits::Selection const& GetEsteriaTraits() const { return _esteriaTraits; }
+    EsteriaTraits::Mods const& GetEsteriaTraitMods() const { return _esteriaTraitMods; }
+    uint16 GetEsteriaTraitRespecs() const { return _esteriaTraitRespecs; }
+    // Replaces the whole build, saves it and re-applies stats. The caller validated it and took any gold.
+    void SetEsteriaTraits(EsteriaTraits::Selection const& selection, uint8 auditAction, bool countRespec, uint32 gold);
+    void SendEsteriaTraitSnapshot();
+    // Writes a build's rows (and the v1 profile trait) into a transaction; `respecs` is the rechoose count to store.
+    static void SaveEsteriaTraits(CharacterDatabaseTransaction trans, uint32 guid,
+        EsteriaTraits::Selection const& selection, uint16 respecs);
     uint8 GetEsteriaPerkRespecs() const { return _esteriaRespecs; }
     void SetEsteriaPerkRank(size_t index, uint8 rank) { _esteriaPerks[index] = rank; } // caller checked and saves it
     // Clears every rank and records why (an EsteriaPerkAudit action); respecs counts toward the next respec's cost.
@@ -2902,7 +2918,9 @@ protected:
     void _LoadCharacterSettings(PreparedQueryResult result);
     CharacterBodyShape::Values _bodyShape{};
     EsteriaPerks::Ranks _esteriaPerks{};
-    uint8 _esteriaTrait = 0;
+    EsteriaTraits::Selection _esteriaTraits{};
+    EsteriaTraits::Mods _esteriaTraitMods{};
+    uint16 _esteriaTraitRespecs = 0;
     uint8 _esteriaRespecs = 0;
     std::map<uint32, std::vector<uint32>> _mountLooks;
     std::map<uint32, uint32> _incarnations;

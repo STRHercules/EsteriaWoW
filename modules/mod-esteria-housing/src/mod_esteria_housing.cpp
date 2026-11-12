@@ -28,6 +28,7 @@
 #include "MapMgr.h"
 #include "ObjectMgr.h"
 #include "ObjectAccessor.h"
+#include "PerkFx.h"
 #include "Player.h"
 #include "ScriptMgr.h"
 #include "BodyShapeWire.h"
@@ -3723,6 +3724,13 @@ namespace
 
 void AddSC_mod_esteria_housing()
 {
+    // Paths of Fate starting traits (Homebody, Neighborhood Regular) ask the housing module where a player stands.
+    EsteriaPerkFx::OwnHomeProbe = [](Player const* player)
+    {
+        House const* house = HouseOfInstance(player->GetMap());
+        return house && house->account == player->GetSession()->GetAccountId();
+    };
+    EsteriaPerkFx::HousingMapProbe = [](uint32 mapId) { return IsNeighborhoodMap(mapId) || IsHousingMap(mapId); };
     new npc_esteria_housing_steward();
     new go_esteria_housing_cornerstone();
     new go_esteria_housing_front_door();

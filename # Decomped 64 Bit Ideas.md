@@ -1,5 +1,8 @@
 # Decomped 64 Bit Ideas
 
+## Chinese Worldbreaker Vendors
+- Add whelping
+
 ## Biography section in char creation
 - Ability to add optional biography to character in creation - can leave blank and just skip
 - Adds new screen; 'Biography' where the user can input the character's;
@@ -23,9 +26,6 @@
 ## Things to take from Ascension
 - Manastorm
 - Worldforged items
-
-# Add more beginning Perks - a lot more
-- Zomboid style point system?
 
 # Turn Junk into EXP
 - Random bounties for grey items in zones

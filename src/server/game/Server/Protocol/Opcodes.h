@@ -1377,7 +1377,11 @@ enum Opcodes : uint16
     SMSG_ESTERIA_HOUSING_COMMERCE                   = 0x543,
     CMSG_ESTERIA_MOUNT_LOOK                         = 0x544,
     SMSG_ESTERIA_MOUNT_LOOKS                        = 0x545,
-    NUM_MSG_TYPES                                   = 0x546
+    CMSG_ESTERIA_TRAIT_SNAPSHOT_REQUEST             = 0x546,
+    SMSG_ESTERIA_TRAIT_SNAPSHOT                     = 0x547,
+    CMSG_ESTERIA_TRAIT_RECHOOSE                     = 0x548,
+    SMSG_ESTERIA_TRAIT_RESULT                       = 0x549,
+    NUM_MSG_TYPES                                   = 0x54A
 };
 
 enum OpcodeMisc : uint16

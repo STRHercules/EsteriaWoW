@@ -521,6 +521,7 @@ public:
     void SetZoneMusic(uint32 zoneId, uint32 musicId);
     Weather* GetOrGenerateZoneDefaultWeather(uint32 zoneId);
     void SetZoneWeather(uint32 zoneId, WeatherState weatherId, float weatherGrade);
+[[nodiscard]] WeatherState GetZoneWeatherState(uint32 zoneId) const; // what the zone's players are seeing now
     void SetZoneOverrideLight(uint32 zoneId, uint32 lightId, Milliseconds fadeInTime);
 
     // Checks encounter state at kill/spellcast, originally in InstanceScript however not every map has instance script :(

@@ -1847,6 +1847,7 @@ void Unit::CalculateMeleeDamage(Unit* victim, CalcDamageInfo* damageInfo, Weapon
                     mod += GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_PERCENT_VERSUS, crTypeMask);
                     mod += GetAscensionConditionalCombatModifier(
                         damageInfo->target, nullptr, ASCENSION_CONDITIONAL_CRIT_DAMAGE);
+                    mod += EsteriaPerkFx::CritDamageDelta(this, damageInfo->target); // starting traits
                     if (mod != 0)
                     {
                         AddPct(damageInfo->damages[i].damage, mod);
@@ -3005,7 +3006,7 @@ MeleeHitOutcome Unit::RollMeleeOutcomeAgainst(Unit const* victim, WeaponAttackTy
     if (crit_chance < 0)
         crit_chance = 0;
 
-    float dodge_chance = victim->GetUnitDodgeChance();
+    float dodge_chance = victim->GetUnitDodgeChance() + EsteriaPerkFx::DodgeDelta(victim, this);
     float block_chance = victim->GetUnitBlockChance();
     float parry_chance = victim->GetUnitParryChance();
 
@@ -3488,7 +3489,7 @@ SpellMissInfo Unit::MeleeSpellHitResult(Unit* victim, SpellInfo const* spellInfo
     if (canDodge)
     {
         // Roll dodge
-        int32 dodgeChance = int32(victim->GetUnitDodgeChance() * 100.0f) - skillDiff * 4;
+        int32 dodgeChance = int32((victim->GetUnitDodgeChance() + EsteriaPerkFx::DodgeDelta(victim, this)) * 100.0f) - skillDiff * 4;
         // Reduce enemy dodge chance by SPELL_AURA_MOD_COMBAT_RESULT_CHANCE
         dodgeChance += GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_COMBAT_RESULT_CHANCE, VICTIMSTATE_DODGE) * 100;
         dodgeChance = int32(float(dodgeChance) * GetTotalAuraMultiplier(SPELL_AURA_MOD_ENEMY_DODGE));
@@ -4120,6 +4121,9 @@ float Unit::GetUnitCriticalChance(WeaponAttackType attackType, Unit const* victi
 
     // xinef: SPELL_AURA_MOD_ATTACKER_SPELL_AND_WEAPON_CRIT_CHANCE should be calculated at the end
     crit += victim->GetTotalAuraModifier(SPELL_AURA_MOD_ATTACKER_SPELL_AND_WEAPON_CRIT_CHANCE);
+
+    // starting traits: critical chance against creatures
+    crit += EsteriaPerkFx::CritDelta(this, victim, false);
 
     if (crit < 0.0f)
         crit = 0.0f;
@@ -9775,6 +9779,10 @@ float Unit::SpellTakenCritChance(Unit const* caster, SpellInfo const* spellProto
         caster->GetAscensionConditionalCombatModifier(this, spellProto, ASCENSION_CONDITIONAL_GUARANTEED_CRIT) > 0)
         crit_chance = std::max(crit_chance, 100.0f);
 
+    // starting traits: critical chance against creatures
+    if (caster && !spellProto->IsPositive())
+        crit_chance += EsteriaPerkFx::CritDelta(caster, this, true);
+
     // xinef: can be negative!
     return crit_chance;
 }
@@ -9805,6 +9813,7 @@ uint32 Unit::SpellCriticalDamageBonus(Unit const* caster, SpellInfo const* spell
 
         crit_mod += caster->GetAscensionConditionalCombatModifier(
             victim, spellProto, ASCENSION_CONDITIONAL_CRIT_DAMAGE);
+        crit_mod += EsteriaPerkFx::CritDamageDelta(caster, victim); // starting traits
 
         if (crit_bonus != 0 && crit_mod != 0.0f)
             AddPct(crit_bonus, crit_mod);
@@ -11642,6 +11651,9 @@ void Unit::UpdateSpeed(UnitMoveType mtype, bool forced)
     if (mtype == MOVE_RUN)
         if (Player const* player = ToPlayer())
             AddPct(speed, 100.0f * EsteriaPerkFx::MoveBonus(player));
+    if (mtype == MOVE_SWIM)
+        if (Player const* player = ToPlayer())
+            AddPct(speed, 100.0f * EsteriaPerkFx::SwimBonus(player));
 
     switch (mtype)
     {
@@ -11656,6 +11668,7 @@ void Unit::UpdateSpeed(UnitMoveType mtype, bool forced)
                 {
                     // contant value for player pets
                     speed *= 1.15f;
+                    speed *= 1.0f + EsteriaPerkFx::PetSpeedBonus(this); // starting traits: the owner's pet speed
                 }
                 else
                 {
@@ -15759,6 +15772,7 @@ float Unit::MeleeSpellMissChance(Unit const* victim, WeaponAttackType attType, i
     }
 
     missChance -= hitChance - 100.0f;
+    missChance -= EsteriaPerkFx::HitDelta(this, victim); // starting traits: a drunk brawler misses more
 
     if (attType == RANGED_ATTACK)
         missChance -= m_modRangedHitChance;

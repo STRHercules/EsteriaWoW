@@ -260,6 +260,14 @@ bool LoginQueryHolder::Initialize()
     stmt->SetData(0, rawGUID);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS, stmt);
 
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_TRAITS);
+    stmt->SetData(0, rawGUID);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAITS, stmt);
+
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_TRAIT_STATE);
+    stmt->SetData(0, rawGUID);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAIT_STATE, stmt);
+
     return res;
 }
 
@@ -490,7 +498,8 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
     }
 
     // Footers come off the end in reverse order of how the client appended them: the trait went on last.
-    if (!CharacterPerkTrait::ReadTail(recvData, createInfo->HasPerkTrait, createInfo->PerkTrait))
+    // Framing here; whether this class may hold the build is checked once the class is known to be valid.
+    if (!CharacterPerkTrait::ReadTail(recvData, createInfo->HasPerkTrait, createInfo->PerkTraits))
     {
         SendCharCreate(CHAR_CREATE_FAILED);
         return;
@@ -606,6 +615,15 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
     {
         SendCharCreate(CHAR_CREATE_FAILED);
         LOG_ERROR("network.opcode", "Race ({}) not found in DBC while creating new char for account (ID: {}): wrong DBC files or cheater?", createInfo->Race, GetAccountId());
+        return;
+    }
+
+    // Starting traits: the client's budget preview is advisory, this is the check.
+    if (EsteriaTraits::Result const traits = EsteriaTraits::Validate(createInfo->PerkTraits, createInfo->Class))
+    {
+        SendCharCreate(CHAR_CREATE_FAILED);
+        LOG_ERROR("network.opcode", "Account {} tried to create a class {} character with a refused trait build (result {})",
+            GetAccountId(), createInfo->Class, uint32(traits));
         return;
     }
 
@@ -918,13 +936,10 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
                             characterTransaction->Append(bindStmt);
                         }
 
-                        if (createInfo->HasPerkTrait)
-                        {
-                            CharacterDatabasePreparedStatement* traitStmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_PERK_PROFILE);
-                            traitStmt->SetData(0, newChar->GetGUID().GetCounter());
-                            traitStmt->SetData(1, createInfo->PerkTrait);
-                            characterTransaction->Append(traitStmt);
-                        }
+                        // The traits go in with the character: a failed create leaves no rows behind.
+                        if (createInfo->PerkTraits.count)
+                            Player::SaveEsteriaTraits(characterTransaction, newChar->GetGUID().GetCounter(),
+                                createInfo->PerkTraits, 0);
 
                         LoginDatabasePreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_DEL_REALM_CHARACTERS_BY_REALM);
                         stmt->SetData(0, GetAccountId());

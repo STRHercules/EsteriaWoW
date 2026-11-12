@@ -855,6 +855,8 @@ uint32 Player::EnvironmentalDamage(EnviromentalDamage type, uint32 damage)
 
     if (type != DAMAGE_FALL && type != DAMAGE_FALL_TO_VOID)
         damage = uint32(float(damage) * EsteriaPerkFx::EnvironmentMod(this));
+    else if (type == DAMAGE_FALL)
+        damage = uint32(float(damage) * EsteriaPerkFx::FallMod(this));
 
     // Absorb, resist some environmental damage type
     uint32 absorb = 0;
@@ -2058,6 +2060,10 @@ void Player::Regenerate(Powers power)
             addvalue += float(GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_POWER_REGEN, power) * ((power != POWER_ENERGY) ? m_regenTimerCount : m_regenTimer)) / (5.0f * IN_MILLISECONDS);
     }
 
+    // Starting traits: mana regeneration while in combat.
+    if (power == POWER_MANA && addvalue > 0.0f && IsInCombat())
+        addvalue *= EsteriaPerkFx::ManaRegenCombatMod(this);
+
     if (addvalue < 0.0f)
     {
         if (curValue == 0)
@@ -2138,6 +2144,7 @@ void Player::RegenerateHealth()
 
         if (!IsInCombat())
         {
+            addvalue *= EsteriaPerkFx::HealthRegenMod(this);
             addvalue += GetTotalAuraModifier(SPELL_AURA_MOD_REGEN) * 2 * IN_MILLISECONDS / (5 * IN_MILLISECONDS);
         }
         else if (HasRegenDuringCombatAura())
@@ -4627,6 +4634,14 @@ void Player::DeleteFromDB(ObjectGuid::LowType lowGuid, uint32 accountId, bool up
                 trans->Append(stmt);
 
                 stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_PERKS);
+                stmt->SetData(0, lowGuid);
+                trans->Append(stmt);
+
+                stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_TRAITS);
+                stmt->SetData(0, lowGuid);
+                trans->Append(stmt);
+
+                stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_TRAIT_STATE);
                 stmt->SetData(0, lowGuid);
                 trans->Append(stmt);
 

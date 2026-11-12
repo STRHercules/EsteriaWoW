@@ -75,6 +75,8 @@ public:
     static void SendFineWeatherUpdateToPlayer(Player* player);
     void SetWeather(WeatherType type, float grade);
 
+    [[nodiscard]] WeatherState GetState() const { return GetWeatherState(); }
+
     /// For which zone is this weather?
     [[nodiscard]] uint32 GetZone() const { return m_zone; };
     [[nodiscard]] uint32 GetScriptId() const { return m_weatherChances->ScriptId; }

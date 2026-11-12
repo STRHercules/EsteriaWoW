@@ -141,6 +141,24 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_INS_PERK_AUDIT,
         "INSERT INTO esteria_perk_audit (guid, time, action, perk, `rank`, level, spent, gold) "
         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_UPD_PERK_TRAIT,
+        "INSERT INTO character_esteria_perk_profile (guid, trait) VALUES (?, ?) "
+        "ON DUPLICATE KEY UPDATE trait = VALUES(trait)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_TRAITS,
+        "SELECT trait_id FROM character_esteria_trait_selection WHERE guid = ? ORDER BY trait_id", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_TRAIT,
+        "INSERT INTO character_esteria_trait_selection (guid, trait_id, selected_at) VALUES (?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DEL_TRAITS,
+        "DELETE FROM character_esteria_trait_selection WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_TRAIT_STATE,
+        "SELECT respecs FROM character_esteria_trait_state WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_REP_TRAIT_STATE,
+        "REPLACE INTO character_esteria_trait_state (guid, respecs, changed) VALUES (?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DEL_TRAIT_STATE,
+        "DELETE FROM character_esteria_trait_state WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_TRAIT_AUDIT,
+        "INSERT INTO esteria_trait_audit (guid, time, action, `before`, `after`, gold) VALUES (?, ?, ?, ?, ?, ?)",
+        CONNECTION_ASYNC);
     PrepareStatement(CHAR_UPD_EYE_LIGHTNING,
         "UPDATE characters SET extraAppearance = (extraAppearance & 9223372036854775807) | ? WHERE guid = ?",
         CONNECTION_ASYNC);

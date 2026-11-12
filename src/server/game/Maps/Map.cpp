@@ -3326,6 +3326,16 @@ void Map::SetZoneWeather(uint32 zoneId, WeatherState weatherId, float weatherGra
     SendZoneMessage(zoneId, WorldPackets::Misc::Weather(weatherId, weatherGrade).Write());
 }
 
+WeatherState Map::GetZoneWeatherState(uint32 zoneId) const
+{
+    auto it = _zoneDynamicInfo.find(zoneId);
+    if (it == _zoneDynamicInfo.end())
+        return WEATHER_STATE_FINE;
+    if (it->second.WeatherId != WEATHER_STATE_FINE)
+        return it->second.WeatherId;
+    return it->second.DefaultWeather ? it->second.DefaultWeather->GetState() : WEATHER_STATE_FINE;
+}
+
 void Map::SetZoneOverrideLight(uint32 zoneId, uint32 lightId, Milliseconds fadeInTime)
 {
     ZoneDynamicInfo& info = _zoneDynamicInfo[zoneId];

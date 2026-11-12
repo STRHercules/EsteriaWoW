@@ -3061,7 +3061,7 @@ int32 SpellInfo::CalcPowerCost(Unit const* caster, SpellSchoolMask schoolMask, S
     if (PowerType == POWER_MANA && !IsChanneled() && (!CastTimeEntry || CastTimeEntry->CastTime == 0))
         powerCostMultiplier -= float(caster->GetTotalAuraModifier(SPELL_AURA_ASCENSION_MOD_INSTANT_MANA_COST_PCT)) / 100.0f;
     sScriptMgr->ModifySpellPowerCost(caster, this, powerCost, powerCostMultiplier);
-    powerCost = int32(powerCost * (1.0f + powerCostMultiplier));
+    powerCost = int32(powerCost * (1.0f + powerCostMultiplier) * EsteriaPerkFx::PowerCostMod(caster, this));
     if (powerCost < 0)
         powerCost = 0;
     return powerCost;

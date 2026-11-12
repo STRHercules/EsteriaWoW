@@ -5792,6 +5792,8 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     LoadFormLook(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_FORM_LOOK));
     LoadEsteriaPerks(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERK_PROFILE),
         holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS));
+    LoadEsteriaTraits(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAITS),
+        holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAIT_STATE));
 
     // Players are immune to taunt
     ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_TAUNT, true);

@@ -929,7 +929,7 @@ bool Player::UpdateSkillPro(uint16 SkillId, int32 Chance, uint32 step)
     if (!SkillId || !sScriptMgr->OnPlayerCanUpdateSkill(this, SkillId))
         return false;
 
-    Chance = EsteriaPerkFx::SkillChance(this, Chance);
+    Chance = EsteriaPerkFx::SkillChance(this, SkillId, Chance);
 
     if (Chance <= 0) // speedup in 0 chance case
     {

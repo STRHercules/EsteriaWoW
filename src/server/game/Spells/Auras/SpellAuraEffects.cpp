@@ -45,6 +45,7 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include "PerkFx.h"
 
 class Aura;
 //
@@ -6684,6 +6685,7 @@ void AuraEffect::HandlePeriodicHealAurasTick(Unit* target, Unit* caster) const
 
     if (GetAuraType() == SPELL_AURA_OBS_MOD_HEALTH)
     {
+        damage = int32(float(damage) * EsteriaPerkFx::FoodMod(target, caster)); // starting traits: eating
         // Taken mods
         float TakenTotalMod = 1.0f;
 
@@ -6901,6 +6903,8 @@ void AuraEffect::HandleObsModPowerAuraTick(Unit* target, Unit* caster) const
 
     // ignore negative values (can be result apply spellmods to aura damage
     uint32 amount = std::max(m_amount, 0) * target->GetMaxPower(PowerType) / 100;
+    if (PowerType == POWER_MANA)
+        amount = uint32(float(amount) * EsteriaPerkFx::DrinkMod(target)); // starting traits: drinking
     LOG_DEBUG("spells.aura.effect", "PeriodicTick: {} energize {} for {} dmg inflicted by {}",
                     GetCasterGUID().ToString(), target->GetGUID().ToString(), amount, GetId());
     SpellPeriodicAuraLogInfo pInfo(this, amount, 0, 0, 0, 0.0f, false);

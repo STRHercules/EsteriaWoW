@@ -391,7 +391,7 @@ protected:
     bool HasRetailLook = false;
     CharacterRetailLook::Look RetailLook;
     bool HasPerkTrait = false;
-    uint8 PerkTrait = CharacterPerkTrait::Unmarked;
+    CharacterPerkTrait::Selection PerkTraits;
     bool HasStartZone = false;
     uint8 StartZone = CharacterStartZone::RaceDefault;
     PlayerInfo const* StartInfo = nullptr; // set by the handler: the picked zone's start, null for the race's own
@@ -719,6 +719,8 @@ public:                                                 // opcodes handlers
     void HandleEsteriaPerkSnapshotRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaPerkPurchaseOpcode(WorldPacket& recvPacket);
     void HandleEsteriaPerkRespecOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaTraitSnapshotRequestOpcode(WorldPacket& recvPacket);
+    void HandleEsteriaTraitRechooseOpcode(WorldPacket& recvPacket);
     uint32 GetSwapCooldownMs() const;
     // The current character was logged in by a character swap; module login hooks can skip greetings on it.
     bool IsSwapLogin() const { return _swapLogin; }

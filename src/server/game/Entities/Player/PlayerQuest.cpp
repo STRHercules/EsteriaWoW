@@ -752,6 +752,7 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
         SendItemRetrievalMail(problematicItems);
     }
 
+    EsteriaPerkFx::StateOf(GetGUID()).rewardQuest = quest->GetQuestId(); // starting traits: which quest the reputation is for
     RewardReputation(quest);
 
     uint16 log_slot = FindQuestSlot(quest_id);

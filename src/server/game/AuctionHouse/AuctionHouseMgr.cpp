@@ -30,6 +30,7 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include <vector>
+#include "PerkFx.h"
 
 constexpr auto AH_MINIMUM_DEPOSIT = 100;
 
@@ -192,6 +193,7 @@ void AuctionHouseMgr::SendAuctionSuccessfulMail(AuctionEntry* auction, Character
     if (owner || owner_accId)
     {
         uint32 profit = auction->bid + auction->deposit - auction->GetAuctionCut();
+        profit = EsteriaPerkFx::AuctionProfit(auction->owner, profit, auction->GetAuctionCut()); // starting traits
         sScriptMgr->OnBeforeAuctionHouseMgrSendAuctionSuccessfulMail(this, auction, owner, owner_accId, profit, sendNotification, updateAchievementCriteria, sendMail);
 
         if (owner)
