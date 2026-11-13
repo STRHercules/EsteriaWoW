@@ -625,6 +625,11 @@ public:
             return;
         }
 
+        // Heart Healing is a flat 10 + 5 per level, sized for level-60 health; grow it like run creatures' health.
+        heal = uint32(std::min<double>(
+            double(heal) * ManastormExpansionLift(player->GetLevel(), CLASS_WARRIOR, 0, false),
+            double(std::numeric_limits<uint32>::max())));
+
         // Apply only the highest learned Hearty Heal rank (93467-93476).
         // The donor bonus is 25% per rank; preserve the native heart spell's
         // level/stat healing, absorb handling, combat log and mana effect.
@@ -669,7 +674,7 @@ public:
         Unit* target,
         Unit* attacker,
         int32& damage,
-        SpellInfo const* /*spellInfo*/) override
+        SpellInfo const* spellInfo) override
     {
         if (!ManastormModuleConfig::Enabled())
             return;
@@ -682,7 +687,8 @@ public:
                 attacker,
                 target,
                 uint32(damage),
-                SPELL_DIRECT_DAMAGE);
+                SPELL_DIRECT_DAMAGE,
+                spellInfo);
 
         damage =
             scaled >
@@ -695,7 +701,7 @@ public:
         Unit* target,
         Unit* attacker,
         uint32& damage,
-        SpellInfo const* /*spellInfo*/) override
+        SpellInfo const* spellInfo) override
     {
         if (!ManastormModuleConfig::Enabled())
             return;
@@ -705,7 +711,8 @@ public:
                 attacker,
                 target,
                 damage,
-                DOT);
+                DOT,
+                spellInfo);
     }
 
     void OnUnitEnterCombat(

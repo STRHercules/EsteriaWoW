@@ -2987,6 +2987,31 @@ namespace
         return resolvedLevel;
     }
 
+    // Spells whose amount already follows the target's max health must not get the expansion lift.
+    bool ScalesWithTargetHealth(SpellInfo const* spellInfo)
+    {
+        if (!spellInfo)
+            return false;
+
+        for (SpellEffectInfo const& effect : spellInfo->Effects)
+        {
+            // Ascension effect 174: MiscValue 1 = % of caster melee (lifted), anything else = % of target max health.
+            if ((effect.Effect == 174 && effect.MiscValue != 1) ||
+                effect.ApplyAuraName == SPELL_AURA_PERIODIC_DAMAGE_PERCENT)
+                return true;
+        }
+
+        return false;
+    }
+
+    double GetCreatureExpansionLift(Creature const* creature, bool damage)
+    {
+        CreatureTemplate const* creatureTemplate = creature->GetCreatureTemplate();
+        return creatureTemplate
+            ? ManastormExpansionLift(creature->GetLevel(), creatureTemplate->unit_class, creatureTemplate->expansion, damage)
+            : 1.0;
+    }
+
     uint32 ScaleUnsignedValue(uint32 value, double multiplier)
     {
         if (!value || multiplier == 1.0)
@@ -6578,6 +6603,40 @@ void ManastormMgr::OnCreatureSelectLevel(
         false);
 }
 
+double ManastormExpansionLift(uint8 level, uint8 unitClass, uint32 nativeExpansion, bool damage)
+{
+    if (level <= 60)
+        return 1.0;
+
+    CreatureBaseStats const* stats = sObjectMgr->GetCreatureBaseStats(level, unitClass);
+    if (!stats)
+        return 1.0;
+
+    // A few rows hold 1 for an expansion that never had that class at that level: use the expansion before it.
+    auto value = [&](uint32 expansion)
+    {
+        for (expansion = std::min<uint32>(expansion, 2); expansion > 0; --expansion)
+        {
+            double const v = damage ? double(stats->BaseDamage[expansion]) : double(stats->BaseHealth[expansion]);
+            if (v > 1.0)
+                return v;
+        }
+        return damage ? double(stats->BaseDamage[0]) : double(stats->BaseHealth[0]);
+    };
+    auto blend = [&](uint32 from, uint32 to, uint8 first, uint8 last)
+    {
+        double const w = double(level - first) / double(last - first);
+        return value(from) * (1.0 - w) + value(to) * w;
+    };
+
+    double const target = level < 63 ? blend(0, 1, 60, 63)
+        : level <= 70 ? value(1)
+        : level < 73 ? blend(1, 2, 70, 73)
+        : value(2);
+    double const native = value(nativeExpansion);
+    return native > 0.0 ? std::max(1.0, target / native) : 1.0;
+}
+
 void ManastormMgr::ApplyCreatureHealthScaling(
     Creature* creature,
     ManastormRun& run,
@@ -6602,6 +6661,8 @@ void ManastormMgr::ApplyCreatureHealthScaling(
     {
         endlessMultiplier = 1.0;
     }
+
+    endlessMultiplier *= GetCreatureExpansionLift(creature, false);
 
     healthPct =
         std::clamp(
@@ -8169,7 +8230,8 @@ uint32 ManastormMgr::ScaleCreatureDamage(
     Unit* attacker,
     Unit* victim,
     uint32 damage,
-    DamageEffectType damageType)
+    DamageEffectType damageType,
+    SpellInfo const* spellInfo)
 {
     if (!attacker || !victim || !damage)
         return damage;
@@ -8224,6 +8286,9 @@ uint32 ManastormMgr::ScaleCreatureDamage(
     default:
         return damage;
     }
+
+    if (!ScalesWithTargetHealth(spellInfo))
+        multiplier *= GetCreatureExpansionLift(creature, true);
 
     //
     // Chaotic Link increases damage only for the exact objective boss.

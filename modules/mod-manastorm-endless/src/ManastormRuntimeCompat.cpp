@@ -13,6 +13,7 @@
 #include "Spell.h"
 #include "SpellAuras.h"
 #include "UnitScript.h"
+#include "World.h"
 
 #include <algorithm>
 #include <cmath>
@@ -39,7 +40,11 @@ namespace
     constexpr uint32 SPELL_CORE_HOUND_PLAY_DEAD = 19822;
     constexpr uint32 SPELL_CHAOTIC_LINK = 93459;
     constexpr double CHAOTIC_LINK_HEALTH_PER_STACK = 0.25;
-    constexpr uint8 ENDGAME_LEVEL = 60;
+    // Same threshold ManastormMgr uses to put a run on the endgame track (the realm cap, at least 60).
+    uint32 EndgameLevel()
+    {
+        return std::max(60u, sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL));
+    }
 
     constexpr uint32 MAP_BLACKROCK_SPIRE = 229;
     constexpr uint32 NPC_SPIRESTONE_BATTLE_LORD = 9218;
@@ -873,7 +878,7 @@ namespace
 
             bool const naturalEndgame =
                 run->GetCreatureLevel() >=
-                    ENDGAME_LEVEL;
+                    EndgameLevel();
 
             bool const stageEndgame =
                 run->GetSegment().Difficulty == 2;

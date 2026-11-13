@@ -14,6 +14,11 @@ class Creature;
 class Map;
 class Player;
 class Unit;
+class SpellInfo;
+
+// Esteria caps at 80, CoA at 60. Above 60, how much stronger a creature of this class and expansion must be to have
+// the TBC/WotLK base stats of its level (blended at 61-62 and 71-72 like mod-autobalance). 1.0 at 60 and below.
+double ManastormExpansionLift(uint8 level, uint8 unitClass, uint32 nativeExpansion, bool damage);
 
 enum DamageEffectType : uint8;
 
@@ -116,7 +121,8 @@ public:
         Unit* attacker,
         Unit* victim,
         uint32 damage,
-        DamageEffectType damageType);
+        DamageEffectType damageType,
+        SpellInfo const* spellInfo = nullptr);
 
     std::size_t GetActiveRunCount() const
     {

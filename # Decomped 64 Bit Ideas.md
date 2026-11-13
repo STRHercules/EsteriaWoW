@@ -13,8 +13,8 @@
     - A dedicated dungeon faction offering rotating contracts at max difficulty. Complete them for reputation, unique rewards and standing with an organisation that only respects those willing to push hard.
 
 - Roaming Beasts / Bosses
-    - powerful beasts patrol more than 650 locations across Azeroth. They roam, they wander, and they will find you. The open world is never truly safe.
-    - Procedurally roaming beasts across Azeroth; they will spawn at over 650+ spawn points and randomly roam the lands. You can recognize them by the larger model size, the purple aura, and the fact that they are hostile.
+    - powerful beasts patrol more than X locations across Azeroth. They roam, they wander, and they will find you. The open world is never truly safe.
+    - Procedurally roaming beasts across Azeroth; they will spawn at over X spawn points and randomly roam the lands. You can recognize them by the larger model size, the aura, and the fact that they are hostile.
     - Roaming beasts will roughly be the average level for the zone they spawn in; add or take a couple. Roaming beasts have a chance at dropping both equipment and recipes, although much lower than the drop rates in, e.g., dungeons.
 
 - Tome of Knowledge
@@ -89,12 +89,13 @@
 
 ## Runescape
 - Wilderness
-    - Random high level zones are chosen at random, and for X hours is a 'Wilderness Zone' where pvp is forced on for all players within that zone, while they are in that zone. 
+    - `X` High level zones are chosen at random, and for `Y` hours is a 'Wilderness Zone' where pvp is forced on for all players within that zone, while they are in that zone. 
     - During this time, all players are flagged for pvp against all other factions, so alliance are hostile to alliance, etc.
-    - During this time, if a player dies they will drop a small pouch on death and inside the pouch will be some of their gold and some of their equipped gear, and some items from their inventory. This pouch can be looted by the owner right away and anyone after X seconds/minutes. Unrecovered 
+    - During this time, if a player dies they will drop a small pouch on death at their corpse and inside the pouch will be some of their gold and some of their equipped gear, and some items from their inventory. This pouch can be looted by the owner right away and anyone after `X` seconds/minutes. Unrecovered 
     - During this time, players receive increased experience gain, increased gold gain, as well as increased reputation gain and increased honor gain. Honorable kills also reward a small amount of arena points along with honor.
     - During this time, enemies in the zone have their power increaased.
     - Freeborn have a higher payout on honor/arena points and when killing players, makes them drop more gold than other factions
+    - Players do NOT revive at their corpses when inside a 'Wilderness' zone
 - Slayer Contracts
     - Introduce Hunter's Guilds with rotating contracts based on creature types, families, zones, and elite targets. Include contract streaks, rare encounters, reputation, and exclusive rewards.
 
@@ -129,7 +130,10 @@
 - Give players ability to color their name in the nameplate, color their title, color their guild name
 - Unlockable with gold
 
-## Uncap the amount of Gold a player can carry
+## 32-Bit Upgrade
+- Uncap the amount of Gold a player can carry
+- Uncap stats like health, resources, armor, strength, etc
+* I dont want 32bit limits
 
 ## Things to take from Ascension
 - Worldforged items

@@ -33,7 +33,8 @@ namespace InstanceMode
 
     bool CanClaim(Map const* map, Type type)
     {
-        if (!map || !map->IsDungeon() || type == Type::Normal)
+        // A scripted private instance (a Manastorm run) already has an owner with its own scaling.
+        if (!map || !map->IsDungeon() || type == Type::Normal || map->IsScriptedPrivateInstance())
             return false;
 
         State const* state = map->CustomData.Get<State>(STATE_KEY);
@@ -53,6 +54,10 @@ namespace InstanceMode
     {
         if (!map || !map->IsDungeon())
             return false;
+
+        // Manastorm scales its own runs (level, depth, group size); autobalance must not scale them again.
+        if (map->IsScriptedPrivateInstance())
+            return true;
 
         State const* state = map->CustomData.Get<State>(STATE_KEY);
         return state && state->type != Type::Normal;
