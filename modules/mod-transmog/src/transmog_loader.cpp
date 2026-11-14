@@ -7,6 +7,7 @@
 void AddSC_Transmog();
 void AddSC_transmog_commandscript();
 void AddSC_transmog_client();
+void AddSC_esteria_cosmetics();
 
 // Add all
 void Addmod_transmogScripts()
@@ -14,4 +15,5 @@ void Addmod_transmogScripts()
     AddSC_Transmog();
     AddSC_transmog_commandscript();
     AddSC_transmog_client();
+    AddSC_esteria_cosmetics();
 }

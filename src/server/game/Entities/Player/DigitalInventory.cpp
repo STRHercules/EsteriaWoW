@@ -647,9 +647,12 @@ void DigitalInventory::Save(CharacterDatabaseTransaction trans)
     _dirty = false;
 }
 
-bool DigitalInventory::Persist()
+bool DigitalInventory::Persist(CharacterDatabaseTransaction trans)
 {
-    auto trans = CharacterDatabase.BeginTransaction();
+    if (_failed)
+        return false;
+    if (!trans)
+        trans = CharacterDatabase.BeginTransaction();
     _owner.SaveInventoryAndGoldToDB(trans);
     if (CharacterDatabase.AsyncCommitTransaction(trans).m_future.get())
         return true;

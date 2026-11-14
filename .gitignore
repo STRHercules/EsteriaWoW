@@ -423,3 +423,4 @@ sites/esteria-realm/worker/index.ts
 env/dist/logs/Errors.log
 env/dist/logs/Playerbots.log
 env/dist/logs/Server.log
+exports/maps-import-20261112/client/Patch-ZzzzzzzzzzMapRisenDepths.MPQ

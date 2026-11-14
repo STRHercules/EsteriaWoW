@@ -125,7 +125,7 @@ namespace MMAP
     {
         std::vector<std::string> files;
         uint32 mapID, tileX, tileY, tileID, count = 0, fsize = 0;
-        char filter[12];
+        char filter[24]; // "%03u*.vmtile" needs 13 bytes once a map id has 4 digits (custom maps 1000+)
 
         printf("Discovering maps... ");
         getDirContents(files, m_config->MapsPath());
@@ -616,7 +616,7 @@ namespace MMAP
                                       dtNavMesh* navMesh)
     {
         // console output
-        char tileString[20];
+        char tileString[32]; // "[Map 1171] [18,20]: " is 21 bytes with a 4-digit map id
         sprintf(tileString, "[Map %03i] [%02i,%02i]: ", mapID, tileX, tileY);
         printf("%s Building movemap tiles...\n", tileString);
 

@@ -40,6 +40,7 @@
  */
 
 #include "Transmogrification.h"
+#include "CosmeticsPolicy.h"
 #include "Chat.h"
 #include "ObjectMgr.h"
 #include "ItemTemplate.h"
@@ -532,19 +533,28 @@ namespace
         }
     }
 
-    void HandleApply(Player* player, std::vector<std::string> const& args)
+    void HandleApply(Player* player, std::vector<std::string> const& args, bool cosmetics = false)
     {
         uint32 slot = 0, entry = 0;
         if (args.size() < 3 || !ParseUInt(args[1], slot) || !ParseUInt(args[2], entry) || !IsWindowSlot(slot))
             return;
 
-        if (!NearTransmogrifier(player))
+        Item* target = player->GetItemByPos(INVENTORY_SLOT_BAG_0, slot);
+        bool const backpack = slot == EQUIPMENT_SLOT_BACK &&
+            IsEsteriaBackpackAppearance(entry ? entry : target ? sT->GetFakeEntry(target->GetGUID()) : 0);
+        if (cosmetics && !EsteriaCosmetics::CanApplyBackpack(backpack, !entry || OwnsAppearance(player, entry),
+            target && target->GetTemplate()->InventoryType == INVTYPE_CLOAK, player->IsAlive(), player->IsInCombat()))
+        {
+            SendResult(player, slot, LANG_TRANSMOG_INVALID_ITEMS);
+            return;
+        }
+
+        if (!NearTransmogrifier(player) && !(cosmetics && backpack))
         {
             SendResult(player, slot, CODE_NO_TRANSMOGRIFIER);
             return;
         }
 
-        Item* target = player->GetItemByPos(INVENTORY_SLOT_BAG_0, slot);
         if (!target)
         {
             SendResult(player, slot, LANG_TRANSMOG_MISSING_DEST_ITEM);
@@ -979,4 +989,10 @@ bool TransmogClient_TryOpenWindow(Player* player)
 void AddSC_transmog_client()
 {
     new TransmogClientPlayerScript();
+}
+
+void TransmogClient_ApplyAppearance(Player* player, uint8 slot, uint32 entry)
+{
+    if (player && sT->IsEnabled())
+        HandleApply(player, {"A", std::to_string(slot), std::to_string(entry)}, true);
 }

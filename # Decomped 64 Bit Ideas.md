@@ -1,6 +1,8 @@
 # Decomped 64 Bit Ideas
 
-- Replace Waystone icon with Esteria icon
+
+
+- Replace built-in client Waystone icon with Esteria icon
 
 - Gold Duels
     - When selecting 'Duel' in the portrait drop-down the player is greeted with a window asking if they want a normal duel, or a gold duel - and if a gold duel they can input the amount of gold they wish to wager.
@@ -86,6 +88,9 @@
 - Currency is gained from participating in content, like questing, dungeons, raids, pvp
 
 ## Nat Pagle
+- Fishing Challenges
+- Fishing Bounties
+- Unique Rewards
 
 ## Runescape
 - Wilderness
@@ -98,6 +103,9 @@
     - Players do NOT revive at their corpses when inside a 'Wilderness' zone
 - Slayer Contracts
     - Introduce Hunter's Guilds with rotating contracts based on creature types, families, zones, and elite targets. Include contract streaks, rare encounters, reputation, and exclusive rewards.
+    - Get contracts to kill random players/bots
+        - Players are offered these contracts randomly when in the Wilderness, player who receives the contract and the target are chosen at random (must be within 2 levels of each other)
+        - Players who are able to complete the contract are awarded bonus honor/arena points and bonus gold
 
 # Retail Systems to Port 
 - Garrisons
@@ -292,28 +300,27 @@
 
 
 ## DRUGS
-- Impl
+- Implement things like skyrim/fallout drugs that give temporary boosts with drawbacks;
+    - Skooma
+    - Jet
+    - Psycho
+- Addiction, Side effects
+- Craftable, findable in world
+- New profession
 
 ## Gambling
-
-## Housing
-
-
-Build the classless resource bars into the dragonUI natively (mana, energy, rage)
-
-Make all reputation account-wide
-
-
+- In-game minigames such as;
+  - Chess
+  - Checkers
+  - Card games
+  - Slot Machines
+- Players wager actual gold
+- Lottery accrued from the houses' winnings
 
 
+## Build the classless resource bars into the dragonUI natively (mana, energy, rage)
 
-
-
-
-
-
-
-## Mount: creature/kareshfox/kareshfox.m2;6051323
+## Make all reputation account-wide
 
 # Character select is a live map of Azeroth, with a visible heatmap/icons showing where all of your characters currently are in Azeroth when they were logged out
     - Picking a character will zoom in on the world to where that respective character is, zooming in to be over the shoulder of the character - then becomes playable

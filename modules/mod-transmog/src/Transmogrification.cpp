@@ -591,6 +591,10 @@ TransmogStrings Transmogrification::Transmogrify(Player* player, Item* itemTrans
             return LANG_TRANSMOG_INVALID_ITEMS;
         }
 
+        // Collected backpack cosmetics are free regardless of which transmog interface applies them.
+        if (slot == EQUIPMENT_SLOT_BACK && IsEsteriaBackpackAppearance(itemTransmogrifier->GetEntry()))
+            no_cost = true;
+
         if (!no_cost)
         {
             if (RequireToken)

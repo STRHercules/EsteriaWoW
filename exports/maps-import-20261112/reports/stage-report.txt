@@ -1,0 +1,76 @@
+baseline client Map: 139 rows (provider Patch-ZZZZZZZZZZZZZZZZZZZZZZZZZHousingDev.MPQ)
+baseline client AreaTable: 2379 rows (provider Patch-ZZZZZZZZZZZZZZZZZZZZZZZZZHousingDev.MPQ)
+baseline client AreaTrigger: 1097 rows (provider patch-enUS.MPQ)
+baseline client WorldSafeLocs: 680 rows (provider patch-enUS.MPQ)
+baseline client WorldMapArea: 215 rows (provider Patch-ZZZZZZZZZZZZZZZZZZZZZZZZZHousingDev.MPQ)
+baseline client WorldMapOverlay: 988 rows (provider patch-enUS.MPQ)
+baseline client AreaPOI: 738 rows (provider patch-enUS.MPQ)
+baseline client LoadingScreens: 94 rows (provider Patch-ZZZZZZZZZZZZZZZZZZZZZZZZZHousingDev.MPQ)
+baseline client Light: 827 rows (provider patch-E.mpq)
+baseline client LightParams: 859 rows (provider patch-E.mpq)
+baseline client LightSkybox: 161 rows (provider patch-E.mpq)
+baseline client LightIntBand: 15460 rows (provider patch-N.mpq)
+baseline client LightFloatBand: 5154 rows (provider patch-E.mpq)
+baseline client ZoneMusic: 384 rows (provider patch-S.mpq)
+baseline client ZoneIntroMusicTable: 153 rows (provider patch-enUS.MPQ)
+baseline client SoundAmbience: 199 rows (provider patch-enUS.MPQ)
+baseline client SoundEntries: 15195 rows (provider Patch-ZZZZZZZZZZZZZZZZZZZZZZZZCoA.MPQ)
+baseline client SoundProviderPreferences: 32 rows (provider locale-enUS.MPQ)
+baseline server Map: 135 rows
+baseline server AreaTable: 2307 rows
+baseline server AreaTrigger: 1220 rows
+baseline server WorldSafeLocs: 685 rows
+[Island] ships 38 files; dropped identical 0, kept-existing(different) 0, ignored 3
+[Island] dependency closure from 12 ADT: 314 files resolved, 0 missing
+[Scene] ships 72 files; dropped identical 69, kept-existing(different) 108, ignored 10
+[Scene] dependency closure from 3 ADT: 1732 files resolved, 0 missing
+[Morza] AreaTable: 23 new rows keep their source ids (4988-5012 range)
+[Morza] SoundEntries: 9 new rows; same-id-different-name concert rows: []
+[Morza] ADT chunks with undefined area ids remapped to Morza Island (4988): {5009: 1, 5010: 4, 5013: 19, 5017: 3, 5018: 1, 5015: 3, 5014: 14, 5016: 16}
+[Morza] ships 30 files; dropped identical 0, kept-existing(different) 0, ignored 6
+[Morza] dependency closure from 10 ADT: 1572 files resolved, 7 missing
+    MISSING: WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\LAMPS\DARNASSUSSTREELAMP02.m2
+    MISSING: WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\STONERUNES\KALIDARSTONERUNES01.m2
+    MISSING: WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\STONERUNES\KALIDARSTONERUNES02.m2
+    MISSING: WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\STONERUNES\KALIDARSTONERUNES03.m2
+    MISSING: WORLD\KALIMDOR\WINTERSPRING\PASSIVEDOODADS\WORLDTREEROOTS\WORLDTREEROOT01.m2
+    MISSING: WORLD\KALIMDOR\WINTERSPRING\PASSIVEDOODADS\WORLDTREEROOTS\WORLDTREEROOT02.m2
+    MISSING: WORLD\KALIMDOR\WINTERSPRING\PASSIVEDOODADS\WORLDTREEROOTS\WORLDTREEROOT03.m2
+[Morza SQL] creature_template: 138 in source, 25 already in Esteria (kept as is), 113 imported
+[Morza SQL] creature spawns: 316 -> guids 9700001..9700316
+[Morza SQL] creature loot ids already in Esteria, skipped: [448, 476, 831, 1826, 2572, 4111, 5618, 11876, 13140, 22950, 25623, 100003]
+[Morza SQL] gameobject spawns: 314; templates missing from Esteria: []
+[Risen] Sirus archives open: 59
+[Risen] AreaTable rows with ContinentID 10001: 27
+  [Risen] SoundEntries 223457 missing in Sirus; reference dropped
+  [Risen] SoundEntries 22348 missing in Sirus; reference dropped
+  [Risen] SoundEntries 22349 missing in Sirus; reference dropped
+  [Risen] SoundEntries 22351 missing in Sirus; reference dropped
+[Risen] lights 20, light params 10 (reused/new: {2: 2, 3: 2100, 10: 10, 845: 2101, 867: 2102, 876: 2103, 941: 2104, 944: 2105, 947: 2106, 952: 2107}), band rows 144/48
+[Risen] tiles read: 81/81
+[Risen] dependency closure: 2113 files from Sirus, 1 unresolved
+    unresolved in Sirus: world\expansion06\doodads\legion\8fx_explosionsmoke_a.blp
+[Risen] skybox models from Sirus: 0 (+0 files incl. deps, unresolved [])
+[Risen] minimap tiles: 81
+[Risen] world-map art files: 54; overlays without art: []
+  [Risen] sound file sound\ambience\zoneambience\amb_coastalnormal_day02.wav not in Sirus
+  [Risen] sound file sound\ambience\zoneambience\amb_coastalnormal_night01.wav not in Sirus
+[Risen] M2 files not version 264: [] (total 0)
+[Risen] ships 243 files; dropped identical 1143, kept-existing(different) 961, ignored 0
+[Risen] dependency closure from 81 ADT: 2178 files resolved, 0 missing
+[Risen] id map: map 10001->1430; zone area 10050->10050; areas {0: 0, 10004: 10004, 10050: 10050, 10051: 10051, 10052: 10052, 10053: 10053, 10054: 10054, 10055: 10055, 10056: 10056, 10058: 10058, 10059: 10059, 10060: 10060, 10062: 10062, 10061: 10061, 10064: 10064, 10065: 10065, 10066: 10066, 10067: 10067, 10068: 10068, 10069: 10069, 10070: 10070, 10071: 10071, 10072: 10072, 10073: 10073, 10074: 10074, 10075: 10075, 10433: 10433, 10465: 10465}
+  [Morza donor] WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\LAMPS\DARNASSUSSTREELAMP02.m2 not in Sirus either
+  [Morza donor] WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\STONERUNES\KALIDARSTONERUNES01.m2 not in Sirus either
+  [Morza donor] WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\STONERUNES\KALIDARSTONERUNES02.m2 not in Sirus either
+  [Morza donor] WORLD\GENERIC\NIGHTELF\PASSIVE DOODADS\STONERUNES\KALIDARSTONERUNES03.m2 not in Sirus either
+  [Morza donor] WORLD\KALIMDOR\WINTERSPRING\PASSIVEDOODADS\WORLDTREEROOTS\WORLDTREEROOT01.m2 not in Sirus either
+  [Morza donor] WORLD\KALIMDOR\WINTERSPRING\PASSIVEDOODADS\WORLDTREEROOTS\WORLDTREEROOT02.m2 not in Sirus either
+  [Morza donor] WORLD\KALIMDOR\WINTERSPRING\PASSIVEDOODADS\WORLDTREEROOTS\WORLDTREEROOT03.m2 not in Sirus either
+[Morza donor] doodads filled from Sirus: 0
+client DBC rows added: {'AreaTable': 58, 'Map': 6, 'WorldMapArea': 3, 'WorldSafeLocs': 8, 'AreaTrigger': 1, 'SoundEntries': 18, 'SoundAmbience': 1, 'ZoneMusic': 5, 'ZoneIntroMusicTable': 1, 'LightSkybox': 4, 'LightParams': 8, 'LightIntBand': 144, 'LightFloatBand': 48, 'Light': 20, 'LoadingScreens': 1, 'WorldMapOverlay': 18, 'AreaPOI': 28}
+server DBC rows added: {'AreaTable': 58, 'Map': 6, 'WorldSafeLocs': 8, 'AreaTrigger': 1}
+minimap translate: +103 lines (effective file provider: patch-enUS-7.MPQ)
+packed Patch-ZzzzzzzzzzMapIslandProject.MPQ: 38 files, 33.3 MB
+packed Patch-ZzzzzzzzzzMapSceneGaming.MPQ: 72 files, 11.3 MB
+packed Patch-ZzzzzzzzzzMapMorzaCustomMaps.MPQ: 30 files, 87.5 MB
+packed Patch-ZzzzzzzzzzMapRisenDepths.MPQ: 243 files, 197.9 MB

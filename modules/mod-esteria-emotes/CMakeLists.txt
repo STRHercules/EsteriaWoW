@@ -1,0 +1,2 @@
+AC_ADD_SCRIPT("${CMAKE_CURRENT_LIST_DIR}/src/EsteriaEmotes.cpp")
+AC_ADD_SCRIPT("${CMAKE_CURRENT_LIST_DIR}/src/loader.cpp")

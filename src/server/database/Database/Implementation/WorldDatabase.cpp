@@ -23,6 +23,9 @@ void WorldDatabaseConnection::DoPrepareStatements()
     if (!m_reconnecting)
         m_stmts.resize(MAX_WORLDDATABASE_STATEMENTS);
 
+    PrepareStatement(WORLD_SEL_ESTERIA_BACKPACK_APPEARANCES,
+        "SELECT source_item, token_item FROM esteria_backpack_appearances ORDER BY source_item", CONNECTION_SYNCH);
+
     PrepareStatement(WORLD_SEL_QUEST_POOLS, "SELECT entry, pool_entry FROM pool_quest", CONNECTION_SYNCH);
     PrepareStatement(WORLD_DEL_CRELINKED_RESPAWN, "DELETE FROM linked_respawn WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(WORLD_REP_CREATURE_LINKED_RESPAWN, "REPLACE INTO linked_respawn (guid, linkedGuid) VALUES (?, ?)", CONNECTION_ASYNC);

@@ -46,6 +46,8 @@ public:
     bool HasTool(uint32 category) const;
     uint32 Consume(uint32 entry, uint32 count);
     bool Failed() const { return _failed; }
+    // An optional caller-owned transaction commits item consumption and its reward together.
+    bool Persist(CharacterDatabaseTransaction transaction = nullptr);
     // Account bank only: lazy synchronous load, and moving items out of the stock bank slots.
     void LoadBank();
     bool MigrateLegacyBank();
@@ -67,7 +69,6 @@ private:
     bool CanDeposit(Item const* item) const;
     bool DepositItem(Item* item);
     Item* WithdrawItem(uint32 guid);
-    bool Persist();
     bool CanAct() const;
     void Changed();
     void Send(uint32 request, uint8 status, std::string const& message);

@@ -373,5 +373,8 @@ public:
 // transmog_client.cpp: opens the in-game transmog window for a client that has the addon. Returns true when
 // it did, in which case the gossip menu must not be shown.
 bool TransmogClient_TryOpenWindow(Player* player);
+// Shared by Cosmetics: validated backpack cloak appearances can be changed without a nearby vendor.
+void TransmogClient_ApplyAppearance(Player* player, uint8 slot, uint32 entry);
+bool IsEsteriaBackpackAppearance(uint32 entry);
 
 #endif
