@@ -50,3 +50,18 @@ WorldChat.ChannelName = "world"
 
 #
 ###################################################################################################
+
+#
+#    WorldChat.DiscordBridge.Enable
+#        Enable the standalone Discord world-chat relay. Disabled until configured.
+#        Requires WorldChat.CrossFaction = true to avoid leaking faction-specific chat.
+#
+#    WorldChat.DiscordBridge.Port
+#        Local-only HTTP port for the Node.js bridge bot (127.0.0.1).
+#
+#    WorldChat.DiscordBridge.Secret
+#        A unique shared secret of at least 32 characters; not the Discord bot token.
+#
+WorldChat.DiscordBridge.Enable = false
+WorldChat.DiscordBridge.Port = 22150
+WorldChat.DiscordBridge.Secret = ""
