@@ -237,6 +237,17 @@ SET @has_uk = (SELECT COUNT(*) FROM information_schema.statistics WHERE table_sc
 SET @q = IF(@has_uk > 0, 'ALTER TABLE `housing_house` DROP INDEX `uk_account`, ADD KEY `idx_account` (`account_id`)', 'DO 0');
 PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
 
+-- The character that bought the house, named on plot lists; older houses take the account character that first edited it.
+SET @has_og = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE()
+  AND table_name = 'housing_house' AND column_name = 'owner_guid');
+SET @q = IF(@has_og = 0, 'ALTER TABLE `housing_house` ADD COLUMN `owner_guid` INT UNSIGNED NOT NULL DEFAULT 0 '
+  'COMMENT ''character guid of the buyer; 0: the account''''s most played character''', 'DO 0');
+PREPARE s FROM @q; EXECUTE s; DEALLOCATE PREPARE s;
+UPDATE `housing_house` h JOIN `housing_revision` r ON r.house_id = h.house_id AND r.revision =
+    (SELECT MIN(revision) FROM `housing_revision` WHERE house_id = h.house_id)
+  JOIN `characters` c ON c.guid = r.character_guid AND c.account = h.account_id
+  SET h.owner_guid = c.guid WHERE h.owner_guid = 0;
+
 -- Outdoor decor belongs to the house's plot in one neighborhood.
 SET @has_pdn = (SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE()
   AND table_name = 'housing_placed_decor' AND column_name = 'neighborhood_id');

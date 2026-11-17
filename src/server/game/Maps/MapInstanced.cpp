@@ -17,6 +17,7 @@
 
 #include "MapInstanced.h"
 #include "Battleground.h"
+#include "EsteriaGarrisonHooks.h"
 #include "EsteriaHousingHooks.h"
 #include "Group.h"
 #include "InstanceSaveMgr.h"
@@ -171,6 +172,14 @@ Map* MapInstanced::CreateInstanceForPlayer(const uint32 mapId, Player* player)
         map = FindInstanceMap(houseInstanceId);
         if (!map)
             map = CreateInstance(houseInstanceId, nullptr, DUNGEON_DIFFICULTY_NORMAL, player);
+    }
+    else if (EsteriaGarrisonHooks::InstancePicker pick = EsteriaGarrisonHooks::Instance.load();
+             uint32 garrisonInstanceId = pick ? pick(player, mapId) : 0)
+    {
+        // mod-esteria-garrison: each owner's garrison is its own instance; visitors join the owner's.
+        map = FindInstanceMap(garrisonInstanceId);
+        if (!map)
+            map = CreateInstance(garrisonInstanceId, nullptr, DUNGEON_DIFFICULTY_NORMAL, player);
     }
     else
     {

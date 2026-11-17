@@ -651,6 +651,13 @@ namespace
                 if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
                     house->second.owner = result->Fetch()[1].Get<std::string>();
             while (result->NextRow());
+        // the buyer, when known, over the most played
+        if (QueryResult result = CharacterDatabase.Query("SELECT h.house_id, c.name FROM housing_house h JOIN characters c "
+            "ON c.guid = h.owner_guid"))
+            do
+                if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
+                    house->second.owner = result->Fetch()[1].Get<std::string>();
+            while (result->NextRow());
         if (QueryResult result = CharacterDatabase.Query("SELECT house_id, floors, rooms FROM housing_house_limits"))
             do
                 if (auto house = s_houses.find(result->Fetch()[0].Get<uint32>()); house != s_houses.end())
@@ -1751,8 +1758,8 @@ namespace
         h.owner = player->GetName();
         uint32 const now = uint32(GameTime::GetGameTime().count());
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
-        trans->Append("INSERT INTO housing_house (house_id, account_id, room_template_id, revision, max_decor, created_at) "
-            "VALUES ({}, {}, {}, 0, {}, {})", h.id, account, room->id, h.maxDecor, now);
+        trans->Append("INSERT INTO housing_house (house_id, account_id, room_template_id, revision, max_decor, created_at, owner_guid) "
+            "VALUES ({}, {}, {}, 0, {}, {}, {})", h.id, account, room->id, h.maxDecor, now, player->GetGUID().GetCounter());
         trans->Append("INSERT INTO housing_room (room_id, house_id, room_template_id, slot) VALUES ({}, {}, {}, 0)", h.roomId,
             h.id, room->id);
         trans->Append("INSERT INTO housing_room_layout (room_id, kind, offset_x, offset_y, yaw_quarter) VALUES ({}, {}, 0, 0, 0)",

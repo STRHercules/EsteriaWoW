@@ -1,0 +1,269 @@
+{
+  "9601101": {
+    "retailId": 77209,
+    "kind": "npc",
+    "model": 1570137,
+    "scale": 1.25,
+    "textures": {
+      "11": 1570258,
+      "12": 1570255
+    }
+  },
+  "9601102": {
+    "retailId": 78466,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601103": {
+    "retailId": 80551,
+    "kind": "npc",
+    "model": 930099,
+    "scale": 2,
+    "textures": {
+      "11": 937286,
+      "13": 0,
+      "12": 0
+    }
+  },
+  "9601104": {
+    "retailId": 79740,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601105": {
+    "retailId": 79970,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601106": {
+    "retailId": 79774,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601107": {
+    "retailId": 81103,
+    "kind": "npc",
+    "model": 1721658,
+    "scale": 3,
+    "textures": {
+      "12": 1738967,
+      "11": 1738965,
+      "13": 1738966
+    }
+  },
+  "9601108": {
+    "retailId": 86031,
+    "kind": "npc",
+    "model": 1339502,
+    "scale": 1,
+    "textures": {
+      "13": 1352641,
+      "11": 1352638,
+      "12": 0
+    }
+  },
+  "9601109": {
+    "retailId": 86677,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601110": {
+    "retailId": 86678,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601111": {
+    "retailId": 80496,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601112": {
+    "retailId": 79781,
+    "kind": "npc",
+    "model": 918944,
+    "scale": 1.5,
+    "textures": {
+      "11": 962560,
+      "12": 962555
+    }
+  },
+  "9601120": {
+    "retailId": 77368,
+    "kind": "npc",
+    "model": 1630744,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601121": {
+    "retailId": 79828,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601122": {
+    "retailId": 86974,
+    "kind": "npc",
+    "model": 2026821,
+    "scale": 1,
+    "textures": {
+      "11": 2027016
+    }
+  },
+  "9601123": {
+    "retailId": 86973,
+    "kind": "npc",
+    "model": 126223,
+    "scale": 0.5,
+    "textures": {}
+  },
+  "9601166": {
+    "retailId": 85484,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601301": {
+    "retailId": 77378,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601302": {
+    "retailId": 79320,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601303": {
+    "retailId": 79281,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601304": {
+    "retailId": 79715,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601305": {
+    "retailId": 82392,
+    "kind": "npc",
+    "model": 1593262,
+    "scale": 1.3,
+    "textures": {
+      "11": 1593917
+    }
+  },
+  "9601306": {
+    "retailId": 80572,
+    "kind": "npc",
+    "model": 1722611,
+    "scale": 1,
+    "textures": {
+      "12": 1722863,
+      "11": 1722911
+    }
+  },
+  "9601401": {
+    "retailId": 84776,
+    "kind": "npc",
+    "model": 1716306,
+    "scale": 1,
+    "textures": {
+      "11": 1716447
+    }
+  },
+  "9601402": {
+    "retailId": 79853,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601403": {
+    "retailId": 79315,
+    "kind": "npc",
+    "model": 1133847,
+    "scale": 0.5,
+    "textures": {}
+  },
+  "9601404": {
+    "retailId": 80001,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601405": {
+    "retailId": 79921,
+    "kind": "npc",
+    "model": 1716212,
+    "scale": 1,
+    "textures": {
+      "11": 1716222
+    }
+  },
+  "9601406": {
+    "retailId": 85130,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601126": {
+    "retailId": 77792,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601130": {
+    "retailId": 77792,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601148": {
+    "retailId": 77377,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601150": {
+    "retailId": 86775,
+    "kind": "npc",
+    "model": 0,
+    "scale": 1,
+    "textures": {}
+  },
+  "9601156": {
+    "retailId": 91582,
+    "kind": "npc",
+    "model": 352936,
+    "scale": 1,
+    "textures": {}
+  }
+}

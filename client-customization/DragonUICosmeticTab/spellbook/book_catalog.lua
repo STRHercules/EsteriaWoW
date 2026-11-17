@@ -127,11 +127,13 @@ end
 -- The client's own tab ranges drift (a few wings land in General, the tail of its Cosmetics tab holds
 -- the next tab's first spell), so wings are told apart by spell id, never by the tab they landed in.
 local COSMETIC_FIRST, COSMETIC_LAST = 970200, 970999
+local EMOTE_FIRST, EMOTE_LAST = 9500103, 9500210
 local COSMETIC_TAB = "Cosmetics"
 
 local function isCosmetic(entry)
     local id = entry.spellID
-    return id ~= nil and id >= COSMETIC_FIRST and id <= COSMETIC_LAST
+    return id ~= nil and ((id >= COSMETIC_FIRST and id <= COSMETIC_LAST)
+        or (id >= EMOTE_FIRST and id <= EMOTE_LAST))
 end
 
 local function withoutCosmetics(spells)
@@ -144,6 +146,9 @@ end
 
 local function hasCosmetics()
     for id = COSMETIC_FIRST, COSMETIC_LAST do
+        if IsSpellKnown(id) then return true end
+    end
+    for id = EMOTE_FIRST, EMOTE_LAST do
         if IsSpellKnown(id) then return true end
     end
     return false
@@ -541,8 +546,15 @@ end
 
 local function cosmeticSections(filters)
     local cards = withGreys(onlyKept(cosmeticEntries(filters), filters), nil, filters)
-    if #cards == 0 then return {} end
-    return { { entries = cards } }
+    local wings, emotes = {}, {}
+    for _, entry in ipairs(cards) do
+        local section = entry.spellID >= EMOTE_FIRST and entry.spellID <= EMOTE_LAST and emotes or wings
+        section[#section + 1] = entry
+    end
+    local sections = {}
+    if #wings > 0 then sections[#sections + 1] = { title = "Wings", entries = wings } end
+    if #emotes > 0 then sections[#sections + 1] = { title = "Emotes", entries = emotes } end
+    return sections
 end
 
 local function petSections(filters)

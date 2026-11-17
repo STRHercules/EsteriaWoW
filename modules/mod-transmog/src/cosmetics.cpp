@@ -1,6 +1,7 @@
 /* Esteria backpack appearance tokens and the Cosmetics collection's server transport. */
 #include "Transmogrification.h"
 #include "CosmeticsPolicy.h"
+#include "CollectionsCatalog.h"
 #include "DatabaseEnv.h"
 #include "ObjectMgr.h"
 #include "SpellMgr.h"
@@ -68,6 +69,48 @@ namespace
         }
         if (!chunk.empty())
             Send(player, "known\t" + chunk);
+        auto sendKnown = [&](auto const& ids, char const* label, auto owns)
+        {
+            std::string values;
+            for (uint32 id : ids)
+            {
+                if (!owns(id))
+                    continue;
+                std::string value = std::to_string(id);
+                if (values.size() + value.size() + 1 > 180)
+                {
+                    Send(player, std::string(label) + "\t" + values);
+                    values.clear();
+                }
+                values += (values.empty() ? "" : ",") + value;
+            }
+            if (!values.empty())
+                Send(player, std::string(label) + "\t" + values);
+        };
+        sendKnown(EsteriaCollections::Weapons, "weapons", [&](uint32 id) { return Knows(player, id); });
+        sendKnown(EsteriaCollections::Mounts, "mounts", [&](uint32 id) { return player->HasSpell(id); });
+        for (uint32 entry : EsteriaCollections::Hearths)
+        {
+            Item* item = player->GetItemByEntry(entry);
+            bool digital = false;
+            if (!item)
+                for (Item* stored : player->GetDigitalInventory().Items())
+                    if (stored->GetEntry() == entry)
+                    {
+                        item = stored;
+                        digital = true;
+                        break;
+                    }
+            if (item)
+                Send(player, "hearth\t" + std::to_string(entry) + "\t" +
+                    std::to_string(item->GetGUID().GetCounter()) + "\t" + (digital ? "1" : "0"));
+        }
+        for (uint8 slot : { uint8(EQUIPMENT_SLOT_MAINHAND), uint8(EQUIPMENT_SLOT_OFFHAND) })
+        {
+            Item* item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, slot);
+            uint32 entry = item ? sTransmogrification->GetFakeEntry(item->GetGUID()) : 0;
+            Send(player, "weaponselected\t" + std::to_string(slot) + "," + std::to_string(entry));
+        }
         Send(player, "selected\t" + std::to_string(Selected(player)));
         Send(player, "done");
     }

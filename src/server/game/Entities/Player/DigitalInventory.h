@@ -45,6 +45,8 @@ public:
     uint32 CountLimit(uint32 category, Item const* skip) const;
     bool HasTool(uint32 category) const;
     uint32 Consume(uint32 entry, uint32 count);
+    // Takes an item created outside the bags (e.g. a reward when the bags are full); the caller's save persists it.
+    bool Store(Item* item);
     bool Failed() const { return _failed; }
     // An optional caller-owned transaction commits item consumption and its reward together.
     bool Persist(CharacterDatabaseTransaction transaction = nullptr);

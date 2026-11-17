@@ -1381,6 +1381,9 @@ enum Opcodes : uint16
     SMSG_ESTERIA_TRAIT_SNAPSHOT                     = 0x547,
     CMSG_ESTERIA_TRAIT_RECHOOSE                     = 0x548,
     SMSG_ESTERIA_TRAIT_RESULT                       = 0x549,
+    CMSG_ESTERIA_GARRISON_HELLO                     = 0x54A,
+    SMSG_ESTERIA_GARRISON_STATE                     = 0x54B,
+    CMSG_ESTERIA_GARRISON_ACTION                    = 0x54C,
     // Manastorm keeps the Ascension wire numbers (mod-manastorm-endless ManastormNativeProtocol.h)
     SMSG_COA_CONFIG                                 = 0x58D,
     CMSG_MANASTORM_ENTER                            = 0x651,

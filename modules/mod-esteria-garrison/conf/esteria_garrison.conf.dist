@@ -1,0 +1,16 @@
+[worldserver]
+
+###################################################################################################
+# mod-esteria-garrison
+#
+# UWoW's Draenor garrison (Garrison, GarrisonMgr, GarrisonMap, GarrisonHandler) on the retail
+# tier maps: Alliance 1158 / 1331 / 1159, Horde 1152 / 1330 / 1153. The client needs those Map.dbc
+# rows and a Retail alias for each map's WDT, or entering the garrison has no terrain.
+#
+#    EsteriaGarrison.Enable
+#        Description: Garrison opcodes, the per-owner instance hook, scripts and the .garrison command.
+#        Default:     0
+#
+###################################################################################################
+
+EsteriaGarrison.Enable = 0

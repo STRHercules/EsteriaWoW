@@ -406,6 +406,28 @@ bool DigitalInventory::DepositItem(Item* item)
     return true;
 }
 
+bool DigitalInventory::Store(Item* item)
+{
+    // Same item rules as a bag deposit, minus the slot check: this item was never in a slot.
+    if (!item || !_loaded || _failed || _items.size() >= _capacity || item->IsBag() || item->IsCurrencyToken()
+        || item->GetTemplate()->Duration || item->IsConjuredConsumable() || item->GetTemplate()->Map
+        || item->GetTemplate()->Area || item->GetTemplate()->HolidayId)
+        return false;
+    for (auto const& spell : item->GetTemplate()->Spells)
+        if (spell.SpellId > 0 && spell.SpellTrigger == ITEM_SPELLTRIGGER_ON_NO_DELAY_USE)
+            return false;
+    // Storage counts toward carry limits (GetItemCount includes it), so a Unique can't be doubled through here.
+    if (uint32 limit = item->GetTemplate()->MaxCount)
+        if (_owner.GetItemCount(item->GetEntry()) + item->GetCount() > limit)
+            return false;
+    item->SetOwnerGUID(_scope == Bank ? ObjectGuid::Empty : _owner.GetGUID());
+    item->SetSlot(NULL_SLOT);
+    item->SetContainer(nullptr);
+    _items.emplace(item->GetGUID().GetCounter(), StoredItem{item});
+    Changed();
+    return true;
+}
+
 Item* DigitalInventory::WithdrawItem(uint32 guid)
 {
     auto itr = _items.find(guid);

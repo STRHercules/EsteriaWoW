@@ -716,6 +716,7 @@ public:                                                 // opcodes handlers
     void HandleEsteriaSwapRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaSwapRosterRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaHousingOpcode(WorldPacket& recvPacket); // forwards to mod-esteria-housing (EsteriaHousingHooks.h)
+    void HandleEsteriaGarrisonOpcode(WorldPacket& recvPacket); // forwards to mod-esteria-garrison
     void HandleEsteriaPerkSnapshotRequestOpcode(WorldPacket& recvPacket);
     void HandleEsteriaPerkPurchaseOpcode(WorldPacket& recvPacket);
     void HandleEsteriaPerkRespecOpcode(WorldPacket& recvPacket);

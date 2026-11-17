@@ -128,6 +128,7 @@ namespace
             return Send(player, "err\tYou have not collected that emote.");
         if (!player->IsAlive())
             return Send(player, "err\tYou can't dance while dead.");
+        player->SetSheath(SHEATH_STATE_UNARMED);
         player->SetUInt32Value(UNIT_NPC_EMOTESTATE, emote);
         Send(player, "playing\t" + std::to_string(emote));
     }
@@ -204,7 +205,14 @@ namespace
 class esteria_emotes_playerscript : public PlayerScript
 {
 public:
-    esteria_emotes_playerscript() : PlayerScript("esteria_emotes_playerscript", { PLAYERHOOK_ON_LOGIN, PLAYERHOOK_CAN_PLAYER_USE_PRIVATE_CHAT }) { }
+    esteria_emotes_playerscript() : PlayerScript("esteria_emotes_playerscript", {
+        PLAYERHOOK_ON_LOGIN, PLAYERHOOK_CAN_PLAYER_USE_PRIVATE_CHAT, PLAYERHOOK_ON_UPDATE }) { }
+
+    void OnPlayerUpdate(Player* player, uint32 /*diff*/) override
+    {
+        if (IsShipped(player->GetUInt32Value(UNIT_NPC_EMOTESTATE)) && player->GetSheath() != SHEATH_STATE_UNARMED)
+            player->SetSheath(SHEATH_STATE_UNARMED);
+    }
 
     void OnPlayerLogin(Player* player) override
     {

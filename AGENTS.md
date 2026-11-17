@@ -5,6 +5,11 @@ AzerothCore is a C++ MMORPG server emulator for World of Warcraft 3.3.5a (WotLK)
 ## Agent rules
 
 - **Do not configure or build unless explicitly asked.** Builds are slow and rarely needed for code changes.
+- **Default server build:** use `powershell -NoProfile -File apps/docker/build-server.ps1` to build only
+  `worldserver` incrementally in the existing `housing-build` container. Synchronize intended source changes
+  into that builder first; preserve its separate source tree and `/azerothcore/build` artifacts.
+  Use `-Target authserver` or `-Target dbimport` only when needed. Do not clean, replace the builder, or use a full
+  `docker compose build` for routine server changes. See `.agents/docs/build.md` for exceptions and deployment.
 - **Never edit SQL files outside `data/sql/updates/pending_db_*/` unless explicitly requested.** `data/sql/base/`, `data/sql/archive/`, and `data/sql/updates/db_*/` are immutable.
 - Formatting follows `.editorconfig`: UTF-8, LF, max 120 cols, trailing newline, no trailing whitespace; 4-space indent for C++ (tabs forbidden), 2-space for JSON/YAML/sh/ts/js.
 - Planning docs go in `.agents/plans/<task-slug>/` (gitignored), named `<task-slug>.<TYPE>.md` (`PLAN`, `REQUIREMENTS`, `ANALYSIS`, …).

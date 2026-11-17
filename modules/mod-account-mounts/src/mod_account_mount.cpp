@@ -79,9 +79,15 @@ public:
                 {
                     auto sSpell = sSpellStore.LookupEntry(i);
                     // A self-mount with no creature display belongs to that character's body/racial.
-                    if (sSpell && sSpell->Effect[0] == SPELL_EFFECT_APPLY_AURA
-                        && sSpell->EffectApplyAuraName[0] == SPELL_AURA_MOUNTED && sSpell->EffectMiscValue[0] != 0)
-                        pPlayer->learnSpell(sSpell->Id);
+                    if (sSpell)
+                        for (uint8 effect = 0; effect < MAX_SPELL_EFFECTS; ++effect)
+                            if (sSpell->Effect[effect] == SPELL_EFFECT_APPLY_AURA
+                                && sSpell->EffectApplyAuraName[effect] == SPELL_AURA_MOUNTED
+                                && sSpell->EffectMiscValue[effect] != 0)
+                            {
+                                pPlayer->learnSpell(sSpell->Id);
+                                break;
+                            }
                 }
             }
         }
