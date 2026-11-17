@@ -421,7 +421,16 @@ public:
 
         Garrison* garrison = GarrisonRegistry::Get(player);
         if (garrison && garrison->GetGarrisonMapID() == int32(player->GetMapId()))
+        {
+            // The core adds the player to the map (OnPlayerEnterAll) before this hook loads the garrison, so a login
+            // inside the garrison found nothing to spawn: plots, pads and construction sites stayed missing until re-entry.
+            if (Map* map = player->GetMap())
+            {
+                garrison->SetInstanceId(map->GetInstanceId());
+                garrison->OnMapLoaded(map);
+            }
             return;
+        }
 
         player->TeleportTo(player->m_homebindMapId, player->m_homebindX, player->m_homebindY, player->m_homebindZ, player->GetOrientation());
     }

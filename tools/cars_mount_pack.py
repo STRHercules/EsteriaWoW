@@ -132,6 +132,25 @@ def order_charsections_entry(name: str, payload: bytes) -> bytes:
     return payload[:20] + b"".join(records) + payload[records_end:]
 
 
+def merged_archive(path: Path) -> Path:
+    """A client patch MPQ that wowdecomp Tools/MpqMerge folded into a bigger one resolves to that archive
+    (Data\\mpq-merged.json maps old file names to the archive now holding their content)."""
+    for _ in range(4):  # an archive merged twice (round 1, then round 2) is a chain of two entries
+        if path.exists():
+            return path
+        for data in (path.parent, path.parent.parent):
+            try:
+                moved = json.loads((data / "mpq-merged.json").read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if path.name.lower() in moved:
+                path = data / moved[path.name.lower()]
+                break
+        else:
+            return path
+    return path
+
+
 class Storm:
     def __init__(self, dll_path: Path):
         self.dll = c.WinDLL(str(dll_path), use_last_error=True)
@@ -158,6 +177,7 @@ class Storm:
         fn.restype = result
 
     def open_archive(self, path: Path) -> H:
+        path = merged_archive(Path(path))
         handle = H()
         if not self.dll.SFileOpenArchive(str(path), 0, 0, c.byref(handle)):
             raise OSError(f"SFileOpenArchive failed: {path} ({c.get_last_error()})")

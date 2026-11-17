@@ -562,8 +562,8 @@ Instead of death being only a grayscale run to a corpse, introduce an **optional
 - When a player selects **Duel** from another player's portrait menu, present two options:
   1. Standard duel.
   2. Gold duel.
-- For a gold duel, let the challenger enter the gold wager.
-- Award the wagered gold to the winner when the duel finishes.
+- For a gold duel, let the challenger enter the gold wager - if the challengee accepts they must match the wager to add to the pot.
+- Award the pot gold to the winner when the duel finishes.
 
 ### RuneScape-style Wilderness Zones
 

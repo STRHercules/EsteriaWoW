@@ -121,6 +121,16 @@ def main():
                  for n in ("Map", "CreatureDisplayInfo", "CreatureModelData", "GameObjectDisplayInfo")}
     finally:
         storm.dll.SFileCloseArchive(handle)
+    # The handoff's Map rows were cloned from The Stockade (AreaTableID 717); with no server terrain the zone falls back to
+    # it, so chat joined "General - The Stockade". Point each tier map at its own zone (Map.dbc field 22).
+    zone_of = {m: (7078 if faction == "Lunarfall" else frostwall) for m, (faction, _, _) in MAPS.items()}
+    map_dbc = bytearray(files["DBFilesClient\\Map.dbc"])
+    count, _, size, _ = struct.unpack_from("<4I", map_dbc, 4)
+    for i in range(count):
+        row = 20 + i * size
+        if struct.unpack_from("<I", map_dbc, row)[0] in zone_of:
+            struct.pack_into("<I", map_dbc, row + 22 * 4, zone_of[struct.unpack_from("<I", map_dbc, row)[0]])
+    files["DBFilesClient\\Map.dbc"] = bytes(map_dbc)
     files["DBFilesClient\\AreaTable.dbc"] = area.bytes()
     files["DBFilesClient\\WorldMapArea.dbc"] = wma.bytes()
     # This client draws world maps from 1024 px DXT tiles with mips (its HD maps, patch-M; housing's make_worldmap.py):
@@ -156,6 +166,9 @@ def main():
                                             f"table_schema='{a.live}' AND table_name='{table}' ORDER BY ordinal_position")]
         assert len(cols) == dbc.fields, f"{table}: {len(cols)} columns, {dbc.fields} fields"
         parts += [b.sql_rows(table, cols, dbc, ids), ""]
+    for zone in sorted(set(zone_of.values())):
+        maps = ", ".join(str(m) for m, z in sorted(zone_of.items()) if z == zone)
+        parts.append(f"UPDATE map_dbc SET AreaTableID = {zone} WHERE ID IN ({maps});")
     SQL_OUT.write_text("\n".join(parts) + "\n", encoding="utf-8", newline="\n")
     print("wrote", SQL_OUT)
 

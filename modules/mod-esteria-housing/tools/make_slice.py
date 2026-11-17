@@ -520,8 +520,9 @@ def winning_dbc(storm, client, name):
               if p.name.lower().startswith("patch-enus-")]
     archives = [p for _, p in sorted(found, reverse=True) if p.suffix.lower() == ".mpq"]
     for archive in archives:
-        if archive.name.lower() == PATCH_NAME.lower():
-            continue  # never build on our own earlier output
+        # never build on our own earlier output, including the copy wowdecomp Tools/MpqMerge folded into a merged archive
+        if archive.name.lower() in (PATCH_NAME.lower(), PATCH_NAME.lower().replace(".mpq", "-all.mpq")):
+            continue
         handle = storm.open_archive(archive)
         try:
             return archive, storm.read(handle, name)
