@@ -43,6 +43,7 @@ data/sql/*    linguist-documentation
 *.dbc1-* binary
 *.mpq binary
 *.zip binary
+*.gz binary
 *.dll binary
 *.exe binary
 *.lib binary

@@ -1,0 +1,94 @@
+# Standalone: -f bypasses machine-local docker-compose.override.yml.
+name: esteria
+
+x-server: &server
+  image: ${ESTERIA_SERVER_IMAGE:-esteria/server:local}
+  pull_policy: never
+  build:
+    context: .
+    dockerfile: apps/docker/Dockerfile
+    target: esteria-server
+    args:
+      DISABLED_AC_MODULES: ${ESTERIA_DISABLED_MODULES:-mod-manastorm-endless;mod-attunement-plus}
+  environment: &server-env
+    AC_DATA_DIR: /azerothcore/env/dist/data
+    AC_LOGS_DIR: /azerothcore/env/dist/logs
+    AC_SOURCE_DIRECTORY: /azerothcore
+    AC_LOGIN_DATABASE_INFO: database;3306;root;${ESTERIA_DB_PASSWORD:?Set ESTERIA_DB_PASSWORD};acore_auth
+    AC_CHARACTER_DATABASE_INFO: database;3306;root;${ESTERIA_DB_PASSWORD:?Set ESTERIA_DB_PASSWORD};acore_characters
+    AC_WORLD_DATABASE_INFO: database;3306;root;${ESTERIA_DB_PASSWORD:?Set ESTERIA_DB_PASSWORD};acore_world
+    AC_PLAYERBOTS_DATABASE_INFO: database;3306;root;${ESTERIA_DB_PASSWORD:?Set ESTERIA_DB_PASSWORD};acore_playerbots
+    AC_AI_PLAYERBOT_RANDOM_BOT_AUTOLOGIN: "0"
+  volumes:
+    - config:/azerothcore/env/dist/etc
+    - logs:/azerothcore/env/dist/logs
+    - server-data-20261117:/azerothcore/env/dist/data:ro
+
+services:
+  database:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ESTERIA_DB_PASSWORD:?Set ESTERIA_DB_PASSWORD}
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysqladmin ping -uroot --silent']
+      interval: 5s
+      timeout: 5s
+      retries: 60
+
+  data-init:
+    image: esteria/server-data:local
+    pull_policy: never
+    build:
+      context: .
+      dockerfile: apps/docker/Dockerfile
+      target: esteria-data
+    volumes:
+      - server-data-20261117:/data
+
+  db-import:
+    <<: *server
+    environment:
+      <<: *server-env
+      ACORE_COMPONENT: dbimport
+    command: [dbimport]
+    depends_on:
+      database:
+        condition: service_healthy
+
+  authserver:
+    <<: *server
+    environment:
+      <<: *server-env
+      ACORE_COMPONENT: authserver
+      AC_UPDATES_ENABLE_DATABASES: "0"
+    command: [authserver]
+    ports:
+      - "${ESTERIA_AUTH_PORT:-3724}:3724"
+    depends_on:
+      db-import:
+        condition: service_completed_successfully
+
+  worldserver:
+    <<: *server
+    environment:
+      <<: *server-env
+      ACORE_COMPONENT: worldserver
+      AC_UPDATES_ENABLE_DATABASES: "0"
+    command: [worldserver]
+    stdin_open: true
+    tty: true
+    ports:
+      - "${ESTERIA_WORLD_PORT:-8085}:8085"
+    depends_on:
+      db-import:
+        condition: service_completed_successfully
+      data-init:
+        condition: service_completed_successfully
+
+volumes:
+  database:
+  config:
+  logs:
+  server-data-20261117:

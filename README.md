@@ -194,14 +194,29 @@ These are documents, not shipped features:
 
 ## Running
 
-Docker Desktop must be running. From the repository root in PowerShell:
+For a fresh server installation, follow [the server installation guide](docs/server-install.md).
+It uses an isolated Compose project, builds every application from this checkout,
+installs custom schemas/catalogues and supplies matching server DBCs. The client is
+distributed separately.
+
+Docker Desktop must be running. From the repository root in PowerShell, once only:
 
 ```powershell
-docker compose up -d
-docker compose ps
+git submodule update --init --recursive
+Set-Content -Encoding ascii .env.server ('ESTERIA_DB_PASSWORD=' + [guid]::NewGuid().ToString('N'))
+docker compose --env-file .env.server -f compose.server.yml build db-import data-init
+docker compose --env-file .env.server -f compose.server.yml up -d --no-build
+docker compose --env-file .env.server -f compose.server.yml ps -a
 ```
 
-Rebuild after a core or C++ module change:
+Keep `.env.server`; do not regenerate its password for an existing database.
+The upstream `docker-compose.yml` and machine-local overrides are intended for
+existing development installations. See the guide for updates, logs, realm
+configuration and module/data limitations.
+
+### Existing development stack
+
+For an existing development stack, rebuild after a core or C++ module change:
 
 ```powershell
 docker compose up -d --build

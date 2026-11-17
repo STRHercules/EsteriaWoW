@@ -49,6 +49,12 @@ else
     touch "$CONF"
 fi
 
+# Module loaders read .conf files, not their distribution templates.
+shopt -s nullglob
+for module_config_dist in "$CONF_DIR"/modules/*.conf.dist; do
+    cp -vn "$module_config_dist" "${module_config_dist%.dist}"
+done
+
 echo "Starting $ACORE_COMPONENT..."
 
 exec "$@"

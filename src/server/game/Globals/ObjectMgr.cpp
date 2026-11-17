@@ -3483,7 +3483,7 @@ void ObjectMgr::LoadItemTemplates()
         itemTemplate.RequiredDisenchantSkill = uint32(fields[126].Get<int16>());
         itemTemplate.ArmorDamageModifier     = fields[127].Get<float>();
         itemTemplate.Duration                = fields[128].Get<uint32>();
-        itemTemplate.ItemLimitCategory       = uint32(fields[129].Get<int16>());
+        itemTemplate.ItemLimitCategory       = fields[129].Get<uint32>();
         itemTemplate.HolidayId               = fields[130].Get<uint32>();
         itemTemplate.ScriptId                = GetScriptId(fields[131].Get<std::string>());
         itemTemplate.DisenchantID            = fields[132].Get<uint32>();

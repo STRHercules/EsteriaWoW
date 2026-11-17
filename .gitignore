@@ -152,6 +152,7 @@ docker-compose.twoforms.yml
 env/dist/data-backups/soar-pre-20261024/spell_dbc_110684.sql
 env/dist/logs/Auth.log
 env/dist/logs/DBImport.log
+.env.server
 env/dist/logs/Errors.log
 env/dist/logs/Playerbots.log
 env/dist/logs/Server.log

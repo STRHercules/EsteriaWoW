@@ -1,0 +1,1385 @@
+{
+  "schema": 1,
+  "snapshot": "2026-11-17",
+  "mmap_version": 20,
+  "dbc_archive": "esteria-dbc-20261117.tar.gz",
+  "sha256": "50e0f2771d5ad3bf781881dd29b980c6f59dbfea607ec48a8c7465bff64a3179",
+  "files": {
+    "dbc/gtOCTRegenHP.dbc": {
+      "size": 4421,
+      "sha256": "8ccff60891dd4c45c0ffcea56fe652e28163d3c39f9261541ec1d9bcb3e94dd2"
+    },
+    "dbc/PaperDollItemFrame.dbc": {
+      "size": 1602,
+      "sha256": "43c40ee0a4ea5bd9046056a18062e01ef7aafeea62fb2c5022421ef760642817"
+    },
+    "dbc/CharHairGeosets.dbc": {
+      "size": 17277,
+      "sha256": "6787da6f44fac256e7edefece93152397bead33ab079fbdcb3cf19c658636cf3"
+    },
+    "dbc/SpellMissileMotion.dbc": {
+      "size": 61609,
+      "sha256": "f24c81f36de34eab396eaf4771828c88c2a3fd0ff7d2a1c90682bec14cd20e64"
+    },
+    "dbc/CharHairTextures.dbc": {
+      "size": 2933,
+      "sha256": "09e187691c0b2fab0f2257649ba1d871d488b87e65f0d9b920828fa4d641c8c7"
+    },
+    "dbc/ObjectEffect.dbc": {
+      "size": 8545,
+      "sha256": "986686ae6bb157d0197ee8b03bd0511f2ff987fe354f148712a97515659b6370"
+    },
+    "dbc/CurrencyTypes.dbc": {
+      "size": 437,
+      "sha256": "61ed134510b11f4c010e505d3167240924e4c105839c15c5ec473cbc51f1844d"
+    },
+    "dbc/CharBaseInfo.dbc": {
+      "size": 361,
+      "sha256": "205220b723836b72277e5b55e6ab7d2ecd73475f1b2a4514f2cd2119a4a722dd"
+    },
+    "dbc/ChrRaces.dbc": {
+      "size": 81248,
+      "sha256": "0b8440ea0dd0aefa13146025df5c75230fb13d51c8ecce781c3c2481d312b9ef"
+    },
+    "dbc/gtCombatRatings.dbc": {
+      "size": 12821,
+      "sha256": "92f4ef0247f6a23c7911e1a51ae0e9648e5d1ed1b5cbc1b01e646ddcae13f280"
+    },
+    "dbc/gtChanceToMeleeCritBase.dbc": {
+      "size": 65,
+      "sha256": "e2a82b78cb1ac14b697312b1dad6ca85dcd25fe993e56be9aca9326f52c35ddf"
+    },
+    "dbc/LFGDungeonExpansion.dbc": {
+      "size": 949,
+      "sha256": "f596277a9e1b321da3b674fbada5d38b742d7d55ee8cc3ed3f41cc61f0195da9"
+    },
+    "dbc/HelmetGeosetVisData.dbc": {
+      "size": 693,
+      "sha256": "23ededd559bc0a09952c6825af249310d39c126aef92b1b3177cde74c3035bed"
+    },
+    "dbc/GlyphSlot.dbc": {
+      "size": 141,
+      "sha256": "80e1076f884a69c3c6ca0e1f77170ed5517e1c41a6b8cc2f7c6ac2aa5a821701"
+    },
+    "dbc/gtOCTRegenMP.dbc": {
+      "size": 4421,
+      "sha256": "503758abb3cece2dded98a62adbf665a8c04d77fabc3bed77f6cae51f7849109"
+    },
+    "dbc/WorldSafeLocs.dbc": {
+      "size": 85597,
+      "sha256": "4398a55282b3a597fa5db575a0e0b75980d8bfeebf8e0ad428cb780db085ef91"
+    },
+    "dbc/PowerDisplay.dbc": {
+      "size": 242,
+      "sha256": "b9dd3d7066ce8af3d102b28d424eb8cbc15f2a0bcbfbd2058cdf60fc35c11124"
+    },
+    "dbc/VehicleSeat.dbc": {
+      "size": 170541,
+      "sha256": "5b43bcb512401a3bb371d5323fbad7d77411a0d62136542d0e16cf649bd2ec88"
+    },
+    "dbc/VehicleUIIndicator.dbc": {
+      "size": 419,
+      "sha256": "e1d1f2e5c1b1f671c1ecfcde17927159f4921d27b86268a4938051a49374922b"
+    },
+    "dbc/VocalUISounds.dbc": {
+      "size": 19453,
+      "sha256": "0d143ac1d881ebc7954f9a3b7a88fcee714c271a3271b53f49914ef2369121d5"
+    },
+    "dbc/CreatureDisplayInfo.dbc": {
+      "size": 2180943,
+      "sha256": "27408f1c7ea69bece571016ed933f03361024f8774fa88fa0a55a65fb83c93b3"
+    },
+    "dbc/CreatureSpellData.dbc": {
+      "size": 28893,
+      "sha256": "5f7bfdb14f966677ec18cd8b8572e0bd44eb3b12aa8e28fa420ea7a45420a9b9"
+    },
+    "dbc/ItemVisuals.dbc": {
+      "size": 1941,
+      "sha256": "d2af5a29c78b10a3a366641de2785c15cb093d5e5f46fc740772a29b90164091"
+    },
+    "dbc/GMSurveySurveys.dbc": {
+      "size": 109,
+      "sha256": "9b0edc0dc2af9e4349813ecf1f5532acb3ed050d89a20cfb083456b0ac4a731c"
+    },
+    "dbc/GMSurveyQuestions.dbc": {
+      "size": 1849,
+      "sha256": "5d94fb6968b1ce7a384641c8c22186d43bf768c43d0751b8133fc92ca1099b1e"
+    },
+    "dbc/GMTicketCategory.dbc": {
+      "size": 3396,
+      "sha256": "f98fcf8b80768f484a62f64750a9955517fcb158a32d85f45a6a7989e05908ad"
+    },
+    "dbc/GlyphProperties.dbc": {
+      "size": 5813,
+      "sha256": "11237852179c218efdba4ddbb899c835a63770505c5dd383b710a3d8c01c1d50"
+    },
+    "dbc/WorldMapTransforms.dbc": {
+      "size": 381,
+      "sha256": "ba3f2a65c35ba0ab158f4a336c6195b0dcf4754d2e4f53fea5dbe5acf1ad479c"
+    },
+    "dbc/SpellCastTimes.dbc": {
+      "size": 1141,
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec"
+    },
+    "dbc/AreaPOI.dbc": {
+      "size": 167242,
+      "sha256": "ff0b639b0fc7b96c18035c46156fe23b344a89fcbecaeae908173cd8eadc77fa"
+    },
+    "dbc/QuestInfo.dbc": {
+      "size": 897,
+      "sha256": "f76eb735b078198b8c529b1622e41f25d84800054968c473833cc061b8292a81"
+    },
+    "dbc/StringLookups.dbc": {
+      "size": 384,
+      "sha256": "06b2aef8087125463554e30d1fac1ebeedceed491fd0e7947081b3aacf41ce30"
+    },
+    "dbc/SkillRaceClassInfo.dbc": {
+      "size": 11669,
+      "sha256": "71cbaf79c8ae853740dedabe194498e44c1054441fb9e4540df0d172c6025258"
+    },
+    "dbc/ChatProfanity.dbc": {
+      "size": 101815,
+      "sha256": "2128d9cbc3a86bff9cc5265c027882ce58de6927de6b54edd801dd8e25d161f6"
+    },
+    "dbc/SpellVisualEffectName.dbc": {
+      "size": 259675,
+      "sha256": "0556356171ea424666e0b42961bc5d6997a1c6c08242b2eee799bf75ba3559e8"
+    },
+    "dbc/HolidayNames.dbc": {
+      "size": 2431,
+      "sha256": "24843983115b9251db4ad9c2619b464809d8b7f75549b37c428feb2f44432431"
+    },
+    "dbc/SpellMissile.dbc": {
+      "size": 6321,
+      "sha256": "a049e09d4027e7b0c7992aca3a0b002d522a25b4fed11de9ef88ab22b9511495"
+    },
+    "dbc/CurrencyCategory.dbc": {
+      "size": 737,
+      "sha256": "b4e06d0e72925144b7668487c3439c778d35f997197f135ccd63cb7de027fb12"
+    },
+    "dbc/SpellItemEnchantment.dbc": {
+      "size": 451214,
+      "sha256": "6c8e8c7d6bc2030500a0687a2975e7f81eb1dc2a1da6939f7ddc64e55ce964de"
+    },
+    "dbc/Map.dbc": {
+      "size": 63000,
+      "sha256": "b3b3c6866a1a8b46faba825e238902214bbe2e0aad9f3b11805e703663863768"
+    },
+    "dbc/AuctionHouse.dbc": {
+      "size": 778,
+      "sha256": "bb8b096723b7f9fa44f0c89818c8d9b3683e4a439510fc9ea70fa497038dd123"
+    },
+    "dbc/TransportRotation.dbc": {
+      "size": 6377,
+      "sha256": "60b9bb29d197f6a255c5b9700fe409d606887ac77274b62a0a05dc2d17af7cee"
+    },
+    "dbc/LoadingScreens.dbc": {
+      "size": 8054,
+      "sha256": "8640ce1430c37182794ed331cbcc6fb890a0b22eb9616681503ba1a4ac9e4ac4"
+    },
+    "dbc/QuestXP.dbc": {
+      "size": 4421,
+      "sha256": "ae88d842e994dccad08d58983f8c524c0aa51a3557ebbb5aa687098298a7b8d5"
+    },
+    "dbc/SoundSamplePreferences.dbc": {
+      "size": 157,
+      "sha256": "94ed41f35196a91480ff91f2909322d9fabb0956bdeb7c4d0265af6decc29966"
+    },
+    "dbc/PetitionType.dbc": {
+      "size": 62,
+      "sha256": "bf33b20226b455536ffb7b78b4f2f9eb7b143782a8c2ae98d82d51c7ac7e7ae4"
+    },
+    "dbc/SoundProviderPreferences.dbc": {
+      "size": 3593,
+      "sha256": "995bd3d155ad2e4aac54216b3fcbf84dfb9426d85a023d6a32fbf70fccd744a6"
+    },
+    "dbc/MapDifficulty.dbc": {
+      "size": 19067,
+      "sha256": "1ae8728a20a8ee236b4683a34886a2f16dd6402a83ab8768870321b2ea748c9c"
+    },
+    "dbc/PvpDifficulty.dbc": {
+      "size": 2613,
+      "sha256": "deabd15566ec7cd00e456460e8fae387f5969fb9c6d0f167ec208314cda997e2"
+    },
+    "dbc/SpellFocusObject.dbc": {
+      "size": 35886,
+      "sha256": "48173023cbf1f20b3a307d90b8ef95c910c0f7bb64d6738ee3c9ff605abfa3fb"
+    },
+    "dbc/SoundAmbience.dbc": {
+      "size": 2493,
+      "sha256": "48597600c376f0bd55d24ecd14702d8a0276904e4e0d3d74b5cbd9f4c917594b"
+    },
+    "dbc/SpellVisualPrecastTransitions.dbc": {
+      "size": 115,
+      "sha256": "3f81455326df9c6568ce34bb8afe81b9d66694e5b763e0909380a9f184dd98ee"
+    },
+    "dbc/LightFloatBand.dbc": {
+      "size": 693621,
+      "sha256": "05cb9f3f41994929b1f7989b76e691b63254a13a834f8e1ef4f049561a103065"
+    },
+    "dbc/SpellDifficulty.dbc": {
+      "size": 11641,
+      "sha256": "9173f9a8c97e690fb5a7ce1d6730c1449da214752c52a3885f79d58952bb95a4"
+    },
+    "dbc/UISoundLookups.dbc": {
+      "size": 3928,
+      "sha256": "d10ee19f27a606bd072f0072767b3d7c551a7e637d515bb7d63641a39553150e"
+    },
+    "dbc/TerrainType.dbc": {
+      "size": 385,
+      "sha256": "6f01e690efb37b2154afa52d7d2e9a614c287ed746d7e37af63891873288fe27"
+    },
+    "dbc/ObjectEffectGroup.dbc": {
+      "size": 3493,
+      "sha256": "7a27f5bbef272308f8774a1670ef72a3d3e8df5e27b788b9c5f4c5f90833fee3"
+    },
+    "dbc/SpellRadius.dbc": {
+      "size": 949,
+      "sha256": "409b1612d19bb7860de2a2ea0f18669be1cf40477f85f5c6e12c4758277f3475"
+    },
+    "dbc/LFGDungeonGroup.dbc": {
+      "size": 1097,
+      "sha256": "3db11915e0ce818135a3ffaa1efb4a8142c16857a0b6b50c433df8ad2c67f9ba"
+    },
+    "dbc/CameraShakes.dbc": {
+      "size": 2517,
+      "sha256": "e95249073f694c7c4e8f71dd9a7d1289265b71a8e688b1bb22db83d5afb63ee3"
+    },
+    "dbc/BattlemasterList.dbc": {
+      "size": 1900,
+      "sha256": "4fe0e9f594a660fbcfcea38a768c8b59a2b8bca5546592fe42b3d7ae9e1d7f13"
+    },
+    "dbc/ZoneMusic.dbc": {
+      "size": 20214,
+      "sha256": "754ad12cecab0ee38bdcad5b92fe45394aaff72655bbd95af40a3c0a6dd4c964"
+    },
+    "dbc/ZoneIntroMusicTable.dbc": {
+      "size": 6500,
+      "sha256": "f393d6a5fade9a9b051132bbd0f1f0970b9da214c33c9d3f8a3d70a628531e07"
+    },
+    "dbc/LFGDungeons.dbc": {
+      "size": 41932,
+      "sha256": "99937ac9c700668bda26f5b01c8d611f3563f4dc07881a5cddbba7381d4fa3ae"
+    },
+    "dbc/SkillLine.dbc": {
+      "size": 39475,
+      "sha256": "f446062bede1a114afcabe323880bfdbc006d3ef88445a0a1046611fb518eb19"
+    },
+    "dbc/SpellVisualKitModelAttach.dbc": {
+      "size": 23661,
+      "sha256": "01bdac91ce21525ffa4c527b9a0d227bd0a97d93f4a9f223c0b637c1ede17a6b"
+    },
+    "dbc/TaxiNodes.dbc": {
+      "size": 46504,
+      "sha256": "ba2d0c16985a5e561afa8424e1dc826ead6c8db425af127490c5f58d45429b7f"
+    },
+    "dbc/PetPersonality.dbc": {
+      "size": 247,
+      "sha256": "31e0be3e060d7b7bb67ddbdb484669a66b9a895c5ab9a7d67cce7617187897c8"
+    },
+    "dbc/VehicleUIIndSeat.dbc": {
+      "size": 401,
+      "sha256": "b2404079947f5e95193cd091c3ccf901f958fff102850de003b0588fd8516047"
+    },
+    "dbc/Resistances.dbc": {
+      "size": 627,
+      "sha256": "7a6c88b2bbc951f9605081bb36b85502f169ec829acbfccbef25d0170c4e6e0a"
+    },
+    "dbc/SpellEffectCameraShakes.dbc": {
+      "size": 501,
+      "sha256": "183d0b8d0e5cbd3722db535fbb33a856f21b05f21450c6f7f2e31c5e9ebd8817"
+    },
+    "dbc/DungeonEncounter.dbc": {
+      "size": 63033,
+      "sha256": "af174dff3933fc5263be204f6ccfa9388dfb7f19ad54563ae65e1a1a1aa95e73"
+    },
+    "dbc/SummonProperties.dbc": {
+      "size": 4821,
+      "sha256": "6679ab0a596ecb3b7d5e220e3c1b482935f5b14bb6c38c19941b1bb4355ae367"
+    },
+    "dbc/Startup_Strings.dbc": {
+      "size": 1574,
+      "sha256": "dbd35336bc773fe2947119d2f6ddd62b18869b29279ffd78d41e83845d36ad62"
+    },
+    "dbc/HolidayDescriptions.dbc": {
+      "size": 6617,
+      "sha256": "2c50f12253003a037a11b1b53729b91b033f46de1e622d8db26c6556b0929b78"
+    },
+    "dbc/StableSlotPrices.dbc": {
+      "size": 53,
+      "sha256": "a74561d21b1878ae5f4587960ca749fdf132040c90555dfeddbe4dff5822bc4c"
+    },
+    "dbc/CharStartOutfit.dbc": {
+      "size": 415311,
+      "sha256": "30740e08b9b33dd2e0d7a6d1a58b7ffe555fc38331b841f817e0de28cc74eb18"
+    },
+    "dbc/SpamMessages.dbc": {
+      "size": 14950,
+      "sha256": "aeecd470d1c8a7c3a99e1aca17b5984e99454714a8c4d8bf6e49f6ba99b6c648"
+    },
+    "dbc/SkillLineCategory.dbc": {
+      "size": 740,
+      "sha256": "f3a0649d15a770cac5f900115d6390186729cb90202325de45a4992725edd93b"
+    },
+    "dbc/DanceMoves.dbc": {
+      "size": 3018,
+      "sha256": "f5d29ee88b659aa33ce4627ac7b581571a7fc6931081c5c63bfa8a93cffd74ee"
+    },
+    "dbc/AreaTrigger.dbc": {
+      "size": 57981,
+      "sha256": "486e60747f9554e514f7827ae3e473e6db8a651274c18e4c6ec0553f1bcd6844"
+    },
+    "dbc/ItemExtendedCost.dbc": {
+      "size": 62229,
+      "sha256": "606622955569b472e9c9de13b352242f5f0ec8d8bda6c0c3667b9d07feffac8a"
+    },
+    "dbc/SkillCostsData.dbc": {
+      "size": 30021,
+      "sha256": "8c22981dc5c7cdccbe0905733a0c064871e90af7972048d2eda55317253499e8"
+    },
+    "dbc/SpellDispelType.dbc": {
+      "size": 1146,
+      "sha256": "c642ffcf522828b436eff6ce68e568288fbe0eb2ab1cd69f7671d3566f0f6cad"
+    },
+    "dbc/SpellIcon.dbc": {
+      "size": 151540,
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db"
+    },
+    "dbc/SpellShapeshiftForm.dbc": {
+      "size": 4890,
+      "sha256": "beebbd19d2d3e758496c0e5535fd3f301450b1fd984930841a9f120afcaa1dc5"
+    },
+    "dbc/UnitBloodLevels.dbc": {
+      "size": 85,
+      "sha256": "6bdb8ae59e1fa45e313334503824d0a2fcf1bdd6c8265521b0fdf4f295f965cb"
+    },
+    "dbc/ItemSubClassMask.dbc": {
+      "size": 383,
+      "sha256": "4fa10195733e30c0821b7c705674dc2e9ec22cc1c0f1800d391e78417f678804"
+    },
+    "dbc/DungeonMapChunk.dbc": {
+      "size": 12461,
+      "sha256": "c9fda294ce565501518aa782957a5fe45d92147a79c34a5f29493194a8d318c3"
+    },
+    "dbc/Item.dbc": {
+      "size": 1475093,
+      "sha256": "d455bc30b59bc368b2a972a913864dd092d50695140b9513582100dc56ed777d"
+    },
+    "dbc/Material.dbc": {
+      "size": 181,
+      "sha256": "0c30ba608a985d0b773a52b50e288789231206923b6120464646bd71286e265b"
+    },
+    "dbc/DurabilityCosts.dbc": {
+      "size": 36021,
+      "sha256": "9c76fe46133a6bf2f169bd2e435b09cbe5cc4915aa93d7a75cf3cb4444f3f4ba"
+    },
+    "dbc/Stationery.dbc": {
+      "size": 224,
+      "sha256": "70fec42fc99542b6864df2d2d8a8f65bc966a22cab72724e47a60f4b3ef046cc"
+    },
+    "dbc/TaxiPathNode.dbc": {
+      "size": 993805,
+      "sha256": "9e330838d1a50170354485514bf2d94395339070cde883fa8d18a5a7e7ed6214"
+    },
+    "dbc/SpellRuneCost.dbc": {
+      "size": 9521,
+      "sha256": "731a884c3f92fd51da5ff1e942c02cf8a2c1bb15e027378326c1271694af7339"
+    },
+    "dbc/DurabilityQuality.dbc": {
+      "size": 149,
+      "sha256": "293ac1f60e9d834accb869631e8fe42c9d13dd9454cefdfefc2f076cae8f5be7"
+    },
+    "dbc/TransportPhysics.dbc": {
+      "size": 153,
+      "sha256": "4a07002714c39dfe6e3834ff673796b7ff3db2f3a5d668d2bc8b138d6f1c9fa2"
+    },
+    "dbc/ObjectEffectModifier.dbc": {
+      "size": 373,
+      "sha256": "ba0b40da11ecc02e02bf20473ddb978589fe654307d951fe0aea71c8e7e60efc"
+    },
+    "dbc/ItemDisplayInfo.dbc": {
+      "size": 13949242,
+      "sha256": "a7e33dc812ada9172629982e3232b1b8e9f9f6ae9a73626a7d9acae4bc3fecb0"
+    },
+    "dbc/BarberShopStyle.dbc": {
+      "size": 1612012,
+      "sha256": "92a00b0a0222882885507bd7a1b7361d32e0906ab81ff78a2f7ec3b54074af1b"
+    },
+    "dbc/gtRegenMPPerSpt.dbc": {
+      "size": 4421,
+      "sha256": "06b8000be88ce9795bff44a2bd3e31e519ea11e78c16c2e2a36eb144c5d24cfd"
+    },
+    "dbc/FileData.dbc": {
+      "size": 352,
+      "sha256": "d19a330c7748182df2b606b66d47bc4af838b08a6ee644b87b24c88bc62655a5"
+    },
+    "dbc/DeclinedWordCases.dbc": {
+      "size": 6734878,
+      "sha256": "47c5b9adb49e1d1c5431fff8a7047c8a2f2c8f4fc85a0f8d678fd9f8975cf959"
+    },
+    "dbc/NamesProfanity.dbc": {
+      "size": 134417,
+      "sha256": "ef5467847af400e29ca973b3f99e42fdb6110aae954559fb49f4299ba97e3d99"
+    },
+    "dbc/SoundFilter.dbc": {
+      "size": 699,
+      "sha256": "c4d0554bc4df842cad0c67a6ab96d6e218a238f2a2c74d51ba09f9299b8a4a49"
+    },
+    "dbc/ScreenEffect.dbc": {
+      "size": 2746,
+      "sha256": "b345b319d8e214af28658b6ee310549525ee4b2d45d0f821317fea631a09b2d9"
+    },
+    "dbc/SoundWaterType.dbc": {
+      "size": 213,
+      "sha256": "5702931f6f68b38c5805b7a4720ebe6adf187054c99976fe5c5f000b90047cf7"
+    },
+    "dbc/ItemCondExtCosts.dbc": {
+      "size": 18629,
+      "sha256": "4271c7df2f6d7733da687adb61b0cc873641272264beb44c4f9e25bdea9cd3c5"
+    },
+    "dbc/LightSkybox.dbc": {
+      "size": 3663,
+      "sha256": "ed9b9c23fac25cc3d57dcea14c98026d47d2a0d23002da1b1a8fa6ebd3d68803"
+    },
+    "dbc/SpellMechanic.dbc": {
+      "size": 2521,
+      "sha256": "4330fae827795e1b79a9ba576a45ae740e137d92d6ab312ac85a983368445a89"
+    },
+    "dbc/QuestFactionReward.dbc": {
+      "size": 109,
+      "sha256": "b77370593e354d6d58f30ede9faf4327fa418931b91a6bc4ccdead5d2a9c6dc5"
+    },
+    "dbc/CinematicCamera.dbc": {
+      "size": 758,
+      "sha256": "8c750b78e0a7c22951d1ed53e4e4c679fb17c647286aed902b54254a400480ff"
+    },
+    "dbc/Movie.dbc": {
+      "size": 126,
+      "sha256": "6f3afe6f65b7559c46436ed2a0cda2d0ab72e7fe7c85c35ff825bc45a40b1da8"
+    },
+    "dbc/Cfg_Configs.dbc": {
+      "size": 229,
+      "sha256": "3b5c427d8b1cd4169a59ab16ce73d1e4dfa29c9bed88caa5ba6ae31384a682d1"
+    },
+    "dbc/SpellCategory.dbc": {
+      "size": 2117,
+      "sha256": "0026cb005df9a7bc5f48c55fa453fc531c89fd28f50f217ffbc35684490b70c1"
+    },
+    "dbc/gtChanceToSpellCritBase.dbc": {
+      "size": 65,
+      "sha256": "45963fe68a4293216a5345fb8cc5ba9acace8d93175d008148e11465416ffc5b"
+    },
+    "dbc/LiquidMaterial.dbc": {
+      "size": 57,
+      "sha256": "103b8daa4f2b7d683ff95c19ffe03160ba684eb05e035491033b463911a23d0b"
+    },
+    "dbc/WeaponImpactSounds.dbc": {
+      "size": 2781,
+      "sha256": "adde2b6e8e205d60e8f7c4feee0169b2fdd8f77ac15ae49fc9a6bf297bdef428"
+    },
+    "dbc/SpellVisualKit.dbc": {
+      "size": 1316797,
+      "sha256": "3fd35945ed732ccc88ff9bdce91be05abb94bcd030a9cb84ce08e932dc5d24a1"
+    },
+    "dbc/Vehicle.dbc": {
+      "size": 67611,
+      "sha256": "34f276e3e34fb45f2caf82dfc52eda0d8998f6927fd4d9e045172759051390c8"
+    },
+    "dbc/ItemPurchaseGroup.dbc": {
+      "size": 158,
+      "sha256": "2d98d7213db0ed5f370a1b6147dcc54ccae37eb07e85e469a15f1c47b40d3c7d"
+    },
+    "dbc/MailTemplate.dbc": {
+      "size": 64321,
+      "sha256": "672d4e835e9016e1581a41c763d5d62b100b6bd23ed572d491b6b2690bbe237a"
+    },
+    "dbc/gtBarberShopCostBase.dbc": {
+      "size": 421,
+      "sha256": "67f516e72d709a74ad5e4e9a58297b495bd6ebb4a3052978ed6da16ca883be69"
+    },
+    "dbc/Languages.dbc": {
+      "size": 1399,
+      "sha256": "35b5d2750e86773f8e9c0ebad4e29ff6c82e0f889dee280c56c2ac7c6999caec"
+    },
+    "dbc/TaxiPath.dbc": {
+      "size": 14661,
+      "sha256": "1af5ba71fca5684a432b9d3f449aaeb21e4c091532e4b5795335be200d88dd5d"
+    },
+    "dbc/gtRegenHPPerSpt.dbc": {
+      "size": 4421,
+      "sha256": "f4681e7686c9e2b8199634adf18f7fe18538557caf968d6f451613ec293419fc"
+    },
+    "dbc/AttackAnimKits.dbc": {
+      "size": 541,
+      "sha256": "9b9a43f367aed2d98436cc9e57f8cb398b4a75c40ecca530b607370135096b0c"
+    },
+    "dbc/ObjectEffectPackage.dbc": {
+      "size": 829,
+      "sha256": "10074c08823bc6d7efac2fa10456bf15f3166a1ed8578d25a2d5f2789b1c6891"
+    },
+    "dbc/GameTips.dbc": {
+      "size": 26915,
+      "sha256": "2b81e63c7a97925659db4ad5940b4b6f68b2522dbe5127d73b266a84f1039058"
+    },
+    "dbc/GemProperties.dbc": {
+      "size": 12541,
+      "sha256": "f8ec92e43ad7dacea5f94f1b19acca67f1c803d727da17099c10e66f04f19e3f"
+    },
+    "dbc/FootprintTextures.dbc": {
+      "size": 268,
+      "sha256": "139c946cf2ae36d142bd067460d490750a5ca4cce496c5e58d45ee0d1c34e57e"
+    },
+    "dbc/CreatureSoundData.dbc": {
+      "size": 199293,
+      "sha256": "45714ae4a6053777377d5dee4484dcae5b2c6ae01eeb8ddb153230527f2191bd"
+    },
+    "dbc/EmotesText.dbc": {
+      "size": 20791,
+      "sha256": "54b6004b8cdf547387530151976c612724ebe4d6389c4a5c1d98647bb730bff6"
+    },
+    "dbc/Lock.dbc": {
+      "size": 51237,
+      "sha256": "c49bd7ed970583a3660d5d16d6917e91e46aafc9e9ed7926281f4889d45904d0"
+    },
+    "dbc/EmotesTextSound.dbc": {
+      "size": 12421,
+      "sha256": "9e4b00b0cb5fa354132debffbe73033523ea0043ccdc01690c9662df2122aa12"
+    },
+    "dbc/BannedAddOns.dbc": {
+      "size": 4509,
+      "sha256": "8ce8191e12723a8038d1bb29c80def826493882ca084d56c4541b5c018ead4fe"
+    },
+    "dbc/DeclinedWord.dbc": {
+      "size": 1313560,
+      "sha256": "bcb59c262020f1c6dc1efae67e69bfd77d5405f2b6b395009bcd43a5313090fc"
+    },
+    "dbc/DeathThudLookups.dbc": {
+      "size": 921,
+      "sha256": "8db1d2d037a23a257e8057832481015654d21402d396aa74244e2f990e19b7c0"
+    },
+    "dbc/Achievement_Category.dbc": {
+      "size": 7956,
+      "sha256": "b9e2240eae751ec7171a53fa1abf04e4fc01923833ce6ed81f20dd3cc41a4d50"
+    },
+    "dbc/WowError_Strings.dbc": {
+      "size": 1474,
+      "sha256": "0aef55a0771c6fc7324c11322c72a600386ecf984b9572df9747e1cfeb3cbb86"
+    },
+    "dbc/SpellChainEffects.dbc": {
+      "size": 174517,
+      "sha256": "df76c5f9e54584c494187e7d168e64689da6c3e885b259f910566dc227929e17"
+    },
+    "dbc/BankBagSlotPrices.dbc": {
+      "size": 117,
+      "sha256": "ad79ced9ec6588abd9d6041c6d509f78d94cf4924c0519d3bf79a1a5c4281105"
+    },
+    "dbc/GameObjectArtKit.dbc": {
+      "size": 2011,
+      "sha256": "bb93023df469cd48452e0e8068721177550068fdafc25f383fa83c65f842e60f"
+    },
+    "dbc/TalentTab.dbc": {
+      "size": 3972,
+      "sha256": "b9249642e06b2baa17793e50e6719f33b1f89729f6c31ea623d4a39e84660e31"
+    },
+    "dbc/UnitBlood.dbc": {
+      "size": 641,
+      "sha256": "679d5846baf989e86dc089b477353867f359876d78b865550fc38d09c5522c2e"
+    },
+    "dbc/TeamContributionPoints.dbc": {
+      "size": 11221,
+      "sha256": "1e05cc6f44185da8bb03d4e0fcb8eeda54a8af1818eb224b620b03ce0337c74e"
+    },
+    "dbc/CreatureFamily.dbc": {
+      "size": 6246,
+      "sha256": "9f9d22cf0b213c45789266751dbdf2ee9162ba2be01eb2d89dd9c88cacefd5e2"
+    },
+    "dbc/NPCSounds.dbc": {
+      "size": 6041,
+      "sha256": "d8ccaebee4b73c15421856e0d052f8551f24a839086a0f64eef53b5ffc81aee7"
+    },
+    "dbc/MovieVariation.dbc": {
+      "size": 141,
+      "sha256": "1e6f7135fced80340fa4a684c93b25e3c3e75d7f6fe8b6e58aed3276ee73fcdb"
+    },
+    "dbc/SpellVisualKitAreaModel.dbc": {
+      "size": 696,
+      "sha256": "b7639042e3baa591be60de145696d3cbc8a55ce13c132ed0b2d1bb6bf505c716"
+    },
+    "dbc/ItemSet.dbc": {
+      "size": 118552,
+      "sha256": "28c285ea7cab86b74c06ad30138c62c26d5ea5303f1fd2bccb9b3285a95d3467"
+    },
+    "dbc/TotemCategory.dbc": {
+      "size": 3128,
+      "sha256": "2e4daffaa75bc36d84c43ea4e78adb6725e4d52f99538dfe5826f8bae68badf9"
+    },
+    "dbc/LanguageWords.dbc": {
+      "size": 26903,
+      "sha256": "00382b3c391386297647c2391d5dcbf51ede11b0575b961980ddadb46d599589"
+    },
+    "dbc/SpellDuration.dbc": {
+      "size": 2101,
+      "sha256": "caa2cbec7fa711bba180af10c253ab0d111609ec2bda1c354fef09e54bc279e4"
+    },
+    "dbc/CreatureModelData.dbc": {
+      "size": 1149231,
+      "sha256": "80fad21ab35afe0610caf46905d93a3b608162f445325e97ebec56107a99fe6e"
+    },
+    "dbc/Faction.dbc": {
+      "size": 108787,
+      "sha256": "cb17db4d0b90e0d8f4801dc8ea926f05b73b8a8d512bae851bba6d28b79a8bd9"
+    },
+    "dbc/gtChanceToMeleeCrit.dbc": {
+      "size": 4421,
+      "sha256": "2acb54ef9c47418bea48e557503b7e9a03cfd1365ee2b7be4bc8c5cee5de7f30"
+    },
+    "dbc/AreaGroup.dbc": {
+      "size": 9333,
+      "sha256": "aa50dc68f20007d3823e6413b2f5158dd83ade85c5aa59afdd870cf5d871b036"
+    },
+    "dbc/Weather.dbc": {
+      "size": 1201,
+      "sha256": "302587d91ffc2b16ae81c437deb588ff80f3e1f78ade271a95d89c739ab48e95"
+    },
+    "dbc/CharSections.dbc": {
+      "size": 91385562,
+      "sha256": "e7c478fe6894ff13df3158ea98d7c729e572e344e4dd3cd1e6ea343939133a11"
+    },
+    "dbc/SoundFilterElem.dbc": {
+      "size": 2673,
+      "sha256": "4eee838189a6ab5fc62f0e3b746c0e02d99bad388948d701480667e6435cd357"
+    },
+    "dbc/SkillTiers.dbc": {
+      "size": 3453,
+      "sha256": "7bf8c5f87fc7917fa3bb42b459246fd8c5870e5223d24d66ae16e27e730c7e49"
+    },
+    "dbc/MovieFileData.dbc": {
+      "size": 85,
+      "sha256": "24664c98e9b1a1540dfed4dbb54c7a9ec1a1d8b93a386a3865741ee4c5a1aaf0"
+    },
+    "dbc/EnvironmentalDamage.dbc": {
+      "size": 93,
+      "sha256": "81f4a158d904fd04a6eac16dd5bbdd3fcba54e6711b935a5f7a0e6de98f5036e"
+    },
+    "dbc/DungeonMap.dbc": {
+      "size": 1781,
+      "sha256": "aa31db35a2266694d8318c410712a18540d86469e3d6134eb648a1d9694f21f5"
+    },
+    "dbc/PageTextMaterial.dbc": {
+      "size": 132,
+      "sha256": "25f19f032c0ced6824d0e43296e27428767e64822d9954d12c89eec10ad2a560"
+    },
+    "dbc/LoadingScreenTaxiSplines.dbc": {
+      "size": 2073,
+      "sha256": "9f1374425f76368b76fb1e284d70e24b28b3dc45a455c73417c04cb7bfc52553"
+    },
+    "dbc/ItemRandomProperties.dbc": {
+      "size": 193808,
+      "sha256": "1fbe2fe7de694bc0fac4d2f3687c38fb3a1b7b175a3d59fec9f00e15ecdebeca"
+    },
+    "dbc/WMOAreaTable.dbc": {
+      "size": 2540951,
+      "sha256": "ba36633b10518d438ce5af207f1b10278019505026aba7364a142362eecfbeca"
+    },
+    "dbc/SpellDescriptionVariables.dbc": {
+      "size": 2787,
+      "sha256": "8b7179ad7561b920ebcba721c1efefb7fc5697f4e7cb8eb30ce30a542daa6d85"
+    },
+    "dbc/TerrainTypeSounds.dbc": {
+      "size": 61,
+      "sha256": "9164cf6f524240baaf48cf99306d7e75eaadd832af64cc2977abc1dc401928c6"
+    },
+    "dbc/GroundEffectTexture.dbc": {
+      "size": 1099185,
+      "sha256": "28b4cb73981f329f89c84d4265bde6fee80910b7e777f317fb4e6e91d5ee3341"
+    },
+    "dbc/component.wow-enUS.txt": {
+      "size": 94,
+      "sha256": "5408a41a8b17499650ddda83c4289144a1fa8851820c28865042f1d31574b5e5"
+    },
+    "dbc/QuestSort.dbc": {
+      "size": 3440,
+      "sha256": "d2707e3478d973f28c5714fb34ba525b624f5d3cb43375225b6fa43357cf984a"
+    },
+    "dbc/WorldMapContinent.dbc": {
+      "size": 245,
+      "sha256": "2aa85f78acfd2431a9782389161df6597bd440ffae0d758c0bb51f5c9a0ebe05"
+    },
+    "dbc/LightIntBand.dbc": {
+      "size": 2080821,
+      "sha256": "e86e662d3bd520125bae6f3028254936b9611b6ad21ee64fcf8a34afb63e21af"
+    },
+    "dbc/AttackAnimTypes.dbc": {
+      "size": 160,
+      "sha256": "330aaeb83908885a21dd9b9262cbf8423ac8802467234baab1caa24d0f682c88"
+    },
+    "dbc/ItemPetFood.dbc": {
+      "size": 651,
+      "sha256": "3dcd77b1585b59e8db123e11cce80e6665402a4bd70313d0cc0ee716cd47859f"
+    },
+    "dbc/Holidays.dbc": {
+      "size": 6114,
+      "sha256": "89136b7ece127547916d5b6c57d44d10c4c87729229a191656273e6bbd1ebb62"
+    },
+    "dbc/SpellVisual.dbc": {
+      "size": 1203989,
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601"
+    },
+    "dbc/LightParams.dbc": {
+      "size": 30621,
+      "sha256": "0be83f26444fd886b6acbe61297ac0538aa36cb31151f66c591e3508ce2660d8"
+    },
+    "dbc/Package.dbc": {
+      "size": 125,
+      "sha256": "6708613d6f229c3b32efb37b591e2d1adca46ed4e022a715ef5bf4befefaaf6b"
+    },
+    "dbc/ChatChannels.dbc": {
+      "size": 1046,
+      "sha256": "4088979141d38b6f413b62a28ffe61b53d0484becb75d6d73e747c54c889ddaf"
+    },
+    "dbc/CharacterFacialHairStyles.dbc": {
+      "size": 16437,
+      "sha256": "96ece2fa221dacaafd6212132bbbc724117e4914984575c4c8b4abfc634fa893"
+    },
+    "dbc/CharVariations.dbc": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "dbc/ItemGroupSounds.dbc": {
+      "size": 501,
+      "sha256": "34d370ab0b77017a9d9f083067f5ea2649deadcf7936ebe8aa2e04c7eaa97503"
+    },
+    "dbc/DestructibleModelData.dbc": {
+      "size": 3137,
+      "sha256": "9a942150457dd4159aa76653c5ee3e94949e4b9b65d3ea06b36bf953221d1432"
+    },
+    "dbc/GMSurveyCurrentSurvey.dbc": {
+      "size": 93,
+      "sha256": "b468c54bf7e6db404eaaabe3fb8db3f4644d541e4fd7f96ee9d41037ada05521"
+    },
+    "dbc/LockType.dbc": {
+      "size": 4916,
+      "sha256": "ff3f0db00e828ad02b4fc34fe9fd4560f720aea210cb3db5f73bb7eacadac22d"
+    },
+    "dbc/CinematicSequences.dbc": {
+      "size": 581,
+      "sha256": "efa52f0c55bd8a9e5663b2f259bd0dd5a3f2bb385a56d901f3ebae253b83dd71"
+    },
+    "dbc/ItemVisualEffects.dbc": {
+      "size": 4008,
+      "sha256": "761649aab0d8a4fb3786c83c17bbf55f84b73cd4b96e736010031ee18d49a5ee"
+    },
+    "dbc/Emotes.dbc": {
+      "size": 8117,
+      "sha256": "f76e66c57bd355870a315d116dfa83304f1b7d21636fd1ca6cbf65e1f012e4cc"
+    },
+    "dbc/FactionTemplate.dbc": {
+      "size": 47117,
+      "sha256": "a344d5546ce50f977170606f24a193066663c0675cdb893a93a6a6a9f21e3c5a"
+    },
+    "dbc/WeaponSwingSounds2.dbc": {
+      "size": 117,
+      "sha256": "0c75521451dd4a28a32697aa546bf53738fcef7c3faff8d75c6b5372b893a928"
+    },
+    "dbc/NameGen.dbc": {
+      "size": 305094,
+      "sha256": "fdb6c085ac5ab397a454fe6e28d9f54e6af0f4f8888ada9bd236bd7b7cda9409"
+    },
+    "dbc/WorldStateUI.dbc": {
+      "size": 46474,
+      "sha256": "a411e2a85c4df5e0a0e52b9bab370a514520e0f7e7dea1a113db22174053160d"
+    },
+    "dbc/ServerMessages.dbc": {
+      "size": 912,
+      "sha256": "62c9082bc5caf05c46dc67c846514269a0f8d0741fa6ab6c8090925e0026149a"
+    },
+    "dbc/GMSurveyAnswers.dbc": {
+      "size": 3715,
+      "sha256": "e9da9d9252d3d3961f7325dda2c08129e1a6c29e96a77985190f444c7b8eca74"
+    },
+    "dbc/LiquidType.dbc": {
+      "size": 5653,
+      "sha256": "a358492193e9d3b10ed8bc9fe67647f5a27ae3b63c502754e1e7e4baac2a3b1c"
+    },
+    "dbc/NamesReserved.dbc": {
+      "size": 229876,
+      "sha256": "75bd7a7aa1efb9b26a6e3eb1b96ba54b478083c54b9f45843a2ebefdc9b759f5"
+    },
+    "dbc/ParticleColor.dbc": {
+      "size": 4261,
+      "sha256": "5813e3a16315e150df1e571955b5e412281f211df3ce9cb65621639fb486f82f"
+    },
+    "dbc/Spell.dbc": {
+      "size": 52920173,
+      "sha256": "6fd9c30460124e18acc55b5b718c362e762e4db9ba9840fb060e922ca976042c"
+    },
+    "dbc/FootstepTerrainLookup.dbc": {
+      "size": 4361,
+      "sha256": "ab1c8252f7827877bdbffb67bf0900738a2f92c813dfddb2161891f881dd0e05"
+    },
+    "dbc/ItemSubClass.dbc": {
+      "size": 22190,
+      "sha256": "ed037619b6277fb2b05c3cf05233b19687a4004427d5e63a12d038804bc8b0e5"
+    },
+    "dbc/ObjectEffectPackageElem.dbc": {
+      "size": 2437,
+      "sha256": "294df40848d0458e3ffa22243e7db1fd315e1ca98fc4f5ad77e957b48406f4e4"
+    },
+    "dbc/WorldMapArea.dbc": {
+      "size": 6075,
+      "sha256": "90e1ec678c8226c76f4dd9f7904f05a4cb0a58c8b4d386719b24949bd55925bb"
+    },
+    "dbc/CharTitles.dbc": {
+      "size": 23527,
+      "sha256": "e2d3f13def04de9a1e55eaf985f817ea2bda5c530ec756dfc3dab99741076f49"
+    },
+    "dbc/WorldStateZoneSounds.dbc": {
+      "size": 1365,
+      "sha256": "74ccf1fc688e3d7ed0d02a935f52e803a14213b8ec12570fed4dd7d375543526"
+    },
+    "dbc/OverrideSpellData.dbc": {
+      "size": 405,
+      "sha256": "e18d721e743d3a2ba5353837ec1012d0ad120d7ac2039ddb54ecfff98b0413db"
+    },
+    "dbc/WorldChunkSounds.dbc": {
+      "size": 21,
+      "sha256": "0a2fef88d13e28c4956b517a193364e3413183013e1cbd185d176cfcb25b88a2"
+    },
+    "dbc/ItemClass.dbc": {
+      "size": 1538,
+      "sha256": "f14b09254010765ab75c3c04ddf55a4b03e75163655c5015d188b04e31fa1b20"
+    },
+    "dbc/CreatureMovementInfo.dbc": {
+      "size": 2053,
+      "sha256": "a7cf4bb5546b872679272cd3503a10f758a75a3086a117fd605c0907a3a8d6b9"
+    },
+    "dbc/VideoHardware.dbc": {
+      "size": 17893,
+      "sha256": "729c24d4eb59baebc18f8e827d4c07f8a23bc3c2ce461d4f58d1f1558f9a4b46"
+    },
+    "dbc/CreatureType.dbc": {
+      "size": 1127,
+      "sha256": "27b5a33c0293122e87263871597f222abe8b9b98e4520acbd89cbeb7240fc0a4"
+    },
+    "dbc/TransportAnimation.dbc": {
+      "size": 147357,
+      "sha256": "3495ae27ffe61a63f8ce3dcbb9c72cd6716e6861c31c6b6e217be180910b52c2"
+    },
+    "dbc/SkillLineAbility.dbc": {
+      "size": 574245,
+      "sha256": "5fe2b6db82291e41cd2221ccc0f8cd9e1d23a324ddf9aba78e0b351f2459118d"
+    },
+    "dbc/ScalingStatValues.dbc": {
+      "size": 7701,
+      "sha256": "4dbe737264f6652f7a4378e018caeb7db8def0fb8c116756a8887d2bbfdfee86"
+    },
+    "dbc/ScalingStatDistribution.dbc": {
+      "size": 5037,
+      "sha256": "87d8f6e8a9e4b047f8b3d32987ac3948da75e3370f5cc4df94f88f0ba9803256"
+    },
+    "dbc/GameTables.dbc": {
+      "size": 2665,
+      "sha256": "fa4930d02d448c74eaaa79e097d4b5d202a43ea50514905693e96579e16913b3"
+    },
+    "dbc/EmotesTextData.dbc": {
+      "size": 133239,
+      "sha256": "3278cfe26ee5a4c9fd22e6eacd5acf7196bfb8318bf2963de11b735b96ebd47b"
+    },
+    "dbc/gtOCTClassCombatRatingScalar.dbc": {
+      "size": 2837,
+      "sha256": "7a4f0d2bdf163ab83f7e9260d6f4c577477053847e5df3fc14df9e4248b680fa"
+    },
+    "dbc/FactionGroup.dbc": {
+      "size": 371,
+      "sha256": "aa34965330500c5b57092d344cfd94cb75aeaa8d1f33cb183f869a2af648e791"
+    },
+    "dbc/RandPropPoints.dbc": {
+      "size": 19221,
+      "sha256": "0ad51c07a6c4fb08af50fd9b135bce18a5d15ff12d72fc441e5da3b3589b7048"
+    },
+    "dbc/AnimationData.dbc": {
+      "size": 22578,
+      "sha256": "5c694f178114b6e55e50ac9fa1045a69ff859ddf6dbd934e0334a4cda0172a3f"
+    },
+    "dbc/ItemRandomSuffix.dbc": {
+      "size": 13084,
+      "sha256": "1a1c061c5b27970dc6e1680d6e448d51e89bfbc99f5ef88056eca93d44e9ba5e"
+    },
+    "dbc/SoundEmitters.dbc": {
+      "size": 26779,
+      "sha256": "8c6c2f6b000184837d7c4d08e768b6e0d7eecdd66f6f81b83269c601bdc92f5d"
+    },
+    "dbc/Cfg_Categories.dbc": {
+      "size": 3356,
+      "sha256": "73d7a335cc92ebb9cd6be7e7e0be6c2b0775c8594e29528623b6457c86f35b36"
+    },
+    "dbc/SheatheSoundLookups.dbc": {
+      "size": 945,
+      "sha256": "49dbe76506ea656d216911ceeaff70527d6430ae658f9870ad131bcd9bc79249"
+    },
+    "dbc/Achievement_Criteria.dbc": {
+      "size": 1045678,
+      "sha256": "cc2458b30773d874bfb98d79c668a0b6d4cff1059b019f0fbfd4d358c54a515a"
+    },
+    "dbc/SpellItemEnchantmentCondition.dbc": {
+      "size": 3157,
+      "sha256": "5907c2dc8c590a9d7a5e0ba124575201cd254a75c944d10494372386fd6310e4"
+    },
+    "dbc/ChrClasses.dbc": {
+      "size": 2580,
+      "sha256": "5b2bfc7dab577f48cafe86db1d6148515569507b273f0c95b5ae86713ff5b3e2"
+    },
+    "dbc/SoundEntries.dbc": {
+      "size": 2537076,
+      "sha256": "4aba574fd0674500ef0e69b90508c156ca86d976d043a93103a40e76ee06ca63"
+    },
+    "dbc/ItemBagFamily.dbc": {
+      "size": 1383,
+      "sha256": "39ec1262c4daf48bd4111288671ac9d3c4b266a06b83b52ac05b6806c775b24c"
+    },
+    "dbc/Talent.dbc": {
+      "size": 82085,
+      "sha256": "23aefff3add151bf504c4d0bab247e2e622f9cf29a473d091cb9f11127d99d68"
+    },
+    "dbc/GameObjectDisplayInfo.dbc": {
+      "size": 534007,
+      "sha256": "98affbc38e647afe1318f9a92cf05ed1b4823ee9b406c72a9a13e9cbf8b55a55"
+    },
+    "dbc/GroundEffectDoodad.dbc": {
+      "size": 14558,
+      "sha256": "af50bbf22f8119008f325abd6fbc474388727dfbb171c0cddede8d65e3ec4a2d"
+    },
+    "dbc/gtChanceToSpellCrit.dbc": {
+      "size": 4421,
+      "sha256": "8ec9ba0579200283619491509618f2a176a52bcbaf60f4d5a885e2c7d90ef4de"
+    },
+    "dbc/Achievement.dbc": {
+      "size": 580804,
+      "sha256": "9821c7722707afb4d57413b58b46f6662d876c26b2dfd620fe5a91e133a10287"
+    },
+    "dbc/SoundEntriesAdvanced.dbc": {
+      "size": 192415,
+      "sha256": "fff9c28caabb83266450d971c4d3fbe5a3292b1a25ee22d5b092dacbdabac72c"
+    },
+    "dbc/CreatureDisplayInfoExtra.dbc": {
+      "size": 2129415,
+      "sha256": "42c75861568b94312efde508aad5a435dc9d9de03665d541f93f66a7ece5af65"
+    },
+    "dbc/Exhaustion.dbc": {
+      "size": 624,
+      "sha256": "c87430b03c5094715b604ec2f10d006087cdff1c34501d1199d6b0fdee68b79d"
+    },
+    "dbc/WorldMapOverlay.dbc": {
+      "size": 79710,
+      "sha256": "afd7b71415fe0406e6817c3a15ab2f8ba173d58de9f118d8f4ea4f4ed6b19650"
+    },
+    "dbc/SpellRange.dbc": {
+      "size": 11480,
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f"
+    },
+    "dbc/ItemLimitCategory.dbc": {
+      "size": 8442,
+      "sha256": "3c9f8e72a3b08a887b3f5b380ace8f0bf9ee5364239e26fc140897b0980f5626"
+    },
+    "dbc/Light.dbc": {
+      "size": 42921,
+      "sha256": "0387a608e1f4b353434ee8a72427692538c64fd11eb07e697e826e85008629b7"
+    },
+    "dbc/AreaTable.dbc": {
+      "size": 419054,
+      "sha256": "032764c099b08a390b9999791f98f3961f3e7cc0b8a4c6f7460448adee815d98"
+    },
+    "dbc/gtNPCManaCostScaler.dbc": {
+      "size": 421,
+      "sha256": "3b33c96f97acefa9b15aebfbbe311dc4db02fd32933d9e2e84bd59fd81cb306e"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-tex4": {
+      "size": 14057,
+      "sha256": "b1d486961859021cb0705f5cf55534f991fb65cfc6aae5e08fc95df2ad061957"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-renewed-proto-drake": {
+      "size": 151,
+      "sha256": "59c360e7ac7da86a3da4e9da5e906ffa84ed49ce055ed4002b2dd8c31fae57a6"
+    },
+    "dbc-continuations/SpellCategory.dbc1-manastorm": {
+      "size": 205,
+      "sha256": "00878d9875ce0db0f6dceec835b8dc314efbea55321c08ea8487d4a4112be49c"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-sc2units": {
+      "size": 2453,
+      "sha256": "89490de5ca821ad018700464d41c5a19f86c2890b0c6d3b69e879076c090e0ea"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-classic-forever-mounts": {
+      "size": 77639,
+      "sha256": "e50ad56db1e9914a54df63c12e72fb88fe537ea1c1fce6731f9fe873d15f313a"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-vashj-ir-seahorse": {
+      "size": 150,
+      "sha256": "3ca43ae45b6ea90bc430b111f802fc2fed1928ab0c675cb58d4a26cfb2ca697d"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-grrloc": {
+      "size": 541,
+      "sha256": "4049e66134902576bf81db6aeeee44a7a66f144998eedf6213bd47a1d729c7b3"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-manastorm": {
+      "size": 473,
+      "sha256": "6d05a069c08269028a7ecd522a1b40ff05a60e3b45675697e575a1719e1738ef"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-violet-backed-skyfang": {
+      "size": 151,
+      "sha256": "a913d0b874debf7f32e05ffd43f69cdcca1cf5ae28810300293ba627030bbfaa"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-special": {
+      "size": 668,
+      "sha256": "1237ec318a97efbd423fd7bda23102eb88f06a6e30e8304e8fb78cacc66a690a"
+    },
+    "dbc-continuations/SpellVisual.dbc1-toolbox-overhead-icons": {
+      "size": 13845,
+      "sha256": "75c84b898053ab87b5527cb357fa7b832d17c0367e923eec37cb6ae89aa05e0a"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-hots-mounts": {
+      "size": 32389,
+      "sha256": "14086f328e87c82396cdee0a2a2f1dd98aa3b964f76e3c73dcf4cc2121524c52"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-eclipse-mounts": {
+      "size": 83732,
+      "sha256": "238d51c711bca778309ac31f80cc8c1d762a056f425d4fd7407295f9658e91f5"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-otto": {
+      "size": 109,
+      "sha256": "f708273b244a32504737fcb6ef8fa40ff8fce9ee6f83051849899708fcb196d1"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-sc2wraith": {
+      "size": 85,
+      "sha256": "1cb17fb28e3bc28be51227600631c1bad5feef1c5553e3e72ca62b9b71ec9848"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-writhing-brood": {
+      "size": 1127,
+      "sha256": "3c3b941a5f99492dd0a642b7139821a619e26fc39199c38f2677600e8eb6ea0f"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-sc2zergling": {
+      "size": 169,
+      "sha256": "b6d4d8de2dbe9c1cde90987f35042ca48a2b565d7947abf2855e8a057e77fc17"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-eclipse-mounts": {
+      "size": 46781,
+      "sha256": "6a4ab360d0d1c761a30497042c0237b14d2665f9135fda0e7594918eae44852d"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-renewed-proto-drake": {
+      "size": 1129,
+      "sha256": "2da23d9933b957997fb8f111a6bd58efcc9d96c2f00ee19e8a556140ee7e57f6"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-violet-backed-skyfang": {
+      "size": 1133,
+      "sha256": "19b41ea481bfba9097754855d28cf40b0447ab68b083e4acf5981a6361605dbd"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-eclipse-incarnations": {
+      "size": 22569,
+      "sha256": "ee8c2aeb8941c22495945364f421b665368c1bc7541f1d49aff903ada69cc254"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-live-12-1-7": {
+      "size": 24511,
+      "sha256": "0831a1673cc844a890926c6b6fb484302124a610cca9b65224894d382535a121"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-renewed-proto-drake": {
+      "size": 85,
+      "sha256": "5e38d7870d742c5c8d266db393dd2ddb2dcbfa685f0bb817dc37f3f81cd4b31c"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-otto": {
+      "size": 151,
+      "sha256": "4b08697d035503639635898e23a90b30814fb55b07d81df516085e33400922d8"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-vashj-ir-seahorse": {
+      "size": 118,
+      "sha256": "dd973c3fb77560b3dbb5dabb27f8c2d10fd52ada2c4f452699c16d43814f082b"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-grrloc": {
+      "size": 4429,
+      "sha256": "53b858b0f291fefc13385d9af6abfecc498f29b3511e5cea7b91d8fdef4db9de"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-mastercraft-gravewing": {
+      "size": 1133,
+      "sha256": "37411e112ee7d08a2a692611e390ddeeb009b9c3f68895649d01ee74288c0c4a"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-all": {
+      "size": 104338,
+      "sha256": "ef61a491833e2f723a7ebe32df3ca453a2076f626575113288061343b4220422"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-writhing-brood": {
+      "size": 151,
+      "sha256": "a373f67e417b993e639531771bb19644c6af12ecd341a16e528294e1584060a1"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-tex4": {
+      "size": 10794,
+      "sha256": "c3fc9488a3be89bae0499b95476853ef1f7502c93a68fb46f563440fc935e5a2"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-special": {
+      "size": 5463,
+      "sha256": "36b6d5c4e85c7932b0dead0ceb8abfb7dbb913c94171f1f271be8ec5b41af865"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-writhing-brood": {
+      "size": 109,
+      "sha256": "847d53bcce215148b62b168f4698ceac9f2b828ef59b4a07738f529e6108e26f"
+    },
+    "dbc-continuations/ItemExtendedCost.dbc1-manastorm": {
+      "size": 3285,
+      "sha256": "e4744c0499680b8f5e2c5f4b2e0ece0e948318408e1af04bc4bce29ad21c0289"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-sc2wraith": {
+      "size": 167,
+      "sha256": "58c1e3602092cf32e6a99472f4570621a22dc26f72d76ab9dabdc107f0c337ae"
+    },
+    "dbc-continuations/SpellDuration.dbc1-manastorm": {
+      "size": 69,
+      "sha256": "de31cd1e8a8cd205b44c2cc6c3c3c065df55a86d39e5c3321f17c1e80869c3c9"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-recovered": {
+      "size": 42197,
+      "sha256": "6cfc027a7465ef26ebdbc8a3c73d8784e7b8e063a7b2b603afd31ecc4a895140"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-renewed-proto-drake": {
+      "size": 77,
+      "sha256": "959bd467f714525cb8f5d96d7e88c054f05e9e20e38d56f84945cece27168e21"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-grrloc": {
+      "size": 373,
+      "sha256": "aed0bbee5c6797f6fec003d7069350175514bf5770079bdfa8105b38e02b6cee"
+    },
+    "dbc-continuations/CreatureDisplayInfoExtra.dbc1-ascension-hd-npc": {
+      "size": 8794,
+      "sha256": "dbfbd8c06eaf7d8b9f1ad6787f3f654320e0a42db9ddf0bbba26c57a08800e06"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-ascension-hd": {
+      "size": 3057,
+      "sha256": "25477eee3b9548475888b217b3ed3e4247ec8cea42eda4e1bdc9c20560da0e09"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-live-12-1-7": {
+      "size": 1253,
+      "sha256": "8dfbc7e107a91be261e4ad4400f588e03b2052f7b8276292df1791a65e61ff62"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-eclipse-incarnations": {
+      "size": 13135,
+      "sha256": "65f0c20b0043ec91f6954d090b3672997e359ed169a224e9a5dfe8a62b1884fc"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-recovered": {
+      "size": 4957,
+      "sha256": "421b874402e043a5bab0a9cf7b44872ee414ff6e61abbc95d3c952c5cd63343a"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-tex4": {
+      "size": 119709,
+      "sha256": "5f47cff4b31626052c52e376475a1a6d366215665f4b9f7c5e31743d37f5a300"
+    },
+    "dbc-continuations/Spell.dbc1-toolbox-overhead-icons": {
+      "size": 109475,
+      "sha256": "0454692e0f199736f332490b217bc73a86378169fee54519921ceddc56ca8a77"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-hots-mounts": {
+      "size": 86362,
+      "sha256": "766738876c303889cd659eb6cdc1654ce1800080d5ab002dc167a809159be80d"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-mastercraft-gravewing": {
+      "size": 109,
+      "sha256": "97135249d17fa7a1f67191cedda9a011a3f3790ec58d33538c8a5cb7c802e64a"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-drive": {
+      "size": 109,
+      "sha256": "91e825847fea623f85b8c610bdcd3662d2f6776093869975011c418b00f3239b"
+    },
+    "dbc-continuations/SpellItemEnchantment.dbc1-manastorm": {
+      "size": 9594,
+      "sha256": "aae3a7e882174af952687a36657d07fce0aa9eafe5e596ed3e73764205befc65"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-drive": {
+      "size": 1111,
+      "sha256": "7fc5e860769fce221b1072eaf22db79b002098fc942561498aaabb328e6d3ea0"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-recovered": {
+      "size": 2149,
+      "sha256": "52037585d5643c03efac583440fe54cfe80c4bb7ef7666390726686275eda65f"
+    },
+    "dbc-continuations/SpellRange.dbc1-manastorm": {
+      "size": 190,
+      "sha256": "d5cc6d8858b3703e75af7560e55b001e407dc95372c289510419d8ebe2bd2723"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-mastercraft-gravewing": {
+      "size": 151,
+      "sha256": "6cdb248e368d768e3bc0d38ac83d83043fec4a376fdb5300d8a9b1761db638dd"
+    },
+    "dbc-continuations/Spell.dbc1-native-hots-mounts": {
+      "size": 624162,
+      "sha256": "a1c1f45d6487c8d67334d7b0244b3a544ce96b0a1d65d623425c40ab41308c28"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-mastercraft-gravewing": {
+      "size": 77,
+      "sha256": "4daf216cd6388ff168345597be21ab1c2b8b534d27f67b5f941f180db184e161"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-all": {
+      "size": 159637,
+      "sha256": "7513f7382cfd55c972153b04308fc93341531cbcf374274d4c1d344a4f2282ef"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-grrloc": {
+      "size": 245,
+      "sha256": "e87f20ea9f84bac538552d2b3f38300822ff7dd2d18eaaaeb7d019d723952fcc"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-otto": {
+      "size": 1099,
+      "sha256": "f3e6e6cbca199146fdeb7be8c2658231cea33766e161ee1b0b69915079c53480"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-tex4": {
+      "size": 6069,
+      "sha256": "9ddc70e83e0bea30c5033a62dc9edac5662887f83ff742ea21f6e525d3a221a4"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-live-12-1-7": {
+      "size": 1871,
+      "sha256": "ffc84bab54b586cc57ca60b35c51a38b6972604ac6e607bb1646f083cfc24034"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-live-12-1-7": {
+      "size": 2880,
+      "sha256": "27e855f7244b647cc963984fec9f9e06a5b3c972d5b234fbdce709ac90dfa57f"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-savage-green-battle-turtle": {
+      "size": 77,
+      "sha256": "150c823f87ef4ce9c419c538d3e5dddf230df72c400c95ba34cc57c5f8c15b35"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-sc2units": {
+      "size": 5787,
+      "sha256": "5f3eae49142ed086a97284d5e3fbbf4f5e9077688d0b3a0ae97dfbb30804429d"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-eclipse-mounts": {
+      "size": 129680,
+      "sha256": "21fcc208d7863b4d3aae83f0a010e1df6bc55fc04e0368001463641740835309"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-classic-forever-mounts": {
+      "size": 9101,
+      "sha256": "9f6d606cb43e292440949ea23eb06df66f524f2aaf93a9495994d399779fb866"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-manastorm": {
+      "size": 337,
+      "sha256": "c1e484ddf32fc11b911a6443262489861047b6026f04f763e3e0cb7be7b57cef"
+    },
+    "dbc-continuations/FactionTemplate.dbc1-freeborn": {
+      "size": 861,
+      "sha256": "2adbed4ff4d4aa5dd4c59e0ab18fff17cd5cb23f313f6d44669408442ba60e4a"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-retail-mounts-all": {
+      "size": 1363879,
+      "sha256": "fd0efc454ac124576c7c7ca47c998055cca6e933d38a81379b2fdd58fd8f8245"
+    },
+    "dbc-continuations/SpellRadius.dbc1-manastorm": {
+      "size": 53,
+      "sha256": "fe48e166163378d0297379970e90557ade17affa7d306d5a935d3d6f26e8f08d"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-savage-green-battle-turtle": {
+      "size": 1143,
+      "sha256": "e5b5c44b658aefc7809795ffdba6a9df2e2bb6a60b7e5bb17121655acfa3568a"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-eclipse-mounts": {
+      "size": 919431,
+      "sha256": "91f31349225657d78bb5ecfeac2815c63a4629b965be8cb97a8af7beec0248b7"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-all": {
+      "size": 68901,
+      "sha256": "7f75ab8ee479f84a0da2881fd8a926692fa42983c36adc549000da27c01711e8"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-vashj-ir-seahorse": {
+      "size": 77,
+      "sha256": "d839f19ca721fca2497027c56968a150f611a9f880d914317d98cfb3fb908ecb"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-savage-green-battle-turtle": {
+      "size": 97,
+      "sha256": "68f3873e50637036e9f25330a4d69ef70b08b2fd3e30b40b3af39a533d706439"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-mount-passengers": {
+      "size": 797,
+      "sha256": "417b8cabb9f70f282957663f0679e16fc02088c42204728819fa07b728d10b3a"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-classic-forever-mounts": {
+      "size": 3941,
+      "sha256": "baac4bac964801554a3687120cc619158483ab2ef3851e00a383630d5803081f"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-mount-passengers": {
+      "size": 429,
+      "sha256": "d7b4377a355f62283a2028c398aacf040848d8dc5f88fa911d05082784a7d385"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-sc2zergling": {
+      "size": 85,
+      "sha256": "7a32a501ce12ccc981e718f13e7ca0fce48b15fcd10eebd4221ec5fd7f78cb6a"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-writhing-brood": {
+      "size": 77,
+      "sha256": "38ca4a50d6b4026998aedfce8af1d688b0050d690661ac81c51f5872b8fff9eb"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-vashj-ir-seahorse": {
+      "size": 1125,
+      "sha256": "9503fe439d066f6b11e2897722e3b160315fbe11eac257a33dc873e8a56760b6"
+    },
+    "dbc-continuations/GameObjectDisplayInfo.dbc1-manastorm": {
+      "size": 307,
+      "sha256": "247f9cbe891b7bbfd29512f810519ebc14f511a71b45452df0a8ab61e2bafa0c"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-violet-backed-skyfang": {
+      "size": 121,
+      "sha256": "d0a744dbf8cd66ee2a55b26b12d3eb539ac60448314d18a298cd16f7cfd6530f"
+    },
+    "dbc-continuations/Spell.dbc1-native-retail-eclipse-hearths": {
+      "size": 4321,
+      "sha256": "25a7cadd25aeb635f7405aceffe397389dbcc75d727e21057bcda74ff6c25e69"
+    },
+    "dbc-continuations/ScalingStatDistribution.dbc1-manastorm": {
+      "size": 109,
+      "sha256": "ab92ad3cc65b070d103a6c9a98a7ff57053825b9363071471b61289dd625d156"
+    },
+    "dbc-continuations/Spell.dbc1-manastorm": {
+      "size": 5328142,
+      "sha256": "bd0065c3422450034f99cef51f5e2bd376eecad79f4cc389d6b11792d772e4a4"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-violet-backed-skyfang": {
+      "size": 77,
+      "sha256": "e7816c3c6e14df0e0d2d6c8d1b770f71861dbec08229c62f030e71f7e428e830"
+    },
+    "dbc-continuations/ItemSet.dbc1-manastorm": {
+      "size": 35100,
+      "sha256": "18a6d87f954146103ebed01c85e83777c813f47cb39564b8044356af86a43677"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-drive": {
+      "size": 77,
+      "sha256": "fb05ff8d1e337d259719292880755b4110a15a75a45a320f245f6b7749bd9afa"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-classic-forever-mounts": {
+      "size": 5981,
+      "sha256": "14da2c76202dcbe98eaa24514dc72f0720c8d95e87a95f1bef44649d844d3a40"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-hots-mounts": {
+      "size": 37461,
+      "sha256": "90057ba60cdfd8718eb60be74b6ef2216222d90f27cae0d5a2422f119c6822ef"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-recovered": {
+      "size": 3351,
+      "sha256": "c8b28842875a4c2ebb0ce22296a74e455dec4cb80d739a9b2144efc997aec393"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-savage-green-battle-turtle": {
+      "size": 151,
+      "sha256": "c197ec63d17be1e231dbd15b3040216d228adccf32ade3346fef8b8de769bb61"
+    },
+    "dbc-continuations/ItemLimitCategory.dbc1-manastorm": {
+      "size": 99875,
+      "sha256": "669e94851dc61eff84f0267346b4763a563aa3b94130ee0cef6a34b4dfd4eaf2"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-retail-mounts-special": {
+      "size": 301,
+      "sha256": "226d638c00ff0fa43c62fc6eb6c6b588363f54003805de4ecdaa675eb428c8e3"
+    },
+    "dbc-continuations/CreatureDisplayInfo.dbc1-native-retail-retail-mounts-special": {
+      "size": 422,
+      "sha256": "dee11ffa5e3f69bc52b6a9548b2c74fa396289c1564a2d6ca58cd6872d669282"
+    },
+    "dbc-continuations/SkillLineAbility.dbc1-native-retail-otto": {
+      "size": 77,
+      "sha256": "b9de3610ec15d4b1b432ce3366f821a55a72bab49f15b5bbe82ee5b8aebc7ba2"
+    },
+    "dbc-continuations/CreatureModelData.dbc1-native-retail-retail-mounts-drive": {
+      "size": 151,
+      "sha256": "a9d687bb07558c5c1d4c228efe0481398caf537c2b4792483c7612c8393704ab"
+    }
+  }
+}

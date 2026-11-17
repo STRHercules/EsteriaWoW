@@ -27,6 +27,7 @@
 #include "SpellMgr.h"
 #include "TransportMgr.h"
 #include "World.h"
+#include <initializer_list>
 #include <map>
 
 typedef std::map<uint16, uint32> AreaFlagByAreaID;
@@ -673,6 +674,28 @@ void LoadDBCStores(std::string const& dataPath)
         LOG_ERROR("dbc", "Some required *.dbc files ({} from {}) not found or not compatible:\n{}", (uint32)bad_dbc_files.size(), DBCFileCount, str);
         exit(1);
     }
+
+    // Spell corrections mutate these stock records; reject incomplete data before dereferencing them.
+    bool missingCorrectionRecord = false;
+    auto requireRecords = [&](auto const& store, char const* filename, std::initializer_list<uint32> ids)
+    {
+        for (uint32 id : ids)
+            if (!store.LookupEntry(id))
+            {
+                LOG_ERROR("dbc", "Required record {} is missing from {}. Install matching server data.", id, filename);
+                missingCorrectionRecord = true;
+            }
+    };
+    requireRecords(sSummonPropertiesStore, "SummonProperties.dbc", {121, 647});
+    requireRecords(sCreatureDisplayInfoStore, "CreatureDisplayInfo.dbc", {17028});
+    requireRecords(sFactionStore, "Faction.dbc", {1104, 1105});
+    requireRecords(sFactionTemplateStore, "FactionTemplate.dbc", {1978, 1921});
+    requireRecords(sVehicleSeatStore, "VehicleSeat.dbc",
+        {4689, 4692, 4693, 1520, 4026, 4027, 6206, 3806, 3566, 3567, 2841, 2842, 2843, 2844, 2845});
+    requireRecords(sAchievementStore, "Achievement.dbc", {4539});
+    requireRecords(sLockStore, "Lock.dbc", {36});
+    if (missingCorrectionRecord)
+        exit(1);
 
     // Check loaded DBC files proper version
     if (!sAreaTableStore.LookupEntry(4987)             ||       // last area added in 3.3.5a

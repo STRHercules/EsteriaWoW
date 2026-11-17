@@ -398,10 +398,27 @@ UpdateResult UpdateFetcher::Update(bool const redundancyChecks,
             ApplyUpdateFile(availableQuery);
     }
 
-    // Apply only pending/custom/module updates
+    // Module schemas must exist before their updates and core pending migrations use them.
+    auto isModuleFoundation = [&](auto const& query)
+    {
+        if (query.second != MODULE)
+            return false;
+
+        for (auto const& component : query.first.lexically_relative(*_sourceDirectory).parent_path())
+            if (component == "updates")
+                return false;
+
+        return true;
+    };
+    for (auto const& availableQuery : available)
+        if (isModuleFoundation(availableQuery))
+            ApplyUpdateFile(availableQuery);
+
+    // Apply pending/custom updates after module foundations.
     for (auto const& availableQuery : available)
     {
-        if (availableQuery.second == PENDING || availableQuery.second == CUSTOM || availableQuery.second == MODULE)
+        if ((availableQuery.second == PENDING || availableQuery.second == CUSTOM || availableQuery.second == MODULE)
+            && !isModuleFoundation(availableQuery))
             ApplyUpdateFile(availableQuery);
     }
 

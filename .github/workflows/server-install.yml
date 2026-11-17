@@ -1,0 +1,28 @@
+name: Server installer checks
+on:
+  pull_request:
+    paths:
+      - 'tools/server_install/**'
+      - 'data/server/**'
+      - 'data/sql/updates/pending_db_*/rev_20261117*'
+      - 'data/sql/updates/pending_db_*/zzzz_20261117*'
+      - 'compose.server.yml'
+      - 'apps/docker/**'
+      - 'src/cmake/macros/ConfigureScripts.cmake'
+      - 'modules/mod-manastorm-endless/data/sql/**'
+      - 'data/sql/updates/pending_db_*/rev_000*'
+      - '.github/workflows/server-install.yml'
+  workflow_dispatch:
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/server_install/test_install.py
+      - run: docker compose -f compose.server.yml config --quiet
+        env:
+          ESTERIA_DB_PASSWORD: installer-config-validation-only

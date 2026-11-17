@@ -2752,7 +2752,12 @@ namespace
     }
 
     // the client caches item data by id: send the new version so tooltips update at once
-    void PushItem(Player* p, uint32 id) { p->GetSession()->SendItemQuerySingleResponse(id); }
+    void PushItem(Player* p, uint32 id)
+    {
+        WorldPacket query(CMSG_ITEM_QUERY_SINGLE, sizeof(uint32));
+        query << id;
+        p->GetSession()->HandleItemQuerySingleOpcode(query);
+    }
 
     // IMAKE : spec in the BUF text. id=0 makes a new item, id in range edits one made before
     void OpItemMake(Player* p, std::vector<std::string> const&)
@@ -2829,7 +2834,7 @@ namespace
         t = ItemTemplate();
         t.ItemId = id; t.Class = cls; t.SubClass = sub; t.SoundOverrideSubclass = -1; t.Name1 = name; t.DisplayInfoID = disp; t.Quality = q;
         t.Flags = ItemFlags(flags); t.BuyCount = 1; t.BuyPrice = int32(buy); t.SellPrice = uint32(sell); t.InventoryType = inv;
-        t.AllowableClass = GetItemAllowableClassMask(uint32(int32(-1))); t.AllowableRace = uint32(int32(-1));
+        t.AllowableClass = uint32(-1); t.AllowableRace = uint32(-1);
         t.ItemLevel = ilvl; t.RequiredLevel = rlvl; t.MaxCount = maxc; t.Stackable = stack;
         t.StatsCount = nst;
         for (uint32 i = 0; i < nst; ++i)

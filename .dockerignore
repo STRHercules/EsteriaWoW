@@ -8,6 +8,9 @@
 /env/user/*
 /.env*
 /.git/
+/.agents/plans/
+/conf/config.cmake
+/data/sql/custom/
 .idea
 !.gitkeep
 

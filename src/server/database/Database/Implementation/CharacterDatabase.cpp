@@ -796,6 +796,7 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_DEL_ACCOUNT_BANK_ITEM,
         "DELETE FROM account_bank_item WHERE account = ? AND item = ?", CONNECTION_ASYNC);
 
+#ifdef MOD_MANASTORM_ENDLESS
     // mod-manastorm-endless (SQL as in CoA)
     PrepareStatement(CHAR_SEL_MANASTORM_LOADOUT, "SELECT slot, spell FROM ascension_manastorm_loadout WHERE guid = ? UNION ALL SELECT 255, 0", CONNECTION_SYNCH);
     PrepareStatement(CHAR_REP_MANASTORM_LOADOUT, "REPLACE INTO ascension_manastorm_loadout (guid, slot, spell) VALUES (?, ?, ?)", CONNECTION_ASYNC);
@@ -818,6 +819,7 @@ void CharacterDatabaseConnection::DoPrepareStatements()
         "caches_received = VALUES(caches_received)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_INS_MANASTORM_STAGE_RECEIPT, "INSERT INTO character_manastorm_stage_receipt (guid, run_seed, run_id, depth) "
         "VALUES (?, ?, ?, ?)", CONNECTION_ASYNC);
+#endif
 
     // CHAR_NO_OP_PROVIDE_REALM_CONTEXT is a no-op query that accepts a single parameter: the realm ID.
     // This query is used specifically in cross-realm scenarios when the database transaction

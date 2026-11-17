@@ -93,6 +93,11 @@ foreach(SOURCE_MODULE ${MODULES_MODULE_LIST})
   endif()
 
   # Build the Graph values
+  if(SOURCE_MODULE STREQUAL "mod-manastorm-endless" AND
+      NOT ${MODULE_MODULE_VARIABLE} STREQUAL "disabled")
+    target_compile_definitions(database PRIVATE MOD_MANASTORM_ENDLESS)
+  endif()
+
   if(${MODULE_MODULE_VARIABLE} MATCHES "dynamic")
     GetProjectNameOfModuleName(${SOURCE_MODULE} MODULE_SOURCE_PROJECT_NAME)
     GetNativeSharedLibraryName(${MODULE_SOURCE_PROJECT_NAME} MODULE_PROJECT_LIBRARY)

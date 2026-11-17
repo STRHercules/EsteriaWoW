@@ -52,10 +52,12 @@ ARG CMODULES="static"
 ARG CSCRIPTS_DEFAULT_LINKAGE="static"
 ARG CWITH_WARNINGS="ON"
 ARG CMAKE_EXTRA_OPTIONS=""
+ARG DISABLED_AC_MODULES=""
+ARG BUILD_JOBS=4
 ARG GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 ARG CCACHE_DIR="/ccache"
-ARG CCACHE_MAXSIZE="1000MB"
+ARG CCACHE_MAXSIZE="10GB"
 ARG CCACHE_SLOPPINESS="pch_defines,time_macros,include_file_mtime"
 ARG CCACHE_COMPRESS=""
 ARG CCACHE_COMPRESSLEVEL="9"
@@ -81,6 +83,7 @@ ARG CACHEBUST=1
 WORKDIR /azerothcore/build
 
 RUN --mount=type=cache,target=/ccache,sharing=locked \
+    --mount=type=cache,id=esteria-server-build,target=/azerothcore/build,sharing=locked \
     cmake /azerothcore \
        -G Ninja \
        -DCMAKE_INSTALL_PREFIX="/azerothcore/env/dist"  \
@@ -89,6 +92,7 @@ RUN --mount=type=cache,target=/ccache,sharing=locked \
        -DTOOLS_BUILD="$CTOOLS_BUILD"                   \
        -DSCRIPTS="$CSCRIPTS"                           \
        -DMODULES="$CMODULES"                           \
+       -DDISABLED_AC_MODULES="$DISABLED_AC_MODULES"     \
        -DWITH_WARNINGS="$CWITH_WARNINGS"               \
        -DCMAKE_BUILD_TYPE="$CTYPE"                     \
        -DCMAKE_CXX_COMPILER="clang++"                  \
@@ -96,8 +100,12 @@ RUN --mount=type=cache,target=/ccache,sharing=locked \
        -DCMAKE_CXX_COMPILER_LAUNCHER="ccache"          \
        -DCMAKE_C_COMPILER_LAUNCHER="ccache"            \
        -DBoost_USE_STATIC_LIBS="ON"                    \
-    && cmake --build . --config "$CTYPE" -j $(($(nproc) + 1)) \
+    && cmake --build . --config "$CTYPE" -j "$BUILD_JOBS" \
     && cmake --install . --config "$CTYPE"
+
+# Every Esteria service needs module SQL, including the Playerbots database bootstrap.
+RUN mkdir -p /server-runtime && cd /azerothcore \
+    && find modules -type f -path 'modules/*/data/sql/*.sql' -exec cp --parents '{}' /server-runtime/ \;
 
 #############################
 # Base runtime for services #
@@ -271,3 +279,25 @@ COPY --chown=$DOCKER_USER:$DOCKER_USER --from=build \
 
 COPY --chown=$DOCKER_USER:$DOCKER_USER --from=build \
   /azerothcore/env/dist/bin/vmap4_extractor /azerothcore/env/dist/bin/vmap4_extractor
+
+# Standalone Esteria stack: all three applications come from the same source build.
+FROM runtime AS esteria-server
+ENV AC_DISABLE_INTERACTIVE=1 AC_CLOSE_IDLE_CONNECTIONS=0
+COPY --chown=$DOCKER_USER:$DOCKER_USER --from=build /azerothcore/env/dist/bin/ /azerothcore/env/dist/bin/
+COPY --chown=$DOCKER_USER:$DOCKER_USER --from=build /server-runtime/modules/ /azerothcore/modules/
+COPY --chown=$DOCKER_USER:$DOCKER_USER data/sql/ /azerothcore/data/sql/
+COPY --chown=$DOCKER_USER:$DOCKER_USER data/server/manastorm/ /azerothcore/data/server/manastorm/
+RUN cd /azerothcore/data/server/manastorm && sha256sum -c SHA256SUMS \
+    && mkdir -p /azerothcore/modules/mod-manastorm-endless/data/sql/db-world/base \
+    && gzip -dc items-20261117.sql.gz \
+       > /azerothcore/modules/mod-manastorm-endless/data/sql/db-world/base/0000_manastorm_items.sql
+ENV AC_MANASTORM_NATIVE_DBCPATH=/azerothcore/data/server/manastorm/Manastorm.dbc
+COPY --chown=$DOCKER_USER:$DOCKER_USER modules/mod-worgoblin-high-elf/lua_scripts/ /azerothcore/lua_scripts/
+CMD ["worldserver"]
+
+FROM ubuntu:$UBUNTU_VERSION AS esteria-data
+RUN apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+COPY tools/server_install/prepare_data.py /installer/tools/server_install/prepare_data.py
+COPY data/server/ /installer/data/server/
+CMD ["python3", "/installer/tools/server_install/prepare_data.py", "--data", "/data"]
