@@ -164,7 +164,7 @@ bool TellRpgStatusAction::Execute(Event event)
     {
         if (!questId)
         {
-            for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
+            for (uint16 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
             {
                 uint32 qid = bot->GetQuestSlotQuestId(slot);
                 if (!qid)

@@ -18,6 +18,7 @@
 #include "AccountMgr.h"
 #include "BattlegroundAV.h"
 #include "CellImpl.h"
+#include "Chat.h"
 #include "CreatureAISelector.h"
 #include "DisableMgr.h"
 #include "GameObjectAI.h"
@@ -33,6 +34,7 @@
 #include "SpellMgr.h"
 #include "Transport.h"
 #include "UpdateFieldFlags.h"
+#include "WildernessPouch.h"
 #include "World.h"
 #include <G3D/Box.h>
 #include <G3D/CoordinateFrame.h>
@@ -1465,6 +1467,16 @@ void GameObject::Use(Unit* user)
     // Xinef: we cannot use go with not selectable flags
     if (HasGameObjectFlag(GO_FLAG_NOT_SELECTABLE))
         return;
+
+    if (_wildernessPouchId)
+    {
+        if (Player* player = user->ToPlayer())
+        {
+            ChatHandler handler(player->GetSession());
+            Acore::WorldPvp::InteractWithWildernessPouch(handler, _wildernessPouchId);
+        }
+        return;
+    }
 
     // by default spell caster is user
     Unit* spellCaster = user;

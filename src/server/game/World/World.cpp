@@ -100,6 +100,8 @@
 #include "WhoListCacheMgr.h"
 #include "WorldGlobals.h"
 #include "WorldPacket.h"
+#include "WorldPvpBountyTargets.h"
+#include "WorldPvpWilderness.h"
 #include "WorldSession.h"
 #include "WorldSessionMgr.h"
 #include "WorldState.h"
@@ -1146,6 +1148,7 @@ void World::Update(uint32 diff)
     ///- Update the game time and check for shutdown time
     _UpdateGameTime();
     Seconds currentGameTime = GameTime::GetGameTime();
+    Acore::WorldPvp::UpdateWildernessRotation(currentGameTime.count(), realm.Id.Realm);
 
     sWorldUpdateTime.UpdateWithDiff(diff);
 
@@ -1928,6 +1931,9 @@ void World::UpdateAreaDependentAuras()
 void World::ProcessQueryCallbacks()
 {
     _queryProcessor.ProcessReadyCallbacks();
+    Acore::WorldPvp::ProcessBountyRefunds(_queryProcessor);
+    if (getBoolConfig(CONFIG_ESTERIA_WORLD_PVP))
+        Acore::WorldPvp::RefreshBountyTargets(_queryProcessor);
     _queryHolderProcessor.ProcessReadyCallbacks();
 }
 

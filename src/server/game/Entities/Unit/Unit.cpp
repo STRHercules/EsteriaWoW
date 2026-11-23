@@ -77,6 +77,8 @@
 #include "Vehicle.h"
 #include "World.h"
 #include "WorldPacket.h"
+#include "WorldPvpRules.h"
+#include "WorldPvpWilderness.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -1185,6 +1187,10 @@ uint32 Unit::DealDamage(Unit* attacker, Unit* victim, uint32 damage, CleanDamage
     if (attacker && attacker != victim)
         if (Player* killer = attacker->GetCharmerOrOwnerPlayerOrPlayerItself())
         {
+            if (damage && victim->IsControlledByPlayer())
+                if (Player* defender = victim->GetCharmerOrOwnerPlayerOrPlayerItself())
+                    killer->RecordWorldPvpAttack(*defender);
+
             // pussywizard: don't allow GMs to deal damage in normal way (this leaves no evidence in logs!), they have commands to do so
             //if (!allowGM && killer->GetSession()->GetSecurity() && killer->GetSession()->GetSecurity() <= SEC_ADMINISTRATOR)
             //  return 0;
@@ -2801,6 +2807,15 @@ void Unit::AttackerStateUpdate(Unit* victim, WeaponAttackType attType /*= BASE_A
 
     if ((attType == BASE_ATTACK || attType == OFF_ATTACK) && !IsWithinLOSInMap(victim))
         return;
+
+    if (Map const* map = FindMap(); sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) && map && map->IsWorldMap() &&
+        HasUnitFlag(UNIT_FLAG_PLAYER_CONTROLLED) && victim->HasUnitFlag(UNIT_FLAG_PLAYER_CONTROLLED) &&
+        !IsValidAttackTarget(victim))
+    {
+        if (GetVictim() == victim)
+            AttackStop();
+        return;
+    }
 
     // CombatStart puts the target into stand state, so we need to cache sit state here to know if we should crit later
     const bool sittingVictim = victim->IsPlayer() && (victim->IsSitState() || victim->getStandState() == UNIT_STAND_STATE_SLEEP);
@@ -7424,6 +7439,21 @@ ReputationRank Unit::GetReactionTo(Unit const* target, bool checkOriginalFaction
                 if (selfPlayerOwner->duel && selfPlayerOwner->duel->Opponent == targetPlayerOwner && selfPlayerOwner->duel->State == DUEL_STATE_IN_PROGRESS)
                     return REP_HOSTILE;
 
+                Map const* map = selfPlayerOwner->FindMap();
+                if (sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) && map && map->IsWorldMap() &&
+                    map == targetPlayerOwner->FindMap())
+                {
+                    if (selfPlayerOwner->IsInSanctuary() || targetPlayerOwner->IsInSanctuary())
+                        return REP_FRIENDLY;
+
+                    if (selfPlayerOwner->IsOrdinarilyHostileInWorldPvp(*targetPlayerOwner) ||
+                        selfPlayerOwner->CanFightWorldPvpBounty(*targetPlayerOwner) ||
+                        targetPlayerOwner->CanFightWorldPvpBounty(*selfPlayerOwner))
+                        return REP_HOSTILE;
+
+                    return REP_FRIENDLY;
+                }
+
                 // same group - checks dependant only on our faction - skip FFA_PVP for example
                 if (selfPlayerOwner->IsInRaidWith(targetPlayerOwner))
                     return REP_FRIENDLY; // return true to allow config option AllowTwoSide.Interaction.Group to work
@@ -11303,6 +11333,19 @@ bool Unit::_IsValidAttackTarget(Unit const* target, SpellInfo const* bySpell, Wo
     // additional checks - only PvP case
     if (playerAffectingAttacker && playerAffectingTarget)
     {
+        if (playerAffectingAttacker->IsInActiveWilderness() && playerAffectingTarget->IsInActiveWilderness())
+            return playerAffectingAttacker->IsOrdinarilyHostileInWorldPvp(*playerAffectingTarget);
+
+        if (sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP))
+        {
+            if (auto const allow = Acore::WorldPvp::BountyAttackOverride(
+                playerAffectingAttacker->IsOrdinarilyHostileInWorldPvp(*playerAffectingTarget),
+                playerAffectingAttacker->CanFightWorldPvpBounty(*playerAffectingTarget),
+                playerAffectingTarget->CanFightWorldPvpBounty(*playerAffectingAttacker),
+                bySpell && bySpell->IsAffectingArea()))
+                return *allow;
+        }
+
         if (!IsPvP() && bySpell && bySpell->IsAffectingArea() && !bySpell->HasAttribute(SPELL_ATTR5_IGNORE_AREA_EFFECT_PVP_CHECK))
             return false;
 
@@ -11918,7 +11961,7 @@ void Unit::AddThreat(Unit* victim, float fThreat, SpellSchoolMask /*schoolMask*/
 
 //======================================================================
 
-void Unit::AtTargetAttacked(Unit* target, bool canInitialAggro)
+void Unit::AtTargetAttacked(Unit* target, bool canInitialAggro, bool preserveDefenderPvpFlag)
 {
     if (!target->IsEngaged() && !canInitialAggro)
         return;
@@ -11939,8 +11982,12 @@ void Unit::AtTargetAttacked(Unit* target, bool canInitialAggro)
     Player* targetPlayerOwner = target->GetCharmerOrOwnerPlayerOrPlayerItself();
     if (myPlayerOwner && targetPlayerOwner && !(myPlayerOwner->duel && myPlayerOwner->duel->Opponent == targetPlayerOwner))
     {
-        myPlayerOwner->UpdatePvP(true);
-        myPlayerOwner->SetContestedPvP(targetPlayerOwner);
+        myPlayerOwner->RecordWorldPvpAttack(*targetPlayerOwner);
+        if (!preserveDefenderPvpFlag && !myPlayerOwner->IsUnflaggedBountyRetaliation(*target))
+        {
+            myPlayerOwner->UpdatePvP(true);
+            myPlayerOwner->SetContestedPvP(targetPlayerOwner);
+        }
         myPlayerOwner->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT);
     }
 }
@@ -14147,6 +14194,11 @@ void Unit::SetContestedPvP(Player* attackedPlayer, bool lookForNearContestedGuar
     if (!player || ((attackedPlayer && (attackedPlayer == player || (player->duel && player->duel->Opponent == attackedPlayer))) || player->InBattleground()))
         return;
 
+    if (Map const* map = player->FindMap(); attackedPlayer && map && map->IsWorldMap() &&
+        sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) &&
+        (player->IsWorldPvpWanted() || attackedPlayer->IsWorldPvpWanted()))
+        return;
+
     // check if there any guards that should care about the contested flag on player
     if (lookForNearContestedGuards)
     {
@@ -14468,6 +14520,13 @@ void Unit::Kill(Unit* killer, Unit* victim, bool durabilityLoss, WeaponAttackTyp
     Player* player = killer ? killer->GetCharmerOrOwnerPlayerOrPlayerItself() : nullptr;
     Creature* creature = victim->ToCreature();
 
+    if (Player* slain = victim->ToPlayer())
+    {
+        if (player)
+            player->ClassifyWorldPvpKill(*slain);
+        slain->SettleWorldPvpDeath(player);
+    }
+
     bool isRewardAllowed = true;
     if (creature)
     {
@@ -14550,7 +14609,11 @@ void Unit::Kill(Unit* killer, Unit* victim, bool durabilityLoss, WeaponAttackTyp
                 loot->FillLoot(lootid, LootTemplates_Creature, looter, false, false, creature->GetLootMode(), creature);
 
             if (creature->GetLootMode())
+            {
                 loot->generateMoneyLoot(creature->GetCreatureTemplate()->mingold, creature->GetCreatureTemplate()->maxgold);
+                if (loot->gold && player->IsInActiveWilderness() && Acore::WorldPvp::IsWildernessLocation(*creature))
+                    loot->gold = Acore::WorldPvp::AddWildernessBonus(loot->gold, Acore::WorldPvp::WildernessPveBonusPct);
+            }
 
             if (group)
             {
@@ -17400,8 +17463,9 @@ void Unit::BuildValuesUpdate(uint8 updateType, ByteBuffer* data, Player* target)
         }
     }
 
-    cacheValue.buffer << uint8(updateMask.GetBlockCount());
-    updateMask.AppendToPacket(&cacheValue.buffer);
+    uint32 const blockCount = updateMask.GetUsedBlockCount();
+    cacheValue.buffer << uint8(blockCount);
+    updateMask.AppendToPacket(&cacheValue.buffer, blockCount);
     int32 fieldBufferPos = static_cast<int32>(cacheValue.buffer.wpos());
     cacheValue.buffer.append(fieldBuffer);
     cacheValue.posPointers.ApplyOffset(fieldBufferPos);

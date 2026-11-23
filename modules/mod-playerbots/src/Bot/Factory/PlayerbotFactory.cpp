@@ -1471,7 +1471,7 @@ void PlayerbotFactory::ClearSpells()
 
 void PlayerbotFactory::ResetQuests()
 {
-    for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
+    for (uint16 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
     {
         bot->SetQuestSlot(slot, 0);
     }

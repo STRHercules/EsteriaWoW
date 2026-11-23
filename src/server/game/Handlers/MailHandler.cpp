@@ -560,7 +560,9 @@ void WorldSession::HandleMailTakeItem(WorldPacket& recvData)
 
     ItemPosCountVec dest;
     uint8 msg = _player->CanStoreItem(NULL_BAG, NULL_SLOT, dest, it, false);
-    if (msg == EQUIP_ERR_OK)
+    // Full bags fall back to Esteria storage; SaveInventoryAndGoldToDB below persists it in the same transaction.
+    bool toStorage = msg != EQUIP_ERR_OK && it && player->GetDigitalInventory().Store(it);
+    if (msg == EQUIP_ERR_OK || toStorage)
     {
         CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
         m->RemoveItem(itemLowGuid);
@@ -609,8 +611,11 @@ void WorldSession::HandleMailTakeItem(WorldPacket& recvData)
         player->RemoveMItem(it->GetGUID().GetCounter());
 
         uint32 count = it->GetCount();                      // save counts before store and possible merge with deleting
-        it->SetState(ITEM_UNCHANGED);                       // need to set this state, otherwise item cannot be removed later, if neccessary
-        player->MoveItemToInventory(dest, it, true);
+        if (!toStorage)
+        {
+            it->SetState(ITEM_UNCHANGED);                   // need to set this state, otherwise item cannot be removed later, if neccessary
+            player->MoveItemToInventory(dest, it, true);
+        }
 
         if (HasPermission(rbac::RBAC_PERM_LOG_GM_TRADE))
         {

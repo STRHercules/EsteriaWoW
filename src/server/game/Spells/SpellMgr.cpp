@@ -32,6 +32,7 @@
 #include "SpellInfo.h"
 #include "Tokenize.h"
 #include "World.h"
+#include "WorldPvpEar.h"
 
 #include <algorithm>
 
@@ -108,6 +109,9 @@ DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellInfo const* spellproto,
 {
     if (spellproto->IsPositive())
         return DIMINISHING_NONE;
+
+    if (spellproto->Id == Acore::WorldPvp::FenceStunSpell)
+        return DIMINISHING_CONTROLLED_STUN;
 
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
     {

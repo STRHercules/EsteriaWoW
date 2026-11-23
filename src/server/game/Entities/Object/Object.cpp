@@ -540,8 +540,9 @@ void Object::BuildValuesUpdate(uint8 updateType, ByteBuffer* data, Player* targe
         }
     }
 
-    *data << uint8(updateMask.GetBlockCount());
-    updateMask.AppendToPacket(data);
+    uint32 const blockCount = updateMask.GetUsedBlockCount();
+    *data << uint8(blockCount);
+    updateMask.AppendToPacket(data, blockCount);
     data->append(fieldBuffer);
 }
 

@@ -95,6 +95,8 @@
 #include "Weather.h"
 #include "World.h"
 #include "WorldPacket.h"
+#include "WorldPvpEar.h"
+#include "WorldPvpWilderness.h"
 #include "WorldSession.h"
 #include "WorldSessionMgr.h"
 #include "WorldState.h"
@@ -1127,6 +1129,8 @@ void Player::setDeathState(DeathState s, bool /*despawn = false*/)
 
         // clear all pending spell cast requests when dying
         SpellQueue.clear();
+        SettleWorldPvpDeath();
+        ClearWorldPvpEncounters();
 
         // drunken state is cleared on death
         SetDrunkValue(0);
@@ -1158,7 +1162,11 @@ void Player::setDeathState(DeathState s, bool /*despawn = false*/)
     }
     // xinef: enable passive area auras!
     else if (s == DeathState::Alive)
+    {
         ClearUnitState(UNIT_STATE_ISOLATED);
+        _wildernessFreebornKillingBlow = false;
+        _worldPvpDeathSettled = false;
+    }
 
     Unit::setDeathState(s);
 
@@ -1845,6 +1853,7 @@ void Player::RemoveFromWorld()
     // cleanup
     if (IsInWorld())
     {
+        ClearWorldPvpEncounters();
         ///- Release charmed creatures, unsummon totems and remove pets/guardians
         StopCastingCharm();
         StopCastingBindSight();
@@ -4904,6 +4913,9 @@ void Player::ResurrectPlayer(float restore_percent, bool applySickness)
 
 void Player::KillPlayer()
 {
+    if (getDeathState() == DeathState::JustDied)
+        ApplyWildernessDeathPenalty();
+
     if (IsFlying() && !GetTransport())
         GetMotionMaster()->MoveFall();
 
@@ -6466,9 +6478,17 @@ void Player::RewardReputation(Unit* victim)
 
     TeamId teamId = GetTeamId(true); // Always check player original reputation when rewarding
 
+    auto const applyWildernessBonus = [wilderness = IsInActiveWilderness() &&
+        Acore::WorldPvp::IsWildernessLocation(*victim)](float& reputation)
+    {
+        if (wilderness && reputation > 0.0f)
+            AddPct(reputation, Acore::WorldPvp::WildernessPveBonusPct);
+    };
+
     if (Rep->RepFaction1 && (!Rep->TeamDependent || teamId == TEAM_ALLIANCE))
     {
         float donerep1 = CalculateReputationGain(REPUTATION_SOURCE_KILL, victim->GetLevel(), static_cast<float>(Rep->RepValue1), ChampioningFaction ? ChampioningFaction : Rep->RepFaction1);
+        applyWildernessBonus(donerep1);
         sScriptMgr->OnPlayerGiveReputation(this, Rep->RepFaction1, donerep1, REPUTATION_SOURCE_KILL);
 
         FactionEntry const* factionEntry1 = sFactionStore.LookupEntry(ChampioningFaction ? ChampioningFaction : Rep->RepFaction1);
@@ -6481,6 +6501,7 @@ void Player::RewardReputation(Unit* victim)
     if (Rep->RepFaction2 && (!Rep->TeamDependent || teamId == TEAM_HORDE))
     {
         float donerep2 = CalculateReputationGain(REPUTATION_SOURCE_KILL, victim->GetLevel(), static_cast<float>(Rep->RepValue2), ChampioningFaction ? ChampioningFaction : Rep->RepFaction2);
+        applyWildernessBonus(donerep2);
         sScriptMgr->OnPlayerGiveReputation(this, Rep->RepFaction2, donerep2, REPUTATION_SOURCE_KILL);
 
         FactionEntry const* factionEntry2 = sFactionStore.LookupEntry(ChampioningFaction ? ChampioningFaction : Rep->RepFaction2);
@@ -6589,7 +6610,7 @@ void Player::RewardExtraBonusTalentPoints(uint32 bonusTalentPoints)
 ///Calculate the amount of honor gained based on the victim
 ///and the size of the group for which the honor is divided
 ///An exact honor value can also be given (overriding the calcs)
-bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awardXP)
+bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awardXP, bool killingBlow)
 {
     // do not reward honor in arenas, but enable onkill spellproc
     if (InArena())
@@ -6627,6 +6648,7 @@ bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awar
 
     // Promote to float for calculations
     float honor_f = (float)honor;
+    Player const* wildernessVictim = nullptr;
 
     if (honor_f <= 0)
     {
@@ -6639,7 +6661,15 @@ bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awar
         {
             Player* victim = uVictim->ToPlayer();
 
-            if (GetTeamId() == victim->GetTeamId() && !sWorld->IsFFAPvPRealm())
+            if (IsInActiveWilderness() && victim->IsInActiveWilderness())
+            {
+                if (!IsWorldPvpOpponent(*victim) || IsProtectedFreebornPair(*victim) ||
+                    GetSession()->GetAccountId() == victim->GetSession()->GetAccountId())
+                    return false;
+
+                wildernessVictim = victim;
+            }
+            else if (GetTeamId() == victim->GetTeamId() && !sWorld->IsFFAPvPRealm())
                 return false;
 
             uint8 k_level = GetLevel();
@@ -6688,6 +6718,9 @@ bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awar
         AddPct(honor_f, GetMaxPositiveAuraModifier(SPELL_AURA_MOD_HONOR_GAIN_PCT));
     }
 
+    if (wildernessVictim)
+        AddPct(honor_f, IsFreeborn() ? 50 : 25);
+
     honor_f *= sWorld->getRate(RATE_HONOR);
     // Back to int now
     honor = int32(honor_f);
@@ -6707,6 +6740,12 @@ bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awar
 
     // add honor points
     ModifyHonorPoints(honor);
+
+    if (wildernessVictim && killingBlow && honor > 0 &&
+        GetArenaPoints() < sWorld->getIntConfig(CONFIG_MAX_ARENA_POINTS) &&
+        Acore::WorldPvp::ClaimWildernessArenaReward(GetSession()->GetAccountId(),
+            wildernessVictim->GetSession()->GetAccountId(), GameTime::GetGameTime().count() / DAY))
+        ModifyArenaPoints(IsFreeborn() ? 2 : 1);
 
     ApplyModUInt32Value(PLAYER_FIELD_TODAY_CONTRIBUTION, honor, true);
 
@@ -11441,6 +11480,39 @@ bool Player::BuyItemFromVendorSlot(ObjectGuid vendorguid, uint32 vendorslot, uin
         return false;
     }
 
+    if (creature->GetEntry() == Acore::WorldPvp::UnderbellyFenceEntry)
+    {
+        if (!Acore::WorldPvp::CanUseEarFence(*this))
+        {
+            SendBuyError(BUY_ERR_CANT_FIND_ITEM, creature, item, 0);
+            return false;
+        }
+
+        VendorItemData const* catalog = creature->GetVendorItems();
+        VendorItem const* offer = catalog && vendorslot < catalog->GetItemCount() ? catalog->GetItem(vendorslot) : nullptr;
+        if (!offer || offer->item != item ||
+            (item != Acore::WorldPvp::FencePickpocketTool.entry && item != Acore::WorldPvp::FenceStunPowder.entry))
+        {
+            SendBuyError(BUY_ERR_CANT_FIND_ITEM, creature, item, 0);
+            return false;
+        }
+
+        if (count != 1)
+        {
+            ChatHandler(GetSession()).SendSysMessage("The Fence sells one item at a time.");
+            return false;
+        }
+
+        Acore::WorldPvp::BuyEarReward(*this, item);
+        return true;
+    }
+
+    if (GetSession()->GetCurrentVendor() == Acore::WorldPvp::UnderbellyFenceEntry)
+    {
+        SendBuyError(BUY_ERR_CANT_FIND_ITEM, creature, item, 0);
+        return false;
+    }
+
     ConditionList conditions = sConditionMgr->GetConditionsForNpcVendorEvent(creature->GetEntry(), item);
     if (!sConditionMgr->IsObjectMeetToConditions(this, creature, conditions))
     {
@@ -13415,7 +13487,7 @@ bool Player::IsSpellFitByClassAndRace(uint32 spell_id) const
 
 bool Player::HasQuestForGO(int32 GOId) const
 {
-    for (uint8 i = 0; i < MAX_QUEST_LOG_SIZE; ++i)
+    for (uint16 i = 0; i < MAX_QUEST_LOG_SIZE; ++i)
     {
         uint32 questid = GetQuestSlotQuestId(i);
         if (questid == 0)

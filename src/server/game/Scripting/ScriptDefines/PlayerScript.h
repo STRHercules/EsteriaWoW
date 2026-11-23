@@ -227,6 +227,7 @@ enum PlayerHook
     PLAYERHOOK_ON_APPLY_SPELL_MOD,
     PLAYERHOOK_ON_NORMALIZE_ACTION_BUTTON_SPELL,
     PLAYERHOOK_ON_SPELL_COOLDOWN_CALCULATED,
+    PLAYERHOOK_CAN_DROP_WILDERNESS_GEAR,
     PLAYERHOOK_END
 };
 
@@ -615,6 +616,7 @@ public:
     [[nodiscard]] virtual bool OnPlayerCanEquipItem(Player* /*player*/, uint8 /*slot*/, uint16& /*dest*/, Item* /*pItem*/, bool /*swap*/, bool /*not_loading*/) { return true; }
 
     [[nodiscard]] virtual bool OnPlayerCanUnequipItem(Player* /*player*/, uint16 /*pos*/, bool /*swap*/) { return true; }
+    [[nodiscard]] virtual bool OnPlayerCanDropWildernessGear(Player const*, Item const*) { return true; }
 
     [[nodiscard]] virtual bool OnPlayerCanUseItem(Player* /*player*/, ItemTemplate const* /*proto*/, InventoryResult& /*result*/) { return true; }
 

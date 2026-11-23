@@ -24,6 +24,7 @@
 #include "ScriptMgr.h"
 #include "SpellAuraDefines.h"
 #include "SpellAuraEffects.h"
+#include "WorldPvpWilderness.h"
 
 // KillRewarder incapsulates logic of rewarding player upon kill with:
 // * XP;
@@ -143,7 +144,7 @@ void KillRewarder::_RewardHonor(Player* player)
 {
     // Rewarded player must be alive.
     if (player->IsAlive())
-        player->RewardHonor(_victim, _count, -1);
+        player->RewardHonor(_victim, _count, -1, true, player == _killer);
 }
 
 void KillRewarder::_RewardXP(Player* player, float rate)
@@ -179,6 +180,9 @@ void KillRewarder::_RewardXP(Player* player, float rate)
     {
         // 4.2.2. Apply auras modifying rewarded XP (SPELL_AURA_MOD_XP_PCT).
         xp *= player->GetTotalAuraMultiplier(SPELL_AURA_MOD_XP_PCT);
+
+        if (player->IsInActiveWilderness() && Acore::WorldPvp::IsWildernessLocation(*_victim))
+            xp = Acore::WorldPvp::AddWildernessBonus(xp, Acore::WorldPvp::WildernessPveBonusPct);
 
         // 4.2.3. Give XP to player.
         sScriptMgr->OnPlayerGiveXP(player, xp, _victim, PlayerXPSource::XPSOURCE_KILL);

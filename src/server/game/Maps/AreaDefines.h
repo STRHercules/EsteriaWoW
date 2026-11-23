@@ -66,6 +66,7 @@ enum AreaTableIDs : uint32
     AREA_CAMP_TAURAJO                                        = 378,
     AREA_THE_CROSSROADS                                      = 380,
     AREA_THE_MERCHANT_COAST                                  = 391,
+    AREA_ICECROWN                                            = 210,
     AREA_GRIZZLY_HILLS                                       = 394,
     AREA_THOUSAND_NEEDLES                                    = 400,
     AREA_DESOLACE                                            = 405,

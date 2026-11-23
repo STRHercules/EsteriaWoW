@@ -1,0 +1,133 @@
+[worldserver]
+
+###################################################################################################
+# mod-esteria-casino: gold-wager games against the house. Gold only; there is no real-money path.
+#
+#    EsteriaCasino.Enable
+#        Description: Opens the casino NPCs. Needs the characters/world SQL from
+#                     modules/mod-esteria-casino/data/sql applied first, and the EsteriaCasino client addon.
+#        Default:     0 - (Disabled)
+#
+#    EsteriaCasino.Blackjack.MinBet
+#        Description: Smallest opening stake, in copper.
+#        Default:     1000 (10 silver)
+#
+#    EsteriaCasino.Blackjack.MaxBet
+#        Description: Table limit for the opening stake, in copper. The real limit is also capped so the house
+#                     bankroll can cover the worst case (4x the stake) and so a payout fits a character's money.
+#        Default:     10000000 (1,000 gold)
+#
+#    EsteriaCasino.Blackjack.HitSoft17
+#        Description: Dealer hits soft 17 (1) or stands on all 17s (0).
+#        Default:     0
+#
+#    EsteriaCasino.Slots.MinBet
+#    EsteriaCasino.Slots.MaxBet
+#        Description: Stake per spin, in copper. The house must cover a 500x dragon line, so the real limit is also
+#                     capped at 1/499 of the unreserved bankroll.
+#        Default:     1000 (10 silver), 1000000 (100 gold)
+#
+#    EsteriaCasino.Dice.MinBet
+#    EsteriaCasino.Dice.MaxBet
+#        Description: Stake per Goblin Dice roll, in copper. Also capped at 1/5 of the unreserved bankroll.
+#        Default:     1000 (10 silver), 5000000 (500 gold)
+#
+#    EsteriaCasino.Board.MaxStake
+#        Description: Largest chess/checkers stake per player, in copper. 0 stakes are friendly games.
+#        Default:     100000000 (10,000 gold)
+#
+#    EsteriaCasino.Board.HouseCut
+#        Description: Basis points of the winnings (the loser's stake) kept by the house. Draws pay no cut.
+#        Default:     500 (5%)
+#
+#    EsteriaCasino.Board.Minutes
+#        Description: Default minutes on each player's clock (players may pick 1-60 per challenge). Games against
+#                     the house (three levels) are free practice and never staked.
+#        Default:     10
+#
+#    EsteriaCasino.Board.DisconnectGrace
+#        Description: Seconds a disconnected player has to come back before forfeiting.
+#        Default:     60
+#
+#    EsteriaCasino.Poker.SmallBlind / EsteriaCasino.Poker.BigBlind
+#        Description: Blinds in copper. Fixed limit: bets are one big blind before the turn, two after.
+#        Default:     5000 / 10000 (50 silver / 1 gold)
+#
+#    EsteriaCasino.Poker.MinBuyIn / EsteriaCasino.Poker.MaxBuyIn
+#        Description: Buy-in range in big blinds.
+#        Default:     20 / 100
+#
+#    EsteriaCasino.Poker.Rake / EsteriaCasino.Poker.RakeCap
+#        Description: Basis points of each pot kept by the house, capped in copper; no rake without a flop.
+#        Default:     500 (5%) / 20000 (2 gold)
+#
+#    EsteriaCasino.Poker.ActionSeconds
+#        Description: Seconds to act before the table checks (if free) or folds for you.
+#        Default:     30
+#
+#    EsteriaCasino.Poker.HouseSeats
+#        Description: While at least one player is seated, house players fill the table up to this many players
+#                     (they play with house gold; each hand's result is booked to the bankroll). 0 = off.
+#        Default:     3
+#
+#    EsteriaCasino.Poker.HouseBuyIn
+#        Description: A house player's buy-in in big blinds (clamped to the buy-in range).
+#        Default:     50
+#
+#    EsteriaCasino.Lottery.TicketCost
+#        Description: Copper per ticket; all of it goes to the pool.
+#        Default:     100000 (10 gold)
+#
+#    EsteriaCasino.Lottery.ThreeMatchPrize
+#        Description: Copper paid to each ticket matching three of the four numbers, if the pool covers it.
+#        Default:     1500000 (150 gold)
+#
+#    EsteriaCasino.Lottery.MaxTickets
+#        Description: Tickets per character per draw.
+#        Default:     10
+#
+#    EsteriaCasino.Lottery.DrawMinutes
+#        Description: Minutes between draws.
+#        Default:     60
+#
+#    EsteriaCasino.Lottery.HouseShare
+#        Description: Basis points of every positive house result moved into the lottery pool.
+#        Default:     1000 (10%)
+#
+#    EsteriaCasino.DailyWagerCap
+#        Description: Copper an account may stake per UTC day across every game, doubles and splits included.
+#                     0 = no cap.
+#        Default:     100000000 (10,000 gold)
+#
+#    EsteriaCasino.MaxDistance
+#        Description: Yards from the dealer within which a new bet is accepted.
+#        Default:     12
+
+EsteriaCasino.Enable = 0
+EsteriaCasino.Blackjack.MinBet = 1000
+EsteriaCasino.Blackjack.MaxBet = 10000000
+EsteriaCasino.Blackjack.HitSoft17 = 0
+EsteriaCasino.Slots.MinBet = 1000
+EsteriaCasino.Slots.MaxBet = 1000000
+EsteriaCasino.Dice.MinBet = 1000
+EsteriaCasino.Dice.MaxBet = 5000000
+EsteriaCasino.Board.MaxStake = 100000000
+EsteriaCasino.Board.HouseCut = 500
+EsteriaCasino.Board.Minutes = 10
+EsteriaCasino.Board.DisconnectGrace = 60
+EsteriaCasino.Poker.SmallBlind = 5000
+EsteriaCasino.Poker.BigBlind = 10000
+EsteriaCasino.Poker.MinBuyIn = 20
+EsteriaCasino.Poker.MaxBuyIn = 100
+EsteriaCasino.Poker.Rake = 500
+EsteriaCasino.Poker.RakeCap = 20000
+EsteriaCasino.Poker.ActionSeconds = 30
+EsteriaCasino.Poker.HouseSeats = 3
+EsteriaCasino.Poker.HouseBuyIn = 50
+EsteriaCasino.Lottery.TicketCost = 100000
+EsteriaCasino.Lottery.ThreeMatchPrize = 1500000
+EsteriaCasino.Lottery.MaxTickets = 10
+EsteriaCasino.Lottery.DrawMinutes = 60
+EsteriaCasino.Lottery.HouseShare = 1000
+EsteriaCasino.DailyWagerCap = 100000000
+EsteriaCasino.MaxDistance = 12

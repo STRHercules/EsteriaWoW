@@ -946,7 +946,7 @@ public:
     // Threat related methods
     [[nodiscard]] bool CanHaveThreatList(bool skipAliveCheck = false) const;
     void AddThreat(Unit* victim, float fThreat, SpellSchoolMask schoolMask = SPELL_SCHOOL_MASK_NORMAL, SpellInfo const* threatSpell = nullptr);
-    void AtTargetAttacked(Unit* target, bool canInitialAggro);
+    void AtTargetAttacked(Unit* target, bool canInitialAggro, bool preserveDefenderPvpFlag = false);
 
     // ThreatManager/CombatManager accessors
     ThreatManager& GetThreatMgr() { return m_threatManager; }

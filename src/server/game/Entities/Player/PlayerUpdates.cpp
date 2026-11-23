@@ -21,6 +21,8 @@
 #include "CellImpl.h"
 #include "Channel.h"
 #include "ChannelMgr.h"
+#include "Chat.h"
+#include "DatabaseEnv.h"
 #include "Formulas.h"
 #include "GameTime.h"
 #include "GridNotifiers.h"
@@ -29,18 +31,29 @@
 #include "InstanceScript.h"
 #include "Language.h"
 #include "OutdoorPvPMgr.h"
+#include "ObjectAccessor.h"
 #include "Pet.h"
 #include "Player.h"
+#include "RBAC.h"
 #include "ScriptMgr.h"
 #include "SkillDiscovery.h"
 #include "SpellAuraEffects.h"
 #include "SpellMgr.h"
+#include "StringFormat.h"
+#include "TC9Sidecar.h"
 #include "UpdateFieldFlags.h"
 #include "Vehicle.h"
 #include "Weather.h"
 #include "WeatherMgr.h"
 #include "WorldState.h"
 #include "WorldStatePackets.h"
+#include "WorldPvpBountyTargets.h"
+#include "WorldPvpEar.h"
+#include "WorldPvpPickpocket.h"
+#include "WorldPvpRules.h"
+#include "WorldPvpWilderness.h"
+#include <algorithm>
+#include <limits>
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -58,6 +71,7 @@ void Player::Update(uint32 p_time)
         return;
 
     sScriptMgr->OnPlayerBeforeUpdate(this, p_time);
+    UpdateWildernessPvp();
 
     // undelivered mail
     if (m_nextMailDelivereTime && m_nextMailDelivereTime <= GameTime::GetGameTime().count())
@@ -81,8 +95,12 @@ void Player::Update(uint32 p_time)
 
     time_t now = GameTime::GetGameTime().count();
 
-    UpdatePvPFlag(now);
-    UpdateFFAPvPFlag(now);
+    if (!_wildernessPvpActive)
+    {
+        UpdatePvPFlag(now);
+        UpdateFFAPvPFlag(now);
+    }
+    UpdateWorldPvpClient();
 
     UpdateContestedPvP(p_time);
 
@@ -1243,20 +1261,26 @@ void Player::UpdateArea(uint32 newArea)
     m_areaUpdateId = newArea;
 
     AreaTableEntry const* area = sAreaTableStore.LookupEntry(newArea);
+    bool const worldPvp = sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) && GetMap()->IsWorldMap();
     pvpInfo.IsInFFAPvPArea     = area && (area->flags & AREA_FLAG_ARENA);
-    UpdateFFAPvPState(false);
+    if (!worldPvp)
+        UpdateFFAPvPState(false);
 
     UpdateAreaDependentAuras(newArea);
 
     pvpInfo.IsInNoPvPArea = false;
-    if (area && area->IsSanctuary())
+    if ((area && area->IsSanctuary()) || (worldPvp && Acore::WorldPvp::IsCapital(area)))
     {
         SetByteFlag(UNIT_FIELD_BYTES_2, 1, UNIT_BYTE2_FLAG_SANCTUARY);
         pvpInfo.IsInNoPvPArea = true;
+        ClearWorldPvpEncounters();
         CombatStopWithPets();
     }
     else
         RemoveByteFlag(UNIT_FIELD_BYTES_2, 1, UNIT_BYTE2_FLAG_SANCTUARY);
+
+    if (worldPvp)
+        UpdateFFAPvPState(false);
 
     uint32 const areaRestFlag = (GetTeamId(true) == TEAM_ALLIANCE)
                                     ? AREA_FLAG_REST_ZONE_ALLIANCE
@@ -1455,9 +1479,478 @@ void Player::UpdateHomebindTime(uint32 time)
     }
 }
 
+bool Player::IsWorldPvpOpponent(Player const& opponent) const
+{
+    Map const* map = FindMap();
+    return this != &opponent && sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) &&
+        map && map->IsWorldMap() && map == opponent.FindMap() && IsInWorld() && opponent.IsInWorld() &&
+        !IsInSanctuary() && !opponent.IsInSanctuary() &&
+        !IsGameMaster() && !opponent.IsGameMaster() && !IsSpectator() && !opponent.IsSpectator() &&
+        !(duel && duel->Opponent == &opponent && duel->State == DUEL_STATE_IN_PROGRESS);
+}
+
+bool Player::IsWorldPvpWanted() const
+{
+    PlayerSettingVector const* settings = FindPlayerSettings(Acore::WorldPvp::CrimeSettingsSource);
+    return settings && settings->size() > Acore::WorldPvp::WantedUntil &&
+        (*settings)[Acore::WorldPvp::WantedUntil].value > GameTime::GetGameTime().count();
+}
+
+bool Player::IsInActiveWilderness() const
+{
+    return !IsGameMaster() && !IsSpectator() && !IsInSanctuary() && Acore::WorldPvp::IsWildernessLocation(*this);
+}
+
+bool Player::IsProtectedFreebornPair(Player const& opponent) const
+{
+    return IsFreebornHostilePlayerTeamPair(GetTeamId(), opponent.GetTeamId()) &&
+        (IsInRaidWith(&opponent) || (GetGuildId() && GetGuildId() == opponent.GetGuildId()));
+}
+
+bool Player::IsOrdinarilyHostileInWorldPvp(Player const& opponent) const
+{
+    bool const bothInWilderness = IsInActiveWilderness() && opponent.IsInActiveWilderness();
+    auto const ordinaryFfa = [](Player const& player)
+    {
+        return player.Unit::IsFFAPvP() && (!player._wildernessPvpActive || player.HasPlayerFlag(PLAYER_FLAGS_IN_PVP) ||
+            player.pvpInfo.IsInFFAPvPArea || sWorld->IsFFAPvPRealm());
+    };
+    return Acore::WorldPvp::AreHostile(ordinaryFfa(*this), ordinaryFfa(opponent),
+        IsFreebornHostilePlayerTeamPair(GetTeamId(), opponent.GetTeamId()), IsProtectedFreebornPair(opponent),
+        bothInWilderness);
+}
+
+bool Player::CanInitiateWorldPvpBounty(Player const& target) const
+{
+    uint32 const account = GetSession()->GetAccountId();
+    return HasPlayerFlag(PLAYER_FLAGS_IN_PVP) && Unit::IsFFAPvP() && account != target.GetSession()->GetAccountId() &&
+        Acore::WorldPvp::CanUseBountyEscrow() &&
+        Acore::WorldPvp::CanHuntBountyTarget(target.GetGUID().GetCounter(), account);
+}
+
+bool Player::HasWorldPvpBountyEncounter(Player const& opponent) const
+{
+    auto const encounter = _worldPvpEncounters.find(opponent.GetGUID());
+    if (encounter == _worldPvpEncounters.end() || !encounter->second.bounty ||
+        encounter->second.expiresAt <= GameTime::GetGameTime().count())
+        return false;
+
+    Player const& hunter = encounter->second.defending ? opponent : *this;
+    Player const& target = encounter->second.defending ? *this : opponent;
+    return Acore::WorldPvp::CanHuntBountyTarget(target.GetGUID().GetCounter(), hunter.GetSession()->GetAccountId());
+}
+
+bool Player::CanFightWorldPvpBounty(Player const& opponent) const
+{
+    return IsWorldPvpOpponent(opponent) && !IsProtectedFreebornPair(opponent) &&
+        (HasWorldPvpBountyEncounter(opponent) || CanInitiateWorldPvpBounty(opponent));
+}
+
+void Player::UpdateWorldPvpClient()
+{
+    constexpr uint16 MaxRelations = 256;
+    constexpr uint8 MayAttack = 1;
+    constexpr uint8 MayBeAttacked = 2;
+    constexpr uint32 WantedDebuff = 955080;
+    constexpr uint32 BountyDebuff = 955081;
+    constexpr uint32 PvpDebuff = 955082;
+    constexpr uint32 ThiefDebuff = 955083;
+
+    bool const worldPvp = sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP);
+    if (!worldPvp && !_sentBountyClientRelations && !_sentWantedClientSnapshot && !_sentThiefClientSnapshot &&
+        !HasAura(WantedDebuff) && !HasAura(BountyDebuff) && !HasAura(PvpDebuff) && !HasAura(ThiefDebuff))
+        return;
+
+    Milliseconds const now = GameTime::GetGameTimeMS();
+    if (now < _nextWorldPvpClientUpdate)
+        return;
+
+    _nextWorldPvpClientUpdate = now + Milliseconds(500);
+    Map const* map = FindMap();
+    if (!map)
+        return;
+
+    auto setDebuff = [this](uint32 spell, bool active)
+    {
+        bool const hasAura = HasAura(spell);
+        if (active && !hasAura)
+            AddAura(spell, this);
+        else if (!active && hasAura)
+            RemoveAurasDueToSpell(spell);
+    };
+    bool const showStatus = worldPvp && !IsSpectator();
+    setDebuff(WantedDebuff, showStatus && IsAlive() && IsWorldPvpWanted());
+    setDebuff(PvpDebuff, showStatus && IsPvP());
+    setDebuff(ThiefDebuff, showStatus && IsAlive() && IsWorldPvpPickpocketExposed());
+    auto const bounty = showStatus && IsAlive() && Acore::WorldPvp::CanUseBountyEscrow()
+        ? Acore::WorldPvp::ActiveBountyCopper(GetGUID().GetCounter()) : std::optional<uint64>{0};
+    if (bounty)
+    {
+        if (*bounty)
+        {
+            WorldPacket packet;
+            auto const amount = Acore::StringFormat("EsteriaBounty\t{}g {}s {}c",
+                *bounty / GOLD, *bounty / SILVER % 100, *bounty % SILVER);
+            ChatHandler::BuildChatPacket(packet, CHAT_MSG_WHISPER, LANG_ADDON, this, this, amount);
+            SendDirectMessage(&packet);
+        }
+        setDebuff(BountyDebuff, *bounty != 0);
+    }
+
+    UpdateWorldPvpCrimeClient(worldPvp && map->IsWorldMap() && !IsSpectator(), map->GetId());
+    if (worldPvp && !IsSpectator() && Acore::WorldPvp::IsWildernessLocation(*this))
+    {
+        WorldPacket banner;
+        ChatHandler::BuildChatPacket(banner, CHAT_MSG_WHISPER, LANG_ADDON, this, this, "EsteriaWild\t1");
+        SendDirectMessage(&banner);
+    }
+
+    bool const preview = worldPvp && Acore::WorldPvp::CanUseBountyEscrow();
+
+    if (preview && map->IsWorldMap() && Acore::WorldPvp::CanUsePlayerPickpocket(*this))
+    {
+        WorldPacket packet(SMSG_ESTERIA_PLAYER_PICKPOCKET_READY, 12);
+        packet << GetGUID() << uint32(map->GetId());
+        SendDirectMessage(&packet);
+    }
+
+    std::vector<std::pair<ObjectGuid, uint8>> relations;
+    if (worldPvp && map->IsWorldMap() && IsAlive() && !IsInSanctuary() && !IsGameMaster() && !IsSpectator())
+    {
+        bool const wilderness = IsInActiveWilderness();
+        auto const seconds = GameTime::GetGameTime().count();
+        bool const activeEncounter = std::ranges::any_of(_worldPvpEncounters, [seconds]
+            (auto const& entry) { return entry.second.bounty && entry.second.expiresAt > seconds; });
+        bool const eligibleHunter = preview && HasPlayerFlag(PLAYER_FLAGS_IN_PVP) && IsFFAPvP();
+        bool const bountyRelations = preview &&
+            (activeEncounter || eligibleHunter || Acore::WorldPvp::HasActiveOrPendingBounty(GetGUID().GetCounter()));
+        if (wilderness || bountyRelations)
+        {
+            for (auto const& [guid, object] : *GetObjectVisibilityContainer().GetVisibleWorldObjectsMap())
+            {
+                Player const* opponent = object->ToPlayer();
+                if (!opponent || !opponent->IsAlive() || !InSamePhase(opponent))
+                    continue;
+
+                bool const wildernessPair = wilderness && opponent->IsInActiveWilderness();
+                if (!wildernessPair && (!bountyRelations ||
+                    (!CanFightWorldPvpBounty(*opponent) && !opponent->CanFightWorldPvpBounty(*this))))
+                    continue;
+
+                uint8 const permission = (IsValidAttackTarget(opponent) ? MayAttack : 0) |
+                    (opponent->IsValidAttackTarget(this) ? MayBeAttacked : 0);
+                if (permission || (wildernessPair && IsProtectedFreebornPair(*opponent)))
+                    relations.emplace_back(guid, permission);
+
+                if (relations.size() == MaxRelations)
+                    break;
+            }
+        }
+    }
+
+    if (relations.empty() && !_sentBountyClientRelations)
+        return;
+
+    // Viewer GUID, map, count, then one opponent GUID and direction byte per visible relation.
+    WorldPacket packet(SMSG_ESTERIA_BOUNTY_COMBAT, 14 + 9 * relations.size());
+    packet << GetGUID() << uint32(map->GetId()) << uint16(relations.size());
+    for (auto const& [guid, permission] : relations)
+        packet << guid << permission;
+    SendDirectMessage(&packet);
+    _sentBountyClientRelations = !relations.empty();
+}
+
+bool Player::IsWorldPvpPickpocketExposed() const
+{
+    return _pickpocketExposedUntil > uint64(GameTime::GetGameTime().count());
+}
+
+void Player::UpdateWorldPvpCrimeClient(bool enabled, uint32 mapId)
+{
+    constexpr uint16 MaxMarkedPlayers = 256;
+    std::vector<ObjectGuid> wanted;
+    std::vector<ObjectGuid> exposedThieves;
+    if (enabled)
+    {
+        auto const addMarked = [&](Player const& player)
+        {
+            bool const isWanted = wanted.size() < MaxMarkedPlayers && player.IsWorldPvpWanted();
+            bool const isExposed = exposedThieves.size() < MaxMarkedPlayers && player.IsWorldPvpPickpocketExposed();
+            if ((!isWanted && !isExposed) || (&player != this && !CanSeeOrDetect(&player)))
+                return;
+
+            if (isWanted)
+                wanted.push_back(player.GetGUID());
+            if (isExposed)
+                exposedThieves.push_back(player.GetGUID());
+        };
+
+        if (IsAlive() && !IsGameMaster())
+            addMarked(*this);
+
+        for (auto const& entry : *GetObjectVisibilityContainer().GetVisibleWorldObjectsMap())
+        {
+            Player const* player = entry.second->ToPlayer();
+            if (player && player != this && player->IsAlive() && !player->IsGameMaster() && !player->IsSpectator() &&
+                InSamePhase(player))
+                addMarked(*player);
+
+            if (wanted.size() == MaxMarkedPlayers && exposedThieves.size() == MaxMarkedPlayers)
+                break;
+        }
+    }
+
+    auto const sendMarked = [this, mapId](uint16 opcode, std::vector<ObjectGuid> const& marked, bool& sent)
+    {
+        if (marked.empty() && !sent)
+            return;
+
+        // Viewer GUID, map, count, then visible player GUIDs for this status.
+        WorldPacket packet(opcode, 14 + 8 * marked.size());
+        packet << GetGUID() << mapId << uint16(marked.size());
+        for (ObjectGuid guid : marked)
+            packet << guid;
+        SendDirectMessage(&packet);
+        sent = !marked.empty();
+    };
+    sendMarked(SMSG_ESTERIA_WANTED_VISIBLE, wanted, _sentWantedClientSnapshot);
+    sendMarked(SMSG_ESTERIA_THIEF_VISIBLE, exposedThieves, _sentThiefClientSnapshot);
+}
+
+bool Player::IsUnflaggedBountyRetaliation(Unit const& opponent) const
+{
+    if (HasPlayerFlag(PLAYER_FLAGS_IN_PVP) || !sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP))
+        return false;
+
+    Player const* hunter = opponent.GetCharmerOrOwnerPlayerOrPlayerItself();
+    return hunter && HasWorldPvpBountyEncounter(*hunter);
+}
+
+void Player::RecordWorldPvpAttack(Player& defender)
+{
+    if (!IsAlive() || !defender.IsAlive() || !IsWorldPvpOpponent(defender))
+        return;
+
+    uint32 const now = GameTime::GetGameTime().count();
+    // Retaliation extends the encounter without changing who initiated it.
+    auto const previous = _worldPvpEncounters.find(defender.GetGUID());
+    bool const ongoing = previous != _worldPvpEncounters.end() && previous->second.expiresAt > now;
+    bool const defending = ongoing && previous->second.defending;
+    bool const bounty = ongoing ? previous->second.bounty :
+        (!IsOrdinarilyHostileInWorldPvp(defender) && !IsProtectedFreebornPair(defender) &&
+            CanInitiateWorldPvpBounty(defender));
+    if (!ongoing)
+    {
+        auto const expired = [now](auto const& entry) { return entry.second.expiresAt <= now; };
+        std::erase_if(_worldPvpEncounters, expired);
+        std::erase_if(defender._worldPvpEncounters, expired);
+    }
+
+    uint32 const expiresAt = now + MINUTE;
+    _worldPvpEncounters.insert_or_assign(defender.GetGUID(), WorldPvpEncounter{ expiresAt, defending, bounty });
+    defender._worldPvpEncounters.insert_or_assign(GetGUID(), WorldPvpEncounter{ expiresAt, !defending, bounty });
+}
+
+void Player::ClearWorldPvpEncounters()
+{
+    for (auto const& entry : _worldPvpEncounters)
+        if (Player* opponent = ObjectAccessor::GetPlayer(*this, entry.first))
+            opponent->_worldPvpEncounters.erase(GetGUID());
+
+    _worldPvpEncounters.clear();
+}
+
+bool Acore::WorldPvp::CanUseBountyEscrow()
+{
+    return CharacterDatabase.GetAsyncWorkerCount() == 1 && !sToCloud9Sidecar->ClusterModeEnabled();
+}
+
+uint32 Acore::WorldPvp::WalletRoom(Player const& player)
+{
+    uint32 limit = MAX_MONEY_AMOUNT;
+    if (player.GetSession()->IsTrialAccount())
+        if (uint32 cap = sWorld->getIntConfig(CONFIG_TRIAL_MONEY_CAP))
+            limit = std::min(limit, cap);
+
+    uint32 const balance = player.GetMoney();
+    return balance <= limit ? limit - balance : 0;
+}
+
+void Player::ClassifyWorldPvpKill(Player& victim)
+{
+    if (!IsWorldPvpOpponent(victim))
+        return;
+
+    uint32 const hunterAccount = GetSession()->GetAccountId();
+    uint32 const victimAccount = victim.GetSession()->GetAccountId();
+    bool const victimWanted = victim.IsWorldPvpWanted();
+    bool const wildernessFight = IsInActiveWilderness() && victim.IsInActiveWilderness();
+    // Keep the original killing blow if Spirit of Redemption delays the real death.
+    if (!victim.HasSpiritOfRedemptionAura())
+        victim._wildernessFreebornKillingBlow = wildernessFight && IsFreeborn() && hunterAccount != victimAccount &&
+            InSamePhase(&victim) && !IsProtectedFreebornPair(victim);
+
+    uint32 const now = GameTime::GetGameTime().count();
+    auto const encounter = _worldPvpEncounters.find(victim.GetGUID());
+    bool const selfDefense = encounter != _worldPvpEncounters.end() &&
+        encounter->second.expiresAt > now && encounter->second.defending;
+    bool const murder = Acore::WorldPvp::IsMurder(selfDefense, victimWanted, wildernessFight);
+    bool const escrowAvailable = Acore::WorldPvp::CanUseBountyEscrow();
+    if (sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP_EAR_TROPHIES) && escrowAvailable &&
+        hunterAccount != victimAccount && InSamePhase(&victim) && !victim.HasSpiritOfRedemptionAura() &&
+        (murder || (!victim.HasNoPVPCreditAura() && victim.GetLevel() > Acore::XP::GetGrayLevel(GetLevel()) &&
+            (IsOrdinarilyHostileInWorldPvp(victim) || CanFightWorldPvpBounty(victim)))))
+        Acore::WorldPvp::AwardEarTrophy(*this, victim);
+
+    if (!murder)
+        return;
+
+    using Acore::WorldPvp::CrimeSettingsSource;
+    using Acore::WorldPvp::Notoriety;
+    using Acore::WorldPvp::WantedUntil;
+    uint32 const notoriety = GetPlayerSetting(CrimeSettingsSource, Notoriety).value;
+    if (notoriety < std::numeric_limits<uint32>::max())
+        UpdatePlayerSetting(CrimeSettingsSource, Notoriety, notoriety + 1);
+    UpdatePlayerSetting(CrimeSettingsSource, WantedUntil, now + DAY);
+    // shortcut: unprepared insert keeps CharacterDatabase.h untouched; move to a prepared statement on next header change.
+    CharacterDatabase.Execute(Acore::StringFormat("INSERT INTO character_world_pvp_murder_log "
+        "(killer_guid, victim_guid, zone_id, occurred_at) VALUES ({}, {}, {}, UTC_TIMESTAMP())",
+        GetGUID().GetCounter(), victim.GetGUID().GetCounter(), GetZoneId()));
+    if (escrowAvailable && hunterAccount != victimAccount)
+    {
+        uint32 const offenderGuid = GetGUID().GetCounter();
+        CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+        trans->Append(PlayerSettingsStore::PrepareReplaceStatement(
+            offenderGuid, CrimeSettingsSource, *FindPlayerSettings(CrimeSettingsSource)));
+
+        auto* record = CharacterDatabase.GetPreparedStatement(CHAR_REC_WORLD_PVP_BOUNTY_MURDER);
+        record->SetData(0, hunterAccount);
+        record->SetData(1, victimAccount);
+        record->SetData(2, offenderGuid);
+        record->SetData(3, offenderGuid);
+        trans->Append(record);
+
+        auto* expire = CharacterDatabase.GetPreparedStatement(CHAR_EXPIRE_WORLD_PVP_AUTOMATIC_BOUNTY);
+        expire->SetData(0, offenderGuid);
+        trans->Append(expire);
+
+        auto* bounty = CharacterDatabase.GetPreparedStatement(CHAR_UPSERT_WORLD_PVP_AUTOMATIC_BOUNTY);
+        bounty->SetData(0, offenderGuid);
+        trans->Append(bounty);
+        // Escrow requires one character DB worker, so a queued refresh reads after this transaction.
+        CharacterDatabase.CommitTransaction(trans);
+        Acore::WorldPvp::InvalidateBountyTarget(offenderGuid);
+    }
+
+    SetPlayerFlag(PLAYER_FLAGS_IN_PVP);
+    UpdatePvP(true, true);
+    UpdateFFAPvPState();
+    ChatHandler(GetSession()).SendNotification("Murder recorded. You are wanted for 24 hours.");
+}
+
+void Player::SettleWorldPvpDeath(Player const* hunter)
+{
+    using namespace Acore::WorldPvp;
+    if (_worldPvpDeathSettled || !sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP))
+        return;
+
+    // Spirit of Redemption reports the original killing blow and later enters JustDied.
+    _worldPvpDeathSettled = true;
+    uint32 const guid = GetGUID().GetCounter();
+    auto const* settings = FindPlayerSettings(CrimeSettingsSource);
+    bool const hadCrime = settings && settings->size() > WantedUntil &&
+        ((*settings)[Notoriety].value != 0 || (*settings)[WantedUntil].value != 0);
+    bool const escrow = CanUseBountyEscrow();
+    if (!hadCrime && !(escrow && HasActiveOrPendingBounty(guid)))
+        return;
+
+    CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+    if (escrow)
+    {
+        if (hunter && hunter->IsWorldPvpOpponent(*this) &&
+            hunter->InSamePhase(this) && !HasNoPVPCreditAura())
+        {
+            auto* claim = CharacterDatabase.GetPreparedStatement(CHAR_CLAIM_WORLD_PVP_BOUNTIES);
+            claim->SetData(0, GetSession()->GetAccountId());
+            claim->SetData(1, hunter->GetGUID().GetCounter());
+            claim->SetData(2, hunter->GetSession()->GetAccountId());
+            claim->SetData(3, guid);
+            claim->SetData(4, IsWorldPvpWanted());
+            trans->Append(claim);
+        }
+
+        auto* close = CharacterDatabase.GetPreparedStatement(CHAR_CLOSE_WORLD_PVP_BOUNTIES_ON_DEATH);
+        close->SetData(0, guid);
+        trans->Append(close);
+
+        auto* reset = CharacterDatabase.GetPreparedStatement(CHAR_RESET_WORLD_PVP_MURDERS_ON_DEATH);
+        reset->SetData(0, guid);
+        trans->Append(reset);
+    }
+
+    if (hadCrime)
+    {
+        PlayerSettingVector cleared = *settings;
+        cleared[Notoriety].value = 0;
+        cleared[WantedUntil].value = 0;
+        trans->Append(PlayerSettingsStore::PrepareReplaceStatement(guid, CrimeSettingsSource, cleared));
+    }
+
+    if (!CharacterDatabase.AsyncCommitTransaction(trans).m_future.get())
+    {
+        GetDigitalInventory().DisconnectOnPersistenceFailure("World PvP death settlement could not be verified.");
+        return;
+    }
+
+    if (hadCrime)
+    {
+        UpdatePlayerSetting(CrimeSettingsSource, Notoriety, 0);
+        UpdatePlayerSetting(CrimeSettingsSource, WantedUntil, 0);
+    }
+    if (escrow)
+        InvalidateBountyTarget(guid);
+}
+
+void Player::UpdateWildernessPvp()
+{
+    bool const active = IsInActiveWilderness();
+    if (_wildernessPvpActive == active)
+        return;
+
+    // UpdateZone reconciles the flag after applying the destination's ordinary PvP rules.
+    if (m_zoneUpdateId != GetZoneId())
+        return;
+
+    _wildernessPvpActive = active;
+    if (active)
+    {
+        _pvpBeforeWilderness = IsPvP();
+        if (!_pvpBeforeWilderness)
+            UpdatePvP(true, true);
+    }
+    else if (!_pvpBeforeWilderness && !HasPlayerFlag(PLAYER_FLAGS_IN_PVP) && !pvpInfo.IsHostile)
+        UpdatePvP(false, true);
+
+    if (!active && !Acore::WorldPvp::IsWildernessLocation(*this))
+    {
+        WorldPacket banner;
+        ChatHandler::BuildChatPacket(banner, CHAT_MSG_WHISPER, LANG_ADDON, this, this, "EsteriaWild\t0");
+        SendDirectMessage(&banner);
+    }
+
+    UpdateFFAPvPState();
+    GetCombatManager().RevalidateCombat();
+    ChatHandler(GetSession()).SendNotification(active ? "You entered active Wilderness. Free-for-all PvP is enabled." :
+        "You are outside active Wilderness.");
+}
+
 void Player::UpdatePvPState()
 {
+    UpdateWildernessPvp();
     UpdateFFAPvPState();
+
+    if (_wildernessPvpActive)
+        return;
 
     if (pvpInfo.IsHostile) // in hostile area
     {
@@ -1480,8 +1973,12 @@ void Player::UpdateFFAPvPState(bool reset /*= true*/)
     /// @todo: should we always synchronize UNIT_FIELD_BYTES_2, 1 of controller
     // and controlled? no, we shouldn't, those are checked for affecting player
     // by client
+    Map const* map = FindMap();
+    bool const voluntaryWorldPvp = sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) && map && map->IsWorldMap() &&
+        HasPlayerFlag(PLAYER_FLAGS_IN_PVP);
+    bool const wilderness = IsInActiveWilderness();
     if (!pvpInfo.IsInNoPvPArea && !IsGameMaster() &&
-        (pvpInfo.IsInFFAPvPArea || sWorld->IsFFAPvPRealm()))
+        (wilderness || voluntaryWorldPvp || pvpInfo.IsInFFAPvPArea || sWorld->IsFFAPvPRealm()))
     {
         if (!IsFFAPvP())
         {
@@ -1493,7 +1990,7 @@ void Player::UpdateFFAPvPState(bool reset /*= true*/)
                                      UNIT_BYTE2_FLAG_FFA_PVP);
         }
 
-        if (pvpInfo.IsInFFAPvPArea)
+        if (wilderness || pvpInfo.IsInFFAPvPArea)
         {
             pvpInfo.FFAPvPEndTimer = time_t(0);
         }
@@ -1550,6 +2047,9 @@ void Player::UpdateFFAPvPState(bool reset /*= true*/)
 
 void Player::UpdatePvP(bool state, bool _override)
 {
+    if (!state && IsInActiveWilderness())
+        return;
+
     if (!state || _override)
     {
         SetPvP(state);

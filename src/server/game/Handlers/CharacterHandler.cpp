@@ -224,6 +224,14 @@ bool LoginQueryHolder::Initialize()
     stmt->SetData(0, rawGUID);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_CHARACTER_SETTINGS, stmt);
 
+    if (sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP))
+    {
+        stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_WORLD_PVP_PICKPOCKET_EXPOSURE);
+        stmt->SetData(0, m_guid.GetCounter());
+        stmt->SetData(1, m_accountId);
+        res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_PICKPOCKET_EXPOSURE, stmt);
+    }
+
     stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_CHAR_PETS);
     stmt->SetData(0, rawGUID);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_PET_SLOTS, stmt);

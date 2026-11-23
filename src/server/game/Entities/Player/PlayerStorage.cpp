@@ -1143,6 +1143,21 @@ InventoryResult Player::CanStoreItem_InInventorySlots(uint8 slot_begin, uint8 sl
 
 InventoryResult Player::CanStoreItem(uint8 bag, uint8 slot, ItemPosCountVec& dest, uint32 entry, uint32 count, Item* pItem, bool swap, uint32* no_space_count) const
 {
+    InventoryResult result = CanStoreItemInBags(bag, slot, dest, entry, count, pItem, swap, no_space_count);
+    // Esteria storage is the real inventory: when the bags are full, move bag items into it until this fits.
+    // Room-making changes storage, not the asking caller's view, so the const contract still holds for callers.
+    DigitalInventory& storage = const_cast<DigitalInventory&>(_digitalInventory);
+    for (uint8 attempt = 0; result == EQUIP_ERR_INVENTORY_FULL && bag == NULL_BAG && attempt < 8
+        && storage.MakeRoom(pItem); ++attempt)
+    {
+        dest.clear();
+        result = CanStoreItemInBags(bag, slot, dest, entry, count, pItem, swap, no_space_count);
+    }
+    return result;
+}
+
+InventoryResult Player::CanStoreItemInBags(uint8 bag, uint8 slot, ItemPosCountVec& dest, uint32 entry, uint32 count, Item* pItem, bool swap, uint32* no_space_count) const
+{
     LOG_DEBUG("entities.player.items", "STORAGE: CanStoreItem bag = {}, slot = {}, item = {}, count = {}", bag, slot, entry, count);
 
     ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(entry);
@@ -2697,6 +2712,9 @@ Item* Player::StoreItem(ItemPosCountVec const& dest, Item* pItem, bool update)
 {
     if (!pItem)
         return nullptr;
+
+    // Mail, trade and withdrawals land here too; the sweep moves them into storage a moment later.
+    _digitalInventory.ScheduleDeposit();
 
     Item* lastItem = pItem;
     for (ItemPosCountVec::const_iterator itr = dest.begin(); itr != dest.end();)
@@ -5784,6 +5802,8 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     _LoadBrewOfTheMonth(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_BREW_OF_THE_MONTH));
 
     _LoadCharacterSettings(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_CHARACTER_SETTINGS));
+    if (PreparedQueryResult exposure = holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_PICKPOCKET_EXPOSURE))
+        SetWorldPvpPickpocketExposure(exposure->Fetch()[0].Get<uint64>());
 
     LoadBodyShape(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_BODY_SHAPE));
     LoadRetailLook(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_RETAIL_LOOK));

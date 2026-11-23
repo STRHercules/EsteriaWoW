@@ -45,6 +45,7 @@
 #include "VMapMgr2.h"
 #include "Weather.h"
 #include "WeatherMgr.h"
+#include "WildernessPouch.h"
 #ifdef ELUNA
 #include "ElunaConfig.h"
 #include "LuaEngine.h"
@@ -217,6 +218,7 @@ bool Map::EnsureGridLoaded(Cell const& cell)
 
     if (_mapGridManager.LoadGrid(cell.GridX(), cell.GridY()))
     {
+        Acore::WorldPvp::LoadWildernessPouches(*this, cell.GridX(), cell.GridY());
         Balance();
         return true;
     }

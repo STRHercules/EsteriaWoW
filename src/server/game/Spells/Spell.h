@@ -275,6 +275,7 @@ struct TargetInfo
     bool   alive:1;
     bool   crit:1;
     bool   scaleAura:1;
+    bool   requiresBountyAccess:1;
     int32  damage;
     int32  damageBeforeTakenMods;
 };

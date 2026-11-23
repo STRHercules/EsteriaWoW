@@ -186,7 +186,7 @@ namespace WorldPackets
 
             void Read() override;
 
-            uint8 Slot = 0;
+            uint16 Slot = 0; // Esteria: uint16 on the wire; the 1000-slot client sends two bytes
         };
 
         class QuestConfirmAcceptClient final : public ClientPacket

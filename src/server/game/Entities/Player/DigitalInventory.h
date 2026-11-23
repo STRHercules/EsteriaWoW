@@ -9,6 +9,7 @@
 #include "Define.h"
 #include <chrono>
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -41,6 +42,8 @@ public:
     void Handle(WorldPacket& packet);
     void Update(uint32 diff);
     void ScheduleDeposit() { _scan = true; }
+    // Bags are only a staging area: frees one carried slot by moving a depositable item (never `keep`) into storage.
+    bool MakeRoom(Item const* keep = nullptr, bool anyItem = false);
     uint32 Count(uint32 entry, Item const* skip = nullptr) const;
     uint32 CountLimit(uint32 category, Item const* skip) const;
     bool HasTool(uint32 category) const;
@@ -48,6 +51,7 @@ public:
     // Takes an item created outside the bags (e.g. a reward when the bags are full); the caller's save persists it.
     bool Store(Item* item);
     bool Failed() const { return _failed; }
+    void DisconnectOnPersistenceFailure(char const* reason);
     // An optional caller-owned transaction commits item consumption and its reward together.
     bool Persist(CharacterDatabaseTransaction transaction = nullptr);
     // Account bank only: lazy synchronous load, and moving items out of the stock bank slots.
@@ -72,6 +76,7 @@ private:
     bool DepositItem(Item* item);
     Item* WithdrawItem(uint32 guid);
     bool CanAct() const;
+    std::set<uint32> ActionItems() const;
     void Changed();
     void Send(uint32 request, uint8 status, std::string const& message);
     void MergeStacks(bool manual);
@@ -92,6 +97,7 @@ private:
     std::map<uint32, uint32> _pinned;
     uint32 _capacity = 256;
     uint32 _revision = 1;
+    uint32 _sentRevision = 0;
     uint32 _elapsed = 0;
     uint32 _offset = 0;
     uint32 _pageSize = 20;
@@ -99,12 +105,14 @@ private:
     uint32 _requestsInWindow = 0;
     std::chrono::steady_clock::time_point _requestWindow = std::chrono::steady_clock::now();
     uint8 _category = 0;
+    bool _specialTabs = false;
     uint8 _sort = 0;
     std::string _search;
     bool _loaded = false;
     bool _active = false;
     bool _dirty = false;
     bool _scan = false;
+    bool _resend = false;
     bool _failed = false;
     bool _unlocked = false;
     bool _bankLoadAttempted = false;

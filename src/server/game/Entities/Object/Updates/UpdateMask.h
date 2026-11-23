@@ -46,9 +46,11 @@ public:
     void UnsetBit(uint32 index) { _bits[index] = 0; }
     [[nodiscard]] bool GetBit(uint32 index) const { return _bits[index] != 0; }
 
-    void AppendToPacket(ByteBuffer* data)
+    void AppendToPacket(ByteBuffer* data) { AppendToPacket(data, GetBlockCount()); }
+
+    void AppendToPacket(ByteBuffer* data, uint32 blockCount)
     {
-        for (uint32 i = 0; i < GetBlockCount(); ++i)
+        for (uint32 i = 0; i < blockCount; ++i)
         {
             ClientUpdateMaskType maskPart = 0;
             for (uint32 j = 0; j < CLIENT_UPDATE_MASK_BITS; ++j)
@@ -60,6 +62,16 @@ public:
     }
 
     [[nodiscard]] uint32 GetBlockCount() const { return _blockCount; }
+
+    // Esteria: blocks up to the last set bit. The client zero-fills omitted trailing blocks, which keeps
+    // 1000-quest player updates (194 blocks) from carrying ~770 bytes of empty mask each.
+    [[nodiscard]] uint32 GetUsedBlockCount() const
+    {
+        for (uint32 i = _blockCount * CLIENT_UPDATE_MASK_BITS; i > 0; --i)
+            if (_bits[i - 1])
+                return (i + CLIENT_UPDATE_MASK_BITS - 1) / CLIENT_UPDATE_MASK_BITS;
+        return 0;
+    }
     [[nodiscard]] uint32 GetCount() const { return _fieldCount; }
 
     void SetCount(uint32 valuesCount)

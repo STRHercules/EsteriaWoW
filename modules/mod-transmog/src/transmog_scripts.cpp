@@ -784,6 +784,7 @@ public:
         PLAYERHOOK_ON_PLAYER_COMPLETE_QUEST,
         PLAYERHOOK_ON_AFTER_SET_VISIBLE_ITEM_SLOT,
         PLAYERHOOK_ON_AFTER_MOVE_ITEM_FROM_INVENTORY,
+        PLAYERHOOK_CAN_DROP_WILDERNESS_GEAR,
         PLAYERHOOK_ON_LOGIN,
         PLAYERHOOK_ON_LOGOUT,
         PLAYERHOOK_ON_BEFORE_BUY_ITEM_FROM_VENDOR
@@ -863,6 +864,11 @@ public:
     void OnPlayerAfterMoveItemFromInventory(Player* /*player*/, Item* it, uint8 /*bag*/, uint8 /*slot*/, bool /*update*/) override
     {
         sT->DeleteFakeFromDB(it->GetGUID().GetCounter());
+    }
+
+    bool OnPlayerCanDropWildernessGear(Player const*, Item const* item) override
+    {
+        return !sT->GetFakeEntry(item->GetGUID());
     }
 
     void OnPlayerLogin(Player* player) override

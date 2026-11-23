@@ -52,6 +52,7 @@
 #include "Util.h"
 #include "Vehicle.h"
 #include "World.h"
+#include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <numeric>
 #include <unordered_map>
@@ -7744,6 +7745,17 @@ void ObjectMgr::SetHighestGuids()
     CharacterDatabase.Execute("DELETE FROM auctionhouse WHERE itemguid >= '{}'", GetGuidSequenceGenerator<HighGuid::Item>().GetNextAfterMaxUsed());        // One-time query
     CharacterDatabase.Execute("DELETE FROM guild_bank_item WHERE item_guid >= '{}'", GetGuidSequenceGenerator<HighGuid::Item>().GetNextAfterMaxUsed());    // One-time query
 
+    // Ear receipts and purchases outlive their items and mail, so their IDs must stay reserved across restarts.
+    result = CharacterDatabase.Query(
+        "SELECT GREATEST(COALESCE((SELECT MAX(item_guid) FROM character_world_pvp_ear), 0), "
+        "COALESCE((SELECT MAX(reward_guid) FROM character_world_pvp_ear_purchase), 0))");
+    if (result)
+    {
+        auto& itemGuids = GetGuidSequenceGenerator<HighGuid::Item>();
+        uint32 const nextLedgerGuid = (*result)[0].Get<uint32>() + 1;
+        itemGuids.Set(std::max(itemGuids.GetNextAfterMaxUsed(), nextLedgerGuid));
+    }
+
     result = WorldDatabase.Query("SELECT MAX(guid) FROM transports");
     if (result)
         GetGuidSequenceGenerator<HighGuid::Mo_Transport>().Set((*result)[0].Get<uint32>() + 1);
@@ -7752,7 +7764,10 @@ void ObjectMgr::SetHighestGuids()
     if (result)
         _auctionId = (*result)[0].Get<uint32>() + 1;
 
-    result = CharacterDatabase.Query("SELECT MAX(id) FROM mail");
+    result = CharacterDatabase.Query(
+        "SELECT GREATEST(COALESCE((SELECT MAX(id) FROM mail), 0), "
+        "COALESCE((SELECT MAX(mail_id) FROM character_world_pvp_ear), 0), "
+        "COALESCE((SELECT MAX(mail_id) FROM character_world_pvp_ear_purchase), 0))");
     if (result)
         _mailId = (*result)[0].Get<uint32>() + 1;
 

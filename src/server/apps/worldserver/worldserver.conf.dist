@@ -4519,6 +4519,72 @@ AllowTwoSide.Interaction.Channel = 0
 
 AllowTwoSide.Interaction.Group = 0
 
+#    Esteria.WorldPvP.Enable
+#        Description: Enable voluntary free-for-all PvP on world maps and sanctuary in capital cities.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+
+Esteria.WorldPvP.Enable = 0
+
+#
+#    Esteria.WorldPvP.EarTrophies
+#        Description: Qualifying murders and eligible open-world killing blows award a dated trophy into carried bags.
+#                     Requires WorldPvP and a non-clustered realm with one asynchronous character DB worker.
+#        Default:     0 - Disabled
+
+Esteria.WorldPvP.EarTrophies = 0
+
+#    Esteria.Wilderness.ZoneCount
+#        Description: Number of active zones selected from Zul'Drak, The Storm Peaks, Icecrown, and Sholazar Basin.
+#                     Requires Esteria.WorldPvP.Enable. Values above 4 select all four zones.
+#        Default:     0 - Disabled
+
+Esteria.Wilderness.ZoneCount = 0
+
+#    Esteria.Wilderness.Hours
+#        Description: Hours between Wilderness rotations, aligned to UTC time windows. Minimum 1.
+#        Default:     4
+
+Esteria.Wilderness.Hours = 4
+
+#
+#    Esteria.Wilderness.GoldPouches
+#        Description: Preview Wilderness death pouches for developer accounts. Requires active Wilderness
+#                     and a non-clustered realm with one asynchronous character database worker.
+#        Default:     0 - Disabled
+
+Esteria.Wilderness.GoldPouches = 0
+
+#
+#    Esteria.Wilderness.DeathXpLoss
+#        Description: With GoldPouches enabled, eligible deaths cost 5% of XP earned toward the next level.
+#        Default:     0 - Disabled
+
+Esteria.Wilderness.DeathXpLoss = 0
+
+#
+#    Esteria.Wilderness.GearPouches
+#        Description: With GoldPouches enabled, eligible deaths have a 10% chance to drop one piece of gear.
+#        Default:     0 - Disabled
+
+Esteria.Wilderness.GearPouches = 0
+
+#
+#    Esteria.Wilderness.InventoryPouches
+#        Description: With GoldPouches enabled, let physical bag supplies fill the same 10% item drop
+#                     roll as equipped and bagged gear. A drop preserves the whole stack.
+#        Default:     0 - Disabled
+
+Esteria.Wilderness.InventoryPouches = 0
+
+#
+#    Esteria.Wilderness.ItemPickpocket
+#        Description: Successful player pickpockets inside active Wilderness have a 10% chance to take
+#                     one eligible supply stack of up to five items. Requires the player theft preview.
+#        Default:     0 - Disabled
+
+Esteria.Wilderness.ItemPickpocket = 0
+
 #
 #    AllowTwoSide.Interaction.Guild
 #        Description: Allow guild joining between factions.

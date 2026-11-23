@@ -484,7 +484,7 @@ bool StoreLootAction::IsLootAllowed(uint32 itemid, PlayerbotAI* botAI)
         return true;
     }
 
-    for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
+    for (uint16 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
     {
         uint32 entry = botAI->GetBot()->GetQuestSlotQuestId(slot);
         Quest const* quest = sObjectMgr->GetQuestTemplate(entry);

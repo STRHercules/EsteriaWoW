@@ -1,5 +1,41 @@
 # Esteria — Client & Gameplay Idea Backlog
 
+- Built-in Console Emulator Arcade Machines
+  - Placeable arcade machines that allow the users to walk up and start playing that respective arcade machines ROM
+
+- New Placeable Furniture
+  - Ability to place screens that can project/display GIFs/Videos
+  - Ability to place pictures that can project images/GIFs
+
+- Additional Riding Levels
+  - Reduced speed for level 10
+  - Increased max speed for flying
+  - Increased max speed for ground
+
+- Pocket Portal Items
+  - Items that spawn a temporary portal based on the item's destination
+  - Craftable
+
+- 'Keyring' in Esteria Inventory
+
+- Increase instance limit
+
+- Swappable Racials
+
+- Extend skill levels
+  - Push passed Grand Master to `Ascendant`
+  - `Ascendant` skill levels have the potential to grow exponentially 
+  - `Ascendant` level of skill is effectively uncapped, the user is able to continue to grow their skill for certain things to further increase their effectiveness.
+  - `Ascendant` skill levels will come with 'milestones', and each 'milestone' unlocks new potential rewards for the player by granting them `Expertise Points`
+  - `Expertise Points` are used a special currency that the player can spend to unlock special effects or functions for the respective skill
+    - For example, reaching `Ascendant` level 3 of Axe may allow the player to lean the passive `Execute` ability that will have a small chance to automatically execute a target with less than 20% health
+
+
+
+- Blood duels
+  - Ability to duel to the death
+
+
 > **Working notes / brainstorming document.** A collection of client, gameplay, UI, and world-system ideas for Esteria. These are concepts, not finalized implementation requirements or a prioritized roadmap.
 
 > **Placeholders:** `X`, `Y`, and question marks indicate values or decisions to be determined. Ideas with no detailed specification are retained under **Unscoped / Exploratory Ideas**.

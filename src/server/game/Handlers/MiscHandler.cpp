@@ -51,6 +51,9 @@
 #include "WhoListCacheMgr.h"
 #include "World.h"
 #include "WorldPacket.h"
+#include "WorldPvpBountyTargets.h"
+#include "WorldPvpRules.h"
+#include "WorldPvpWilderness.h"
 #include "WorldSession.h"
 #include <zlib.h>
 
@@ -499,20 +502,72 @@ void WorldSession::HandleLogoutCancelOpcode(WorldPackets::Character::LogoutCance
 
 void WorldSession::HandleTogglePvP(WorldPacket& recv_data)
 {
+    Player* player = GetPlayer();
+    bool const wasFlagged = player->HasPlayerFlag(PLAYER_FLAGS_IN_PVP);
+    bool newPvPStatus = !wasFlagged;
+
     // this opcode can be used in two ways: Either set explicit new status or toggle old status
     if (recv_data.size() == 1)
-    {
-        bool newPvPStatus;
         recv_data >> newPvPStatus;
-        GetPlayer()->ApplyModFlag(PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, newPvPStatus);
-    }
-    else
-        GetPlayer()->ToggleFlag(PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
 
-    if (GetPlayer()->HasPlayerFlag(PLAYER_FLAGS_IN_PVP))
-        GetPlayer()->UpdatePvP(true, true);
-    else if (!GetPlayer()->pvpInfo.IsHostile && GetPlayer()->IsPvP()) // pussywizard: in pvp mode, but doesn't want to be and not in hostile territory, so start timer
-        GetPlayer()->UpdatePvP(true, false);
+    bool const worldPvp = sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP);
+    if (worldPvp && !newPvPStatus)
+    {
+        if (!wasFlagged)
+            return;
+
+        if (player->IsWorldPvpWanted())
+        {
+            ChatHandler(this).SendNotification("You cannot disable world PvP while wanted.");
+            return;
+        }
+
+        if (!player->GetMap()->IsWorldMap() ||
+            !Acore::WorldPvp::IsCapital(sAreaTableStore.LookupEntry(player->GetAreaId())))
+        {
+            ChatHandler(this).SendNotification("You can only disable world PvP in a capital city.");
+            return;
+        }
+
+        if (Acore::WorldPvp::CanUseBountyEscrow() &&
+            Acore::WorldPvp::HasActiveOrPendingBounty(player->GetGUID().GetCounter()))
+        {
+            ChatHandler(this).SendNotification("World PvP stays on while a bounty is active or pending verification.");
+            return;
+        }
+
+        if (Acore::WorldPvp::CanUseBountyEscrow())
+        {
+            auto* stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_WORLD_PVP_PICKPOCKET_EXPOSURE);
+            stmt->SetData(0, player->GetGUID().GetCounter());
+            stmt->SetData(1, GetAccountId());
+            PreparedQueryResult exposure = CharacterDatabase.Query(stmt);
+            if (!exposure)
+            {
+                ChatHandler(this).SendNotification("World PvP stays on while theft exposure is being checked.");
+                return;
+            }
+
+            if (exposure->Fetch()[0].Get<uint64>())
+            {
+                ChatHandler(this).SendNotification("You cannot disable world PvP while exposed for pickpocketing.");
+                return;
+            }
+        }
+    }
+
+    player->ApplyModFlag(PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, newPvPStatus);
+    if (worldPvp && player->GetMap()->IsWorldMap())
+    {
+        player->UpdatePvP(newPvPStatus, true);
+        player->UpdateFFAPvPState();
+        return;
+    }
+
+    if (newPvPStatus)
+        player->UpdatePvP(true, true);
+    else if (!player->pvpInfo.IsHostile && player->IsPvP())
+        player->UpdatePvP(true, false);
 
     //if (OutdoorPvP* pvp = _player->GetOutdoorPvP())
     //    pvp->HandlePlayerActivityChanged(_player);
@@ -657,6 +712,12 @@ void WorldSession::HandleReclaimCorpseOpcode(WorldPacket& recv_data)
     // skip phase check
     if (!corpse->IsInMap(_player) || !corpse->IsWithinDist(_player, CORPSE_RECLAIM_RADIUS, true))
         return;
+
+    if (_player->IsInActiveWilderness() || Acore::WorldPvp::IsWildernessLocation(*corpse))
+    {
+        ChatHandler(this).SendNotification("You cannot reclaim your body in active Wilderness. Use a spirit healer.");
+        return;
+    }
 
     // resurrect
     _player->ResurrectPlayer(_player->InBattleground() ? 1.0f : 0.5f);

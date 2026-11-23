@@ -1384,6 +1384,8 @@ enum Opcodes : uint16
     CMSG_ESTERIA_GARRISON_HELLO                     = 0x54A,
     SMSG_ESTERIA_GARRISON_STATE                     = 0x54B,
     CMSG_ESTERIA_GARRISON_ACTION                    = 0x54C,
+    CMSG_ESTERIA_ARCADE                             = 0x54D, // mod-esteria-arcade (consumed in CanPacketReceive)
+    SMSG_ESTERIA_ARCADE                             = 0x54E,
     // Manastorm keeps the Ascension wire numbers (mod-manastorm-endless ManastormNativeProtocol.h)
     SMSG_COA_CONFIG                                 = 0x58D,
     CMSG_MANASTORM_ENTER                            = 0x651,
@@ -1405,7 +1407,12 @@ enum Opcodes : uint16
     SMSG_MANASTORM_PLAYER_GROUP_MODIFIER_ROW        = 0x68C,
     SMSG_MANASTORM_MODIFIER_ROW                     = 0x68D,
     SMSG_MANASTORM_REWARD_VISIBILITY                = 0x6AD,
-    NUM_MSG_TYPES                                   = 0x6AE
+    SMSG_ESTERIA_BOUNTY_COMBAT                      = 0x6AE,
+    SMSG_ESTERIA_WANTED_VISIBLE                     = 0x6AF,
+    SMSG_ESTERIA_THIEF_VISIBLE                      = 0x6B0,
+    CMSG_ESTERIA_PLAYER_PICKPOCKET                   = 0x6B1,
+    SMSG_ESTERIA_PLAYER_PICKPOCKET_READY             = 0x6B2,
+    NUM_MSG_TYPES                                   = 0x6B3
 };
 
 enum OpcodeMisc : uint16

@@ -49,6 +49,7 @@
 #include "WaypointMovementGenerator.h"
 #include "World.h"
 #include "WorldPacket.h"
+#include "WorldPvpWilderness.h"
 #include "WorldSessionMgr.h"
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
@@ -769,6 +770,25 @@ void Creature::Update(uint32 diff)
         }
         case DeathState::Alive:
         {
+            bool const wildernessScaled = GetSpawnId() && !IsSummon() && !GetCharmerOrOwnerGUID() &&
+                !IsServiceProvider() && !IsQuestGiver() && !IsCivilian() && !IsGuard() && !IsCritter() &&
+                !IsTrigger() && !HasUnitFlag(UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE) &&
+                Acore::WorldPvp::IsWildernessLocation(*this);
+            if (_wildernessScaled != wildernessScaled)
+            {
+                uint32 const health = GetHealth();
+                uint32 const maxHealth = std::max(1u, GetMaxHealth());
+                _wildernessScaled = wildernessScaled;
+                UpdateMaxHealth();
+                UpdateDamagePhysical(BASE_ATTACK);
+                UpdateDamagePhysical(OFF_ATTACK);
+                UpdateDamagePhysical(RANGED_ATTACK);
+                if (health)
+                    SetHealth(std::max(1u, uint32((uint64(health) * GetMaxHealth() + maxHealth / 2) / maxHealth)));
+
+                _playerDamageReq = uint32((uint64(_playerDamageReq) * GetMaxHealth() + maxHealth / 2) / maxHealth);
+            }
+
             Unit::Update(diff);
 
             // creature can be dead after Unit::Update call
@@ -1524,8 +1544,10 @@ void Creature::SelectLevel(bool changelevel)
     uint32 health = uint32(basehp * healthmod);
 
     SetCreateHealth(health);
-    SetMaxHealth(health);
-    SetHealth(health);
+    uint32 const maxHealth = _wildernessScaled ? Acore::WorldPvp::AddWildernessBonus(health,
+        Acore::WorldPvp::WildernessPveBonusPct) : health;
+    SetMaxHealth(maxHealth);
+    SetHealth(maxHealth);
     ResetPlayerDamageReq();
 
     // mana

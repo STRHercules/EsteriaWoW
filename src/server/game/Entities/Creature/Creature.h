@@ -475,6 +475,7 @@ protected:
     ObjectGuid::LowType m_lootRecipientGroup;
 
     bool _respawnCompatibilityMode{true};
+    bool _wildernessScaled = false;
 
     /// Timers
     time_t m_corpseRemoveTime;                          // (secs) timer for death or corpse disappearance

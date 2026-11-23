@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "Spell.h"
 #include "WorldPacket.h"
+#include "WorldPvpEar.h"
 #include "WorldSession.h"
 #include <algorithm>
 #include <cctype>
@@ -30,6 +31,13 @@
 namespace
 {
     constexpr uint8 ProtocolVersion = 3;
+    constexpr uint8 FavoritesCategory = 5;
+    constexpr uint8 EarsCategory = 6;
+    constexpr uint8 KeyringCategory = 7;
+    constexpr uint8 SpecialTabsRequest = 0x80;
+    constexpr uint8 HasEars = 0x04;
+    constexpr uint8 HasKeys = 0x08;
+    constexpr uint8 SupportsSpecialTabs = 0x10;
     // Stored stacks merge up to this size regardless of the template stack limit.
     constexpr uint32 VirtualStackMax = 1000;
     constexpr size_t MaxTagLength = 24;
@@ -70,6 +78,12 @@ namespace
             default:
                 return 4;
         }
+    }
+
+    bool IsKey(Item const* item)
+    {
+        ItemTemplate const* itemTemplate = item->GetTemplate();
+        return itemTemplate->Class == ITEM_CLASS_KEY || (itemTemplate->BagFamily & BAG_FAMILY_MASK_KEYS);
     }
 
     bool SameStack(Item const* a, Item const* b)
@@ -200,7 +214,8 @@ void DigitalInventory::Load(PreparedQueryResult metadata, PreparedQueryResult it
                     _owner.GetGUID().ToString(), ObjectGuid::Create<HighGuid::Item>(guid).ToString());
                 continue;
             }
-            Item* item = new Item();
+            // Empty bags are storable, so they must come back as Bag objects to stay equippable.
+            Item* item = NewItemOrBag(sObjectMgr->GetItemTemplate(entry));
             if (!item->LoadFromDB(guid, bank ? ObjectGuid::Empty : _owner.GetGUID(), fields, entry))
             {
                 delete item;
@@ -350,13 +365,54 @@ bool DigitalInventory::CanAct() const
         && !_owner.GetTradeData() && !_owner.IsBeingTeleported() && !_owner.IsNonMeleeSpellCast(false);
 }
 
+std::set<uint32> DigitalInventory::ActionItems() const
+{
+    std::set<uint32> entries;
+    for (uint8 button = 0; button < MAX_ACTION_BUTTONS; ++button)
+        if (ActionButton const* action = _owner.GetActionButton(button))
+            if (action->GetType() == ACTION_BUTTON_ITEM)
+                entries.insert(action->GetAction());
+    return entries;
+}
+
+bool DigitalInventory::MakeRoom(Item const* keep, bool anyItem)
+{
+    if (_scope != Carried || !Enabled || !_active || !_loaded || _failed || _items.size() >= _capacity)
+        return false;
+    std::set<uint32> actionItems = ActionItems();
+    // Spell::CheckCast asks for bag space before the spell becomes current, so usable items stay unless the caller
+    // knows no bag item is being cast; the regular sweep picks them up a moment later.
+    auto usable = [](Item const* item)
+    {
+        for (auto const& spell : item->GetTemplate()->Spells)
+            if (spell.SpellId > 0 && spell.SpellTrigger == ITEM_SPELLTRIGGER_ON_USE)
+                return true;
+        return false;
+    };
+    auto tryDeposit = [&](Item* item)
+    {
+        return item && item != keep && (anyItem || !usable(item))
+            && !_pinned.count(item->GetGUID().GetCounter()) && !actionItems.count(item->GetEntry())
+            && DepositItem(item);
+    };
+    for (uint8 slot = INVENTORY_SLOT_ITEM_START; slot < INVENTORY_SLOT_ITEM_END; ++slot)
+        if (tryDeposit(_owner.GetItemByPos(INVENTORY_SLOT_BAG_0, slot)))
+            return true;
+    for (uint8 bag = INVENTORY_SLOT_BAG_START; bag < INVENTORY_SLOT_BAG_END; ++bag)
+        if (Bag* container = _owner.GetBagByPos(bag))
+            for (uint32 slot = 0; slot < container->GetBagSize(); ++slot)
+                if (tryDeposit(container->GetItemByPos(slot)))
+                    return true;
+    return false;
+}
+
 bool DigitalInventory::CanDeposit(Item const* item) const
 {
-    if (!item || item->GetOwnerGUID() != _owner.GetGUID() || item->IsBag() || item->IsInTrade()
+    if (!item || item->GetOwnerGUID() != _owner.GetGUID() || item->IsNotEmptyBag() || item->IsInTrade()
         || item->IsRefundable() || item->IsBOPTradable() || item->IsWrapped() || item->m_lootGenerated
         || item->IsCurrencyToken() || item->GetTemplate()->Duration || item->IsConjuredConsumable()
         || item->GetTemplate()->Map || item->GetTemplate()->Area || item->GetTemplate()->HolidayId
-        || item->GetGUID() == _owner.GetLootGUID())
+        || item->GetGUID() == _owner.GetLootGUID() || item->GetEntry() == Acore::WorldPvp::EarTrophyItem)
         return false;
     for (uint8 i = 0; i < MAX_ENCHANTMENT_SLOT; ++i)
         if (item->GetEnchantmentDuration(EnchantmentSlot(i)))
@@ -409,7 +465,7 @@ bool DigitalInventory::DepositItem(Item* item)
 bool DigitalInventory::Store(Item* item)
 {
     // Same item rules as a bag deposit, minus the slot check: this item was never in a slot.
-    if (!item || !_loaded || _failed || _items.size() >= _capacity || item->IsBag() || item->IsCurrencyToken()
+    if (!item || !_loaded || _failed || _items.size() >= _capacity || item->IsNotEmptyBag() || item->IsCurrencyToken()
         || item->GetTemplate()->Duration || item->IsConjuredConsumable() || item->GetTemplate()->Map
         || item->GetTemplate()->Area || item->GetTemplate()->HolidayId)
         return false;
@@ -452,13 +508,20 @@ Item* DigitalInventory::WithdrawItem(uint32 guid)
         dest.clear();
         return _owner.CanStoreItem(bag, slot, dest, item, false) == EQUIP_ERR_OK;
     };
-    bool found = false;
-    for (uint8 slot = INVENTORY_SLOT_ITEM_START; slot < INVENTORY_SLOT_ITEM_END && !found; ++slot)
-        found = trySlot(INVENTORY_SLOT_BAG_0, slot);
-    for (uint8 bag = INVENTORY_SLOT_BAG_START; bag < INVENTORY_SLOT_BAG_END && !found; ++bag)
-        if (Bag* container = _owner.GetBagByPos(bag))
-            for (uint32 slot = 0; slot < container->GetBagSize() && !found; ++slot)
-                found = trySlot(bag, uint8(slot));
+    auto findSlot = [&]()
+    {
+        for (uint8 slot = INVENTORY_SLOT_ITEM_START; slot < INVENTORY_SLOT_ITEM_END; ++slot)
+            if (trySlot(INVENTORY_SLOT_BAG_0, slot))
+                return true;
+        for (uint8 bag = INVENTORY_SLOT_BAG_START; bag < INVENTORY_SLOT_BAG_END; ++bag)
+            if (Bag* container = _owner.GetBagByPos(bag))
+                for (uint32 slot = 0; slot < container->GetBagSize(); ++slot)
+                    if (trySlot(bag, uint8(slot)))
+                        return true;
+        return false;
+    };
+    // Full bags: move something else into storage, then use the slot it freed.
+    bool found = findSlot() || (MakeRoom(source, true) && findSlot());
     if (!found)
     {
         _owner.SendEquipError(EQUIP_ERR_INVENTORY_FULL, item);
@@ -678,12 +741,17 @@ bool DigitalInventory::Persist(CharacterDatabaseTransaction trans)
     _owner.SaveInventoryAndGoldToDB(trans);
     if (CharacterDatabase.AsyncCommitTransaction(trans).m_future.get())
         return true;
+
+    DisconnectOnPersistenceFailure("Digital inventory persistence failure; reconnect to recover");
+    return false;
+}
+
+void DigitalInventory::DisconnectOnPersistenceFailure(char const* reason)
+{
     // No success reply, autosave or logout save may overwrite the last durable inventory on failure.
     _failed = true;
-    LOG_ERROR("entities.player", "Digital inventory transaction failed for {}; disconnecting for recovery",
-        _owner.GetGUID().ToString());
-    _owner.GetSession()->KickPlayer("Digital inventory persistence failure; reconnect to recover");
-    return false;
+    LOG_ERROR("entities.player", "{}: {}", _owner.GetGUID().ToString(), reason);
+    _owner.GetSession()->KickPlayer(reason, true);
 }
 
 void DigitalInventory::PerformItemAction(uint8 action, Item* item, uint64 target)
@@ -743,11 +811,15 @@ void DigitalInventory::Handle(WorldPacket& packet)
     std::string search;
     packet >> version >> action >> scope >> request >> revision >> guid >> count >> argument >> target
         >> category >> sort >> search;
-    if (version != ProtocolVersion || scope != _scope || action > Unlock || search.size() > 80 || category > 5 || sort > 4
+    bool const specialTabs = (category & SpecialTabsRequest) != 0;
+    category &= ~SpecialTabsRequest;
+    if (version != ProtocolVersion || scope != _scope || action > Unlock || search.size() > 80 ||
+        category > (specialTabs ? KeyringCategory : FavoritesCategory) || sort > 4
         || packet.rpos() != packet.size() || !request || request <= _lastRequest)
         return;
     _lastRequest = request;
     _category = category;
+    _specialTabs = specialTabs;
     _sort = sort;
     // SetTag reuses the string field for the tag text, so it must not replace the active search.
     if (action != SetTag)
@@ -921,14 +993,13 @@ void DigitalInventory::Update(uint32 diff)
             ++itr;
         }
     }
+    // Any change saved elsewhere (mail, loot, the player save) still has to reach an open window.
+    if (!_dirty && (_resend || _revision != _sentRevision))
+        Send(0, 0, "");
     if (_elapsed < 1000 || !CanAct())
         return;
     _elapsed = 0;
-    std::set<uint32> actionItems;
-    for (uint8 button = 0; button < MAX_ACTION_BUTTONS; ++button)
-        if (ActionButton const* action = _owner.GetActionButton(button))
-            if (action->GetType() == ACTION_BUTTON_ITEM)
-                actionItems.insert(action->GetAction());
+    std::set<uint32> actionItems = ActionItems();
     // Stock action bars need a real item object. Retain/refill one action stack for bound items.
     for (uint32 entry : actionItems)
     {
@@ -963,6 +1034,8 @@ void DigitalInventory::Update(uint32 diff)
                 for (uint32 slot = 0; slot < container->GetBagSize(); ++slot)
                     tryDeposit(container->GetItemByPos(slot));
         MergeStacks(false);
+        // Items that stayed in the bags are listed too, so the window refreshes even when nothing moved.
+        _resend = true;
     }
     if (_dirty && Persist())
         Send(0, 0, "");
@@ -979,9 +1052,21 @@ void DigitalInventory::Send(uint32 request, uint8 status, std::string const& mes
         bool split;
     };
     std::vector<Row> rows;
-    auto append = [&](Item* item, bool digital, bool favorite, std::string const& tag = "", bool split = false)
+    uint8 specialFlags = SupportsSpecialTabs;
+    auto append = [&](Item* item, bool digital, bool favorite, std::string const& tag = "", bool split = false,
+        bool keyringSlot = false)
     {
-        if (!item || (_category && _category < 5 && Category(item) != _category) || (_category == 5 && !favorite))
+        if (!item)
+            return;
+        bool const ear = item->GetEntry() == Acore::WorldPvp::EarTrophyItem;
+        bool const key = keyringSlot || IsKey(item);
+        if (ear)
+            specialFlags |= HasEars;
+        if (key)
+            specialFlags |= HasKeys;
+        if ((keyringSlot && !_specialTabs) || (_specialTabs && key != (_category == KeyringCategory)) ||
+            (_category == EarsCategory && !ear) || (_category == FavoritesCategory && !favorite) ||
+            (_category && _category < FavoritesCategory && Category(item) != _category))
             return;
         if (!_search.empty() && Lower(item->GetTemplate()->Name1).find(_search) == std::string::npos
             && std::to_string(item->GetEntry()).find(_search) == std::string::npos
@@ -1001,6 +1086,9 @@ void DigitalInventory::Send(uint32 request, uint8 status, std::string const& mes
             if (Bag* container = _owner.GetBagByPos(bag))
                 for (uint32 slot = 0; slot < container->GetBagSize(); ++slot)
                     append(container->GetItemByPos(slot), false, false);
+    if (_scope == Carried)
+        for (uint8 slot = KEYRING_SLOT_START; slot < KEYRING_SLOT_END; ++slot)
+            append(_owner.GetItemByPos(INVENTORY_SLOT_BAG_0, slot), false, false, "", false, true);
     std::sort(rows.begin(), rows.end(), [&](Row const& a, Row const& b)
     {
         if (a.favorite != b.favorite)
@@ -1021,12 +1109,12 @@ void DigitalInventory::Send(uint32 request, uint8 status, std::string const& mes
             < std::make_pair(b.item->GetTemplate()->Name1, b.item->GetGUID());
     });
     uint32 total = uint32(rows.size());
-    uint32 offset = total ? std::min(_offset / _pageSize, (total - 1) / _pageSize) * _pageSize : 0;
+    // Scroll mode asks for row-aligned offsets; only an out-of-range offset snaps back to the last page.
+    uint32 offset = !total ? 0 : _offset < total ? _offset : (total - 1) / _pageSize * _pageSize;
     uint8 size = uint8(std::min(_pageSize, total - offset));
     WorldPacket packet(SMSG_ESTERIA_INVENTORY);
     DigitalInventory& bank = _scope == Bank ? *this : _owner.GetDigitalBank();
-    // flags: bit 0 remote bank unlocked, bit 1 standing at a banker
-    uint8 flags = uint8(bank._unlocked) | (uint8(_owner.GetSession()->IsAtBanker()) << 1);
+    uint8 flags = uint8(bank._unlocked) | (uint8(_owner.GetSession()->IsAtBanker()) << 1) | specialFlags;
     packet << ProtocolVersion << uint8(_scope) << request << _revision << _capacity << uint32(_items.size()) << total << offset
         << UpgradePrice() << UpgradeSlots() << BankUnlockCost
         << uint8(_active && Enabled && !_failed) << status << flags << message << size;
@@ -1057,6 +1145,8 @@ void DigitalInventory::Send(uint32 request, uint8 status, std::string const& mes
     for (auto const& [entry, total] : totals)
         packet << entry << total.first << total.second;
     _owner.GetSession()->SendPacket(&packet);
+    _sentRevision = _revision;
+    _resend = false;
 }
 
 // Guild bank tab descriptors: one pseudo-row per tab (guid tab, entry slots, count expand price,

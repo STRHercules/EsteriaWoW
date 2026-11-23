@@ -220,6 +220,8 @@ public:
     void ReplaceAllGameObjectFlags(GameObjectFlags flags) { SetUInt32Value(GAMEOBJECT_FLAGS, flags); }
 
     void Use(Unit* user);
+    [[nodiscard]] uint64 GetWildernessPouchId() const { return _wildernessPouchId; }
+    void SetWildernessPouchId(uint64 id) { _wildernessPouchId = id; }
 
     [[nodiscard]] LootState getLootState() const { return m_lootState; }
     // Note: unit is only used when s = GO_ACTIVATED
@@ -379,6 +381,7 @@ protected:
     Seconds     m_restockTime;
     LootState   m_lootState;
     bool        m_spawnedByDefault;
+    uint64 _wildernessPouchId = 0;
     uint32      m_cooldownTime;                         // used as internal reaction delay time store (not state change reaction).
     // For traps this: spell casting cooldown, for doors/buttons: reset time.
     std::unordered_map<ObjectGuid, int32> m_SkillupList;

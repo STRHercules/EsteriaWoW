@@ -30,7 +30,7 @@ class Player;
 
 class ObjectMgr;
 
-#define MAX_QUEST_LOG_SIZE 25
+#define MAX_QUEST_LOG_SIZE 1000 // Esteria: matches the wowdecomp WOWDECOMP_QUEST_LOG_SLOTS=1000 client layout
 
 #define QUEST_OBJECTIVES_COUNT 4
 #define QUEST_ITEM_OBJECTIVES_COUNT 6

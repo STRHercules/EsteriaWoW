@@ -32,7 +32,7 @@ bool QueryQuestAction::Execute(Event event)
     uint32 questId = ch.extractQuestId(text);
     if (!questId)
     {
-        for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
+        for (uint16 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
         {
             uint32 logQuest = bot->GetQuestSlotQuestId(slot);
 

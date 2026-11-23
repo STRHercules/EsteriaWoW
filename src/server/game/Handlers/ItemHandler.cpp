@@ -27,6 +27,7 @@
 #include "SpellInfo.h"
 #include "SpellMgr.h"
 #include "WorldPacket.h"
+#include "WorldPvpEar.h"
 #include "WorldSession.h"
 #include <cmath>
 
@@ -600,8 +601,25 @@ void WorldSession::HandleSellItemOpcode(WorldPackets::Item::SellItem& packet)
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
     Item* pItem = _player->GetItemByGuid(packet.ItemGuid);
+    if (creature->GetEntry() == Acore::WorldPvp::UnderbellyFenceEntry)
+    {
+        if (!Acore::WorldPvp::CanUseEarFence(*_player) ||
+            !pItem || pItem->GetEntry() != Acore::WorldPvp::EarTrophyItem || packet.Count > 1)
+            _player->SendSellError(SELL_ERR_CANT_SELL_ITEM, creature, packet.ItemGuid, 0);
+        else
+            Acore::WorldPvp::SellEarToFence(*_player, packet.ItemGuid);
+
+        return;
+    }
+
     if (pItem)
     {
+        if (pItem->GetEntry() == Acore::WorldPvp::EarTrophyItem)
+        {
+            _player->SendSellError(SELL_ERR_CANT_SELL_TO_THIS_MERCHANT, creature, packet.ItemGuid, 0);
+            return;
+        }
+
         if (!sScriptMgr->OnPlayerCanSellItem(_player, pItem, creature))
         {
             _player->SendSellError(SELL_ERR_CANT_SELL_ITEM, creature, packet.ItemGuid, 0);
@@ -756,6 +774,12 @@ void WorldSession::HandleBuybackItem(WorldPackets::Item::BuybackItem& packet)
         return;
     }
 
+    if (creature->GetEntry() == Acore::WorldPvp::UnderbellyFenceEntry)
+    {
+        _player->SendSellError(SELL_ERR_CANT_SELL_TO_THIS_MERCHANT, creature, ObjectGuid::Empty, 0);
+        return;
+    }
+
     // remove fake death
     if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
@@ -866,6 +890,17 @@ void WorldSession::SendListInventory(ObjectGuid vendorGuid, uint32 vendorEntry)
         return;
     }
 
+    bool const fence = vendor->GetEntry() == Acore::WorldPvp::UnderbellyFenceEntry;
+    if (fence && !Acore::WorldPvp::CanUseEarFence(*_player))
+    {
+        _player->SendSellError(SELL_ERR_CANT_SELL_TO_THIS_MERCHANT, vendor, ObjectGuid::Empty, 0);
+        return;
+    }
+    if (fence)
+        vendorEntry = 0;
+    else if (vendorEntry == Acore::WorldPvp::UnderbellyFenceEntry)
+        return;
+
     // remove fake death
     if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
     {
@@ -907,6 +942,10 @@ void WorldSession::SendListInventory(ObjectGuid vendorGuid, uint32 vendorEntry)
     {
         if (VendorItem const* item = items->GetItem(slot))
         {
+            if (fence && item->item == Acore::WorldPvp::FencePickpocketTool.entry &&
+                !Acore::WorldPvp::CanBuyFenceTool(*_player))
+                continue;
+
             if (ItemTemplate const* itemTemplate = sObjectMgr->GetItemTemplate(item->item))
             {
                 if (!(itemTemplate->AllowableClass & _player->getClassMask()) && itemTemplate->Bonding == BIND_WHEN_PICKED_UP && !_player->IsGameMaster())

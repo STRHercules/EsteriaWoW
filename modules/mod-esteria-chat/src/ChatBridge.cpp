@@ -1,6 +1,8 @@
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "Config.h"
+#include "DBCStores.h"
+#include "World.h"
 #include "Log.h"
 #include "ObjectAccessor.h"
 #include "Player.h"
@@ -68,6 +70,7 @@ namespace
     {
         uint64 generation = 0;
         Clock::time_point window = Clock::now();
+        Clock::time_point activity{}; // next character-activity report is due when this is old enough
         uint32 fragments = 0;
         uint32 requests = 0;
         Assembly assembly;
@@ -314,12 +317,30 @@ namespace
                 player->GetSession()->SendPacket(&data);
             }
             for (auto& entry : sessions_)
+            {
                 if (Clock::now() - entry.second.assembly.started > std::chrono::seconds(15))
                     entry.second.assembly = {};
+                if (Clock::now() - entry.second.activity > std::chrono::seconds(30))
+                {
+                    entry.second.activity = Clock::now();
+                    if (Player* player = ObjectAccessor::FindPlayer(entry.first))
+                        ReportActivity(player);
+                }
+            }
         }
 
     private:
         struct Packet { ObjectGuid guid; uint64 generation; std::string message; };
+
+        // Worldserver-owned character facts for account friends. Identity still comes from the session in Submit.
+        void ReportActivity(Player* player)
+        {
+            std::string zone;
+            if (AreaTableEntry const* area = sAreaTableStore.LookupEntry(player->GetZoneId()))
+                zone = area->area_name[sWorld->GetDefaultDbcLocale()];
+            Submit(player, 0, Json{{"op", "activity"}, {"activity", {{"level", player->GetLevel()},
+                {"class", uint32(player->getClass())}, {"race", uint32(player->getRace())}, {"zone", zone}}}});
+        }
 
         void Submit(Player* player, uint32 request, Json value)
         {
@@ -381,8 +402,10 @@ namespace
     class ChatPlayer final : public PlayerScript
     {
     public:
+        // OnPlayerCanUseChat(..., Player* receiver) is dispatched under CAN_PLAYER_USE_PRIVATE_CHAT; registering
+        // ON_CHAT_WITH_RECEIVER instead left the bridge deaf and the client read its own request back as the reply.
         ChatPlayer() : PlayerScript("EsteriaChatPlayer", {PLAYERHOOK_ON_LOGIN, PLAYERHOOK_ON_LOGOUT,
-            PLAYERHOOK_ON_CHAT_WITH_RECEIVER}) { }
+            PLAYERHOOK_CAN_PLAYER_USE_PRIVATE_CHAT}) { }
         void OnPlayerLogin(Player* player) override { Bridge::Instance().Login(player); }
         void OnPlayerLogout(Player* player) override { Bridge::Instance().Logout(player); }
         bool OnPlayerCanUseChat(Player* player, uint32 type, uint32 language, std::string& message,

@@ -621,6 +621,10 @@ enum QuestSlotOffsets
 
 #define MAX_QUEST_OFFSET 5
 
+// Esteria: the quest block must end exactly where the visible items begin (client layout contract).
+static_assert(PLAYER_QUEST_LOG_1_1 + MAX_QUEST_LOG_SIZE * MAX_QUEST_OFFSET == PLAYER_VISIBLE_ITEM_1_ENTRYID);
+static_assert(PLAYER_END == 6201, "player fields must match the 1000-quest wowdecomp layout");
+
 enum QuestSlotStateMask
 {
     QUEST_STATE_NONE     = 0x0000,
@@ -907,6 +911,7 @@ enum PlayerLoginQueryIndex
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_PERKS,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAITS,
     PLAYER_LOGIN_QUERY_LOAD_ESTERIA_TRAIT_STATE,
+    PLAYER_LOGIN_QUERY_LOAD_PICKPOCKET_EXPOSURE,
     MAX_PLAYER_LOGIN_QUERY
 };
 
@@ -1415,6 +1420,7 @@ public:
 
     InventoryResult CanTakeMoreSimilarItems(uint32 entry, uint32 count, Item* item, uint32* no_space_count = nullptr, uint32* itemLimitCategory = nullptr) const;
     InventoryResult CanStoreItem(uint8 bag, uint8 slot, ItemPosCountVec& dest, uint32 entry, uint32 count, Item* pItem = nullptr, bool swap = false, uint32* no_space_count = nullptr) const;
+    InventoryResult CanStoreItemInBags(uint8 bag, uint8 slot, ItemPosCountVec& dest, uint32 entry, uint32 count, Item* pItem, bool swap, uint32* no_space_count) const;
 
     void AddRefundReference(ObjectGuid itemGUID);
     void DeleteRefundReference(ObjectGuid itemGUID);
@@ -1982,6 +1988,15 @@ public:
     bool IsActionButtonDataValid(uint8 button, uint32 action, uint8 type);
 
     PvPInfo pvpInfo;
+    [[nodiscard]] bool IsWorldPvpWanted() const;
+    [[nodiscard]] bool IsInActiveWilderness() const;
+    void SetWorldPvpPickpocketExposure(uint64 expiresAt) { _pickpocketExposedUntil = expiresAt; }
+    [[nodiscard]] bool IsOrdinarilyHostileInWorldPvp(Player const& opponent) const;
+    [[nodiscard]] bool CanFightWorldPvpBounty(Player const& opponent) const;
+    [[nodiscard]] bool IsUnflaggedBountyRetaliation(Unit const& opponent) const;
+    void RecordWorldPvpAttack(Player& defender);
+    void ClassifyWorldPvpKill(Player& victim);
+    void SettleWorldPvpDeath(Player const* hunter = nullptr);
     void UpdatePvPState();
     void UpdateFFAPvPState(bool reset = true);
     void SetPvP(bool state)
@@ -2329,7 +2344,8 @@ public:
     /***                  PVP SYSTEM                       ***/
     /*********************************************************/
     void UpdateHonorFields();
-    bool RewardHonor(Unit* victim, uint32 groupsize, int32 honor = -1, bool awardXP = true);
+    bool RewardHonor(Unit* victim, uint32 groupsize, int32 honor = -1, bool awardXP = true,
+        bool killingBlow = false);
     [[nodiscard]] uint32 GetHonorPoints() const { return GetUInt32Value(PLAYER_FIELD_HONOR_CURRENCY); }
     [[nodiscard]] uint32 GetArenaPoints() const { return GetUInt32Value(PLAYER_FIELD_ARENA_CURRENCY); }
     void ModifyHonorPoints(int32 value, CharacterDatabaseTransaction trans = CharacterDatabaseTransaction(nullptr));      //! If trans is specified, honor save query will be added to trans
@@ -3260,6 +3276,35 @@ private:
     bool _wasOutdoor;
 
     PlayerSettingMap m_charSettingsMap;
+
+    struct WorldPvpEncounter
+    {
+        uint32 expiresAt;
+        bool defending;
+        bool bounty;
+    };
+
+    void ClearWorldPvpEncounters();
+    [[nodiscard]] bool IsWorldPvpOpponent(Player const& opponent) const;
+    [[nodiscard]] bool IsProtectedFreebornPair(Player const& opponent) const;
+    [[nodiscard]] bool CanInitiateWorldPvpBounty(Player const& target) const;
+    [[nodiscard]] bool HasWorldPvpBountyEncounter(Player const& opponent) const;
+    std::unordered_map<ObjectGuid, WorldPvpEncounter> _worldPvpEncounters;
+    void UpdateWorldPvpClient();
+    void UpdateWildernessPvp();
+    void ApplyWildernessDeathPenalty();
+    void DropWildernessItem(Item& item);
+    void UpdateWorldPvpCrimeClient(bool enabled, uint32 mapId);
+    [[nodiscard]] bool IsWorldPvpPickpocketExposed() const;
+    Milliseconds _nextWorldPvpClientUpdate{};
+    bool _sentBountyClientRelations = false;
+    bool _sentWantedClientSnapshot = false;
+    bool _sentThiefClientSnapshot = false;
+    uint64 _pickpocketExposedUntil = 0;
+    bool _wildernessPvpActive = false;
+    bool _wildernessFreebornKillingBlow = false;
+    bool _worldPvpDeathSettled = false;
+    bool _pvpBeforeWilderness = false;
 
     Seconds m_creationTime;
 

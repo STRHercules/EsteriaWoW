@@ -431,7 +431,7 @@ bool AOELootServer::CanPacketReceive(WorldSession* session, WorldPacket const& p
 
             uint32 maxNeeded = 0;
 
-            for (uint8 slot = 0;
+            for (uint16 slot = 0;
                  slot < MAX_QUEST_LOG_SIZE;
                  ++slot)
             {

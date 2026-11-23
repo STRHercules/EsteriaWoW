@@ -152,7 +152,7 @@ public:
         if (Player* player = playerTarget->GetConnectedPlayer())
         {
             // remove all quest entries for 'entry' from quest log
-            for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
+            for (uint16 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
             {
                 uint32 logQuest = player->GetQuestSlotQuestId(slot);
                 if (logQuest == entry)

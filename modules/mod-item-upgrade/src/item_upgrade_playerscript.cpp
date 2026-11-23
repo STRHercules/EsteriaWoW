@@ -35,6 +35,7 @@ public:
             PLAYERHOOK_ON_APPLY_ITEM_MODS_BEFORE,
             PLAYERHOOK_ON_APPLY_ENCHANTMENT_ITEM_MODS_BEFORE,
             PLAYERHOOK_ON_AFTER_MOVE_ITEM_FROM_INVENTORY,
+            PLAYERHOOK_CAN_DROP_WILDERNESS_GEAR,
             PLAYERHOOK_ON_DELETE_FROM_DB,
             PLAYERHOOK_ON_LOGIN,
             PLAYERHOOK_ON_LOOT_ITEM,
@@ -60,6 +61,13 @@ public:
     void OnPlayerAfterMoveItemFromInventory(Player* player, Item* it, uint8 /*bag*/, uint8 /*slot*/, bool /*update*/) override
     {
         sItemUpgrade->HandleItemRemove(player, it);
+    }
+
+    bool OnPlayerCanDropWildernessGear(Player const* player, Item const* item) override
+    {
+        return sItemUpgrade->FindUpgradesForItem(player, item).empty() &&
+            !sItemUpgrade->FindUpgradeForWeaponDamage(player, item) &&
+            !sItemUpgrade->FindUpgradeForWeaponSpeed(player, item);
     }
 
     void OnPlayerDeleteFromDB(CharacterDatabaseTransaction trans, uint32 guid) override

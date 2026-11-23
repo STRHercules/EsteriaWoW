@@ -24,6 +24,7 @@
 #include "SpellAuraEffects.h"
 #include "SpellMgr.h"
 #include "Unit.h"
+#include "WorldPvpWilderness.h"
 #include "PerkFx.h"
 
 inline bool _ModifyUInt32(bool apply, uint32& baseValue, int32& amount)
@@ -1157,8 +1158,9 @@ void Creature::UpdateArmor()
 
 void Creature::UpdateMaxHealth()
 {
-    float value = GetTotalAuraModValue(UNIT_MOD_HEALTH);
-    SetMaxHealth(uint32(value));
+    uint32 const value = uint32(GetTotalAuraModValue(UNIT_MOD_HEALTH));
+    SetMaxHealth(_wildernessScaled ? Acore::WorldPvp::AddWildernessBonus(value,
+        Acore::WorldPvp::WildernessPveBonusPct) : value);
 }
 
 void Creature::UpdateMaxPower(Powers power)
@@ -1258,6 +1260,12 @@ void Creature::CalculateMinMaxDamage(WeaponAttackType attType, bool normalized, 
 
     minDamage = ((weaponMinDamage + baseValue) * dmgMultiplier * basePct + totalValue) * totalPct;
     maxDamage = ((weaponMaxDamage + baseValue) * dmgMultiplier * basePct + totalValue) * totalPct;
+
+    if (_wildernessScaled)
+    {
+        AddPct(minDamage, Acore::WorldPvp::WildernessWeaponDamageBonusPct);
+        AddPct(maxDamage, Acore::WorldPvp::WildernessWeaponDamageBonusPct);
+    }
 
     // pussywizard: crashfix (casting negative to uint => min > max => assertion in urand)
     if (minDamage < 0.0f || minDamage > 1000000000.0f)

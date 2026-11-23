@@ -875,6 +875,7 @@ namespace
             }
             uint32 account = reply.body["account"].get<uint32>();
             reply.body.erase("account");
+            reply.body["accountId"] = account; // immutable id; the social service binds identity to it
             reply.body["token"] = Issue(account, s.tokenHours);
             return reply;
         }

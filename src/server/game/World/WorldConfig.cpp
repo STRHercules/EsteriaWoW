@@ -207,6 +207,15 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<bool>(CONFIG_ALLOW_TWO_SIDE_INTERACTION_CHAT, "AllowTwoSide.Interaction.Chat", false);
     SetConfigValue<bool>(CONFIG_ALLOW_TWO_SIDE_INTERACTION_CHANNEL, "AllowTwoSide.Interaction.Channel", false);
     SetConfigValue<bool>(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP, "AllowTwoSide.Interaction.Group", false);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WORLD_PVP, "Esteria.WorldPvP.Enable", false);
+    SetConfigValue<uint32>(CONFIG_ESTERIA_WILDERNESS_ZONE_COUNT, "Esteria.Wilderness.ZoneCount", 0);
+    SetConfigValue<uint32>(CONFIG_ESTERIA_WILDERNESS_HOURS, "Esteria.Wilderness.Hours", 4);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WILDERNESS_GOLD_POUCHES, "Esteria.Wilderness.GoldPouches", false);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WILDERNESS_DEATH_XP_LOSS, "Esteria.Wilderness.DeathXpLoss", false);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WILDERNESS_GEAR_POUCHES, "Esteria.Wilderness.GearPouches", false);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WILDERNESS_INVENTORY_POUCHES, "Esteria.Wilderness.InventoryPouches", false);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WILDERNESS_ITEM_PICKPOCKET, "Esteria.Wilderness.ItemPickpocket", false);
+    SetConfigValue<bool>(CONFIG_ESTERIA_WORLD_PVP_EAR_TROPHIES, "Esteria.WorldPvP.EarTrophies", false);
     SetConfigValue<bool>(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GUILD, "AllowTwoSide.Interaction.Guild", false);
     SetConfigValue<bool>(CONFIG_ALLOW_TWO_SIDE_INTERACTION_ARENA, "AllowTwoSide.Interaction.Arena", false);
     SetConfigValue<bool>(CONFIG_ALLOW_TWO_SIDE_INTERACTION_AUCTION, "AllowTwoSide.Interaction.Auction", false);

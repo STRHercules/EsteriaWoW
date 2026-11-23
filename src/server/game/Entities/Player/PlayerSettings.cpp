@@ -19,6 +19,7 @@
 #include "StringConvert.h"
 #include "Tokenize.h"
 #include "CharacterDatabase.h"
+#include "WorldPvpRules.h"
 
 /*********************************************************/
 /***              PLAYER SETTINGS SYSTEM               ***/
@@ -118,8 +119,8 @@ void Player::_LoadCharacterSettings(PreparedQueryResult result)
     {
         Field* fields = result->Fetch();
         std::string source = fields[0].Get<std::string>();
-        // Internal cooldown persistence is independent of optional player-facing settings.
-        if (!sWorld->getBoolConfig(CONFIG_PLAYER_SETTINGS_ENABLED) && !source.starts_with("core.spell_charge."))
+        if (!sWorld->getBoolConfig(CONFIG_PLAYER_SETTINGS_ENABLED) &&
+            !source.starts_with("core.spell_charge.") && source != Acore::WorldPvp::CrimeSettingsSource)
             continue;
         std::string data = fields[1].Get<std::string>();
 
@@ -151,7 +152,8 @@ void Player::_SavePlayerSettings(CharacterDatabaseTransaction trans)
 {
     for (auto const& [source, settings] : m_charSettingsMap)
     {
-        if ((!sWorld->getBoolConfig(CONFIG_PLAYER_SETTINGS_ENABLED) && !source.starts_with("core.spell_charge.")) ||
+        if ((!sWorld->getBoolConfig(CONFIG_PLAYER_SETTINGS_ENABLED) &&
+                !source.starts_with("core.spell_charge.") && source != Acore::WorldPvp::CrimeSettingsSource) ||
             settings.empty())
             continue;
 

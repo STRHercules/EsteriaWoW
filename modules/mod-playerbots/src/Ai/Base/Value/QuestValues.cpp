@@ -332,7 +332,7 @@ std::vector<GuidPosition> ActiveQuestObjectivesValue::Calculate()
 uint8 FreeQuestLogSlotValue::Calculate()
 {
     uint8 numQuest = 0;
-    for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
+    for (uint16 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
     {
         uint32 questId = bot->GetQuestSlotQuestId(slot);
 

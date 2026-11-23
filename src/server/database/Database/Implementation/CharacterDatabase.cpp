@@ -624,6 +624,457 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_UPD_ALL_ARENA_POINTS, "UPDATE characters SET arenaPoints = 0", CONNECTION_SYNCH);
     PrepareStatement(CHAR_UDP_CHAR_MONEY, "UPDATE characters SET money = ? WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_UDP_CHAR_MONEY_ACCUMULATIVE, "UPDATE characters SET money = money + ? WHERE guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_BOUNTY,
+        "INSERT INTO character_world_pvp_bounty (sponsor_guid, id, sponsor_account, target_guid, amount) "
+        "VALUES (?, ?, ?, ?, ?)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_BOUNTY_LAST_ID,
+        "SELECT CAST(COALESCE(MAX(id), 0) AS UNSIGNED) FROM character_world_pvp_bounty WHERE sponsor_guid = ?",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_BOUNTIES_BY_SPONSOR,
+        "SELECT id, target_guid, amount FROM character_world_pvp_bounty WHERE sponsor_guid = ? "
+        "AND sponsor_account = ? AND state = 1 AND expires_at > UTC_TIMESTAMP() AND id > ? ORDER BY id LIMIT 20",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_BOUNTY_BY_ID,
+        "SELECT amount, target_guid FROM character_world_pvp_bounty WHERE sponsor_guid = ? AND id = ? "
+        "AND sponsor_account = ? AND state = 1 AND expires_at > UTC_TIMESTAMP()",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_BOUNTY_STATE,
+        "SELECT CAST(COALESCE((SELECT state FROM character_world_pvp_bounty WHERE sponsor_guid = ? "
+        "AND id = ? AND sponsor_account = ?), -1) AS SIGNED)",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_FUND_WORLD_PVP_BOUNTY,
+        "UPDATE characters c JOIN character_world_pvp_bounty b ON b.sponsor_guid = c.guid "
+        "JOIN characters t ON t.guid = b.target_guid AND t.account <> c.account AND t.deleteDate IS NULL "
+        "SET c.money = ?, b.state = 1, b.expires_at = UTC_TIMESTAMP() + INTERVAL 7 DAY "
+        "WHERE b.sponsor_guid = ? AND b.id = ? AND b.sponsor_account = ? "
+        "AND c.account = b.sponsor_account AND c.deleteDate IS NULL AND b.state = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_REFUND_WORLD_PVP_BOUNTY,
+        "UPDATE characters c JOIN character_world_pvp_bounty b ON b.sponsor_guid = c.guid "
+        "SET c.money = ?, b.state = 2 WHERE b.sponsor_guid = ? AND b.id = ? AND b.sponsor_account = ? "
+        "AND c.account = b.sponsor_account AND c.deleteDate IS NULL AND b.state = 1 AND b.expires_at > UTC_TIMESTAMP()",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_CLAIM_WORLD_PVP_BOUNTIES,
+        "UPDATE character_world_pvp_bounty b "
+        "JOIN characters v ON v.guid = b.target_guid AND v.account = ? AND v.deleteDate IS NULL "
+        "JOIN characters h ON h.guid = ? AND h.account = ? AND h.account <> v.account AND h.deleteDate IS NULL "
+        "LEFT JOIN character_world_pvp_bounty own ON own.target_guid = v.guid AND own.sponsor_account = h.account "
+        "AND own.state = 1 AND own.expires_at > UTC_TIMESTAMP() "
+        "LEFT JOIN character_world_pvp_bounty recent ON recent.hunter_account = h.account "
+        "AND recent.target_account = v.account AND recent.claimed_at >= UTC_TIMESTAMP() - INTERVAL 1 HOUR "
+        "LEFT JOIN character_world_pvp_bounty reverse_recent ON reverse_recent.hunter_account = v.account "
+        "AND reverse_recent.target_account = h.account "
+        "AND reverse_recent.claimed_at >= UTC_TIMESTAMP() - INTERVAL 1 HOUR "
+        "SET b.state = 3, b.hunter_guid = h.guid, b.hunter_account = h.account, "
+        "b.target_account = v.account, b.claimed_at = UTC_TIMESTAMP() "
+        "WHERE b.target_guid = ? AND b.state = 1 AND b.sponsor_account <> v.account "
+        "AND b.expires_at > UTC_TIMESTAMP() AND (b.sponsor_guid <> 0 OR ?) "
+        "AND own.id IS NULL AND recent.id IS NULL AND reverse_recent.id IS NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_CLOSE_WORLD_PVP_BOUNTIES_ON_DEATH,
+        "UPDATE character_world_pvp_bounty SET state = IF(sponsor_guid = 0, 5, 6) "
+        "WHERE target_guid = ? AND state = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_RESET_WORLD_PVP_MURDERS_ON_DEATH,
+        "UPDATE character_world_pvp_bounty_murder SET counts_for_bounty = 0 WHERE offender_guid = ?",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_REFUND_QUEUE,
+        "SELECT b.sponsor_guid, b.id, b.amount, b.sponsor_account FROM character_world_pvp_bounty b "
+        "JOIN characters c ON c.guid = b.sponsor_guid AND c.account = b.sponsor_account AND c.deleteDate IS NULL "
+        "WHERE b.sponsor_guid <> 0 AND (b.state = 6 OR (b.state = 1 AND b.expires_at <= UTC_TIMESTAMP())) "
+        "ORDER BY b.expires_at, b.sponsor_guid, b.id LIMIT 20",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_CREDIT_WORLD_PVP_REFUND_WALLET,
+        "UPDATE character_world_pvp_bounty b "
+        "JOIN characters c ON c.guid = b.sponsor_guid AND c.account = b.sponsor_account AND c.deleteDate IS NULL "
+        "SET c.money = ?, b.state = 2 WHERE b.sponsor_guid = ? AND b.id = ? AND b.sponsor_account = ? "
+        "AND (b.state = 6 OR (b.state = 1 AND b.expires_at <= UTC_TIMESTAMP()))",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_RESERVE_WORLD_PVP_REFUND_MAIL,
+        "UPDATE character_world_pvp_bounty b "
+        "JOIN characters c ON c.guid = b.sponsor_guid AND c.account = b.sponsor_account AND c.deleteDate IS NULL "
+        "SET b.state = 2, b.refund_mail_id = ? WHERE b.sponsor_guid = ? AND b.id = ? "
+        "AND (b.state = 6 OR (b.state = 1 AND b.expires_at <= UTC_TIMESTAMP()))",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_REFUND_MAIL,
+        "INSERT INTO mail (id, messageType, stationery, mailTemplateId, sender, receiver, subject, body, "
+        "has_items, expire_time, deliver_time, money, cod, checked) "
+        "SELECT b.refund_mail_id, ?, ?, 0, ?, b.sponsor_guid, ?, '', 0, ?, ?, b.amount, 0, ? "
+        "FROM character_world_pvp_bounty b WHERE b.sponsor_guid = ? AND b.id = ? AND b.refund_mail_id = ?",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_REFUND_MAIL,
+        "SELECT id FROM mail WHERE id = ? AND receiver = ?",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_CLAIMS,
+        "SELECT sponsor_guid, id, target_guid, amount FROM character_world_pvp_bounty "
+        "WHERE hunter_guid = ? AND hunter_account = ? AND state = 3 ORDER BY sponsor_guid, id LIMIT 20",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_NEXT_CLAIM,
+        "SELECT sponsor_guid, id FROM character_world_pvp_bounty "
+        "WHERE hunter_guid = ? AND hunter_account = ? AND state = 3 AND amount <= ? "
+        "ORDER BY claimed_at, sponsor_guid, id LIMIT 1", CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_CLAIM_AMOUNT,
+        "SELECT amount FROM character_world_pvp_bounty WHERE sponsor_guid = ? AND id = ? "
+        "AND hunter_guid = ? AND hunter_account = ? AND state = 3",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_REDEEM_WORLD_PVP_CLAIM,
+        "UPDATE character_world_pvp_bounty b JOIN characters c ON c.guid = b.hunter_guid "
+        "SET c.money = ?, b.state = 4 WHERE b.sponsor_guid = ? AND b.id = ? AND b.hunter_guid = ? "
+        "AND b.hunter_account = ? AND c.account = b.hunter_account AND c.deleteDate IS NULL AND b.state = 3",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_CLAIM_STATE,
+        "SELECT CAST(COALESCE((SELECT state FROM character_world_pvp_bounty WHERE sponsor_guid = ? "
+        "AND id = ? AND hunter_guid = ? AND hunter_account = ?), -1) AS SIGNED)",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_BOUNTY_TARGETS,
+        "SELECT CAST(b.target_guid AS UNSIGNED), CAST(b.sponsor_account AS UNSIGNED), "
+        "CAST(COALESCE(TIMESTAMPDIFF(SECOND, '1970-01-01 00:00:00', b.expires_at), 0) AS UNSIGNED), "
+        "CAST(SUM(b.amount) AS UNSIGNED) "
+        "FROM character_world_pvp_bounty b JOIN characters v ON v.guid = b.target_guid "
+        "AND v.account <> b.sponsor_account AND v.deleteDate IS NULL WHERE b.state = 1 "
+        "AND (b.expires_at IS NULL OR b.expires_at > UTC_TIMESTAMP()) "
+        "GROUP BY b.target_guid, b.sponsor_account, b.expires_at "
+        "UNION ALL SELECT 0, 0, 0, 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_REC_WORLD_PVP_BOUNTY_MURDER,
+        "INSERT INTO character_world_pvp_bounty_murder (offender_account, victim_account, offender_guid, occurred_at) "
+        "VALUES (?, ?, ?, UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE "
+        "offender_guid = IF(occurred_at <= UTC_TIMESTAMP() - INTERVAL 1 DAY, ?, offender_guid), "
+        "counts_for_bounty = IF(occurred_at <= UTC_TIMESTAMP() - INTERVAL 1 DAY, 1, counts_for_bounty), "
+        "occurred_at = IF(occurred_at <= UTC_TIMESTAMP() - INTERVAL 1 DAY, UTC_TIMESTAMP(), occurred_at)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_EXPIRE_WORLD_PVP_AUTOMATIC_BOUNTY,
+        "UPDATE character_world_pvp_bounty SET state = 5 "
+        "WHERE sponsor_guid = 0 AND target_guid = ? AND state = 1 AND expires_at <= UTC_TIMESTAMP()",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_UPSERT_WORLD_PVP_AUTOMATIC_BOUNTY,
+        "INSERT INTO character_world_pvp_bounty "
+        "(sponsor_guid, id, sponsor_account, target_guid, amount, state, expires_at) "
+        "SELECT 0, UUID_SHORT(), 0, reward.target_guid, reward.amount, 1, reward.expires_at "
+        "FROM (SELECT m.offender_guid AS target_guid, "
+        "LEAST(2500000, (CAST(COUNT(*) AS SIGNED) - 2) * 250000) AS amount, "
+        "MAX(m.occurred_at) + INTERVAL 1 DAY AS expires_at FROM character_world_pvp_bounty_murder m "
+        "WHERE m.offender_guid = ? AND m.counts_for_bounty = 1 AND m.occurred_at > UTC_TIMESTAMP() - INTERVAL 1 DAY "
+        "AND NOT EXISTS (SELECT 1 FROM character_world_pvp_bounty prior WHERE prior.target_guid = m.offender_guid "
+        "AND prior.sponsor_guid = 0 AND prior.claimed_at >= m.occurred_at) "
+        "GROUP BY m.offender_guid HAVING COUNT(*) >= 3) reward "
+        "ON DUPLICATE KEY UPDATE character_world_pvp_bounty.amount = GREATEST(character_world_pvp_bounty.amount, "
+        "reward.amount), character_world_pvp_bounty.expires_at = GREATEST(character_world_pvp_bounty.expires_at, "
+        "reward.expires_at)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_BOUNTY_BOARD,
+        "SELECT c.name, CAST(SUM(IF(b.sponsor_guid = 0, b.amount, 0)) AS UNSIGNED) AS automatic_gold, "
+        "CAST(SUM(IF(b.sponsor_guid <> 0, b.amount, 0)) AS UNSIGNED) AS player_gold "
+        "FROM character_world_pvp_bounty b JOIN characters c ON c.guid = b.target_guid "
+        "AND c.deleteDate IS NULL AND c.account <> b.sponsor_account "
+        "WHERE b.state = 1 AND (b.expires_at IS NULL OR b.expires_at > UTC_TIMESTAMP()) "
+        "GROUP BY c.guid, c.name ORDER BY SUM(b.amount) DESC, c.guid LIMIT 20",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_PICKPOCKET,
+        "INSERT INTO character_world_pvp_pickpocket "
+        "(thief_account, victim_account, nonce, thief_guid, victim_guid, amount, "
+        "item_guid, item_count, mail_id, attempted_at) "
+        "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP() FROM DUAL "
+        "WHERE NOT EXISTS (SELECT 1 FROM character_world_pvp_pickpocket WHERE thief_account = ? "
+        "AND victim_account = ? AND attempted_at > UTC_TIMESTAMP() - INTERVAL 10 MINUTE)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SETTLE_WORLD_PVP_PICKPOCKET,
+        "UPDATE character_world_pvp_pickpocket r "
+        "JOIN characters t ON t.guid = r.thief_guid AND t.account = r.thief_account AND t.deleteDate IS NULL "
+        "JOIN characters v ON v.guid = r.victim_guid AND v.account = r.victim_account AND v.deleteDate IS NULL "
+        "LEFT JOIN character_inventory ci ON ci.item = r.item_guid AND ci.guid = v.guid "
+        "LEFT JOIN item_instance i ON i.guid = ci.item AND i.owner_guid = v.guid AND i.count = r.item_count "
+        "SET t.money = IF(r.amount > 0, ?, t.money), v.money = IF(r.amount > 0, ?, v.money), "
+        "t.playerFlags = t.playerFlags | ?, r.settled = 1, i.owner_guid = t.guid "
+        "WHERE r.thief_account = ? AND r.victim_account = ? AND r.nonce = ? AND r.settled = 0 AND r.amount = ? "
+        "AND (r.item_guid = 0 OR i.guid IS NOT NULL)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_PICKPOCKET_RESULT,
+        "SELECT CAST(COALESCE(IF(r.settled = 1 AND r.item_guid > 0 AND NOT EXISTS("
+        "SELECT 1 FROM item_instance i JOIN mail_items mi ON mi.item_guid = i.guid "
+        "JOIN mail m ON m.id = mi.mail_id AND m.receiver = mi.receiver "
+        "WHERE i.guid = r.item_guid AND i.owner_guid = r.thief_guid AND i.count = r.item_count "
+        "AND mi.receiver = r.thief_guid AND m.id = r.mail_id "
+        "AND NOT EXISTS(SELECT 1 FROM character_inventory ci WHERE ci.item = r.item_guid)), 2, r.settled), "
+        "IF(EXISTS(SELECT 1 FROM character_world_pvp_pickpocket recent "
+        "WHERE recent.thief_account = request.thief_account AND recent.victim_account = request.victim_account "
+        "AND recent.attempted_at > UTC_TIMESTAMP() - INTERVAL 10 MINUTE), -1, -2)) AS SIGNED), "
+        "CAST(COALESCE(TIMESTAMPDIFF(SECOND, '1970-01-01 00:00:00', r.attempted_at + INTERVAL 5 MINUTE), 0) "
+        "AS UNSIGNED) FROM (SELECT CAST(? AS UNSIGNED) AS thief_account, CAST(? AS UNSIGNED) AS victim_account, "
+        "CAST(? AS UNSIGNED) AS nonce) request LEFT JOIN character_world_pvp_pickpocket r "
+        "ON r.thief_account = request.thief_account AND r.victim_account = request.victim_account "
+        "AND r.nonce = request.nonce",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_PICKPOCKET_EXPOSURE,
+        "SELECT CAST(COALESCE(MAX(TIMESTAMPDIFF(SECOND, '1970-01-01 00:00:00', attempted_at + INTERVAL 5 MINUTE)), "
+        "0) AS UNSIGNED) FROM character_world_pvp_pickpocket WHERE thief_guid = ? AND thief_account = ? "
+        "AND settled = 1 AND attempted_at > UTC_TIMESTAMP() - INTERVAL 5 MINUTE",
+        CONNECTION_BOTH);
+    PrepareStatement(CHAR_INS_WILDERNESS_POUCH,
+        "INSERT INTO character_wilderness_pouch "
+        "(id, owner_guid, owner_account, map_id, phase_mask, x, y, z, copper, xp_loss, owner_until, auction_at) "
+        "SELECT ?, guid, account, ?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(6) + INTERVAL 2 MINUTE, "
+        "UTC_TIMESTAMP(6) + INTERVAL 15 MINUTE FROM characters "
+        "WHERE guid = ? AND account = ? AND deleteDate IS NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_FUND_WILDERNESS_POUCH,
+        "UPDATE character_wilderness_pouch p JOIN characters c "
+        "ON c.guid = p.owner_guid AND c.account = p.owner_account AND c.deleteDate IS NULL "
+        "SET c.money = IF(p.copper > 0, ?, c.money), c.xp = IF(p.xp_loss > 0, ?, c.xp), p.funded = 1 "
+        "WHERE p.id = ? AND p.funded = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WILDERNESS_POUCH_FUNDING,
+        "SELECT CAST(COALESCE(p.funded, 0) = 1 AND (p.item_guid IS NULL OR ("
+        "EXISTS(SELECT 1 FROM item_instance i WHERE i.guid = p.item_guid AND i.owner_guid = 0) "
+        "AND NOT EXISTS(SELECT 1 FROM character_inventory ci WHERE ci.item = p.item_guid))) AS UNSIGNED), "
+        "CAST(COALESCE(CEIL(TIMESTAMPDIFF(MICROSECOND, UTC_TIMESTAMP(6), p.auction_at) / 1000000), 0) AS SIGNED) "
+        "FROM (SELECT CAST(? AS UNSIGNED) AS id, CAST(? AS UNSIGNED) AS guid, "
+        "CAST(? AS UNSIGNED) AS account) request LEFT JOIN character_wilderness_pouch p "
+        "ON p.id = request.id AND p.owner_guid = request.guid AND p.owner_account = request.account",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_NEARBY_WILDERNESS_POUCHES,
+        "SELECT id, copper, phase_mask, x, y, z, CAST(COALESCE(item_guid, 0) AS UNSIGNED), item_entry, "
+        "CAST(COALESCE((SELECT i.count FROM item_instance i WHERE i.guid = p.item_guid AND i.owner_guid = 0), 0) "
+        "AS UNSIGNED) FROM character_wilderness_pouch p "
+        "WHERE funded = 1 AND claimant_guid = 0 AND (copper > 0 OR item_guid IS NOT NULL) "
+        "AND auction_at > UTC_TIMESTAMP(6) AND map_id = ? "
+        "AND x BETWEEN ? AND ? AND y BETWEEN ? AND ? AND z BETWEEN ? AND ? "
+        "AND ((owner_guid = ? AND owner_account = ?) "
+        "OR (? = 1 AND owner_only_item = 0 AND owner_until <= UTC_TIMESTAMP(6))) "
+        "AND (? = 0 OR id = ?) "
+        "ORDER BY owner_until DESC, id LIMIT 20",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_CLAIM_WILDERNESS_POUCH,
+        "UPDATE character_wilderness_pouch p JOIN characters c "
+        "ON c.guid = ? AND c.account = ? AND c.deleteDate IS NULL "
+        "LEFT JOIN item_instance i ON i.guid = p.item_guid AND i.owner_guid = 0 "
+        "SET c.money = ? + p.copper, p.claimant_guid = c.guid, p.claim_nonce = ? "
+        "WHERE p.id = ? AND p.funded = 1 AND p.claimant_guid = 0 AND p.copper <= ? "
+        "AND p.item_guid <=> NULLIF(?, 0) AND (p.copper > 0 OR i.guid IS NOT NULL) "
+        "AND p.auction_at > UTC_TIMESTAMP(6) "
+        "AND ((p.owner_guid = c.guid AND p.owner_account = c.account) "
+        "OR (? = 1 AND p.owner_only_item = 0 AND p.owner_until <= UTC_TIMESTAMP(6)))",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WILDERNESS_POUCH_CLAIM,
+        "SELECT CAST(COALESCE((SELECT IF(p.item_guid IS NULL OR EXISTS("
+        "SELECT 1 FROM item_instance i JOIN mail_items mi ON mi.item_guid = i.guid "
+        "WHERE i.guid = p.item_guid AND i.owner_guid = p.claimant_guid AND mi.receiver = p.claimant_guid), 1, 2) "
+        "FROM character_wilderness_pouch p WHERE p.id = ? AND p.claimant_guid = ? AND p.claim_nonce = ?), 0) "
+        "AS UNSIGNED)",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WILDERNESS_POUCHES_IN_GRID,
+        "SELECT id, phase_mask, x, y, z, "
+        "CAST(CEIL(TIMESTAMPDIFF(MICROSECOND, UTC_TIMESTAMP(6), auction_at) / 1000000) AS SIGNED) "
+        "FROM character_wilderness_pouch "
+        "WHERE map_id = ? AND funded = 1 AND claimant_guid = 0 AND (copper > 0 OR item_guid IS NOT NULL) "
+        "AND auction_at > UTC_TIMESTAMP(6) "
+        "AND x BETWEEN ? AND ? AND y BETWEEN ? AND ?",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WILDERNESS_AUCTION_POUCHES,
+        "SELECT p.id, p.copper, CAST(p.owner_guid = buyer.guid AND p.owner_account = buyer.account AS UNSIGNED) "
+        "AS is_owner, CAST(COALESCE(p.item_guid, 0) AS UNSIGNED), p.item_entry, p.item_value, "
+        "CAST(COALESCE((SELECT i.count FROM item_instance i WHERE i.guid = p.item_guid AND i.owner_guid = 0), 0) "
+        "AS UNSIGNED) "
+        "FROM character_wilderness_pouch p "
+        "CROSS JOIN (SELECT CAST(? AS UNSIGNED) AS guid, CAST(? AS UNSIGNED) AS account) buyer "
+        "WHERE p.funded = 1 AND p.claimant_guid = 0 AND (p.copper > 0 OR p.item_guid IS NOT NULL) "
+        "AND p.auction_at <= UTC_TIMESTAMP(6) "
+        "AND ((p.owner_guid = buyer.guid AND p.owner_account = buyer.account) "
+        "OR (p.owner_only_item = 0 AND p.auction_at <= UTC_TIMESTAMP(6) - INTERVAL 1 DAY)) AND (? = 0 OR p.id = ?) "
+        "ORDER BY is_owner DESC, p.auction_at, p.id LIMIT 20",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_BUY_WILDERNESS_AUCTION_POUCH,
+        "UPDATE character_wilderness_pouch p JOIN characters c "
+        "ON c.guid = ? AND c.account = ? AND c.deleteDate IS NULL "
+        "LEFT JOIN item_instance i ON i.guid = p.item_guid AND i.owner_guid = 0 "
+        "SET c.money = ?, p.claimant_guid = c.guid, p.claim_nonce = ?, p.claim_fee = ? "
+        "WHERE p.id = ? AND p.funded = 1 AND p.claimant_guid = 0 AND p.copper = ? "
+        "AND p.item_guid <=> NULLIF(?, 0) AND (p.copper > 0 OR i.guid IS NOT NULL) "
+        "AND p.auction_at <= UTC_TIMESTAMP(6) AND ((p.owner_guid = c.guid AND p.owner_account = c.account) "
+        "OR (p.owner_only_item = 0 AND p.auction_at <= UTC_TIMESTAMP(6) - INTERVAL 1 DAY))",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WILDERNESS_GEAR_POUCH,
+        "INSERT INTO character_wilderness_pouch "
+        "(id, owner_guid, owner_account, map_id, phase_mask, x, y, z, copper, owner_until, auction_at, "
+        "item_guid, item_entry, item_value, owner_only_item) "
+        "SELECT ?, c.guid, c.account, ?, ?, ?, ?, ?, 0, UTC_TIMESTAMP(6) + INTERVAL 2 MINUTE, "
+        "UTC_TIMESTAMP(6) + INTERVAL 15 MINUTE, i.guid, i.itemEntry, ?, ? FROM characters c "
+        "JOIN character_inventory ci ON ci.guid = c.guid "
+        "JOIN item_instance i ON i.guid = ci.item AND i.owner_guid = c.guid "
+        "WHERE c.guid = ? AND c.account = ? AND c.deleteDate IS NULL AND i.guid = ? AND i.itemEntry = ? "
+        "AND i.count = ? AND i.count > 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_FUND_WILDERNESS_GEAR_POUCH,
+        "UPDATE character_wilderness_pouch p JOIN item_instance i ON i.guid = p.item_guid AND i.owner_guid = p.owner_guid "
+        "SET i.owner_guid = 0, p.funded = 1 WHERE p.id = ? AND p.funded = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DETACH_WILDERNESS_GEAR,
+        "DELETE ci FROM character_inventory ci JOIN character_wilderness_pouch p "
+        "ON p.item_guid = ci.item AND p.owner_guid = ci.guid WHERE p.id = ? AND p.funded = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WILDERNESS_GEAR,
+        "SELECT creatorGuid, giftCreatorGuid, count, duration, charges, flags, enchantments, "
+        "randomPropertyId, durability, playedTime, text FROM item_instance WHERE guid = ? AND itemEntry = ? "
+        "AND owner_guid = ?",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_INS_WILDERNESS_GEAR_MAIL,
+        "INSERT INTO mail (id, messageType, stationery, mailTemplateId, sender, receiver, subject, body, "
+        "has_items, expire_time, deliver_time, money, cod, checked) "
+        "SELECT ?, ?, ?, 0, ?, p.claimant_guid, ?, '', 1, ?, ?, 0, 0, ? FROM character_wilderness_pouch p "
+        "WHERE p.id = ? AND p.claimant_guid = ? AND p.claim_nonce = ? AND p.item_guid IS NOT NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WILDERNESS_GEAR_MAIL_ITEM,
+        "INSERT INTO mail_items (mail_id, item_guid, receiver) "
+        "SELECT ?, p.item_guid, p.claimant_guid FROM character_wilderness_pouch p "
+        "WHERE p.id = ? AND p.claimant_guid = ? AND p.claim_nonce = ? AND p.item_guid IS NOT NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_TRANSFER_WILDERNESS_GEAR,
+        "UPDATE item_instance i JOIN character_wilderness_pouch p ON p.item_guid = i.guid "
+        "SET i.owner_guid = p.claimant_guid WHERE p.id = ? AND p.claimant_guid = ? "
+        "AND p.claim_nonce = ? AND i.owner_guid = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_PICKPOCKET_MAIL,
+        "INSERT INTO mail (id, messageType, stationery, mailTemplateId, sender, receiver, subject, body, "
+        "has_items, expire_time, deliver_time, money, cod, checked) "
+        "SELECT ?, ?, ?, 0, ?, r.thief_guid, ?, '', 1, ?, ?, 0, 0, ? "
+        "FROM character_world_pvp_pickpocket r "
+        "WHERE r.thief_account = ? AND r.victim_account = ? AND r.nonce = ? "
+        "AND r.mail_id = ? AND r.settled = 1 AND r.item_guid > 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_PICKPOCKET_MAIL_ITEM,
+        "INSERT INTO mail_items (mail_id, item_guid, receiver) "
+        "SELECT r.mail_id, r.item_guid, r.thief_guid FROM character_world_pvp_pickpocket r "
+        "WHERE r.thief_account = ? AND r.victim_account = ? AND r.nonce = ? "
+        "AND r.settled = 1 AND r.item_guid > 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DETACH_WORLD_PVP_PICKPOCKET_ITEM,
+        "DELETE ci FROM character_inventory ci JOIN character_world_pvp_pickpocket r "
+        "ON r.item_guid = ci.item AND r.victim_guid = ci.guid "
+        "WHERE r.thief_account = ? AND r.victim_account = ? AND r.nonce = ? AND r.settled = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_EAR_RECEIPT,
+        "INSERT INTO character_world_pvp_ear "
+        "(item_guid, mail_id, killer_guid, victim_guid, account_low, account_high, awarded_at) "
+        "SELECT ?, NULL, k.guid, v.guid, LEAST(k.account, v.account), GREATEST(k.account, v.account), UTC_TIMESTAMP(6) "
+        "FROM characters k JOIN characters v ON v.guid = ? AND v.account = ? AND v.deleteDate IS NULL "
+        "WHERE k.guid = ? AND k.account = ? AND k.deleteDate IS NULL AND k.guid <> v.guid AND k.account <> v.account "
+        "AND NOT EXISTS(SELECT 1 FROM character_world_pvp_ear e "
+        "WHERE e.account_low = LEAST(k.account, v.account) AND e.account_high = GREATEST(k.account, v.account) "
+        "AND e.awarded_at > UTC_TIMESTAMP(6) - INTERVAL 1 DAY)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DEL_UNAWARDED_WORLD_PVP_EAR,
+        "DELETE i FROM item_instance i LEFT JOIN character_world_pvp_ear e "
+        "ON e.item_guid = i.guid AND e.killer_guid = i.owner_guid "
+        "WHERE i.guid = ? AND i.itemEntry = ? AND i.owner_guid = ? AND e.item_guid IS NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_EAR_INVENTORY,
+        "INSERT INTO character_inventory (guid, bag, slot, item) "
+        "SELECT e.killer_guid, ?, ?, e.item_guid FROM character_world_pvp_ear e "
+        "WHERE e.item_guid = ? AND e.killer_guid = ?",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_EAR_RECEIPT,
+        "SELECT CAST(COALESCE((SELECT IF(i.guid IS NOT NULL AND ci.item IS NOT NULL, 1, 2) "
+        "FROM character_world_pvp_ear e "
+        "LEFT JOIN item_instance i ON i.guid = e.item_guid AND i.owner_guid = e.killer_guid AND i.itemEntry = ? "
+        "LEFT JOIN character_inventory ci ON ci.item = e.item_guid AND ci.guid = e.killer_guid "
+        "AND ci.bag = ? AND ci.slot = ? WHERE e.item_guid = ? AND e.killer_guid = ?), 0) AS UNSIGNED)",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_UNSPENT_EARS,
+        "SELECT item_guid FROM character_world_pvp_ear "
+        "WHERE killer_guid = ? AND spent_reward_guid = 0 AND fence_paid_copper = 0 "
+        "ORDER BY awarded_at, item_guid",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_INS_WORLD_PVP_EAR_PURCHASE,
+        "INSERT INTO character_world_pvp_ear_purchase (reward_guid, mail_id, buyer_guid, reward_entry, ear_cost) "
+        "SELECT ?, NULLIF(?, 0), c.guid, ?, ? FROM characters c "
+        "WHERE c.guid = ? AND c.account = ? AND c.deleteDate IS NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_RESERVE_WORLD_PVP_EAR_PURCHASE_COST,
+        "UPDATE character_world_pvp_ear e "
+        "JOIN character_world_pvp_ear_purchase p ON p.buyer_guid = e.killer_guid "
+        "JOIN character_inventory ci ON ci.item = e.item_guid AND ci.guid = p.buyer_guid "
+        "JOIN item_instance i ON i.guid = e.item_guid AND i.owner_guid = p.buyer_guid "
+        "SET e.spent_reward_guid = p.reward_guid "
+        "WHERE p.reward_guid = ? AND e.item_guid = ? AND i.itemEntry = ? AND i.count = 1 "
+        "AND p.funded = 0 AND e.spent_reward_guid = 0 AND e.fence_paid_copper = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_FUND_WORLD_PVP_EAR_PURCHASE,
+        "UPDATE character_world_pvp_ear_purchase p SET p.funded = 1 "
+        "WHERE p.reward_guid = ? AND p.funded = 0 AND p.ear_cost = ("
+        "SELECT COUNT(*) FROM character_world_pvp_ear e WHERE e.spent_reward_guid = p.reward_guid)",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_RELEASE_WORLD_PVP_EAR_PURCHASE_COST,
+        "UPDATE character_world_pvp_ear e JOIN character_world_pvp_ear_purchase p ON p.reward_guid = e.spent_reward_guid "
+        "SET e.spent_reward_guid = 0 WHERE p.reward_guid = ? AND p.funded = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DELETE_WORLD_PVP_EAR_PURCHASE_COST,
+        "DELETE ci, i FROM character_world_pvp_ear_purchase p "
+        "JOIN character_world_pvp_ear e ON e.spent_reward_guid = p.reward_guid AND e.killer_guid = p.buyer_guid "
+        "JOIN character_inventory ci ON ci.item = e.item_guid AND ci.guid = p.buyer_guid "
+        "JOIN item_instance i ON i.guid = e.item_guid AND i.owner_guid = p.buyer_guid "
+        "WHERE p.reward_guid = ? AND p.funded = 1 AND i.itemEntry = ? AND i.count = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DEL_UNFUNDED_WORLD_PVP_EAR_REWARD,
+        "DELETE i FROM item_instance i LEFT JOIN character_world_pvp_ear_purchase p "
+        "ON p.reward_guid = i.guid AND p.buyer_guid = i.owner_guid AND p.reward_entry = i.itemEntry AND p.funded = 1 "
+        "WHERE i.guid = ? AND i.itemEntry = ? AND i.owner_guid = ? AND p.reward_guid IS NULL",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_EAR_REWARD_MAIL,
+        "INSERT INTO mail (id, messageType, stationery, mailTemplateId, sender, receiver, subject, body, "
+        "has_items, expire_time, deliver_time, money, cod, checked) "
+        "SELECT ?, ?, ?, 0, ?, p.buyer_guid, ?, '', 1, ?, ?, 0, 0, ? FROM character_world_pvp_ear_purchase p "
+        "WHERE p.reward_guid = ? AND p.mail_id = ? AND p.funded = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_EAR_REWARD_MAIL_ITEM,
+        "INSERT INTO mail_items (mail_id, item_guid, receiver) "
+        "SELECT p.mail_id, p.reward_guid, p.buyer_guid FROM character_world_pvp_ear_purchase p "
+        "WHERE p.reward_guid = ? AND p.mail_id = ? AND p.funded = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_WORLD_PVP_EAR_REWARD_INVENTORY,
+        "INSERT INTO character_inventory (guid, bag, slot, item) "
+        "SELECT p.buyer_guid, ?, ?, p.reward_guid FROM character_world_pvp_ear_purchase p "
+        "WHERE p.reward_guid = ? AND p.mail_id IS NULL AND p.funded = 1",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_EAR_PURCHASE,
+        "SELECT CAST(COALESCE((SELECT IF(p.funded = 0, 0, IF(EXISTS("
+        "SELECT 1 FROM item_instance i "
+        "WHERE i.guid = p.reward_guid AND i.owner_guid = p.buyer_guid AND i.itemEntry = p.reward_entry "
+        "AND IF(p.mail_id IS NULL, EXISTS(SELECT 1 FROM character_inventory ci "
+        "WHERE ci.item = i.guid AND ci.guid = p.buyer_guid AND ci.bag = ? AND ci.slot = ?), "
+        "EXISTS(SELECT 1 FROM mail_items mi JOIN mail m ON m.id = mi.mail_id AND m.receiver = mi.receiver "
+        "WHERE mi.item_guid = i.guid AND m.id = p.mail_id AND m.receiver = p.buyer_guid))) AND p.ear_cost = ("
+        "SELECT COUNT(*) FROM character_world_pvp_ear e "
+        "LEFT JOIN character_inventory ci ON ci.item = e.item_guid "
+        "LEFT JOIN item_instance i ON i.guid = e.item_guid "
+        "WHERE e.spent_reward_guid = p.reward_guid AND ci.item IS NULL AND i.guid IS NULL), 1, 2)) "
+        "FROM character_world_pvp_ear_purchase p "
+        "WHERE p.reward_guid = ? AND p.mail_id <=> NULLIF(?, 0) AND p.buyer_guid = ?), 0) "
+        "AS UNSIGNED)",
+        CONNECTION_SYNCH);
+    PrepareStatement(CHAR_SELL_WORLD_PVP_EAR_TO_FENCE,
+        "UPDATE character_world_pvp_ear e JOIN characters c ON c.guid = e.killer_guid "
+        "JOIN character_inventory ci ON ci.item = e.item_guid AND ci.guid = c.guid "
+        "JOIN item_instance i ON i.guid = e.item_guid AND i.owner_guid = c.guid "
+        "SET e.fence_paid_copper = ?, c.money = ? "
+        "WHERE e.item_guid = ? AND c.guid = ? AND c.account = ? AND c.deleteDate IS NULL "
+        "AND c.money = ? AND i.itemEntry = ? AND i.count = 1 "
+        "AND e.spent_reward_guid = 0 AND e.fence_paid_copper = 0",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_DEL_WORLD_PVP_FENCE_EAR,
+        "DELETE ci, i FROM character_world_pvp_ear e "
+        "JOIN character_inventory ci ON ci.item = e.item_guid AND ci.guid = e.killer_guid "
+        "JOIN item_instance i ON i.guid = e.item_guid AND i.owner_guid = e.killer_guid "
+        "WHERE e.item_guid = ? AND e.killer_guid = ? AND e.fence_paid_copper = ? AND i.itemEntry = ?",
+        CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_WORLD_PVP_FENCE_SALE,
+        "SELECT CAST(COALESCE((SELECT IF(e.fence_paid_copper = 0, 0, "
+        "IF(e.fence_paid_copper = ? AND c.money = ? AND ci.item IS NULL AND i.guid IS NULL, 1, 2)) "
+        "FROM character_world_pvp_ear e JOIN characters c ON c.guid = e.killer_guid "
+        "LEFT JOIN character_inventory ci ON ci.item = e.item_guid "
+        "LEFT JOIN item_instance i ON i.guid = e.item_guid "
+        "WHERE e.item_guid = ? AND e.killer_guid = ? AND c.account = ? AND c.deleteDate IS NULL), 0) AS UNSIGNED)",
+        CONNECTION_SYNCH);
     PrepareStatement(CHAR_UPD_CHAR_REMOVE_GHOST, "UPDATE characters SET playerFlags = (playerFlags & (~16)) WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_INS_CHAR_ACTION, "INSERT INTO character_action (guid, spec, button, action, type) VALUES (?, ?, ?, ?, ?)"
                      "ON DUPLICATE KEY UPDATE action = VALUES(action), type = VALUES(type)", CONNECTION_ASYNC);

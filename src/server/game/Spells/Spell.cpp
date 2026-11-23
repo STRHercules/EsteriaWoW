@@ -52,6 +52,7 @@
 #include "Vehicle.h"
 #include "World.h"
 #include "WorldPacket.h"
+#include "WorldPvpEar.h"
 #include <cmath>
 #include <G3D/g3dmath.h>
 
@@ -2394,6 +2395,15 @@ void Spell::AddUnitTarget(Unit* target, uint32 effectMask, bool checkIfValid /*=
     targetInfo.damageBeforeTakenMods = 0;
     targetInfo.crit       = false;
     targetInfo.scaleAura  = false;
+    targetInfo.requiresBountyAccess = false;
+    if (sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) &&
+        (!m_spellInfo->IsPositive() || m_spellInfo->HasEffect(SPELL_EFFECT_DISPEL)))
+    {
+        Player const* attacker = m_caster->GetCharmerOrOwnerPlayerOrPlayerItself();
+        Player const* defender = target->GetCharmerOrOwnerPlayerOrPlayerItself();
+        targetInfo.requiresBountyAccess = attacker && defender &&
+            !attacker->IsOrdinarilyHostileInWorldPvp(*defender) && attacker->CanFightWorldPvpBounty(*defender);
+    }
     if (m_auraScaleMask && targetInfo.effectMask == m_auraScaleMask && m_caster != target)
     {
         SpellInfo const* auraSpell = m_spellInfo->GetFirstRankSpell();
@@ -2610,6 +2620,13 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
     if (effectUnit->IsAlive() != target->alive)
         return;
+
+    if (target->requiresBountyAccess && !m_caster->_IsValidAttackTarget(effectUnit, m_spellInfo))
+        return;
+
+    Player const* controllingPlayer = m_caster->GetCharmerOrOwnerPlayerOrPlayerItself();
+    bool const preserveDefenderPvpFlag = controllingPlayer &&
+        controllingPlayer->IsUnflaggedBountyRetaliation(*effectUnit);
 
     // Absorb delayed projectiles launched before Sanctuary (e.g. Vanish dodging a Frostbolt in flight)
     if (getState() == SPELL_STATE_DELAYED && !m_spellInfo->IsPositive() &&
@@ -2948,7 +2965,8 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         if (missInfo != SPELL_MISS_EVADE && !m_caster->IsFriendlyTo(effectUnit) && (!m_spellInfo->IsPositive() || m_spellInfo->HasEffect(SPELL_EFFECT_DISPEL)))
         {
             if (!m_triggeredByAuraSpell.spellInfo || m_damage || (!(m_triggeredByAuraSpell.spellInfo->Effects[m_triggeredByAuraSpell.effectIndex].TriggerSpell == m_spellInfo->Id) && !(m_triggeredByAuraSpell.spellInfo->IsAuraEffectEqual(m_spellInfo))))
-                m_caster->AtTargetAttacked(effectUnit, !(m_spellInfo->HasAttribute(SPELL_ATTR1_NO_THREAT) || m_spellInfo->HasAttribute(SPELL_ATTR3_SUPPRESS_TARGET_PROCS)));
+                m_caster->AtTargetAttacked(effectUnit, !(m_spellInfo->HasAttribute(SPELL_ATTR1_NO_THREAT) ||
+                    m_spellInfo->HasAttribute(SPELL_ATTR3_SUPPRESS_TARGET_PROCS)), preserveDefenderPvpFlag);
 
             // Spells that don't initiate combat shouldn't affect stand state (e.g. Premeditation, Storm Giant/Felreaver Passive)
             if (m_spellInfo->HasInitialAggro() && !effectUnit->IsStandState())
@@ -2984,7 +3002,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         // if target is fallged for pvp also flag caster if a player
         // xinef: do not flag spells with aura bind sight (no special attribute)
         if (effectUnit->IsPvP() && effectUnit != m_caster && effectUnit->GetOwnerGUID() != m_caster->GetGUID() &&
-            m_caster->IsPlayer() && !m_spellInfo->HasAttribute(SPELL_ATTR0_CU_NO_PVP_FLAG))
+            m_caster->IsPlayer() && !preserveDefenderPvpFlag && !m_spellInfo->HasAttribute(SPELL_ATTR0_CU_NO_PVP_FLAG))
         {
             m_caster->ToPlayer()->UpdatePvP(true);
         }
@@ -5675,6 +5693,23 @@ void Spell::HandleEffects(Unit* pUnitTarget, Item* pItemTarget, GameObject* pGOT
 
 SpellCastResult Spell::CheckCast(bool strict, uint32* /*param1*/, uint32* /*param2*/)
 {
+    if (m_spellInfo->Id == Acore::WorldPvp::FenceStunSpell)
+    {
+        Player const* player = m_caster->ToPlayer();
+        Unit const* unit = m_targets.GetUnitTarget();
+        Player const* target = unit ? unit->ToPlayer() : nullptr;
+        if (!player || !m_CastItem || m_CastItem->GetEntry() != Acore::WorldPvp::FenceStunPowder.entry ||
+            !sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP) ||
+            !sWorld->getBoolConfig(CONFIG_ESTERIA_WORLD_PVP_EAR_TROPHIES))
+            return SPELL_FAILED_NOT_HERE;
+        if (!target || target == player || !player->GetMap()->IsWorldMap() || !player->IsInMap(target) ||
+            !player->InSamePhase(target) || player->IsInSanctuary() || target->IsInSanctuary() ||
+            player->IsGameMaster() || target->IsGameMaster() || player->IsSpectator() || target->IsSpectator() ||
+            (player->duel && player->duel->Opponent == target && player->duel->State == DUEL_STATE_IN_PROGRESS) ||
+            !player->IsValidAttackTarget(target))
+            return SPELL_FAILED_BAD_TARGETS;
+    }
+
     // check death state
     if (!m_caster->IsAlive() && !m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE) && !(m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD) || (IsTriggered() && !m_triggeredByAuraSpell)))
         return SPELL_FAILED_CASTER_DEAD;
