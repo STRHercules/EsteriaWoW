@@ -371,7 +371,7 @@ namespace
         if (*stake)
             if (char const* refusal = StakeRefusal(player, *stake))
                 return Refuse(player, refusal);
-        Creature* creature = ObjectAccessor::GetCreature(*player, npc->second);
+        WorldObject* creature = ObjectAccessor::GetWorldObject(*player, npc->second);
         CancelChallenges(player->GetGUID());
         uint64 const id = nextId++;
         challenges[id] = { id, parts[0] == "c" ? Kind::Chess : Kind::Checkers, player->GetGUID(), player->GetName(),
@@ -621,7 +621,7 @@ namespace EsteriaCasino::Server
         boardConfig.graceSeconds = sConfigMgr->GetOption<uint32>("EsteriaCasino.Board.DisconnectGrace", 60);
     }
 
-    void OpenBoardLobby(Player* player, Creature* npc)
+    void OpenBoardLobby(Player* player, WorldObject* npc)
     {
         lobbyNpc[player->GetGUID()] = npc->GetGUID();
         SendOpen(player);

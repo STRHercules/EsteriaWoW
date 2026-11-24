@@ -1,41 +1,5 @@
 # Esteria — Client & Gameplay Idea Backlog
 
-- Built-in Console Emulator Arcade Machines
-  - Placeable arcade machines that allow the users to walk up and start playing that respective arcade machines ROM
-
-- New Placeable Furniture
-  - Ability to place screens that can project/display GIFs/Videos
-  - Ability to place pictures that can project images/GIFs
-
-- Additional Riding Levels
-  - Reduced speed for level 10
-  - Increased max speed for flying
-  - Increased max speed for ground
-
-- Pocket Portal Items
-  - Items that spawn a temporary portal based on the item's destination
-  - Craftable
-
-- 'Keyring' in Esteria Inventory
-
-- Increase instance limit
-
-- Swappable Racials
-
-- Extend skill levels
-  - Push passed Grand Master to `Ascendant`
-  - `Ascendant` skill levels have the potential to grow exponentially 
-  - `Ascendant` level of skill is effectively uncapped, the user is able to continue to grow their skill for certain things to further increase their effectiveness.
-  - `Ascendant` skill levels will come with 'milestones', and each 'milestone' unlocks new potential rewards for the player by granting them `Expertise Points`
-  - `Expertise Points` are used a special currency that the player can spend to unlock special effects or functions for the respective skill
-    - For example, reaching `Ascendant` level 3 of Axe may allow the player to lean the passive `Execute` ability that will have a small chance to automatically execute a target with less than 20% health
-
-
-
-- Blood duels
-  - Ability to duel to the death
-
-
 > **Working notes / brainstorming document.** A collection of client, gameplay, UI, and world-system ideas for Esteria. These are concepts, not finalized implementation requirements or a prioritized roadmap.
 
 > **Placeholders:** `X`, `Y`, and question marks indicate values or decisions to be determined. Ideas with no detailed specification are retained under **Unscoped / Exploratory Ideas**.
@@ -55,7 +19,10 @@
 11. [Battlemon / Pokémon](#11-battlemon--pokémon)
 12. [Seasonal Content & Rotations](#12-seasonal-content--rotations)
 13. [Systems to Port & Reference Projects](#13-systems-to-port--reference-projects)
-14. [Unscoped / Exploratory Ideas](#14-unscoped--exploratory-ideas)
+14. [Cross-System Integration & Optional Development Sequencing](#14-cross-system-integration--optional-development-sequencing)
+15. [Unscoped / Exploratory Ideas](#15-unscoped--exploratory-ideas)
+
+**Expanded gameplay additions:** [Ascendant Skills](#ascendant-skills--expertise-points) · [Weapon Mastery](#weapon-expertise--mastery-trees) · [Swappable Racials](#swappable-racials--cultural-mastery) · [Pocket Portals](#pocket-portals--portalcrafting) · [Sailing / seamless three-continent ocean](#traversable-ocean--player-controlled-ships) · [Duels](#expanded-duels--friendly-gold--blood) · [Wanted Levels](#crimes-murder--notoriety) · [Bounty Hunting & Prison](#bounty-hunting-arrests--prison) · [Woodworking](#woodworking--gather-wood--craft-furniture) · [Multimedia Furniture](#multimedia-furniture--player-art) · [Player Businesses](#player-businesses--entertainment-venues) · [Endless Expeditions](#endless-expeditions).
 
 **Newly detailed concepts:** [Diablo-style world loot](#diablo-style-physical-loot-drops--loot-beams) · [Deployable camps & Garrisons](#deployable-camps--garrisons) · [New gear tiers](#new-item-quality-tiers) · [The Living Inn character select](#character-selection-the-living-inn) · [Nat Pagle: Fishing Challenges & Bounties](#nat-pagle--fishing-challenges-bounties--unique-rewards) · [Fictional Drugs / Chems](#fictional-drugs--riskreward-consumables) · [Gambling, Casinos & Lottery](#gambling-casinos--gold-wagering-minigames)
 
@@ -231,6 +198,34 @@ Give equipped armor, weapons, and exceptional accessories **visible 3D effects a
 - Treat nearby players as optional spatial-audio listeners, with distance falloff and a separate **mute emote music** setting.
 - Use properly licensed, original, or otherwise authorized audio rather than assuming that music from Fortnite can be redistributed.
 
+### Expanded Native Client Interfaces
+
+Make custom Esteria systems discoverable without requiring a collection of external addons. Reuse existing interfaces where possible and introduce dedicated panels where needed.
+
+| Interface | Proposed features |
+| --- | --- |
+| Photo Mode | Free camera within permitted bounds, poses, filters, screenshots, synchronized group poses/camera controls |
+| Outfit Manager | Save and organize complete cosmetic outfits; integrate with wardrobes and mannequins |
+| Emote Wheel | Configurable quick access to favorite emotes and dances |
+| Account Collection Journal | Unified mounts, pets, furniture, artwork, music, cosmetics and other collections |
+| Achievement Showcase | Select achievements, trophies and milestones for a profile |
+| Social Hub / Community Event Finder | Find groups, businesses, player events, public properties and tournaments |
+| World Event Calendar | Scheduled server and community events, with event details |
+| Property Browser | Search, favorite, visit, review and discover public housing and businesses |
+| Advanced Inspection | Biography, selected statistics, equipped mastery, Ascendant progress and collectibles |
+| Combat History | Encounter summaries, damage/healing breakdowns, duel history and personal statistics |
+| Account Notifications | Sales, mail, auctions, contracts, title changes and other account updates |
+| Bulletin Board | Player advertisements, announcements, contracts and community activities |
+| Favorites | Bookmark locations, shops, players, items and discovered destinations |
+| Nameplates | Additional accessibility, clutter, color and visibility controls |
+| Saved Build Manager | Classless, racial, FATE and weapon mastery loadouts; validate on activation |
+| Server Encyclopedia | Searchable explanation of all Esteria custom systems |
+| Personal Journal | Player-authored notes, bookmarks and discovery records |
+| Navigation / Captain's Log | Ship position, charts, voyages, crew, port services and weather |
+
+- Apply searchable filters, controller support, scalable layouts, reduced motion, visibility and privacy settings across these panels.
+- Keep all game actions authoritative; UI previews, client preferences and shared build codes must never bypass ownership or eligibility checks.
+
 ### Discord Integration
 
 - Create a **two-way Discord bridge** for in-game world chat.
@@ -261,12 +256,42 @@ Give equipped armor, weapons, and exceptional accessories **visible 3D effects a
   - Favorite mounts.
   - Favorite companion pets, hunter pets, warlock demons, or Pokémon.
 
+#### Expanded Character Profiles
+
+Extend Biography/inspection into a player-controlled social profile: biography, motto, custom banner, selected title, primary profession, equipped mastery, Ascendant milestones, achievements, public properties, storefront, PvP statistics, public criminal standing, guild, collectibles and trophies.
+
+- Let players choose optional display fields; legitimate public leaderboards and wanted notices follow their own rules. Link eligible entries to the relevant property, shop, collection or leaderboard without exposing private inventory.
+
 ### Custom Titles & Name Colors
 
 - Let players set custom titles in real time.
   - Support **prefix** and **suffix** titles.
 - Allow customization of nameplate name color, title color, and guild-name color.
 - Make these customizations unlockable with gold.
+
+#### Dynamic Titles & Competitive Ownership
+
+Add server-assigned titles whose ownership follows a live leaderboard, independently of permanent achievement titles and gold-purchased custom titles.
+
+| Title (proposed) | Qualification |
+| --- | --- |
+| **the Bloody** | Current Blood Duel leaderboard leader; dark red and automatically displayed while held |
+| Public Enemy | Highest eligible active criminal notoriety |
+| the Kingpin | Leading criminal reputation holder |
+| the Hunter | Leading licensed bounty hunter |
+| the Merchant Prince | Leading verified merchant |
+| the Artisan | Leading eligible crafter |
+| the Wanderer | Leading explorer |
+| the Gladiator | Leading Honor Duel competitor |
+| the Grand Architect | Leading housing competitor |
+| the Angler | Leading fishing competitor |
+| the High Roller | Leading Gold Duel competitor |
+| the Relentless | Leading Endless Expedition competitor |
+
+- Recalculate eligibility on qualifying events; record title ownership history and define ties, seasons, inactive leaders and disqualifications.
+- Remove a temporary title when another player becomes its rightful holder; retain historical achievements separately.
+- A character may own several titles but ordinarily display one. **the Bloody** has automatic display priority while held; define conflicts with other automatic titles.
+- Reserve official title strings and colors so custom titles cannot impersonate leaderboard champions. Optional champion auras, nameplate accents, arena statues or engraved leaderboards are cosmetic.
 
 ### New Starting Zones
 
@@ -316,6 +341,143 @@ Give equipped armor, weapons, and exceptional accessories **visible 3D effects a
   - Wildcard cards.
   - Prestige.
   - XP hotspots and tuning multipliers.
+
+### Swappable Racials & Cultural Mastery
+
+Separate visual race identity from racial combat choices. A player should not have to choose a race solely for its combat advantage.
+
+- Add a **Racial Attunement** panel: native racials are unlocked automatically; other racial techniques can be unlocked through quests, cultural training, reputation and exploration.
+- Equip active and passive racials in separately budgeted slots; prevent conflicting or duplicate effects. Save racial loadouts and restrict swapping in combat or competitive instances.
+- Give each culture an optional progression track independent of character race. For example, Dwarven cultural mastery could grant Stoneform access, archaeology knowledge, crafting techniques, furniture recipes, clothing, dialogue and mount appearances.
+- Explore techniques for nonplayable cultures and integrate the existing Centaur/Ethereal racial work. Keep visual race, faction, culture and ability loadout distinct; settle account versus character unlock scope.
+
+### Ascendant Skills & Expertise Points
+
+> **Core concept:** Grand Master is no longer the end of skill progression. After the conventional maximum (normally 450 in WotLK; adapt to each skill's actual cap), a skill enters its own effectively uncapped **Ascendant** progression track.
+
+| Conventional rank | Illustrative profession skill threshold |
+| --- | ---: |
+| Apprentice | 1 |
+| Journeyman | 50 |
+| Expert | 125 |
+| Artisan | 200 |
+| Master | 275 |
+| Grand Master | 350 |
+| Ascendant | 450 / conventional cap |
+
+- Each eligible skill has independent Ascendant XP, levels and milestones. XP required can increase exponentially or via a configurable growth curve; progression continues indefinitely.
+- Earn XP through meaningful use of that specific skill: level-appropriate combat, gathering, crafting, fishing, sailing and other relevant activity. Trivial repetitions, AFK loops and collusion should not be efficient.
+- Milestones grant **skill-specific Expertise Points**, a persistent currency spent on new effects/functions, passive ranks and specializations for that skill. Display available points, next milestone, earned unlocks, requirements and respec rules in the skill UI.
+- Direct combat power can continue improving within configurable caps or diminishing returns; uncapped levels need not mean uncapped damage, execution chances or resource production.
+- Keep long-term skill recognition, cosmetics and repeatable milestone rewards available beyond power ceilings. Define catch-up, account/character scope and migration of existing skill values.
+
+| Ascendant milestone (illustrative) | Potential reward |
+| ---: | --- |
+| 1 | Track unlocked |
+| 3 | First Expertise ability; Axe may learn Execute |
+| 5 | Additional Expertise Points |
+| 10 | Advanced ability tier |
+| 20 | Specialized effects |
+| 25 | Skill-specific title |
+| 50 | Unique cosmetic |
+| 75 | Advanced specialization |
+| 100 | Prestige title and achievement |
+| 250 | Legendary cosmetic |
+| 500 | Unique visual skill effect |
+| 1,000 | Exceptional mastery recognition |
+
+Additional recurring milestones continue indefinitely. Exact rewards, XP curves and point costs are TBD.
+
+#### Ascendant Weapon Skill Effects
+
+| Skill | Example Expertise unlocks |
+| --- | --- |
+| Axes | Execute, bleeds, armor reduction |
+| Two-Handed Axes | Heavy cleaves, crushing strikes |
+| Swords | Precision, parry, counterattacks |
+| Two-Handed Swords | Sweeping attacks, momentum |
+| Maces | Stagger, armor breaking |
+| Two-Handed Maces | Shockwaves, impact damage |
+| Daggers | Weak-point targeting, poisons |
+| Fist Weapons | Combos, rapid attacks |
+| Staves | Spell channeling, defensive techniques |
+| Polearms | Extended reach, sweeps |
+| Bows | Precision shots, piercing arrows |
+| Guns | Armor penetration, powerful shots |
+| Crossbows | Charged shots, pinning targets |
+| Wands | Magical discharge, elemental effects |
+| Unarmed | Martial arts, disarms |
+| Shields | Deflection, retaliation, protection (custom track if needed) |
+
+**Example: Axe — Execute.** At Ascendant Level 3, the player may spend Expertise Points to learn a passive with a small chance to automatically execute an eligible target below 20% health. Define proc rate, internal cooldown, damage credit, immunity/encounter restrictions, and separate PvP tuning; bosses and competitive targets must not be trivially bypassed.
+
+#### Ascendant Profession Effects
+
+| Skill | Example Expertise unlocks |
+| --- | --- |
+| Mining | Additional ore, rare minerals |
+| Herbalism | Extra herbs, rare seeds |
+| Skinning | Higher-quality leather, rare hides |
+| Blacksmithing | Specialized equipment enhancements |
+| Engineering | Advanced gadgets and automated devices |
+| Alchemy | Potion refinement, additional yields |
+| Jewelcrafting | Specialized gem effects |
+| Enchanting | New enchants and preservation |
+| Tailoring | Unique fabrics and cosmetic patterns |
+| Leatherworking | Advanced armor treatments |
+| Inscription | Specialized scrolls and glyphs |
+| Cooking | Advanced recipes and specialized buffs |
+| Fishing | Treasure, rare species and extra catches |
+| First Aid | Improved bandages and field medicine |
+| Lockpicking | Advanced locks and hidden compartments |
+| Woodworking | Rare timber, furniture quality, ship components and efficient cutting |
+| Sailing | Handling, navigation, salvage and crew utility |
+
+Other new professions may use the same framework. See Section 8 for profession concepts and Section 6 for Nat Pagle's Fishing progression.
+
+### Weapon Expertise / Mastery Trees
+
+Allow players to specialize in a weapon category (Axe, Two-Handed Sword, Mace, Staff, etc.) and unlock a dedicated weapon talent tree. **Ascendant skill represents accumulated lifetime proficiency; Weapon Mastery represents the selected combat style.** Use a bounded mastery talent budget distinct from skill-specific Expertise Points.
+
+- Players can train multiple masteries, but only compatible trees/abilities are active when the corresponding weapon is equipped; define dual-wield, shield and ranged/off-hand behavior.
+- Unlock active attacks, reactions, passives and weapon-specific effects. Offer saved trees, respecs, training NPCs, rare technique manuals, mastery quests, challenge encounters, statistics, achievements and leaderboards.
+- Add weapon-specific attack animations, idle stances and visual effects where custom client support allows.
+- Preserve classless/class talent identity and Paths of FATE. Apply shared power budgets, cooldowns, proc rules and competitive restrictions so overlapping systems cannot multiply without limits.
+
+#### Example Two-Handed Axe Tree
+
+| Branch | Example talent path | Focus |
+| --- | --- | --- |
+| Executioner | Deep Wounds (3/3) → Killing Edge (2/2) → Executioner (1/1) → Final Judgment (1/1) | Bleeds and finishing enemies |
+| Berserker | Rage Unbound (3/3) → Recklessness (2/2) → Blood Frenzy (1/1) → Unstoppable (1/1) | Sustained aggression |
+| Ravager | Armor Breaker (3/3) → Crushing Blow (2/2) → Wide Cleave (1/1) → Earth Splitter (1/1) | Area attacks and armor destruction |
+
+| Weapon | Example technique | Effect |
+| --- | --- | --- |
+| Axe | Execute | Finish eligible weakened targets; coordinate with Ascendant Execute |
+| Sword | Riposte | Counterattack after a successful parry |
+| Two-Handed Sword | Momentum | Successive attacks build offensive momentum |
+| Mace | Skullcracker | Briefly stagger an eligible target |
+| Two-Handed Mace | Earthshatter | Area shockwave |
+| Dagger | Expose Weakness | Reveal weak points |
+| Fist Weapon | Combo Breaker | Chain rapid attacks |
+| Polearm | Impale | Piercing attack |
+| Staff | Arcane Conduit | Empower certain channeled abilities |
+| Bow | Piercing Arrow | Strike eligible enemies in a line |
+| Gun | Deadeye | Prepare a precision shot |
+| Crossbow | Pinning Bolt | Temporarily restrict movement |
+| Wand | Overcharge | Release accumulated magical energy |
+| Shield | Perfect Deflection | Reward timed defensive actions |
+| Unarmed | Counterstance | Retaliate against melee attacks |
+
+> **Technical boundary:** Skills, XP, Expertise currency, mastery allocation, weapon eligibility and effect resolution are server-authoritative. The client needs custom skill and talent views; item familiarity (Section 7) is a separate per-item system.
+
+### Alternate Advancement, Prestige & Legacy
+
+- **Alternate advancement:** Continue developing after level cap through skills, FATE, mastery, professions, exploration and reputation rather than equipment alone.
+- **Prestige:** Optional repeatable character advancement after maximum level, with clear reset/retention rules and recognition. Coordinate with the existing CoA Prestige investigation instead of duplicating it.
+- **Legacy:** Optional retirement of characters into a limited account-wide legacy system; explicitly decide what happens to belongings, housing, achievements, pets and roster visibility. Never delete a character implicitly.
+- **Personal milestones:** Track custom long-term goals across combat, collections, crafting, travel and social play.
 
 ### Persistent Combat Stealth — Toggleable Ability
 
@@ -438,18 +600,83 @@ Allow players to **withdraw earned reputation** into an itemized token that can 
 - Replace the Waystone icon with the **Esteria icon**.
 - Build a **teleport taxi service** using Waystones/Gateways.
 
+### Pocket Portals & Portalcrafting
+
+Introduce craftable, consumable **Pocket Portal** items that spawn a temporary portal to the item's specific destination at the user's eligible location.
+
+| Portal type | Behavior |
+| --- | --- |
+| Standard | Single-use travel |
+| Group | Available to party members |
+| Public | Nearby eligible travelers |
+| Private | Owner only |
+| Residential / Guild | Authorized property or guild hall |
+| Recall | Return to a validated previous location |
+| Explorer | Discovered landmark |
+| Merchant | Designated player shop |
+| Unstable | Random eligible destination |
+
+- Unlock destination recipes via discovery, attunement, reputation or materials. Consider Portalcrafting as a new secondary profession or Enchanting specialization.
+- Higher skill/Expertise may extend duration, traveler capacity, reduce costs, unlock destinations, two-way travel, reusable devices, cosmetic portal styles or permanent residential anchors.
+- Add favorite destinations, extra hearthstone slots, portable campfire recall points, account-wide discovered flight paths, guild transport networks and player-operated travel services.
+- Validate placement, destination, access, charge consumption, map transfer, group membership, instance restrictions and portal expiry server-side. Prevent criminal escape or encounter bypass where specifically prohibited; normal travel remains available.
+
 ### Traversable Ocean & Player-Controlled Ships
 
-Connect **Eastern Kingdoms and Kalimdor** through an ocean players can physically traverse, with **player-steered ships** replacing the need to rely exclusively on scripted ferries.
+> **Core concept — Sailing:** Build a genuinely traversable, spanning ocean connecting **Eastern Kingdoms, Kalimdor and Northrend**. Players captain, own, upgrade and manually pilot their own ships across open water, sailing between all three continents **seamlessly**, without depending on scripted ferries or mandatory destination-selection menus.
 
-- Let captains manually control steering, travel speed, and navigation while passengers remain aboard and can move around safe deck areas.
-- Introduce suitable ship classes—from small vessels to larger guild/group craft—with permissions for captains, crew, and passengers.
-- Support voyages, ports, open-water landmarks, storms, hazards, pirates, and ocean encounters that turn travel into an actual activity.
-- Keep conventional ferry services available as accessible or lower-effort alternatives unless explicitly removed by a later design decision.
-- Plan for ocean travel between continent/map boundaries; if the existing world geometry cannot form a seamless continuous ocean, research custom map work and a convincing server-coordinated crossing/loading transition.
-- Handle disconnections, ship ownership, boarding, falling overboard, combat, relog locations, and vehicles carrying multiple characters without duplication or lost passengers.
+#### Continuous Ocean & Continent Crossings
 
-> **Technical reality check:** A truly continuous navigable ocean is a **world-map, client streaming, vehicle, and network synchronization project**, not a simple replacement for a taxi path. Preserve the full ambition while evaluating seamless versus transitional navigation.
+- Create actual navigable ocean geometry/water between all three continents, with coherent geography, coastlines, ports, islands, sea lanes and open-water landmarks. Extend world charts to show the connected sea and current ship position.
+- Support voyages in every direction between Eastern Kingdoms, Kalimdor and Northrend; do not restrict ships to fixed taxi routes. Explore coastal travel and free sailing away from established routes.
+- Treat seamless travel as the desired player experience: no visible loading screen, forced disembarkation, ship replacement visible to passengers, or loss of position/heading while crossing a boundary.
+- Research either a continuous custom map with streamed terrain or synchronized cross-map handoff with background loading. A concealed transition is an engineering fallback only if it preserves continuous player-controlled navigation; an obvious loading/teleport screen is a prototype compromise, not fulfillment of the seamless goal.
+- Keep conventional ferries as accessible lower-effort alternatives unless a later decision removes them. Avoid altering existing quest access or ordinary flight paths unnecessarily.
+
+#### Ship Ownership, Piloting & Crew
+
+- Purchase, craft or earn ships; give each persistent identity, name, owner, class, appearance, condition, location, cargo and upgrade record.
+- Ship classes may include rowboats, fishing boats, sloops, merchant ships, exploration vessels, warships and large guild/group craft. Define capacity, handling, speed, endurance and equipment slots per class.
+- Captain controls steering, acceleration/deceleration, docking, anchoring, and optionally sails, wind handling and reversing. Provide keyboard/controller controls, helm UI and readable navigation instruments.
+- Allow passengers to board, disembark and move freely on safe decks and eligible interiors while the ship moves; support seats and crew roles (captain, navigator, lookout, gunner, repairer, fisherman and cargo handler).
+- Define delegation, access lists, ship sharing, guild permissions, transfer/sale, recall, insurance/recovery and what happens when the captain disconnects. The vessel should persist with its legitimate ownership and location.
+
+#### Ship Upgrades & Customization
+
+| Upgrade | Example purpose |
+| --- | --- |
+| Hull / reinforcement | Durability and seaworthiness |
+| Sails / propulsion | Speed, acceleration, efficiency |
+| Rudder / rigging | Maneuverability and control |
+| Cargo hold | Trade and expedition storage |
+| Navigation instruments | Charts, weather and discovery assistance |
+| Crew facilities | Passenger capacity, rest and crew utility |
+| Fishing / salvage gear | Open-ocean catches and recoverable resources |
+| Cannons / defenses | Optional naval combat and protection |
+| Cabins / deck furniture | Cosmetic and functional housing-like spaces |
+| Paint, flags and figureheads | Individual ship identity |
+
+- Use Woodworking for timber, planks, masts, hull components, furniture and repairs; cross-link Blacksmithing, Engineering, Tailoring and other relevant professions for fittings, engines, sails and equipment.
+- Provide shipyards, docks, repair services, upgrade previews, resource costs and ship construction contracts. Consider shared guild shipbuilding projects and player-run shipwright businesses.
+- Define upgrade tiers and tradeoffs so small agile vessels retain a purpose alongside large upgraded craft. Apply bounded power in naval PvP and prevent upgrades from multiplying cargo or crew capacity without limit.
+
+#### Sailing Profession & Ocean Gameplay
+
+- Add **Sailing** as a progression skill with its own Ascendant track and Expertise Points. Gain XP from meaningful voyages, successful navigation, discoveries, docking, races, exploration and eligible maritime activities—not idle drifting.
+- Potential Expertise: improved handling, sail efficiency, storm resistance, navigation, salvage, fishing support, repair efficiency and crew coordination. Unlock titles, flags, ship cosmetics and navigation techniques.
+- Populate the ocean with islands, reefs, wrecks, fishing schools, sea creatures, pirates, merchant ships, storms, ice near Northrend, treasure maps, hidden harbors and optional sea encounters.
+- Offer maritime trade routes, cargo delivery, fishing expeditions, salvage, rescue, passenger ferry services, exploration contracts, ship races and optional naval combat. Integrate criminal smuggling and bounty contracts without making ordinary sailing mandatory PvP.
+- Ship interiors can support furniture, storage, charts, trophies and crew quarters; use housing permissions and budgets, but keep actual ship cargo separate from decorative storage.
+- Add a Captain's Log with routes, nautical discoveries, visited ports, distance, voyages, crew and ship milestones. Let Cartography and Fishing interact with ocean discoveries.
+
+#### Engineering & Persistence Boundaries
+
+- Investigate 3.3.5a map boundaries, terrain formats, water and collision, world-map coordinates, client terrain streaming, server map ownership and moving-transport/vehicle synchronization. No compatibility claim is implied.
+- Preserve ship identity, transform, momentum, crew, passengers, pet state, cargo and relative deck coordinates across handoffs. Coordinate map ownership atomically; avoid two active copies of a ship or orphaned passengers.
+- Handle boarding, falling overboard, swimming, drowning, docking, combat, ship damage/sinking, logout, relog, server restart and recovery; keep valid fallback ports or recovery locations.
+- Scale networking and collision for multiple moving vessels and players, validate movement server-side and test coastline transitions, all three continent crossings, passenger movement and failure cases.
+
+> **Technical reality check:** This is a world-map, renderer/streaming, moving-platform, networking, persistence and vehicle project. A truly seamless three-continent ocean is the target, not an assumed stock AzerothCore capability. Prototype single-map sailing, passenger synchronization and handoff reliability before promising full integration.
 
 ### Mount Bonding & Individual Talent Trees
 
@@ -460,6 +687,21 @@ Reward repeated use of a favorite mount with an individual **bond/proficiency le
 - Possible perks include improved handling, stamina, terrain behavior, safe passenger seating, special emotes, or appearance effects, subject to PvP and travel balance.
 - Show bond progress, unlocked traits, and respec choices in a dedicated mount collection interface.
 - Track the progression per owned mount identity and define what happens when a mount is shared, traded, or summoned through a differently named item.
+
+#### Riding Ranks, Expertise & Racing
+
+| Rank | Proposed flying speed |
+| --- | ---: |
+| Expert | 150% |
+| Artisan | 280% |
+| Master | 310% |
+| Ascendant | 380% |
+| Legendary | 420% |
+
+- These are proposed flying speed tiers; retain appropriate ground ranks and decide the precise speed convention. Ascendant Riding skill may continue indefinitely beyond the final speed tier without limitless movement speed.
+- Riding Expertise may improve acceleration, mounting time, fall protection, advanced riding stamina, aerial maneuvers, mounted gathering, aquatic movement, racing and cosmetic effects.
+- Extend individual mount bonds with distance/time ridden, races, visited locations, achievements, names, saddles, accessories, armor and unlockable idle animations.
+- Add ground, flying, dragonriding, aquatic, skateboarding and ship races; time trials, ghost recordings, records, seasonal tournaments, obstacle courses and player-designed validated checkpoints. Ensure speed tiers and equipment rules are disclosed for fair comparisons.
 
 ### Multi-Passenger "Bus" Mounts
 
@@ -548,6 +790,33 @@ Temporarily transform eligible zones with unusual environmental events, each wit
 - Prevent overlapping events from producing broken movement, impossible quests, or unbounded difficulty; use explicit stacking and exclusion rules.
 - Keep event state server-authoritative and synchronized for all players participating in the same zone or phase.
 
+### Exploration Journal, Regional Mastery & Dynamic Events
+
+- Add an account-wide exploration journal for hidden caches, secret NPCs, caves, landmarks, rare fishing locations, ancient ruins, hidden vendors, historical documents, environmental puzzles, platforming/jumping challenges and portal destinations.
+- Grant Cartography/Exploration XP, Expertise, titles, furniture, recipes, mounts, historical lore and teleport unlocks where appropriate.
+- Give each region its own mastery checklist (quests, landmarks, wildlife, artifacts, rare foes, puzzles). Track progress rather than requiring all players to complete every activity.
+- Add treasure maps, randomized caches and world treasure hunts; trade eligible maps without duplicating claim rewards.
+
+| Additional dynamic event | Example activity |
+| --- | --- |
+| Merchant Caravan | Rotating traveling vendors |
+| Treasure Hunt | Regional hidden caches |
+| Prison Break | Escaped NPC contracts |
+| Rare Migration | Unusual wildlife |
+| Pirate Invasion | Coastal defense or maritime encounters |
+| Fishing Frenzy | Temporary rare catches |
+| Market Festival | Temporary merchants and crafting orders |
+| Wandering Dungeon | Temporary dungeon entrance |
+| Goblin Auction | Unusual NPC auction stock |
+| Traveling Circus | Minigames and collectibles |
+| Criminal Crackdown | Increased guard activity and eligible bounties |
+| Meteor Shower | Rare crafting materials |
+| Lost Expedition | Rescue/exploration contracts |
+| Traveling Master | Rare skill or weapon techniques |
+
+- Reuse traveling merchants, caravans, world encounters and zone-event infrastructure already described above. Use rumors, NPC dialogue and city noticeboards as alternatives to announcing every event server-wide.
+- Explore regional citizenship, community projects that restore/build landmarks, hidden societies/factions and recurring personal NPC rivals (a Nemesis system tied to persistent enemy ranks where appropriate).
+
 ### Nightfall & Storm Danger
 
 - Make travel and combat **more dangerous after dark** or during sufficiently strong storms, independent of or alongside special Blood Moon events.
@@ -593,13 +862,7 @@ Instead of death being only a grayscale run to a corpse, introduce an **optional
 
 ## 5. PvP, Factions & Wilderness
 
-### Gold Duels
 
-- When a player selects **Duel** from another player's portrait menu, present two options:
-  1. Standard duel.
-  2. Gold duel.
-- For a gold duel, let the challenger enter the gold wager - if the challengee accepts they must match the wager to add to the pot.
-- Award the pot gold to the winner when the duel finishes.
 
 ### RuneScape-style Wilderness Zones
 
@@ -619,6 +882,34 @@ Instead of death being only a grayscale run to a corpse, introduce an **optional
 
 ---
 
+### Expanded Duels — Friendly, Gold & Blood
+
+When selecting **Duel** in another player's portrait menu, present three primary options: Friendly Duel, Gold Duel and Blood Duel. Show the rules before acceptance, and keep additional Honor/Training modes optional.
+
+#### Friendly Duel
+
+- Traditional non-lethal duel; no murder, wager or criminal penalty. Optional rematches, spectators, duel history and post-match damage/healing statistics.
+
+#### Gold Duel
+
+- Challenger enters an in-game gold wager; the opponent must explicitly accept and match it. Display each stake and the combined pot.
+- Hold both stakes in server-side escrow before the duel begins. The winner receives the full pot directly into their gold balance/inventory; define safe handling if a currency cap is reached.
+- Refund unstarted/cancelled duels; publish rules for draws, disconnects, forfeits and server crashes. Settle exactly once, using the same transaction principles as casino games and player contracts.
+- Track gold won/lost, win/loss history and an optional leaderboard. Prevent staged matches, alternate-account laundering and repeated farming; no real-money or cash-out wagering.
+
+#### Blood Duel
+
+- A mutually agreed **duel to the death**; combat ends on death or a formal forfeit. Both players must explicitly consent and understand the consequences.
+- A sanctioned Blood Duel death does **not** count as murder, does not increase Wanted level and should not create an automatic criminal bounty. Normal resurrection remains available; define interaction with Wilderness loot and Ears before enabling overlapping rules.
+- Add a Blood Duel leaderboard on the **Honor/PvP screen**, with seasonal/lifetime records, repeat-opponent restrictions and anti-collusion measures.
+- The current leader automatically receives and displays the **dark-red title `the Bloody`**. Revoke it automatically when leadership changes. See Dynamic Titles in Section 2 for title priority, ties and optional cosmetic recognition.
+
+#### Optional Honor & Training Duels
+
+- **Honor:** Competitive rating/matchmaking, standardized equipment options, consumable restrictions, seasonal/class/weapon rankings and cosmetics.
+- **Training:** Practice-only matches with optional cooldown resets, damage/healing breakdowns, no durability loss, practice resource rules and no ranked rewards.
+- Support player-run tournaments, automatic brackets, announcements, permitted in-game entry fees/prizes, spectators, seating, scoreboards, rematches and recorded summaries; integrate private housing arenas without automatically granting official rank.
+
 ### Crime, Notoriety & Player Bounties
 
 Introduce an **outlaw/criminal system** layered over open-world PvP, with escalating notoriety, public manhunts, criminal-only vendors, and player-funded bounties.
@@ -633,10 +924,25 @@ Introduce an **outlaw/criminal system** layered over open-world PvP, with escala
 
 #### Crimes, Murder & Notoriety
 
-- Raise a character's criminal **notoriety** as qualifying crimes accumulate, with the degree tied to crime severity.
-- Count kills of other players in **open-world PvP** as **murder**, creating a substantial negative/criminal notoriety change; exclude Battlegrounds and Arenas as requested.
-- Clarify self-defense, duels, faction wars, Wilderness rules, mutually consensual combat, repeat-kill farming, and group participation before treating every open-world kill identically.
-- Show a criminal's wanted status in appropriate nameplate/inspection UI and display qualifying wanted criminals on both **world map and minimap**, subject to map disclosure/refresh rules.
+- Raise a character's criminal notoriety as qualifying crimes accumulate; the first detected qualifying crime grants Wanted Level 1. Continued offenses stack until the criminal clears or reduces their active record, rather than refreshing a binary debuff.
+- Count kills of other players in open-world PvP as murder by default; exclude Battlegrounds, Arenas and mutually sanctioned Blood Duels. Clarify self-defense, other consensual duels, faction wars, Wilderness rules, repeated kills and group participation before enforcing penalties.
+- Track severity and optionally jurisdiction (e.g. Stormwind versus Booty Bay). Show wanted status on nameplates/inspection and qualifying criminals on world map/minimap under disclosure and refresh rules; prefer approximate recent sightings over unrestricted live tracking.
+
+| Wanted level | Proposed designation | Effect |
+| ---: | --- | --- |
+| 0 | Law-Abiding | Normal access |
+| 1 | Suspect | Minor bounty and scrutiny |
+| 2 | Delinquent | Fences and black market access |
+| 3 | Criminal | Criminal contracts and licensed bounty hunting |
+| 4 | Outlaw | Restricted city services; advanced criminal vendors |
+| 5 | Fugitive | Guard patrols actively pursue |
+| 6 | Public Enemy | Maximum Wanted level; city guards attack on sight |
+
+- Certain levels are deliberately beneficial to the criminal playstyle, others detrimental. Thresholds, guard behavior, regional scope, bounty growth and decay are configurable proposals.
+- Possible offense severities: trespassing/pickpocketing (minor); theft (minor–moderate); smuggling/illegal trading (moderate); prison escape (moderate–high); civilian assault/murder (high); killing guards, repeated murder or attacking officials (severe); aiding criminals (variable).
+- Optional witness system: NPCs can report eligible crimes, guards may recognize repeat offenders, disguises temporarily reduce recognition, remote areas have fewer witnesses, and investigations can uncover prior offenses. Player reports must have server-verified evidence; never allow arbitrary false reports to create penalties.
+- Keep **Wanted level** (active legal threat), **criminal reputation** (long-term underworld standing), **bounty** (capture reward) and **criminal record** (lifetime history) separate. Criminal reputation may require an explicit exception to account-wide reputation or a separate character-level active record; decide scope deliberately.
+- Add a Criminal Record panel: current level/bounty, lifetime bounty, crimes and recent offenses, murders, arrests, escapes, regional standing, criminal reputation, active eligible bounty hunters, highest level and fugitive time. Clearing active charges must not erase lifetime history.
 
 #### Automatic & Player-Funded Bounties
 
@@ -646,6 +952,10 @@ Introduce an **outlaw/criminal system** layered over open-world PvP, with escala
 - Escrow player-funded bounty gold before listing; prevent repeated self-claims, alts/collusion, staged kills, and cross-account payout exploits.
 - Define whether bounties persist across logout, whether criminal death clears notoriety, and how a failed/expired player bounty is refunded.
 
+- **Proposed refinement:** Player-funded additions attach to existing legitimate warrants by default to prevent targeting innocent players. The earlier broader posting concept remains a design option requiring explicit safeguards.
+- Display the advertised total on public bounty boards alongside Wanted level, reward, jurisdiction and last reported region. Track eligibility and disclosure rules.
+- Killing-blow payout remains the original default. If optional non-lethal capture is enabled, define when it substitutes for a kill and settle each warrant only once.
+
 #### Fences & Criminal Markets
 
 - Add **Fences**: vendors that serve wanted players or those with sufficient criminal standing.
@@ -653,7 +963,29 @@ Introduce an **outlaw/criminal system** layered over open-world PvP, with escala
 - Buy collected **player ears** at better-than-normal value, linking crime to the existing Ears trophy/currency system.
 - Consider distinctive criminal mounts, armor, contracts, and cosmetic unlocks while preserving fair counterplay for law-abiding players.
 
+- Require at least Wanted Level 2 to interact with the basic wanted vendor; higher tiers can grant access to additional vendors, restricted services and underworld merchandise.
+- Potential stock: lockpicks, forged in-game travel papers, illegal portal devices, disguises, smuggled crafting materials, contraband decor, criminal cosmetics, fictional poisons, secret techniques, hidden deeds, mounts, stolen artwork/relics, NPC contract leads and prison-escape equipment.
+- Establish hidden sewer entrances, remote outlaw settlements, smuggler caves, pirate coves, underground fighting pits, inns, transport networks and a criminal-only marketplace distinct from the existing general Black Market Auction House. Consider criminal property deeds gated by reputation.
+- Repeatable criminal contracts: recover stolen goods, smuggle cargo, retrieve confiscated contraband, rescue an NPC prisoner, infiltrate restricted NPC spaces, recover artifacts, deliver undetected packages, fight in underground tournaments or collect fictional NPC debts. Award underworld reputation and escalating access.
+
 > **Safety and economy boundary:** Actual theft of in-game assets can easily become abusive. Treat consent/PvP-zone rules, protected inventories, exploit resistance, and grievance recovery as first-class design decisions without quietly removing the intended outlaw fantasy.
+
+### Bounty Hunting, Arrests & Prison
+
+#### Licensed Bounty Hunting
+
+- Add a Bounty Hunting skill/progression track, licenses, public bounty boards, eligible player/NPC contracts, cooperative pursuit, personal capture records, reputation, equipment, cosmetics and titles.
+- Expertise examples: **Tracker** (approximate sightings), **Investigator** (contract information), **Manhunter** (higher tiers), **Apprehension** (optional non-lethal capture), **Persistent Pursuit** (longer tracking window), **Dead or Alive** (additional eligible high-tier rewards).
+- Use regional reports and delayed/approximate map markers instead of a permanent exact live location; preserve the original map/minimap concept while limiting harassment.
+- Use escrow for contributed bounties and enforce restrictions on self-claims, affiliated accounts, collusion, repeated payouts and staged kills. Reconcile with the original killing-blow rule and optional capture mode.
+
+#### Arrest & Prison Gameplay
+
+- Eligible criminals defeated by guards or licensed bounty hunters may be arrested rather than entering the ordinary death flow. Specify consent/zone rules and the effect on bounty settlement.
+- Options: pay fines, serve a bounded sentence, perform community service, accept rehabilitation contracts or attempt an in-game prison escape.
+- Prison content may include jobs, criminal NPCs/reputation, hidden contraband, underground vendors, fighting tournaments, smuggling quests, escape puzzles and secret passages.
+- If equipment is temporarily confiscated, escrow it securely with guaranteed recovery; prevent item loss or duplication. Prison must not trap players for excessive periods or block essential play indefinitely.
+- Reduce Wanted level by fines, sentences, rehabilitation, community service, pardons, crime-free intervals or costly underworld services. Escape increases bounty and Wanted level. Preserve lifetime criminal records.
 
 ### Ears
 
@@ -665,6 +997,18 @@ Introduce an **outlaw/criminal system** layered over open-world PvP, with escala
 ---
 
 ## 6. Dungeons, Quests & Challenges
+
+### Extended Instance Limits & Instance Controls
+
+- Increase the configurable hourly instance limit beyond the existing restriction; exact cap TBD. Consider distinct limits by mode and maintain anti-farming/performance controls.
+- Add saved difficulty preferences, instance statistics, optional eligible automatic resets, replayable legacy raids, solo-scaled dungeons, small-group raid scaling, account-wide completion records and practice modes.
+- Preserve lockout, reward, group and encounter integrity: practice/reset modes must not duplicate boss loot or completion credit.
+
+### Endless Expeditions
+
+- Introduce a repeatable escalating dungeon mode where players face successive encounters and choose to extract accumulated rewards or continue deeper at greater risk.
+- Failure may cost a configurable portion of **unclaimed expedition rewards**, not unrelated inventory. Clearly disclose extraction checkpoints, failure, disconnect, party replacement and recovery rules.
+- Reuse Dungeon Sigils and Adventure Company difficulty infrastructure, with personal/group records, seasonal leaderboards, cosmetics, titles and Expertise materials.
 
 ### Adventure Company
 
@@ -711,6 +1055,23 @@ Let a party apply a **Sigil to a dungeon before entry** to modify encounter beha
 | **Sanguine** | All eligible enemies gain `X%` lifesteal | **+20% gold** |
 | **Combustible** | Enemies explode on death | **+20% experience** |
 | **Multiplying** | Enemies split on death | **+25% reputation** |
+
+Additional proposed modifiers (reward budgets TBD):
+
+| Modifier | Effect |
+| --- | --- |
+| Fortified | Increased enemy health |
+| Frenzied | More aggressive attacks |
+| Reinforced | Additional enemy abilities |
+| Haunted | Defeated enemies may return as spirits |
+| Darkness | Reduced environmental visibility |
+| Scarcity | Reduced recovery resources |
+| Bloodbound | Certain healing effects weakened |
+| Treasurebound | Harder encounters with additional treasure opportunities |
+| Relentless | Limited recovery between encounters |
+| Nemesis | Powerful roaming enemy pursues the group |
+
+Completion of qualifying combinations may award cosmetics, titles, Expertise materials and leaderboard recognition. Include accessibility and performance limits for visibility effects.
 
 - Show a sigil's full modifier, eligible instances, difficulty impact, duration, and reward multipliers before the group confirms entry.
 - Decide whether one or multiple sigils may be applied, and provide stacking rules so combinations do not create accidental infinite farming loops.
@@ -768,7 +1129,18 @@ Build a fishing progression loop around **Nat Pagle** as a recognizable fishing 
 - Reserve the most distinctive cosmetic prizes for meaningful milestones, while allowing useful fishing supplies to remain accessible to casual players.
 - Cross-link trophy fish and fishing-themed furniture to the housing decor acquisition system; actual consumable fish remain real inventory items.
 
+#### Ascendant Fishing Expertise
+
+- **Treasure Hunter:** Improved treasure discovery; **Double Catch:** chance for a second catch; **Deepwater Angler:** unlock otherwise inaccessible fish species; **Patient Fisherman:** improved rare catch chance; **Master Baiter:** improved lure effectiveness; **Salvager:** recover lost equipment and artifacts; **Legendary Angler:** unlock rare fish encounters.
+- Spend Fishing-specific Expertise Points on these effects. Set reasonable yield caps, validate catches, and connect rare specimens to residential aquariums, trophy displays, player collectors and open-ocean fishing.
+
 > **Implementation boundary:** Standard 3.3.5a fishing data may not track every proposed condition or trophy attribute. Personal-catch verification, weather/time checks, custom fish sizes, leaderboards, and persistent journals require explicit server-side tracking. Reward eligibility must be validated server-side; merely owning or trading a fish should not satisfy a personal-catch objective.
+
+### Adventurer's Guild & Relic Expeditions
+
+- Expand Adventure Company/Hunter's Guilds into a wider optional Adventurer's Guild with ranked contracts, reputation and exploration/combat challenges; reuse existing boards instead of creating redundant infrastructure.
+- Introduce relic discovery/restoration, hidden artifacts, treasure maps and personal NPC nemesis encounters, linking to Archaeology, Salvaging, exploration and item histories.
+- Add seasonal crafting, exploration, fishing, racing and combat competitions with transparent scoring, eligible rewards and distinct permanent achievements.
 
 ### Retail Activities to Port
 
@@ -801,6 +1173,19 @@ Let artisans customize the **identity of a crafted item**, creating genuinely di
 - Consider related crafting contracts, player-owned blacksmith/leatherworker shops, legendary commissions, and cosmetic quality tiers.
 
 > **Technical dependency:** Per-item metadata must travel with the item instance. Updating only a shared `item_template` row would incorrectly rename every item made from the same recipe.
+
+### Crafting Quality, Orders & Salvaging
+
+- Add configurable quality tiers and Masterwork items, creator signatures, creation dates, serial numbers for exceptional items, engravings, experimental material combinations, rare recipes/discoveries and crafter reputation. Keep personalization within validated recipe/stat budgets.
+- Add crafting commission orders: public, guild-exclusive or personal, with minimum skill, Ascendant or specialization requirements; customers may supply materials, request approved enhancements and offer payment. Reuse the player contract escrow system; define acceptance, cancellation and material return.
+- Add restoration and salvaging: recover eligible materials from unwanted gear, extract approved enhancements, restore damaged relics, unlock cosmetics, recycle furniture, disassemble engineering devices and donate historical items to museums. Prevent duplication between recovered appearance and physical item or between salvage and resale.
+
+### Equipment Familiarity & Individual Item History
+
+- Give an individual weapon or armor item persistent history and a separate familiarity/bond with its user. Track meaningful use, eligible kills/bosses, Blood Duel wins, previous owners, creator and milestones.
+- Unlock modest capped effectiveness benefits, engravings, custom names, cosmetic effects, item-specific achievements and lore. Keep weapon-category Mastery, Ascendant skill, Artifact trees and sentient/cursed progression distinct.
+- Inspect an item's history via its tooltip/profile: e.g. a named axe with creator, prior owners, 18,492 enemies, 217 bosses and 14 Blood Duel victories (illustrative), familiarity tier and flavor text.
+- Decide which state follows the item versus its current owner; retain provenance across trade, mail, auction and restart in accordance with the removal of Soulbound. Clearly disclose effects, ownership-specific progress and history privacy.
 
 ### New Item Quality Tiers
 
@@ -1075,21 +1460,62 @@ Combine the **freeform decorating, object placement, and collection systems of r
 
 #### Housing-related Professions
 
-- **Sales**
-  - Gain profession experience from making sales.
-  - Unlock benefits such as higher profits or more available sale slots.
-- **Homemaker / Landlord**
-  - Gate housing capacity limits behind profession level.
-  - Example: a **Grand Master** might unlock a capacity of **5,000 furniture pieces**.
-- **Woodworking**.
-- **Farming**.
-  - Grow and harvest crops.
-- **Woodcutting**.
+- **Sales / Trading:** Gain profession experience from verified sales; unlock benefits such as improved profits or additional sale slots, within economy limits.
+- **Homemaker / Landlord:** Gate housing capacity behind profession level; example: Grand Master unlocks capacity for 5,000 furniture pieces. Coordinate with house-level progression.
+- **Woodworking:** New full profession combining world wood gathering and furniture crafting (see detailed design below).
+- **Woodcutting / Lumberjacking:** Original separate profession idea retained as a potential specialization within Woodworking rather than requiring players to train a second skill; final skill-slot decision TBD.
+- **Farming:** Grow and harvest crops and ingredients; connect to player-run farmer jobs, Cooking and taverns.
+
+#### Woodworking — Gather Wood & Craft Furniture
+
+> **Core concept:** Add a new Woodworking profession that lets players **collect wood throughout the world and use it to craft furniture**. The same progression supports timber processing, construction and Sailing.
+
+- Add harvestable world trees, fallen logs and timber nodes, with appropriate regional species, rarity, skill requirements and respawn rules. Use designated harvestable objects; do not indiscriminately delete existing world trees or quest scenery.
+- Provide axes/tools, harvesting animations, wood types and qualities, rare timber, sawmills/workbenches, recipes and a profession journal. Woodcutting is part of the Woodworking loop by default.
+- Process raw logs into planks, beams, boards, veneers and other approved components. Let recipes require wood alongside cloth, leather, metals, dyes, glass, fasteners and other profession inputs.
+- Craft chairs, tables, shelves, cabinets, beds, doors, signs, picture frames, display cases, desks, benches, fences, structural parts and other decor. Advanced recipes can produce functional furniture, custom signs, canvas frames and ship furnishings.
+- Supply shipyards with hulls, masts, decking, rudders, oars, spars and repair materials. Integrate ship crafting and upgrades with Sailing and relevant professions.
+- Discover regional recipes, rare patterns, themed furniture sets and special wood finishes through exploration, vendors, quests, reputation and world events. Sell materials and finished furniture or fulfill public/personal commissions.
+- Support maker signatures, material-dependent appearances, quality grades, dye integration, decor catalog unlocks and first-acquisition house XP. Clarify which outcomes are physical items versus catalog entitlements.
+- Unlock Grand Master and **Ascendant Woodworking**. Expertise examples: extra timber yield, rare wood discovery, efficient milling, material savings, refined finishes, advanced furniture patterns, masterwork construction and ship repair efficiency. Bound economic throughput and protect against repeated-node farming.
+- Potential branches: furniture/cabinetmaking, carpentry/construction, shipwright, fine carving and timber gathering. Keep all core gathering and furniture recipes accessible without forcing a separate profession.
+- Validate node ownership, loot, tool requirements, crafting inputs, item outputs, placement eligibility and offline machine production server-side. Consider regrowth and node density rather than permanent world deforestation.
+
+#### Additional Professions & Secondary Skills
+
+| Proposed skill | Purpose |
+| --- | --- |
+| Construction | Buildings, renovation, residential/commercial architecture, magical and defensive structures |
+| Carpentry / Lumberjacking | Optional Woodworking specializations: furniture and timber harvesting |
+| Farming | Crops and ingredients |
+| Archaeology | Historical artifacts and relics |
+| Treasure Hunting | Buried treasure and hidden caches |
+| Portalcrafting | Transportation devices; standalone or Enchanting specialization |
+| Artistry | Paintings, sculptures and decorative work |
+| Music | Instruments, performances and compositions |
+| Trading / Sales | Merchant specialization |
+| Animal Husbandry | Raise collectible animals |
+| Salvaging | Recover materials from unwanted objects |
+| Hunting | Track and harvest wildlife |
+| Sailing | Ship handling and maritime exploration |
+| Brewing | Fictional beverages and tavern supplies |
+| Cartography | Document locations and charts |
+| Streetwise | Underworld contacts and knowledge |
+| Bounty Hunting | Track and apprehend eligible criminals |
+
+- Use Ascendant levels and Expertise Points for appropriate skills. Decide primary/secondary slots, unlock requirements, overlap and whether related skills should be specializations instead of redundant professions.
+- Example Engineering branches: robotics, entertainment technology, transport, automation, mechanical companions and weapons technology. Construction can specialize in residential, commercial, furniture, magical or defensive structures.
 
 #### Renting Houses to Other Players
 
 1. **Player A** builds/decorates a property and lists it in an in-game real-estate browser.
 2. **Player B** rents it, paying an amount set by Player A at an interval chosen by Player A (daily, weekly, or monthly).
+
+#### Expanded Property Management
+
+- Property names, visitor logs, lockable doors, guest and room-specific access, favorites, reviews, public open houses, custom eligible teleport anchors, neighborhood noticeboards, property lighting/ambiance presets and seasonal decor.
+- Explore shared co-ownership, hotels/rentable rooms, guild halls and player-owned commercial properties; distinguish owner, tenant, decorator, staff and guest permissions. Preserve existing co-decorating ownership rules.
+- Provide a property browser with listings, prices, lease terms and transaction history; define expiry, eviction, storage recovery and offline access so rent failures never destroy player assets.
 
 ### Interactive Home & Atmosphere
 
@@ -1113,6 +1539,44 @@ Place a music player that controls the property's ambient soundtrack.
 - Allow the owner to permit guests to request or change tracks.
 - Persist the selected playlist and playback configuration.
 - Apply music locally to the relevant housing area rather than changing unrelated world audio.
+
+#### Multimedia Furniture & Player Art
+
+- **TV-like screens:** Display short videos and GIFs. **Picture frames:** Display static images and GIFs. **Projectors:** Display media on compatible surfaces. **Billboards/signs:** Advertise shops, guilds and events with text, images, fonts and colors. **Holographic displays:** Magical/technological floating media.
+- Media, paintings and playback configuration are visible to **all eligible nearby players**, not only the owner or uploader. Support synchronized group playback and local distance/volume controls.
+- Set configurable file size, resolution, duration, frame rate, playback distance and storage quotas. Use validated media formats, bounded caching/streaming, server-authorized references and performance settings. No arbitrary executable content; provide placeholders if assets cannot load.
+- Let players disable custom media, mute audio, report inappropriate assets directly, and respect property access. Use moderation, creator permissions and properly licensed/authorized media; avoid exposing private uploads or arbitrary external URLs.
+- Add an in-game **MS Paint/Rust-style painting editor** with freehand brushes, adjustable thickness, palette/custom colors, shapes, fill, eraser, undo/redo and multiple canvas sizes.
+- Save paintings/images to an **account-wide Artwork Collection Journal** for reuse, organization, sharing and eligible sale. Support artist signatures, creation dates, public/private/guild sharing, originals versus copies, creator-granted reuse permissions and moderation.
+- Support selling paintings or permitted copies through shops/Auction House, galleries, displays and museums. Distinguish artwork metadata from physical furniture and validate ownership/licensing when applying it.
+
+#### Expanded Interactive Furniture
+
+| Furniture | Function |
+| --- | --- |
+| Television, frame, projector, billboard | Display eligible custom media |
+| Radio / record player / jukebox | Approved tracks, audio streams or collectible records |
+| Bookshelf | Stores readable books; supports player-written books |
+| Arcade cabinet | Launch minigames and record cabinet-specific scores |
+| Chess / pool / dice tables | Multiplayer social games |
+| Refrigerator | Specialized food storage |
+| Wardrobe / armor mannequin | Saved outfits and displayed gear |
+| Weapon rack / trophy case | Display weapons, trophies and achievements |
+| Mailbox | Eligible mail access |
+| Aquarium / terrarium | Display collected fish and small creatures |
+| Fireplace | Modest temporary rest bonus |
+| Treasure chest | Personal or authorized shared storage |
+| Alchemy laboratory | Approved crafting functions |
+| Training dummy | Combat performance tracking |
+| Guestbook | Visitor messages |
+
+- Keep cosmetic displays separate from actual inventory. Functional services require explicit permission, capacity and server validation; no free duplication through blueprints.
+
+#### Housing Automation & Player-Made Attractions
+
+- Extend secret doors and Tinkering into an approved trigger/action editor: switches, pressure plates, doorbells, timers and puzzle objectives linked to doors, lights, sounds, signs, or eligible reward containers.
+- Examples: pressure plate opens a hidden door; switch changes lighting; tavern entry starts music; bookshelf reveals a passage; doorbell notifies owner; completing a puzzle unlocks a chest.
+- Build escape rooms, interactive museums, haunted attractions, puzzle houses and miniature adventures. Use curated actions, bounded execution, cooldowns, permissions, no arbitrary scripts and no unrestricted item spawning. Rewards must come from real escrow or approved templates.
 
 #### Time-of-Day Controls
 
@@ -1298,6 +1762,16 @@ Introduce placeable, interactive games for social spaces.
 
 > **Scope distinction:** These social table games are separate from the general gambling/casino ideas in [Economy, Loot & Vendors](#7-economy-loot--vendors).
 
+### Player Businesses & Entertainment Venues
+
+- Build on existing shops, taverns and offline sales: general stores, blacksmiths, alchemy/enchanting services, portal agencies, restaurants, hotels, furniture shops, art galleries, arcades, museums, pet shops, transportation, bounty agencies, player auction services and equipment rental.
+- Entertainment venues may include movie theaters, casinos (in-game-only wagering under Section 7), music halls, comedy clubs, fighting arenas and racing venues. Owners can configure access/admission, opening hours, announcements, tournaments and permitted prizes.
+- Add business management: stock, sales history, revenue, employee permissions, opening hours, offline sales, advertisements, customer reviews, reputation, supplier contracts, wholesale purchasing, display cases, receipts and optional operating expenses.
+- Support synced group video, arcade leaderboards (cabinet-local and server-wide), collectible arcade cartridges, cabinet appearances, trivia, billiards/board games, collectible records, instruments, performances/concerts and player-created treasure hunts. Use eligible/authorized game and audio assets.
+- Add player-written books (publish, collect, sell, display) and museums showcasing historical items, trophies and achievements. Treat user content and reviews as moderated, reportable and rate-limited.
+- Extend player contracts to hiring gatherers, decorators, crafters, artists, fishing suppliers, caravan escorts and tournament organizers; validate server-verifiable milestones and escrow payment. Manual service disputes require defined rules.
+- Preserve tavern, NPC-role, property and casino-specific boundaries; a player business never grants administrative privileges or unrestricted currency generation.
+
 ### Player-Run Jobs & NPC Role Replacement — FiveM Inspiration
 
 Let a player **take over the role of an eligible NPC** and become the actual interactive service provider for other players until they quit or go offline.
@@ -1338,6 +1812,8 @@ Let a player **take over the role of an eligible NPC** and become the actual int
 ### Guild Progression
 
 - Bring in the **Cataclysm guild leveling system**.
+
+- Explore guild alliances, agreed guild rivalries, shared halls, joint community construction projects, guild transport networks and guild shipbuilding. Define permissions, alliance membership, contribution records and ownership on guild dissolution.
 
 ---
 
@@ -1494,6 +1970,12 @@ Explore **Necromancy as a genuine profession/progression path**, rather than sim
   - Leaving combat.
   - Looting corpses.
 
+### Mercenaries, Expeditions & Residential Creature Taming
+
+- Extend Journey Companions into optional recruitable NPC mercenaries with customizable roles and appearance; reuse existing companion systems rather than duplicating combat AI.
+- Send eligible recruited NPCs on bounded gathering/exploration expeditions via the housing mission board; define durations, costs, success rules and offline limits.
+- Add noncombat creature taming/collection independently of Hunter combat pets: residential animals, aquariums, terrariums and Animal Husbandry. Extend the creature codex with variants and rare discoveries; avoid treating decorative pets as combat summons.
+
 ### Rent Your Alternate Characters as Player-Hired Bots
 
 Allow a player to offer **their own alternate characters** as AI-controlled mercenaries that **other players can hire**—a character-based extension of the Journey Companion system.
@@ -1576,7 +2058,61 @@ Allow a player to offer **their own alternate characters** as AI-controlled merc
 
 ---
 
-## 14. Unscoped / Exploratory Ideas
+## 14. Cross-System Integration & Optional Development Sequencing
+
+These concepts create multiple legitimate forms of endgame: raiding, weapon mastery, trade, fishing, criminal life, bounty hunting, architecture, exploration, sailing and community creation. Reaching maximum character level should open new ways to develop rather than end progression.
+
+| System | Primary role |
+| --- | --- |
+| Classless talents / archetypes | Combat identity and ability selection |
+| Paths of FATE | Broader character development |
+| Ascendant skills / Expertise Points | Effectively uncapped lifetime skill progression and skill-specific unlocks |
+| Weapon Mastery | Bounded equipped weapon fighting style |
+| Equipment familiarity | Individual item history and owner relationship |
+| Professions | Crafting, services and commerce |
+| Reputation / Wanted | Long-term social standing versus active legal status |
+| Housing and businesses | Creation, social gameplay and commerce |
+| Sailing and exploration | World travel, navigation, trade and discoveries |
+
+- Shared infrastructure: server-authoritative transactions/escrow, permission checks, persistence, progression curves, moderation, leaderboards, content catalogs, cross-map transfer and configurable balance policies.
+- Keep original explicit goals intact when overlapping systems are reconciled. Define power budgets, currency scope, cap/overflow behavior, reward eligibility, trade rules, offline progression and competitive restrictions before implementing.
+
+### Optional Planning Sketch (Not an Approved Roadmap)
+
+The following retains the earlier brainstorm's suggested priorities as discussion material only; no source-code audit or effort estimate has been performed. P0–P3 labels are tentative relative ordering, not commitments.
+
+| Feature | Impact | Relative complexity | Suggested tier |
+| --- | --- | --- | --- |
+| Expanded instance limits | Medium | Low | P0 |
+| Pocket Portals | High | Low–Medium | P0 |
+| Swappable Racials | High | Medium | P0 |
+| Gold Duels | Medium | Medium | P0 |
+| Blood Duels | High | Medium | P0 |
+| Dynamic Titles | High | Medium | P0 |
+| Ascendant Skills framework | Very high | High | P1 |
+| Expertise Points | Very high | High | P1 |
+| Wanted Levels | Very high | High | P1 |
+| Bounty Hunting | High | High | P1 |
+| Weapon Mastery trees | Very high | Very high | P1 |
+| Extended player profiles | High | Medium–High | P1 |
+| Black Market / fences | High | Medium | P2 |
+| Prison gameplay | High | High | P2 |
+| Crafting commissions | High | High | P2 |
+| Equipment familiarity | High | Medium–High | P2 |
+| Multimedia furniture | High | High | P2 |
+| In-game painting | High | High | P2 |
+| Dynamic world events | Very high | High | P2 |
+| Housing automation | High | Very high | P3 |
+| Player-created quests | Very high | Very high | P3 |
+| New secondary professions | Very high | Very high | P3 |
+| Woodworking | High | TBD | Unassigned |
+| Sailing / three-continent ocean | Very high | Very high (conceptual) | Unassigned; early technical prototype suggested |
+
+Consider dependencies independently of these labels: e.g. shared skill/Expertise framework before advanced profession progression, Woodworking materials before ship construction, and moving-platform/cross-map prototypes before a seamless ocean rollout.
+
+---
+
+## 15. Unscoped / Exploratory Ideas
 
 The following idea remains a placeholder for later definition:
 
@@ -1584,7 +2120,7 @@ The following idea remains a placeholder for later definition:
 
 **Previously expanded from the original notes:** [Nat Pagle fishing](#nat-pagle--fishing-challenges-bounties--unique-rewards) · [Fictional drugs / chems](#fictional-drugs--riskreward-consumables) · [Casinos and gold wagering](#gambling-casinos--gold-wagering-minigames).
 
-**Additional November 2026 brainstorm ideas:** Integrated into the existing topical sections above rather than appended as an unorganized list. All additions remain **concept proposals**, not approved implementation requirements.
+**Additional November 2026 brainstorm ideas:** Integrated into the existing topical sections above rather than appended as an unorganized list. Expanded progression, duels, crime, housing, economy, client features, Sailing and Woodworking are included. All additions remain **concept proposals**, not approved implementation requirements; seamless sailing between all three continents and combined wood gathering/furniture crafting are explicit design goals.
 
 ---
 

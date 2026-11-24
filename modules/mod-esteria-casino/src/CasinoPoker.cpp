@@ -405,7 +405,7 @@ namespace EsteriaCasino::Server
             pokerConfig.minBuyIn, pokerConfig.maxBuyIn);
     }
 
-    void OpenPoker(Player* player, Creature* npc)
+    void OpenPoker(Player* player, WorldObject* npc)
     {
         auto [it, created] = tables.try_emplace(npc->GetGUID(), npc->GetGUID(), npc->GetEntry());
         PokerTable& t = it->second;

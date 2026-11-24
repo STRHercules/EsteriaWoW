@@ -54,6 +54,9 @@
 #include <unordered_map>
 #include <unordered_set>
 
+// Set by other modules (mod-esteria-arcade's cabinet skins): the display a placed decor piece spawns with, 0 for its own.
+uint32 (*EsteriaHousingDecorDisplay)(uint64 placed) = nullptr;
+
 namespace
 {
     using namespace EsteriaHousingWire;
@@ -946,6 +949,9 @@ namespace
             p.pos[1], p.pos[2], p.yaw, G3D::Quat(p.rot[0], p.rot[1], p.rot[2], p.rot[3]), 100, GO_STATE_READY))
         {
             go->SetObjectScale(p.scale * (MatHidden(p.id) ? 0.01f : BaseScale(p.decorId)));
+            // like the scale, the model must be right before the client first sees the object
+            if (uint32 const display = EsteriaHousingDecorDisplay ? EsteriaHousingDecorDisplay(p.id) : 0)
+                go->SetDisplayId(display);
             go->SetRespawnTime(0);
             go->SetSpawnedByDefault(false);
             map->AddToMap(go, false);
@@ -1354,6 +1360,8 @@ namespace
             uint8 const k = CollectionKindOf(e.decorId);
             return (k == ColTrainer || k == ColAuctioneer ? 100 : k == ColStation || k == ColMailbox ? 10 : 50) * 10000;
         }
+        if (e.category == 10) // arcade cabinets (mod-esteria-arcade): a playable machine
+            return 25 * 10000;
         return (e.category < 6 ? gold[e.category] : 1) * 10000;
     }
 
@@ -3727,6 +3735,52 @@ namespace
             s_instanceHouse.erase(it);
         }
     };
+}
+
+// For other modules (mod-esteria-arcade): the account owning the house a placed decor object belongs to, or 0 when
+// the object is not placed decor. Works indoors and on plots (every placement's spawn is in s_spawned).
+uint64 EsteriaHousingPlacedId(GameObject const* go)
+{
+    if (!go)
+        return 0;
+    std::lock_guard<std::recursive_mutex> guard(s_lock);
+    auto instance = s_spawned.find(go->GetInstanceId());
+    if (instance != s_spawned.end())
+        for (auto const& [placed, guid] : instance->second)
+            if (guid == go->GetGUID())
+                return placed;
+    return 0;
+}
+
+// Spawns a placed decor object again (after its EsteriaHousingDecorDisplay changed); false when it is not placed decor.
+bool EsteriaHousingRespawnDecor(GameObject* go)
+{
+    std::lock_guard<std::recursive_mutex> guard(s_lock);
+    uint64 const placed = EsteriaHousingPlacedId(go);
+    House* house = placed ? HouseOfPlaced(placed) : nullptr;
+    Placed const* p = house ? FindPlaced(*house, placed) : nullptr;
+    if (!p)
+        return false;
+    Placed const copy = *p;
+    Map* map = go->GetMap(); // go is deleted by Despawn
+    Despawn(map, placed);
+    Spawn(map, copy);
+    return true;
+}
+
+uint32 EsteriaHousingDecorOwner(GameObject const* go)
+{
+    if (!go)
+        return 0;
+    std::lock_guard<std::recursive_mutex> guard(s_lock);
+    auto instance = s_spawned.find(go->GetInstanceId());
+    if (instance == s_spawned.end())
+        return 0;
+    for (auto const& [placed, guid] : instance->second)
+        if (guid == go->GetGUID())
+            if (House const* house = HouseOfPlaced(placed))
+                return house->account;
+    return 0;
 }
 
 void AddSC_mod_esteria_housing()

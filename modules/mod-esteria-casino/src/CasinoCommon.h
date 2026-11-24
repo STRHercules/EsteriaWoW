@@ -17,6 +17,7 @@
 #include <string_view>
 
 class Creature;
+class WorldObject;
 class Player;
 
 namespace EsteriaCasino::Server
@@ -77,7 +78,7 @@ namespace EsteriaCasino::Server
 
     // Chess and checkers (CasinoBoardGames.cpp).
     void LoadBoardConfig();
-    void OpenBoardLobby(Player* player, Creature* npc);
+    void OpenBoardLobby(Player* player, WorldObject* npc);
     bool HandleBoardMessage(Player* player, std::string_view command, std::string_view args);
     void BoardLogin(Player* player);
     void BoardLogout(Player* player);
@@ -85,7 +86,7 @@ namespace EsteriaCasino::Server
 
     // Texas Hold'em (CasinoPoker.cpp).
     void LoadPokerConfig();
-    void OpenPoker(Player* player, Creature* npc);
+    void OpenPoker(Player* player, WorldObject* npc);
     bool HandlePokerMessage(Player* player, std::string_view command, std::string_view args);
     void PokerLogout(Player* player);
     void PokerUpdate(uint32 diff);

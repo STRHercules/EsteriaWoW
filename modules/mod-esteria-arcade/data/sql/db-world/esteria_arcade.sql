@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `esteria_arcade_game` (
   `title` VARCHAR(100) NOT NULL,
   `system` VARCHAR(16) NOT NULL,
   `core` VARCHAR(48) NOT NULL,
-  `rom` VARCHAR(200) NOT NULL,
+  `rom` TEXT NOT NULL, -- archive paths joined by | (game first, then the files that sit beside it)
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -15,4 +15,13 @@ CREATE TABLE IF NOT EXISTS `esteria_arcade_cabinet` (
   `game` INT UNSIGNED NOT NULL,
   `price` INT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`entry`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Cabinet looks a house owner can switch a placed cabinet to (skin 0, the Lionheart model, is every cabinet's own).
+CREATE TABLE IF NOT EXISTS `esteria_arcade_skin` (
+  `id` INT UNSIGNED NOT NULL,
+  `display_id` INT UNSIGNED NOT NULL,
+  `price` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT 'copper to unlock, once per account',
+  `name` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -7,6 +7,9 @@
  * uploads are accepted for a grace period after that.
  * Spectators: the player's client streams a small picture of the cabinet screen (VIEW); the server relays it to the
  * players around (same packet, with the cabinet guid) and sends VIEW_END when the game stops. One player per cabinet.
+ * House cabinets: every cabinet is also housing decor (housing_decor_catalog -> the same gameobject entry). Placed in a
+ * house, the owning account plays free; guests pay the house's guest price, which collects in esteria_arcade_house
+ * until the owner takes it from any of their cabinets.
  *
  * Wire: see wowdecomp Extensions/Arcade/src/Arcade.cpp. Blobs are opaque to the server ([u32 rawSize][zlib]).
  */
@@ -25,11 +28,20 @@
 #include "WorldScript.h"
 #include "WorldSession.h"
 
+#include <mutex>
 #include <unordered_map>
+
+// mod-esteria-housing: the account owning the house a placed decor object belongs to, 0 when it is not placed decor.
+uint32 EsteriaHousingDecorOwner(GameObject const* go);
+// mod-esteria-housing: placement id of a placed decor object (0 if none), the display hook it spawns with, a respawn.
+uint64 EsteriaHousingPlacedId(GameObject const* go);
+extern uint32 (*EsteriaHousingDecorDisplay)(uint64 placed);
+bool EsteriaHousingRespawnDecor(GameObject* go);
 
 namespace
 {
-    enum : uint8 { S_START = 1, S_DATA = 2, S_STOP = 3, S_VIEW = 4, S_VIEW_END = 5, C_DATA = 1, C_QUIT = 2, C_VIEW = 3 };
+    enum : uint8 { S_START = 1, S_DATA = 2, S_STOP = 3, S_VIEW = 4, S_VIEW_END = 5, S_NET_ADDR = 6, S_NET = 7,
+                   C_DATA = 1, C_QUIT = 2, C_VIEW = 3, C_NET_JOIN = 4, C_NET = 5 };
     enum : uint8 { KIND_SRAM = 0, KIND_STATE = 1 };
     constexpr uint32 CHUNK = 8000;
     constexpr uint32 MAX_BLOB = 16u << 20;
@@ -38,13 +50,89 @@ namespace
     constexpr uint32 TEXT_ID = 3610001;    // "The cabinet hums..."
     constexpr float VIEW_RANGE = 60.0f;    // spectators within this many yards of the player see the stream
     constexpr uint32 VIEW_BYTES_PER_SECOND = 96 * 1024; // relayed per session; more is dropped (the client resyncs)
-    enum Action : uint32 { ACTION_PLAY = 1, ACTION_STOP = 2 };
+    // The arcade network: a virtual LAN between the cabinets playing the same game (StarCraft's LAN games). The
+    // server gives each joined session an address (10.77.x.y) and relays datagrams, stamped with the sender's address.
+    constexpr uint32 NET_BASE = 0x0A4D0000;              // 10.77.0.0
+    constexpr uint32 NET_BROADCAST = 0xFFFFFFFF;
+    constexpr uint32 NET_MAX = 2048;                     // one datagram (the client's kNetMax)
+    constexpr uint32 NET_BYTES_PER_SECOND = 64 * 1024;   // per session; StarCraft needs about 1 KiB/s
+    constexpr uint32 NET_PACKETS_PER_SECOND = 400;
+    enum Action : uint32 { ACTION_PLAY = 1, ACTION_STOP = 2, ACTION_PRICE = 3, ACTION_COLLECT = 4, ACTION_LOOKS = 5,
+                           ACTION_LOOK = 100 }; // ACTION_LOOK + skin id
 
     struct Game { std::string title, core, rom; };
     struct Cabinet { uint32 game = 0; uint32 price = 0; };
 
     std::unordered_map<uint32, Game> games;
     std::unordered_map<uint32, Cabinet> cabinets; // by gameobject entry
+
+    // Cabinet skins (esteria_arcade_skin): another model for a cabinet placed in a house. Skin 0 is the cabinet's own
+    // Lionheart look; the others are unlocked per account with gold (character_arcade_skin) and chosen per placement.
+    struct Skin { uint32 id = 0, display = 0, price = 0; std::string name; };
+    std::vector<Skin> skins;                            // by id, loaded at startup
+    std::mutex skinLock;                                // placedSkin is read from map threads as decor spawns
+    std::unordered_map<uint64, uint32> placedSkin;      // housing placement -> skin id
+
+    Skin const* SkinById(uint32 id)
+    {
+        for (Skin const& k : skins)
+            if (k.id == id)
+                return &k;
+        return nullptr;
+    }
+
+    uint32 SkinDisplay(uint64 placed)
+    {
+        std::lock_guard<std::mutex> guard(skinLock);
+        auto it = placedSkin.find(placed);
+        Skin const* skin = it == placedSkin.end() ? nullptr : SkinById(it->second);
+        return skin ? skin->display : 0;
+    }
+
+    bool Unlocked(uint32 account, uint32 skin)
+    {
+        return CharacterDatabase.Query(Acore::StringFormat(
+            "SELECT 1 FROM `character_arcade_skin` WHERE `account` = {} AND `skin` = {}", account, skin)) != nullptr;
+    }
+
+    constexpr uint32 HOUSE_PRICE = 5000;           // a house's guest price until its owner sets one
+    constexpr uint32 HOUSE_PRICE_MAX = 10000000;   // 1000 gold
+
+    std::string GoldText(uint64 copper)
+    {
+        if (!copper)
+            return "free";
+        std::string out;
+        if (copper >= 10000) out += std::to_string(copper / 10000) + "g ";
+        if (copper % 10000 >= 100) out += std::to_string(copper % 10000 / 100) + "s ";
+        if (copper % 100) out += std::to_string(copper % 100) + "c ";
+        out.pop_back();
+        return out;
+    }
+
+    struct HouseArcade { uint32 price = HOUSE_PRICE; uint64 earnings = 0; };
+
+    HouseArcade HouseOf(uint32 owner)
+    {
+        HouseArcade h;
+        if (QueryResult r = CharacterDatabase.Query(Acore::StringFormat(
+            "SELECT `guest_price`, `earnings` FROM `esteria_arcade_house` WHERE `account` = {}", owner)))
+        {
+            h.price = r->Fetch()[0].Get<uint32>();
+            h.earnings = r->Fetch()[1].Get<uint64>();
+        }
+        return h;
+    }
+
+    // What this player pays at this cabinet: the house's guest price in a house (free for its owner), else the
+    // cabinet's own price.
+    uint32 PriceFor(Player* player, GameObject* go, Cabinet const& cabinet, uint32& owner)
+    {
+        owner = EsteriaHousingDecorOwner(go);
+        if (!owner)
+            return cabinet.price;
+        return owner == player->GetSession()->GetAccountId() ? 0 : HouseOf(owner).price;
+    }
 
     struct Upload
     {
@@ -64,6 +152,8 @@ namespace
         bool stopping = false;
         uint32 stoppedAt = 0;
         uint32 viewSecond = 0, viewBytes = 0;
+        uint32 netAddr = 0;                              // 0 until C_NET_JOIN
+        uint32 netSecond = 0, netBytes = 0, netPackets = 0;
         Upload up[2];
     };
 
@@ -158,7 +248,9 @@ namespace
         if (game == games.end())
             return;
         WorldSession* session = player->GetSession();
-        if (!player->HasEnoughMoney(cabinet.price))
+        uint32 owner = 0;
+        uint32 const price = PriceFor(player, go, cabinet, owner);
+        if (!player->HasEnoughMoney(price))
         {
             ChatHandler(session).SendNotification("You don't have enough money to play.");
             return;
@@ -183,8 +275,14 @@ namespace
             if (!f[1].IsNull()) state = f[1].Get<Binary>();
         }
 
-        if (cabinet.price)
-            player->ModifyMoney(-int32(cabinet.price));
+        if (price)
+        {
+            player->ModifyMoney(-int32(price));
+            if (owner)  // a guest at a house cabinet: the coin goes to the house
+                CharacterDatabase.Execute(Acore::StringFormat(
+                    "INSERT INTO `esteria_arcade_house` (`account`, `guest_price`, `earnings`) VALUES ({0}, {1}, {2}) "
+                    "ON DUPLICATE KEY UPDATE `earnings` = `earnings` + {2}", owner, HOUSE_PRICE, price));
+        }
 
         Session s;
         s.id = ++lastSessionId;
@@ -206,7 +304,7 @@ namespace
         SendBlob(session, lastSessionId, KIND_SRAM, sram);
         SendBlob(session, lastSessionId, KIND_STATE, state);
         LOG_INFO("module.arcade", "{} started {} (session {}, paid {}, sram {} B, state {} B)", player->GetName(),
-            game->second.title, lastSessionId, cabinet.price, sram.size(), state.size());
+            game->second.title, lastSessionId, price, sram.size(), state.size());
     }
 
     // Client -> server. Returns true when the packet was ours (consumed).
@@ -253,6 +351,58 @@ namespace
                 player->SendMessageToSetInRange(&data, VIEW_RANGE, false);
                 return true;
             }
+            if (sub == C_NET_JOIN)
+            {
+                if (s.stopping || s.netAddr)
+                    return true;
+                // the lowest free address among this game's cabinets; .0 and .255 are never handed out (the client
+                // treats any x.y.z.255 as a broadcast)
+                for (uint32 i = 1; i < 0xFFFF && !s.netAddr; ++i)
+                {
+                    if ((i & 0xFF) == 0 || (i & 0xFF) == 0xFF)
+                        continue;
+                    bool taken = false;
+                    for (auto const& [oid, o] : sessions)
+                        taken = taken || (!o.stopping && o.game == s.game && o.netAddr == (NET_BASE | i));
+                    if (!taken)
+                        s.netAddr = NET_BASE | i;
+                }
+                WorldPacket data(SMSG_ESTERIA_ARCADE, 9);
+                data << uint8(S_NET_ADDR) << s.id << s.netAddr;
+                session->SendPacket(&data);
+                return true;
+            }
+            if (sub == C_NET)
+            {
+                // u32 to, u16 srcPort, u16 dstPort, bytes -> each cabinet of the same game it is for, from s.netAddr
+                uint32 to;
+                uint16 srcPort, dstPort;
+                p >> to >> srcPort >> dstPort;
+                size_t const n = p.size() - p.rpos();
+                if (s.stopping || !s.netAddr || n > NET_MAX)
+                    return true;
+                uint32 const second = getMSTime() / 1000;
+                if (second != s.netSecond)
+                {
+                    s.netSecond = second;
+                    s.netBytes = s.netPackets = 0;
+                }
+                if ((s.netBytes += uint32(n)) > NET_BYTES_PER_SECOND || ++s.netPackets > NET_PACKETS_PER_SECOND)
+                    return true;  // dropped, as a congested LAN would; the game resends
+                for (auto const& [oid, o] : sessions)
+                {
+                    if (oid == s.id || o.stopping || o.game != s.game || !o.netAddr || (to != NET_BROADCAST && to != o.netAddr))
+                        continue;
+                    Player* peer = ObjectAccessor::FindConnectedPlayer(o.player);
+                    if (!peer)
+                        continue;
+                    WorldPacket data(SMSG_ESTERIA_ARCADE, 13 + n);
+                    data << uint8(S_NET) << o.id << s.netAddr << srcPort << dstPort;
+                    data.append(p.contents() + p.rpos(), n);
+                    peer->GetSession()->SendPacket(&data);
+                }
+                return true;
+            }
             if (sub != C_DATA)
                 return true;
             uint8 kind;
@@ -293,12 +443,28 @@ namespace
                 return false; // plain DB gossip
             ClearGossipMenuFor(player);
             std::string const& title = games[cabinet->second.game].title;
-            std::string const price = cabinet->second.price
-                ? Acore::StringFormat("Insert a coin ({}) and play {}.", GoldText(cabinet->second.price), title)
+            uint32 owner = 0;
+            uint32 const price = PriceFor(player, go, cabinet->second, owner);
+            bool const mine = owner && owner == player->GetSession()->GetAccountId();
+            std::string const play = mine ? Acore::StringFormat("Play {} (your cabinet: free).", title)
+                : price ? Acore::StringFormat("Insert a coin ({}) and play {}.", GoldText(price), title)
                 : Acore::StringFormat("Play {}.", title);
-            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, price, GOSSIP_SENDER_MAIN, ACTION_PLAY);
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, play, GOSSIP_SENDER_MAIN, ACTION_PLAY);
             if (Active(player->GetSession()->GetAccountId()))
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Stop playing.", GOSSIP_SENDER_MAIN, ACTION_STOP);
+            if (mine)
+            {
+                HouseArcade const house = HouseOf(owner);
+                AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1,
+                    Acore::StringFormat("Set what guests pay at your cabinets (now {}).", GoldText(house.price)),
+                    GOSSIP_SENDER_MAIN, ACTION_PRICE, "Gold per game for guests (0 for free, up to 1000):", 0, true);
+                if (house.earnings)
+                    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG,
+                        Acore::StringFormat("Collect your cabinets' earnings ({}).", GoldText(house.earnings)),
+                        GOSSIP_SENDER_MAIN, ACTION_COLLECT);
+                if (!skins.empty())
+                    AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Change this cabinet's look.", GOSSIP_SENDER_MAIN, ACTION_LOOKS);
+            }
             SendGossipMenuFor(player, TEXT_ID, go->GetGUID());
             return true;
         }
@@ -310,20 +476,132 @@ namespace
             if (action == ACTION_PLAY && cabinet != cabinets.end() && player->IsWithinDistInMap(go, REACH))
                 Start(player, go, cabinet->second);
             else if (action == ACTION_STOP)
+            {
                 if (Session* running = Active(player->GetSession()->GetAccountId()))
                     SendStop(player->GetSession(), *running, "quit");
+            }
+            else if (action == ACTION_COLLECT)
+                Collect(player, go);
+            else if (action == ACTION_LOOKS)
+                Looks(player, go);
+            else if (action >= ACTION_LOOK)
+                ChooseLook(player, go, action - ACTION_LOOK);
+            return true;
+        }
+
+        bool OnGossipSelectCode(Player* player, GameObject* go, uint32 /*sender*/, uint32 action, char const* code) override
+        {
+            CloseGossipMenuFor(player);
+            uint32 const owner = EsteriaHousingDecorOwner(go);
+            if (action != ACTION_PRICE || !owner || owner != player->GetSession()->GetAccountId() || !code)
+                return true;
+            char* end = nullptr;
+            double const gold = std::strtod(code, &end);
+            if (end == code || gold < 0 || gold * 10000 > HOUSE_PRICE_MAX)
+            {
+                ChatHandler(player->GetSession()).SendNotification("Enter a number of gold from 0 to 1000.");
+                return true;
+            }
+            uint32 const copper = uint32(gold * 10000 + 0.5);
+            CharacterDatabase.Execute(Acore::StringFormat(
+                "INSERT INTO `esteria_arcade_house` (`account`, `guest_price`, `earnings`) VALUES ({0}, {1}, 0) "
+                "ON DUPLICATE KEY UPDATE `guest_price` = {1}", owner, copper));
+            ChatHandler(player->GetSession()).PSendSysMessage("Guests now pay {} per game at your arcade cabinets.", GoldText(copper));
             return true;
         }
 
     private:
-        static std::string GoldText(uint32 copper)
+        static bool Mine(Player* player, GameObject* go)
         {
-            std::string out;
-            if (copper >= 10000) out += std::to_string(copper / 10000) + "g ";
-            if (copper % 10000 >= 100) out += std::to_string(copper % 10000 / 100) + "s ";
-            if (copper % 100) out += std::to_string(copper % 100) + "c ";
-            if (!out.empty()) out.pop_back();
-            return out;
+            uint32 const owner = EsteriaHousingDecorOwner(go);
+            return owner && owner == player->GetSession()->GetAccountId() && EsteriaHousingPlacedId(go);
+        }
+
+        static void Looks(Player* player, GameObject* go)
+        {
+            if (!Mine(player, go))
+                return;
+            uint32 const account = player->GetSession()->GetAccountId();
+            uint32 current = 0;
+            {
+                std::lock_guard<std::mutex> guard(skinLock);
+                if (auto it = placedSkin.find(EsteriaHousingPlacedId(go)); it != placedSkin.end())
+                    current = it->second;
+            }
+            ClearGossipMenuFor(player);
+            AddGossipItemFor(player, GOSSIP_ICON_TABARD, current ? "Lionheart (the original look)."
+                : "Lionheart (the original look) - in use.", GOSSIP_SENDER_MAIN, ACTION_LOOK);
+            for (Skin const& k : skins)
+            {
+                if (k.id == current)
+                    AddGossipItemFor(player, GOSSIP_ICON_TABARD, k.name + " - in use.", GOSSIP_SENDER_MAIN, ACTION_LOOK + k.id);
+                else if (!k.price || Unlocked(account, k.id))
+                    AddGossipItemFor(player, GOSSIP_ICON_TABARD, k.name + ".", GOSSIP_SENDER_MAIN, ACTION_LOOK + k.id);
+                else
+                    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG,
+                        Acore::StringFormat("Unlock {} ({}).", k.name, GoldText(k.price)), GOSSIP_SENDER_MAIN,
+                        ACTION_LOOK + k.id, Acore::StringFormat("Unlock the {} look for all your arcade cabinets?", k.name),
+                        k.price, false);
+            }
+            SendGossipMenuFor(player, TEXT_ID, go->GetGUID());
+        }
+
+        static void ChooseLook(Player* player, GameObject* go, uint32 id)
+        {
+            Skin const* skin = SkinById(id);
+            if (!Mine(player, go) || (id && !skin))
+                return;
+            for (auto const& [sid, s] : sessions)
+                if (!s.stopping && s.cabinet == go->GetGUID())
+                    return ChatHandler(player->GetSession()).SendNotification("Someone is playing this cabinet.");
+            uint32 const account = player->GetSession()->GetAccountId();
+            if (skin && skin->price && !Unlocked(account, id))
+            {
+                if (!player->HasEnoughMoney(skin->price))
+                    return ChatHandler(player->GetSession()).SendNotification("You don't have enough gold.");
+                CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+                trans->Append(Acore::StringFormat(
+                    "INSERT IGNORE INTO `character_arcade_skin` (`account`, `skin`) VALUES ({}, {})", account, id));
+                player->ModifyMoney(-int32(skin->price));
+                player->SaveGoldToDB(trans);
+                CharacterDatabase.CommitTransaction(trans);
+                ChatHandler(player->GetSession()).PSendSysMessage("You unlock the {} cabinet look.", skin->name);
+            }
+            uint64 const placed = EsteriaHousingPlacedId(go);
+            {
+                std::lock_guard<std::mutex> guard(skinLock);
+                if (id)
+                    placedSkin[placed] = id;
+                else
+                    placedSkin.erase(placed);
+            }
+            CharacterDatabase.Execute(id
+                ? Acore::StringFormat("REPLACE INTO `esteria_arcade_placed_skin` (`placed_id`, `skin`) VALUES ({}, {})", placed, id)
+                : Acore::StringFormat("DELETE FROM `esteria_arcade_placed_skin` WHERE `placed_id` = {}", placed));
+            EsteriaHousingRespawnDecor(go); // the client only builds a gameobject's model when it first sees it
+        }
+
+        static void Collect(Player* player, GameObject* go)
+        {
+            uint32 const owner = EsteriaHousingDecorOwner(go);
+            if (!owner || owner != player->GetSession()->GetAccountId())
+                return;
+            uint64 const earnings = HouseOf(owner).earnings;
+            if (!earnings)
+                return;
+            if (uint64(player->GetMoney()) + earnings > MAX_MONEY_AMOUNT)
+            {
+                ChatHandler(player->GetSession()).SendNotification("You can't carry that much gold.");
+                return;
+            }
+            // Take exactly what was read: coins guests add meanwhile stay for next time.
+            CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+            trans->Append(Acore::StringFormat(
+                "UPDATE `esteria_arcade_house` SET `earnings` = `earnings` - {} WHERE `account` = {}", earnings, owner));
+            player->ModifyMoney(int32(earnings));
+            player->SaveGoldToDB(trans);
+            CharacterDatabase.CommitTransaction(trans);
+            ChatHandler(player->GetSession()).PSendSysMessage("You collect {} from your arcade cabinets.", GoldText(earnings));
         }
     };
 
@@ -362,7 +640,24 @@ namespace
                     Field* f = r->Fetch();
                     cabinets[f[0].Get<uint32>()] = {f[1].Get<uint32>(), f[2].Get<uint32>()};
                 } while (r->NextRow());
-            LOG_INFO("server.loading", "Esteria arcade: {} games, {} cabinets.", games.size(), cabinets.size());
+            skins.clear();
+            if (QueryResult r = WorldDatabase.Query("SELECT `id`, `display_id`, `price`, `name` FROM `esteria_arcade_skin` ORDER BY `id`"))
+                do
+                {
+                    Field* f = r->Fetch();
+                    skins.push_back({f[0].Get<uint32>(), f[1].Get<uint32>(), f[2].Get<uint32>(), f[3].Get<std::string>()});
+                } while (r->NextRow());
+            {
+                std::lock_guard<std::mutex> guard(skinLock);
+                placedSkin.clear();
+                if (QueryResult r = CharacterDatabase.Query("SELECT `placed_id`, `skin` FROM `esteria_arcade_placed_skin`"))
+                    do
+                        placedSkin[r->Fetch()[0].Get<uint64>()] = r->Fetch()[1].Get<uint32>();
+                    while (r->NextRow());
+            }
+            EsteriaHousingDecorDisplay = SkinDisplay;
+            LOG_INFO("server.loading", "Esteria arcade: {} games, {} cabinets, {} cabinet looks.", games.size(),
+                cabinets.size(), skins.size());
         }
 
         void OnUpdate(uint32 diff) override

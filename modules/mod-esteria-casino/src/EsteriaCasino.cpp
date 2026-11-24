@@ -53,6 +53,8 @@
 #include "CreatureScript.h"
 #include "CryptoRandom.h"
 #include "DatabaseEnv.h"
+#include "GameObject.h"
+#include "GameObjectScript.h"
 #include "GameTime.h"
 #include "Log.h"
 #include "Mail.h"
@@ -186,8 +188,10 @@ namespace EsteriaCasino::Server
 
     bool Near(Player* player, ObjectGuid npc)
     {
-        Creature* creature = ObjectAccessor::GetCreature(*player, npc);
-        return creature && creature->IsAlive() && player->IsWithinDistInMap(creature, settings.maxDistance);
+        // the dealer NPC, or a casino table gameobject standing in for one
+        WorldObject* dealer = ObjectAccessor::GetWorldObject(*player, npc);
+        Creature* creature = dealer ? dealer->ToCreature() : nullptr;
+        return dealer && (!creature || creature->IsAlive()) && player->IsWithinDistInMap(dealer, settings.maxDistance);
     }
 
     char const* StakeRefusal(Player* player, uint64 stake)
@@ -527,8 +531,7 @@ namespace
             return "closed";
         if (seat.game == Game::Blackjack && Playing(seat))
             return "playing";
-        Creature* dealer = ObjectAccessor::GetCreature(*player, seat.dealer);
-        if (!dealer || !dealer->IsAlive() || !player->IsWithinDistInMap(dealer, settings.maxDistance))
+        if (!Near(player, seat.dealer))
             return "range";
         if (player->GetDigitalInventory().Failed())
             return "state";
@@ -820,6 +823,24 @@ namespace
     }
 }
 
+namespace
+{
+    // Sit at a house game (blackjack, slots, dice) run by `dealer`: an NPC or a table gameobject.
+    void OpenTable(Player* player, WorldObject* dealer, Game game)
+    {
+        Seat& seat = seats[player->GetGUID()];
+        // An open blackjack hand waits at its table: slots and dice still open, and any blackjack dealer resumes it.
+        seat.game = game;
+        seat.dealer = dealer->GetGUID();
+        seat.dealerEntry = dealer->GetEntry();
+        SendOpen(player, seat.game);
+        if (seat.game == Game::Blackjack)
+            SendTable(player, seat);
+        else if (Playing(seat))
+            Send(player, "W");
+    }
+}
+
 // One script per game. The dealer only opens the window; every bet checks the distance to it again.
 class npc_esteria_casino_table : public CreatureScript
 {
@@ -839,23 +860,50 @@ public:
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
     {
         CloseGossipMenuFor(player);
-        if (action != GOSSIP_ACTION_SIT || !settings.enabled || !houseLoaded)
-            return true;
-
-        Seat& seat = seats[player->GetGUID()];
-        // An open blackjack hand waits at its table: slots and dice still open, and any blackjack dealer resumes it.
-        seat.game = _game;
-        seat.dealer = creature->GetGUID();
-        seat.dealerEntry = creature->GetEntry();
-        SendOpen(player, seat.game);
-        if (seat.game == Game::Blackjack)
-            SendTable(player, seat);
-        else if (Playing(seat))
-            Send(player, "W");
+        if (action == GOSSIP_ACTION_SIT && settings.enabled && houseLoaded)
+            OpenTable(player, creature, _game);
         return true;
     }
 
 private:
+    Game _game;
+    char const* _option;
+};
+
+// Casino furniture (housing decor or world spawns): a table gameobject opens its game the way its dealer NPC does.
+class go_esteria_casino_table : public GameObjectScript
+{
+public:
+    enum Kind { House, Board, Poker };
+
+    go_esteria_casino_table(char const* name, Kind kind, Game game, char const* option)
+        : GameObjectScript(name), _kind(kind), _game(game), _option(option) { }
+
+    bool OnGossipHello(Player* player, GameObject* go) override
+    {
+        ClearGossipMenuFor(player);
+        if (_kind == House ? settings.enabled && houseLoaded : Open())
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, _option, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_SIT);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, go->GetGUID());
+        return true;
+    }
+
+    bool OnGossipSelect(Player* player, GameObject* go, uint32 /*sender*/, uint32 action) override
+    {
+        CloseGossipMenuFor(player);
+        if (action != GOSSIP_ACTION_SIT)
+            return true;
+        if (_kind == House && settings.enabled && houseLoaded)
+            OpenTable(player, go, _game);
+        else if (_kind == Board && Open())
+            OpenBoardLobby(player, go);
+        else if (_kind == Poker && Open())
+            OpenPoker(player, go);
+        return true;
+    }
+
+private:
+    Kind _kind;
     Game _game;
     char const* _option;
 };
@@ -1123,6 +1171,12 @@ void AddSC_esteria_casino()
         "Take a seat at the blackjack table.");
     new npc_esteria_casino_table("npc_esteria_casino_slots", Game::Slots, "Play the slot machine.");
     new npc_esteria_casino_table("npc_esteria_casino_dice", Game::Dice, "Roll Goblin Dice.");
+    using Table = go_esteria_casino_table;
+    new Table("go_esteria_casino_blackjack", Table::House, Game::Blackjack, "Take a seat at the blackjack table.");
+    new Table("go_esteria_casino_slots", Table::House, Game::Slots, "Play the slot machine.");
+    new Table("go_esteria_casino_dice", Table::House, Game::Dice, "Roll Goblin Dice.");
+    new Table("go_esteria_casino_board", Table::Board, Game::Blackjack, "Play chess or checkers.");
+    new Table("go_esteria_casino_poker", Table::Poker, Game::Blackjack, "Join the Hold'em table.");
     new esteria_casino_player();
     new esteria_casino_world();
     new esteria_casino_commands();
